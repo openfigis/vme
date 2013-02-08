@@ -6,11 +6,4 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
   <artifactId>vme-service</artifactId>
-  <dependencies>
-  	<dependency>
-  		<groupId>org.vme</groupId>
-  		<artifactId>vme-tabular</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  </dependencies>
 </project>
