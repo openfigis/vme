@@ -8,7 +8,7 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>listServlet</servlet-name>
-    <servlet-class>org.cotrix.web.server.CodeListServiceImpl</servlet-class>
+    <servlet-class>org.vme.web.server.CodeListServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>
