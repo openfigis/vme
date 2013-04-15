@@ -1,4 +1,4 @@
-package org.fao.fi.vme;
+package org.fao.fi.vme.domain;
 
 import java.util.Date;
 

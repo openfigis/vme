@@ -1,10 +1,22 @@
-package org.fao.fi.vme;
+package org.fao.fi.vme.domain;
 
+import java.util.List;
+
+/**
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 public class Vme {
 
 	private int id;
 	private int year;
-	private int rfbId;
+	private Rfb rfb;
+
+	private GeneralMeasures generalMeasures;
+	private SpecificMeasures specificMeasures;
+	private List<FishingHistory> fishingHistoryList;
+	private List<Meeting> meetingList;
 	private ValidityPeriod validityPeriod;
 	private String geoform;
 	private String geogArea1;
@@ -25,6 +37,38 @@ public class Vme {
 		this.id = id;
 	}
 
+	public GeneralMeasures getGeneralMeasures() {
+		return generalMeasures;
+	}
+
+	public void setGeneralMeasures(GeneralMeasures generalMeasures) {
+		this.generalMeasures = generalMeasures;
+	}
+
+	public SpecificMeasures getSpecificMeasures() {
+		return specificMeasures;
+	}
+
+	public void setSpecificMeasures(SpecificMeasures specificMeasures) {
+		this.specificMeasures = specificMeasures;
+	}
+
+	public List<FishingHistory> getFishingHistoryList() {
+		return fishingHistoryList;
+	}
+
+	public void setFishingHistoryList(List<FishingHistory> fishingHistoryList) {
+		this.fishingHistoryList = fishingHistoryList;
+	}
+
+	public List<Meeting> getMeetingList() {
+		return meetingList;
+	}
+
+	public void setMeetingList(List<Meeting> meetingList) {
+		this.meetingList = meetingList;
+	}
+
 	public int getYear() {
 		return year;
 	}
@@ -33,12 +77,12 @@ public class Vme {
 		this.year = year;
 	}
 
-	public int getRfbId() {
-		return rfbId;
+	public Rfb getRfb() {
+		return rfb;
 	}
 
-	public void setRfbId(int rfbId) {
-		this.rfbId = rfbId;
+	public void setRfb(Rfb rfb) {
+		this.rfb = rfb;
 	}
 
 	public ValidityPeriod getValidityPeriod() {
