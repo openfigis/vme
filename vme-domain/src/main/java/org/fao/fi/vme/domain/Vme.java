@@ -1,14 +1,27 @@
 package org.fao.fi.vme.domain;
 
+import java.io.Serializable;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
  * 
  * @author Erik van Ingen
  * 
  */
-public class Vme {
+@Entity
+public class Vme implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5670932762918600107L;
+
+	@Id
+	@GeneratedValue
 	private int id;
 	private int year;
 	private Rfb rfb;
