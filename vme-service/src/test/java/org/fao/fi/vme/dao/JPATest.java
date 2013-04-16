@@ -1,29 +1,28 @@
 package org.fao.fi.vme.dao;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import org.fao.fi.vme.domain.Vme;
-import org.junit.AfterClass;
+import org.jglue.cdiunit.CdiRunner;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+@RunWith(CdiRunner.class)
 public class JPATest {
 
-	public static EntityManagerFactory factory;
+	@Inject
+	private EntityManager manager;
 
 	@BeforeClass
 	public static void setup() {
-
 		// redirect logging to avoid file pollution
 		System.setProperty("derby.stream.error.field", "java.lang.System.out");
 		System.setProperty("org.slf4j.simpleLogger.log.openjpa.jdbc.SQL", "trace");
-
-		factory = Persistence.createEntityManagerFactory("test");
 
 	}
 
@@ -46,7 +45,6 @@ public class JPATest {
 
 	void store(Object entity) {
 
-		EntityManager manager = factory.createEntityManager();
 		manager.getTransaction().begin();
 		manager.persist(entity);
 		manager.getTransaction().commit();
@@ -55,7 +53,6 @@ public class JPATest {
 
 	<T> T lookup(Object id, Class<T> type) {
 
-		EntityManager manager = factory.createEntityManager();
 		manager.getTransaction().begin();
 		T entity = manager.find(type, id);
 		manager.getTransaction().commit();
@@ -64,8 +61,4 @@ public class JPATest {
 		return entity;
 	}
 
-	@AfterClass
-	public static void shutdown() {
-		factory.close();
-	}
 }

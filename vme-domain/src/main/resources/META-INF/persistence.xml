@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 
-	<persistence-unit name="test" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="test" >
 		<class>org.fao.fi.vme.domain.Vme</class>
+		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 		<properties>
 			<property name="openjpa.ConnectionURL" value="jdbc:derby:memory:test;create=true" />
 			<property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.EmbeddedDriver" />
@@ -10,8 +11,5 @@
 			<property name="openjpa.Log" value="slf4j" />
 		</properties>
 	</persistence-unit>
-
-
-
 
 </persistence>

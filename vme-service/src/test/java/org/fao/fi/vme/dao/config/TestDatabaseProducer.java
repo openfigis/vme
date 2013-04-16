@@ -10,6 +10,6 @@ public class TestDatabaseProducer {
 
 	@Produces
 	@PersistenceContext(unitName = "test")
-	private EntityManager em;
+	private EntityManager manager;
 
 }
