@@ -15,15 +15,6 @@ public class VmeDaoTest {
 	@Inject
 	VmeDao dao;
 
-	// @BeforeClass
-	// public static void setup() {
-	// // redirect logging to avoid file pollution
-	// System.setProperty("derby.stream.error.field", "java.lang.System.out");
-	// System.setProperty("org.slf4j.simpleLogger.log.openjpa.jdbc.SQL", "trace");
-	// factory = Persistence.createEntityManagerFactory("test");
-	//
-	// }
-
 	@Test
 	public void testPersistVme() {
 		assertNotNull(dao);
