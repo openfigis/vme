@@ -1,33 +1,37 @@
 package org.fao.fi.vme.dao;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.Vme;
-import org.junit.BeforeClass;
+import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-public class VmeDaoTest extends VmeDao {
+import static org.junit.Assert.assertNotNull;
 
-	public static EntityManagerFactory factory;
+@RunWith(CdiRunner.class)
+public class VmeDaoTest {
 
-	@BeforeClass
-	public static void setup() {
-		// redirect logging to avoid file pollution
-		System.setProperty("derby.stream.error.field", "java.lang.System.out");
-		System.setProperty("org.slf4j.simpleLogger.log.openjpa.jdbc.SQL", "trace");
-		factory = Persistence.createEntityManagerFactory("test");
+	@Inject
+	VmeDao dao;
 
-	}
+	// @BeforeClass
+	// public static void setup() {
+	// // redirect logging to avoid file pollution
+	// System.setProperty("derby.stream.error.field", "java.lang.System.out");
+	// System.setProperty("org.slf4j.simpleLogger.log.openjpa.jdbc.SQL", "trace");
+	// factory = Persistence.createEntityManagerFactory("test");
+	//
+	// }
 
 	@Test
 	public void testPersistVme() {
+		assertNotNull(dao);
+
 		Vme vme = new Vme();
 		String status = "go";
 		vme.setStatus(status);
-
-		VmeDao dao = new VmeDao();
-		dao.persistVme(vme);
+		// dao.persistVme(vme);
 
 	}
 

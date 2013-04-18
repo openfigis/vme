@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 public class ProductionDatabaseProducer {
 
 	@Produces
-	@PersistenceContext(unitName = "production")
+	@PersistenceContext(unitName = "test")
 	private EntityManager em;
 
 }
