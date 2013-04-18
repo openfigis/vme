@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * 
@@ -28,7 +29,11 @@ public class Vme implements Serializable {
 
 	private GeneralMeasures generalMeasures;
 	private SpecificMeasures specificMeasures;
+
+	@OneToMany
 	private List<FishingHistory> fishingHistoryList;
+
+	@OneToMany
 	private List<Meeting> meetingList;
 	private ValidityPeriod validityPeriod;
 	private String geoform;

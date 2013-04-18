@@ -1,7 +1,15 @@
 package org.fao.fi.vme.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class FishingHistory {
 
+	@Id
+	@GeneratedValue
+	private int fishingHistoryId;
 	private int year;
 	private String rfbFishingAreaGeneralText;
 	private String rfbVmeGeneralText;

@@ -1,7 +1,14 @@
 package org.fao.fi.vme.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Meeting {
 
+	@Id
+	@GeneratedValue
 	private int meetingId;
 	private int year;
 	private String meetingDate;
