@@ -4,13 +4,13 @@ import java.util.List;
 
 public class VmeInventory {
 
-	private List<Vme> vmeList;
+	private List<VmeObservation> vmeList;
 
-	public List<Vme> getVmeList() {
+	public List<VmeObservation> getVmeList() {
 		return vmeList;
 	}
 
-	public void setVmeList(List<Vme> vmeList) {
+	public void setVmeList(List<VmeObservation> vmeList) {
 		this.vmeList = vmeList;
 	}
 

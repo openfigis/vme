@@ -8,7 +8,7 @@ public class VmeDao {
 	@Inject
 	private EntityManager em;
 
-	// public void persistVme(Vme vme) {
+	// public void persistVme(VmeObservation vme) {
 	// EntityTransaction t = em.getTransaction();
 	// t.begin();
 	// em.persist(vme);

@@ -5,14 +5,14 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Rfb {
 
-	private int id;
+	private int rfbId;
 
-	public int getId() {
-		return id;
+	public int getRfbId() {
+		return rfbId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setRfbId(int rfbId) {
+		this.rfbId = rfbId;
 	}
 
 }

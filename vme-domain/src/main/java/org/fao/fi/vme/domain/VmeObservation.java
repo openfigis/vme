@@ -3,8 +3,10 @@ package org.fao.fi.vme.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -14,7 +16,7 @@ import javax.persistence.OneToMany;
  * 
  */
 @Entity
-public class Vme implements Serializable {
+public class VmeObservation implements Serializable {
 
 	/**
 	 * 
@@ -22,12 +24,13 @@ public class Vme implements Serializable {
 	private static final long serialVersionUID = 5670932762918600107L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int year;
 	private Rfb rfb;
-
+	@Embedded
 	private GeneralMeasures generalMeasures;
+	@Embedded
 	private SpecificMeasures specificMeasures;
 
 	@OneToMany
@@ -35,6 +38,7 @@ public class Vme implements Serializable {
 
 	@OneToMany
 	private List<Meeting> meetingList;
+	@Embedded
 	private ValidityPeriod validityPeriod;
 	private String geoform;
 	private String geogArea1;

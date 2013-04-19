@@ -3,7 +3,7 @@ package org.fao.fi.vme.dao;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.VmeObservation;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,13 +19,13 @@ public class JPATest {
 
 	@Test
 	public void roundTrip() {
-		Vme created = new Vme();
+		VmeObservation created = new VmeObservation();
 		String status = "go";
 		created.setStatus(status);
 
 		store(created);
 
-		Vme loaded = lookup(1, Vme.class);
+		VmeObservation loaded = lookup(1, VmeObservation.class);
 
 		assertNotNull(loaded);
 
