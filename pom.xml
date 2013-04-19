@@ -25,4 +25,25 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	
+	<profiles>
+		<profile>
+			<id>fao-ci</id>
+			<distributionManagement>
+				<repository>
+					<id>${dm.rel.id}</id>
+					<name>${dm.rel.id-name}</name>
+					<url>${dm.rel.id-url}</url>
+				</repository>
+				<snapshotRepository>
+					<id>${dm.snap.id}</id>
+					<name>${dm.snap.id-name}</name>
+					<url>${dm.snap.id-url}</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
+	</profiles>
+	
+	
 </project>
