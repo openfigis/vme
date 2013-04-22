@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fao.fi.vme.dao.msaccess.tables.GenericMapper;
-import org.fao.fi.vme.dao.msaccess.tables.VME;
+import org.fao.fi.vme.dao.msaccess.tables.RFB_VME_Fishing_History;
 
 public class VmeAccessDbImport {
 
-	private final Class<?> tables[] = { VME.class };
+	private final Class<?> tables[] = { RFB_VME_Fishing_History.class };
 
 	GenericMapper mapper = new GenericMapper();
 

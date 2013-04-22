@@ -15,6 +15,7 @@ import org.fao.fi.vme.dao.msaccess.VmeDaoException;
 public class GenericMapper {
 
 	public Object generateObject(ResultSet rs, Class<?> clazz) {
+
 		try {
 			Object object = clazz.newInstance();
 			Method ms[] = clazz.getMethods();
@@ -23,11 +24,19 @@ public class GenericMapper {
 				if (method.getName().startsWith("set")) {
 					System.out.println(attributeName);
 					clazz = method.getParameterTypes()[0];
+					System.out.println(clazz);
 					if (clazz == String.class) {
-						method.invoke(object, rs.getString(attributeName));
-					} else {
-						method.invoke(object, rs.getInt(attributeName));
+						try {
+							method.invoke(object, rs.getString(attributeName));
+						} catch (java.sql.SQLException e) {
+							e.printStackTrace();
+							method.invoke(object, rs.getBytes(attributeName));
+						}
 					}
+					if (clazz == Integer.class) {
+						method.invoke(object, rs.getString(attributeName));
+					}
+
 				}
 			}
 			return object;
