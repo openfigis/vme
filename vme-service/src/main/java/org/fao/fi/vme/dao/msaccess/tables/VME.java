@@ -5,12 +5,12 @@ public class VME {
 	String RFB_ID;
 	String VME_ID;
 	int Year_ID;
-	int VME_Validity_Star;
+	int VME_Validity_Start;
 	int VME_Validity_End;
 	String VME_Geoform;
 	String VME_GeogArea1;
 	String VME_GeogArea2;
-	String VME_GeogAreaFA;
+	String VME_GeogAreaFAO;
 	String VME_Coord;
 	String VME_Area_Type;
 	String VME_Status;
@@ -50,12 +50,12 @@ public class VME {
 		Year_ID = year_ID;
 	}
 
-	public int getVME_Validity_Star() {
-		return VME_Validity_Star;
+	public int getVME_Validity_Start() {
+		return VME_Validity_Start;
 	}
 
-	public void setVME_Validity_Star(int vME_Validity_Star) {
-		VME_Validity_Star = vME_Validity_Star;
+	public void setVME_Validity_Start(int vME_Validity_Start) {
+		VME_Validity_Start = vME_Validity_Start;
 	}
 
 	public int getVME_Validity_End() {
@@ -90,12 +90,12 @@ public class VME {
 		VME_GeogArea2 = vME_GeogArea2;
 	}
 
-	public String getVME_GeogAreaFA() {
-		return VME_GeogAreaFA;
+	public String getVME_GeogAreaFAO() {
+		return VME_GeogAreaFAO;
 	}
 
-	public void setVME_GeogAreaFA(String vME_GeogAreaFA) {
-		VME_GeogAreaFA = vME_GeogAreaFA;
+	public void setVME_GeogAreaFAO(String vME_GeogAreaFAO) {
+		VME_GeogAreaFAO = vME_GeogAreaFAO;
 	}
 
 	public String getVME_Coord() {

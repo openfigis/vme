@@ -8,32 +8,25 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fao.fi.vme.dao.msaccess.tables.Mapper;
-import org.fao.fi.vme.dao.msaccess.tables.VMEMapper;
+import org.fao.fi.vme.dao.msaccess.tables.GenericMapper;
+import org.fao.fi.vme.dao.msaccess.tables.VME;
 
 public class VmeAccessDbImport {
 
-	private final String tables[] = { "VME" };
-	private final Class<?> mappingClass[] = { VMEMapper.class };
+	private final Class<?> tables[] = { VME.class };
+
+	GenericMapper mapper = new GenericMapper();
 
 	public List<Object> generateObjects() {
-
 		List<Object> list = new ArrayList<Object>();
-		for (int i = 0; i < tables.length; i++) {
-			ResultSet rs = getResultset(tables[i]);
+		for (Class<?> clazz : tables) {
+			ResultSet rs = getResultset(clazz.getSimpleName());
 			try {
-				Mapper mapper = (Mapper) mappingClass[i].newInstance();
-				try {
-					while (rs.next()) {
-						Object o = mapper.generateObject(rs);
-						list.add(o);
-					}
-				} catch (Exception e) {
-					throw new VmeDaoException(e);
+				while (rs.next()) {
+					Object o = mapper.generateObject(rs, clazz);
+					list.add(o);
 				}
-			} catch (InstantiationException e) {
-				throw new VmeDaoException(e);
-			} catch (IllegalAccessException e) {
+			} catch (SQLException e) {
 				throw new VmeDaoException(e);
 			}
 		}
@@ -43,7 +36,6 @@ public class VmeAccessDbImport {
 	ResultSet getResultset(String table) {
 		Connection connection = getConnection();
 		Statement stmt = null;
-		ResultSet rs = null;
 
 		// SQL query command
 		String SQL = "SELECT * FROM " + table;
