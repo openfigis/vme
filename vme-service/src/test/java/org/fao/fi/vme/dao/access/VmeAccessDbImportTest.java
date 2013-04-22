@@ -1,5 +1,6 @@
 package org.fao.fi.vme.dao.access;
 
+import org.fao.fi.vme.dao.msaccess.VmeAccessDbImport;
 import org.junit.Test;
 
 public class VmeAccessDbImportTest {
@@ -8,7 +9,7 @@ public class VmeAccessDbImportTest {
 
 	@Test
 	public void testImportAccessDB() {
-		i.importAccessDB();
+		i.generateObjects();
 	}
 
 }

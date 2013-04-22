@@ -1,4 +1,4 @@
-package org.fao.fi.vme.dao.access;
+package org.fao.fi.vme.dao.msaccess;
 
 public class VmeDaoException extends RuntimeException {
 

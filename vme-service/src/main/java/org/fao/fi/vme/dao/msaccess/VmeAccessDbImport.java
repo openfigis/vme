@@ -1,4 +1,4 @@
-package org.fao.fi.vme.dao.access;
+package org.fao.fi.vme.dao.msaccess;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,29 +8,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fao.fi.vme.domain.VmeObservation;
+import org.fao.fi.vme.dao.msaccess.tables.Mapper;
+import org.fao.fi.vme.dao.msaccess.tables.VMEMapper;
 
 public class VmeAccessDbImport {
 
-	static private String columnNamesTable1[] = { "ID", "RFB_ID", "VME_ID", "Year_ID", "VME_Validity_Start",
-			"VME_Validity_End", "VME_Geoform", "VME_GeogArea1", "VME_GeogArea2", "VME_GeogAreaFAO", "VME_Coord",
-			"VME_Area_Type (Name)", "VME_Status", "VME_Description_Physical", "VME_Description_Biology",
-			"VME_Description_Impact", };
+	private final String tables[] = { "VME" };
+	private final Class<?> mappingClass[] = { VMEMapper.class };
 
-	String tables[] = { "VME" };
-	String tableColums[][] = { columnNamesTable1 };
-	Class<?> classes[] = { VmeObservation.class };
-	Class<?> mappingClass[] = { VmeObservationMapper.class };
+	public List<Object> generateObjects() {
 
-	List<Object> generateObjects() throws SQLException {
 		List<Object> list = new ArrayList<Object>();
 		for (int i = 0; i < tables.length; i++) {
 			ResultSet rs = getResultset(tables[i]);
-
 			try {
 				Mapper mapper = (Mapper) mappingClass[i].newInstance();
-				while (rs.next()) {
-					Object o = mapper.generateObject(rs, tableColums[1]);
+				try {
+					while (rs.next()) {
+						Object o = mapper.generateObject(rs);
+						list.add(o);
+					}
+				} catch (Exception e) {
+					throw new VmeDaoException(e);
 				}
 			} catch (InstantiationException e) {
 				throw new VmeDaoException(e);
@@ -38,7 +37,7 @@ public class VmeAccessDbImport {
 				throw new VmeDaoException(e);
 			}
 		}
-
+		return list;
 	}
 
 	ResultSet getResultset(String table) {
