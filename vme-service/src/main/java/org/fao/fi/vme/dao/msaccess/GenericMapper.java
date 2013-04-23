@@ -1,9 +1,8 @@
-package org.fao.fi.vme.dao.msaccess.tables;
+package org.fao.fi.vme.dao.msaccess;
 
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
 
-import org.fao.fi.vme.dao.msaccess.VmeDaoException;
 
 /**
  * generate an object, given a resultset
