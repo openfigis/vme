@@ -3,7 +3,11 @@ package org.fao.fi.vme.dao;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.fao.fi.vme.dao.config.EntityManagerFactoryProducer;
+import org.fao.fi.vme.dao.config.EntityManagerProducer;
+import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
+import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(CdiRunner.class)
+@ActivatedAlternatives({ EntityManagerFactoryProducer.class, EntityManagerProducer.class })
 public class JPATest {
 
 	@Inject
@@ -19,18 +24,24 @@ public class JPATest {
 
 	@Test
 	public void roundTrip() {
+
+		int id = 10;
 		Vme created = new Vme();
-		String criteria = "go";
-		created.setCriteria(criteria);
+		created.setId(id);
+		// String criteria = "go";
+		// created.setCriteria(criteria);
+
+		ValidityPeriod vp = new ValidityPeriod();
+		created.setValidityPeriod(vp);
 
 		store(created);
-
-		Vme loaded = lookup(1, Vme.class);
+		assertNotNull(created.getId());
+		Vme loaded = lookup(created.getId(), Vme.class);
 
 		assertNotNull(loaded);
 
-		assertEquals(1, loaded.getId());
-		assertEquals(criteria, loaded.getCriteria());
+		assertEquals(id, loaded.getId());
+		// assertEquals(criteria, loaded.getCriteria());
 
 	}
 
@@ -39,7 +50,7 @@ public class JPATest {
 		manager.getTransaction().begin();
 		manager.persist(entity);
 		manager.getTransaction().commit();
-		manager.close();
+
 	}
 
 	<T> T lookup(Object id, Class<T> type) {
@@ -47,7 +58,6 @@ public class JPATest {
 		manager.getTransaction().begin();
 		T entity = manager.find(type, id);
 		manager.getTransaction().commit();
-		manager.close();
 
 		return entity;
 	}
