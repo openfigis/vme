@@ -39,4 +39,21 @@ public class ValidityPeriod {
 	/** 
 	  */
 	private int endYear;
+
+	public int getBeginYear() {
+		return beginYear;
+	}
+
+	public void setBeginYear(int beginYear) {
+		this.beginYear = beginYear;
+	}
+
+	public int getEndYear() {
+		return endYear;
+	}
+
+	public void setEndYear(int endYear) {
+		this.endYear = endYear;
+	}
+
 }

@@ -33,4 +33,45 @@ public class SpecificMeasures extends Observation {
 	 * Where the document of the SpecificMeasures is to be found.
 	 */
 	public Source document;
+
+	public int getSpecificMeasuresId() {
+		return specificMeasuresId;
+	}
+
+	public void setSpecificMeasuresId(int specificMeasuresId) {
+		this.specificMeasuresId = specificMeasuresId;
+	}
+
+	public String getMeasureSummary() {
+		return measureSummary;
+	}
+
+	public void setMeasureSummary(String measureSummary) {
+		this.measureSummary = measureSummary;
+	}
+
+	public ValidityPeriod getValidityPeriod() {
+		return validityPeriod;
+	}
+
+	public void setValidityPeriod(ValidityPeriod validityPeriod) {
+		this.validityPeriod = validityPeriod;
+	}
+
+	public Vme getVme() {
+		return vme;
+	}
+
+	public void setVme(Vme vme) {
+		this.vme = vme;
+	}
+
+	public Source getDocument() {
+		return document;
+	}
+
+	public void setDocument(Source document) {
+		this.document = document;
+	}
+
 }

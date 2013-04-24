@@ -3,7 +3,6 @@ package org.fao.fi.vme.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
@@ -16,7 +15,6 @@ import javax.persistence.Id;
 public class Meeting {
 
 	@Id
-	@GeneratedValue
 	private int meetingId;
 
 	/** */
@@ -37,5 +35,53 @@ public class Meeting {
 	 * meetingDocument
 	 */
 	public Source meetingDocument;
+
+	public int getMeetingId() {
+		return meetingId;
+	}
+
+	public void setMeetingId(int meetingId) {
+		this.meetingId = meetingId;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getReportSummary() {
+		return reportSummary;
+	}
+
+	public void setReportSummary(String reportSummary) {
+		this.reportSummary = reportSummary;
+	}
+
+	public String getCommittee() {
+		return committee;
+	}
+
+	public void setCommittee(String committee) {
+		this.committee = committee;
+	}
+
+	public Vme getDiscussedVme() {
+		return discussedVme;
+	}
+
+	public void setDiscussedVme(Vme discussedVme) {
+		this.discussedVme = discussedVme;
+	}
+
+	public Source getMeetingDocument() {
+		return meetingDocument;
+	}
+
+	public void setMeetingDocument(Source meetingDocument) {
+		this.meetingDocument = meetingDocument;
+	}
 
 }

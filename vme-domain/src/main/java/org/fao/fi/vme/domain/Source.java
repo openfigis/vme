@@ -21,4 +21,21 @@ public class Source {
 	 * The title
 	 */
 	private String citation;
+
+	public URL getUrl() {
+		return url;
+	}
+
+	public void setUrl(URL url) {
+		this.url = url;
+	}
+
+	public String getCitation() {
+		return citation;
+	}
+
+	public void setCitation(String citation) {
+		this.citation = citation;
+	}
+
 }
