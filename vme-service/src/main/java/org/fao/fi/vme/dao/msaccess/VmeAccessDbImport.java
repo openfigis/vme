@@ -9,16 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fao.fi.vme.dao.msaccess.tables.Measues_VME_Specific;
+import org.fao.fi.vme.dao.msaccess.tables.Measures_VME_General;
+import org.fao.fi.vme.dao.msaccess.tables.Meetings;
+import org.fao.fi.vme.dao.msaccess.tables.RFB_VME_Fishing_History;
+import org.fao.fi.vme.dao.msaccess.tables.VME;
 
 public class VmeAccessDbImport {
 
-	private final Class<?> tables[] = { Measues_VME_Specific.class };
+	private final Class<?> tables[] = { VME.class, Measures_VME_General.class, Measues_VME_Specific.class,
+			Meetings.class, RFB_VME_Fishing_History.class };
 
-	GenericMapper mapper = new GenericMapper();
+	private final GenericMapper mapper = new GenericMapper();
 
-	public List<Object> generateObjects() {
-		List<Object> list = new ArrayList<Object>();
+	public List<Table> generateObjects() {
+
+		List<Table> tableList = new ArrayList<Table>();
+
 		for (Class<?> clazz : tables) {
+			List<Object> list = new ArrayList<Object>();
+			Table table = new Table();
+			table.setClazz(clazz);
+			table.setRecords(list);
 			ResultSet rs = getResultset(clazz.getSimpleName());
 			try {
 				while (rs.next()) {
@@ -28,8 +39,9 @@ public class VmeAccessDbImport {
 			} catch (SQLException e) {
 				throw new VmeDaoException(e);
 			}
+
 		}
-		return list;
+		return tableList;
 	}
 
 	ResultSet getResultset(String table) {

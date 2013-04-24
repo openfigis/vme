@@ -3,7 +3,6 @@ package org.fao.fi.vme.dao.msaccess;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
 
-
 /**
  * generate an object, given a resultset
  * 
@@ -21,9 +20,7 @@ public class GenericMapper {
 			for (Method method : ms) {
 				String attributeName = method.getName().substring(3, method.getName().length());
 				if (method.getName().startsWith("set")) {
-					System.out.println(attributeName);
 					clazz = method.getParameterTypes()[0];
-					System.out.println(clazz);
 					if (clazz == String.class) {
 						try {
 							method.invoke(object, rs.getString(attributeName));
