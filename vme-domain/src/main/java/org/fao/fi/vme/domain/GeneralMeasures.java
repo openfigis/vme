@@ -1,81 +1,47 @@
 package org.fao.fi.vme.domain;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@Embeddable
-public class GeneralMeasures {
+/**
+ * 
+ * @author Erik van Ingen
+ * 
+ */
+@Entity
+public class GeneralMeasures extends Observation {
 
-	private ValidityPeriod measureValidityPeriod;
+	/** 
+	 * 
+	 */
+	@Id
+	@GeneratedValue
+	private int generalMeasuresId;
+
+	/** */
 	private String rfbFishingAreas;
-	private String rfbFishingAreasCoord;
+
+	/** */
 	private String encounter;
-	private String indicatorSp;
+
+	/** */
+	private String indicatorSpecies;
+
+	/** */
 	private String threshold;
-	private String linkCemBookmarked;
-	private String linkCemSource;
 
-	public ValidityPeriod getMeasureValidityPeriod() {
-		return measureValidityPeriod;
-	}
+	/** */
+	private ValidityPeriod validityPeriod;
 
-	public void setMeasureValidityPeriod(ValidityPeriod measureValidityPeriod) {
-		this.measureValidityPeriod = measureValidityPeriod;
-	}
+	/**
+	 * GeneralMeasures are defined on the level of a RFMO.
+	 */
+	private Rfmo rfmo;
 
-	public String getRfbFishingAreas() {
-		return rfbFishingAreas;
-	}
+	/** */
+	private Source linkCemSource;
 
-	public void setRfbFishingAreas(String rfbFishingAreas) {
-		this.rfbFishingAreas = rfbFishingAreas;
-	}
-
-	public String getRfbFishingAreasCoord() {
-		return rfbFishingAreasCoord;
-	}
-
-	public void setRfbFishingAreasCoord(String rfbFishingAreasCoord) {
-		this.rfbFishingAreasCoord = rfbFishingAreasCoord;
-	}
-
-	public String getEncounter() {
-		return encounter;
-	}
-
-	public void setEncounter(String encounter) {
-		this.encounter = encounter;
-	}
-
-	public String getIndicatorSp() {
-		return indicatorSp;
-	}
-
-	public void setIndicatorSp(String indicatorSp) {
-		this.indicatorSp = indicatorSp;
-	}
-
-	public String getThreshold() {
-		return threshold;
-	}
-
-	public void setThreshold(String threshold) {
-		this.threshold = threshold;
-	}
-
-	public String getLinkCemBookmarked() {
-		return linkCemBookmarked;
-	}
-
-	public void setLinkCemBookmarked(String linkCemBookmarked) {
-		this.linkCemBookmarked = linkCemBookmarked;
-	}
-
-	public String getLinkCemSource() {
-		return linkCemSource;
-	}
-
-	public void setLinkCemSource(String linkCemSource) {
-		this.linkCemSource = linkCemSource;
-	}
-
+	/** */
+	private Vme primairlyConcernedVme;
 }

@@ -1,85 +1,41 @@
 package org.fao.fi.vme.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * 
+ * 
+ * 
+ * @author Erik van Ingen
+ */
 @Entity
 public class Meeting {
 
 	@Id
 	@GeneratedValue
 	private int meetingId;
-	private int year;
-	private String meetingDate;
+
+	/** */
+	private Date date;
+
+	/** */
 	private String reportSummary;
+
+	/** */
 	private String committee;
-	private String citation;
-	private String linkTaggedFile;
-	private String linkSource;
 
-	public int getMeetingId() {
-		return meetingId;
-	}
+	/**
+	 * The Vme where the meeting is on about.
+	 */
+	public Vme discussedVme;
 
-	public void setMeetingId(int meetingId) {
-		this.meetingId = meetingId;
-	}
-
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
-	}
-
-	public String getMeetingDate() {
-		return meetingDate;
-	}
-
-	public void setMeetingDate(String meetingDate) {
-		this.meetingDate = meetingDate;
-	}
-
-	public String getReportSummary() {
-		return reportSummary;
-	}
-
-	public void setReportSummary(String reportSummary) {
-		this.reportSummary = reportSummary;
-	}
-
-	public String getCommittee() {
-		return committee;
-	}
-
-	public void setCommittee(String committee) {
-		this.committee = committee;
-	}
-
-	public String getCitation() {
-		return citation;
-	}
-
-	public void setCitation(String citation) {
-		this.citation = citation;
-	}
-
-	public String getLinkTaggedFile() {
-		return linkTaggedFile;
-	}
-
-	public void setLinkTaggedFile(String linkTaggedFile) {
-		this.linkTaggedFile = linkTaggedFile;
-	}
-
-	public String getLinkSource() {
-		return linkSource;
-	}
-
-	public void setLinkSource(String linkSource) {
-		this.linkSource = linkSource;
-	}
+	/**
+	 * meetingDocument
+	 */
+	public Source meetingDocument;
 
 }

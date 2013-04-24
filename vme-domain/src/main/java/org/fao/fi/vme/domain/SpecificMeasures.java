@@ -1,27 +1,36 @@
 package org.fao.fi.vme.domain;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-@Embeddable
-public class SpecificMeasures {
+/**
+ * 
+ * @author Erik van Ingen
+ * 
+ */
+@Entity
+public class SpecificMeasures extends Observation {
 
-	private ValidityPeriod specificMeasureValidity;
-	private String specificMeasure;
+	/**
+	 *  
+	 */
+	@Id
+	private int specificMeasuresId;
 
-	public ValidityPeriod getSpecificMeasureValidity() {
-		return specificMeasureValidity;
-	}
+	/** 
+	 */
+	private String measureSummary;
 
-	public void setSpecificMeasureValidity(ValidityPeriod specificMeasureValidity) {
-		this.specificMeasureValidity = specificMeasureValidity;
-	}
+	/** */
+	public ValidityPeriod validityPeriod;
 
-	public String getSpecificMeasure() {
-		return specificMeasure;
-	}
+	/**
+	 * The SpecificMeasures are defined on the level of this VME
+	 */
+	public Vme vme;
 
-	public void setSpecificMeasure(String specificMeasure) {
-		this.specificMeasure = specificMeasure;
-	}
-
+	/**
+	 * Where the document of the SpecificMeasures is to be found.
+	 */
+	public Source document;
 }
