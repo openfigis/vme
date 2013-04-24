@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * 
@@ -21,18 +22,22 @@ public class Rfmo {
 	 * 
 	 * 
 	 */
+	@OneToMany
 	private List<GeneralMeasures> generalMeasuresList;
 
 	/** 
 	  */
+	@OneToMany
 	private List<Vme> managedVmeList;
 
 	/**
 	   */
+	@OneToMany
 	private List<Meeting> meetingList;
 
 	/** 
 	  */
+	@OneToMany
 	private List<FishingActivity> fishingActivityList;
 
 	public List<GeneralMeasures> getGeneralMeasuresList() {

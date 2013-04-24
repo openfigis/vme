@@ -2,6 +2,7 @@ package org.fao.fi.vme.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * 
@@ -17,6 +18,7 @@ public class Vme {
 	/**
 	 * A VME is managed by this Rfmo
 	 */
+	@ManyToOne
 	public Rfmo rfmo;
 
 	/** */

@@ -2,6 +2,7 @@ package org.fao.fi.vme.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  * 
@@ -16,6 +17,20 @@ public class GeneralMeasures extends Observation {
 	 */
 	@Id
 	private int id;
+	/**
+	 * GeneralMeasures are defined on the level of a RFMO.
+	 */
+	@OneToOne
+	private Rfmo rfmo;
+
+	/** 
+	  */
+	private Source linkCemSource;
+
+	/** 
+	  */
+	@OneToOne
+	private Vme primairlyConcernedVme;
 
 	/** */
 	private String rfbFishingAreas;
@@ -31,17 +46,6 @@ public class GeneralMeasures extends Observation {
 
 	/** */
 	private ValidityPeriod validityPeriod;
-
-	/**
-	 * GeneralMeasures are defined on the level of a RFMO.
-	 */
-	private Rfmo rfmo;
-
-	/** */
-	private Source linkCemSource;
-
-	/** */
-	private Vme primairlyConcernedVme;
 
 	public int getGeneralMeasuresId() {
 		return id;
