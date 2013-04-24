@@ -2,7 +2,7 @@ package org.fao.fi.vme.dao;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.domain.VmeObservation;
+import org.fao.fi.vme.domain.Vme;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,9 +19,9 @@ public class VmeDaoTest {
 	public void testPersistVme() {
 		assertNotNull(dao);
 
-		VmeObservation vme = new VmeObservation();
-		String status = "go";
-		vme.setStatus(status);
+		Vme vme = new Vme();
+		String criteria = "go";
+		vme.setCriteria(criteria);
 		// dao.persistVme(vme);
 
 	}

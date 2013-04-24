@@ -15,7 +15,7 @@ public class GeneralMeasures extends Observation {
 	 * 
 	 */
 	@Id
-	private int generalMeasuresId;
+	private int id;
 
 	/** */
 	private String rfbFishingAreas;
@@ -44,11 +44,11 @@ public class GeneralMeasures extends Observation {
 	private Vme primairlyConcernedVme;
 
 	public int getGeneralMeasuresId() {
-		return generalMeasuresId;
+		return id;
 	}
 
 	public void setGeneralMeasuresId(int generalMeasuresId) {
-		this.generalMeasuresId = generalMeasuresId;
+		this.id = generalMeasuresId;
 	}
 
 	public String getRfbFishingAreas() {
@@ -113,6 +113,14 @@ public class GeneralMeasures extends Observation {
 
 	public void setPrimairlyConcernedVme(Vme primairlyConcernedVme) {
 		this.primairlyConcernedVme = primairlyConcernedVme;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

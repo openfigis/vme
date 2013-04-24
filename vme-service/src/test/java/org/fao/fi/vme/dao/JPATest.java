@@ -20,8 +20,8 @@ public class JPATest {
 	@Test
 	public void roundTrip() {
 		Vme created = new Vme();
-		String status = "go";
-		created.setStatus(status);
+		String criteria = "go";
+		created.setCriteria(criteria);
 
 		store(created);
 
@@ -30,7 +30,7 @@ public class JPATest {
 		assertNotNull(loaded);
 
 		assertEquals(1, loaded.getId());
-		assertEquals(status, loaded.getStatus());
+		assertEquals(criteria, loaded.getCriteria());
 
 	}
 

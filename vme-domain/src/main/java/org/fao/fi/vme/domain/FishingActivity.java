@@ -17,7 +17,7 @@ public class FishingActivity {
 	 * 
 	 */
 	@Id
-	private int fishingActivityId;
+	private int id;
 
 	private Date updatedInYear;
 
@@ -28,11 +28,11 @@ public class FishingActivity {
 	private String vmeGeneralText;
 
 	public int getFishingActivityId() {
-		return fishingActivityId;
+		return id;
 	}
 
 	public void setFishingActivityId(int fishingActivityId) {
-		this.fishingActivityId = fishingActivityId;
+		this.id = fishingActivityId;
 	}
 
 	public Date getUpdatedInYear() {
@@ -57,6 +57,14 @@ public class FishingActivity {
 
 	public void setVmeGeneralText(String vmeGeneralText) {
 		this.vmeGeneralText = vmeGeneralText;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

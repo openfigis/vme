@@ -15,7 +15,7 @@ import javax.persistence.Id;
 public class Meeting {
 
 	@Id
-	private int meetingId;
+	private int id;
 
 	/** */
 	private Date date;
@@ -36,12 +36,12 @@ public class Meeting {
 	 */
 	public Source meetingDocument;
 
-	public int getMeetingId() {
-		return meetingId;
+	public int getId() {
+		return id;
 	}
 
-	public void setMeetingId(int meetingId) {
-		this.meetingId = meetingId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Date getDate() {

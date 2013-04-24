@@ -15,7 +15,7 @@ public class SpecificMeasures extends Observation {
 	 *  
 	 */
 	@Id
-	private int specificMeasuresId;
+	private int id;
 
 	/** 
 	 */
@@ -34,12 +34,12 @@ public class SpecificMeasures extends Observation {
 	 */
 	public Source document;
 
-	public int getSpecificMeasuresId() {
-		return specificMeasuresId;
+	public int getId() {
+		return id;
 	}
 
-	public void setSpecificMeasuresId(int specificMeasuresId) {
-		this.specificMeasuresId = specificMeasuresId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getMeasureSummary() {
