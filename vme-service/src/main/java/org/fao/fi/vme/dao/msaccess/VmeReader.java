@@ -38,6 +38,7 @@ public class VmeReader {
 			} catch (SQLException e) {
 				throw new VmeDaoException(e);
 			}
+			tableList.add(table);
 
 		}
 		return tableList;

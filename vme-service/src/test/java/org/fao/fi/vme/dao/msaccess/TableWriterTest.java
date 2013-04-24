@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(CdiRunner.class)
@@ -33,13 +34,17 @@ public class TableWriterTest {
 		for (Table table : tables) {
 			assertTrue(table.getRecords().size() > 0);
 			tableWriter.write(table);
-			List<?> objects = generateTypedQuery(table.getClass()).getResultList();
+			Class<?> clazz = tableWriter.getDomainClass(table.getClazz());
+			assertNotNull(clazz);
+			List<?> objects = generateTypedQuery(clazz).getResultList();
 			assertEquals(table.getRecords().size(), objects.size());
 		}
 	}
 
 	TypedQuery<?> generateTypedQuery(Class<?> clazz) {
-		TypedQuery<?> query = entityManager.createQuery("SELECT c FROM " + clazz.getCanonicalName() + " c ", clazz);
+		String queryString = " select c from  " + clazz.getSimpleName() + " c ";
+		System.out.println(queryString);
+		TypedQuery<?> query = entityManager.createQuery(queryString, clazz);
 		return query;
 
 	}

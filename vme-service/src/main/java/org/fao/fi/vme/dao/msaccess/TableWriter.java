@@ -1,10 +1,36 @@
 package org.fao.fi.vme.dao.msaccess;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.fao.fi.vme.dao.msaccess.tables.Measues_VME_Specific;
+import org.fao.fi.vme.dao.msaccess.tables.Measures_VME_General;
+import org.fao.fi.vme.dao.msaccess.tables.Meetings;
+import org.fao.fi.vme.dao.msaccess.tables.RFB_VME_Fishing_History;
+import org.fao.fi.vme.dao.msaccess.tables.VME;
+import org.fao.fi.vme.domain.FishingActivity;
+import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.Meeting;
+import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.Vme;
+
 public class TableWriter {
 
+	static Map<Class<?>, Class<?>> map = new HashMap<Class<?>, Class<?>>();
+
+	static {
+		map.put(Measues_VME_Specific.class, SpecificMeasures.class);
+		map.put(Measures_VME_General.class, GeneralMeasures.class);
+		map.put(Meetings.class, Meeting.class);
+		map.put(RFB_VME_Fishing_History.class, FishingActivity.class);
+		map.put(VME.class, Vme.class);
+	}
+
 	public void write(Table table) {
-		// TODO Auto-generated method stub
 
 	}
 
+	public Class<?> getDomainClass(Class<?> tableClass) {
+		return map.get(tableClass);
+	}
 }
