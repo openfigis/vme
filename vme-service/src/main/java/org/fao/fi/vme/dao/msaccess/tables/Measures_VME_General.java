@@ -124,11 +124,15 @@ public class Measures_VME_General implements TableDomainMapper {
 		o.setId(this.getID());
 		o.setIndicatorSpecies(this.getVME_Indicator_Sp());
 
-		URL url;
-		try {
-			url = new URL(this.getLink_CEM_Source());
-		} catch (MalformedURLException e) {
-			throw new VmeDaoException(e);
+		URL url = null;
+		if (this.getLink_CEM_Source() != null) {
+			try {
+				url = new URL(this.getLink_CEM_Source());
+			} catch (MalformedURLException e) {
+				System.out.println(this.getLink_CEM_Source());
+				e.printStackTrace();
+				throw new VmeDaoException(e);
+			}
 		}
 		o.getLinkCemSource().setUrl(url);
 		o.getLinkCemSource().setCitation(this.getLink_CEM_Bookmarked());
@@ -137,9 +141,18 @@ public class Measures_VME_General implements TableDomainMapper {
 		o.setRfbFishingAreas(this.getRFB_FishingAreas());
 		// o.setRfmo(rfmo)
 		o.setThreshold(this.getVME_Threshold());
-		// o.getValidityPeriod().setBeginYear(this.VME_GeneralMeasure_Validity_Start)
-		o.getValidityPeriod().setBeginYear(new Integer(this.VME_GeneralMeasure_Validity_Start).intValue());
-		o.getValidityPeriod().setEndYear(new Integer(this.VME_GeneralMeasure_Validity_End).intValue());
+
+		if (this.VME_GeneralMeasure_Validity_Start == null) {
+			o.getValidityPeriod().setBeginYear(0);
+		} else {
+			o.getValidityPeriod().setBeginYear(new Integer(this.VME_GeneralMeasure_Validity_Start).intValue());
+		}
+
+		if (this.VME_GeneralMeasure_Validity_End == null) {
+			o.getValidityPeriod().setEndYear(9999);
+		} else {
+			o.getValidityPeriod().setEndYear(new Integer(this.VME_GeneralMeasure_Validity_End).intValue());
+		}
 		o.setYear(this.Year_ID);
 		return o;
 	}

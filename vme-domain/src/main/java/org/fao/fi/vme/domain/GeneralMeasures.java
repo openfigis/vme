@@ -45,7 +45,7 @@ public class GeneralMeasures extends Observation {
 	private String threshold;
 
 	/** */
-	private ValidityPeriod validityPeriod;
+	private ValidityPeriod validityPeriod = new ValidityPeriod();
 
 	public int getId() {
 		return id;

@@ -1,6 +1,8 @@
 package org.fao.fi.vme.dao.msaccess.tables;
 
-public class VME {
+import org.fao.fi.vme.domain.Vme;
+
+public class VME implements TableDomainMapper {
 	int ID;
 	String RFB_ID;
 	String VME_ID;
@@ -146,4 +148,21 @@ public class VME {
 		VME_Description_Impact = vME_Description_Impact;
 	}
 
+	@Override
+	public Object map() {
+		Vme o = new Vme();
+		o.setAreaType(this.VME_Area_Type);
+		// o.setCriteria(this.)
+		o.setDescriptionBiological(this.VME_Description_Biology);
+		o.setDescriptionImpact(this.VME_Description_Impact);
+		o.setDescriptionPhisical(this.VME_Description_Physical);
+		o.setGeoform(this.VME_Geoform);
+		// o.setGeographicLayerId(this.)
+		o.setId(this.ID);
+		// o.setName(this.get)
+		// o.setRfmo(rfmo)
+		o.getValidityPeriod().setBeginYear(this.VME_Validity_Start);
+		o.getValidityPeriod().setEndYear(this.VME_Validity_End);
+		return o;
+	}
 }

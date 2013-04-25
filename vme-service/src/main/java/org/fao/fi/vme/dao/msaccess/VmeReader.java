@@ -35,4 +35,8 @@ public class VmeReader {
 		return tableList;
 	}
 
+	public Class<?>[] getTables() {
+		return tables;
+	}
+
 }

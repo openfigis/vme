@@ -1,6 +1,6 @@
 package org.fao.fi.vme.dao.msaccess.tables;
 
-public class RFB_VME_Fishing_History {
+public class RFB_VME_Fishing_History implements TableDomainMapper {
 
 	private int ID;
 	private String RFB_ID;
@@ -46,6 +46,12 @@ public class RFB_VME_Fishing_History {
 
 	public void setRFB_VMEs_GeneralText(String rFB_VMEs_GeneralText) {
 		RFB_VMEs_GeneralText = rFB_VMEs_GeneralText;
+	}
+
+	@Override
+	public Object map() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
