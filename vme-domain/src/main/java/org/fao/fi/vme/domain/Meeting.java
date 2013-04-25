@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -20,16 +19,23 @@ public class Meeting {
 	@Id
 	private int id;
 
-	/**
-	 * The Vme where the meeting is on about.
-	 */
-	@OneToOne
-	public Vme discussedVme;
-
 	/** 
 	 */
 	@Temporal(TemporalType.DATE)
-	private Date date;
+	private Date start;
+
+	@Temporal(TemporalType.DATE)
+	private Date end;
+
+	/**
+	 * 
+	 */
+	private SpecificMeasures specificMeasures;
+
+	/**
+	 * 
+	 */
+	private GeneralMeasures generalMeasures;
 
 	/** */
 	private String reportSummary;
@@ -37,10 +43,13 @@ public class Meeting {
 	/** */
 	private String committee;
 
+	/** */
+	private int year;
+
 	/**
 	 * meetingDocument
 	 */
-	public Source meetingDocument;
+	public Source meetingDocument = new Source();
 
 	public int getId() {
 		return id;
@@ -50,12 +59,36 @@ public class Meeting {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getStart() {
+		return start;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
+	public Date getEnd() {
+		return end;
+	}
+
+	public void setEnd(Date end) {
+		this.end = end;
+	}
+
+	public SpecificMeasures getSpecificMeasures() {
+		return specificMeasures;
+	}
+
+	public void setSpecificMeasures(SpecificMeasures specificMeasures) {
+		this.specificMeasures = specificMeasures;
+	}
+
+	public GeneralMeasures getGeneralMeasures() {
+		return generalMeasures;
+	}
+
+	public void setGeneralMeasures(GeneralMeasures generalMeasures) {
+		this.generalMeasures = generalMeasures;
 	}
 
 	public String getReportSummary() {
@@ -74,12 +107,12 @@ public class Meeting {
 		this.committee = committee;
 	}
 
-	public Vme getDiscussedVme() {
-		return discussedVme;
+	public int getYear() {
+		return year;
 	}
 
-	public void setDiscussedVme(Vme discussedVme) {
-		this.discussedVme = discussedVme;
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 	public Source getMeetingDocument() {

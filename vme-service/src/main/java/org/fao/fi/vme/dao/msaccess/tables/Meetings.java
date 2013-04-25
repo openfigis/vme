@@ -1,6 +1,9 @@
 package org.fao.fi.vme.dao.msaccess.tables;
 
-public class Meetings {
+import org.fao.fi.vme.dao.msaccess.formatter.MeetingDateParser;
+import org.fao.fi.vme.domain.Meeting;
+
+public class Meetings implements TableDomainMapper {
 
 	private int ID;
 	private String RFB_ID;
@@ -82,6 +85,18 @@ public class Meetings {
 
 	public void setLink_Source(String link_Source) {
 		Link_Source = link_Source;
+	}
+
+	@Override
+	public Object map() {
+		Meeting o = new Meeting();
+		o.setCommittee(this.Committee);
+
+		MeetingDateParser p = new MeetingDateParser(this.Meeting_Date);
+		o.setStart(p.getStart());
+		o.setEnd(p.getEnd());
+
+		return o;
 	}
 
 }

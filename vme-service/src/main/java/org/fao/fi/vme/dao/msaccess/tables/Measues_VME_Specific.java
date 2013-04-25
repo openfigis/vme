@@ -1,6 +1,8 @@
 package org.fao.fi.vme.dao.msaccess.tables;
 
-public class Measues_VME_Specific {
+import org.fao.fi.vme.domain.SpecificMeasures;
+
+public class Measues_VME_Specific implements TableDomainMapper {
 
 	private int ID;
 	private String RFB_ID;
@@ -64,6 +66,19 @@ public class Measues_VME_Specific {
 
 	public void setVME_SpecificMeasure(String vME_SpecificMeasure) {
 		VME_SpecificMeasure = vME_SpecificMeasure;
+	}
+
+	@Override
+	public Object map() {
+		SpecificMeasures o = new SpecificMeasures();
+		// o.getDocument().setUrl(this.get)
+		o.setId(this.getID());
+		// o.setMeasureSummary(this.get)
+		o.getValidityPeriod().setBeginYear(new Integer(this.getVME_SpecificMeasure_Validity_Start()).intValue());
+		o.getValidityPeriod().setEndYear(new Integer(this.getVME_SpecificMeasure_Validity_End()).intValue());
+		// o.setVme(this.getVME_ID());
+		o.setYear(this.getYear_ID());
+		return o;
 	}
 
 }

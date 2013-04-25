@@ -29,12 +29,12 @@ public class SpecificMeasures extends Observation {
 	private String measureSummary;
 
 	/** */
-	public ValidityPeriod validityPeriod;
+	public ValidityPeriod validityPeriod = new ValidityPeriod();
 
 	/**
 	 * Where the document of the SpecificMeasures is to be found.
 	 */
-	public Source document;
+	public Source document = new Source();
 
 	public int getId() {
 		return id;

@@ -25,7 +25,7 @@ public class GeneralMeasures extends Observation {
 
 	/** 
 	  */
-	private Source linkCemSource;
+	private Source linkCemSource = new Source();
 
 	/** 
 	  */
@@ -47,12 +47,36 @@ public class GeneralMeasures extends Observation {
 	/** */
 	private ValidityPeriod validityPeriod;
 
-	public int getGeneralMeasuresId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setGeneralMeasuresId(int generalMeasuresId) {
-		this.id = generalMeasuresId;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Rfmo getRfmo() {
+		return rfmo;
+	}
+
+	public void setRfmo(Rfmo rfmo) {
+		this.rfmo = rfmo;
+	}
+
+	public Source getLinkCemSource() {
+		return linkCemSource;
+	}
+
+	public void setLinkCemSource(Source linkCemSource) {
+		this.linkCemSource = linkCemSource;
+	}
+
+	public Vme getPrimairlyConcernedVme() {
+		return primairlyConcernedVme;
+	}
+
+	public void setPrimairlyConcernedVme(Vme primairlyConcernedVme) {
+		this.primairlyConcernedVme = primairlyConcernedVme;
 	}
 
 	public String getRfbFishingAreas() {
@@ -93,38 +117,6 @@ public class GeneralMeasures extends Observation {
 
 	public void setValidityPeriod(ValidityPeriod validityPeriod) {
 		this.validityPeriod = validityPeriod;
-	}
-
-	public Rfmo getRfmo() {
-		return rfmo;
-	}
-
-	public void setRfmo(Rfmo rfmo) {
-		this.rfmo = rfmo;
-	}
-
-	public Source getLinkCemSource() {
-		return linkCemSource;
-	}
-
-	public void setLinkCemSource(Source linkCemSource) {
-		this.linkCemSource = linkCemSource;
-	}
-
-	public Vme getPrimairlyConcernedVme() {
-		return primairlyConcernedVme;
-	}
-
-	public void setPrimairlyConcernedVme(Vme primairlyConcernedVme) {
-		this.primairlyConcernedVme = primairlyConcernedVme;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 }
