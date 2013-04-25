@@ -22,7 +22,7 @@ public class Vme {
 	public Rfmo rfmo;
 
 	/** */
-	public ValidityPeriod validityPeriod;
+	public ValidityPeriod validityPeriod = new ValidityPeriod();
 
 	/** */
 	private String name;

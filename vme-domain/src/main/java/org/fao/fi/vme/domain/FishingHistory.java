@@ -1,7 +1,5 @@
 package org.fao.fi.vme.domain;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -11,7 +9,7 @@ import javax.persistence.Id;
  * 
  */
 @Entity
-public class FishingActivity {
+public class FishingHistory {
 
 	/** 
 	 * 
@@ -19,7 +17,7 @@ public class FishingActivity {
 	@Id
 	private int id;
 
-	private Date updatedInYear;
+	private int updatedInYear;
 
 	/** */
 	private String rfbFishingAreaGeneralText;
@@ -27,19 +25,19 @@ public class FishingActivity {
 	/** */
 	private String vmeGeneralText;
 
-	public int getFishingActivityId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setFishingActivityId(int fishingActivityId) {
-		this.id = fishingActivityId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public Date getUpdatedInYear() {
+	public int getUpdatedInYear() {
 		return updatedInYear;
 	}
 
-	public void setUpdatedInYear(Date updatedInYear) {
+	public void setUpdatedInYear(int updatedInYear) {
 		this.updatedInYear = updatedInYear;
 	}
 
@@ -57,14 +55,6 @@ public class FishingActivity {
 
 	public void setVmeGeneralText(String vmeGeneralText) {
 		this.vmeGeneralText = vmeGeneralText;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 }

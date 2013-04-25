@@ -38,7 +38,7 @@ public class Rfmo {
 	/** 
 	  */
 	@OneToMany
-	private List<FishingActivity> fishingActivityList;
+	private List<FishingHistory> fishingActivityList;
 
 	public List<GeneralMeasures> getGeneralMeasuresList() {
 		return generalMeasuresList;
@@ -64,11 +64,11 @@ public class Rfmo {
 		this.meetingList = meetingList;
 	}
 
-	public List<FishingActivity> getFishingActivityList() {
+	public List<FishingHistory> getFishingActivityList() {
 		return fishingActivityList;
 	}
 
-	public void setFishingActivityList(List<FishingActivity> fishingActivityList) {
+	public void setFishingActivityList(List<FishingHistory> fishingActivityList) {
 		this.fishingActivityList = fishingActivityList;
 	}
 
