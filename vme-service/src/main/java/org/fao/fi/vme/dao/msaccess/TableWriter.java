@@ -38,7 +38,9 @@ public class TableWriter {
 		List<Object> records = table.getRecords();
 		for (Object object : records) {
 			TableDomainMapper m = (TableDomainMapper) object;
+			entityManager.getTransaction().begin();
 			entityManager.persist(m.map());
+			entityManager.getTransaction().commit();
 		}
 	}
 
