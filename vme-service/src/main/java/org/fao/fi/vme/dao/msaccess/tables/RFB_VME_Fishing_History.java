@@ -1,5 +1,7 @@
 package org.fao.fi.vme.dao.msaccess.tables;
 
+import org.fao.fi.vme.dao.msaccess.mapping.TableDomainMapper;
+
 public class RFB_VME_Fishing_History implements TableDomainMapper {
 
 	private int ID;

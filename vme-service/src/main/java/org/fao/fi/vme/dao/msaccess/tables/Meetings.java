@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.fao.fi.vme.dao.msaccess.formatter.MeetingDateParser;
+import org.fao.fi.vme.dao.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.domain.Meeting;
 
 public class Meetings implements TableDomainMapper {

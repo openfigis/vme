@@ -1,5 +1,7 @@
 package org.fao.fi.vme.dao.msaccess.tables;
 
+import org.fao.fi.vme.dao.msaccess.mapping.TableDomainMapper;
+import org.fao.fi.vme.dao.msaccess.mapping.ValidityPeriodRule;
 import org.fao.fi.vme.domain.Vme;
 
 public class VME implements TableDomainMapper {
@@ -161,8 +163,10 @@ public class VME implements TableDomainMapper {
 		o.setId(this.ID);
 		// o.setName(this.get)
 		// o.setRfmo(rfmo)
-		o.getValidityPeriod().setBeginYear(this.VME_Validity_Start);
-		o.getValidityPeriod().setEndYear(this.VME_Validity_End);
+		ValidityPeriodRule r = new ValidityPeriodRule(this.VME_Validity_Start, this.VME_Validity_End);
+		o.getValidityPeriod().setBeginYear(r.getStart());
+		o.getValidityPeriod().setEndYear(r.getEnd());
+
 		return o;
 	}
 }

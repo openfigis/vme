@@ -1,4 +1,4 @@
-package org.fao.fi.vme.dao.msaccess.tables;
+package org.fao.fi.vme.dao.msaccess.mapping;
 
 public interface TableDomainMapper {
 

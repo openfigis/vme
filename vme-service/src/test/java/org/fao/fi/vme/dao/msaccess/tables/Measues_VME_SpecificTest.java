@@ -3,6 +3,7 @@ package org.fao.fi.vme.dao.msaccess.tables;
 import org.fao.fi.vme.dao.msaccess.ConnectionProvider;
 import org.fao.fi.vme.dao.msaccess.Table;
 import org.fao.fi.vme.dao.msaccess.TableReader;
+import org.fao.fi.vme.dao.msaccess.mapping.TableDomainMapper;
 import org.junit.Before;
 import org.junit.Test;
 

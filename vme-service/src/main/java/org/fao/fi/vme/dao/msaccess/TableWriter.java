@@ -7,11 +7,11 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.fao.fi.vme.dao.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.dao.msaccess.tables.Measues_VME_Specific;
 import org.fao.fi.vme.dao.msaccess.tables.Measures_VME_General;
 import org.fao.fi.vme.dao.msaccess.tables.Meetings;
 import org.fao.fi.vme.dao.msaccess.tables.RFB_VME_Fishing_History;
-import org.fao.fi.vme.dao.msaccess.tables.TableDomainMapper;
 import org.fao.fi.vme.dao.msaccess.tables.VME;
 import org.fao.fi.vme.domain.FishingActivity;
 import org.fao.fi.vme.domain.GeneralMeasures;

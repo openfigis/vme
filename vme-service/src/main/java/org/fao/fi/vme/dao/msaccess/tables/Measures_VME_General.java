@@ -4,6 +4,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.fao.fi.vme.dao.msaccess.VmeDaoException;
+import org.fao.fi.vme.dao.msaccess.mapping.TableDomainMapper;
+import org.fao.fi.vme.dao.msaccess.mapping.ValidityPeriodRule;
 import org.fao.fi.vme.domain.GeneralMeasures;
 
 public class Measures_VME_General implements TableDomainMapper {
@@ -141,18 +143,10 @@ public class Measures_VME_General implements TableDomainMapper {
 		o.setRfbFishingAreas(this.getRFB_FishingAreas());
 		// o.setRfmo(rfmo)
 		o.setThreshold(this.getVME_Threshold());
-
-		if (this.VME_GeneralMeasure_Validity_Start == null) {
-			o.getValidityPeriod().setBeginYear(0);
-		} else {
-			o.getValidityPeriod().setBeginYear(new Integer(this.VME_GeneralMeasure_Validity_Start).intValue());
-		}
-
-		if (this.VME_GeneralMeasure_Validity_End == null) {
-			o.getValidityPeriod().setEndYear(9999);
-		} else {
-			o.getValidityPeriod().setEndYear(new Integer(this.VME_GeneralMeasure_Validity_End).intValue());
-		}
+		ValidityPeriodRule r = new ValidityPeriodRule(this.VME_GeneralMeasure_Validity_Start,
+				VME_GeneralMeasure_Validity_End);
+		o.getValidityPeriod().setBeginYear(r.getStart());
+		o.getValidityPeriod().setEndYear(r.getEnd());
 		o.setYear(this.Year_ID);
 		return o;
 	}

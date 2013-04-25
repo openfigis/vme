@@ -1,5 +1,6 @@
 package org.fao.fi.vme.dao.msaccess.tables;
 
+import org.fao.fi.vme.dao.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.domain.SpecificMeasures;
 
 public class Measues_VME_Specific implements TableDomainMapper {
