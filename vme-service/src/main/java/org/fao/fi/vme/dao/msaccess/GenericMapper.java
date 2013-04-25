@@ -22,17 +22,19 @@ public class GenericMapper {
 				if (method.getName().startsWith("set")) {
 					clazz = method.getParameterTypes()[0];
 					if (clazz == String.class) {
-						try {
-							method.invoke(object, rs.getString(attributeName));
-						} catch (java.sql.SQLException e) {
-							e.printStackTrace();
-							method.invoke(object, rs.getBytes(attributeName));
-						}
-					}
-					if (clazz == Integer.class) {
+						// try {
 						method.invoke(object, rs.getString(attributeName));
+						// } catch (java.sql.SQLException e) {
+						// e.printStackTrace();
+						// method.invoke(object, rs.getBytes(attributeName));
+						// }
 					}
-
+					if (clazz == int.class) {
+						method.invoke(object, rs.getInt(attributeName));
+					}
+					if (clazz != String.class && clazz != int.class) {
+						throw new VmeDaoException("This type is not yet supported :" + clazz.getSimpleName());
+					}
 				}
 			}
 			return object;

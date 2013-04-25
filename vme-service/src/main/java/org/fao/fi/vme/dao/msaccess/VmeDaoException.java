@@ -6,6 +6,10 @@ public class VmeDaoException extends RuntimeException {
 		super(e);
 	}
 
+	public VmeDaoException(String message) {
+		super(message);
+	}
+
 	/**
 	 * 
 	 */

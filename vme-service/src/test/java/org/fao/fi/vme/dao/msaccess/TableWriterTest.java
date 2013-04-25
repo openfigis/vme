@@ -10,6 +10,7 @@ import org.fao.fi.vme.dao.config.EntityManagerFactoryProducer;
 import org.fao.fi.vme.dao.config.EntityManagerProducer;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,16 +23,24 @@ import static org.junit.Assert.assertTrue;
 public class TableWriterTest {
 
 	VmeReader reader = new VmeReader();
-	TableWriter tableWriter = new TableWriter();
+
+	@Inject
+	TableWriter tableWriter;
 
 	@Inject
 	EntityManager entityManager;
+
+	@Before
+	public void before() {
+		assertNotNull(EntityManager.class.getSimpleName(), entityManager);
+	}
 
 	@Test
 	public void testWrite() {
 		List<Table> tables = reader.readObjects();
 		assertTrue(tables.size() > 0);
 		for (Table table : tables) {
+			System.out.println(table.getClazz().getSimpleName());
 			assertTrue(table.getRecords().size() > 0);
 			tableWriter.write(table);
 			Class<?> clazz = tableWriter.getDomainClass(table.getClazz());
