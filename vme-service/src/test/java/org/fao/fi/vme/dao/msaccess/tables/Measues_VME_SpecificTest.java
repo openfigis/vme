@@ -1,14 +1,27 @@
 package org.fao.fi.vme.dao.msaccess.tables;
 
+import org.fao.fi.vme.dao.msaccess.ConnectionProvider;
+import org.fao.fi.vme.dao.msaccess.Table;
+import org.fao.fi.vme.dao.msaccess.TableReader;
+import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class Measues_VME_SpecificTest {
 
-	@Test
-	public void testMap() {
-		fail("Not yet implemented");
+	TableReader tr = new TableReader();
+	ConnectionProvider cp = new ConnectionProvider();
+
+	@Before
+	public void before() {
+		tr.setConnection(cp.getConnecton());
 	}
 
+	@Test
+	public void testMap() {
+		Table table = tr.read(Measues_VME_Specific.class);
+		for (Object o : table.getRecords()) {
+			TableDomainMapper m = (TableDomainMapper) o;
+			m.map();
+		}
+	}
 }
