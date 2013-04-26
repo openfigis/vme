@@ -3,9 +3,12 @@ package org.fao.fi.vme.dao.msaccess;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class VmeAccessDbImport {
 
-	private final VmeWriter writer = new VmeWriter();
+	@Inject
+	private VmeWriter writer;
 
 	private final MsAcces2DomainMapper m = new MsAcces2DomainMapper();
 	private final Linker linker = new Linker();
