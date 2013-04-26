@@ -21,7 +21,7 @@ public class VmeReaderTest {
 		List<Table> tables = reader.readObjects();
 		for (Table table : tables) {
 			System.out.println(table.getClazz().getSimpleName());
-			assertTrue(table.getObjectList().size() > 10);
+			assertTrue(table.getObjectList().size() > 2);
 			Set<String> ids = new HashSet<String>();
 
 			// checking unicity

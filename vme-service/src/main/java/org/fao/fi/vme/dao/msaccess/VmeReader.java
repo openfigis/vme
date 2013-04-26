@@ -6,6 +6,7 @@ import java.util.List;
 import org.fao.fi.vme.dao.msaccess.tables.Measues_VME_Specific;
 import org.fao.fi.vme.dao.msaccess.tables.Measures_VME_General;
 import org.fao.fi.vme.dao.msaccess.tables.Meetings;
+import org.fao.fi.vme.dao.msaccess.tables.RFB_MetaData;
 import org.fao.fi.vme.dao.msaccess.tables.RFB_VME_Fishing_History;
 import org.fao.fi.vme.dao.msaccess.tables.VME;
 
@@ -19,7 +20,7 @@ public class VmeReader {
 	}
 
 	private final Class<?> tables[] = { VME.class, Measures_VME_General.class, Measues_VME_Specific.class,
-			Meetings.class, RFB_VME_Fishing_History.class };
+			Meetings.class, RFB_VME_Fishing_History.class, RFB_MetaData.class };
 
 	public List<Table> readObjects() {
 

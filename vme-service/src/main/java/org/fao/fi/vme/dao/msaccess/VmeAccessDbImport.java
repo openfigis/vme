@@ -32,6 +32,9 @@ public class VmeAccessDbImport {
 		// connect/link the domain objects, also using the original information from the table objects
 		linker.link(objectCollectionList, tables);
 
+		// update the RFB with ids from FIGIS
+		// TODO
+
 		// write the domain objects to the DB
 		writer.write(objectCollectionList);
 	}
