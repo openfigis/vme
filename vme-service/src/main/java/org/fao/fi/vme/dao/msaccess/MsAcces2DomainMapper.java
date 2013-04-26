@@ -34,7 +34,7 @@ public class MsAcces2DomainMapper {
 
 	public ObjectCollection map(Table table) {
 		ObjectCollection c = new ObjectCollection();
-		c.setClazz(table.getClazz());
+		c.setClazz(map.get(table.getClazz()));
 
 		List<Object> objects = new ArrayList<Object>();
 		List<Object> records = table.getObjectList();

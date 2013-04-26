@@ -1,5 +1,6 @@
 package org.fao.fi.vme.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class Rfmo {
 	/** 
 	  */
 	@OneToMany
-	private List<Vme> managedVmeList;
+	private List<Vme> managedVmeList = new ArrayList<Vme>();
 
 	/**
 	   */
