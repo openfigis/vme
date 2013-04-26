@@ -3,10 +3,14 @@ package org.fao.fi.vme.dao.msaccess;
 import java.util.List;
 import java.util.Map;
 
+import org.fao.fi.vme.dao.msaccess.tables.Measues_VME_Specific;
+import org.fao.fi.vme.dao.msaccess.tables.Measures_VME_General;
 import org.fao.fi.vme.dao.msaccess.tables.Meetings;
 import org.fao.fi.vme.dao.msaccess.tables.VME;
+import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.Meeting;
 import org.fao.fi.vme.domain.Rfmo;
+import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
 
 public class Linker {
@@ -41,13 +45,69 @@ public class Linker {
 		if (domainObject instanceof Meeting) {
 			linkMeetingObject(domainObject, domainTableMap, objectCollectionList);
 		}
-		// if (domainObject instanceof SpecificMeasures) {
-		// linkSpecificMeasuresObject(domainObject, objectCollectionList, tables);
-		// }
-		// if (domainObject instanceof GeneralMeasures) {
-		// linkGeneralMeasuresObject(domainObject, objectCollectionList, tables);
-		// }
+		if (domainObject instanceof SpecificMeasures) {
+			linkSpecificMeasuresObject(domainObject, domainTableMap, objectCollectionList);
+		}
+		if (domainObject instanceof GeneralMeasures) {
+			linkGeneralMeasuresObject(domainObject, domainTableMap, objectCollectionList);
+		}
 
+	}
+
+	/**
+	 * 
+	 * linking GeneralMeasures with Rfmo and the other way around.
+	 * 
+	 * @param domainObject
+	 * @param domainTableMap
+	 * @param objectCollectionList
+	 */
+	private void linkGeneralMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap,
+			List<ObjectCollection> objectCollectionList) {
+		GeneralMeasures sm = (GeneralMeasures) domainObject;
+		Measures_VME_General record = (Measures_VME_General) domainTableMap.get(sm);
+		for (ObjectCollection oc : objectCollectionList) {
+			if (oc.getClazz() == Rfmo.class) {
+				List<Object> objectList = oc.getObjectList();
+				for (Object object : objectList) {
+					Rfmo rfmo = (Rfmo) object;
+					int rfmoId = (new Integer(record.getRFB_ID())).intValue();
+					if (rfmo.getId() == rfmoId) {
+						sm.setRfmo(rfmo);
+						if (!rfmo.getGeneralMeasuresList().contains(sm)) {
+							rfmo.getGeneralMeasuresList().add(sm);
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	/**
+	 * linking SpecificMeasures with vme
+	 * 
+	 * 
+	 * @param domainObject
+	 * @param domainTableMap
+	 * @param objectCollectionList
+	 */
+	private void linkSpecificMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap,
+			List<ObjectCollection> objectCollectionList) {
+		SpecificMeasures sm = (SpecificMeasures) domainObject;
+		Measues_VME_Specific record = (Measues_VME_Specific) domainTableMap.get(sm);
+		for (ObjectCollection oc : objectCollectionList) {
+			if (oc.getClazz() == Vme.class) {
+				List<Object> objectList = oc.getObjectList();
+				for (Object object : objectList) {
+					Vme vme = (Vme) object;
+					int vmeId = (new Integer(record.getVME_ID())).intValue();
+					if (vme.getId() == vmeId) {
+						sm.setVme(vme);
+					}
+				}
+			}
+		}
 	}
 
 	/**
