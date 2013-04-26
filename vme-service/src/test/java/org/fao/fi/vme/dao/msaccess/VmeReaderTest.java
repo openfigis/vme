@@ -21,11 +21,11 @@ public class VmeReaderTest {
 		List<Table> tables = reader.readObjects();
 		for (Table table : tables) {
 			System.out.println(table.getClazz().getSimpleName());
-			assertTrue(table.getRecords().size() > 10);
+			assertTrue(table.getObjectList().size() > 10);
 			Set<String> ids = new HashSet<String>();
 
 			// checking unicity
-			for (Object object : table.getRecords()) {
+			for (Object object : table.getObjectList()) {
 
 				Method method = object.getClass().getDeclaredMethod("getID");
 				Object id = method.invoke(object);

@@ -1,20 +1,17 @@
 package org.fao.fi.vme.dao.msaccess;
 
-import java.util.List;
-
 import org.junit.Test;
 
 public class VmeWriterTest {
 
-	VmeReader reader = new VmeReader();
-
-	VmeWriter writer = new VmeWriter();
-
+	/**
+	 * A integration test here is more or less the same as doing VmeAccessDbImport. TODO write a unit test here.
+	 * 
+	 * 
+	 * 
+	 */
 	@Test
 	public void testPersist() {
-		List<Table> tables = reader.readObjects();
 
-		writer.persist(tables);
 	}
-
 }

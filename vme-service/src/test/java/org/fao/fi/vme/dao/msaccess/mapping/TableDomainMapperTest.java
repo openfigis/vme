@@ -25,7 +25,7 @@ public class TableDomainMapperTest {
 	public void testMap() {
 		for (Class<?> clazz : r.getTables()) {
 			Table table = tr.read(clazz);
-			for (Object t : table.getRecords()) {
+			for (Object t : table.getObjectList()) {
 				TableDomainMapper m = (TableDomainMapper) t;
 				Object o = m.map();
 				assertNotNull(m.getClass().getSimpleName(), o);

@@ -27,6 +27,8 @@ public class TableWriterTest {
 	@Inject
 	TableWriter tableWriter;
 
+	MsAcces2DomainMapper mapper = new MsAcces2DomainMapper();
+
 	@Inject
 	EntityManager entityManager;
 
@@ -41,12 +43,13 @@ public class TableWriterTest {
 		assertTrue(tables.size() > 0);
 		for (Table table : tables) {
 			System.out.println(table.getClazz().getSimpleName());
-			assertTrue(table.getRecords().size() > 0);
-			tableWriter.write(table);
-			Class<?> clazz = tableWriter.getDomainClass(table.getClazz());
+			assertTrue(table.getObjectList().size() > 0);
+			ObjectCollection objectCollection = mapper.map(table);
+			tableWriter.write(objectCollection);
+			Class<?> clazz = mapper.getDomainClass(table.getClazz());
 			assertNotNull(clazz);
 			List<?> objects = generateTypedQuery(clazz).getResultList();
-			assertEquals(table.getRecords().size(), objects.size());
+			assertEquals(table.getObjectList().size(), objects.size());
 		}
 	}
 

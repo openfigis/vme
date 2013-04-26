@@ -6,9 +6,9 @@ public class VmeWriter {
 
 	TableWriter tableWriter = new TableWriter();
 
-	public void persist(List<Table> tables) {
-		for (Table table : tables) {
-			tableWriter.write(table);
+	public void write(List<ObjectCollection> objectCollectionList) {
+		for (ObjectCollection objectCollection : objectCollectionList) {
+			tableWriter.write(objectCollection);
 		}
 
 	}

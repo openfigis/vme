@@ -19,6 +19,6 @@ public class TableReaderTest {
 	@Test
 	public void testRead() {
 		Table table = tr.read(Measures_VME_General.class);
-		assertTrue(table.getRecords().size() > 0);
+		assertTrue(table.getObjectList().size() > 0);
 	}
 }

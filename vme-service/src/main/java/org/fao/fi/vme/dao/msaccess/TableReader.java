@@ -21,7 +21,7 @@ public class TableReader {
 		Table table = new Table();
 		List<Object> list = new ArrayList<Object>();
 		table.setClazz(clazz);
-		table.setRecords(list);
+		table.setObjectList(list);
 		ResultSet rs = getResultset(clazz.getSimpleName());
 		try {
 			while (rs.next()) {

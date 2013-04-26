@@ -20,7 +20,7 @@ public class Measues_VME_SpecificTest {
 	@Test
 	public void testMap() {
 		Table table = tr.read(Measues_VME_Specific.class);
-		for (Object o : table.getRecords()) {
+		for (Object o : table.getObjectList()) {
 			TableDomainMapper m = (TableDomainMapper) o;
 			m.map();
 		}
