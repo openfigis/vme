@@ -73,7 +73,7 @@ public class Linker {
 				List<Object> objectList = oc.getObjectList();
 				for (Object object : objectList) {
 					Rfmo rfmo = (Rfmo) object;
-					int rfmoId = (new Integer(record.getRFB_ID())).intValue();
+					int rfmoId = record.getID();
 					if (rfmo.getId() == rfmoId) {
 						sm.setRfmo(rfmo);
 						if (!rfmo.getGeneralMeasuresList().contains(sm)) {
@@ -87,7 +87,7 @@ public class Linker {
 	}
 
 	/**
-	 * linking SpecificMeasures with vme
+	 * linking SpecificMeasures with vme and the other way around
 	 * 
 	 * 
 	 * @param domainObject
@@ -103,9 +103,10 @@ public class Linker {
 				List<Object> objectList = oc.getObjectList();
 				for (Object object : objectList) {
 					Vme vme = (Vme) object;
-					int vmeId = (new Integer(record.getVME_ID())).intValue();
-					if (vme.getId() == vmeId) {
+					VME vmeRecord = (VME) domainTableMap.get(vme);
+					if (record.getVME_ID().equals(vmeRecord.getVME_ID())) {
 						sm.setVme(vme);
+						vme.getSpecificMeasuresList().add(sm);
 					}
 				}
 			}
@@ -131,7 +132,7 @@ public class Linker {
 	}
 
 	/**
-	 * fills up Vme with a Rfmo and the other way around.
+	 * Fills up a Vme with a Rfmo and the other way around.
 	 * 
 	 * 
 	 * @param vmeObject
@@ -163,13 +164,15 @@ public class Linker {
 						throw new VmeDaoException("rfmoRecord " + rfmoDomainObject.getId()
 								+ " at this point should not be null");
 					}
-					if (rfmId.equals(rfmoRecord.getID())) {
+					if (rfmId.equals(rfmoRecord.getRFB_ID())) {
 						rfmo = rfmoDomainObject;
 					}
 				}
 			}
 		}
+		if (rfmo == null) {
+			throw new VmeDaoException("rfmo " + rfmId + " could not be found");
+		}
 		return rfmo;
 	}
-
 }

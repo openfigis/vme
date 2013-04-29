@@ -1,8 +1,12 @@
 package org.fao.fi.vme.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * 
@@ -19,10 +23,13 @@ public class Vme {
 	 * A VME is managed by this Rfmo
 	 */
 	@ManyToOne
-	public Rfmo rfmo;
+	private Rfmo rfmo;
+
+	@OneToMany
+	private List<SpecificMeasures> specificMeasuresList = new ArrayList<SpecificMeasures>();;
 
 	/** */
-	public ValidityPeriod validityPeriod = new ValidityPeriod();
+	private ValidityPeriod validityPeriod = new ValidityPeriod();
 
 	/** */
 	private String name;
@@ -62,6 +69,14 @@ public class Vme {
 
 	public void setRfmo(Rfmo rfmo) {
 		this.rfmo = rfmo;
+	}
+
+	public List<SpecificMeasures> getSpecificMeasuresList() {
+		return specificMeasuresList;
+	}
+
+	public void setSpecificMeasuresList(List<SpecificMeasures> specificMeasuresList) {
+		this.specificMeasuresList = specificMeasuresList;
 	}
 
 	public ValidityPeriod getValidityPeriod() {

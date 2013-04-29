@@ -24,7 +24,7 @@ public class Rfmo {
 	 * 
 	 */
 	@OneToMany
-	private List<GeneralMeasures> generalMeasuresList;
+	private List<GeneralMeasures> generalMeasuresList = new ArrayList<GeneralMeasures>();
 
 	/** 
 	  */
@@ -34,7 +34,7 @@ public class Rfmo {
 	/**
 	   */
 	@OneToMany
-	private List<Meeting> meetingList;
+	private List<Meeting> meetingList = new ArrayList<Meeting>();
 
 	/** 
 	  */
