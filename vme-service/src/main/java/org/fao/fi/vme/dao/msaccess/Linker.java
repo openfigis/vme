@@ -7,7 +7,9 @@ import org.fao.fi.vme.dao.msaccess.tables.Measues_VME_Specific;
 import org.fao.fi.vme.dao.msaccess.tables.Measures_VME_General;
 import org.fao.fi.vme.dao.msaccess.tables.Meetings;
 import org.fao.fi.vme.dao.msaccess.tables.RFB_MetaData;
+import org.fao.fi.vme.dao.msaccess.tables.RFB_VME_Fishing_History;
 import org.fao.fi.vme.dao.msaccess.tables.VME;
+import org.fao.fi.vme.domain.FishingHistory;
 import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.Meeting;
 import org.fao.fi.vme.domain.Rfmo;
@@ -53,6 +55,21 @@ public class Linker {
 			linkGeneralMeasuresObject(domainObject, domainTableMap, objectCollectionList);
 		}
 
+		if (domainObject instanceof FishingHistory) {
+			linkFishingHistoryObject(domainObject, domainTableMap, objectCollectionList);
+		}
+
+	}
+
+	private void linkFishingHistoryObject(Object domainObject, Map<Object, Object> domainTableMap,
+			List<ObjectCollection> objectCollectionList) {
+		FishingHistory o = (FishingHistory) domainObject;
+		RFB_VME_Fishing_History record = (RFB_VME_Fishing_History) domainTableMap.get(o);
+		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
+		if (!rfmo.getFishingActivityList().contains(o)) {
+			rfmo.getFishingActivityList().add(o);
+		}
+
 	}
 
 	/**
@@ -65,25 +82,14 @@ public class Linker {
 	 */
 	private void linkGeneralMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
-		GeneralMeasures sm = (GeneralMeasures) domainObject;
-		Measures_VME_General record = (Measures_VME_General) domainTableMap.get(sm);
+		GeneralMeasures gm = (GeneralMeasures) domainObject;
+		Measures_VME_General record = (Measures_VME_General) domainTableMap.get(gm);
 
-		for (ObjectCollection oc : objectCollectionList) {
-			if (oc.getClazz() == Rfmo.class) {
-				List<Object> objectList = oc.getObjectList();
-				for (Object object : objectList) {
-					Rfmo rfmo = (Rfmo) object;
-					int rfmoId = record.getID();
-					if (rfmo.getId() == rfmoId) {
-						sm.setRfmo(rfmo);
-						if (!rfmo.getGeneralMeasuresList().contains(sm)) {
-							rfmo.getGeneralMeasuresList().add(sm);
-						}
-					}
-				}
-			}
+		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
+		gm.setRfmo(rfmo);
+		if (!rfmo.getGeneralMeasuresList().contains(gm)) {
+			rfmo.getGeneralMeasuresList().add(gm);
 		}
-
 	}
 
 	/**
@@ -106,7 +112,10 @@ public class Linker {
 					VME vmeRecord = (VME) domainTableMap.get(vme);
 					if (record.getVME_ID().equals(vmeRecord.getVME_ID())) {
 						sm.setVme(vme);
-						vme.getSpecificMeasuresList().add(sm);
+						if (!vme.getSpecificMeasuresList().contains(sm)) {
+							// add only when not already in the list
+							vme.getSpecificMeasuresList().add(sm);
+						}
 					}
 				}
 			}
@@ -127,7 +136,9 @@ public class Linker {
 		Meetings meetingsRecord = (Meetings) domainTableMap.get(meeting);
 
 		Rfmo rfmo = findRfmo(meetingsRecord.getRFB_ID(), objectCollectionList, domainTableMap);
-		rfmo.getMeetingList().add(meeting);
+		if (!rfmo.getMeetingList().contains(meeting)) {
+			rfmo.getMeetingList().add(meeting);
+		}
 
 	}
 

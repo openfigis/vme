@@ -39,7 +39,7 @@ public class Rfmo {
 	/** 
 	  */
 	@OneToMany
-	private List<FishingHistory> fishingActivityList;
+	private List<FishingHistory> fishingActivityList = new ArrayList<FishingHistory>();
 
 	public List<GeneralMeasures> getGeneralMeasuresList() {
 		return generalMeasuresList;

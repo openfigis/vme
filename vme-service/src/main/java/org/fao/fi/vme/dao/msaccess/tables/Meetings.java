@@ -3,6 +3,7 @@ package org.fao.fi.vme.dao.msaccess.tables;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.fao.fi.vme.dao.msaccess.VmeDaoException;
 import org.fao.fi.vme.dao.msaccess.formatter.MeetingDateParser;
 import org.fao.fi.vme.dao.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.domain.Meeting;
@@ -106,6 +107,7 @@ public class Meetings implements TableDomainMapper {
 			URL url = new URL(this.getLink_Source());
 			o.getMeetingDocument().setUrl(url);
 		} catch (MalformedURLException e) {
+			throw new VmeDaoException(e);
 		}
 		o.getMeetingDocument().setCitation(this.getLink_Tagged_File());
 		o.setReportSummary(this.getReport_Summary());
