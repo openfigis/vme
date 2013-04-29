@@ -29,6 +29,9 @@ public class VmeAccessDbImport {
 			objectCollectionList.add(m.map(table));
 		}
 
+		// write the domain objects to the DB
+		writer.write(objectCollectionList);
+
 		// connect/link the domain objects, also using the original information from the table objects
 		linker.link(objectCollectionList, tables);
 
@@ -36,6 +39,7 @@ public class VmeAccessDbImport {
 		// TODO
 
 		// write the domain objects to the DB
-		writer.write(objectCollectionList);
+		writer.merge(objectCollectionList);
+
 	}
 }

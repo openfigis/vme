@@ -20,7 +20,7 @@ public class VmeReaderTest {
 			IllegalAccessException, InvocationTargetException {
 		List<Table> tables = reader.readObjects();
 		for (Table table : tables) {
-			System.out.println(table.getClazz().getSimpleName());
+			// System.out.println(table.getClazz().getSimpleName());
 			assertTrue(table.getObjectList().size() > 2);
 			Set<String> ids = new HashSet<String>();
 
@@ -29,7 +29,7 @@ public class VmeReaderTest {
 
 				Method method = object.getClass().getDeclaredMethod("getID");
 				Object id = method.invoke(object);
-				System.out.println(id);
+				// System.out.println(id);
 				assertFalse(ids.contains(id));
 			}
 

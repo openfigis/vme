@@ -25,7 +25,7 @@ public class Vme {
 	@ManyToOne
 	private Rfmo rfmo;
 
-	@OneToMany
+	@OneToMany(mappedBy = "vme")
 	private List<SpecificMeasures> specificMeasuresList = new ArrayList<SpecificMeasures>();;
 
 	/** */
@@ -149,6 +149,28 @@ public class Vme {
 
 	public void setDescriptionImpact(String descriptionImpact) {
 		this.descriptionImpact = descriptionImpact;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vme other = (Vme) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }

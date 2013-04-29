@@ -29,7 +29,7 @@ public class VmeAccessDbImportTest {
 	 * 
 	 */
 	@Test
-	public void testGenerateObjects() {
+	public void testImportMsAccessData() {
 		i.importMsAccessData();
 	}
 

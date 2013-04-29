@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,6 +40,9 @@ public class Meeting {
 	 */
 	@OneToOne
 	private GeneralMeasures generalMeasures;
+
+	@ManyToOne
+	private Rfmo rfmo;
 
 	/** */
 	private String reportSummary;
@@ -124,6 +128,36 @@ public class Meeting {
 
 	public void setMeetingDocument(Source meetingDocument) {
 		this.meetingDocument = meetingDocument;
+	}
+
+	public Rfmo getRfmo() {
+		return rfmo;
+	}
+
+	public void setRfmo(Rfmo rfmo) {
+		this.rfmo = rfmo;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Meeting other = (Meeting) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 }

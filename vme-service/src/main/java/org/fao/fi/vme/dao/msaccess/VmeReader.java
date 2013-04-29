@@ -19,8 +19,8 @@ public class VmeReader {
 		tableReader.setConnection(connectionProvider.getConnecton());
 	}
 
-	private final Class<?> tables[] = { VME.class, Measures_VME_General.class, Measues_VME_Specific.class,
-			Meetings.class, RFB_VME_Fishing_History.class, RFB_MetaData.class };
+	private final Class<?> tables[] = { Meetings.class, RFB_MetaData.class, VME.class, Measues_VME_Specific.class,
+			Measures_VME_General.class, RFB_VME_Fishing_History.class };
 
 	public List<Table> readObjects() {
 

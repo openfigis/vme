@@ -1,7 +1,9 @@
 package org.fao.fi.vme.dao.msaccess;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -17,6 +19,7 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -64,9 +67,32 @@ public class LinkerTest {
 				if (object instanceof GeneralMeasures) {
 					validateGeneralMeasuresObject(object);
 				}
-
 			}
+		}
+		validateRelationVmeSpecificMeasure(objectCollectionList);
 
+	}
+
+	private void validateRelationVmeSpecificMeasure(List<ObjectCollection> objectCollectionList) {
+		ObjectCollection vmeCollection = null;
+		ObjectCollection specificMeasuresCollection = null;
+		for (ObjectCollection objectCollection : objectCollectionList) {
+			if (objectCollection.getClazz().equals(Vme.class)) {
+				vmeCollection = objectCollection;
+			}
+			if (objectCollection.getClazz().equals(SpecificMeasures.class)) {
+				specificMeasuresCollection = objectCollection;
+			}
+		}
+		List<Object> vmeList = vmeCollection.getObjectList();
+		List<Object> smList = specificMeasuresCollection.getObjectList();
+		Set<String> vmeIds = new HashSet<String>();
+		for (Object object : smList) {
+			SpecificMeasures sm = (SpecificMeasures) object;
+			String combi = sm.getVme().getId() + " " + sm.getId();
+			System.out.println(combi);
+			assertFalse(vmeIds.contains(combi));
+			assertTrue(vmeIds.add(combi));
 		}
 
 	}
@@ -83,6 +109,10 @@ public class LinkerTest {
 	private void validateVmeObject(Object object) {
 		Vme o = (Vme) object;
 		assertNotNull(o.getRfmo().getId());
+		assertTrue(o.getSpecificMeasuresList().size() > 0);
+		assertNotNull(o.getValidityPeriod().getBeginYear());
+		assertNotNull(o.getValidityPeriod().getEndYear());
+		assertTrue(o.getId() <= 212);
 
 	}
 
@@ -111,6 +141,8 @@ public class LinkerTest {
 	private void validateSpecificMeasuresObject(Object object) {
 		SpecificMeasures o = (SpecificMeasures) object;
 		assertNotNull(o.getVme());
+		assertTrue(o.getVme().getSpecificMeasuresList().size() > 0);
+
 	}
 
 }

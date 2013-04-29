@@ -11,8 +11,17 @@ public class VmeWriter {
 
 	public void write(List<ObjectCollection> objectCollectionList) {
 		for (ObjectCollection objectCollection : objectCollectionList) {
+			System.out.println(objectCollection.getClazz().getSimpleName());
 			tableWriter.write(objectCollection);
 		}
-
 	}
+
+	public void merge(List<ObjectCollection> objectCollectionList) {
+		for (ObjectCollection objectCollection : objectCollectionList) {
+			System.out.println("========================");
+			System.out.println(objectCollection.getClazz().getSimpleName());
+			tableWriter.merge(objectCollection);
+		}
+	}
+
 }
