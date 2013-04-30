@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dwc="http://rs.tdwg.org/dwc/terms/" targetNamespace="http://rs.tdwg.org/dwc/terms/">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:element name="Taxon">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Taxon</Title>
+				<Description>The category of information pertaining to taxonomic names, taxon name usages, or taxon concepts.</Description>
+				<usage>For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="false">
+			<xs:all>
+				<xs:element ref="dwc:taxonID" minOccurs="0"/>
+				<!--<xs:element ref="scientificNameID"/>
+				<xs:element ref="acceptedNameUsageID"/>
+				<xs:element ref="parentNameUsageID"/>
+				<xs:element ref="originalNameUsageID"/>
+				<xs:element ref="nameAccordingToID"/>
+				<xs:element ref="namePublishedInID"/>
+				<xs:element ref="taxonConceptID"/>-->
+				<xs:element ref="dwc:scientificName" minOccurs="0"/>
+				<!--<xs:element ref="dwc:acceptedNameUsage"/>
+				<xs:element ref="dwc:parentNameUsage"/>
+				<xs:element ref="dwc:originalNameUsage"/>
+				<xs:element ref="dwc:nameAccordingTo"/>-->
+				<xs:element ref="dwc:namePublishedIn" minOccurs="0"/>
+				<!--<xs:element ref="dwc:namePublishedInYear"/>
+				<xs:element ref="dwc:higherClassification"/>-->
+				<xs:element ref="dwc:kingdom" minOccurs="0"/>
+				<xs:element ref="dwc:phylum" minOccurs="0"/>
+				<xs:element ref="dwc:class" minOccurs="0"/>
+				<xs:element ref="dwc:order" minOccurs="0"/>
+				<xs:element ref="dwc:family" minOccurs="0"/>
+				<xs:element ref="dwc:genus" minOccurs="0"/>
+				<xs:element ref="dwc:subgenus" minOccurs="0"/>
+				<xs:element ref="dwc:specificEpithet" minOccurs="0"/>
+				<!--<xs:element ref="dwc:infraspecificEpithet"/>
+				<xs:element ref="dwc:taxonRank"/>
+				<xs:element ref="dwc:verbatimTaxonRank"/>-->
+				<xs:element ref="dwc:scientificNameAuthorship"/>
+				<!--<xs:element ref="dwc:vernacularName"/>
+				<xs:element ref="dwc:nomenclaturalCode"/>
+				<xs:element ref="dwc:taxonomicStatus"/>
+				<xs:element ref="dwc:nomenclaturalStatus"/>
+				<xs:element ref="dwc:taxonRemarks"/>-->
+			</xs:all>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="taxonID">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Taxon Identifier</Title>
+				<Description>An identifier for the set of taxon information (data associated with the Taxon class). May be a global unique identifier or an identifier specific to the data set.</Description>
+				<usage>Examples: "8fa58e08-08de-4ac1-b69c-1235340b7001", "32567", "http://species.gbif.org/abies_alba_1753", "urn:lsid:gbif.org:usages:32567". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="scientificName">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Scientific Name</Title>
+				<Description>The full scientific name, with authorship and date information if known. When forming part of an Identification, this should be the name in lowest level taxonomic rank that can be determined. This term should not contain identification qualifications, which should instead be supplied in the IdentificationQualifier term.</Description>
+				<usage>Examples: "Coleoptera" (order), "Vespertilionidae" (family), "Manis" (genus), "Ctenomys sociabilis" (genus + specificEpithet), "Ambystoma tigrinum diaboli" (genus + specificEpithet + infraspecificEpithet), "Roptrocerus typographi (Györfi, 1952)" (genus + specificEpithet + scientificNameAuthorship), "Quercus agrifolia var. oxyadenia (Torr.) J.T. Howell" (genus + specificEpithet + taxonRank + infraspecificEpithet + scientificNameAuthorship). For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="namePublishedIn">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Name Published In</Title>
+				<Description>A reference for the publication in which the scientificName was originally established under the rules of the associated nomenclaturalCode.</Description>
+				<usage>Examples: "Pearson O. P., and M. I. Christie. 1985. Historia Natural, 5(37):388", "Forel, Auguste, Diagnosies provisoires de quelques espèces nouvelles de fourmis de Madagascar, récoltées par M. Grandidier., Annales de la Societe Entomologique de Belgique, Comptes-rendus des Seances 30, 1886". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="kingdom">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Kingdom</Title>
+				<Description>The full scientific name of the kingdom in which the taxon is classified.</Description>
+				<usage>Example: "Animalia", "Plantae". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="phylum">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Phylum</Title>
+				<Description>The full scientific name of the phylum or division in which the taxon is classified.</Description>
+				<usage>Example: "Chordata" (phylum), "Bryophyta" (division). For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="class">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Class</Title>
+				<Description>The full scientific name of the class in which the taxon is classified.</Description>
+				<usage>Example: "Mammalia", "Hepaticopsida". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="order">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Order</Title>
+				<Description>The full scientific name of the class in which the taxon is classified.</Description>
+				<usage>Example: "Carnivora", "Monocleales". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="family">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Family</Title>
+				<Description>The full scientific name of the class in which the taxon is classified.</Description>
+				<usage>Example: "Felidae", "Monocleaceae". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="genus">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Genus</Title>
+				<Description>The full scientific name of the class in which the taxon is classified.</Description>
+				<usage>Example: "Puma", "Monoclea". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="subgenus">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Subgenus</Title>
+				<Description>The full scientific name of the subgenus in which the taxon is classified. Values should include the genus to avoid homonym confusion.</Description>
+				<usage>Example: "Strobus (Pinus)", "Puma (Puma)" "Loligo (Amerigo)", "Hieracium subgen. Pilosella". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="specificEpithet">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Specific epithet</Title>
+				<Description>The name of the first or species epithet of the scientificName.</Description>
+				<usage>Example: "concolor", "gottschei". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="infraspecificEpithet">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Infraspecific epithet</Title>
+				<Description>The name of the lowest or terminal infraspecific epithet of the scientificName, excluding any rank designation.</Description>
+				<usage>Example: "concolor", "oxyadenia", "sayi". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="scientificNameAuthorship">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Scientific name authorship</Title>
+				<Description>The authorship information for the scientificName formatted according to the conventions of the applicable nomenclaturalCode.</Description>
+				<usage>Example: "(Torr.) J.T. Howell", "(Martinovský) Tzvelev", "(Györfi, 1952)". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="identificationReferences">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Identification References</Title>
+				<Description>A list (concatenated and separated) of references (publication, global unique identifier, URI) used in the Identification.</Description>
+				<usage>Example: "Aves del Noroeste Patagonico. Christie et al. 2004.". For discussion see http://code.google.com/p/darwincore/wiki/Identification</usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
