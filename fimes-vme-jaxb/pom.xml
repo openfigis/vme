@@ -6,9 +6,6 @@
 	<artifactId>fimes-vme-jaxb</artifactId>
 	<version>0.0.1</version>
 	<url>http://km.fao.org/FIGISwiki/index.php/Webservice_Fishery_Resources_Implementation#Jaxb_Maven_plugin</url>
-	<scm>
-		<connection>scm:svn:https://openfigis.svn.sourceforge.net/svnroot/openfigis/fisheryresources/trunk/resource-factsheet-jaxb</connection>
-	</scm>
 	<build>
 		<plugins>
 			<plugin>
