@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Aureliano Gentile December 2012 - VME XML fact sheet Prototype -->
+<fi:FIGISDoc xmlns:fi="http://www.fao.org/fi/figis/devcon/" xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.1" xmlns:ags="http://www.purl.org/agmes/1.1/" xmlns:aida="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:lang="en" xsi:schemaLocation="http://www.fao.org/fi/figis/devcon/ http://www.fao.org/fi/figis/devcon/schema/3_6/fi.xsd">
+	<fi:DataEntry>
+		<fi:Editor>Aureliano</fi:Editor>
+		<dcterms:Created>2012-06-22</dcterms:Created>
+	</fi:DataEntry>
+	<fi:ObjectSource>
+		<fi:Owner>
+			<fi:CollectionRef>
+				<fi:FigisID>7300</fi:FigisID>
+			</fi:CollectionRef>
+		</fi:Owner>
+		<fi:CorporateCoverPage>
+			<fi:FigisID>791</fi:FigisID>
+		</fi:CorporateCoverPage>
+		<fi:CoverPage>
+			<dcterms:Created>2012-12-18</dcterms:Created>
+		</fi:CoverPage>
+	</fi:ObjectSource>
+	<fi:VME>
+		<fi:VMEIdent>
+			<fi:FigisID>10</fi:FigisID>
+			<fi:ForeignID Code="VME_NAFO_01" CodeSystem="invid"/>
+			<dc:Title>Corner Rise Seamounts</dc:Title>
+			<fi:ReportingYear>2012</fi:ReportingYear>
+		</fi:VMEIdent>
+		<fi:Overview>
+			<fi:Text><![CDATA[text text text]]></fi:Text>
+			<fi:Factsheet>
+				<fi:VMERef>
+					<fi:FigisID>10</fi:FigisID>
+				</fi:VMERef>
+				<fi:VMERef>
+					<fi:ForeignID CodeSystem="invid" Code="VME_NAFO_01"/>
+				</fi:VMERef>
+				<fi:AqResRef>
+					<fi:FigisID>10545</fi:FigisID>
+				</fi:AqResRef>
+				<fi:AqResRef>
+					<fi:ForeignID Code="006:0027" CodeSystem="invid"/>
+				</fi:AqResRef>
+			</fi:Factsheet>
+		</fi:Overview>
+		<fi:Sources>
+			<fi:BiblioEntry>FAO Fisheries and Aquaculture Department
+				<dc:Identifier Type="URI">http://www.fao.org/fishery</dc:Identifier>
+			</fi:BiblioEntry>
+		</fi:Sources>
+	</fi:VME>
+</fi:FIGISDoc>

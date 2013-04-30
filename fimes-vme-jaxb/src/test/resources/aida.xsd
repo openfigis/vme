@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:aida="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" targetNamespace="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+	<xs:element name="Funding">
+		<xs:annotation>
+			<xs:documentation>
+				<Title/>
+				<Description/>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:choice maxOccurs="unbounded">
+				<xs:element ref="aida:FundingOrg"/>
+				<xs:element ref="aida:Yearly"/>
+				<xs:element ref="aida:TermsAssist"/>
+				<xs:element ref="aida:Total"/>
+				<xs:element ref="aida:ByCategory"/>
+			</xs:choice>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FundingOrg">
+		<xs:annotation>
+			<xs:documentation>
+				<Title/>
+				<Description/>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:choice maxOccurs="unbounded"/>
+			<xs:attribute name="RefKey" type="xs:string"/>
+			<xs:attribute name="AttributeAddedBy" type="xs:string"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Yearly">
+		<xs:annotation>
+			<xs:documentation>
+				<Title/>
+				<Description/>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="aida:YearStarting"/>
+				<xs:element ref="aida:Amount" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TermsAssist">
+		<xs:annotation>
+			<xs:documentation>
+				<Title/>
+				<Description/>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Terms">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="2"/>
+						<xs:enumeration value="3"/>
+						<xs:enumeration value="4"/>
+						<xs:enumeration value="5"/>
+						<xs:enumeration value="6"/>
+						<xs:enumeration value="7"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="AttributeAddedBy" type="xs:string"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Total">
+		<xs:annotation>
+			<xs:documentation>
+				<Title/>
+				<Description/>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Amount" type="xs:string"/>
+			<xs:attribute name="Currency" type="xs:string"/>
+			<xs:attribute name="AttributeAddedBy" type="xs:string"/>
+			<xs:attribute name="ConvertedBy" type="xs:string"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ByCategory">
+		<xs:annotation>
+			<xs:documentation>
+				<Title/>
+				<Description/>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="aida:Category"/>
+				<xs:choice maxOccurs="unbounded">
+					<xs:element ref="aida:CatTotal"/>
+					<xs:element ref="aida:CatYearly"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="YearStarting">
+		<xs:annotation>
+			<xs:documentation>
+				<Title/>
+				<Description/>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Date" type="xs:string"/>
+			<xs:attribute name="AttributeAddedBy" type="xs:string"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Amount">
+		<xs:annotation>
+			<xs:documentation>
+				<Title/>
+				<Description/>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Amount" type="xs:string"/>
+			<xs:attribute name="Currency" type="xs:string"/>
+			<xs:attribute name="AttributeAddedBy" type="xs:string"/>
+			<xs:attribute name="ConvertedBy" type="xs:string"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Category">
+		<xs:annotation>
+			<xs:documentation>
+				<Title/>
+				<Description/>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="TransBy" type="xs:string"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CatTotal">
+		<xs:annotation>
+			<xs:documentation>
+				<Title/>
+				<Description/>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Amount" type="xs:string"/>
+			<xs:attribute name="Currency" type="xs:string"/>
+			<xs:attribute name="AttributeAddedBy" type="xs:string"/>
+			<xs:attribute name="ConvertedBy" type="xs:string"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CatYearly">
+		<xs:annotation>
+			<xs:documentation>
+				<Title/>
+				<Description/>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="aida:YearStarting"/>
+				<xs:element ref="aida:Amount" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.fao.fi</groupId>
+	<artifactId>fimes-vme-jaxb</artifactId>
+	<version>0.0.1</version>
+	<url>http://km.fao.org/FIGISwiki/index.php/Webservice_Fishery_Resources_Implementation#Jaxb_Maven_plugin</url>
+	<scm>
+		<connection>scm:svn:https://openfigis.svn.sourceforge.net/svnroot/openfigis/fisheryresources/trunk/resource-factsheet-jaxb</connection>
+	</scm>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<schemaFiles>http://www.fao.org/fi/figis/devcon/schema/3_6/fi.xsd</schemaFiles>
+					<packageName>org.fao.fi.fimes</packageName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.2.6</version>
+		</dependency>
+	</dependencies>
+</project>

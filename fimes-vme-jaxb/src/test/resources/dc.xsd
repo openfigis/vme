@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://purl.org/dc/elements/1.1/">
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:element name="Title">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Title</Title>
+				<Description>Name given to the element which contains dc:Title. The title is sometimes used to search for a FIGIS reference. It is also used in some reports as a paragraph header for the presentation of the content of dc:Title's wrapping element.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Type"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Creator">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Author</Title>
+				<Description>Entity primarily responsible for creating, making available and making contribution to the intellectual content of the resource. Examples of a Creator include a person, an organization, a service or an agency. Typically, the name of the creator should be used. This element describes all entities (Agents) that handle the resource i.e. creating, contributing or making it available.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Publisher">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Publisher</Title>
+				<Description>An entity responsible for making the resource available. Examples of a Publisher include a person, an organisation, or a service. Typically, the name of a Publisher should be used to indicate the entity. </Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Subject">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Subject</Title>
+				<Description>Typically, a Subject will be expressed as keywords, key phrases or classification codes that describe a topic of the resource. Recommended best practice is to select a value from a controlled vocabulary or formal classification scheme.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Type"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Description">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Description</Title>
+				<Description>Description may include but is not limited to: an abstract, table of contents, reference to a graphical representation of content or a free-text account of the content.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="dcterms:abstract"/>
+				<xs:element ref="dcterms:Abstrakt"/>
+			</xs:choice>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Date">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Date</Title>
+				<Description>A date associated with an event in the life cycle of the resource. Typically, Date will be associated with the creation or availability of the resource. Recommended best practice for encoding the date value is defined in a profile of ISO 8601 [W3C-DTF] and follows the YYYY-MM-DD format.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Type"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Type">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Type</Title>
+				<Description>The nature or genre of the content of the resource. Type includes terms describing general categories, functions, genres, or aggregation levels for content. Recommended best practice is to select a value from a controlled vocabulary (For example, the working draft list of Dublin Core Types [DCT1]). To describe the physical or digital manifestation of the resource, use the FORMAT element. Recommended List: Collection | Dataset | Event | Image | InteractiveResource | Service | Software | Text | PhysicalObject | StillImage | MovingImage</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Type"/>
+			<xs:attribute name="DCMIType">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="Collection"/>
+						<xs:enumeration value="Dataset"/>
+						<xs:enumeration value="Event"/>
+						<xs:enumeration value="Image"/>
+						<xs:enumeration value="InteractiveResource"/>
+						<xs:enumeration value="Service"/>
+						<xs:enumeration value="Software"/>
+						<xs:enumeration value="Text"/>
+						<xs:enumeration value="PhysicalObject"/>
+						<xs:enumeration value="StillImage"/>
+						<xs:enumeration value="MovingImage"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Format">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Format</Title>
+				<Description>The physical or digital manifestation of the resource. Typically, Format may include the media-type or dimensions of the resource. Format may be used to determine the software, hardware or other equipment needed to display or operate the resource. Examples of dimensions include size and duration. Recommended best practice is to select a value from a controlled vocabulary (For example, the list of Internet Media Types [MIME] defining computer media formats).</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Type"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Identifier">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Identifier</Title>
+				<Description>The Dublin Core element that is an unambiguous reference to the resource within a given context. Recommended best practice is to Identify the resource by means of a string or number conforming to a formal Identification system.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Type"/>
+			<xs:attribute ref="xml:lang"/>
+			<xs:attribute name="scheme" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Source">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Source</Title>
+				<Description>Source is a Reference to a resource from which the present resource is derived. The present resource may be derived from the Source resource in whole or in part. Recommended best practice is to reference the resource by means of a string or number conforming to a formal Identification system.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Type"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Language">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Language</Title>
+				<Description>A language of the intellectual content of the resource. Recommended best practice for the values of the Language element is defined by RFC 1766 [rfc-1766] which includes a two-letter Language Code (Taken from the ISO 639 standard [iso639-2]), followed optionally, by a two-letter Country Code (Taken from the ISO 3166 standard [iso-3166]). For example, 'en' for English, 'fr' for French, or 'en-uk' for English used in the United Kingdom.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Type"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Relation">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Relation</Title>
+				<Description>A reference to a related resource. Recommended best practice is to reference the resource by means of a string or number conforming to a formal Identification system.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Type"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Coverage">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Coverage</Title>
+				<Description>The extent or scope of the content of the resource. Coverage will typically include spatial location (A place name or geographic coordinates), temporal DCMI-Period (A DCMI-Period label, date, or date range) or jurisdiction (Such as a named orgistrative entity). Recommended best practice is to select a value from a controlled vocabulary (For example, the Thesaurus of Geographic Names [TGN]) and that, where appropriate, named places or time DCMI-Periods be used in preference to numeric identifiers such as sets of coordinates or date ranges. </Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Type"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,14 @@
+<jxb:bindings version="1.0" xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd">
+
+
+	<jxb:bindings node="xs:element[@name='Abstract']" schemaLocation="http://www.fao.org/fi/figis/devcon/schema/3_6/dcterms.xsd">
+		<jxb:class name="Abstrakt" />
+	</jxb:bindings>
+
+	<jxb:bindings node="xs:element[@name='OrgRef']/xs:complexType/xs:attribute[3]" schemaLocation="http://www.fao.org/fi/figis/devcon/schema/3_6/aqres.xsd">
+		<jxb:property name="dcTitle" />
+	</jxb:bindings>
+
+
+</jxb:bindings> 

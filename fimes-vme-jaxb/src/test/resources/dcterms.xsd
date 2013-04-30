@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://purl.org/dc/terms/">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:element name="Alternative">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Alternative title</Title>
+				<Description>Any form of the title used as a substitute or alternative to the formal title. This qualifier can include Title abbreviations as well as translations. "Any form of the name used as a substitute or alternative to the formal name of the collection" (Dublin Core Metadata Initiative - DCMI). Tipically it is a simplified title for displaying purposes.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang"/>
+			<xs:attribute name="AltElemName"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="abstract">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Abstrakt</Title>
+				<Description>A summary of the content of the resource.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang"/>
+			<xs:attribute name="AltElemName"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Abstrakt">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Abstrakt</Title>
+				<Description>A summary of the content of the resource.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang"/>
+			<xs:attribute name="AltElemName"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Created">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Date of creation</Title>
+				<Description>Date of creation of the information resource's intellectual content.</Description>
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="Modified">
+	</xs:element>
+	<xs:element name="Extent">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Extent</Title>
+				<Description>The size or duration of the resource.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Type"/>
+			<xs:attribute ref="xml:lang"/>
+			<xs:attribute name="AltElemName"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Audience">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Audience</Title>
+				<Description>A category of user for whom the resource is intended. Frequently, creators and publishers of re in education and training explicitly state the category of user for whom the resource is intended. In like fashion, end-users in the education/training domain frequently search using audience characteristics as search terms.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang"/>
+			<xs:attribute name="AltElemName"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
