@@ -11,6 +11,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</properties>
 
+
 	<modules>
 		<module>vme-service</module>
 		<module>vme-web</module>
