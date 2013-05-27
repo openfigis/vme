@@ -14,10 +14,6 @@ import org.fao.fi.vme.domain.Meeting;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.msaccess.component.Linker;
-import org.fao.fi.vme.msaccess.component.MsAcces2DomainMapper;
-import org.fao.fi.vme.msaccess.component.VmeReader;
-import org.fao.fi.vme.msaccess.component.VmeWriter;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -80,17 +76,16 @@ public class LinkerTest {
 	}
 
 	private void validateRelationVmeSpecificMeasure(List<ObjectCollection> objectCollectionList) {
-		ObjectCollection vmeCollection = null;
+		ObjectCollection vmeCollection;
 		ObjectCollection specificMeasuresCollection = null;
 		for (ObjectCollection objectCollection : objectCollectionList) {
-			if (objectCollection.getClazz().equals(Vme.class)) {
-				vmeCollection = objectCollection;
-			}
+			// if (objectCollection.getClazz().equals(Vme.class)) {
+			// vmeCollection = objectCollection;
+			// }
 			if (objectCollection.getClazz().equals(SpecificMeasures.class)) {
 				specificMeasuresCollection = objectCollection;
 			}
 		}
-		List<Object> vmeList = vmeCollection.getObjectList();
 		List<Object> smList = specificMeasuresCollection.getObjectList();
 		Set<String> vmeIds = new HashSet<String>();
 		for (Object object : smList) {
