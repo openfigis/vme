@@ -1,11 +1,11 @@
-package org.fao.fi.vme.dao;
+package org.fao.fi.vme;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
-import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.EntityManagerFactoryProducer;
 import org.fao.fi.vme.dao.config.EntityManagerProducer;
-import org.fao.fi.vme.domain.Vme;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -15,19 +15,17 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ EntityManagerFactoryProducer.class, EntityManagerProducer.class })
-public class VmeDaoTest {
+public class CdiTest {
 
 	@Inject
-	VmeDao dao;
+	EntityManagerFactory f;
+	@Inject
+	EntityManager e;
 
 	@Test
-	public void testPersistVme() {
-		assertNotNull(dao);
-
-		Vme vme = new Vme();
-		String criteria = "go";
-		vme.setCriteria(criteria);
-		// dao.persistVme(vme);
+	public void test() {
+		assertNotNull(f);
+		assertNotNull(e);
 
 	}
 
