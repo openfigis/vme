@@ -9,6 +9,8 @@
 	<build>
 		<plugins>
 			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>1.6</source>
@@ -16,19 +18,15 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jaxb2-maven-plugin</artifactId>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
 				<executions>
 					<execution>
 						<goals>
-							<goal>xjc</goal>
+							<goal>generate</goal>
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<schemaFiles>http://www.fao.org/fi/figis/devcon/schema/3_6/fi.xsd</schemaFiles>
-					<packageName>org.fao.fi.fimes</packageName>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

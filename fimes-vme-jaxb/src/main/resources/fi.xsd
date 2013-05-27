@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ags="http://www.purl.org/agmes/1.1/" xmlns:aida="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dwc="http://rs.tdwg.org/dwc/terms/" xmlns:fi="http://www.fao.org/fi/figis/devcon/" targetNamespace="http://www.fao.org/fi/figis/devcon/" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" 
+xmlns:ags="http://www.purl.org/agmes/1.1/" 
+xmlns:aida="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd" 
+xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dwc="http://rs.tdwg.org/dwc/terms/" 
+xmlns:fi="http://www.fao.org/fi/figis/devcon/" 
+targetNamespace="http://www.fao.org/fi/figis/devcon/" elementFormDefault="qualified">
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
 	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
 	<xs:import namespace="http://rs.tdwg.org/dwc/terms/" schemaLocation="dwc.xsd"/>
@@ -11,6 +16,7 @@
 			<Title>Fisheries Metadata Element Set (FIMES)</Title>
 			<Description>To manage information in a systematic and cost-effective way, FIGIS has built a metadata level (a topic tree) for each information domain, providing a standard template for the display of Web page content. The Fisheries Metadata Element Set (FIMES) describes this meta level which is based on XML language.</Description>
 		</xs:documentation>
+		
 	</xs:annotation>
 	<xs:group name="indexEnt">
 		<xs:choice>
@@ -1236,7 +1242,7 @@
 				<xs:element ref="dcterms:Modified"/>
 				<xs:element ref="dc:Identifier"/>
 				<xs:element ref="dc:Description"/>
-				<xs:element ref="dcterms:Abstract"/>
+				<xs:element ref="dcterms:abstract"/>
 				<xs:element ref="dc:Subject"/>
 				<xs:element ref="dc:Publisher"/>
 				<xs:element ref="dc:Language"/>
@@ -1702,17 +1708,9 @@
 			<xs:choice>
 				<xs:sequence>
 					<xs:element ref="fi:CollectionRef"/>
-					<xs:choice maxOccurs="unbounded">
-						<xs:element ref="fi:CollectionProfile"/>
-						<xs:element ref="fi:CollectionFeature"/>
-					</xs:choice>
 				</xs:sequence>
 				<xs:sequence>
 					<xs:element ref="fi:CollectionIdent"/>
-					<xs:choice minOccurs="0" maxOccurs="unbounded">
-						<xs:element ref="fi:CollectionProfile"/>
-						<xs:element ref="fi:CollectionFeature"/>
-					</xs:choice>
 					<xs:group ref="fi:indexEnt" minOccurs="0"/>
 				</xs:sequence>
 			</xs:choice>
@@ -2117,7 +2115,6 @@
 		<xs:complexType mixed="false">
 			<xs:sequence>
 				<xs:element ref="fi:LandAreaRef"/>
-				<xs:choice minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:attribute ref="xml:lang"/>
 			<xs:attribute name="Label" type="xs:string"/>
@@ -2292,7 +2289,6 @@
 		<xs:complexType mixed="false">
 			<xs:sequence>
 				<xs:element ref="fi:LandAreaRef"/>
-				<xs:choice minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:attribute ref="xml:lang"/>
 			<xs:attribute name="Label" type="xs:string"/>
@@ -2313,11 +2309,9 @@
 				<xs:element ref="dc:Language"/>
 				<xs:element ref="dc:Description"/>
 				<xs:element ref="dc:Subject"/>
-				<xs:element ref="dcterms:Abstract"/>
+				<xs:element ref="dcterms:abstract"/>
 				<xs:element ref="dcterms:Alternative"/>
 				<xs:element ref="dc:Title"/>
-				<xs:element ref="dcterms:replaces"/>
-				<xs:element ref="dcterms:isReplacedBy"/>
 				<xs:element ref="fi:ChapterTitle"/>
 				<xs:element ref="fi:VolumeTitle"/>
 			</xs:choice>
@@ -4845,7 +4839,6 @@
 					<xs:element ref="fi:VesseltypeRef" minOccurs="0"/>
 					<xs:element ref="fi:FishTechniqueRef"/>
 				</xs:choice>
-				<xs:choice minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:attribute ref="xml:lang"/>
 			<xs:attribute name="Label" type="xs:string"/>
@@ -6260,7 +6253,7 @@ an historical review of the Stock or Resource exploitation, management regimes o
 				<xs:element ref="fi:AquacultureUse"/>
 				<xs:element ref="fi:EcologicEffects"/>
 				<xs:element ref="fi:SocioEconomicEffects"/>
-				<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+				
 			</xs:sequence>
 			<xs:attribute ref="xml:lang"/>
 			<xs:attribute name="Label" type="xs:string"/>
@@ -6308,7 +6301,7 @@ an historical review of the Stock or Resource exploitation, management regimes o
 				</xs:choice>
 				<xs:element ref="fi:ReasonIntroducedAqSpecies"/>
 				<xs:element ref="fi:Introducer"/>
-				<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+				
 			</xs:sequence>
 			<xs:attribute ref="xml:lang"/>
 			<xs:attribute name="Label" type="xs:string"/>
@@ -6780,17 +6773,9 @@ an historical review of the Stock or Resource exploitation, management regimes o
 			<xs:choice>
 				<xs:sequence>
 					<xs:element ref="fi:LegalFrameworkRef"/>
-					<xs:choice maxOccurs="unbounded">
-						<xs:element ref="fi:LegalFrameworkProfile"/>
-						<xs:element ref="fi:LegalFrameworkFeature"/>
-					</xs:choice>
 				</xs:sequence>
 				<xs:sequence>
 					<xs:element ref="fi:LegalFrameworkIdent"/>
-					<xs:choice minOccurs="0" maxOccurs="unbounded">
-						<xs:element ref="fi:LegalFrameworkProfile"/>
-						<xs:element ref="fi:LegalFrameworkFeature"/>
-					</xs:choice>
 					<xs:group ref="fi:indexEnt" minOccurs="0" maxOccurs="unbounded"/>
 				</xs:sequence>
 			</xs:choice>
@@ -8988,7 +8973,7 @@ an historical review of the Stock or Resource exploitation, management regimes o
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="true">
-			<xs:choice minOccurs="0" maxOccurs="unbounded"/>
+			
 			<xs:attribute name="Value" type="xs:positiveInteger"/>
 			<xs:attribute ref="xml:lang"/>
 			<xs:attribute name="Label" type="xs:string"/>
@@ -9498,7 +9483,6 @@ an historical review of the Stock or Resource exploitation, management regimes o
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
-			<xs:choice minOccurs="0" maxOccurs="unbounded"/>
 			<xs:attribute ref="xml:lang"/>
 			<xs:attribute name="Label" type="xs:string"/>
 		</xs:complexType>
@@ -11869,7 +11853,6 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 					<xs:element ref="fi:VesselActive"/>
 					<xs:element ref="fi:VesselSuspended"/>
 				</xs:choice>
-				<xs:choice minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:attribute ref="xml:lang"/>
 			<xs:attribute name="Label" type="xs:string"/>

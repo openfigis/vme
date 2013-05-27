@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dcterms="http://purl.org/dc/terms/" targetNamespace="http://purl.org/dc/elements/1.1/">
-	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns:dcterms="http://purl.org/dc/terms/" 
+targetNamespace="http://purl.org/dc/elements/1.1/">
+	<xs:import namespace="http://purl.org/dc/terms/" 
+	schemaLocation="dcterms.xsd"/>
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
 	<xs:element name="Title">
 		<xs:annotation>
@@ -58,7 +61,6 @@
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element ref="dcterms:abstract"/>
-				<xs:element ref="dcterms:Abstract"/>
 			</xs:choice>
 			<xs:attribute ref="xml:lang"/>
 		</xs:complexType>
