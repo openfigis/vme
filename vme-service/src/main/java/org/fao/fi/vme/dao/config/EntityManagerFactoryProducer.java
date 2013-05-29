@@ -16,7 +16,7 @@ public class EntityManagerFactoryProducer {
 	// The scope of the produced bean, in our case since we want to have only one EntityManagerFactory we mark it as
 	// application-scoped
 	public EntityManagerFactory create() {
-		return Persistence.createEntityManagerFactory("test"); // 3
+		return Persistence.createEntityManagerFactory("vme-persistence"); // 3
 	}
 
 	public void destroy(@Disposes EntityManagerFactory factory) { // 4
