@@ -17,6 +17,7 @@
 		<module>vme-web</module>
 		<module>vme-domain</module>
 		<module>vme-fimes-jaxb</module>
+		<module>vme-service-integrationtest</module>
 	</modules>
 
 	<dependencies>
