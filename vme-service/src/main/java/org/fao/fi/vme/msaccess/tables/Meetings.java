@@ -98,7 +98,7 @@ public class Meetings implements TableDomainMapper {
 		o.setCommittee(this.Committee);
 
 		MeetingDateParser p = new MeetingDateParser(this.Meeting_Date);
-		o.setStart(p.getStart());
+		o.setBegin(p.getStart());
 		o.setEnd(p.getEnd());
 
 		// o.setGeneralMeasures(this.G)

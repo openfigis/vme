@@ -21,10 +21,13 @@ public class Meeting {
 	@Id
 	private int id;
 
-	/** 
+	/**
+	 * 
+	 * Oracle does not like the start
+	 * 
 	 */
 	@Temporal(TemporalType.DATE)
-	private Date start;
+	private Date begin;
 
 	@Temporal(TemporalType.DATE)
 	private Date end;
@@ -66,12 +69,12 @@ public class Meeting {
 		this.id = id;
 	}
 
-	public Date getStart() {
-		return start;
+	public Date getBegin() {
+		return begin;
 	}
 
-	public void setStart(Date start) {
-		this.start = start;
+	public void setBegin(Date begin) {
+		this.begin = begin;
 	}
 
 	public Date getEnd() {
@@ -96,6 +99,14 @@ public class Meeting {
 
 	public void setGeneralMeasures(GeneralMeasures generalMeasures) {
 		this.generalMeasures = generalMeasures;
+	}
+
+	public Rfmo getRfmo() {
+		return rfmo;
+	}
+
+	public void setRfmo(Rfmo rfmo) {
+		this.rfmo = rfmo;
 	}
 
 	public String getReportSummary() {
@@ -128,14 +139,6 @@ public class Meeting {
 
 	public void setMeetingDocument(Source meetingDocument) {
 		this.meetingDocument = meetingDocument;
-	}
-
-	public Rfmo getRfmo() {
-		return rfmo;
-	}
-
-	public void setRfmo(Rfmo rfmo) {
-		this.rfmo = rfmo;
 	}
 
 	@Override

@@ -4,12 +4,36 @@
 
 	<persistence-unit name="vme-persistence"> <!--1 -->
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver}" /> 
+			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver}" />
 			<property name="javax.persistence.jdbc.url" value="${javax.persistence.jdbc.url}" />
 			<property name="javax.persistence.jdbc.user" value="${javax.persistence.jdbc.user}" />
 			<property name="javax.persistence.jdbc.password" value="${javax.persistence.jdbc.password}" />
-			<property name="hibernate.dialect" value="${hibernate.dialect}" /> 
+
+			<property name="show_sql" value="true" />
+
+
+
+
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}" />
+			<property name="hibernate.dialect" value="${hibernate.dialect}" />
+			<property name="hibernate.show_sql" value="true" />
+
+
+<!--  
+
+
+			<property name="hibernate.connection.provider_class" value="org.hibernate.connection.DBCPConnectionProvider" />
+
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.dbcp.initialSize" value="1" />
+			<property name="hibernate.dbcp.maxActive" value="5" />
+			<property name="hibernate.dbcp.maxIdle" value="20" />
+			<property name="hibernate.dbcp.minIdle" value="0" />
+
+
+ -->
+
+
 		</properties>
 	</persistence-unit>
 </persistence>
