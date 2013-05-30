@@ -1,6 +1,6 @@
 package org.fao.fi.vme.msaccess.component;
 
-import org.fao.fi.vme.msaccess.component.ConnectionProvider;
+import org.fao.fi.vme.msaccess.component.MsAccessConnectionProvider;
 import org.fao.fi.vme.msaccess.component.TableReader;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.fao.fi.vme.msaccess.tables.Measures_VME_General;
@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class TableReaderTest {
 
 	TableReader tr = new TableReader();
-	ConnectionProvider cp = new ConnectionProvider();
+	MsAccessConnectionProvider cp = new MsAccessConnectionProvider();
 
 	@Before
 	public void before() {

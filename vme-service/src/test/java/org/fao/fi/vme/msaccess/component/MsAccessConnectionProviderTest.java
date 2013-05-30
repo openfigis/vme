@@ -1,13 +1,13 @@
 package org.fao.fi.vme.msaccess.component;
 
-import org.fao.fi.vme.msaccess.component.ConnectionProvider;
+import org.fao.fi.vme.msaccess.component.MsAccessConnectionProvider;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
-public class ConnectionProviderTest {
+public class MsAccessConnectionProviderTest {
 
-	ConnectionProvider p = new ConnectionProvider();
+	MsAccessConnectionProvider p = new MsAccessConnectionProvider();
 
 	@Test
 	public void testGetConnecton() {

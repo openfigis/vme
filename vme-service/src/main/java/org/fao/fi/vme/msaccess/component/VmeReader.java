@@ -14,7 +14,7 @@ import org.fao.fi.vme.msaccess.tables.VME;
 public class VmeReader {
 
 	private final TableReader tableReader = new TableReader();
-	private final ConnectionProvider connectionProvider = new ConnectionProvider();
+	private final MsAccessConnectionProvider connectionProvider = new MsAccessConnectionProvider();
 
 	public VmeReader() {
 		tableReader.setConnection(connectionProvider.getConnecton());

@@ -1,6 +1,6 @@
 package org.fao.fi.vme.msaccess.mapping;
 
-import org.fao.fi.vme.msaccess.component.ConnectionProvider;
+import org.fao.fi.vme.msaccess.component.MsAccessConnectionProvider;
 import org.fao.fi.vme.msaccess.component.TableReader;
 import org.fao.fi.vme.msaccess.component.VmeReader;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class TableDomainMapperTest {
 	TableReader tr = new TableReader();
-	ConnectionProvider cp = new ConnectionProvider();
+	MsAccessConnectionProvider cp = new MsAccessConnectionProvider();
 
 	VmeReader r = new VmeReader();
 

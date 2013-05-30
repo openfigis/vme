@@ -1,6 +1,6 @@
 package org.fao.fi.vme.msaccess.tables;
 
-import org.fao.fi.vme.msaccess.component.ConnectionProvider;
+import org.fao.fi.vme.msaccess.component.MsAccessConnectionProvider;
 import org.fao.fi.vme.msaccess.component.TableReader;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.model.Table;
@@ -11,7 +11,7 @@ import org.junit.Test;
 public class Measues_VME_SpecificTest {
 
 	TableReader tr = new TableReader();
-	ConnectionProvider cp = new ConnectionProvider();
+	MsAccessConnectionProvider cp = new MsAccessConnectionProvider();
 
 	@Before
 	public void before() {
