@@ -7,12 +7,10 @@ import javax.persistence.OneToMany;
 
 public class VmeObservation {
 
-	@Column(name = "CD_VME", nullable = false)
 	@MapsId
 	@EmbeddedId
-	private int parentId;
+	RefVme refVme;
 
-	@Column(name = "CD_OBSERVATION", nullable = false)
 	@OneToMany(mappedBy = "rfmo")
 	@MapsId
 	@EmbeddedId

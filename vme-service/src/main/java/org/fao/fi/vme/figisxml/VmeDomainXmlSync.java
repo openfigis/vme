@@ -8,7 +8,7 @@ package org.fao.fi.vme.figisxml;
  */
 public class VmeDomainXmlSync {
 
-	public void updateFigisVmeXml() {
+	public void syncFigisVmeXml() {
 	}
 
 }

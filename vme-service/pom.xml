@@ -56,4 +56,42 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+
+	<profiles>
+		<profile>
+			<id>development</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- vme -->
+				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
+				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:cdidemo</javax.persistence.jdbc.url.vme>
+				<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
+				<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>
+				<hibernate.dialect.vme>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme>
+				<hibernate.hbm2ddl.auto.vme>create-drop</hibernate.hbm2ddl.auto.vme>
+
+				<!-- figis -->
+				<javax.persistence.jdbc.driver.figis>org.h2.Driver</javax.persistence.jdbc.driver.figis>
+				<javax.persistence.jdbc.url.figis>jdbc:h2:mem:cdidemo</javax.persistence.jdbc.url.figis>
+				<javax.persistence.jdbc.user.figis>sa</javax.persistence.jdbc.user.figis>
+				<javax.persistence.jdbc.password.figis></javax.persistence.jdbc.password.figis>
+				<hibernate.dialect.figis>org.hibernate.dialect.H2Dialect</hibernate.dialect.figis>
+				<hibernate.hbm2ddl.auto.figis>create-drop</hibernate.hbm2ddl.auto.figis>
+
+
+			</properties>
+		</profile>
+	</profiles>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
 </project>

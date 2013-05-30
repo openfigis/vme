@@ -8,14 +8,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 @Alternative
-public class EntityManagerProducer {
+public class VmeEntityManagerProducer {
 
 	@Inject
-	EntityManagerFactory emf; // 1
+	EntityManagerFactory vmeEmf; // 1
 
 	@Produces
 	public EntityManager create() {
-		return emf.createEntityManager();
+		return vmeEmf.createEntityManager();
 	}
 
 	public void destroy(@Disposes EntityManager em) {

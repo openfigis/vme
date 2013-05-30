@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 @Alternative
-public class EntityManagerFactoryProducer {
+public class VmeEntityManagerFactoryProducer {
 
 	@Produces
 	// Marks create() as a producer methods using its return type to determine what type of beans it can produce.
@@ -16,10 +16,15 @@ public class EntityManagerFactoryProducer {
 	// The scope of the produced bean, in our case since we want to have only one EntityManagerFactory we mark it as
 	// application-scoped
 	public EntityManagerFactory create() {
-		return Persistence.createEntityManagerFactory("vme-persistence"); // 3
+
+		// Properties p = new Properties();
+		// p.put("eclipselink.persistencexml", "/org/acme/acme-persistence.xml");
+		// EntityManagerFactory factory = Persistence.createEntityManagerFactory("acme", p);
+
+		return Persistence.createEntityManagerFactory("vme-persistence");
 	}
 
-	public void destroy(@Disposes EntityManagerFactory factory) { // 4
-		factory.close(); // 5
+	public void destroy(@Disposes EntityManagerFactory vmeEmf) {
+		vmeEmf.close();
 	}
 }

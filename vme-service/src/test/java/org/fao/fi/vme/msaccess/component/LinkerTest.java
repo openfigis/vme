@@ -7,8 +7,8 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.dao.config.EntityManagerFactoryProducer;
-import org.fao.fi.vme.dao.config.EntityManagerProducer;
+import org.fao.fi.vme.dao.config.VmeEntityManagerFactoryProducer;
+import org.fao.fi.vme.dao.config.VmeEntityManagerProducer;
 import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.Meeting;
 import org.fao.fi.vme.domain.Rfmo;
@@ -26,7 +26,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ EntityManagerFactoryProducer.class, EntityManagerProducer.class })
+@ActivatedAlternatives({ VmeEntityManagerFactoryProducer.class, VmeEntityManagerProducer.class })
 public class LinkerTest {
 
 	@Inject
