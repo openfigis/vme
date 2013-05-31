@@ -1,21 +1,29 @@
 package org.fao.fi.vme.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.fao.fi.vme.dao.config.Vme;
+import org.fao.fi.dao.Dao;
+import org.fao.fi.vme.dao.config.VmeDB;
+import org.fao.fi.vme.domain.Vme;
 
-public class VmeDao {
+public class VmeDao extends Dao {
 
 	@Inject
-	@Vme
+	@VmeDB
 	private EntityManager em;
 
-	// public void persistVme(VmeObservation vme) {
-	// EntityTransaction t = em.getTransaction();
-	// t.begin();
-	// em.persist(vme);
-	// t.commit();
-	// em.close();
-	// }
+	@SuppressWarnings("unchecked")
+	public List<Vme> loadVmes() {
+		return (List<Vme>) this.generateTypedQuery(em, Vme.class).getResultList();
+	}
+
+	public void persist(Object object) {
+		em.getTransaction().begin();
+		em.persist(object);
+		em.getTransaction().commit();
+	}
+
 }

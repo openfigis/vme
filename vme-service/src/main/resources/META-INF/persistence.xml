@@ -28,7 +28,7 @@
 
 	</persistence-unit>
 
-	<persistence-unit name="figis-persistence"> <!--1 -->
+	<persistence-unit name="figis-persistence"> 
 		<class>org.fao.fi.figis.domain.Observation</class>
 		<class>org.fao.fi.figis.domain.ObservationXml</class>
 		<class>org.fao.fi.figis.domain.RefVme</class>

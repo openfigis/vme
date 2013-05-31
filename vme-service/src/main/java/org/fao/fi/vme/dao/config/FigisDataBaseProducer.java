@@ -6,6 +6,7 @@ import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
 @Alternative
 public class FigisDataBaseProducer {
 
@@ -17,11 +18,11 @@ public class FigisDataBaseProducer {
 	// The scope of the produced bean, in our case since we want to have only one EntityManagerFactory we mark it as
 	// application-scoped
 	public EntityManagerFactory create() {
-		return Persistence.createEntityManagerFactory("vme-persistence"); // 3
+		return Persistence.createEntityManagerFactory("figis-persistence"); // 3
 	}
 
 	@Produces
-	@Figis
+	@FigisDB
 	public EntityManager produceEntityManager() {
 		return create().createEntityManager();
 	}

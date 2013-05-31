@@ -19,13 +19,13 @@ public class VmeDaoTest {
 	VmeDao dao;
 
 	@Test
-	public void testPersistVme() {
+	public void testLoadVmes() {
 		assertNotNull(dao);
 
 		Vme vme = new Vme();
 		String criteria = "go";
 		vme.setCriteria(criteria);
-		// dao.persistVme(vme);
+		dao.loadVmes();
 
 	}
 

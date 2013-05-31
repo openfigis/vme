@@ -2,6 +2,7 @@ package org.fao.fi.figis.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "FS_OBSERVATION_XML")
@@ -32,15 +33,16 @@ public class ObservationXml {
 	// </class>
 
 	@Column(name = "CD_XML", nullable = false)
-	String id;
+	@Id
+	private String id;
 
 	@ManyToOne
-	Observation observation;
+	private Observation observation;
 
 	@Column(name = "CD_LANGUAGE", nullable = false)
-	int language;
+	private int language;
 
 	@Column(name = "FG_STATUS", nullable = false)
-	int status;
+	private int status;
 
 }

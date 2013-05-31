@@ -145,7 +145,7 @@ public class Linker {
 	}
 
 	/**
-	 * Fills up a Vme with a Rfmo and the other way around.
+	 * Fills up a VmeDB with a Rfmo and the other way around.
 	 * 
 	 * 
 	 * @param vmeObject

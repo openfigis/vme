@@ -77,7 +77,7 @@ public class LinkerTest {
 	private void validateRelationVmeSpecificMeasure(List<ObjectCollection> objectCollectionList) {
 		ObjectCollection specificMeasuresCollection = null;
 		for (ObjectCollection objectCollection : objectCollectionList) {
-			// if (objectCollection.getClazz().equals(Vme.class)) {
+			// if (objectCollection.getClazz().equals(VmeDB.class)) {
 			// vmeCollection = objectCollection;
 			// }
 			if (objectCollection.getClazz().equals(SpecificMeasures.class)) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity(name = "FS_OBSERVATION")
@@ -19,18 +20,19 @@ public class Observation {
 	// <many-to-one name="coverPage" column="CD_COVER_PAGE" cascade="none" lazy="false"/>
 
 	@Column(name = "CD_OBSERVATION", nullable = false)
-	int id;
+	@Id
+	private int id;
 
 	@Column(name = "FG_PRIMARY", nullable = false)
-	boolean primary;
+	private boolean primary;
 
 	@Column(name = "FG_REFERENCE", nullable = false)
-	boolean reference;
+	private boolean reference;
 
 	@Column(name = "CD_COLLECTION", nullable = false)
-	int collection;
+	private int collection;
 
 	@OneToMany(mappedBy = "observation")
-	List<ObservationXml> observationsPerLanguage;
+	private List<ObservationXml> observationsPerLanguage;
 
 }

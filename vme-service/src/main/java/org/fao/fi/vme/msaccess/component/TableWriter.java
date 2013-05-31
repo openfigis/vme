@@ -3,13 +3,13 @@ package org.fao.fi.vme.msaccess.component;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.fao.fi.vme.dao.config.Vme;
+import org.fao.fi.vme.dao.config.VmeDB;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 
 public class TableWriter {
 
 	@Inject
-	@Vme
+	@VmeDB
 	EntityManager entityManager;
 
 	public void write(ObjectCollection objectCollection) {

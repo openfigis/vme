@@ -22,7 +22,7 @@ public class VmeDataBaseProducer {
 	}
 
 	@Produces
-	@Vme
+	@VmeDB
 	public EntityManager produceEntityManager() {
 		return create().createEntityManager();
 	}

@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import org.fao.fi.vme.dao.config.Vme;
+import org.fao.fi.vme.dao.config.VmeDB;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
@@ -32,7 +32,7 @@ public class TableWriterTest {
 	MsAcces2DomainMapper mapper = new MsAcces2DomainMapper();
 
 	@Inject
-	@Vme
+	@VmeDB
 	EntityManager entityManager;
 
 	@Before
