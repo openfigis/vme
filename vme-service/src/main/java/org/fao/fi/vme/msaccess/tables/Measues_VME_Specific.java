@@ -69,7 +69,6 @@ public class Measues_VME_Specific implements TableDomainMapper {
 		VME_SpecificMeasure = vME_SpecificMeasure;
 	}
 
-	@Override
 	public Object map() {
 		SpecificMeasures o = new SpecificMeasures();
 		// o.getDocument().setUrl(this.get)

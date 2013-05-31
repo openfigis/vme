@@ -1,8 +1,12 @@
 package org.fao.fi.figis.domain;
 
+import java.sql.Clob;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "FS_OBSERVATION_XML")
@@ -37,6 +41,7 @@ public class ObservationXml {
 	private String id;
 
 	@ManyToOne
+	@JoinColumn(name = "CD_OBSERVATION")
 	private Observation observation;
 
 	@Column(name = "CD_LANGUAGE", nullable = false)
@@ -44,5 +49,69 @@ public class ObservationXml {
 
 	@Column(name = "FG_STATUS", nullable = false)
 	private int status;
+
+	@Column(name = "DT_CREATION", nullable = false)
+	private Date creationDate;
+
+	@Column(name = "DT_LAST_EDIT", nullable = false)
+	private Date lastEditDate;
+
+	private Clob xml;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Observation getObservation() {
+		return observation;
+	}
+
+	public void setObservation(Observation observation) {
+		this.observation = observation;
+	}
+
+	public int getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(int language) {
+		this.language = language;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public Date getLastEditDate() {
+		return lastEditDate;
+	}
+
+	public void setLastEditDate(Date lastEditDate) {
+		this.lastEditDate = lastEditDate;
+	}
+
+	public Clob getXml() {
+		return xml;
+	}
+
+	public void setXml(Clob xml) {
+		this.xml = xml;
+	}
 
 }

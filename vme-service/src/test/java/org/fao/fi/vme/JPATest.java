@@ -3,6 +3,7 @@ package org.fao.fi.vme;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.fao.fi.vme.dao.config.VmeDB;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
@@ -19,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 public class JPATest {
 
 	@Inject
-	@org.fao.fi.vme.dao.config.VmeDB
+	@VmeDB
 	private EntityManager manager;
 
 	@Test

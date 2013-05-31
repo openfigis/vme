@@ -119,7 +119,6 @@ public class Measures_VME_General implements TableDomainMapper {
 		Link_CEM_Source = link_CEM_Source;
 	}
 
-	@Override
 	public Object map() {
 		GeneralMeasures o = new GeneralMeasures();
 		o.setEncounter(this.getVME_Encounter());

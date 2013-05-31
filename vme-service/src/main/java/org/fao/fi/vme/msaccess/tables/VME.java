@@ -150,7 +150,6 @@ public class VME implements TableDomainMapper {
 		VME_Description_Impact = vME_Description_Impact;
 	}
 
-	@Override
 	public Object map() {
 		Vme o = new Vme();
 		o.setAreaType(this.VME_Area_Type);

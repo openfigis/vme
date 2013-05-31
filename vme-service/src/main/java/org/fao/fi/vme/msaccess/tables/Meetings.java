@@ -92,7 +92,6 @@ public class Meetings implements TableDomainMapper {
 		Link_Source = link_Source;
 	}
 
-	@Override
 	public Object map() {
 		Meeting o = new Meeting();
 		o.setCommittee(this.Committee);

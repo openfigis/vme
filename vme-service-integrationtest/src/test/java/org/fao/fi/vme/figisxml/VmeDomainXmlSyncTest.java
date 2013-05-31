@@ -1,0 +1,24 @@
+package org.fao.fi.vme.figisxml;
+
+import javax.inject.Inject;
+
+import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
+import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
+import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.CdiRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+@RunWith(CdiRunner.class)
+@ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
+public class VmeDomainXmlSyncTest {
+
+	@Inject
+	VmeDomainXmlSync vmeDomainXmlSync;
+
+	@Test
+	public void testSyncFigisVmeXml() {
+		vmeDomainXmlSync.syncFigisVmeXml();
+	}
+
+}

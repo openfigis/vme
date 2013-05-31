@@ -17,7 +17,6 @@ public class VmeRefSync implements Sync {
 	@Inject
 	VmeDao vmeDao;
 
-	@Override
 	public void sync() {
 		List<Vme> objects = vmeDao.loadVmes();
 		for (Vme vme : objects) {

@@ -60,7 +60,6 @@ public class RFB_MetaData implements TableDomainMapper {
 		RFB_FAO_FactSheets = rFB_FAO_FactSheets;
 	}
 
-	@Override
 	public Object map() {
 		Rfmo o = new Rfmo();
 		// o.setFishingActivityList(fishingActivityList);

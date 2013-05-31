@@ -32,7 +32,6 @@
 		<class>org.fao.fi.figis.domain.Observation</class>
 		<class>org.fao.fi.figis.domain.ObservationXml</class>
 		<class>org.fao.fi.figis.domain.RefVme</class>
-		<class>org.fao.fi.figis.domain.VmeObservation</class>
 
 
 		<properties>

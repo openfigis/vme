@@ -51,7 +51,6 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 		RFB_VMEs_GeneralText = rFB_VMEs_GeneralText;
 	}
 
-	@Override
 	public Object map() {
 		FishingHistory o = new FishingHistory();
 		o.setId(this.ID);
