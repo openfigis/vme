@@ -6,11 +6,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import org.fao.fi.vme.dao.config.VmeEntityManagerFactoryProducer;
-import org.fao.fi.vme.dao.config.VmeEntityManagerProducer;
-import org.fao.fi.vme.msaccess.component.MsAcces2DomainMapper;
-import org.fao.fi.vme.msaccess.component.TableWriter;
-import org.fao.fi.vme.msaccess.component.VmeReader;
+import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -24,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeEntityManagerFactoryProducer.class, VmeEntityManagerProducer.class })
+@ActivatedAlternatives({ VmeDataBaseProducer.class })
 public class TableWriterTest {
 
 	VmeReader reader = new VmeReader();

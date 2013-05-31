@@ -3,8 +3,7 @@ package org.fao.fi.vme;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.fao.fi.vme.dao.config.VmeEntityManagerFactoryProducer;
-import org.fao.fi.vme.dao.config.VmeEntityManagerProducer;
+import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeEntityManagerFactoryProducer.class, VmeEntityManagerProducer.class })
+@ActivatedAlternatives({ VmeDataBaseProducer.class })
 public class JPATest {
 
 	@Inject
