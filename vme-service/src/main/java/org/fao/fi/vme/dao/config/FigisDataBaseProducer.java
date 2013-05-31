@@ -1,11 +1,12 @@
 package org.fao.fi.vme.dao.config;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
+@Alternative
 public class FigisDataBaseProducer {
 
 	// private static EntityManagerFactory factory;
@@ -20,6 +21,7 @@ public class FigisDataBaseProducer {
 	}
 
 	@Produces
+	@Figis
 	public EntityManager produceEntityManager() {
 		return create().createEntityManager();
 	}

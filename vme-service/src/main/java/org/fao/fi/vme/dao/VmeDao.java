@@ -3,9 +3,12 @@ package org.fao.fi.vme.dao;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.fao.fi.vme.dao.config.Vme;
+
 public class VmeDao {
 
 	@Inject
+	@Vme
 	private EntityManager em;
 
 	// public void persistVme(VmeObservation vme) {

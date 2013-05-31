@@ -19,6 +19,7 @@ import static org.junit.Assert.assertNotNull;
 public class JPATest {
 
 	@Inject
+	@org.fao.fi.vme.dao.config.Vme
 	private EntityManager manager;
 
 	@Test
