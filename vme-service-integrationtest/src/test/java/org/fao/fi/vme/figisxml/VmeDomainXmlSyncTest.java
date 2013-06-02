@@ -4,6 +4,7 @@ import javax.inject.Inject;
 
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
+import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -15,6 +16,9 @@ public class VmeDomainXmlSyncTest {
 
 	@Inject
 	VmeDomainXmlSync vmeDomainXmlSync;
+
+	@Inject
+	VmeAccessDbImport i;
 
 	@Test
 	public void testSyncFigisVmeXml() {

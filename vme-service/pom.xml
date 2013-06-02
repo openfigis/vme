@@ -9,55 +9,13 @@
 	<artifactId>vme-service</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-			<version>1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.derby</groupId>
-			<artifactId>derby</artifactId>
-			<version>10.9.1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.2</version>
+			<groupId>org.vme</groupId>
+			<artifactId>figis-domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.weld</groupId>
-			<artifactId>weld-core</artifactId>
-			<version>1.1.10.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jglue.cdi-unit</groupId>
-			<artifactId>cdi-unit</artifactId>
-			<version>2.0.7</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.2.0.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.3.161</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.vme</groupId>
-			<artifactId>figis-domain</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
@@ -70,21 +28,42 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<!-- vme -->
+				<!-- vme 
 				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
 				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:cdidemo</javax.persistence.jdbc.url.vme>
 				<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
 				<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>
 				<hibernate.dialect.vme>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme>
 				<hibernate.hbm2ddl.auto.vme>create-drop</hibernate.hbm2ddl.auto.vme>
+-->
 
-				<!-- figis -->
+				<javax.persistence.jdbc.driver.vme>oracle.jdbc.driver.OracleDriver</javax.persistence.jdbc.driver.vme>
+				<javax.persistence.jdbc.url.vme>jdbc:oracle:thin:@LDVDBWO1:1521:WDV01</javax.persistence.jdbc.url.vme>
+				<javax.persistence.jdbc.user.vme>vme_admin</javax.persistence.jdbc.user.vme>
+				<javax.persistence.jdbc.password.vme>eodcz7</javax.persistence.jdbc.password.vme>
+				<hibernate.dialect.vme>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect.vme>
+				<hibernate.hbm2ddl.auto.vme>validate</hibernate.hbm2ddl.auto.vme>
+
+
+
+
+				<!-- figis 
 				<javax.persistence.jdbc.driver.figis>org.h2.Driver</javax.persistence.jdbc.driver.figis>
 				<javax.persistence.jdbc.url.figis>jdbc:h2:mem:cdidemo</javax.persistence.jdbc.url.figis>
 				<javax.persistence.jdbc.user.figis>sa</javax.persistence.jdbc.user.figis>
 				<javax.persistence.jdbc.password.figis></javax.persistence.jdbc.password.figis>
 				<hibernate.dialect.figis>org.hibernate.dialect.H2Dialect</hibernate.dialect.figis>
 				<hibernate.hbm2ddl.auto.figis>create-drop</hibernate.hbm2ddl.auto.figis>
+-->
+
+
+				<!-- figis -->
+				<javax.persistence.jdbc.driver.figis>oracle.jdbc.driver.OracleDriver</javax.persistence.jdbc.driver.figis>
+				<javax.persistence.jdbc.url.figis>jdbc:oracle:thin:@LDVDBWO1:1521:WDV01</javax.persistence.jdbc.url.figis>
+				<javax.persistence.jdbc.user.figis>figis_update</javax.persistence.jdbc.user.figis>
+				<javax.persistence.jdbc.password.figis>republic</javax.persistence.jdbc.password.figis>
+				<hibernate.dialect.figis>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect.figis>
+				<hibernate.hbm2ddl.auto.figis>validate</hibernate.hbm2ddl.auto.figis>
 
 
 			</properties>
