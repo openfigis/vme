@@ -28,42 +28,21 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<!-- vme 
+				 
 				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
 				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:cdidemo</javax.persistence.jdbc.url.vme>
 				<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
 				<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>
 				<hibernate.dialect.vme>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme>
 				<hibernate.hbm2ddl.auto.vme>create-drop</hibernate.hbm2ddl.auto.vme>
--->
 
-				<javax.persistence.jdbc.driver.vme>oracle.jdbc.driver.OracleDriver</javax.persistence.jdbc.driver.vme>
-				<javax.persistence.jdbc.url.vme>jdbc:oracle:thin:@LDVDBWO1:1521:WDV01</javax.persistence.jdbc.url.vme>
-				<javax.persistence.jdbc.user.vme>vme_admin</javax.persistence.jdbc.user.vme>
-				<javax.persistence.jdbc.password.vme>eodcz7</javax.persistence.jdbc.password.vme>
-				<hibernate.dialect.vme>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect.vme>
-				<hibernate.hbm2ddl.auto.vme>validate</hibernate.hbm2ddl.auto.vme>
-
-
-
-
-				<!-- figis 
 				<javax.persistence.jdbc.driver.figis>org.h2.Driver</javax.persistence.jdbc.driver.figis>
 				<javax.persistence.jdbc.url.figis>jdbc:h2:mem:cdidemo</javax.persistence.jdbc.url.figis>
 				<javax.persistence.jdbc.user.figis>sa</javax.persistence.jdbc.user.figis>
 				<javax.persistence.jdbc.password.figis></javax.persistence.jdbc.password.figis>
 				<hibernate.dialect.figis>org.hibernate.dialect.H2Dialect</hibernate.dialect.figis>
 				<hibernate.hbm2ddl.auto.figis>create-drop</hibernate.hbm2ddl.auto.figis>
--->
 
-
-				<!-- figis -->
-				<javax.persistence.jdbc.driver.figis>oracle.jdbc.driver.OracleDriver</javax.persistence.jdbc.driver.figis>
-				<javax.persistence.jdbc.url.figis>jdbc:oracle:thin:@LDVDBWO1:1521:WDV01</javax.persistence.jdbc.url.figis>
-				<javax.persistence.jdbc.user.figis>figis_update</javax.persistence.jdbc.user.figis>
-				<javax.persistence.jdbc.password.figis>republic</javax.persistence.jdbc.password.figis>
-				<hibernate.dialect.figis>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect.figis>
-				<hibernate.hbm2ddl.auto.figis>validate</hibernate.hbm2ddl.auto.figis>
 
 
 			</properties>
