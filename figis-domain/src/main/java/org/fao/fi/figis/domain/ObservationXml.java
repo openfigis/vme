@@ -47,10 +47,10 @@ public class ObservationXml {
 	private Observation observation;
 
 	@Column(name = "CD_LANGUAGE", nullable = false)
-	private int language;
+	private Integer language;
 
 	@Column(name = "FG_STATUS", nullable = false)
-	private int status;
+	private Integer status;
 
 	@Column(name = "DT_CREATION", nullable = false)
 	private Date creationDate;
@@ -76,19 +76,19 @@ public class ObservationXml {
 		this.observation = observation;
 	}
 
-	public int getLanguage() {
+	public Integer getLanguage() {
 		return language;
 	}
 
-	public void setLanguage(int language) {
+	public void setLanguage(Integer language) {
 		this.language = language;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

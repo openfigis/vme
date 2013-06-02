@@ -16,18 +16,37 @@ public class RefVme {
 
 	@Id
 	@Column(name = "CD_VME")
-	private int id;
+	private Integer id;
+
+	@Column(name = "CD_meta")
+	private Integer meta;
 
 	@OneToMany
 	@JoinTable(name = "FS_VME_OBSERVATION", joinColumns = @JoinColumn(name = "CD_VME", referencedColumnName = "CD_VME"), inverseJoinColumns = @JoinColumn(name = "CD_OBSERVATION", referencedColumnName = "CD_OBSERVATION"))
 	private List<Observation> observationList;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Integer getMeta() {
+		return meta;
+	}
+
+	public void setMeta(Integer meta) {
+		this.meta = meta;
+	}
+
+	public List<Observation> getObservationList() {
+		return observationList;
+	}
+
+	public void setObservationList(List<Observation> observationList) {
+		this.observationList = observationList;
 	}
 
 }

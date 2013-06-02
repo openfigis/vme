@@ -1,14 +1,25 @@
 package org.fao.fi.vme.figis.component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
+import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.msaccess.component.VmeDaoException;
+
+/**
+ * 
+ * map the REF_VME and the FS_OBSERVATION
+ * 
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 
 public class VmeRefSync implements Sync {
 
@@ -25,10 +36,14 @@ public class VmeRefSync implements Sync {
 			if (object != null && object.getId() <= 0) {
 				throw new VmeDaoException("object found in DB withough id");
 			}
-
 			if (object == null) {
-				object = new RefVme();
+				// do the new stuff
+				object = generateNewRefAndObservation();
+
+				// map it
 				map(vme, object);
+
+				// and store it
 				figisDao.persist(object);
 			} else {
 				map(vme, object);
@@ -37,7 +52,18 @@ public class VmeRefSync implements Sync {
 		}
 	}
 
+	private RefVme generateNewRefAndObservation() {
+		RefVme object = new RefVme();
+		Observation observation = new Observation();
+		observation.setCollection(7300);
+		List<Observation> observationList = new ArrayList<Observation>();
+		observationList.add(observation);
+		object.setObservationList(observationList);
+		return object;
+	}
+
 	private void map(Vme vme, RefVme object) {
 		object.setId(vme.getId());
+		object.setMeta(172000);
 	}
 }

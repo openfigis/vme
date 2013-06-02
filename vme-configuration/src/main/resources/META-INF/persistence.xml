@@ -45,6 +45,11 @@
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.figis}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.figis}" />
 			<property name="hibernate.show_sql" value="true" />
+			
+			<property name="hibernate.default_schema" value="figis"/>
+
+
+			
 		</properties>
 
 	</persistence-unit>

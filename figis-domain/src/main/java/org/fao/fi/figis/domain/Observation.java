@@ -4,37 +4,84 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "FS_OBSERVATION", schema = "figis")
 public class Observation {
 
-	// <id name="id" column="CD_OBSERVATION" type="integer">
-	// <generator class="assigned"/>
-	// </id>
-	// <property name="order" column="OBS_ORDER" type="short" not-null="true"/>
-	// <property name="primary" column="FG_PRIMARY" type="boolean" not-null="true"/>
-	// <property name="reference" column="FG_REFERENCE" type="boolean" not-null="true"/>
-	// <many-to-one name="collection" column="CD_COLLECTION" cascade="none" lazy="false" not-null="true"/>
-	// <many-to-one name="coverPage" column="CD_COVER_PAGE" cascade="none" lazy="false"/>
-
-	@Column(name = "CD_OBSERVATION", nullable = false)
 	@Id
-	private int id;
+	@Column(name = "CD_OBSERVATION", nullable = false)
+	@SequenceGenerator(name = "SEQ_FS_OBSERVATION", sequenceName = "SEQ_FS_OBSERVATION")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_FS_OBSERVATION")
+	private Integer id;
 
-	@Column(name = "FG_PRIMARY", nullable = false)
+	@Column(name = "FG_PRIMARY", nullable = true)
 	private boolean primary;
 
-	@Column(name = "FG_REFERENCE", nullable = false)
+	@Column(name = "FG_REFERENCE", nullable = true)
 	private boolean reference;
 
-	@Column(name = "CD_COLLECTION", nullable = false)
-	private int collection;
+	@Column(name = "CD_COLLECTION", nullable = true)
+	private Integer collection;
+
+	@Column(name = "OBS_ORDER", nullable = false)
+	private Short order;
 
 	@OneToMany(mappedBy = "observation")
 	private List<ObservationXml> observationsPerLanguage;
+
+	public Short getOrder() {
+		return order;
+	}
+
+	public void setOrder(Short order) {
+		this.order = order;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public boolean isPrimary() {
+		return primary;
+	}
+
+	public void setPrimary(boolean primary) {
+		this.primary = primary;
+	}
+
+	public boolean isReference() {
+		return reference;
+	}
+
+	public void setReference(boolean reference) {
+		this.reference = reference;
+	}
+
+	public Integer getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Integer collection) {
+		this.collection = collection;
+	}
+
+	public List<ObservationXml> getObservationsPerLanguage() {
+		return observationsPerLanguage;
+	}
+
+	public void setObservationsPerLanguage(List<ObservationXml> observationsPerLanguage) {
+		this.observationsPerLanguage = observationsPerLanguage;
+	}
 
 }

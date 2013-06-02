@@ -40,7 +40,7 @@ public class FigisDaoTest {
 		dao.persist(o);
 		RefVme found = dao.loadRefVme(id);
 		assertNotNull(found);
-		assertEquals(id, found.getId());
+		assertEquals(id, found.getId().intValue());
 
 	}
 
