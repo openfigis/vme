@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity(name = "FS_OBSERVATION_XML")
+@Entity
 @Table(name = "FS_OBSERVATION_XML", schema = "figis")
 public class ObservationXml {
 

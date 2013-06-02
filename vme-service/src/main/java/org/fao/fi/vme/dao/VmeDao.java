@@ -26,4 +26,10 @@ public class VmeDao extends Dao {
 		em.getTransaction().commit();
 	}
 
+	public void remove(Object object) {
+		em.getTransaction().begin();
+		em.remove(object);
+		em.getTransaction().commit();
+	}
+
 }

@@ -7,7 +7,6 @@ import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.figis.component.VmeRefSync;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;

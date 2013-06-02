@@ -23,6 +23,9 @@ import org.fao.fi.vme.msaccess.component.VmeDaoException;
 
 public class VmeRefSync implements Sync {
 
+	private static final Short ORDER = 0;
+	private static final Integer COLLECTION = 7300;
+
 	@Inject
 	FigisDao figisDao;
 
@@ -49,13 +52,15 @@ public class VmeRefSync implements Sync {
 				map(vme, object);
 				figisDao.merge(object);
 			}
+			System.out.println("huh?" + figisDao.loadRefVmes().size());
 		}
 	}
 
 	private RefVme generateNewRefAndObservation() {
 		RefVme object = new RefVme();
 		Observation observation = new Observation();
-		observation.setCollection(7300);
+		observation.setOrder(ORDER);
+		observation.setCollection(COLLECTION);
 		List<Observation> observationList = new ArrayList<Observation>();
 		observationList.add(observation);
 		object.setObservationList(observationList);

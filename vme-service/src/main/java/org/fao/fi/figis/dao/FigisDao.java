@@ -3,12 +3,14 @@ package org.fao.fi.figis.dao;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 
 import org.fao.fi.dao.Dao;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.vme.dao.config.FigisDB;
 
+@Singleton
 public class FigisDao extends Dao {
 
 	@Inject

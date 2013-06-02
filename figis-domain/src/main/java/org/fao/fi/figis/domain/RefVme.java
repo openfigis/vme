@@ -2,6 +2,7 @@ package org.fao.fi.figis.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,7 +22,8 @@ public class RefVme {
 	@Column(name = "CD_meta")
 	private Integer meta;
 
-	@OneToMany
+	// @OneToMany(cascade = { CascadeType.ALL })
+	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "FS_VME_OBSERVATION", joinColumns = @JoinColumn(name = "CD_VME", referencedColumnName = "CD_VME"), inverseJoinColumns = @JoinColumn(name = "CD_OBSERVATION", referencedColumnName = "CD_OBSERVATION"))
 	private List<Observation> observationList;
 
