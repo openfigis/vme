@@ -8,8 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Entity(name = "REF_VME")
+@Entity
+@Table(name = "REF_VME", schema = "figis")
 public class RefVme {
 
 	@Id

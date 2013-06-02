@@ -1,4 +1,4 @@
-package org.fao.fi.vme.figisxml.component;
+package org.fao.fi.vme.figis.component;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.msaccess.component.VmeDaoException;
 
 public class VmeRefSync implements Sync {
 
@@ -21,6 +22,10 @@ public class VmeRefSync implements Sync {
 		List<Vme> objects = vmeDao.loadVmes();
 		for (Vme vme : objects) {
 			RefVme object = figisDao.loadRefVme(vme.getId());
+			if (object != null && object.getId() <= 0) {
+				throw new VmeDaoException("object found in DB withough id");
+			}
+
 			if (object == null) {
 				object = new RefVme();
 				map(vme, object);

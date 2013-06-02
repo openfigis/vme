@@ -1,4 +1,4 @@
-package org.fao.fi.vme.figisxml;
+package org.fao.fi.vme.figis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.vme.dao.VmeDao;
-import org.fao.fi.vme.figisxml.component.Sync;
-import org.fao.fi.vme.figisxml.component.VmeRefSync;
+import org.fao.fi.vme.figis.component.Sync;
+import org.fao.fi.vme.figis.component.VmeRefSync;
 
 /**
  * Syncs the FIGIS Factsheet XML, Figis observation, Figis reference tables with the information from the VME domain
@@ -17,7 +17,7 @@ import org.fao.fi.vme.figisxml.component.VmeRefSync;
  * @author Erik van Ingen
  * 
  */
-public class VmeDomainXmlSync {
+public class VmeDomainFigisSync {
 
 	@Inject
 	VmeDao vmeDao;
@@ -27,7 +27,7 @@ public class VmeDomainXmlSync {
 	@Inject
 	VmeRefSync vmeRefSync;
 
-	public void syncFigisVmeXml() {
+	public void syncFigisWithVme() {
 		List<Sync> syncList = composeList();
 		for (Sync syncer : syncList) {
 			syncer.sync();

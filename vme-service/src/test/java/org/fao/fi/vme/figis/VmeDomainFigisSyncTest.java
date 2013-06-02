@@ -1,4 +1,4 @@
-package org.fao.fi.vme.figisxml;
+package org.fao.fi.vme.figis;
 
 import javax.inject.Inject;
 
@@ -12,17 +12,17 @@ import org.junit.runner.RunWith;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
-public class VmeDomainXmlSyncTest {
+public class VmeDomainFigisSyncTest {
 
 	@Inject
-	VmeDomainXmlSync vmeDomainXmlSync;
+	VmeDomainFigisSync vmeDomainFigisSync;
 
 	@Inject
 	VmeAccessDbImport i;
 
 	@Test
 	public void testSyncFigisVmeXml() {
-		vmeDomainXmlSync.syncFigisVmeXml();
+		vmeDomainFigisSync.syncFigisWithVme();
 	}
 
 }

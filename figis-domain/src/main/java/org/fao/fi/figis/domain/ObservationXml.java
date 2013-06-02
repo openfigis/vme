@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity(name = "FS_OBSERVATION_XML")
+@Table(name = "FS_OBSERVATION_XML", schema = "figis")
 public class ObservationXml {
 
 	// <class name="FsLanguageXml" table="FS_OBSERVATION_XML">

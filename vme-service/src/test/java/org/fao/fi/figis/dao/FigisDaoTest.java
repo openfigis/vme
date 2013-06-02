@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ FigisDataBaseProducer.class })
@@ -40,6 +41,17 @@ public class FigisDaoTest {
 		RefVme found = dao.loadRefVme(id);
 		assertNotNull(found);
 		assertEquals(id, found.getId());
+
+	}
+
+	/**
+	 * return null when no object is found.
+	 */
+
+	@Test
+	public void testLoadRefVmeNull() {
+		RefVme object = dao.loadRefVme(4561);
+		assertNull(object);
 
 	}
 }

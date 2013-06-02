@@ -6,8 +6,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Entity(name = "FS_OBSERVATION")
+@Entity
+@Table(name = "FS_OBSERVATION", schema = "figis")
 public class Observation {
 
 	// <id name="id" column="CD_OBSERVATION" type="integer">
