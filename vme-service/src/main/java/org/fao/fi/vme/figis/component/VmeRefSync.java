@@ -33,6 +33,7 @@ public class VmeRefSync implements Sync {
 	VmeDao vmeDao;
 
 	// @Override
+	@Override
 	public void sync() {
 		List<Vme> objects = vmeDao.loadVmes();
 		for (Vme vme : objects) {
@@ -63,11 +64,11 @@ public class VmeRefSync implements Sync {
 		observation.setCollection(COLLECTION);
 
 		// TODO check this
-		// observation.setReportingYear("1200");
+		// observation.s("1200");
 
 		List<Observation> observationList = new ArrayList<Observation>();
 		observationList.add(observation);
-		// object.setObservationList(observationList);
+		object.setObservationList(observationList);
 		return object;
 	}
 
