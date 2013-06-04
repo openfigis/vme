@@ -1,8 +1,14 @@
 package org.fao.fi.figis.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.fao.fi.figis.domain.Observation;
+import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
+import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -41,6 +47,37 @@ public class FigisDaoTest {
 		RefVme found = dao.findRefVme(id);
 		assertNotNull(found);
 		assertEquals(id, found.getId().intValue());
+
+	}
+
+	@Test
+	public void testPersistVmeObservation() {
+
+		delegateCheckOnNumberOfObjectsInModel(0);
+
+		// create xml for a language
+		ObservationXml xml = new ObservationXml();
+
+		// create list of language xmls
+		List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
+		observationsPerLanguage.add(xml);
+
+		// add this list to the observation
+		Observation o = new Observation();
+		o.setObservationsPerLanguage(observationsPerLanguage);
+
+		// formalise it as a vme observation
+		VmeObservation vo = new VmeObservation();
+		vo.setObservation(o);
+		dao.persist(vo);
+
+		delegateCheckOnNumberOfObjectsInModel(1);
+	}
+
+	private void delegateCheckOnNumberOfObjectsInModel(int i) {
+		assertEquals(i, dao.loadObjects(ObservationXml.class).size());
+		assertEquals(i, dao.loadObjects(Observation.class).size());
+		assertEquals(i, dao.loadObjects(VmeObservation.class).size());
 
 	}
 

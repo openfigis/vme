@@ -22,6 +22,10 @@ public class FigisDao extends Dao {
 		return (List<RefVme>) this.generateTypedQuery(em, RefVme.class).getResultList();
 	}
 
+	public List<?> loadObjects(Class<?> clazz) {
+		return this.generateTypedQuery(em, clazz).getResultList();
+	}
+
 	public RefVme findRefVme(int id) {
 		return em.find(RefVme.class, id);
 	}

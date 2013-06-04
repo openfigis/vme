@@ -30,7 +30,7 @@ public class VmeObservation implements Serializable {
 	@OneToOne
 	// @PrimaryKeyJoinColumn(name = "CD_OBSERVATION")
 	@JoinColumn(name = "CD_OBSERVATION", nullable = false)
-	private Observation fsObservation;
+	private Observation observation;
 
 	@Column(name = "REPORTING_YEAR", nullable = true)
 	private String reportingYear;
@@ -43,12 +43,12 @@ public class VmeObservation implements Serializable {
 		this.refVme = refVme;
 	}
 
-	public Observation getFsObservation() {
-		return fsObservation;
+	public Observation getObservation() {
+		return observation;
 	}
 
-	public void setFsObservation(Observation fsObservation) {
-		this.fsObservation = fsObservation;
+	public void setObservation(Observation observation) {
+		this.observation = observation;
 	}
 
 	public String getReportingYear() {
@@ -57,10 +57,6 @@ public class VmeObservation implements Serializable {
 
 	public void setReportingYear(String reportingYear) {
 		this.reportingYear = reportingYear;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }

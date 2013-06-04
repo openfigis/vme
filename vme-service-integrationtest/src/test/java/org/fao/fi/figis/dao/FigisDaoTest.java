@@ -18,7 +18,7 @@ public class FigisDaoTest {
 	FigisDao figisDao;
 
 	@Test
-	public void testPersist() {
+	public void testPersistObservation() {
 		Observation observation = new Observation();
 		observation.setOrder(VmeRefSync.ORDER);
 		observation.setCollection(VmeRefSync.COLLECTION);
@@ -28,4 +28,5 @@ public class FigisDaoTest {
 		figisDao.persist(observation);
 
 	}
+
 }

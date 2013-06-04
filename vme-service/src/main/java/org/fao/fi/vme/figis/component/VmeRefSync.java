@@ -1,12 +1,10 @@
 package org.fao.fi.vme.figis.component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
-import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.domain.Vme;
@@ -43,7 +41,7 @@ public class VmeRefSync implements Sync {
 			}
 			if (object == null) {
 				// do the new stuff
-				object = generateNewRefAndObservation();
+				object = generateNewRefVme();
 
 				// map it
 				map(vme, object);
@@ -57,19 +55,27 @@ public class VmeRefSync implements Sync {
 		}
 	}
 
-	private RefVme generateNewRefAndObservation() {
-		RefVme object = new RefVme();
-		Observation observation = new Observation();
-		// observation.setOrder(ORDER);
-		observation.setCollection(COLLECTION);
+	private RefVme generateNewRefVme() {
+		// // observation
+		// Observation o = new Observation();
+		// o.setOrder(ORDER);
+		// o.setCollection(COLLECTION);
+		//
+		// // link it to a VME observation
+		// VmeObservation vo = new VmeObservation();
+		// vo.setObservation(o);
+		// vo.setReportingYear("2012");
+		// vo.setObservation(o);
+		//
+		// // create a list of vme observations
+		// List<VmeObservation> vmeObservationList = new ArrayList<VmeObservation>();
+		// vmeObservationList.add(vo);
 
-		// TODO check this
-		// observation.s("1200");
+		// link it to the vme.
+		RefVme r = new RefVme();
+		// r.setVmeObservationList(vmeObservationList);
 
-		List<Observation> observationList = new ArrayList<Observation>();
-		observationList.add(observation);
-		object.setObservationList(observationList);
-		return object;
+		return r;
 	}
 
 	private void map(Vme vme, RefVme object) {

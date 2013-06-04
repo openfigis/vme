@@ -1,14 +1,8 @@
 package org.fao.fi.figis.domain;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,9 +17,15 @@ public class RefVme {
 	private Integer meta;
 
 	// @OneToMany(cascade = { CascadeType.ALL })
-	@OneToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "FS_VME_OBSERVATION", joinColumns = @JoinColumn(name = "CD_VME", referencedColumnName = "CD_VME"), inverseJoinColumns = @JoinColumn(name = "CD_OBSERVATION", referencedColumnName = "CD_OBSERVATION"))
-	private List<Observation> observationList;
+	// @OneToMany(cascade = { CascadeType.ALL })
+	// @JoinTable(name = "FS_VME_OBSERVATION", joinColumns = @JoinColumn(name = "CD_VME", referencedColumnName =
+	// "CD_VME"), inverseJoinColumns = @JoinColumn(name = "CD_OBSERVATION", referencedColumnName = "CD_OBSERVATION"))
+	// private List<Observation> observationList;
+
+	// @OneToMany
+	// @JoinTable(name = "FS_VME_OBSERVATION", joinColumns = @JoinColumn(name = "CD_VME", referencedColumnName =
+	// "CD_VME"), inverseJoinColumns = @JoinColumn(name = "CD_OBSERVATION", referencedColumnName = "CD_OBSERVATION"))
+	// private List<VmeObservation> vmeObservationList;
 
 	public Integer getId() {
 		return id;
@@ -43,12 +43,12 @@ public class RefVme {
 		this.meta = meta;
 	}
 
-	public List<Observation> getObservationList() {
-		return observationList;
-	}
-
-	public void setObservationList(List<Observation> observationList) {
-		this.observationList = observationList;
-	}
+	// public List<VmeObservation> getVmeObservationList() {
+	// return vmeObservationList;
+	// }
+	//
+	// public void setVmeObservationList(List<VmeObservation> vmeObservationList) {
+	// this.vmeObservationList = vmeObservationList;
+	// }
 
 }
