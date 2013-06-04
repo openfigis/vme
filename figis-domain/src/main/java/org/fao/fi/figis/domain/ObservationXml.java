@@ -38,16 +38,17 @@ public class ObservationXml {
 	// <property name="xmlAsString" column="XML" type="text" length="10000000" />
 	// </class>
 
-	@Column(name = "CD_XML", nullable = false)
 	@Id
+	@Column(name = "CD_XML", unique = true, nullable = false, length = 765)
 	private String id;
 
+	// bi-directional many-to-one association to FsObservation
 	@ManyToOne
 	@JoinColumn(name = "CD_OBSERVATION")
 	private Observation observation;
 
-	@Column(name = "CD_LANGUAGE", nullable = false)
-	private Integer language;
+	@Column(name = "CD_LANGUAGE", nullable = false, precision = 10)
+	private int language;
 
 	@Column(name = "FG_STATUS", nullable = false)
 	private Integer status;
@@ -76,11 +77,11 @@ public class ObservationXml {
 		this.observation = observation;
 	}
 
-	public Integer getLanguage() {
+	public int getLanguage() {
 		return language;
 	}
 
-	public void setLanguage(Integer language) {
+	public void setLanguage(int language) {
 		this.language = language;
 	}
 

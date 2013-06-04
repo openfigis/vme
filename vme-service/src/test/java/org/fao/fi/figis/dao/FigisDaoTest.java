@@ -38,7 +38,7 @@ public class FigisDaoTest {
 		RefVme o = new RefVme();
 		o.setId(id);
 		dao.persist(o);
-		RefVme found = dao.loadRefVme(id);
+		RefVme found = dao.findRefVme(id);
 		assertNotNull(found);
 		assertEquals(id, found.getId().intValue());
 
@@ -50,7 +50,7 @@ public class FigisDaoTest {
 
 	@Test
 	public void testLoadRefVmeNull() {
-		RefVme object = dao.loadRefVme(4561);
+		RefVme object = dao.findRefVme(4561);
 		assertNull(object);
 
 	}

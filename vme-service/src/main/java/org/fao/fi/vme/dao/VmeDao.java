@@ -20,6 +20,10 @@ public class VmeDao extends Dao {
 		return (List<Vme>) this.generateTypedQuery(em, Vme.class).getResultList();
 	}
 
+	public Vme findVme(int id) {
+		return em.find(Vme.class, id);
+	}
+
 	public void persist(Object object) {
 		em.getTransaction().begin();
 		em.persist(object);

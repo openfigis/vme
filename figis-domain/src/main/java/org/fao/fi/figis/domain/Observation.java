@@ -16,10 +16,10 @@ import javax.persistence.Table;
 public class Observation {
 
 	@Id
-	@Column(name = "CD_OBSERVATION", nullable = false)
+	@Column(name = "CD_OBSERVATION", unique = true, nullable = false, precision = 10)
 	@SequenceGenerator(name = "SEQ_FS_OBSERVATION", sequenceName = "SEQ_FS_OBSERVATION")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_FS_OBSERVATION")
-	private Integer id;
+	private long id;
 
 	@Column(name = "FG_PRIMARY", nullable = true)
 	private boolean primary;
@@ -44,11 +44,11 @@ public class Observation {
 		this.order = order;
 	}
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

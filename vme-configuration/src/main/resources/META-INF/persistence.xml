@@ -31,9 +31,10 @@
 	</persistence-unit>
 
 	<persistence-unit name="figis-persistence"> 
+		<class>org.fao.fi.figis.domain.RefVme</class>
+		<class>org.fao.fi.figis.domain.VmeObservation</class>
 		<class>org.fao.fi.figis.domain.Observation</class>
 		<class>org.fao.fi.figis.domain.ObservationXml</class>
-		<class>org.fao.fi.figis.domain.RefVme</class>
 
 
 		<properties>
@@ -43,6 +44,8 @@
 			<property name="javax.persistence.jdbc.password" value="${javax.persistence.jdbc.password.figis}" />
 
 			<property name="show_sql" value="true" />
+
+
 
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.figis}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.figis}" />

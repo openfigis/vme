@@ -23,8 +23,8 @@ import org.fao.fi.vme.msaccess.component.VmeDaoException;
 
 public class VmeRefSync implements Sync {
 
-	private static final Short ORDER = 0;
-	private static final Integer COLLECTION = 7300;
+	public static final Short ORDER = -1;
+	public static final Integer COLLECTION = 7300;
 
 	@Inject
 	FigisDao figisDao;
@@ -32,10 +32,11 @@ public class VmeRefSync implements Sync {
 	@Inject
 	VmeDao vmeDao;
 
+	// @Override
 	public void sync() {
 		List<Vme> objects = vmeDao.loadVmes();
 		for (Vme vme : objects) {
-			RefVme object = figisDao.loadRefVme(vme.getId());
+			RefVme object = figisDao.findRefVme(vme.getId());
 			if (object != null && object.getId() <= 0) {
 				throw new VmeDaoException("object found in DB withough id");
 			}
@@ -52,18 +53,21 @@ public class VmeRefSync implements Sync {
 				map(vme, object);
 				figisDao.merge(object);
 			}
-			System.out.println("huh?" + figisDao.loadRefVmes().size());
 		}
 	}
 
 	private RefVme generateNewRefAndObservation() {
 		RefVme object = new RefVme();
 		Observation observation = new Observation();
-		observation.setOrder(ORDER);
+		// observation.setOrder(ORDER);
 		observation.setCollection(COLLECTION);
+
+		// TODO check this
+		// observation.setReportingYear("1200");
+
 		List<Observation> observationList = new ArrayList<Observation>();
 		observationList.add(observation);
-		object.setObservationList(observationList);
+		// object.setObservationList(observationList);
 		return object;
 	}
 

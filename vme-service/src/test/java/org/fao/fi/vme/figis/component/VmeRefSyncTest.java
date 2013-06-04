@@ -1,8 +1,11 @@
 package org.fao.fi.vme.figis.component;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
+import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
@@ -41,7 +44,10 @@ public class VmeRefSyncTest {
 		vmeRefSync.sync();
 		assertEquals(1, figisDao.loadRefVmes().size());
 		vmeRefSync.sync();
-		assertEquals(1, figisDao.loadRefVmes().size());
+		List<RefVme> list = figisDao.loadRefVmes();
+		assertEquals(1, list.size());
+		RefVme found = list.get(0);
+		// assertEquals(1, found.getObservationList().size());
 
 	}
 }
