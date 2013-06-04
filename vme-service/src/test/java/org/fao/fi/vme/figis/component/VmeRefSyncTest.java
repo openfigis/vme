@@ -46,7 +46,7 @@ public class VmeRefSyncTest {
 		vmeRefSync.sync();
 		List<RefVme> list = figisDao.loadRefVmes();
 		assertEquals(1, list.size());
-		RefVme found = list.get(0);
+		// RefVme found = list.get(0);
 		// assertEquals(1, found.getObservationList().size());
 
 	}
