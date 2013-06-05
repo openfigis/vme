@@ -21,15 +21,13 @@ public class VmeSearchWs {
 
 	@Path("/somethingvme")
 	@GET
-	@Produces("json")
+	@Produces("application/json")
 	public VmeDto find(@PathParam("id") int id) {
-
 		if (id > 1) {
 			return service.retrieveResultsFor(id);
 		} else {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
-
 	}
 
 }
