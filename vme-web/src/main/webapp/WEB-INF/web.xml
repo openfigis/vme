@@ -4,21 +4,23 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
+   <display-name>vme-web</display-name>
 
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>listServlet</servlet-name>
-    <servlet-class>org.vme.web.server.CodeListServiceImpl</servlet-class>
-  </servlet>
 
-  <servlet-mapping>
-    <servlet-name>listServlet</servlet-name>
-    <url-pattern>/CodeListManager/list</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>Jersey Web Application</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<!-- Important bit -->
+			<param-value>org.vme.web.service</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>CodeListManager.html</welcome-file>
-  </welcome-file-list>
+   <servlet-mapping>
+      <servlet-name>Jersey Web Application</servlet-name>
+      <url-pattern>/*</url-pattern>
+   </servlet-mapping>
 
 </web-app>
