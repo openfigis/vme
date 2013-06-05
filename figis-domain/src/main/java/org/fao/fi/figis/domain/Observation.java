@@ -1,5 +1,6 @@
 package org.fao.fi.figis.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,7 +14,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "FS_OBSERVATION", schema = "figis")
-public class Observation {
+public class Observation implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 448844837583234537L;
 
 	@Id
 	@Column(name = "CD_OBSERVATION", unique = true, nullable = false, precision = 10)

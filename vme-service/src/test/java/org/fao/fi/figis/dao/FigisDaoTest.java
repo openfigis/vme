@@ -1,5 +1,6 @@
 package org.fao.fi.figis.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
+import org.fao.fi.vme.figis.component.VmeRefSync;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -25,6 +27,17 @@ public class FigisDaoTest {
 
 	@Inject
 	private FigisDao dao;
+
+	@Test
+	public void testsyncRefVme() {
+		RefVme r = createRefVme();
+		assertNull(dao.find(RefVme.class, r.getId()));
+		dao.syncRefVme(r);
+		assertNotNull(dao.find(RefVme.class, r.getId()));
+		dao.syncRefVme(r);
+		assertNotNull(dao.find(RefVme.class, r.getId()));
+
+	}
 
 	@Test
 	public void testLoadRefVmes() {
@@ -44,10 +57,66 @@ public class FigisDaoTest {
 		RefVme o = new RefVme();
 		o.setId(id);
 		dao.persist(o);
-		RefVme found = dao.findRefVme(id);
-		assertNotNull(found);
-		assertEquals(id, found.getId().intValue());
 
+		RefVme found = (RefVme) dao.find(RefVme.class, o);
+		assertNotNull(found);
+		assertEquals(id, found.getId());
+
+	}
+
+	@Test
+	public void testObservationXml() {
+		ObservationXml xml = createObservationXml();
+		dao.persist(xml);
+		assertNotNull(dao.find(ObservationXml.class, xml.getId()));
+
+	}
+
+	@Test
+	public void testObservation() {
+		Observation o = createObservation();
+		dao.persist(o);
+		assertNotNull(dao.find(Observation.class, o.getId()));
+		Observation oPlusXml = createObservationWithXml();
+		dao.persist(oPlusXml);
+		Observation found = (Observation) dao.find(Observation.class, oPlusXml.getId());
+		assertNotNull(found);
+		assertNotNull(found.getObservationsPerLanguage().get(0).getId());
+
+	}
+
+	private Observation createObservation() {
+		Observation o = new Observation();
+		o.setOrder(VmeRefSync.ORDER);
+		o.setCollection(VmeRefSync.COLLECTION);
+		return o;
+	}
+
+	private Observation createObservationWithXml() {
+		Observation o = createObservation();
+		ObservationXml xml = createObservationXml();
+		List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
+		observationsPerLanguage.add(xml);
+		o.setObservationsPerLanguage(observationsPerLanguage);
+		return o;
+	}
+
+	@Test
+	public void VmeObservation() {
+		VmeObservation vo = createVmeObservation();
+		RefVme r = createRefVme();
+		dao.syncRefVme(r);
+		dao.syncVmeObservation(vo);
+
+	}
+
+	private ObservationXml createObservationXml() {
+		ObservationXml xml = new ObservationXml();
+		xml.setLanguage(2);
+		xml.setStatus(0);
+		xml.setLastEditDate(new Date(456456l));
+		xml.setCreationDate(new Date(7897890l));
+		return xml;
 	}
 
 	@Test
@@ -56,7 +125,7 @@ public class FigisDaoTest {
 		delegateCheckOnNumberOfObjectsInModel(0);
 
 		// create xml for a language
-		ObservationXml xml = new ObservationXml();
+		ObservationXml xml = createObservationXml();
 
 		// create list of language xmls
 		List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
@@ -66,12 +135,39 @@ public class FigisDaoTest {
 		Observation o = new Observation();
 		o.setObservationsPerLanguage(observationsPerLanguage);
 
+		// bidirectional stuff.
+		xml.setObservation(o);
+
+		RefVme r = createRefVme();
+
+		int id = 4354;
+
+		r.setId(id);
+		RefVme found = (RefVme) dao.find(RefVme.class, r);
+		assertNull(found);
+		dao.persist(o);
+
 		// formalise it as a vme observation
-		VmeObservation vo = new VmeObservation();
+
+		VmeObservation vo = createVmeObservation();
+
+		vo.setRefVme(r);
 		vo.setObservation(o);
 		dao.persist(vo);
 
 		delegateCheckOnNumberOfObjectsInModel(1);
+	}
+
+	private RefVme createRefVme() {
+		int id = 4354;
+		RefVme r = new RefVme();
+		r.setId(id);
+		return r;
+	}
+
+	private VmeObservation createVmeObservation() {
+		VmeObservation vo = new VmeObservation();
+		return vo;
 	}
 
 	private void delegateCheckOnNumberOfObjectsInModel(int i) {
@@ -87,8 +183,7 @@ public class FigisDaoTest {
 
 	@Test
 	public void testLoadRefVmeNull() {
-		RefVme object = dao.findRefVme(4561);
-		assertNull(object);
-
+		RefVme found = (RefVme) dao.find(RefVme.class, 4561);
+		assertNull(found);
 	}
 }

@@ -35,7 +35,8 @@ public class VmeRefSync implements Sync {
 	public void sync() {
 		List<Vme> objects = vmeDao.loadVmes();
 		for (Vme vme : objects) {
-			RefVme object = figisDao.findRefVme(vme.getId());
+			RefVme object = (RefVme) figisDao.find(RefVme.class, vme.getId());
+
 			if (object != null && object.getId() <= 0) {
 				throw new VmeDaoException("object found in DB withough id");
 			}

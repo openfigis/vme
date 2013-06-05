@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 
 import org.fao.fi.dao.Dao;
 import org.fao.fi.figis.domain.RefVme;
+import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.dao.config.FigisDB;
 
 @Singleton
@@ -26,8 +27,8 @@ public class FigisDao extends Dao {
 		return this.generateTypedQuery(em, clazz).getResultList();
 	}
 
-	public RefVme findRefVme(int id) {
-		return em.find(RefVme.class, id);
+	public Object find(Class<?> clazz, Object id) {
+		return em.find(clazz, id);
 	}
 
 	public void merge(Object object) {
@@ -48,4 +49,29 @@ public class FigisDao extends Dao {
 		em.getTransaction().commit();
 	}
 
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param r
+	 *            the object to be synced
+	 */
+	public void syncRefVme(RefVme r) {
+		RefVme found = em.find(RefVme.class, r.getId());
+		if (found == null) {
+			this.persist(r);
+		} else {
+			this.merge(r);
+		}
+	}
+
+	public void syncVmeObservation(VmeObservation vo) {
+		VmeObservation found = em.find(VmeObservation.class, vo.getObservation());
+		if (found == null) {
+			this.persist(vo);
+		} else {
+			this.merge(vo);
+		}
+
+	}
 }

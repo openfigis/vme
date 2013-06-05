@@ -17,7 +17,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "FS_VME_OBSERVATION")
 public class VmeObservation implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2268197859547174188L;
 
 	// bi-directional many-to-one association to RefVme
 	@ManyToOne

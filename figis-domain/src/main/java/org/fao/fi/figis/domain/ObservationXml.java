@@ -1,5 +1,6 @@
 package org.fao.fi.figis.domain;
 
+import java.io.Serializable;
 import java.sql.Clob;
 import java.sql.Date;
 
@@ -12,7 +13,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "FS_OBSERVATION_XML", schema = "figis")
-public class ObservationXml {
+public class ObservationXml implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5224910306107015509L;
 
 	// <class name="FsLanguageXml" table="FS_OBSERVATION_XML">
 	// <id name="id" column="CD_XML" type="string">
@@ -51,7 +57,7 @@ public class ObservationXml {
 	private int language;
 
 	@Column(name = "FG_STATUS", nullable = false)
-	private Integer status;
+	private int status;
 
 	@Column(name = "DT_CREATION", nullable = false)
 	private Date creationDate;
@@ -85,11 +91,11 @@ public class ObservationXml {
 		this.language = language;
 	}
 
-	public Integer getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
