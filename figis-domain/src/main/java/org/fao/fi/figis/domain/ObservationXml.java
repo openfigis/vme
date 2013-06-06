@@ -68,7 +68,7 @@ public class ObservationXml implements Serializable {
 	private Clob xml;
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(String id) {

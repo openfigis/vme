@@ -10,6 +10,7 @@ import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
+import org.fao.fi.figis.domain.rule.DomainRule;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.figis.component.VmeRefSync;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -58,7 +59,7 @@ public class FigisDaoTest {
 		o.setId(id);
 		dao.persist(o);
 
-		RefVme found = (RefVme) dao.find(RefVme.class, o);
+		RefVme found = (RefVme) dao.find(RefVme.class, o.getId());
 		assertNotNull(found);
 		assertEquals(id, found.getId());
 
@@ -67,6 +68,11 @@ public class FigisDaoTest {
 	@Test
 	public void testObservationXml() {
 		ObservationXml xml = createObservationXml();
+		Observation o = createObservation();
+		dao.persist(o);
+		xml.setObservation(o);
+		DomainRule r = new DomainRule();
+		r.composeId(xml);
 		dao.persist(xml);
 		assertNotNull(dao.find(ObservationXml.class, xml.getId()));
 
@@ -74,15 +80,28 @@ public class FigisDaoTest {
 
 	@Test
 	public void testObservation() {
+
+		ObservationXml xml = createObservationXml();
 		Observation o = createObservation();
 		dao.persist(o);
 		assertNotNull(dao.find(Observation.class, o.getId()));
-		Observation oPlusXml = createObservationWithXml();
-		dao.persist(oPlusXml);
-		Observation found = (Observation) dao.find(Observation.class, oPlusXml.getId());
-		assertNotNull(found);
-		assertNotNull(found.getObservationsPerLanguage().get(0).getId());
 
+		// xml.setObservation(o);
+		// DomainRule r = new DomainRule();
+		// r.composeId(xml);
+		// dao.persist(xml);
+		// assertNotNull(dao.find(ObservationXml.class, xml.getId()));
+		//
+		// dao.merge(o);
+		//
+		// Observation found = (Observation) dao.find(Observation.class, o.getId());
+		// assertNotNull(found);
+		// assertNotNull(found.getObservationsPerLanguage().get(0).getId());
+	}
+
+	@Test
+	public void testObservationWithXml() {
+		ObservationXml xml = createObservationXml();
 	}
 
 	private Observation createObservation() {

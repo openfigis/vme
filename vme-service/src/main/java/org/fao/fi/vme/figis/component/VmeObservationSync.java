@@ -19,7 +19,7 @@ import org.fao.fi.vme.msaccess.component.VmeDaoException;
  * 
  */
 
-public class VmeRefSync implements Sync {
+public class VmeObservationSync implements Sync {
 
 	public static final Short ORDER = -1;
 	public static final Integer COLLECTION = 7300;

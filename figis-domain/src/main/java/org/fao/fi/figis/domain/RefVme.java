@@ -18,10 +18,10 @@ public class RefVme implements Serializable {
 
 	@Id
 	@Column(name = "CD_VME")
-	private int id;
+	private long id;
 
 	@Column(name = "CD_meta")
-	private int meta;
+	private long meta;
 
 	// @OneToMany(cascade = { CascadeType.ALL })
 	// @OneToMany(cascade = { CascadeType.ALL })
@@ -34,15 +34,15 @@ public class RefVme implements Serializable {
 	// "CD_VME"), inverseJoinColumns = @JoinColumn(name = "CD_OBSERVATION", referencedColumnName = "CD_OBSERVATION"))
 	// private List<VmeObservation> vmeObservationList;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public int getMeta() {
+	public long getMeta() {
 		return meta;
 	}
 

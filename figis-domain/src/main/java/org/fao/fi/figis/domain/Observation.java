@@ -3,6 +3,7 @@ package org.fao.fi.figis.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,12 +35,12 @@ public class Observation implements Serializable {
 	private boolean reference;
 
 	@Column(name = "CD_COLLECTION", nullable = true)
-	private Integer collection;
+	private int collection;
 
 	@Column(name = "OBS_ORDER", nullable = false)
 	private Short order;
 
-	@OneToMany(mappedBy = "observation")
+	@OneToMany(targetEntity = ObservationXml.class, cascade = CascadeType.ALL, mappedBy = "observation")
 	private List<ObservationXml> observationsPerLanguage;
 
 	public Short getOrder() {
@@ -74,11 +75,11 @@ public class Observation implements Serializable {
 		this.reference = reference;
 	}
 
-	public Integer getCollection() {
+	public int getCollection() {
 		return collection;
 	}
 
-	public void setCollection(Integer collection) {
+	public void setCollection(int collection) {
 		this.collection = collection;
 	}
 
