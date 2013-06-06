@@ -3,6 +3,7 @@ package org.fao.fi.vme.msaccess.tables;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.VmeFeatures;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
@@ -164,9 +165,12 @@ public class VME implements TableDomainMapper {
 		o.setId(this.ID);
 		// o.setName(this.get)
 		// o.setRfmo(rfmo)
+
 		ValidityPeriodRule r = new ValidityPeriodRule(this.VME_Validity_Start, this.VME_Validity_End);
-		o.getValidityPeriod().setBeginYear(r.getStart());
-		o.getValidityPeriod().setEndYear(r.getEnd());
+		ValidityPeriod vp = new ValidityPeriod();
+		vp.setBeginYear(r.getStart());
+		vp.setEndYear(r.getEnd());
+		o.setValidityPeriod(vp);
 
 		VmeFeatures f = new VmeFeatures();
 		f.setDescriptionBiological(this.VME_Description_Biology);

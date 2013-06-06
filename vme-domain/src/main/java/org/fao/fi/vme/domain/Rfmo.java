@@ -19,7 +19,7 @@ public class Rfmo {
 	 * The id comes from RMTS
 	 */
 	@Id
-	int id;
+	private int id;
 
 	/**
 	 * The list of general measures defined on the level of this RFMO
@@ -45,7 +45,7 @@ public class Rfmo {
 	/**
 	 * An RFMO has a number of information sources
 	 */
-	@OneToMany(mappedBy = "rfmo")
+	@OneToMany
 	private final List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
 	public int getId() {

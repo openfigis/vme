@@ -36,4 +36,11 @@ public class VmeDao extends Dao {
 		em.getTransaction().commit();
 	}
 
+	public void merge(Object object) {
+		em.getTransaction().begin();
+		em.merge(object);
+		em.getTransaction().commit();
+
+	}
+
 }

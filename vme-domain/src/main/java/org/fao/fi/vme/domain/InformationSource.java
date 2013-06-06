@@ -1,6 +1,7 @@
 package org.fao.fi.vme.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 /**
@@ -14,6 +15,9 @@ import javax.persistence.OneToOne;
 @Entity
 public class InformationSource {
 
+	@Id
+	private long id;
+
 	/**
 	 * 
 	 */
@@ -23,7 +27,6 @@ public class InformationSource {
 	/**
 	 * 
 	 */
-	@OneToOne
 	private Source formalSource;
 
 	/**
@@ -37,6 +40,14 @@ public class InformationSource {
 	 */
 	@OneToOne
 	private GeneralMeasures generalMeasures;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public Meeting getProducedOnMeeting() {
 		return producedOnMeeting;

@@ -27,7 +27,7 @@ public class Vme {
 	@OneToMany(mappedBy = "vme")
 	private List<SpecificMeasures> specificMeasuresList;
 
-	@OneToMany(mappedBy = "vme")
+	@OneToMany
 	private List<VmeFeatures> vmeFeaturesList;;
 
 	/** */
