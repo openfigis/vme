@@ -98,8 +98,8 @@ public class LinkerTest {
 
 	private void validateMeetingObject(Object object) {
 		Meeting o = (Meeting) object;
-		assertNotNull(o.getMeetingDocument());
-		assertNotNull(o.getMeetingDocument().getUrl());
+		// assertNotNull(o.getMeetingDocument());
+
 		assertNotNull(o.getReportSummary());
 		assertNotNull(o.getCommittee());
 
@@ -119,9 +119,9 @@ public class LinkerTest {
 		Rfmo o = (Rfmo) object;
 		assertTrue(o.getFishingActivityList().size() > 0);
 		assertTrue(o.getGeneralMeasuresList().size() > 0);
-		assertTrue(o.getManagedVmeList().size() > 0);
+		assertTrue(o.getListOfManagedVmes().size() > 0);
 		if (o.getId() == 1 || o.getId() == 3) {
-			assertTrue(o.getMeetingList().size() > 0);
+			assertTrue(o.getInformationSourceList().size() > 0);
 		}
 	}
 

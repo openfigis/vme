@@ -1,6 +1,10 @@
 package org.fao.fi.vme.msaccess.tables;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.VmeFeatures;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.mapping.ValidityPeriodRule;
 
@@ -150,13 +154,11 @@ public class VME implements TableDomainMapper {
 		VME_Description_Impact = vME_Description_Impact;
 	}
 
+	@Override
 	public Object map() {
 		Vme o = new Vme();
 		o.setAreaType(this.VME_Area_Type);
 		// o.setCriteria(this.)
-		o.setDescriptionBiological(this.VME_Description_Biology);
-		o.setDescriptionImpact(this.VME_Description_Impact);
-		o.setDescriptionPhisical(this.VME_Description_Physical);
 		o.setGeoform(this.VME_Geoform);
 		// o.setGeographicLayerId(this.)
 		o.setId(this.ID);
@@ -165,6 +167,14 @@ public class VME implements TableDomainMapper {
 		ValidityPeriodRule r = new ValidityPeriodRule(this.VME_Validity_Start, this.VME_Validity_End);
 		o.getValidityPeriod().setBeginYear(r.getStart());
 		o.getValidityPeriod().setEndYear(r.getEnd());
+
+		VmeFeatures f = new VmeFeatures();
+		f.setDescriptionBiological(this.VME_Description_Biology);
+		f.setDescriptionImpact(this.VME_Description_Impact);
+		f.setDescriptionPhisical(this.VME_Description_Physical);
+
+		List<VmeFeatures> l = new ArrayList<VmeFeatures>();
+		l.add(f);
 
 		return o;
 	}

@@ -137,10 +137,12 @@ public class Linker {
 		Meeting meeting = (Meeting) meetingDomainObject;
 		Meetings meetingsRecord = (Meetings) domainTableMap.get(meeting);
 
+		// TODO replace with Information Source
+
 		Rfmo rfmo = findRfmo(meetingsRecord.getRFB_ID(), objectCollectionList, domainTableMap);
-		if (!rfmo.getMeetingList().contains(meeting)) {
-			rfmo.getMeetingList().add(meeting);
-		}
+		// if (!rfmo.getMeetingList().contains(meeting)) {
+		// rfmo.get().add(meeting);
+		// }
 
 	}
 
@@ -159,8 +161,8 @@ public class Linker {
 
 		Rfmo rfmo = findRfmo(vmeRecord.getRFB_ID(), objectCollectionList, domainTableMap);
 		vme.setRfmo(rfmo);
-		if (!rfmo.getManagedVmeList().contains(vme)) {
-			rfmo.getManagedVmeList().add(vme);
+		if (!rfmo.getListOfManagedVmes().contains(vme)) {
+			rfmo.getListOfManagedVmes().add(vme);
 		}
 
 	}

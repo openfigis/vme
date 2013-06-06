@@ -3,6 +3,7 @@ package org.fao.fi.vme.msaccess.tables;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Meeting;
 import org.fao.fi.vme.msaccess.component.VmeDaoException;
 import org.fao.fi.vme.msaccess.formatter.MeetingDateParser;
@@ -92,28 +93,31 @@ public class Meetings implements TableDomainMapper {
 		Link_Source = link_Source;
 	}
 
+	@Override
 	public Object map() {
-		Meeting o = new Meeting();
-		o.setCommittee(this.Committee);
+		Meeting meeting = new Meeting();
+		meeting.setCommittee(this.Committee);
 
 		MeetingDateParser p = new MeetingDateParser(this.Meeting_Date);
-		o.setBegin(p.getStart());
-		o.setEnd(p.getEnd());
+		meeting.setBegin(p.getStart());
+		meeting.setEnd(p.getEnd());
+		meeting.setId(this.ID);
+		meeting.setReportSummary(this.getReport_Summary());
 
-		// o.setGeneralMeasures(this.G)
-		o.setId(this.ID);
+		InformationSource is = new InformationSource();
+		is.setProducedOnMeeting(meeting);
 		try {
 			URL url = new URL(this.getLink_Source());
-			o.getMeetingDocument().setUrl(url);
+			is.getFormalSource().setUrl(url);
 		} catch (MalformedURLException e) {
 			throw new VmeDaoException(e);
 		}
-		o.getMeetingDocument().setCitation(this.getLink_Tagged_File());
-		o.setReportSummary(this.getReport_Summary());
+		is.getFormalSource().setCitation(this.getLink_Tagged_File());
+
 		// o.setSpecificMeasures(specificMeasures)
 
-		o.setYear(this.Year_ID);
+		// is.setYear(this.Year_ID);
 
-		return o;
+		return is;
 	}
 }

@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 @Entity
 public class Rfmo {
 
+	/**
+	 * The id comes from RMTS
+	 */
 	@Id
 	int id;
 
@@ -24,54 +27,26 @@ public class Rfmo {
 	 * 
 	 */
 	@OneToMany(mappedBy = "rfmo")
-	private List<GeneralMeasures> generalMeasuresList = new ArrayList<GeneralMeasures>();
-
-	/** 
-	  */
-	@OneToMany(mappedBy = "rfmo")
-	private List<Vme> managedVmeList = new ArrayList<Vme>();
+	private final List<GeneralMeasures> generalMeasuresList = new ArrayList<GeneralMeasures>();
 
 	/**
-	   */
+	 * 
+	 * This RFMO manages this list of Vmes
+	 * 
+	 */
 	@OneToMany(mappedBy = "rfmo")
-	private List<Meeting> meetingList = new ArrayList<Meeting>();
+	private final List<Vme> listOfManagedVmes = new ArrayList<Vme>();
 
 	/** 
 	  */
 	@OneToMany
-	private List<FishingHistory> fishingActivityList = new ArrayList<FishingHistory>();
+	private final List<FishingHistory> fishingActivityList = new ArrayList<FishingHistory>();
 
-	public List<GeneralMeasures> getGeneralMeasuresList() {
-		return generalMeasuresList;
-	}
-
-	public void setGeneralMeasuresList(List<GeneralMeasures> generalMeasuresList) {
-		this.generalMeasuresList = generalMeasuresList;
-	}
-
-	public List<Vme> getManagedVmeList() {
-		return managedVmeList;
-	}
-
-	public void setManagedVmeList(List<Vme> managedVmeList) {
-		this.managedVmeList = managedVmeList;
-	}
-
-	public List<Meeting> getMeetingList() {
-		return meetingList;
-	}
-
-	public void setMeetingList(List<Meeting> meetingList) {
-		this.meetingList = meetingList;
-	}
-
-	public List<FishingHistory> getFishingActivityList() {
-		return fishingActivityList;
-	}
-
-	public void setFishingActivityList(List<FishingHistory> fishingActivityList) {
-		this.fishingActivityList = fishingActivityList;
-	}
+	/**
+	 * An RFMO has a number of information sources
+	 */
+	@OneToMany(mappedBy = "rfmo")
+	private final List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
 	public int getId() {
 		return id;
@@ -81,26 +56,20 @@ public class Rfmo {
 		this.id = id;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
+	public List<GeneralMeasures> getGeneralMeasuresList() {
+		return generalMeasuresList;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Rfmo other = (Rfmo) obj;
-		if (id != other.id)
-			return false;
-		return true;
+	public List<Vme> getListOfManagedVmes() {
+		return listOfManagedVmes;
+	}
+
+	public List<FishingHistory> getFishingActivityList() {
+		return fishingActivityList;
+	}
+
+	public List<InformationSource> getInformationSourceList() {
+		return informationSourceList;
 	}
 
 }

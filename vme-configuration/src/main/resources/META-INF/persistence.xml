@@ -2,9 +2,11 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-	<persistence-unit name="vme-persistence"> <!--1 -->
+	<persistence-unit name="vme-persistence">
+
 		<class>org.fao.fi.vme.domain.FishingHistory</class>
 		<class>org.fao.fi.vme.domain.GeneralMeasures</class>
+		<class>org.fao.fi.vme.domain.InformationSource</class>
 		<class>org.fao.fi.vme.domain.Meeting</class>
 		<class>org.fao.fi.vme.domain.Observation</class>
 		<class>org.fao.fi.vme.domain.Rfmo</class>
@@ -12,6 +14,7 @@
 		<class>org.fao.fi.vme.domain.SpecificMeasures</class>
 		<class>org.fao.fi.vme.domain.ValidityPeriod</class>
 		<class>org.fao.fi.vme.domain.Vme</class>
+		<class>org.fao.fi.vme.domain.VmeFeatures</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.vme}" />
@@ -30,7 +33,7 @@
 
 	</persistence-unit>
 
-	<persistence-unit name="figis-persistence"> 
+	<persistence-unit name="figis-persistence">
 		<class>org.fao.fi.figis.domain.RefVme</class>
 		<class>org.fao.fi.figis.domain.VmeObservation</class>
 		<class>org.fao.fi.figis.domain.Observation</class>
@@ -51,7 +54,7 @@
 			<property name="hibernate.dialect" value="${hibernate.dialect.figis}" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
-			
+
 		</properties>
 
 	</persistence-unit>

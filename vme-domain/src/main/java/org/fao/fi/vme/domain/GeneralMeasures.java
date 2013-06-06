@@ -10,27 +10,38 @@ import javax.persistence.OneToOne;
  * 
  */
 @Entity
-public class GeneralMeasures extends Observation {
+public class GeneralMeasures {
 
 	/** 
 	 * 
 	 */
 	@Id
 	private int id;
+
+	/**
+	 * Year in which the measures are defined, established.
+	 */
+	private int year;
+
+	/**
+	 * This GeneralMeasures primarily concerns this VME.
+	 * 
+	 */
+	@OneToOne
+	private Vme primarilyConcernedVme;
+
 	/**
 	 * GeneralMeasures are defined on the level of a RFMO.
 	 */
 	@OneToOne
 	private Rfmo rfmo;
 
-	/** 
-	  */
-	private Source linkCemSource = new Source();
-
-	/** 
-	  */
-	@OneToOne
-	private Vme primairlyConcernedVme;
+	/**
+	 * GeneralMeasure has one linkCemSource
+	 * 
+	 * 
+	 */
+	private Source linkCemSource;
 
 	/** */
 	private String rfbFishingAreas;
@@ -45,7 +56,23 @@ public class GeneralMeasures extends Observation {
 	private String threshold;
 
 	/** */
-	private ValidityPeriod validityPeriod = new ValidityPeriod();
+	private ValidityPeriod validityPeriod;
+
+	public Vme getPrimarilyConcernedVme() {
+		return primarilyConcernedVme;
+	}
+
+	public void setPrimarilyConcernedVme(Vme primarilyConcernedVme) {
+		this.primarilyConcernedVme = primarilyConcernedVme;
+	}
+
+	public void setLinkCemSource(Source linkCemSource) {
+		this.linkCemSource = linkCemSource;
+	}
+
+	public void setValidityPeriod(ValidityPeriod validityPeriod) {
+		this.validityPeriod = validityPeriod;
+	}
 
 	public int getId() {
 		return id;
@@ -55,28 +82,20 @@ public class GeneralMeasures extends Observation {
 		this.id = id;
 	}
 
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
 	public Rfmo getRfmo() {
 		return rfmo;
 	}
 
 	public void setRfmo(Rfmo rfmo) {
 		this.rfmo = rfmo;
-	}
-
-	public Source getLinkCemSource() {
-		return linkCemSource;
-	}
-
-	public void setLinkCemSource(Source linkCemSource) {
-		this.linkCemSource = linkCemSource;
-	}
-
-	public Vme getPrimairlyConcernedVme() {
-		return primairlyConcernedVme;
-	}
-
-	public void setPrimairlyConcernedVme(Vme primairlyConcernedVme) {
-		this.primairlyConcernedVme = primairlyConcernedVme;
 	}
 
 	public String getRfbFishingAreas() {
@@ -111,12 +130,12 @@ public class GeneralMeasures extends Observation {
 		this.threshold = threshold;
 	}
 
-	public ValidityPeriod getValidityPeriod() {
-		return validityPeriod;
+	public Source getLinkCemSource() {
+		return linkCemSource;
 	}
 
-	public void setValidityPeriod(ValidityPeriod validityPeriod) {
-		this.validityPeriod = validityPeriod;
+	public ValidityPeriod getValidityPeriod() {
+		return validityPeriod;
 	}
 
 	@Override

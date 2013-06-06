@@ -10,13 +10,18 @@ import javax.persistence.ManyToOne;
  * 
  */
 @Entity
-public class SpecificMeasures extends Observation {
+public class SpecificMeasures {
 
 	/**
 	 *  
 	 */
 	@Id
 	private int id;
+
+	/**
+	 * Year in which the measures are defined, established.
+	 */
+	private int year;
 
 	/**
 	 * The SpecificMeasures are defined on the level of this VME
@@ -34,7 +39,15 @@ public class SpecificMeasures extends Observation {
 	/**
 	 * Where the document of the SpecificMeasures is to be found.
 	 */
-	public Source document = new Source();
+	public Source document;
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
 
 	public int getId() {
 		return id;

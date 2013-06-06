@@ -69,6 +69,7 @@ public class Measues_VME_Specific implements TableDomainMapper {
 		VME_SpecificMeasure = vME_SpecificMeasure;
 	}
 
+	@Override
 	public Object map() {
 		SpecificMeasures o = new SpecificMeasures();
 		// o.getDocument().setUrl(this.get)
@@ -78,6 +79,7 @@ public class Measues_VME_Specific implements TableDomainMapper {
 		o.getValidityPeriod().setEndYear(new Integer(this.getVME_SpecificMeasure_Validity_End()).intValue());
 		// o.setVme(this.getVME_ID());
 		o.setYear(this.getYear_ID());
+
 		return o;
 	}
 
