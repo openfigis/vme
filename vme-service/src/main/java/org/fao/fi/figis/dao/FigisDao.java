@@ -12,7 +12,7 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.dao.config.FigisDB;
 
 /**
- * Fabrizio Sibeni
+ * 
  * 
  * 
  * @author Erik van Ingen
