@@ -42,7 +42,7 @@ public class VmeDomainFigisSyncTest {
 				vmeDao.persist(vme);
 			}
 			// remove them from figis, if they exist
-			RefVme refVme = figisDao.findRefVme(i);
+			RefVme refVme = (RefVme) figisDao.find(RefVme.class, i);
 			if (refVme != null) {
 				figisDao.remove(refVme);
 			}
