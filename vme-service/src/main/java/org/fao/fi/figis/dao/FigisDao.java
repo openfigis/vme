@@ -11,6 +11,14 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.dao.config.FigisDB;
 
+/**
+ * Fabrizio.
+ * 
+ * 
+ * @author Erik van Ingen
+ * 
+ */
+
 @Singleton
 public class FigisDao extends Dao {
 
