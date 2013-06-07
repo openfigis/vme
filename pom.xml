@@ -14,6 +14,15 @@
 	</properties>
 
 
+	<repositories>
+  <repository>
+        <id>artifactory.fao.org</id>
+        <name>artifactory.fao.org-releases</name>
+        <url>http://artifactory.fao.org/artifactory/ext-release-local</url>
+    </repository>
+
+	</repositories>
+
 
 	<modules>
 		<module>figis-domain</module>
@@ -70,13 +79,12 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>4.2.0.Final</version>
 		</dependency>
-
-
 		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc14</artifactId>
-			<version>10.2.0.3.0</version>
-		</dependency>
+    <groupId>oracle</groupId>
+    <artifactId>ojdbcOracle</artifactId>
+    <version>10g</version>
+	</dependency>
+		
 	</dependencies>
 
 	<build>
