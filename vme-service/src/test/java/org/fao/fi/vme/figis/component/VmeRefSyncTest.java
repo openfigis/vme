@@ -12,6 +12,7 @@ import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.Vme;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,6 +34,7 @@ public class VmeRefSyncTest {
 	/**
 	 * 
 	 */
+	@Ignore
 	@Test
 	public void testSync() {
 		assertEquals(0, figisDao.loadRefVmes().size());

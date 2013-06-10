@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.fao.fi.vme.domain.FishingHistory;
 import org.fao.fi.vme.domain.GeneralMeasures;
-import org.fao.fi.vme.domain.Meeting;
+import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
@@ -28,7 +28,7 @@ public class MsAcces2DomainMapper {
 	static {
 		map.put(Measues_VME_Specific.class, SpecificMeasures.class);
 		map.put(Measures_VME_General.class, GeneralMeasures.class);
-		map.put(Meetings.class, Meeting.class);
+		map.put(Meetings.class, InformationSource.class);
 		map.put(RFB_VME_Fishing_History.class, FishingHistory.class);
 		map.put(VME.class, Vme.class);
 		map.put(RFB_MetaData.class, Rfmo.class);

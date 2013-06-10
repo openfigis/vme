@@ -5,7 +5,9 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  * 
@@ -21,13 +23,8 @@ public class Rfmo {
 	@Id
 	private int id;
 
-	/**
-	 * The list of general measures defined on the level of this RFMO
-	 * 
-	 * 
-	 */
-	@OneToMany(mappedBy = "rfmo")
-	private final List<GeneralMeasures> generalMeasuresList = new ArrayList<GeneralMeasures>();
+	@OneToOne
+	private GeneralMeasures generalMeasures;
 
 	/**
 	 * 
@@ -35,18 +32,16 @@ public class Rfmo {
 	 * 
 	 */
 	@OneToMany(mappedBy = "rfmo")
-	private final List<Vme> listOfManagedVmes = new ArrayList<Vme>();
-
-	/** 
-	  */
-	@OneToMany
-	private final List<FishingHistory> fishingActivityList = new ArrayList<FishingHistory>();
+	private List<Vme> listOfManagedVmes = new ArrayList<Vme>();
 
 	/**
 	 * An RFMO has a number of information sources
 	 */
+	@ManyToMany
+	private List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
+
 	@OneToMany
-	private final List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
+	private List<FishingHistory> fishingHistoryList;
 
 	public int getId() {
 		return id;
@@ -56,20 +51,36 @@ public class Rfmo {
 		this.id = id;
 	}
 
-	public List<GeneralMeasures> getGeneralMeasuresList() {
-		return generalMeasuresList;
+	public GeneralMeasures getGeneralMeasures() {
+		return generalMeasures;
+	}
+
+	public void setGeneralMeasures(GeneralMeasures generalMeasures) {
+		this.generalMeasures = generalMeasures;
 	}
 
 	public List<Vme> getListOfManagedVmes() {
 		return listOfManagedVmes;
 	}
 
-	public List<FishingHistory> getFishingActivityList() {
-		return fishingActivityList;
+	public void setListOfManagedVmes(List<Vme> listOfManagedVmes) {
+		this.listOfManagedVmes = listOfManagedVmes;
 	}
 
 	public List<InformationSource> getInformationSourceList() {
 		return informationSourceList;
 	}
+
+	public void setInformationSourceList(List<InformationSource> informationSourceList) {
+		this.informationSourceList = informationSourceList;
+	}
+
+	public List<FishingHistory> getFishingHistoryList() {
+		return fishingHistoryList;
+	}
+
+	public void setFishingHistoryList(List<FishingHistory> fishingHistoryList) {
+		this.fishingHistoryList = fishingHistoryList;
+	};
 
 }

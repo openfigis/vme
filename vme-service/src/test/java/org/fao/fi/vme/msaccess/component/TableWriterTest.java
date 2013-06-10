@@ -13,6 +13,7 @@ import org.fao.fi.vme.msaccess.model.Table;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -41,6 +42,7 @@ public class TableWriterTest {
 	}
 
 	@Test
+	@Ignore
 	public void testWrite() {
 		List<Table> tables = reader.readObjects();
 		assertTrue(tables.size() > 0);

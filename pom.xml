@@ -83,7 +83,6 @@
 			<version>10g</version>
 			<type>pom</type>
 		</dependency>
-
 	</dependencies>
 
 	<build>

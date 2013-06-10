@@ -18,7 +18,7 @@ import javax.persistence.Id;
  * @author Erik van Ingen
  * 
  */
-@Entity
+@Entity(name = "MultiLingualString")
 public class MultiLingualString {
 
 	@Id

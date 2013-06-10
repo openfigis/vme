@@ -5,7 +5,6 @@
 		<groupId>org.vme</groupId>
 		<artifactId>vme</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../vme</relativePath>
 	</parent>
 	<artifactId>vme-configuration</artifactId>
 

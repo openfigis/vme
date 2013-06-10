@@ -1,15 +1,17 @@
 package org.fao.fi.vme.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 /**
  * 
  * @author Erik van Ingen
  * 
  */
-@Entity
+@Entity(name = "SPECIFIC_MEASURES")
 public class SpecificMeasures {
 
 	/**
@@ -19,35 +21,24 @@ public class SpecificMeasures {
 	private int id;
 
 	/**
+	 * The SpecificMeasures are defined on the level of this VME, sometimes applies also to other VMEs.
+	 */
+	@ManyToMany(mappedBy = "specificMeasuresList")
+	public List<Vme> vmeList;
+
+	/**
+	 *  
+	  */
+	public ValidityPeriod validityPeriod;
+
+	/**
 	 * Year in which the measures are defined, established.
 	 */
 	private int year;
 
-	/**
-	 * The SpecificMeasures are defined on the level of this VME
-	 */
-	@ManyToOne
-	public Vme vme;
-
 	/** 
 	 */
 	private String measureSummary;
-
-	/** */
-	public ValidityPeriod validityPeriod = new ValidityPeriod();
-
-	/**
-	 * Where the document of the SpecificMeasures is to be found.
-	 */
-	public Source document;
-
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
-	}
 
 	public int getId() {
 		return id;
@@ -57,12 +48,12 @@ public class SpecificMeasures {
 		this.id = id;
 	}
 
-	public String getMeasureSummary() {
-		return measureSummary;
+	public List<Vme> getVmeList() {
+		return vmeList;
 	}
 
-	public void setMeasureSummary(String measureSummary) {
-		this.measureSummary = measureSummary;
+	public void setVmeList(List<Vme> vmeList) {
+		this.vmeList = vmeList;
 	}
 
 	public ValidityPeriod getValidityPeriod() {
@@ -73,20 +64,20 @@ public class SpecificMeasures {
 		this.validityPeriod = validityPeriod;
 	}
 
-	public Vme getVme() {
-		return vme;
+	public int getYear() {
+		return year;
 	}
 
-	public void setVme(Vme vme) {
-		this.vme = vme;
+	public void setYear(int year) {
+		this.year = year;
 	}
 
-	public Source getDocument() {
-		return document;
+	public String getMeasureSummary() {
+		return measureSummary;
 	}
 
-	public void setDocument(Source document) {
-		this.document = document;
+	public void setMeasureSummary(String measureSummary) {
+		this.measureSummary = measureSummary;
 	}
 
 	@Override
