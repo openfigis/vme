@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -27,6 +28,7 @@ public class VmeAccessDbImportTest {
 	 * 
 	 * 
 	 */
+	@Ignore
 	@Test
 	public void testImportMsAccessData() {
 		i.importMsAccessData();

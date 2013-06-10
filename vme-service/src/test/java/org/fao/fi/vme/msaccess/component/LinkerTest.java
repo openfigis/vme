@@ -17,6 +17,7 @@ import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -37,6 +38,7 @@ public class LinkerTest {
 	private final VmeReader reader = new VmeReader();
 
 	@Test
+	@Ignore
 	public void testLink() {
 		// read from MSAccess
 		List<Table> tables = reader.readObjects();
