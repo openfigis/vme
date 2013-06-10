@@ -1,7 +1,10 @@
 package org.fao.fi.vme.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -9,7 +12,7 @@ import javax.persistence.OneToOne;
  * @author Erik van Ingen
  * 
  */
-@Entity
+@Entity(name = "GENERAL_MEASURES")
 public class GeneralMeasures {
 
 	/** 
@@ -17,18 +20,6 @@ public class GeneralMeasures {
 	 */
 	@Id
 	private int id;
-
-	/**
-	 * Year in which the measures are defined, established.
-	 */
-	private int year;
-
-	/**
-	 * This GeneralMeasures primarily concerns this VME.
-	 * 
-	 */
-	@OneToOne
-	private Vme primarilyConcernedVme;
 
 	/**
 	 * GeneralMeasures are defined on the level of a RFMO.
@@ -41,7 +32,13 @@ public class GeneralMeasures {
 	 * 
 	 * 
 	 */
-	private Source linkCemSource;
+	@OneToMany
+	private List<InformationSource> informationSourceList;
+
+	/**
+	 * Year in which the measures are defined, established.
+	 */
+	private int year;
 
 	/** */
 	private String rfbFishingAreas;
@@ -58,22 +55,6 @@ public class GeneralMeasures {
 	/** */
 	private ValidityPeriod validityPeriod;
 
-	public Vme getPrimarilyConcernedVme() {
-		return primarilyConcernedVme;
-	}
-
-	public void setPrimarilyConcernedVme(Vme primarilyConcernedVme) {
-		this.primarilyConcernedVme = primarilyConcernedVme;
-	}
-
-	public void setLinkCemSource(Source linkCemSource) {
-		this.linkCemSource = linkCemSource;
-	}
-
-	public void setValidityPeriod(ValidityPeriod validityPeriod) {
-		this.validityPeriod = validityPeriod;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -82,20 +63,28 @@ public class GeneralMeasures {
 		this.id = id;
 	}
 
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
-	}
-
 	public Rfmo getRfmo() {
 		return rfmo;
 	}
 
 	public void setRfmo(Rfmo rfmo) {
 		this.rfmo = rfmo;
+	}
+
+	public List<InformationSource> getInformationSourceList() {
+		return informationSourceList;
+	}
+
+	public void setInformationSourceList(List<InformationSource> informationSourceList) {
+		this.informationSourceList = informationSourceList;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 	public String getRfbFishingAreas() {
@@ -130,12 +119,12 @@ public class GeneralMeasures {
 		this.threshold = threshold;
 	}
 
-	public Source getLinkCemSource() {
-		return linkCemSource;
-	}
-
 	public ValidityPeriod getValidityPeriod() {
 		return validityPeriod;
+	}
+
+	public void setValidityPeriod(ValidityPeriod validityPeriod) {
+		this.validityPeriod = validityPeriod;
 	}
 
 	@Override

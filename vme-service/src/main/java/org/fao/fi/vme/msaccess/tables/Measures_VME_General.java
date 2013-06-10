@@ -2,9 +2,11 @@ package org.fao.fi.vme.msaccess.tables;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.fao.fi.vme.domain.GeneralMeasures;
-import org.fao.fi.vme.domain.Source;
+import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.msaccess.component.VmeDaoException;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
@@ -128,6 +130,10 @@ public class Measures_VME_General implements TableDomainMapper {
 		o.setId(this.getID());
 		o.setIndicatorSpecies(this.getVME_Indicator_Sp());
 
+		InformationSource is = new InformationSource();
+		List<InformationSource> isList = new ArrayList<InformationSource>();
+		o.setInformationSourceList(isList);
+
 		URL url = null;
 		if (this.getLink_CEM_Source() != null) {
 			try {
@@ -138,13 +144,9 @@ public class Measures_VME_General implements TableDomainMapper {
 				throw new VmeDaoException(e);
 			}
 		}
+		is.setUrl(url);
+		is.setCitation(this.getLink_CEM_Bookmarked());
 
-		Source s = new Source();
-		s.setUrl(url);
-		s.setCitation(this.getLink_CEM_Bookmarked());
-		o.setLinkCemSource(s);
-
-		// o.setPrimairlyConcernedVme(primairlyConcernedVme)
 		o.setRfbFishingAreas(this.getRFB_FishingAreas());
 		// o.setRfmo(rfmo)
 		o.setThreshold(this.getVME_Threshold());
@@ -155,7 +157,6 @@ public class Measures_VME_General implements TableDomainMapper {
 		vp.setBeginYear(r.getStart());
 		vp.setEndYear(r.getEnd());
 		o.setValidityPeriod(vp);
-
 		o.setYear(this.Year_ID);
 		return o;
 	}

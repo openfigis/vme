@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.fao.fi.vme.domain.FishingHistory;
 import org.fao.fi.vme.domain.GeneralMeasures;
-import org.fao.fi.vme.domain.Meeting;
+import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
@@ -47,8 +47,8 @@ public class Linker {
 		// if (domainObject instanceof Rfmo) {
 		// linkRfmoObject(domainObject, objectCollectionList, tables);
 		// }
-		if (domainObject instanceof Meeting) {
-			linkMeetingObject(domainObject, domainTableMap, objectCollectionList);
+		if (domainObject instanceof InformationSource) {
+			linkInformationSourceObject(domainObject, domainTableMap, objectCollectionList);
 		}
 		if (domainObject instanceof SpecificMeasures) {
 			linkSpecificMeasuresObject(domainObject, domainTableMap, objectCollectionList);
@@ -68,15 +68,15 @@ public class Linker {
 		FishingHistory o = (FishingHistory) domainObject;
 		RFB_VME_Fishing_History record = (RFB_VME_Fishing_History) domainTableMap.get(o);
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
-		if (!rfmo.getFishingActivityList().contains(o)) {
-			rfmo.getFishingActivityList().add(o);
+		if (!rfmo.getFishingHistoryList().contains(o)) {
+			rfmo.getFishingHistoryList().add(o);
 		}
 
 	}
 
 	/**
 	 * 
-	 * linking GeneralMeasures with Rfmo and the other way around.
+	 * linking GeneralMeasures with Rfmo and InformationSource
 	 * 
 	 * @param domainObject
 	 * @param domainTableMap
@@ -89,9 +89,7 @@ public class Linker {
 
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
 		gm.setRfmo(rfmo);
-		if (!rfmo.getGeneralMeasuresList().contains(gm)) {
-			rfmo.getGeneralMeasuresList().add(gm);
-		}
+		rfmo.setGeneralMeasures(gm);
 	}
 
 	/**
@@ -113,7 +111,11 @@ public class Linker {
 					Vme vme = (Vme) object;
 					VME vmeRecord = (VME) domainTableMap.get(vme);
 					if (record.getVME_ID().equals(vmeRecord.getVME_ID())) {
-						sm.setVme(vme);
+
+						if (!sm.getVmeList().contains(vme)) {
+							// add only when not already in the list
+							sm.getVmeList().add(vme);
+						}
 						if (!vme.getSpecificMeasuresList().contains(sm)) {
 							// add only when not already in the list
 							vme.getSpecificMeasuresList().add(sm);
@@ -125,25 +127,27 @@ public class Linker {
 	}
 
 	/**
-	 * filling up rfmo's with meeting
+	 * filling up rfmo's with informationSource
 	 * 
 	 * 
-	 * @param meetingDomainObject
+	 * @param informationSourceDomainObject
 	 * @param domainTableMap
 	 * @param objectCollectionList
 	 */
-	private void linkMeetingObject(Object meetingDomainObject, Map<Object, Object> domainTableMap,
+	private void linkInformationSourceObject(Object informationSourceDomainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
-		Meeting meeting = (Meeting) meetingDomainObject;
-		Meetings meetingsRecord = (Meetings) domainTableMap.get(meeting);
+		InformationSource informationSource = (InformationSource) informationSourceDomainObject;
+		Meetings record = (Meetings) domainTableMap.get(informationSource);
 
-		// TODO replace with Information Source
+		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
 
-		Rfmo rfmo = findRfmo(meetingsRecord.getRFB_ID(), objectCollectionList, domainTableMap);
-		// if (!rfmo.getMeetingList().contains(meeting)) {
-		// rfmo.get().add(meeting);
-		// }
+		if (!informationSource.getRfmoList().contains(rfmo)) {
+			informationSource.getRfmoList().add(rfmo);
+		}
 
+		if (!rfmo.getInformationSourceList().contains(informationSource)) {
+			rfmo.getInformationSourceList().add(informationSource);
+		}
 	}
 
 	/**

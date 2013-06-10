@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -24,28 +25,40 @@ public class Vme {
 	@ManyToOne
 	private Rfmo rfmo;
 
-	@OneToMany(mappedBy = "vme")
+	@ManyToMany(mappedBy = "vme")
 	private List<SpecificMeasures> specificMeasuresList;
 
 	@OneToMany
 	private List<VmeFeatures> vmeFeaturesList;;
 
-	/** */
+	/**
+	 *  
+	 */
 	private ValidityPeriod validityPeriod;
 
-	/** */
+	/**
+	 *
+	 */
 	private String name;
 
-	/** */
+	/**
+	 *
+	 */
 	private String geoform;
 
-	/** */
+	/**
+	 *
+	 */
 	private String geographicLayerId;
 
-	/** */
+	/**
+	 *
+	 */
 	private String areaType;
 
-	/** */
+	/**
+	 *
+	 */
 	private String criteria;
 
 	public int getId() {

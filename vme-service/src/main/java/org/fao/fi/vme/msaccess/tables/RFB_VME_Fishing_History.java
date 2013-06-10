@@ -55,7 +55,7 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 		FishingHistory o = new FishingHistory();
 		o.setId(this.ID);
 		o.setRfbFishingAreaGeneralText(this.getRFB_FishingAreas_GeneralText());
-		o.setUpdatedInYear(this.Year_ID);
+		o.setYear(this.Year_ID);
 		o.setVmeGeneralText(this.RFB_VMEs_GeneralText);
 
 		return o;

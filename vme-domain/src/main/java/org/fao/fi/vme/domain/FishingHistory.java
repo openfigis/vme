@@ -8,7 +8,7 @@ import javax.persistence.Id;
  * @author Erik van Ingen
  * 
  */
-@Entity
+@Entity(name = "FISHING_HISTORY")
 public class FishingHistory {
 
 	/** 
@@ -17,7 +17,7 @@ public class FishingHistory {
 	@Id
 	private int id;
 
-	private int updatedInYear;
+	private int year;
 
 	/** */
 	private String rfbFishingAreaGeneralText;
@@ -33,12 +33,12 @@ public class FishingHistory {
 		this.id = id;
 	}
 
-	public int getUpdatedInYear() {
-		return updatedInYear;
+	public int getYear() {
+		return year;
 	}
 
-	public void setUpdatedInYear(int updatedInYear) {
-		this.updatedInYear = updatedInYear;
+	public void setYear(int updatedInYear) {
+		this.year = updatedInYear;
 	}
 
 	public String getRfbFishingAreaGeneralText() {

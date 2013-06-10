@@ -9,7 +9,7 @@ import javax.inject.Inject;
 
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.GeneralMeasures;
-import org.fao.fi.vme.domain.Meeting;
+import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
@@ -59,8 +59,8 @@ public class LinkerTest {
 				if (object instanceof Rfmo) {
 					validateRfmoObject(object);
 				}
-				if (object instanceof Meeting) {
-					validateMeetingObject(object);
+				if (object instanceof InformationSource) {
+					validateInformationSource(object);
 				}
 				if (object instanceof SpecificMeasures) {
 					validateSpecificMeasuresObject(object);
@@ -88,7 +88,7 @@ public class LinkerTest {
 		Set<String> vmeIds = new HashSet<String>();
 		for (Object object : smList) {
 			SpecificMeasures sm = (SpecificMeasures) object;
-			String combi = sm.getVme().getId() + " " + sm.getId();
+			String combi = sm.getVmeList().get(0).getId() + " " + sm.getId();
 			System.out.println(combi);
 			assertFalse(vmeIds.contains(combi));
 			assertTrue(vmeIds.add(combi));
@@ -96,8 +96,8 @@ public class LinkerTest {
 
 	}
 
-	private void validateMeetingObject(Object object) {
-		Meeting o = (Meeting) object;
+	private void validateInformationSource(Object object) {
+		InformationSource o = (InformationSource) object;
 		// assertNotNull(o.getMeetingDocument());
 
 		assertNotNull(o.getReportSummary());
@@ -117,8 +117,8 @@ public class LinkerTest {
 
 	private void validateRfmoObject(Object object) {
 		Rfmo o = (Rfmo) object;
-		assertTrue(o.getFishingActivityList().size() > 0);
-		assertTrue(o.getGeneralMeasuresList().size() > 0);
+		assertTrue(o.getFishingHistoryList().size() > 0);
+		assertNotNull(o.getGeneralMeasures());
 		assertTrue(o.getListOfManagedVmes().size() > 0);
 		if (o.getId() == 1 || o.getId() == 3) {
 			assertTrue(o.getInformationSourceList().size() > 0);
@@ -133,14 +133,13 @@ public class LinkerTest {
 
 		assertNotNull(o.getRfmo());
 		assertNotNull(o.getValidityPeriod());
-		assertNotNull(o.getLinkCemSource());
+		assertTrue(o.getInformationSourceList().size() > 0);
 
 	}
 
 	private void validateSpecificMeasuresObject(Object object) {
 		SpecificMeasures o = (SpecificMeasures) object;
-		assertNotNull(o.getVme());
-		assertTrue(o.getVme().getSpecificMeasuresList().size() > 0);
+		assertTrue(o.getVmeList().size() > 0);
 
 	}
 
