@@ -46,7 +46,8 @@ public class FigisDaoTest {
 		int number = 50;
 		for (int i = 0; i < number; i++) {
 			RefVme o = new RefVme();
-			o.setId(i);
+
+			o.setId(new Long(i));
 			dao.persist(o);
 		}
 		assertEquals(number, dao.loadRefVmes().size());
@@ -55,7 +56,7 @@ public class FigisDaoTest {
 
 	@Test
 	public void testLoadRefVme() {
-		int id = 4354;
+		Long id = new Long(4354);
 		RefVme o = new RefVme();
 		o.setId(id);
 		dao.persist(o);
@@ -162,7 +163,7 @@ public class FigisDaoTest {
 
 		RefVme r = createRefVme();
 
-		int id = 4354;
+		Long id = new Long(4354);
 
 		r.setId(id);
 		RefVme found = (RefVme) dao.find(RefVme.class, r);
@@ -181,7 +182,8 @@ public class FigisDaoTest {
 	}
 
 	private RefVme createRefVme() {
-		int id = 4354;
+
+		Long id = new Long(4354);
 		RefVme r = new RefVme();
 		r.setId(id);
 		return r;

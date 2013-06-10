@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -17,7 +19,7 @@ import javax.persistence.OneToMany;
 public class Vme {
 
 	@Id
-	private int id;
+	private Long id;
 
 	/**
 	 * This VME is managed by this Rfmo
@@ -25,7 +27,10 @@ public class Vme {
 	@ManyToOne
 	private Rfmo rfmo;
 
-	@ManyToMany(mappedBy = "vmeList")
+	@ManyToMany
+	@JoinTable(name = "VME_SPECIFIC_MEASURES", //
+	joinColumns = { @JoinColumn(name = "VME_ID", referencedColumnName = "ID") }, //
+	inverseJoinColumns = { @JoinColumn(name = "SPECIFIC_MEASURES_ID", referencedColumnName = "ID") })
 	private List<SpecificMeasures> specificMeasuresList;
 
 	@OneToMany
@@ -61,11 +66,11 @@ public class Vme {
 	 */
 	private String criteria;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

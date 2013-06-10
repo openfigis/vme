@@ -28,7 +28,8 @@ public class JPATest {
 	@Ignore
 	public void roundTrip() {
 
-		int id = 10;
+		Long id = new Long(10);
+
 		Vme created = new Vme();
 		created.setId(id);
 		// String criteria = "go";

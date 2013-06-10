@@ -34,11 +34,12 @@ public class VmeDomainFigisSyncTest {
 	@Before
 	public void testBefore() {
 		int start = 100000;
+
 		for (int i = start; i < start + INSERTED; i++) {
 			// make sure at least those 5 objects do exist
 			if (vmeDao.findVme(i) == null) {
 				Vme vme = new Vme();
-				vme.setId(i);
+				vme.setId(new Long(i));
 				vmeDao.persist(vme);
 			}
 			// remove them from figis, if they exist

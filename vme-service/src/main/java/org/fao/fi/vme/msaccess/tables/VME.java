@@ -162,7 +162,7 @@ public class VME implements TableDomainMapper {
 		// o.setCriteria(this.)
 		o.setGeoform(this.VME_Geoform);
 		// o.setGeographicLayerId(this.)
-		o.setId(this.ID);
+		o.setId(new Long(this.ID));
 		// o.setName(this.get)
 		// o.setRfmo(rfmo)
 
