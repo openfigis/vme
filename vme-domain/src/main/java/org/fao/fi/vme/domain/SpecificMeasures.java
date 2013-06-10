@@ -23,7 +23,7 @@ public class SpecificMeasures {
 	/**
 	 * The SpecificMeasures are defined on the level of this VME, sometimes applies also to other VMEs.
 	 */
-	@ManyToMany
+	@ManyToMany(mappedBy = "specificMeasuresList")
 	public List<Vme> vmeList;
 
 	/**

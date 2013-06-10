@@ -25,7 +25,7 @@ public class Vme {
 	@ManyToOne
 	private Rfmo rfmo;
 
-	@ManyToMany(mappedBy = "vme")
+	@ManyToMany(mappedBy = "vmeList")
 	private List<SpecificMeasures> specificMeasuresList;
 
 	@OneToMany

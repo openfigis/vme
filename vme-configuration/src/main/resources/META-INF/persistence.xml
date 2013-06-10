@@ -7,9 +7,7 @@
 		<class>org.fao.fi.vme.domain.FishingHistory</class>
 		<class>org.fao.fi.vme.domain.GeneralMeasures</class>
 		<class>org.fao.fi.vme.domain.InformationSource</class>
-		<class>org.fao.fi.vme.domain.Meeting</class>
 		<class>org.fao.fi.vme.domain.Rfmo</class>
-		<class>org.fao.fi.vme.domain.Source</class>
 		<class>org.fao.fi.vme.domain.SpecificMeasures</class>
 		<class>org.fao.fi.vme.domain.Vme</class>
 		<class>org.fao.fi.vme.domain.VmeFeatures</class>
