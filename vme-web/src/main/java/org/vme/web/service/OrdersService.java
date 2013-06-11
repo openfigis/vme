@@ -3,6 +3,8 @@ package org.vme.web.service;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -19,6 +21,7 @@ import javax.ws.rs.core.Response;
  */
 
 @Path("orders")
+@RequestScoped
 public class OrdersService
 {
    public static Map<String, String> orders = new TreeMap<String, String>();
