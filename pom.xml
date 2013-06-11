@@ -22,7 +22,6 @@
 		</repository>
 	</repositories>
 
-
 	<modules>
 		<module>figis-domain</module>
 		<module>vme-service</module>
@@ -82,8 +81,8 @@
 			<groupId>oracle</groupId>
 			<artifactId>ojdbcOracle</artifactId>
 			<version>10g</version>
+			<type>pom</type>
 		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -118,7 +117,6 @@
 			</distributionManagement>
 		</profile>
 	</profiles>
-
 
 	<dependencyManagement>
 		<dependencies>
