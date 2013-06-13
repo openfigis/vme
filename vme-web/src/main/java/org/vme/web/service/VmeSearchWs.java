@@ -1,6 +1,5 @@
 package org.vme.web.service;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
@@ -17,27 +16,21 @@ import org.vme.service.dto.VmeDto;
 @Singleton
 public class VmeSearchWs {
 
-	
-	private final VmeSearchService service;
-	
 	@Inject
-	public VmeSearchWs(VmeSearchService serv) {
-		service = serv;
-	}
+	private VmeSearchService service;
 
 	@Path("/somethingvme")
 	@GET
 	@Produces("application/json")
 	public Response find(@PathParam("id") int id) {
-		
-		
+
 		if (id > 1) {
-			VmeDto vmeDto =  service.retrieveResultsFor(id);
+			VmeDto vmeDto = service.retrieveResultsFor(id);
 			return Response.status(200).entity(vmeDto.getName()).build();
 		} else {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
-	
+
 	}
 
 }
