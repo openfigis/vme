@@ -1,15 +1,159 @@
 package org.vme.service.dto;
 
+
 public class VmeDto {
 
-	private String name;
 
-	public String getName() {
-		return name;
+	
+	private String localName;
+	
+	private String factsheetUrl;
+	private int  vmeId;
+	private String geoArea;
+	private String owner;
+	private String vmeType;
+	private int year;
+	private String envelope;
+	private String status;
+	private String validityPeriod;
+
+
+	public String getLocalName() {
+		return localName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setLocalName(String localName) {
+		this.localName = localName;
 	}
 
+	/**
+	 * @return the factsheetUrl
+	 */
+	public String getFactsheetUrl() {
+		return factsheetUrl;
+	}
+
+	/**
+	 * @param factsheetUrl the factsheetUrl to set
+	 */
+	public void setFactsheetUrl(String factsheetUrl) {
+		this.factsheetUrl = factsheetUrl;
+	}
+
+	/**
+	 * @return the vmeId
+	 */
+	public int getVmeId() {
+		return vmeId;
+	}
+
+	/**
+	 * @param vmeId the vmeId to set
+	 */
+	public void setVmeId(int vmeId) {
+		this.vmeId = vmeId;
+	}
+
+	/**
+	 * @return the geoArea
+	 */
+	public String getGeoArea() {
+		return geoArea;
+	}
+
+	/**
+	 * @param geoArea the geoArea to set
+	 */
+	public void setGeoArea(String geoArea) {
+		this.geoArea = geoArea;
+	}
+
+	/**
+	 * @return the owner
+	 */
+	public String getOwner() {
+		return owner;
+	}
+
+	/**
+	 * @param owner the owner to set
+	 */
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	/**
+	 * @return the vmeType
+	 */
+	public String getVmeType() {
+		return vmeType;
+	}
+
+	/**
+	 * @param vmeType the vmeType to set
+	 */
+	public void setVmeType(String vmeType) {
+		this.vmeType = vmeType;
+	}
+
+	/**
+	 * @return the year
+	 */
+	public int getYear() {
+		return year;
+	}
+
+	/**
+	 * @param year the year to set
+	 */
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	/**
+	 * @return the envelope
+	 */
+	public String getEnvelope() {
+		return envelope;
+	}
+
+	/**
+	 * @param envelope the envelope to set
+	 */
+	public void setEnvelope(String envelope) {
+		this.envelope = envelope;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	/**
+	 * @return the validityPeriod
+	 */
+	public String getValidityPeriod() {
+		return validityPeriod;
+	}
+
+	/**
+	 * @param validityPeriod the validityPeriod to set
+	 */
+	public void setValidityPeriod(String validityPeriod) {
+		this.validityPeriod = validityPeriod;
+	}
+
+	
+	
+	
+	
 }
