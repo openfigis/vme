@@ -22,7 +22,7 @@ values (7300,791,'default');
 
 -- redirect rules 33800 
 Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
-values (33801,'/fishery/vme/*','/fiweb/website/FIRetrieveAction.do?dom=vme=<1>=<3>=<5>=<7>=<9>',1,to_date('14-JUN-13','DD-MON-RR'),null,'Regexp countryprofile factsheets',1,0,'(\d+)(/(\d+))?(/(en|es|fr|ar|zh|ru))?(/(draft))?(/(data))?',null,null);
+33801,"/fishery/vme/*","fiweb/website/FIRetrieveAction.do?dom=vme&fid=<1>&oid=<3>&lang=<5>&draft=<7>&view=<9>",1,14-JUN-13,,"Regexp vme factsheets",1,0,"(\d+)(/(\d+))?(/(en|es|fr|ar|zh|ru))?(/(draft))?(/(data))?","",""
 
 Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
 values (33802,'/fishery/factsheets/search/xml/vme*','/fiweb/website/FullSearchActionXML.do?dslist[0]=vme',0,to_date('14-JUN-13','DD-MON-RR'),null,'XML Full Search',0,0,null,null,null);
@@ -31,7 +31,7 @@ Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOT
 values (33803,'/fishery/search/vme*','/fishery/vme/search*',0,to_date('14-JUN-13','DD-MON-RR'),null,'vme search pages',1,1,null,null,null);
 
 Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS)
- values (33804,'/fishery/vme/search*','/fishery/countryprofiles/search*',0,to_date('14-JUN-13','DD-MON-RR'),null,'vme search pages',1,1,null,null,null);
+ values (33804,'/fishery/vme/search*','/fishery/vme/search*',0,to_date('14-JUN-13','DD-MON-RR'),null,'vme search pages',1,1,null,null,null);
 
 -- problem with editor
 Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS)
