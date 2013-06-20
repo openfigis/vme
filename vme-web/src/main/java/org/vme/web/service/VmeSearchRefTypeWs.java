@@ -12,50 +12,41 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.service.VmeSearchService;
+import org.vme.service.VmeSearchRefService;
+import org.vme.service.dto.VmeSearchRefRequestDto;
+import org.vme.service.dto.VmeSearchRefResult;
 import org.vme.service.dto.VmeSearchRequestDto;
-import org.vme.service.dto.VmeSearchResult;
 
-@Path("/search-params/{id_authority}/{id_areatype}/{id_status}/{id_vmecriteria}/{year}")
+@Path("/references/{concept}/{lang}/")
 @Singleton
-public class VmeSearchWs {
+public class VmeSearchRefTypeWs {
 
 
-	private final VmeSearchService service;
+	private final VmeSearchRefService service;
 
 	@Inject
-	public VmeSearchWs(VmeSearchService serv) {
-		service = serv;
+	public VmeSearchRefTypeWs(VmeSearchRefService a_service) {
+		service = a_service;
 	}
 
 	@Path("/search")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	//@Produces(MediaType.TEXT_HTML)
-	public Response find(@PathParam("id_authority") int id_authority, 
-			@PathParam("id_areatype") int id_areatype, 
-			@PathParam("id_status") int id_status,
-			@PathParam("id_criteria") int id_criteria,
-			@PathParam("year") int year) {
+	public Response find(@PathParam("concept") String concept, @PathParam("lang") String lang) {
 
+		VmeSearchRefRequestDto requestDto = new VmeSearchRefRequestDto(UUID.randomUUID());
 		
+		requestDto.setConcept(concept);
+		requestDto.setLang(lang);
 		
-		
-		VmeSearchRequestDto requestDto = new VmeSearchRequestDto(UUID.randomUUID());
-		
-		requestDto.setAuthority(id_authority);
-		requestDto.setAreatype(id_areatype);
-		requestDto.setStatus(id_status);
-		requestDto.setCriteria(id_criteria);
-		requestDto.setYear(year);
-		
-		if (id_authority > 0) {
-			System.out.println("FIRST REST: Service was called with param id: [" + id_authority + "] ");
-			VmeSearchResult result =  service.retrieveResultsFor(requestDto);
+		try {
+			VmeSearchRefResult result =  service.retrieveResultsFor(requestDto);
 			return Response.status(200).entity(result).build();
-		} else {
+		} catch (Exception e){
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
+		
 	}
 
 

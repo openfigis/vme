@@ -1,7 +1,7 @@
 package org.vme.service.dto;
 
 
-public class VmeDto {
+public class VmeSearchDto {
 
 
 	

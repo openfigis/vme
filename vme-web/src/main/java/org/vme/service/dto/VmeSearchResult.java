@@ -13,20 +13,20 @@ import java.util.List;
  *
  */
 
-public class VmeServiceResult {
+public class VmeSearchResult {
 
 	
 	private VmeSearchRequestDto request;
 	
-	private List<VmeDto> resultList;
+	private List<VmeSearchDto> resultList;
 
 	/**
 	 * @param request
 	 */
-	public VmeServiceResult(VmeSearchRequestDto request) {
+	public VmeSearchResult(VmeSearchRequestDto request) {
 		super();
 		this.request = request;
-		resultList = new LinkedList<VmeDto>();
+		resultList = new LinkedList<VmeSearchDto>();
 	}
 	
 	
@@ -38,7 +38,7 @@ public class VmeServiceResult {
 	/**
 	 * @return the resultList
 	 */
-	public List<VmeDto> getResultList() {
+	public List<VmeSearchDto> getResultList() {
 		return resultList;
 	}
 
@@ -46,7 +46,7 @@ public class VmeServiceResult {
 
 
 
-	public void addElement(VmeDto vmeDto){
+	public void addElement(VmeSearchDto vmeDto){
 		resultList.add(vmeDto);
 	}
 	
