@@ -21,7 +21,7 @@ public class VmeSearchService {
 			dto.setFactsheetUrl("url_" + i);
 			dto.setGeoArea("geoarea_" + i);
 			dto.setOwner("owner_" + i);
-			dto.setStatus("status " + request.getStatus());
+			dto.setVmeType("type " + request.getType());
 			dto.setValidityPeriod("period " + i);
 			dto.setLocalName("VME of " + request.getYear() + " n." + i);
 			dto.setVmeId(1000 + i);

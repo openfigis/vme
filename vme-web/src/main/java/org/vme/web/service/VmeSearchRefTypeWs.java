@@ -29,7 +29,7 @@ public class VmeSearchRefTypeWs {
 		service = a_service;
 	}
 
-	@Path("/search")
+	@Path("/list")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	//@Produces(MediaType.TEXT_HTML)
@@ -49,20 +49,5 @@ public class VmeSearchRefTypeWs {
 		
 	}
 
-
-	private String produceHtmlReport(VmeSearchRequestDto dto)	{
-		return 
-				"<html> " + "<title>" + "Hello Jersey" + "</title>" + 
-						"<body><h1>" + "Hello Jersey" + "</body></h1>" + dto.getUuid()  + "</br>"  
-						+ "Id Authority....:" + dto.getAuthority() + "</br>"
-						+ "Id areatype.....:" + dto.getAreatype() + "</br>"
-						+ "Id status.......:" + dto.getStatus() + "</br>"
-						+ "Id criteria.....:" + dto.getCriteria() + "</br>"
-						+ "Year............:" + dto.getYear() + "</br>"
-						+"</html> ";
-	}
-	
-	
-	
 
 }

@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -16,7 +17,7 @@ import org.vme.service.VmeSearchService;
 import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
 
-@Path("/search-params/{id_authority}/{id_areatype}/{id_status}/{id_vmecriteria}/{year}")
+@Path("/search-params/{id_authority}/{id_vme_type}/{id_vme_criteria}/{year}")
 @Singleton
 public class VmeSearchWs {
 
@@ -32,25 +33,25 @@ public class VmeSearchWs {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	//@Produces(MediaType.TEXT_HTML)
-	public Response find(@PathParam("id_authority") int id_authority, 
-			@PathParam("id_areatype") int id_areatype, 
-			@PathParam("id_status") int id_status,
-			@PathParam("id_criteria") int id_criteria,
+	public Response find(
+			@QueryParam("text") String text,
+			@PathParam("id_authority") int id_authority, 
+			@PathParam("id_vme_type") int id_vme_type, 
+			@PathParam("id_vme_criteria") int id_vme_criteria,
 			@PathParam("year") int year) {
+		
+		
 
-		
-		
-		
 		VmeSearchRequestDto requestDto = new VmeSearchRequestDto(UUID.randomUUID());
 		
 		requestDto.setAuthority(id_authority);
-		requestDto.setAreatype(id_areatype);
-		requestDto.setStatus(id_status);
-		requestDto.setCriteria(id_criteria);
+		requestDto.setType(id_vme_type);
+		requestDto.setCriteria(id_vme_criteria);
 		requestDto.setYear(year);
+		requestDto.setText(text);
 		
 		if (id_authority > 0) {
-			System.out.println("FIRST REST: Service was called with param id: [" + id_authority + "] ");
+			System.out.println("REST SERVICE: Service was called with param id: [" + id_authority + "] - text param:  " + text);
 			VmeSearchResult result =  service.retrieveResultsFor(requestDto);
 			return Response.status(200).entity(result).build();
 		} else {
@@ -64,8 +65,7 @@ public class VmeSearchWs {
 				"<html> " + "<title>" + "Hello Jersey" + "</title>" + 
 						"<body><h1>" + "Hello Jersey" + "</body></h1>" + dto.getUuid()  + "</br>"  
 						+ "Id Authority....:" + dto.getAuthority() + "</br>"
-						+ "Id areatype.....:" + dto.getAreatype() + "</br>"
-						+ "Id status.......:" + dto.getStatus() + "</br>"
+						+ "Id areatype.....:" + dto.getType() + "</br>"
 						+ "Id criteria.....:" + dto.getCriteria() + "</br>"
 						+ "Year............:" + dto.getYear() + "</br>"
 						+"</html> ";

@@ -22,14 +22,9 @@ public class VmeSearchRequestDto {
 	private int authority;
 
 	/**
-	 * Area type unique identifier. 
-	 */
-	private int areatype ;
-	
-	/**
 	 * VME status unique identifier. 
 	 */
-	private int status ;
+	private int type ;
 
 	/**
 	 * VME criteria unique identifier. 
@@ -75,32 +70,19 @@ public class VmeSearchRequestDto {
 		this.authority = authority;
 	}
 
+
 	/**
-	 * @return the areatype
+	 * @return the type
 	 */
-	public int getAreatype() {
-		return areatype;
+	public int getType() {
+		return type;
 	}
 
 	/**
-	 * @param areatype the areatype to set
+	 * @param type the type to set
 	 */
-	public void setAreatype(int areatype) {
-		this.areatype = areatype;
-	}
-
-	/**
-	 * @return the status
-	 */
-	public int getStatus() {
-		return status;
-	}
-
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(int status) {
-		this.status = status;
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	/**

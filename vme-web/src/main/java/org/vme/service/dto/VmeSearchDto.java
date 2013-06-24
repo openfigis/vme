@@ -14,7 +14,6 @@ public class VmeSearchDto {
 	private String vmeType;
 	private int year;
 	private String envelope;
-	private String status;
 	private String validityPeriod;
 
 
@@ -122,20 +121,6 @@ public class VmeSearchDto {
 	 */
 	public void setEnvelope(String envelope) {
 		this.envelope = envelope;
-	}
-
-	/**
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
-	}
-
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	/**
