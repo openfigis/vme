@@ -20,27 +20,44 @@ Insert into fs_collection_cover_page (CD_COLLECTION,CD_COVER_PAGE,ROLE)
 values (7300,791,'default');
 
 
--- redirect rules 33800 
-Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
-33801,"/fishery/vme/*","fiweb/website/FIRetrieveAction.do?dom=vme&fid=<1>&oid=<3>&lang=<5>&draft=<7>&view=<9>",1,14-JUN-13,,"Regexp vme factsheets",1,0,"(\d+)(/(\d+))?(/(en|es|fr|ar|zh|ru))?(/(draft))?(/(data))?","",""
+-- RTMS water area ref
+Insert into md_refobject 
+(ID,NAME_E,NAME_F,NAME_S,PARENT,ANCESTOR,ISMAJOR,DOC,OBJ_CLSINIT,READER_CLSINIT,LIST_FORMAT,NAME_A,NAME_C,NAME_R) 
+values (280002,'VME fishery management area','','',24030,24030,0,'VME fishery management areas',null,24000,null,null,null,null);
 
-Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
+Insert into ref_water_area (CD_WATER_AREA,NAME,CD_UN_CODE,CD_WATER_AREA_TYPE,GRP_IND,AREA,CD_META,EXTERNAL_ID,MIN_LONG,MAX_LONG,MIN_LAT,MAX_LAT,AREA_SIZE,CD_ISO3_CODE)
+values (5067,'VME_5066',null,7,'D',null,280001,'VME_5067',null,null,null,null,null,null);
+
+
+-- redirect rules 33800 
+
+-- in order to avoid variable substitution in Oracle SQL Developer 
+set define off;
+
+Insert into "redirect_map" (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
+values (33801,'/fishery/vme/*','/fiweb/website/VMERetrieveAction.do?dom=vme&fid=<1>&oid=<3>&lang=<5>&draft=<7>&view=<9>',1,to_date('14-JUN-13','DD-MON-RR'),null,'Regexp countryprofile factsheets',1,0,'(\d+)(/(\d+))?(/(en|es|fr|ar|zh|ru))?(/(draft))?(/(data))?',null,null);
+
+Insert into "redirect_map" (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
 values (33802,'/fishery/factsheets/search/xml/vme*','/fiweb/website/FullSearchActionXML.do?dslist[0]=vme',0,to_date('14-JUN-13','DD-MON-RR'),null,'XML Full Search',0,0,null,null,null);
 
-Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
+Insert into "redirect_map" (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
 values (33803,'/fishery/search/vme*','/fishery/vme/search*',0,to_date('14-JUN-13','DD-MON-RR'),null,'vme search pages',1,1,null,null,null);
 
-Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS)
- values (33804,'/fishery/vme/search*','/fishery/vme/search*',0,to_date('14-JUN-13','DD-MON-RR'),null,'vme search pages',1,1,null,null,null);
+Insert into "redirect_map" (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
+values (33804,'/fishery/vme/search*','/fishery/countryprofiles/search*',0,to_date('14-JUN-13','DD-MON-RR'),null,'vme search pages',1,1,null,null,null);
 
--- problem with editor
-Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS)
- values (33805,'/fishery/xml/vme/*','/fiweb/website/RetrieveXML.do?dom=vme&fid=<1>&oid=<3>&lang=<5>&draft=<7>&bypasslogin=true',1,to_date('18-JAN-13','DD-MON-RR'),null,'Regexp vme xml',1,0,'(\d+)(/(\d+))?(/(en|es|fr|ar|zh|ru))?(/(draft))?',null,null);
+Insert into "redirect_map" (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
+values (33805,'/fishery/xml/vme/*','/fiweb/website/RetrieveXML.do?dom=vme&fid=<1>&oid=<3>&lang=<5>&draft=<7>&bypasslogin=true',1,to_date('18-JAN-13','DD-MON-RR'),null,'Regexp vme xml',1,0,'(\d+)(/(\d+))?(/(en|es|fr|ar|zh|ru))?(/(draft))?',null,null);
 
--- problem with editor
-Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS)
- values (33806,'/fishery/inputxml/vme/*','/fiweb/website/RetrieveXML.do?dom=vme&inputxml=true&fid=<1>&oid=<3>&lang=<5>&draft=<7>&bypasslogin=true',1,to_date('17-JAN-13','DD-MON-RR'),null,'Regexp vme xml',1,0,'(\d+)(/(\d+))?(/(en|es|fr|ar|zh|ru))?(/(draft))?',null,null);
+Insert into "redirect_map" (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
+values (33806,'/fishery/inputxml/vme/*','/fiweb/website/RetrieveXML.do?dom=vme&inputxml=true&fid=<1>&oid=<3>&lang=<5>&draft=<7>&bypasslogin=true',1,to_date('17-JAN-13','DD-MON-RR'),null,'Regexp vme xml',1,0,'(\d+)(/(\d+))?(/(en|es|fr|ar|zh|ru))?(/(draft))?',null,null);
 
--- problem with editor
-Insert into redirect_map (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS)
- values (33807,'/fishery/factsheets/search/xml/vme*','/fiweb/website/FullSearchActionXML.do?dslist[0]=vme',0,to_date('14-JUN-13','DD-MON-RR'),null,'XML Full Search',0,0,null,null,null);
+Insert into "redirect_map" (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
+values (33807,'/fishery/factsheets/search/xml/vme*','/fiweb/website/FullSearchActionXML.do?dslist[0]=vme',0,to_date('14-JUN-13','DD-MON-RR'),null,'XML Full Search',0,0,null,null,null);
+
+Insert into "redirect_map" (CD_RULE,FROM_URL,TO_URL,TYPE,DT_ENTERED,DT_CHANGED,NOTE,ACTIVE,REDIRECT,REGEXP,SERVER_NAME,PARAMETERS) 
+values (33808,'/vme*','/fiweb/website/VMERetrieveAction.do?dom=vme&fid=<1>&lang=<2>&draft=<4>',1,to_date('21-JUN-07','DD-MON-RR'),null,'VME  page',1,0,'(/(en|es|fr|ar|zh|ru))?(/(draft))?',null,null);
+
+
+
+
