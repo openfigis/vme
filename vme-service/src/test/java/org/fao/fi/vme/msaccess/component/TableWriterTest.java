@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
+import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.VmeDB;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
@@ -35,6 +35,9 @@ public class TableWriterTest {
 	@VmeDB
 	EntityManager entityManager;
 
+	@Inject
+	VmeDao vmeDao;
+
 	@Before
 	public void before() {
 		assertNotNull(EntityManager.class.getSimpleName(), entityManager);
@@ -45,22 +48,14 @@ public class TableWriterTest {
 		List<Table> tables = reader.readObjects();
 		assertTrue(tables.size() > 0);
 		for (Table table : tables) {
-			System.out.println(table.getClazz().getSimpleName());
 			assertTrue(table.getObjectList().size() > 0);
 			ObjectCollection objectCollection = mapper.map(table);
 			tableWriter.write(objectCollection);
 			Class<?> clazz = mapper.getDomainClass(table.getClazz());
 			assertNotNull(clazz);
-			List<?> objects = generateTypedQuery(clazz).getResultList();
+			List<?> objects = vmeDao.loadObjects(clazz);
 			assertEquals(table.getObjectList().size(), objects.size());
 		}
 	}
 
-	TypedQuery<?> generateTypedQuery(Class<?> clazz) {
-		String queryString = " select c from  " + clazz.getSimpleName() + " c ";
-		System.out.println(queryString);
-		TypedQuery<?> query = entityManager.createQuery(queryString, clazz);
-		return query;
-
-	}
 }

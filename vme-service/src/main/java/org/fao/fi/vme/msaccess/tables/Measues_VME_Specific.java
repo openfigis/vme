@@ -1,6 +1,7 @@
 package org.fao.fi.vme.msaccess.tables;
 
 import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 
 public class Measues_VME_Specific implements TableDomainMapper {
@@ -75,6 +76,7 @@ public class Measues_VME_Specific implements TableDomainMapper {
 		// o.getDocument().setUrl(this.get)
 		o.setId(this.getID());
 		// o.setMeasureSummary(this.get)
+		o.setValidityPeriod(new ValidityPeriod());
 		o.getValidityPeriod().setBeginYear(new Integer(this.getVME_SpecificMeasure_Validity_Start()).intValue());
 		o.getValidityPeriod().setEndYear(new Integer(this.getVME_SpecificMeasure_Validity_End()).intValue());
 		// o.setVme(this.getVME_ID());

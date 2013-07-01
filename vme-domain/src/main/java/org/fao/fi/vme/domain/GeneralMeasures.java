@@ -2,6 +2,7 @@ package org.fao.fi.vme.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -28,11 +29,11 @@ public class GeneralMeasures {
 	private Rfmo rfmo;
 
 	/**
-	 * GeneralMeasure has one linkCemSource
-	 * 
+	 * GeneralMeasure has one linkCemSource. It should be the column Link_CEM_Source within the Measures_VME_general
+	 * table.
 	 * 
 	 */
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<InformationSource> informationSourceList;
 
 	/**

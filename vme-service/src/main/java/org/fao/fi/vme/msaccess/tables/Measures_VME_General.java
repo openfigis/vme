@@ -19,13 +19,14 @@ public class Measures_VME_General implements TableDomainMapper {
 	private int Year_ID;
 	private String VME_GeneralMeasure_Validity_Start;
 	private String VME_GeneralMeasure_Validity_End;
-	private String RFB_FishingAreas;
 	private String RFB_FishingAreas_coord;
 	private String VME_Encounter;
 	private String VME_Indicator_Sp;
 	private String VME_Threshold;
 	private String Link_CEM_Bookmarked;
 	private String Link_CEM_Source;
+	private String RFB_Bottom_Fishing_Areas;
+	private String RFB_Exploratary_Fishing_Protocol;
 
 	public int getID() {
 		return ID;
@@ -65,14 +66,6 @@ public class Measures_VME_General implements TableDomainMapper {
 
 	public void setVME_GeneralMeasure_Validity_End(String vME_GeneralMeasure_Validity_End) {
 		VME_GeneralMeasure_Validity_End = vME_GeneralMeasure_Validity_End;
-	}
-
-	public String getRFB_FishingAreas() {
-		return RFB_FishingAreas;
-	}
-
-	public void setRFB_FishingAreas(String rFB_FishingAreas) {
-		RFB_FishingAreas = rFB_FishingAreas;
 	}
 
 	public String getRFB_FishingAreas_coord() {
@@ -123,32 +116,48 @@ public class Measures_VME_General implements TableDomainMapper {
 		Link_CEM_Source = link_CEM_Source;
 	}
 
+	public String getRFB_Bottom_Fishing_Areas() {
+		return RFB_Bottom_Fishing_Areas;
+	}
+
+	public void setRFB_Bottom_Fishing_Areas(String rFB_Bottom_Fishing_Areas) {
+		RFB_Bottom_Fishing_Areas = rFB_Bottom_Fishing_Areas;
+	}
+
+	public String getRFB_Exploratary_Fishing_Protocol() {
+		return RFB_Exploratary_Fishing_Protocol;
+	}
+
+	public void setRFB_Exploratary_Fishing_Protocol(String rFB_Exploratary_Fishing_Protocol) {
+		RFB_Exploratary_Fishing_Protocol = rFB_Exploratary_Fishing_Protocol;
+	}
+
 	@Override
 	public Object map() {
 		GeneralMeasures o = new GeneralMeasures();
 
-		o.setVmeEncounterProtocols(this.getVME_Encounter());
 		o.setId(this.getID());
+		o.setVmeEncounterProtocols(this.getVME_Encounter());
 		o.setVmeIndicatorSpecies(this.getVME_Indicator_Sp());
 
-		InformationSource is = new InformationSource();
-		List<InformationSource> isList = new ArrayList<InformationSource>();
-		o.setInformationSourceList(isList);
+		// It should be the column Link_CEM_Source within the Measures_VME_general table.
 
 		URL url = null;
 		if (this.getLink_CEM_Source() != null) {
 			try {
 				url = new URL(this.getLink_CEM_Source());
+				InformationSource is = new InformationSource();
+				is.setUrl(url);
+				is.setCitation(this.getLink_CEM_Bookmarked());
+				List<InformationSource> isList = new ArrayList<InformationSource>();
+				isList.add(is);
+				o.setInformationSourceList(isList);
 			} catch (MalformedURLException e) {
-				System.out.println(this.getLink_CEM_Source());
-				e.printStackTrace();
 				throw new VmeDaoException(e);
 			}
 		}
-		is.setUrl(url);
-		is.setCitation(this.getLink_CEM_Bookmarked());
 
-		o.setFishingAreas(this.getRFB_FishingAreas());
+		o.setFishingAreas(this.getRFB_Bottom_Fishing_Areas());
 		// o.setRfmo(rfmo)
 		o.setVmeThreshold(this.getVME_Threshold());
 

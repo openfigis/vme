@@ -1,5 +1,6 @@
 package org.fao.fi.vme.msaccess.component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +69,9 @@ public class Linker {
 		History o = (History) domainObject;
 		RFB_VME_Fishing_History record = (RFB_VME_Fishing_History) domainTableMap.get(o);
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
+		if (rfmo.getFishingHistoryList() == null) {
+			rfmo.setFishingHistoryList(new ArrayList<History>());
+		}
 		if (!rfmo.getFishingHistoryList().contains(o)) {
 			rfmo.getFishingHistoryList().add(o);
 		}
@@ -103,15 +107,21 @@ public class Linker {
 	private void linkSpecificMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
 		SpecificMeasures sm = (SpecificMeasures) domainObject;
+		if (sm.getVmeList() == null) {
+			sm.setVmeList(new ArrayList<Vme>());
+		}
+
 		Measues_VME_Specific record = (Measues_VME_Specific) domainTableMap.get(sm);
 		for (ObjectCollection oc : objectCollectionList) {
 			if (oc.getClazz() == Vme.class) {
 				List<Object> objectList = oc.getObjectList();
 				for (Object object : objectList) {
 					Vme vme = (Vme) object;
+					if (vme.getSpecificMeasureList() == null) {
+						vme.setSpecificMeasureList(new ArrayList<SpecificMeasures>());
+					}
 					VME vmeRecord = (VME) domainTableMap.get(vme);
 					if (record.getVME_ID().equals(vmeRecord.getVME_ID())) {
-
 						if (!sm.getVmeList().contains(vme)) {
 							// add only when not already in the list
 							sm.getVmeList().add(vme);
@@ -140,6 +150,10 @@ public class Linker {
 		Meetings record = (Meetings) domainTableMap.get(informationSource);
 
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
+
+		if (informationSource.getRfmoList() == null) {
+			informationSource.setRfmoList(new ArrayList<Rfmo>());
+		}
 
 		if (!informationSource.getRfmoList().contains(rfmo)) {
 			informationSource.getRfmoList().add(rfmo);
