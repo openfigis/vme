@@ -5,7 +5,6 @@ import org.fao.fi.vme.msaccess.component.TableReader;
 import org.fao.fi.vme.msaccess.component.VmeReader;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -22,7 +21,6 @@ public class TableDomainMapperTest {
 	}
 
 	@Test
-	@Ignore
 	public void testMap() {
 		for (Class<?> clazz : r.getTables()) {
 			Table table = tr.read(clazz);

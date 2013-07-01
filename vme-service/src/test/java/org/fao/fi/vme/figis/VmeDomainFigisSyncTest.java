@@ -6,7 +6,6 @@ import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,7 +17,6 @@ public class VmeDomainFigisSyncTest {
 	VmeDomainFigisSync vmeDomainFigisSync;
 
 	@Test
-	@Ignore
 	public void testSyncFigisVmeXml() {
 		vmeDomainFigisSync.syncFigisWithVme();
 	}

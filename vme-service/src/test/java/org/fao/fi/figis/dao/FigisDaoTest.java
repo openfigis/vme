@@ -15,7 +15,6 @@ import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.figis.component.VmeRefSync;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -123,13 +122,11 @@ public class FigisDaoTest {
 	}
 
 	@Test
-	@Ignore
 	public void VmeObservation() {
 		VmeObservation vo = createVmeObservation();
 		RefVme r = createRefVme();
 		dao.syncRefVme(r);
 		dao.syncVmeObservation(vo);
-
 	}
 
 	private ObservationXml createObservationXml() {
@@ -142,7 +139,6 @@ public class FigisDaoTest {
 	}
 
 	@Test
-	@Ignore
 	public void testPersistVmeObservation() {
 
 		delegateCheckOnNumberOfObjectsInModel(0);
@@ -206,7 +202,6 @@ public class FigisDaoTest {
 	 */
 
 	@Test
-	@Ignore
 	public void testLoadRefVmeNull() {
 		RefVme found = (RefVme) dao.find(RefVme.class, 4561);
 		assertNull(found);

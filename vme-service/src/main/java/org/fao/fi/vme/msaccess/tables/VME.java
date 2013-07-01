@@ -3,9 +3,9 @@ package org.fao.fi.vme.msaccess.tables;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.mapping.ValidityPeriodRule;
 

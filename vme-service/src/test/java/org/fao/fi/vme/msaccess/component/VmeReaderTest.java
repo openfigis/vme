@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.fao.fi.vme.msaccess.component.VmeReader;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.junit.Test;
 

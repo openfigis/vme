@@ -1,6 +1,5 @@
 package org.fao.fi.vme.msaccess.formatter;
 
-import org.fao.fi.vme.msaccess.formatter.MeetingDateParser;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;

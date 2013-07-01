@@ -126,9 +126,10 @@ public class Measures_VME_General implements TableDomainMapper {
 	@Override
 	public Object map() {
 		GeneralMeasures o = new GeneralMeasures();
-		o.setEncounter(this.getVME_Encounter());
+
+		o.setVmeEncounterProtocols(this.getVME_Encounter());
 		o.setId(this.getID());
-		o.setIndicatorSpecies(this.getVME_Indicator_Sp());
+		o.setVmeIndicatorSpecies(this.getVME_Indicator_Sp());
 
 		InformationSource is = new InformationSource();
 		List<InformationSource> isList = new ArrayList<InformationSource>();
@@ -149,7 +150,7 @@ public class Measures_VME_General implements TableDomainMapper {
 
 		o.setFishingAreas(this.getRFB_FishingAreas());
 		// o.setRfmo(rfmo)
-		o.setThreshold(this.getVME_Threshold());
+		o.setVmeThreshold(this.getVME_Threshold());
 
 		ValidityPeriodRule r = new ValidityPeriodRule(this.VME_GeneralMeasure_Validity_Start,
 				VME_GeneralMeasure_Validity_End);

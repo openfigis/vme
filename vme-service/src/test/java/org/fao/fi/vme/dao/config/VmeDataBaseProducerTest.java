@@ -6,7 +6,6 @@ import javax.persistence.EntityManagerFactory;
 
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,7 +22,6 @@ public class VmeDataBaseProducerTest {
 	EntityManager e;
 
 	@Test
-	@Ignore
 	public void testProduceEntityManager() {
 		assertNotNull(f);
 		assertNotNull(e);

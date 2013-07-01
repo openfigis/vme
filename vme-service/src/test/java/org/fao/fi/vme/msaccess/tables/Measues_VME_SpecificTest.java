@@ -5,7 +5,6 @@ import org.fao.fi.vme.msaccess.component.TableReader;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class Measues_VME_SpecificTest {
@@ -19,7 +18,6 @@ public class Measues_VME_SpecificTest {
 	}
 
 	@Test
-	@Ignore
 	public void testMap() {
 		Table table = tr.read(Measues_VME_Specific.class);
 		for (Object o : table.getObjectList()) {

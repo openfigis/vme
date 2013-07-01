@@ -1,6 +1,9 @@
 package org.fao.fi.vme.domain;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
@@ -11,6 +14,9 @@ import javax.persistence.ManyToOne;
 @Entity(name = "GEO_REF")
 public class GeoRef {
 
+	@Id
+	private long id;
+
 	/**
 	 * 
 	 */
@@ -19,13 +25,21 @@ public class GeoRef {
 	/**
 	 * 
 	 */
-	private String geographicFeatureID;
+	private BigDecimal geographicFeatureID;
 
 	/**
 	 * 
 	 */
 	@ManyToOne
 	private Vme vme;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public int getYear() {
 		return year;
@@ -35,11 +49,11 @@ public class GeoRef {
 		this.year = year;
 	}
 
-	public String getGeographicFeatureID() {
+	public BigDecimal getGeographicFeatureID() {
 		return geographicFeatureID;
 	}
 
-	public void setGeographicFeatureID(String geographicFeatureID) {
+	public void setGeographicFeatureID(BigDecimal geographicFeatureID) {
 		this.geographicFeatureID = geographicFeatureID;
 	}
 

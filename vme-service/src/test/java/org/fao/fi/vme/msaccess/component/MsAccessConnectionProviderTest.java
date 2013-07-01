@@ -1,6 +1,5 @@
 package org.fao.fi.vme.msaccess.component;
 
-import org.fao.fi.vme.msaccess.component.MsAccessConnectionProvider;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
