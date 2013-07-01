@@ -3,16 +3,13 @@ package org.fao.fi.vme.msaccess.component;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 import org.fao.fi.vme.dao.VmeDao;
-import org.fao.fi.vme.dao.config.VmeDB;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -32,16 +29,7 @@ public class TableWriterTest {
 	MsAcces2DomainMapper mapper = new MsAcces2DomainMapper();
 
 	@Inject
-	@VmeDB
-	EntityManager entityManager;
-
-	@Inject
 	VmeDao vmeDao;
-
-	@Before
-	public void before() {
-		assertNotNull(EntityManager.class.getSimpleName(), entityManager);
-	}
 
 	@Test
 	public void testWrite() {
