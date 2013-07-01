@@ -31,10 +31,16 @@ public class Vme {
 	@JoinTable(name = "VME_SPECIFIC_MEASURES", //
 	joinColumns = { @JoinColumn(name = "VME_ID", referencedColumnName = "ID") }, //
 	inverseJoinColumns = { @JoinColumn(name = "SPECIFIC_MEASURES_ID", referencedColumnName = "ID") })
-	private List<SpecificMeasures> specificMeasuresList;
+	private List<SpecificMeasures> specificMeasureList;
 
 	@OneToMany
-	private List<VmeFeatures> vmeFeaturesList;;
+	private List<Profile> vmeFeaturesList;;
+
+	@OneToMany
+	private List<GeoRef> geoRefList;;
+
+	@OneToMany
+	private List<History> vmeHistoryList;
 
 	/**
 	 *  
@@ -50,11 +56,6 @@ public class Vme {
 	 *
 	 */
 	private String geoform;
-
-	/**
-	 *
-	 */
-	private String geographicLayerId;
 
 	/**
 	 *
@@ -82,20 +83,36 @@ public class Vme {
 		this.rfmo = rfmo;
 	}
 
-	public List<SpecificMeasures> getSpecificMeasuresList() {
-		return specificMeasuresList;
+	public List<SpecificMeasures> getSpecificMeasureList() {
+		return specificMeasureList;
 	}
 
-	public void setSpecificMeasuresList(List<SpecificMeasures> specificMeasuresList) {
-		this.specificMeasuresList = specificMeasuresList;
+	public void setSpecificMeasureList(List<SpecificMeasures> specificMeasureList) {
+		this.specificMeasureList = specificMeasureList;
 	}
 
-	public List<VmeFeatures> getVmeFeaturesList() {
+	public List<Profile> getVmeFeaturesList() {
 		return vmeFeaturesList;
 	}
 
-	public void setVmeFeaturesList(List<VmeFeatures> vmeFeaturesList) {
+	public void setVmeFeaturesList(List<Profile> vmeFeaturesList) {
 		this.vmeFeaturesList = vmeFeaturesList;
+	}
+
+	public List<GeoRef> getGeoRefList() {
+		return geoRefList;
+	}
+
+	public void setGeoRefList(List<GeoRef> geoRefList) {
+		this.geoRefList = geoRefList;
+	}
+
+	public List<History> getVmeHistoryList() {
+		return vmeHistoryList;
+	}
+
+	public void setVmeHistoryList(List<History> vmeHistoryList) {
+		this.vmeHistoryList = vmeHistoryList;
 	}
 
 	public ValidityPeriod getValidityPeriod() {
@@ -120,14 +137,6 @@ public class Vme {
 
 	public void setGeoform(String geoform) {
 		this.geoform = geoform;
-	}
-
-	public String getGeographicLayerId() {
-		return geographicLayerId;
-	}
-
-	public void setGeographicLayerId(String geographicLayerId) {
-		this.geographicLayerId = geographicLayerId;
 	}
 
 	public String getAreaType() {

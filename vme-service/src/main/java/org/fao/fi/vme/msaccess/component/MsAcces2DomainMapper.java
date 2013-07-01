@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.fao.fi.vme.domain.FishingHistory;
+import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Rfmo;
@@ -29,7 +29,7 @@ public class MsAcces2DomainMapper {
 		map.put(Measues_VME_Specific.class, SpecificMeasures.class);
 		map.put(Measures_VME_General.class, GeneralMeasures.class);
 		map.put(Meetings.class, InformationSource.class);
-		map.put(RFB_VME_Fishing_History.class, FishingHistory.class);
+		map.put(RFB_VME_Fishing_History.class, History.class);
 		map.put(VME.class, Vme.class);
 		map.put(RFB_MetaData.class, Rfmo.class);
 	}

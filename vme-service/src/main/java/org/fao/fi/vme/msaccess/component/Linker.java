@@ -3,7 +3,7 @@ package org.fao.fi.vme.msaccess.component;
 import java.util.List;
 import java.util.Map;
 
-import org.fao.fi.vme.domain.FishingHistory;
+import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Rfmo;
@@ -57,7 +57,7 @@ public class Linker {
 			linkGeneralMeasuresObject(domainObject, domainTableMap, objectCollectionList);
 		}
 
-		if (domainObject instanceof FishingHistory) {
+		if (domainObject instanceof History) {
 			linkFishingHistoryObject(domainObject, domainTableMap, objectCollectionList);
 		}
 
@@ -65,7 +65,7 @@ public class Linker {
 
 	private void linkFishingHistoryObject(Object domainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
-		FishingHistory o = (FishingHistory) domainObject;
+		History o = (History) domainObject;
 		RFB_VME_Fishing_History record = (RFB_VME_Fishing_History) domainTableMap.get(o);
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
 		if (!rfmo.getFishingHistoryList().contains(o)) {
@@ -116,9 +116,9 @@ public class Linker {
 							// add only when not already in the list
 							sm.getVmeList().add(vme);
 						}
-						if (!vme.getSpecificMeasuresList().contains(sm)) {
+						if (!vme.getSpecificMeasureList().contains(sm)) {
 							// add only when not already in the list
-							vme.getSpecificMeasuresList().add(sm);
+							vme.getSpecificMeasureList().add(sm);
 						}
 					}
 				}

@@ -8,8 +8,8 @@ import javax.persistence.Id;
  * @author Erik van Ingen
  * 
  */
-@Entity(name = "FISHING_HISTORY")
-public class FishingHistory {
+@Entity(name = "HISTORY")
+public class History {
 
 	/** 
 	 * 
@@ -73,7 +73,7 @@ public class FishingHistory {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FishingHistory other = (FishingHistory) obj;
+		History other = (History) obj;
 		if (id != other.id)
 			return false;
 		return true;

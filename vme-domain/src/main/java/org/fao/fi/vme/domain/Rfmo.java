@@ -41,7 +41,7 @@ public class Rfmo {
 	private List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
 	@OneToMany
-	private List<FishingHistory> fishingHistoryList;
+	private List<History> fishingHistoryList;
 
 	public int getId() {
 		return id;
@@ -75,11 +75,11 @@ public class Rfmo {
 		this.informationSourceList = informationSourceList;
 	}
 
-	public List<FishingHistory> getFishingHistoryList() {
+	public List<History> getFishingHistoryList() {
 		return fishingHistoryList;
 	}
 
-	public void setFishingHistoryList(List<FishingHistory> fishingHistoryList) {
+	public void setFishingHistoryList(List<History> fishingHistoryList) {
 		this.fishingHistoryList = fishingHistoryList;
 	};
 

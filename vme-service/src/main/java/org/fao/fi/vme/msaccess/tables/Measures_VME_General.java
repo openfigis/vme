@@ -147,7 +147,7 @@ public class Measures_VME_General implements TableDomainMapper {
 		is.setUrl(url);
 		is.setCitation(this.getLink_CEM_Bookmarked());
 
-		o.setRfbFishingAreas(this.getRFB_FishingAreas());
+		o.setFishingAreas(this.getRFB_FishingAreas());
 		// o.setRfmo(rfmo)
 		o.setThreshold(this.getVME_Threshold());
 

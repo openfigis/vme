@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.domain.VmeFeatures;
+import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.mapping.ValidityPeriodRule;
 
@@ -172,12 +172,12 @@ public class VME implements TableDomainMapper {
 		vp.setEndYear(r.getEnd());
 		o.setValidityPeriod(vp);
 
-		VmeFeatures f = new VmeFeatures();
+		Profile f = new Profile();
 		f.setDescriptionBiological(this.VME_Description_Biology);
 		f.setDescriptionImpact(this.VME_Description_Impact);
 		f.setDescriptionPhisical(this.VME_Description_Physical);
 
-		List<VmeFeatures> l = new ArrayList<VmeFeatures>();
+		List<Profile> l = new ArrayList<Profile>();
 		l.add(f);
 
 		return o;

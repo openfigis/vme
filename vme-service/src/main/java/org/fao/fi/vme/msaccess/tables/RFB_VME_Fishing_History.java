@@ -1,6 +1,6 @@
 package org.fao.fi.vme.msaccess.tables;
 
-import org.fao.fi.vme.domain.FishingHistory;
+import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 
 public class RFB_VME_Fishing_History implements TableDomainMapper {
@@ -52,7 +52,7 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 	}
 
 	public Object map() {
-		FishingHistory o = new FishingHistory();
+		History o = new History();
 		o.setId(this.ID);
 		o.setRfbFishingAreaGeneralText(this.getRFB_FishingAreas_GeneralText());
 		o.setYear(this.Year_ID);

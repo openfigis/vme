@@ -23,7 +23,7 @@ public class SpecificMeasures {
 	/**
 	 * The SpecificMeasures are defined on the level of this VME, sometimes applies also to other VMEs.
 	 */
-	@ManyToMany(mappedBy = "specificMeasuresList")
+	@ManyToMany(mappedBy = "specificMeasureList")
 	public List<Vme> vmeList;
 
 	/**
@@ -38,7 +38,7 @@ public class SpecificMeasures {
 
 	/** 
 	 */
-	private String measureSummary;
+	private String vmeSpecificMeasure;
 
 	public int getId() {
 		return id;
@@ -72,12 +72,12 @@ public class SpecificMeasures {
 		this.year = year;
 	}
 
-	public String getMeasureSummary() {
-		return measureSummary;
+	public String getVmeSpecificMeasure() {
+		return vmeSpecificMeasure;
 	}
 
-	public void setMeasureSummary(String measureSummary) {
-		this.measureSummary = measureSummary;
+	public void setVmeSpecificMeasure(String vmeSpecificMeasure) {
+		this.vmeSpecificMeasure = vmeSpecificMeasure;
 	}
 
 	@Override

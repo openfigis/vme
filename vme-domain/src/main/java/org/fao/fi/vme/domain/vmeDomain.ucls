@@ -37,8 +37,8 @@
       <operations public="false" package="false" protected="false" private="false"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="org.fao.fi.vme.domain.FishingHistory" project="vme-domain" 
-    file="/vme-domain/src/main/java/org/fao/fi/vme/domain/FishingHistory.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="org.fao.fi.vme.domain.Historyct="vme-domain" 
+    file="/vme-domain/src/main/java/org/fao/fi/vme/domain/History.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="91" width="175" x="211" y="485"/>    
     <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" accessors="true" 
       visibility="false">      

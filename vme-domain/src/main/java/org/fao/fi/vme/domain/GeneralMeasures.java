@@ -40,19 +40,34 @@ public class GeneralMeasures {
 	 */
 	private int year;
 
-	/** */
-	private String rfbFishingAreas;
+	/**
+	 * 
+	 */
+	private String fishingAreas;
 
-	/** */
-	private String encounter;
+	/**
+	 * 
+	 */
+	private String explorataryFishingProtocols;
 
-	/** */
-	private String indicatorSpecies;
+	/**
+	 * 
+	 */
+	private String vmeEncounterProtocols;
 
-	/** */
-	private String threshold;
+	/**
+	 * 
+	 */
+	private String vmeIndicatorSpecies;
 
-	/** */
+	/**
+	 * 
+	 */
+	private String vmeThreshold;
+
+	/**
+	 * 
+	 */
 	private ValidityPeriod validityPeriod;
 
 	public int getId() {
@@ -87,36 +102,44 @@ public class GeneralMeasures {
 		this.year = year;
 	}
 
-	public String getRfbFishingAreas() {
-		return rfbFishingAreas;
+	public String getFishingAreas() {
+		return fishingAreas;
 	}
 
-	public void setRfbFishingAreas(String rfbFishingAreas) {
-		this.rfbFishingAreas = rfbFishingAreas;
+	public void setFishingAreas(String fishingAreas) {
+		this.fishingAreas = fishingAreas;
 	}
 
-	public String getEncounter() {
-		return encounter;
+	public String getExplorataryFishingProtocols() {
+		return explorataryFishingProtocols;
 	}
 
-	public void setEncounter(String encounter) {
-		this.encounter = encounter;
+	public void setExplorataryFishingProtocols(String explorataryFishingProtocols) {
+		this.explorataryFishingProtocols = explorataryFishingProtocols;
 	}
 
-	public String getIndicatorSpecies() {
-		return indicatorSpecies;
+	public String getVmeEncounterProtocols() {
+		return vmeEncounterProtocols;
 	}
 
-	public void setIndicatorSpecies(String indicatorSpecies) {
-		this.indicatorSpecies = indicatorSpecies;
+	public void setVmeEncounterProtocols(String vmeEncounterProtocols) {
+		this.vmeEncounterProtocols = vmeEncounterProtocols;
 	}
 
-	public String getThreshold() {
-		return threshold;
+	public String getVmeIndicatorSpecies() {
+		return vmeIndicatorSpecies;
 	}
 
-	public void setThreshold(String threshold) {
-		this.threshold = threshold;
+	public void setVmeIndicatorSpecies(String vmeIndicatorSpecies) {
+		this.vmeIndicatorSpecies = vmeIndicatorSpecies;
+	}
+
+	public String getVmeThreshold() {
+		return vmeThreshold;
+	}
+
+	public void setVmeThreshold(String vmeThreshold) {
+		this.vmeThreshold = vmeThreshold;
 	}
 
 	public ValidityPeriod getValidityPeriod() {

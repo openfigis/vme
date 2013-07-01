@@ -110,7 +110,7 @@ public class LinkerTest {
 	private void validateVmeObject(Object object) {
 		Vme o = (Vme) object;
 		assertNotNull(o.getRfmo().getId());
-		assertTrue(o.getSpecificMeasuresList().size() > 0);
+		assertTrue(o.getSpecificMeasureList().size() > 0);
 		assertNotNull(o.getValidityPeriod().getBeginYear());
 		assertNotNull(o.getValidityPeriod().getEndYear());
 		assertTrue(o.getId() <= 212);

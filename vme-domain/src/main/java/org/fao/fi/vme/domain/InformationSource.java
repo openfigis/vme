@@ -20,7 +20,6 @@ import javax.persistence.TemporalType;
  * 
  */
 @Entity(name = "INFORMATION_SOURCE")
-
 public class InformationSource {
 
 	@Id

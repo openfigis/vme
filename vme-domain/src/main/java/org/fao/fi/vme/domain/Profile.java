@@ -10,8 +10,8 @@ import javax.persistence.Id;
  * @author Erik van Ingen
  * 
  */
-@Entity(name = "VME_FEATURES")
-public class VmeFeatures {
+@Entity
+public class Profile {
 
 	@Id
 	private long id;
