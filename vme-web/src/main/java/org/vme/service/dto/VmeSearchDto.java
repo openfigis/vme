@@ -12,6 +12,7 @@ public class VmeSearchDto {
 	private String geoArea;
 	private String owner;
 	private String vmeType;
+	private String geographicLayerId;
 	private int year;
 	private String envelope;
 	private String validityPeriod;
@@ -51,6 +52,23 @@ public class VmeSearchDto {
 	 */
 	public void setVmeId(int vmeId) {
 		this.vmeId = vmeId;
+	}
+
+	
+	
+	
+	/**
+	 * @return the geographicLayerId
+	 */
+	public String getGeographicLayerId() {
+		return geographicLayerId;
+	}
+
+	/**
+	 * @param geographicLayerId the geographicLayerId to set
+	 */
+	public void setGeographicLayerId(String geographicLayerId) {
+		this.geographicLayerId = geographicLayerId;
 	}
 
 	/**

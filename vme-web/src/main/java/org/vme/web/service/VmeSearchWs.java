@@ -35,22 +35,25 @@ public class VmeSearchWs {
 	//@Produces(MediaType.TEXT_HTML)
 	public Response find(
 			@QueryParam("text") String text,
-			@PathParam("id_authority") int id_authority, 
-			@PathParam("id_vme_type") int id_vme_type, 
-			@PathParam("id_vme_criteria") int id_vme_criteria,
-			@PathParam("year") int year) {
+			@PathParam("id_authority") String id_authority, 
+			@PathParam("id_vme_type") String id_vme_type, 
+			@PathParam("id_vme_criteria") String id_vme_criteria,
+			@PathParam("year") String year) {
 		
-		
-
 		VmeSearchRequestDto requestDto = new VmeSearchRequestDto(UUID.randomUUID());
-		
-		requestDto.setAuthority(id_authority);
-		requestDto.setType(id_vme_type);
-		requestDto.setCriteria(id_vme_criteria);
-		requestDto.setYear(year);
-		requestDto.setText(text);
-		
-		if (id_authority > 0) {
+		if (!("*").equals(id_authority.trim())){
+			requestDto.setAuthority(Integer.parseInt(id_authority));
+		}
+		if (!("*").equals(id_vme_type.trim())){
+			requestDto.setType(Integer.parseInt(id_vme_type));	
+		}
+		if (!("*").equals(id_vme_criteria.trim())){
+			requestDto.setCriteria(Integer.parseInt(id_vme_criteria));
+		}
+		if (!("*").equals(year.trim())){
+			requestDto.setCriteria(Integer.parseInt(year));
+		}
+		if (requestDto.getAuthority() > 0) {
 			System.out.println("REST SERVICE: Service was called with param id: [" + id_authority + "] - text param:  " + text);
 			VmeSearchResult result =  service.retrieveResultsFor(requestDto);
 			return Response.status(200).entity(result).build();
@@ -60,6 +63,7 @@ public class VmeSearchWs {
 	}
 
 
+	@SuppressWarnings("unused")
 	private String produceHtmlReport(VmeSearchRequestDto dto)	{
 		return 
 				"<html> " + "<title>" + "Hello Jersey" + "</title>" + 
