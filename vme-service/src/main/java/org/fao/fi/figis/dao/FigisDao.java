@@ -7,9 +7,14 @@ import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 
 import org.fao.fi.dao.Dao;
+import org.fao.fi.figis.domain.Observation;
+import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
+import org.fao.fi.figis.domain.VmeObservationDomain;
+import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.vme.dao.config.FigisDB;
+import org.fao.fi.vme.msaccess.component.VmeDaoException;
 
 /**
  * 
@@ -74,12 +79,47 @@ public class FigisDao extends Dao {
 	}
 
 	public void syncVmeObservation(VmeObservation vo) {
-		VmeObservation found = em.find(VmeObservation.class, vo.getObservation());
+		VmeObservation found = em.find(VmeObservation.class, vo.getObservationId());
 		if (found == null) {
 			this.persist(vo);
 		} else {
 			this.merge(vo);
 		}
 
+	}
+
+	/**
+	 * persists the VmeObservationDomain, assuming the RefVme is pre existing
+	 * 
+	 * @param vod
+	 */
+	public void persistVmeObservationDomain(VmeObservationDomain vod) {
+		// precondition
+
+		if (vod.getRefVme().getId() == null) {
+			throw new VmeDaoException("FigisDao Exception, assuming the RefVme is not registered yet. ");
+		}
+
+		// logic
+		em.getTransaction().begin();
+		List<Observation> oList = vod.getObservationList();
+		for (Observation observation : oList) {
+			// there should be not yet an id assigned
+			assert observation.getId() == 0;
+			em.persist(observation);
+			VmeObservation vo = new VmeObservation();
+			vo.setObservationId(observation.getId());
+			vo.setVmeId(vod.getRefVme().getId());
+			em.persist(vo);
+			List<ObservationXml> xmlList = observation.getObservationsPerLanguage();
+			for (ObservationXml observationXml : xmlList) {
+				DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
+				observationXml.setObservation(observation);
+				// genereate the id for the xml, based upon the id of the observation
+				rule.composeId(observationXml);
+				em.persist(observationXml);
+			}
+		}
+		em.getTransaction().commit();
 	}
 }

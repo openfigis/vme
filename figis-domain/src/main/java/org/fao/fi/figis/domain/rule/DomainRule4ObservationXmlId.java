@@ -13,7 +13,7 @@ import org.fao.fi.figis.domain.ObservationXml;
  * @author Erik van Ingen
  * 
  */
-public class DomainRule {
+public class DomainRule4ObservationXmlId {
 
 	static Map<Integer, String> map = new HashMap<Integer, String>();
 	static {

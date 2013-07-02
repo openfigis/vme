@@ -6,8 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -23,36 +22,38 @@ public class VmeObservation implements Serializable {
 	 */
 	private static final long serialVersionUID = 2268197859547174188L;
 
-	// bi-directional many-to-one association to RefVme
-	@ManyToOne
-	// @PrimaryKeyJoinColumn(name = "CD_VME")
-	@JoinColumn(name = "CD_VME", nullable = false)
-	private RefVme refVme;
-
 	// bi-directional one-to-one association to FsObservation
 	@Id
-	@OneToOne
-	// @PrimaryKeyJoinColumn(name = "CD_OBSERVATION")
-	@JoinColumn(name = "CD_OBSERVATION", nullable = false)
-	private Observation observation;
+	// @OneToOne
+	@PrimaryKeyJoinColumn(name = "CD_OBSERVATION")
+	// @JoinColumn(name = "CD_OBSERVATION", nullable = false)
+	private long observationId;
+	// private Observation observation;
+
+	// bi-directional many-to-one association to RefVme
+	// @ManyToOne
+	// @PrimaryKeyJoinColumn(name = "CD_VME")
+	@JoinColumn(name = "CD_VME", nullable = false)
+	private Long vmeId;
+	// private RefVme refVme;
 
 	@Column(name = "REPORTING_YEAR", nullable = true)
 	private String reportingYear;
 
-	public RefVme getRefVme() {
-		return refVme;
+	public long getObservationId() {
+		return observationId;
 	}
 
-	public void setRefVme(RefVme refVme) {
-		this.refVme = refVme;
+	public void setObservationId(long observationId) {
+		this.observationId = observationId;
 	}
 
-	public Observation getObservation() {
-		return observation;
+	public Long getVmeId() {
+		return vmeId;
 	}
 
-	public void setObservation(Observation observation) {
-		this.observation = observation;
+	public void setVmeId(Long vmeId) {
+		this.vmeId = vmeId;
 	}
 
 	public String getReportingYear() {

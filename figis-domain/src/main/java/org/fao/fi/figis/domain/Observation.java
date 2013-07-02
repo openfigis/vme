@@ -40,7 +40,7 @@ public class Observation implements Serializable {
 	@Column(name = "OBS_ORDER", nullable = false)
 	private Short order;
 
-	@OneToMany(targetEntity = ObservationXml.class, cascade = CascadeType.ALL, mappedBy = "observation")
+	@OneToMany(targetEntity = ObservationXml.class, cascade = CascadeType.MERGE, mappedBy = "observation")
 	private List<ObservationXml> observationsPerLanguage;
 
 	public Short getOrder() {

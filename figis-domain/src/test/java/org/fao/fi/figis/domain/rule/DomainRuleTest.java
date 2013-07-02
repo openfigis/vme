@@ -6,11 +6,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class DomainRuleTest extends DomainRule {
+public class DomainRuleTest extends DomainRule4ObservationXmlId {
 
 	@Test
 	public void testComposeId() {
-		DomainRule r = new DomainRule();
+		DomainRule4ObservationXmlId r = new DomainRule4ObservationXmlId();
 		Observation o = new Observation();
 		long id = 78789l;
 		o.setId(id);
