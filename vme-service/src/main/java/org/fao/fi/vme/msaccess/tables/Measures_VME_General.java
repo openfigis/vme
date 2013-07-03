@@ -8,6 +8,7 @@ import java.util.List;
 import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.ValidityPeriod;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.component.VmeDaoException;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.mapping.ValidityPeriodRule;
@@ -134,11 +135,14 @@ public class Measures_VME_General implements TableDomainMapper {
 
 	@Override
 	public Object map() {
+
+		MultiLingualStringUtil u = new MultiLingualStringUtil();
+
 		GeneralMeasures o = new GeneralMeasures();
 
 		o.setId(this.getID());
-		o.setVmeEncounterProtocols(this.getVME_Encounter());
-		o.setVmeIndicatorSpecies(this.getVME_Indicator_Sp());
+		o.setVmeEncounterProtocols(u.english(this.getVME_Encounter()));
+		o.setVmeIndicatorSpecies(u.english(this.getVME_Indicator_Sp()));
 
 		// It should be the column Link_CEM_Source within the Measures_VME_general table.
 
@@ -159,7 +163,7 @@ public class Measures_VME_General implements TableDomainMapper {
 
 		o.setFishingAreas(this.getRFB_Bottom_Fishing_Areas());
 		// o.setRfmo(rfmo)
-		o.setVmeThreshold(this.getVME_Threshold());
+		o.setVmeThreshold(u.english(this.getVME_Threshold()));
 
 		ValidityPeriodRule r = new ValidityPeriodRule(this.VME_GeneralMeasure_Validity_Start,
 				VME_GeneralMeasure_Validity_End);

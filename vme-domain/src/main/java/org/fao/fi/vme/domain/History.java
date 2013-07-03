@@ -1,7 +1,9 @@
 package org.fao.fi.vme.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  * 
@@ -17,13 +19,16 @@ public class History {
 	@Id
 	private int id;
 
+	/**
+	 *  
+	 */
 	private int year;
 
-	/** */
-	private String rfbFishingAreaGeneralText;
-
-	/** */
-	private String vmeGeneralText;
+	/**
+	 *  
+	 */
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString history;
 
 	public int getId() {
 		return id;
@@ -37,24 +42,16 @@ public class History {
 		return year;
 	}
 
-	public void setYear(int updatedInYear) {
-		this.year = updatedInYear;
+	public void setYear(int year) {
+		this.year = year;
 	}
 
-	public String getRfbFishingAreaGeneralText() {
-		return rfbFishingAreaGeneralText;
+	public MultiLingualString getHistory() {
+		return history;
 	}
 
-	public void setRfbFishingAreaGeneralText(String rfbFishingAreaGeneralText) {
-		this.rfbFishingAreaGeneralText = rfbFishingAreaGeneralText;
-	}
-
-	public String getVmeGeneralText() {
-		return vmeGeneralText;
-	}
-
-	public void setVmeGeneralText(String vmeGeneralText) {
-		this.vmeGeneralText = vmeGeneralText;
+	public void setHistory(MultiLingualString history) {
+		this.history = history;
 	}
 
 	@Override

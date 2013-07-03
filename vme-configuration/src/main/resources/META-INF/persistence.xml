@@ -9,6 +9,7 @@
 		<class>org.fao.fi.vme.domain.GeoRef</class>
 		<class>org.fao.fi.vme.domain.History</class>
 		<class>org.fao.fi.vme.domain.InformationSource</class>
+		<class>org.fao.fi.vme.domain.MultiLingualString</class>
 		<class>org.fao.fi.vme.domain.Profile</class>
 		<class>org.fao.fi.vme.domain.Rfmo</class>
 		<class>org.fao.fi.vme.domain.SpecificMeasures</class>

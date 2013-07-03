@@ -1,9 +1,12 @@
 package org.fao.fi.vme.msaccess.tables;
 
 import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 
 public class RFB_VME_Fishing_History implements TableDomainMapper {
+
+	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	private int ID;
 	private String RFB_ID;
@@ -51,14 +54,17 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 		RFB_VMEs_GeneralText = rFB_VMEs_GeneralText;
 	}
 
+	@Override
 	public Object map() {
 		History o = new History();
 		o.setId(this.ID);
-		o.setRfbFishingAreaGeneralText(this.getRFB_FishingAreas_GeneralText());
+		o.setHistory(u.english(this.getRFB_VMEs_GeneralText()));
+
+		// TODO where will this one be mapped to?
+		// this.getRFB_FishingAreas_GeneralText();
+
 		o.setYear(this.Year_ID);
-		o.setVmeGeneralText(this.RFB_VMEs_GeneralText);
 
 		return o;
 	}
-
 }

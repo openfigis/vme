@@ -16,6 +16,7 @@ import org.fao.fi.vme.domain.Vme;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,10 +30,10 @@ public class VmeAccessDbImportIntegrationTest {
 	@Inject
 	VmeDao vmeDao;
 
-	// @Before
-	// public void beforeTest() {
-	// clean();
-	// }
+	@Before
+	public void beforeTest() {
+		clean();
+	}
 
 	@After
 	public void afterTest() {
@@ -50,10 +51,7 @@ public class VmeAccessDbImportIntegrationTest {
 	@SuppressWarnings("unchecked")
 	protected void clean() {
 
-		// private final Class<?> tables[] = { Meetings.class, RFB_MetaData.class, VME.class,
-		// Measues_VME_Specific.class,
-		// Measures_VME_General.class, RFB_VME_Fishing_History.class };
-
+		// delete first the relations
 		List<Rfmo> rfmoList = (List<Rfmo>) vmeDao.loadObjects(Rfmo.class);
 		for (Rfmo rfmo : rfmoList) {
 			rfmo.setFishingHistoryList(null);
@@ -82,10 +80,10 @@ public class VmeAccessDbImportIntegrationTest {
 			vmeDao.merge(vme);
 		}
 
+		// now delete the actual objects
 		Class<?>[] classes = { GeneralMeasures.class, SpecificMeasures.class, InformationSource.class, Vme.class,
 				GeoRef.class, Profile.class, Rfmo.class };
 		for (Class<?> clazz : classes) {
-			System.out.println("==============================================" + clazz.getSimpleName());
 			List<?> list = vmeDao.loadObjects(clazz);
 			for (Object object : list) {
 				vmeDao.remove(object);

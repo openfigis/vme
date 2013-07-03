@@ -51,22 +51,26 @@ public class GeneralMeasures {
 	/**
 	 * 
 	 */
-	private String explorataryFishingProtocols;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString explorataryFishingProtocols;
 
 	/**
 	 * 
 	 */
-	private String vmeEncounterProtocols;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString vmeEncounterProtocols;
 
 	/**
 	 * 
 	 */
-	private String vmeIndicatorSpecies;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString vmeIndicatorSpecies;
 
 	/**
 	 * 
 	 */
-	private String vmeThreshold;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString vmeThreshold;
 
 	/**
 	 * 
@@ -113,35 +117,35 @@ public class GeneralMeasures {
 		this.fishingAreas = fishingAreas;
 	}
 
-	public String getExplorataryFishingProtocols() {
+	public MultiLingualString getExplorataryFishingProtocols() {
 		return explorataryFishingProtocols;
 	}
 
-	public void setExplorataryFishingProtocols(String explorataryFishingProtocols) {
+	public void setExplorataryFishingProtocols(MultiLingualString explorataryFishingProtocols) {
 		this.explorataryFishingProtocols = explorataryFishingProtocols;
 	}
 
-	public String getVmeEncounterProtocols() {
+	public MultiLingualString getVmeEncounterProtocols() {
 		return vmeEncounterProtocols;
 	}
 
-	public void setVmeEncounterProtocols(String vmeEncounterProtocols) {
+	public void setVmeEncounterProtocols(MultiLingualString vmeEncounterProtocols) {
 		this.vmeEncounterProtocols = vmeEncounterProtocols;
 	}
 
-	public String getVmeIndicatorSpecies() {
+	public MultiLingualString getVmeIndicatorSpecies() {
 		return vmeIndicatorSpecies;
 	}
 
-	public void setVmeIndicatorSpecies(String vmeIndicatorSpecies) {
+	public void setVmeIndicatorSpecies(MultiLingualString vmeIndicatorSpecies) {
 		this.vmeIndicatorSpecies = vmeIndicatorSpecies;
 	}
 
-	public String getVmeThreshold() {
+	public MultiLingualString getVmeThreshold() {
 		return vmeThreshold;
 	}
 
-	public void setVmeThreshold(String vmeThreshold) {
+	public void setVmeThreshold(MultiLingualString vmeThreshold) {
 		this.vmeThreshold = vmeThreshold;
 	}
 

@@ -9,6 +9,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  * 
@@ -50,7 +51,8 @@ public class Vme {
 	/**
 	 *
 	 */
-	private String name;
+	@OneToOne
+	private MultiLingualString name;
 
 	/**
 	 *
@@ -66,6 +68,14 @@ public class Vme {
 	 *
 	 */
 	private String criteria;
+
+	public MultiLingualString getName() {
+		return name;
+	}
+
+	public void setName(MultiLingualString name) {
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;
@@ -121,14 +131,6 @@ public class Vme {
 
 	public void setValidityPeriod(ValidityPeriod validityPeriod) {
 		this.validityPeriod = validityPeriod;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getGeoform() {

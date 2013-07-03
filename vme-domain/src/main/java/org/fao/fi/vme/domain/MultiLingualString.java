@@ -2,7 +2,10 @@ package org.fao.fi.vme.domain;
 
 import java.util.Map;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -22,12 +25,15 @@ import javax.persistence.Id;
 public class MultiLingualString {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	/**
 	 * map of descriptions per language
 	 * 
 	 */
+
+	@ElementCollection
 	private Map<Integer, String> stringMap;
 
 	public long getId() {
