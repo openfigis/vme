@@ -1,10 +1,11 @@
-package org.fao.fi.figis.dao;
+package org.fao.fi.vme.test;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;

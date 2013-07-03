@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.figis.component.ObservationSync;
 import org.fao.fi.vme.figis.component.Sync;
 import org.fao.fi.vme.figis.component.VmeObservationSync;
@@ -20,9 +19,6 @@ import org.fao.fi.vme.figis.component.XmlSync;
  * 
  */
 public class VmeDomainFigisSync {
-
-	@Inject
-	VmeDao vmeDao;
 
 	@Inject
 	VmeRefSync vmeRefSync;

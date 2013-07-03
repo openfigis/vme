@@ -8,6 +8,7 @@ import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.test.ValidityPeriodMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
@@ -37,13 +38,15 @@ public class VmeDomainFigisSyncTest {
 
 		for (int i = start; i < start + INSERTED; i++) {
 			// make sure at least those 5 objects do exist
-			if (vmeDao.findVme(i) == null) {
+			Long id = new Long(i);
+			if (vmeDao.findVme(id) == null) {
 				Vme vme = new Vme();
+				vme.setValidityPeriod(ValidityPeriodMock.create());
 				vme.setId(new Long(i));
 				vmeDao.persist(vme);
 			}
 			// remove them from figis, if they exist
-			RefVme refVme = (RefVme) figisDao.find(RefVme.class, i);
+			RefVme refVme = (RefVme) figisDao.find(RefVme.class, id);
 			if (refVme != null) {
 				figisDao.remove(refVme);
 			}

@@ -1,4 +1,4 @@
-package org.fao.fi.vme.figis.component;
+package org.fao.fi.vme.test;
 
 import org.fao.fi.vme.domain.ValidityPeriod;
 

@@ -24,7 +24,7 @@ public class VmeDao extends Dao {
 		return this.generateTypedQuery(em, clazz).getResultList();
 	}
 
-	public Vme findVme(int id) {
+	public Vme findVme(Long id) {
 		return em.find(Vme.class, id);
 	}
 
