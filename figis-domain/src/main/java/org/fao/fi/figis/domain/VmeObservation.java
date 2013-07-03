@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -23,21 +21,21 @@ public class VmeObservation implements Serializable {
 	private static final long serialVersionUID = 2268197859547174188L;
 
 	// bi-directional one-to-one association to FsObservation
-	@Id
 	// @OneToOne
-	@PrimaryKeyJoinColumn(name = "CD_OBSERVATION")
 	// @JoinColumn(name = "CD_OBSERVATION", nullable = false)
+	@Id
+	@Column(name = "CD_OBSERVATION")
 	private long observationId;
 	// private Observation observation;
 
 	// bi-directional many-to-one association to RefVme
 	// @ManyToOne
 	// @PrimaryKeyJoinColumn(name = "CD_VME")
-	@JoinColumn(name = "CD_VME", nullable = false)
+	@Column(name = "CD_VME", nullable = false)
 	private Long vmeId;
 	// private RefVme refVme;
 
-	@Column(name = "REPORTING_YEAR", nullable = true)
+	@Column(name = "REPORTING_YEAR", nullable = true, length = 10)
 	private String reportingYear;
 
 	public long getObservationId() {

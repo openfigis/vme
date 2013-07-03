@@ -22,11 +22,14 @@ public class Observation implements Serializable {
 	 */
 	private static final long serialVersionUID = 448844837583234537L;
 
+	// @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ObservationIDGenerator")
+	// @SequenceGenerator(name = "ObservationIDGenerator", sequenceName = "SEQ_FS_OBSERVATION")
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "G1")
 	@Column(name = "CD_OBSERVATION", unique = true, nullable = false, precision = 10)
-	@SequenceGenerator(name = "SEQ_FS_OBSERVATION", sequenceName = "SEQ_FS_OBSERVATION")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_FS_OBSERVATION")
-	private long id;
+	@SequenceGenerator(name = "G1", sequenceName = "SEQ_FS_OBSERVATION", allocationSize = 1)
+	private int id;
 
 	@Column(name = "FG_PRIMARY", nullable = true)
 	private boolean primary;
@@ -38,24 +41,24 @@ public class Observation implements Serializable {
 	private int collection;
 
 	@Column(name = "OBS_ORDER", nullable = false)
-	private Short order;
+	private short order;
 
 	@OneToMany(targetEntity = ObservationXml.class, cascade = CascadeType.MERGE, mappedBy = "observation")
 	private List<ObservationXml> observationsPerLanguage;
 
-	public Short getOrder() {
+	public short getOrder() {
 		return order;
 	}
 
-	public void setOrder(Short order) {
+	public void setOrder(short order) {
 		this.order = order;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
