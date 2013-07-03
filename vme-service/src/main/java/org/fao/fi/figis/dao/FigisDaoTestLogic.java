@@ -32,9 +32,27 @@ public class FigisDaoTestLogic {
 		VmeObservationDomain vod = createVmeObservationDomain();
 		vod.setRefVme(r);
 		dao.persistVmeObservationDomain(vod);
+		checkCount(sizes, 1);
+
 		dao.removeVmeObservationDomain(vod);
 
-		checkCount(sizes);
+	}
+
+	@Test
+	public void testRemoveVmeObservationDomain() {
+
+		int sizes[] = count();
+		// pre-register RefVme
+		RefVme r = createRefVme();
+		dao.syncRefVme(r);
+
+		// save the related factsheet
+		VmeObservationDomain vod = createVmeObservationDomain();
+		vod.setRefVme(r);
+		dao.persistVmeObservationDomain(vod);
+		dao.removeVmeObservationDomain(vod);
+
+		checkCount(sizes, 0);
 	}
 
 	protected RefVme createRefVme() {
@@ -69,11 +87,11 @@ public class FigisDaoTestLogic {
 		return sizes;
 	}
 
-	protected void checkCount(int[] startSizes) {
+	protected void checkCount(int[] startSizes, int diff) {
 		int[] newSizes = count();
 		for (int i = 0; i < newSizes.length; i++) {
-			int oldNewSize = ++startSizes[i];
-			assertEquals("elementnr" + i, oldNewSize, startSizes[i]);
+			int oldNewSize = startSizes[i] + diff;
+			assertEquals("elementnr" + i, oldNewSize, newSizes[i]);
 		}
 
 	}

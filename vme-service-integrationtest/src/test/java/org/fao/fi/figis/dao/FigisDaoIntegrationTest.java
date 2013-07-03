@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ FigisDataBaseProducer.class })
-public class FigisDaoTest extends FigisDaoTestLogic {
+public class FigisDaoIntegrationTest extends FigisDaoTestLogic {
 
 	@Inject
 	FigisDao figisDao;
@@ -42,7 +42,7 @@ public class FigisDaoTest extends FigisDaoTestLogic {
 		observation.setReference(true);
 
 		figisDao.persist(observation);
-		figisDao.remove(figisDao.find(Observation.class, observation.getId()));
+		figisDao.remove(observation);
 	}
 
 }

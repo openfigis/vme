@@ -127,7 +127,17 @@ public class FigisDao extends Dao {
 	}
 
 	public void removeVmeObservationDomain(VmeObservationDomain vod) {
-		// TODO Auto-generated method stub
-
+		em.getTransaction().begin();
+		List<Observation> oList = vod.getObservationList();
+		for (Observation observation : oList) {
+			List<ObservationXml> xmlList = observation.getObservationsPerLanguage();
+			for (ObservationXml observationXml : xmlList) {
+				em.remove(observationXml);
+			}
+			em.remove(observation);
+			Long id = new Long(observation.getId());
+			em.remove(em.find(VmeObservation.class, id));
+		}
+		em.getTransaction().commit();
 	}
 }

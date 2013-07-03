@@ -22,13 +22,10 @@ public class Observation implements Serializable {
 	 */
 	private static final long serialVersionUID = 448844837583234537L;
 
-	// @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ObservationIDGenerator")
-	// @SequenceGenerator(name = "ObservationIDGenerator", sequenceName = "SEQ_FS_OBSERVATION")
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "G1")
+	@SequenceGenerator(name = "G1", sequenceName = "figis.SEQ_FS_OBSERVATION", allocationSize = 1)
 	@Column(name = "CD_OBSERVATION", unique = true, nullable = false, precision = 10)
-	@SequenceGenerator(name = "G1", sequenceName = "SEQ_FS_OBSERVATION", allocationSize = 1)
 	private int id;
 
 	@Column(name = "FG_PRIMARY", nullable = true)
