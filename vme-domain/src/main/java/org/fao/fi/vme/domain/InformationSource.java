@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -46,7 +47,11 @@ public class InformationSource {
 	/**
 	 * Also referred to as issue date of biblio entry
 	 */
+	/*
+	 * DATE_DATE because Oracle does not like date as a columnname
+	 */
 	@Temporal(TemporalType.DATE)
+	@Column(name = "DATE_DATE")
 	private Date date;
 
 	@Temporal(TemporalType.DATE)

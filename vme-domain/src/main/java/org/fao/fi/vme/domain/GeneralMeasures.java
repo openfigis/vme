@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -34,6 +35,7 @@ public class GeneralMeasures {
 	 * 
 	 */
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "INFORMATION_SOURCE_LIST")
 	private List<InformationSource> informationSourceList;
 
 	/**
