@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity
-@Table(name = "FS_VME_OBSERVATION")
+@Table(name = "FS_VME_OBSERVATION", schema = "figis")
 public class VmeObservation implements Serializable {
 
 	/**

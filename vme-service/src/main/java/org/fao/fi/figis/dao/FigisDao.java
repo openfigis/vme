@@ -105,11 +105,14 @@ public class FigisDao extends Dao {
 		List<Observation> oList = vod.getObservationList();
 		for (Observation observation : oList) {
 			// there should be not yet an id assigned
-			assert observation.getId() == 0;
+			if (observation.getId() != 0) {
+				throw new VmeDaoException("FigisDao Exception, assuming the RefVme is not registered yet. ");
+			}
 			em.persist(observation);
 			VmeObservation vo = new VmeObservation();
 			vo.setObservationId(observation.getId());
 			vo.setVmeId(vod.getRefVme().getId());
+			vo.setReportingYear(vod.getReportingYear());
 			em.persist(vo);
 			List<ObservationXml> xmlList = observation.getObservationsPerLanguage();
 			for (ObservationXml observationXml : xmlList) {
@@ -121,5 +124,10 @@ public class FigisDao extends Dao {
 			}
 		}
 		em.getTransaction().commit();
+	}
+
+	public void removeVmeObservationDomain(VmeObservationDomain vod) {
+		// TODO Auto-generated method stub
+
 	}
 }

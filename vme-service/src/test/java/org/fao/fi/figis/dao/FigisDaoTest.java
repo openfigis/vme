@@ -1,18 +1,10 @@
 package org.fao.fi.figis.dao;
 
-import java.sql.Date;
-import java.util.ArrayList;
-
-import javax.inject.Inject;
-
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
-import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
-import org.fao.fi.vme.figis.component.VmeRefSync;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -24,10 +16,7 @@ import static org.junit.Assert.assertNull;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ FigisDataBaseProducer.class })
-public class FigisDaoTest {
-
-	@Inject
-	private FigisDao dao;
+public class FigisDaoTest extends FigisDaoTestLogic {
 
 	@Test
 	public void testsyncRefVme() {
@@ -86,22 +75,6 @@ public class FigisDaoTest {
 		assertNotNull(dao.find(Observation.class, o.getId()));
 	}
 
-	@Test
-	public void testPersistVmeObservation() {
-		delegateCheckOnNumberOfObjectsInModel(0);
-
-		// pre-register RefVme
-		RefVme r = createRefVme();
-		dao.syncRefVme(r);
-
-		// save the related factsheet
-		VmeObservationDomain vod = createVmeObservationDomain();
-		vod.setRefVme(r);
-		dao.persistVmeObservationDomain(vod);
-
-		delegateCheckOnNumberOfObjectsInModel(1);
-	}
-
 	/**
 	 * return null when no object is found.
 	 */
@@ -109,48 +82,6 @@ public class FigisDaoTest {
 	public void testLoadRefVmeNull() {
 		RefVme found = (RefVme) dao.find(RefVme.class, 4561l);
 		assertNull(found);
-	}
-
-	private RefVme createRefVme() {
-
-		Long id = new Long(4354);
-		RefVme r = new RefVme();
-		r.setId(id);
-		return r;
-	}
-
-	private VmeObservationDomain createVmeObservationDomain() {
-		VmeObservationDomain vo = new VmeObservationDomain();
-		vo.setReportingYear("2013");
-		vo.setObservationList(new ArrayList<Observation>());
-		Observation o = createObservation();
-		ObservationXml xml = createObservationXml();
-		o.setObservationsPerLanguage(new ArrayList<ObservationXml>());
-		o.getObservationsPerLanguage().add(xml);
-		vo.getObservationList().add(o);
-		return vo;
-	}
-
-	private void delegateCheckOnNumberOfObjectsInModel(int i) {
-		assertEquals(i, dao.loadObjects(ObservationXml.class).size());
-		assertEquals(i, dao.loadObjects(Observation.class).size());
-		assertEquals(i, dao.loadObjects(VmeObservation.class).size());
-	}
-
-	private ObservationXml createObservationXml() {
-		ObservationXml xml = new ObservationXml();
-		xml.setLanguage(2);
-		xml.setStatus(0);
-		xml.setLastEditDate(new Date(456456l));
-		xml.setCreationDate(new Date(7897890l));
-		return xml;
-	}
-
-	private Observation createObservation() {
-		Observation o = new Observation();
-		o.setOrder(VmeRefSync.ORDER);
-		o.setCollection(VmeRefSync.COLLECTION);
-		return o;
 	}
 
 }
