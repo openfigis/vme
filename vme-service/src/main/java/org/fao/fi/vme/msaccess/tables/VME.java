@@ -6,6 +6,7 @@ import java.util.List;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.mapping.ValidityPeriodRule;
 
@@ -158,6 +159,9 @@ public class VME implements TableDomainMapper {
 	@Override
 	public Object map() {
 		Vme o = new Vme();
+
+		MultiLingualStringUtil u = new MultiLingualStringUtil();
+
 		o.setAreaType(this.VME_Area_Type);
 		// o.setCriteria(this.)
 		o.setGeoform(this.VME_Geoform);
@@ -173,9 +177,9 @@ public class VME implements TableDomainMapper {
 		o.setValidityPeriod(vp);
 
 		Profile f = new Profile();
-		f.setDescriptionBiological(this.VME_Description_Biology);
-		f.setDescriptionImpact(this.VME_Description_Impact);
-		f.setDescriptionPhisical(this.VME_Description_Physical);
+		f.setDescriptionBiological(u.english(this.VME_Description_Biology));
+		f.setDescriptionImpact(u.english(this.VME_Description_Impact));
+		f.setDescriptionPhisical(u.english(this.VME_Description_Physical));
 
 		List<Profile> l = new ArrayList<Profile>();
 		l.add(f);

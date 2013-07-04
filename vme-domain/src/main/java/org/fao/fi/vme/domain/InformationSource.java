@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -61,10 +62,12 @@ public class InformationSource {
 	private Date meetingEndDate;
 
 	/** */
-	private String committee;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString committee;
 
 	/** */
-	private String reportSummary;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString reportSummary;
 
 	/**
 	 * The url where the document is to be found
@@ -74,7 +77,8 @@ public class InformationSource {
 	/**
 	 * The title
 	 */
-	private String citation;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString citation;
 
 	/**
 	 * This field maybe used to indicate what type of source this is. One type would be link CEM Source.
@@ -137,19 +141,19 @@ public class InformationSource {
 		this.meetingEndDate = meetingEndDate;
 	}
 
-	public String getCommittee() {
+	public MultiLingualString getCommittee() {
 		return committee;
 	}
 
-	public void setCommittee(String committee) {
+	public void setCommittee(MultiLingualString committee) {
 		this.committee = committee;
 	}
 
-	public String getReportSummary() {
+	public MultiLingualString getReportSummary() {
 		return reportSummary;
 	}
 
-	public void setReportSummary(String reportSummary) {
+	public void setReportSummary(MultiLingualString reportSummary) {
 		this.reportSummary = reportSummary;
 	}
 
@@ -161,11 +165,11 @@ public class InformationSource {
 		this.url = url;
 	}
 
-	public String getCitation() {
+	public MultiLingualString getCitation() {
 		return citation;
 	}
 
-	public void setCitation(String citation) {
+	public void setCitation(MultiLingualString citation) {
 		this.citation = citation;
 	}
 

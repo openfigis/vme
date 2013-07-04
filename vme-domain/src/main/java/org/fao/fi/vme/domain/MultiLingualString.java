@@ -25,7 +25,7 @@ import javax.persistence.Id;
 public class MultiLingualString {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
 	/**

@@ -1,7 +1,9 @@
 package org.fao.fi.vme.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  * The features of a VME, defined in a certain year.
@@ -25,18 +27,21 @@ public class Profile {
 	 * Physical description of the VME
 	 * 
 	 */
-	private String descriptionPhisical;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString descriptionPhisical;
 
 	/**
 	 * 
 	 * Biological description of the VME
 	 */
-	private String descriptionBiological;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString descriptionBiological;
 
 	/**
 	 * Description of the impact of this VME
 	 */
-	private String descriptionImpact;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString descriptionImpact;
 
 	public long getId() {
 		return id;
@@ -54,27 +59,27 @@ public class Profile {
 		this.year = year;
 	}
 
-	public String getDescriptionPhisical() {
+	public MultiLingualString getDescriptionPhisical() {
 		return descriptionPhisical;
 	}
 
-	public void setDescriptionPhisical(String descriptionPhisical) {
+	public void setDescriptionPhisical(MultiLingualString descriptionPhisical) {
 		this.descriptionPhisical = descriptionPhisical;
 	}
 
-	public String getDescriptionBiological() {
+	public MultiLingualString getDescriptionBiological() {
 		return descriptionBiological;
 	}
 
-	public void setDescriptionBiological(String descriptionBiological) {
+	public void setDescriptionBiological(MultiLingualString descriptionBiological) {
 		this.descriptionBiological = descriptionBiological;
 	}
 
-	public String getDescriptionImpact() {
+	public MultiLingualString getDescriptionImpact() {
 		return descriptionImpact;
 	}
 
-	public void setDescriptionImpact(String descriptionImpact) {
+	public void setDescriptionImpact(MultiLingualString descriptionImpact) {
 		this.descriptionImpact = descriptionImpact;
 	}
 

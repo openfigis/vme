@@ -2,9 +2,11 @@ package org.fao.fi.vme.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 /**
  * 
@@ -38,7 +40,8 @@ public class SpecificMeasures {
 
 	/** 
 	 */
-	private String vmeSpecificMeasure;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString vmeSpecificMeasure;
 
 	public int getId() {
 		return id;
@@ -72,11 +75,11 @@ public class SpecificMeasures {
 		this.year = year;
 	}
 
-	public String getVmeSpecificMeasure() {
+	public MultiLingualString getVmeSpecificMeasure() {
 		return vmeSpecificMeasure;
 	}
 
-	public void setVmeSpecificMeasure(String vmeSpecificMeasure) {
+	public void setVmeSpecificMeasure(MultiLingualString vmeSpecificMeasure) {
 		this.vmeSpecificMeasure = vmeSpecificMeasure;
 	}
 

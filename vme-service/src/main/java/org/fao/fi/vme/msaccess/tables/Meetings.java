@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.fao.fi.vme.domain.InformationSource;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.component.VmeDaoException;
 import org.fao.fi.vme.msaccess.formatter.MeetingDateParser;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
@@ -95,13 +96,15 @@ public class Meetings implements TableDomainMapper {
 	@Override
 	public Object map() {
 		InformationSource is = new InformationSource();
-		is.setCommittee(this.Committee);
+		MultiLingualStringUtil u = new MultiLingualStringUtil();
+		is.setCommittee(u.english(this.Committee));
 
 		MeetingDateParser p = new MeetingDateParser(this.Meeting_Date);
 		is.setMeetingStartDate(p.getStart());
 		is.setMeetingEndDate(p.getEnd());
 		is.setId(this.ID);
-		is.setReportSummary(this.getReport_Summary());
+
+		is.setReportSummary(u.english(this.getReport_Summary()));
 
 		try {
 			URL url = new URL(this.getLink_Source());
@@ -109,7 +112,7 @@ public class Meetings implements TableDomainMapper {
 		} catch (MalformedURLException e) {
 			throw new VmeDaoException(e);
 		}
-		is.setCitation(this.getLink_Tagged_File());
+		is.setCitation(u.english(this.getLink_Tagged_File()));
 		return is;
 	}
 }

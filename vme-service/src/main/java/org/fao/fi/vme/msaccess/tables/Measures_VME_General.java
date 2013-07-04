@@ -152,7 +152,7 @@ public class Measures_VME_General implements TableDomainMapper {
 				url = new URL(this.getLink_CEM_Source());
 				InformationSource is = new InformationSource();
 				is.setUrl(url);
-				is.setCitation(this.getLink_CEM_Bookmarked());
+				is.setCitation(u.english(this.getLink_CEM_Bookmarked()));
 				List<InformationSource> isList = new ArrayList<InformationSource>();
 				isList.add(is);
 				o.setInformationSourceList(isList);

@@ -2,6 +2,7 @@ package org.fao.fi.vme.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -51,7 +52,7 @@ public class Vme {
 	/**
 	 *
 	 */
-	@OneToOne
+	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString name;
 
 	/**
