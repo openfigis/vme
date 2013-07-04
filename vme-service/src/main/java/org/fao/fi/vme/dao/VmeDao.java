@@ -44,7 +44,9 @@ public class VmeDao extends Dao {
 		em.getTransaction().begin();
 		em.merge(object);
 		em.getTransaction().commit();
-
 	}
 
+	public Long count(Class<?> clazz) {
+		return count(em, clazz);
+	}
 }

@@ -1,7 +1,5 @@
 package org.fao.fi.vme.figis.component;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
@@ -36,7 +34,8 @@ public class VmeRefSyncTest {
 	 */
 	@Test
 	public void testSync() {
-		assertEquals(0, figisDao.loadRefVmes().size());
+
+		assertEquals(0, figisDao.count(RefVme.class).intValue());
 
 		Long id = new Long(234324);
 		Vme vme = new Vme();
@@ -44,12 +43,10 @@ public class VmeRefSyncTest {
 		vme.setValidityPeriod(ValidityPeriodMock.create());
 		vmeDao.persist(vme);
 		vmeRefSync.sync();
-		assertEquals(1, figisDao.loadRefVmes().size());
+		assertEquals(1, figisDao.count(RefVme.class).intValue());
 		vmeRefSync.sync();
-		List<RefVme> list = figisDao.loadRefVmes();
-		assertEquals(1, list.size());
-		// RefVme found = list.get(0);
-		// assertEquals(1, found.getObservationList().size());
+
+		assertEquals(1, figisDao.count(RefVme.class).intValue());
 
 	}
 }

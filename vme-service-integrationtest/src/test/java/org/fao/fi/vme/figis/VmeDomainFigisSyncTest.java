@@ -55,14 +55,14 @@ public class VmeDomainFigisSyncTest {
 
 	@Test
 	public void testSyncFigisWithVme() {
-		int total = figisDao.loadRefVmes().size() + INSERTED;
+
+		int total = figisDao.count(RefVme.class).intValue() + INSERTED;
 		vmeDomainFigisSync.syncFigisWithVme();
-		assertEquals(total, figisDao.loadRefVmes().size());
+		assertEquals(total, figisDao.count(RefVme.class).intValue());
 
 		// a subsequent synch should return the same numbers
 		vmeDomainFigisSync.syncFigisWithVme();
-		assertEquals(total, figisDao.loadRefVmes().size());
+		assertEquals(total, figisDao.count(RefVme.class).intValue());
 
 	}
-
 }

@@ -140,4 +140,9 @@ public class FigisDao extends Dao {
 		}
 		em.getTransaction().commit();
 	}
+
+	public Long count(Class<?> clazz) {
+		return count(em, clazz);
+	}
+
 }

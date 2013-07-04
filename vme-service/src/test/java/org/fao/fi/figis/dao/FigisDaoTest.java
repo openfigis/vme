@@ -39,7 +39,8 @@ public class FigisDaoTest extends FigisDaoTestLogic {
 			o.setId(new Long(i));
 			dao.persist(o);
 		}
-		assertEquals(number, dao.loadRefVmes().size());
+
+		assertEquals(number, dao.count(RefVme.class).intValue());
 
 	}
 
