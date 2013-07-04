@@ -1,5 +1,6 @@
 package org.fao.fi.figis.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -78,16 +79,6 @@ public class FigisDao extends Dao {
 		}
 	}
 
-	public void syncVmeObservation(VmeObservation vo) {
-		VmeObservation found = em.find(VmeObservation.class, vo.getObservationId());
-		if (found == null) {
-			this.persist(vo);
-		} else {
-			this.merge(vo);
-		}
-
-	}
-
 	/**
 	 * persists the VmeObservationDomain, assuming the RefVme is pre existing
 	 * 
@@ -97,7 +88,7 @@ public class FigisDao extends Dao {
 		// precondition
 
 		if (vod.getRefVme().getId() == null) {
-			throw new VmeDaoException("FigisDao Exception, assuming the RefVme is not registered yet. ");
+			throw new VmeDaoException("FigisDao Exception, detected a non registered RefVme.");
 		}
 
 		// logic
@@ -105,7 +96,7 @@ public class FigisDao extends Dao {
 		List<Observation> oList = vod.getObservationList();
 		for (Observation observation : oList) {
 			// there should be not yet an id assigned
-			if (observation.getId() != 0) {
+			if (observation.getId() != null) {
 				throw new VmeDaoException("FigisDao Exception, assuming the RefVme is not registered yet. ");
 			}
 			em.persist(observation);
@@ -145,4 +136,17 @@ public class FigisDao extends Dao {
 		return count(em, clazz);
 	}
 
+	public VmeObservationDomain findVmeObservationDomain(Long id) {
+		VmeObservation vo = em.find(VmeObservation.class, id);
+		RefVme refVme = em.find(RefVme.class, vo.getVmeId());
+
+		VmeObservationDomain vod = new VmeObservationDomain();
+		vod.setRefVme(refVme);
+		vod.setReportingYear(vo.getReportingYear());
+		Observation o = em.find(Observation.class, id);
+		List<Observation> observationList = new ArrayList<Observation>();
+		observationList.add(o);
+		vod.setObservationList(observationList);
+		return vod;
+	}
 }

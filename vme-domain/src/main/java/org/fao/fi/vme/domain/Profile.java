@@ -16,12 +16,12 @@ import javax.persistence.OneToOne;
 public class Profile {
 
 	@Id
-	private long id;
+	private Long id;
 
 	/**
 	 * Year in which the features where defined.
 	 */
-	private long year;
+	private Long year;
 
 	/**
 	 * Physical description of the VME
@@ -43,7 +43,7 @@ public class Profile {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString descriptionImpact;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -51,7 +51,7 @@ public class Profile {
 		this.id = id;
 	}
 
-	public long getYear() {
+	public Long getYear() {
 		return year;
 	}
 

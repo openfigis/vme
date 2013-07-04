@@ -1,4 +1,4 @@
-package org.fao.fi.vme.figis.component;
+package org.fao.fi.vme.sync2;
 
 import java.util.List;
 

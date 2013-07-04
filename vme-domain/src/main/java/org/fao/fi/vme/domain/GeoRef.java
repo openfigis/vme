@@ -15,12 +15,12 @@ import javax.persistence.ManyToOne;
 public class GeoRef {
 
 	@Id
-	private long id;
+	private Long id;
 
 	/**
 	 * 
 	 */
-	private int year;
+	private Integer year;
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class GeoRef {
 	@ManyToOne
 	private Vme vme;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -41,7 +41,7 @@ public class GeoRef {
 		this.id = id;
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 

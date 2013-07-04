@@ -26,7 +26,7 @@ public class MultiLingualString {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 
 	/**
 	 * map of descriptions per language
@@ -36,7 +36,7 @@ public class MultiLingualString {
 	@ElementCollection
 	private Map<Integer, String> stringMap;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

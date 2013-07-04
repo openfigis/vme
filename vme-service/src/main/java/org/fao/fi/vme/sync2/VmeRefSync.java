@@ -1,4 +1,4 @@
-package org.fao.fi.vme.figis.component;
+package org.fao.fi.vme.sync2;
 
 import java.util.List;
 
@@ -19,10 +19,11 @@ import org.fao.fi.vme.msaccess.component.VmeDaoException;
  * 
  */
 
-public class VmeObservationSync implements Sync {
+public class VmeRefSync implements Sync {
 
 	public static final Short ORDER = -1;
 	public static final Integer COLLECTION = 7300;
+	public static final Integer META = 172000;
 
 	@Inject
 	FigisDao figisDao;
@@ -30,7 +31,6 @@ public class VmeObservationSync implements Sync {
 	@Inject
 	VmeDao vmeDao;
 
-	// @Override
 	@Override
 	public void sync() {
 		List<Vme> objects = vmeDao.loadVmes();
@@ -64,6 +64,6 @@ public class VmeObservationSync implements Sync {
 
 	private void map(Vme vme, RefVme object) {
 		object.setId(vme.getId());
-		object.setMeta(172000);
+		object.setMeta(META);
 	}
 }

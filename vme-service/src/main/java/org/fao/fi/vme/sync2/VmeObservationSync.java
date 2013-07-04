@@ -1,4 +1,4 @@
-package org.fao.fi.vme.figis.component;
+package org.fao.fi.vme.sync2;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import org.fao.fi.vme.msaccess.component.VmeDaoException;
  * 
  */
 
-public class VmeRefSync implements Sync {
+public class VmeObservationSync implements Sync {
 
 	public static final Short ORDER = -1;
 	public static final Integer COLLECTION = 7300;

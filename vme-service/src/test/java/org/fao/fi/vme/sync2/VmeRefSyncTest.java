@@ -1,4 +1,4 @@
-package org.fao.fi.vme.figis.component;
+package org.fao.fi.vme.sync2;
 
 import javax.inject.Inject;
 
@@ -8,7 +8,7 @@ import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.test.ValidityPeriodMock;
+import org.fao.fi.vme.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -34,19 +34,18 @@ public class VmeRefSyncTest {
 	 */
 	@Test
 	public void testSync() {
-
-		assertEquals(0, figisDao.count(RefVme.class).intValue());
-
-		Long id = new Long(234324);
-		Vme vme = new Vme();
-		vme.setId(id);
-		vme.setValidityPeriod(ValidityPeriodMock.create());
-		vmeDao.persist(vme);
+		assertNrOfObjects(0);
+		vmeDao.persist(VmeMock.create());
 		vmeRefSync.sync();
-		assertEquals(1, figisDao.count(RefVme.class).intValue());
+		assertNrOfObjects(1);
 		vmeRefSync.sync();
-
-		assertEquals(1, figisDao.count(RefVme.class).intValue());
+		assertNrOfObjects(1);
 
 	}
+
+	private void assertNrOfObjects(int i) {
+		assertEquals(i, figisDao.count(RefVme.class).intValue());
+		assertEquals(i, vmeDao.count(Vme.class).intValue());
+	}
+
 }

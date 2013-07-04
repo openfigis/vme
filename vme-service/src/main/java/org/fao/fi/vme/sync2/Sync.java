@@ -1,4 +1,4 @@
-package org.fao.fi.vme.figis.component;
+package org.fao.fi.vme.sync2;
 
 /**
  * Synchronizing the FIGIS DB with the information from the VME domain.

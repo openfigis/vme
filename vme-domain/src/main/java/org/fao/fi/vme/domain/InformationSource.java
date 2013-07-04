@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
 public class InformationSource {
 
 	@Id
-	private long id;
+	private Long id;
 
 	/**
 	 * 
@@ -83,9 +83,9 @@ public class InformationSource {
 	/**
 	 * This field maybe used to indicate what type of source this is. One type would be link CEM Source.
 	 */
-	private int sourceType;
+	private Integer sourceType;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -173,7 +173,7 @@ public class InformationSource {
 		this.citation = citation;
 	}
 
-	public int getSourceType() {
+	public Integer getSourceType() {
 		return sourceType;
 	}
 

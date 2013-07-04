@@ -21,7 +21,7 @@ public class Rfmo {
 	 * The id comes from RMTS
 	 */
 	@Id
-	private int id;
+	private Integer id;
 
 	@OneToOne
 	private GeneralMeasures generalMeasures;
@@ -43,7 +43,7 @@ public class Rfmo {
 	@OneToMany
 	private List<History> fishingHistoryList;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 

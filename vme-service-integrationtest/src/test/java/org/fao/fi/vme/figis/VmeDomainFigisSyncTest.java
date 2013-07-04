@@ -8,6 +8,7 @@ import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.sync2.SyncBatch2;
 import org.fao.fi.vme.test.ValidityPeriodMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -24,7 +25,7 @@ public class VmeDomainFigisSyncTest {
 	private static int INSERTED = 5;
 
 	@Inject
-	VmeDomainFigisSync vmeDomainFigisSync;
+	SyncBatch2 vmeDomainFigisSync;
 
 	@Inject
 	VmeDao vmeDao;

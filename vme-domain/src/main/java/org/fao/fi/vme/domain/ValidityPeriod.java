@@ -34,13 +34,13 @@ public class ValidityPeriod {
 	/** 
 	  
 	  */
-	private int beginYear;
+	private Integer beginYear;
 
 	/** 
 	  */
-	private int endYear;
+	private Integer endYear;
 
-	public int getBeginYear() {
+	public Integer getBeginYear() {
 		return beginYear;
 	}
 
@@ -48,7 +48,7 @@ public class ValidityPeriod {
 		this.beginYear = beginYear;
 	}
 
-	public int getEndYear() {
+	public Integer getEndYear() {
 		return endYear;
 	}
 

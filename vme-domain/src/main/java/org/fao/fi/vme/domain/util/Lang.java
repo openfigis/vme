@@ -9,21 +9,21 @@ package org.fao.fi.vme.domain.util;
  */
 public class Lang {
 
-	public final static int EN = 1;
-	public final static int FR = 2;
-	public final static int ES = 3;
-	public final static int ZH = 4;
-	public final static int AR = 5;
-	public final static int IT = 6;
-	public final static int DE = 7;
-	public final static int PT = 8;
-	public final static int EL = 9;
-	public final static int HR = 10;
-	public final static int SL = 11;
-	public final static int RU = 12;
-	public final static int UK = 13;
-	public final static int BG = 14;
-	public final static int RO = 15;
-	public final static int TR = 16;
+	public final static Integer EN = 1;
+	public final static Integer FR = 2;
+	public final static Integer ES = 3;
+	public final static Integer ZH = 4;
+	public final static Integer AR = 5;
+	public final static Integer IT = 6;
+	public final static Integer DE = 7;
+	public final static Integer PT = 8;
+	public final static Integer EL = 9;
+	public final static Integer HR = 10;
+	public final static Integer SL = 11;
+	public final static Integer RU = 12;
+	public final static Integer UK = 13;
+	public final static Integer BG = 14;
+	public final static Integer RO = 15;
+	public final static Integer TR = 16;
 
 }

@@ -11,7 +11,7 @@ import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
-import org.fao.fi.vme.figis.component.VmeRefSync;
+import org.fao.fi.vme.sync2.VmeRefSync;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -25,14 +25,14 @@ public class FigisDaoTestLogic {
 	public void testPersistVmeObservation1() {
 
 		int sizes[] = count();
-		// pre-register RefVme
-		RefVme r = createRefVme();
-		dao.syncRefVme(r);
+
+		RefVme r = registerRefVme();
 
 		// save the related factsheet
 		VmeObservationDomain vod = createVmeObservationDomain();
 		vod.setRefVme(r);
 		dao.persistVmeObservationDomain(vod);
+
 		checkCount(sizes, 1);
 
 		dao.removeVmeObservationDomain(vod);
@@ -111,6 +111,13 @@ public class FigisDaoTestLogic {
 		o.setOrder(VmeRefSync.ORDER);
 		o.setCollection(VmeRefSync.COLLECTION);
 		return o;
+	}
+
+	protected RefVme registerRefVme() {
+		// pre-register RefVme
+		RefVme r = createRefVme();
+		dao.syncRefVme(r);
+		return r;
 	}
 
 }

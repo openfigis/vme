@@ -1,18 +1,19 @@
-package org.fao.fi.vme.figis.component;
+package org.fao.fi.vme.sync2;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
-import org.fao.fi.figis.domain.RefVme;
+import org.fao.fi.figis.domain.VmeObservation;
+import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.msaccess.component.VmeDaoException;
 
 /**
  * 
- * map the REF_VME and the FS_OBSERVATION
+ * sync the Vme DB with the FIGIS VME DB. This includes also the famous FIGIS XML.
  * 
  * 
  * @author Erik van Ingen
@@ -35,35 +36,38 @@ public class ObservationSync implements Sync {
 	public void sync() {
 		List<Vme> objects = vmeDao.loadVmes();
 		for (Vme vme : objects) {
-			RefVme object = (RefVme) figisDao.find(RefVme.class, vme.getId());
+			VmeObservationDomain vod = null;
 
-			if (object != null && object.getId() <= 0) {
+			VmeObservation object = (VmeObservation) figisDao.find(VmeObservation.class, vme.getId());
+
+			if (object != null && object.getObservationId() <= 0) {
 				throw new VmeDaoException("object found in DB withough id");
 			}
 			if (object == null) {
 				// do the new stuff
-				object = generateNewRefVme();
+				vod = generateNewRefVme();
 
 				// map it
-				map(vme, object);
+				map(vme, vod);
 
 				// and store it
 				figisDao.persist(object);
 			} else {
-				map(vme, object);
-				figisDao.merge(object);
+				figisDao.findVmeObservationDomain(vme.getId());
+				map(vme, vod);
+				figisDao.merge(vod);
 			}
 		}
 	}
 
-	private RefVme generateNewRefVme() {
-		RefVme r = new RefVme();
+	private VmeObservationDomain generateNewRefVme() {
+		VmeObservationDomain vod = new VmeObservationDomain();
 
-		return r;
+		return vod;
 	}
 
-	private void map(Vme vme, RefVme object) {
-		object.setId(vme.getId());
-		object.setMeta(172000);
+	private void map(Vme vme, VmeObservationDomain object) {
+		// object.setId(vme.getId());
+		// object.setMeta(172000);
 	}
 }

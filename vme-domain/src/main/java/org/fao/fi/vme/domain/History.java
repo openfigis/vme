@@ -17,12 +17,12 @@ public class History {
 	 * 
 	 */
 	@Id
-	private int id;
+	private Integer id;
 
 	/**
 	 *  
 	 */
-	private int year;
+	private Integer year;
 
 	/**
 	 *  
@@ -30,7 +30,7 @@ public class History {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString history;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -38,7 +38,7 @@ public class History {
 		this.id = id;
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
@@ -56,7 +56,7 @@ public class History {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final Integer prime = 31;
 		int result = 1;
 		result = prime * result + id;
 		return result;

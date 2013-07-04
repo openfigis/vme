@@ -21,7 +21,7 @@ public class GeneralMeasures {
 	 * 
 	 */
 	@Id
-	private int id;
+	private Integer id;
 
 	/**
 	 * GeneralMeasures are defined on the level of a RFMO.
@@ -41,7 +41,7 @@ public class GeneralMeasures {
 	/**
 	 * Year in which the measures are defined, established.
 	 */
-	private int year;
+	private Integer year;
 
 	/**
 	 * 
@@ -77,7 +77,7 @@ public class GeneralMeasures {
 	 */
 	private ValidityPeriod validityPeriod;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -101,7 +101,7 @@ public class GeneralMeasures {
 		this.informationSourceList = informationSourceList;
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
@@ -159,7 +159,7 @@ public class GeneralMeasures {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		final Integer prime = 31;
 		int result = 1;
 		result = prime * result + id;
 		return result;

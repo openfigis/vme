@@ -3,6 +3,7 @@ package org.fao.fi.figis.dao;
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
+import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
@@ -84,6 +85,25 @@ public class FigisDaoTest extends FigisDaoTestLogic {
 	public void testLoadRefVmeNull() {
 		RefVme found = (RefVme) dao.find(RefVme.class, 4561l);
 		assertNull(found);
+	}
+
+	/**
+	 * to be promoted to the parent class.
+	 */
+	@Test
+	public void testFindVmeObservationDomain() {
+		RefVme r = registerRefVme();
+
+		VmeObservationDomain vod = createVmeObservationDomain();
+		vod.setRefVme(r);
+
+		dao.persistVmeObservationDomain(vod);
+
+		VmeObservationDomain found = dao.findVmeObservationDomain(vod.getObservationList().get(0).getId());
+		assertEquals(vod.getRefVme(), found.getRefVme());
+		assertEquals(vod.getObservationList().get(0), found.getObservationList().get(0));
+		assertEquals(vod.getReportingYear(), found.getReportingYear());
+
 	}
 
 }
