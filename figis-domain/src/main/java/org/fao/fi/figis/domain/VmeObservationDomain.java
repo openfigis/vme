@@ -48,4 +48,42 @@ public class VmeObservationDomain {
 		this.observationList = observationList;
 	}
 
+	/**
+	 * this assumes that the observationList has always one element.
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((observationList == null) ? 0 : observationList.get(0).getId().intValue());
+		result = prime * result + ((refVme == null) ? 0 : refVme.hashCode());
+		result = prime * result + ((reportingYear == null) ? 0 : reportingYear.hashCode());
+		return result;
+	}
+
+	/**
+	 * here the observation list has been ignored.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		VmeObservationDomain other = (VmeObservationDomain) obj;
+		if (refVme == null) {
+			if (other.refVme != null)
+				return false;
+		} else if (!refVme.equals(other.refVme))
+			return false;
+		if (reportingYear == null) {
+			if (other.reportingYear != null)
+				return false;
+		} else if (!reportingYear.equals(other.reportingYear))
+			return false;
+		return true;
+	}
+
 }

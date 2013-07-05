@@ -1,6 +1,5 @@
 package org.fao.fi.vme.test;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -11,18 +10,20 @@ import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
-import org.fao.fi.vme.sync2.VmeRefSync;
+import org.fao.fi.figis.domain.rule.VmeObservationDomainFactory;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class FigisDaoTestLogic {
 
+	VmeObservationDomainFactory f = new VmeObservationDomainFactory();
+
 	@Inject
 	protected FigisDao dao;
 
 	@Test
-	public void testPersistVmeObservation1() {
+	public void testPersistVmeObservationDomain1() {
 
 		int sizes[] = count();
 
@@ -98,18 +99,12 @@ public class FigisDaoTestLogic {
 	}
 
 	protected ObservationXml createObservationXml() {
-		ObservationXml xml = new ObservationXml();
-		xml.setLanguage(2);
-		xml.setStatus(0);
-		xml.setLastEditDate(new Date(456456l));
-		xml.setCreationDate(new Date(7897890l));
+		ObservationXml xml = f.createObservationXml();
 		return xml;
 	}
 
 	protected Observation createObservation() {
-		Observation o = new Observation();
-		o.setOrder(VmeRefSync.ORDER);
-		o.setCollection(VmeRefSync.COLLECTION);
+		Observation o = f.createObservation();
 		return o;
 	}
 

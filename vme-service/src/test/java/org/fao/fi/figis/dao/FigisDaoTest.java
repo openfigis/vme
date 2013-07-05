@@ -100,10 +100,30 @@ public class FigisDaoTest extends FigisDaoTestLogic {
 		dao.persistVmeObservationDomain(vod);
 
 		VmeObservationDomain found = dao.findVmeObservationDomain(vod.getObservationList().get(0).getId());
+		delegateTest(vod, found);
+
+	}
+
+	@Test
+	public void testFindVmeObservationDomainByVme() {
+		RefVme r = registerRefVme();
+		VmeObservationDomain vod = createVmeObservationDomain();
+		vod.setRefVme(r);
+		dao.persistVmeObservationDomain(vod);
+		VmeObservationDomain found = dao.findVmeObservationDomainByVme(r.getId(), vod.getReportingYear());
+		delegateTest(vod, found);
+	}
+
+	@Test
+	public void testFindVmeObservationDomainByVmeNull() {
+		VmeObservationDomain found = dao.findVmeObservationDomainByVme(3000l, "3000");
+		assertNull(found);
+	}
+
+	private void delegateTest(VmeObservationDomain vod, VmeObservationDomain found) {
 		assertEquals(vod.getRefVme(), found.getRefVme());
 		assertEquals(vod.getObservationList().get(0), found.getObservationList().get(0));
 		assertEquals(vod.getReportingYear(), found.getReportingYear());
-
 	}
 
 }

@@ -35,17 +35,20 @@ public class Vme {
 	inverseJoinColumns = { @JoinColumn(name = "SPECIFIC_MEASURES_ID", referencedColumnName = "ID") })
 	private List<SpecificMeasures> specificMeasureList;
 
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.ALL })
 	private List<Profile> vmeFeaturesList;;
 
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.ALL })
 	private List<GeoRef> geoRefList;;
 
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.ALL })
 	private List<History> vmeHistoryList;
 
 	/**
-	 *  
+	 * This validity period on the level of the reference object and applies to the VME itself. It has noting to do with
+	 * the reporting year.
+	 * 
+	 * 
 	 */
 	private ValidityPeriod validityPeriod;
 

@@ -20,13 +20,13 @@ public class Observation implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 448844837583234537L;
+	private static final long serialVersionUID = -3005557521032346438L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "G1")
 	@SequenceGenerator(name = "G1", sequenceName = "figis.SEQ_FS_OBSERVATION", allocationSize = 1)
 	@Column(name = "CD_OBSERVATION", unique = true, nullable = false, precision = 10)
-	private int id;
+	private Long id;
 
 	@Column(name = "FG_PRIMARY", nullable = true)
 	private boolean primary;
@@ -35,12 +35,12 @@ public class Observation implements Serializable {
 	private boolean reference;
 
 	@Column(name = "CD_COLLECTION", nullable = true)
-	private int collection;
+	private Integer collection;
 
 	@Column(name = "OBS_ORDER", nullable = false)
 	private short order;
 
-	@OneToMany(targetEntity = ObservationXml.class, cascade = CascadeType.MERGE, mappedBy = "observation")
+	@OneToMany(targetEntity = ObservationXml.class, cascade = { CascadeType.MERGE }, mappedBy = "observation")
 	private List<ObservationXml> observationsPerLanguage;
 
 	public short getOrder() {
@@ -51,11 +51,11 @@ public class Observation implements Serializable {
 		this.order = order;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -75,7 +75,7 @@ public class Observation implements Serializable {
 		this.reference = reference;
 	}
 
-	public int getCollection() {
+	public Integer getCollection() {
 		return collection;
 	}
 

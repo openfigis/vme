@@ -18,14 +18,16 @@ public class VmeObservation implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2268197859547174188L;
+	private static final Long serialVersionUID = 2268197859547174188L;
 
-	// bi-directional one-to-one association to FsObservation
-	// @OneToOne
-	// @JoinColumn(name = "CD_OBSERVATION", nullable = false)
+	/**
+	 * In figis terms, this is the oid.
+	 * 
+	 * 
+	 */
 	@Id
 	@Column(name = "CD_OBSERVATION")
-	private long observationId;
+	private Long observationId;
 	// private Observation observation;
 
 	// bi-directional many-to-one association to RefVme
@@ -38,7 +40,7 @@ public class VmeObservation implements Serializable {
 	@Column(name = "REPORTING_YEAR", nullable = true, length = 10)
 	private String reportingYear;
 
-	public long getObservationId() {
+	public Long getObservationId() {
 		return observationId;
 	}
 

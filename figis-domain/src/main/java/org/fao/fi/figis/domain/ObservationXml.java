@@ -18,7 +18,7 @@ public class ObservationXml implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5224910306107015509L;
+	private static final Long serialVersionUID = -5224910306107015509L;
 
 	// <class name="FsLanguageXml" table="FS_OBSERVATION_XML">
 	// <id name="id" column="CD_XML" type="string">
@@ -54,10 +54,10 @@ public class ObservationXml implements Serializable {
 	private Observation observation;
 
 	@Column(name = "CD_LANGUAGE", nullable = false, precision = 10)
-	private int language;
+	private Integer language;
 
 	@Column(name = "FG_STATUS", nullable = false)
-	private int status;
+	private Integer status;
 
 	@Column(name = "DT_CREATION", nullable = false)
 	private Date creationDate;
@@ -83,7 +83,7 @@ public class ObservationXml implements Serializable {
 		this.observation = observation;
 	}
 
-	public int getLanguage() {
+	public Integer getLanguage() {
 		return language;
 	}
 
@@ -91,7 +91,7 @@ public class ObservationXml implements Serializable {
 		this.language = language;
 	}
 
-	public int getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 

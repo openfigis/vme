@@ -12,7 +12,8 @@ public class DomainRuleTest extends DomainRule4ObservationXmlId {
 	public void testComposeId() {
 		DomainRule4ObservationXmlId r = new DomainRule4ObservationXmlId();
 		Observation o = new Observation();
-		int id = 78789;
+		// int id = 78789;
+		Long id = new Long(78789);
 		o.setId(id);
 		ObservationXml x = new ObservationXml();
 		x.setObservation(o);

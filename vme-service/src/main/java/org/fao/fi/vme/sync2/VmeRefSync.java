@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.RefVme;
+import org.fao.fi.figis.domain.rule.RtmsVme;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.msaccess.component.VmeDaoException;
@@ -20,10 +21,6 @@ import org.fao.fi.vme.msaccess.component.VmeDaoException;
  */
 
 public class VmeRefSync implements Sync {
-
-	public static final Short ORDER = -1;
-	public static final Integer COLLECTION = 7300;
-	public static final Integer META = 172000;
 
 	@Inject
 	FigisDao figisDao;
@@ -64,6 +61,6 @@ public class VmeRefSync implements Sync {
 
 	private void map(Vme vme, RefVme object) {
 		object.setId(vme.getId());
-		object.setMeta(META);
+		object.setMeta(RtmsVme.META);
 	}
 }

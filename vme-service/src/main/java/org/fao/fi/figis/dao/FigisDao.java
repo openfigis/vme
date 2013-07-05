@@ -6,6 +6,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import org.fao.fi.dao.Dao;
 import org.fao.fi.figis.domain.Observation;
@@ -136,17 +138,61 @@ public class FigisDao extends Dao {
 		return count(em, clazz);
 	}
 
-	public VmeObservationDomain findVmeObservationDomain(Long id) {
-		VmeObservation vo = em.find(VmeObservation.class, id);
-		RefVme refVme = em.find(RefVme.class, vo.getVmeId());
+	/**
+	 * find the VmeObservationDomain by the observation id
+	 * 
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public VmeObservationDomain findVmeObservationDomain(Long observationId) {
+		VmeObservation vo = em.find(VmeObservation.class, observationId);
 
+		VmeObservationDomain vod = vo2Vod(vo);
+
+		// RefVme refVme = em.find(RefVme.class, vo.getVmeId());
+		// VmeObservationDomain vod = new VmeObservationDomain();
+		// vod.setRefVme(refVme);
+		// vod.setReportingYear(vo.getReportingYear());
+		// Observation o = em.find(Observation.class, observationId);
+		// List<Observation> observationList = new ArrayList<Observation>();
+		// observationList.add(o);
+		// vod.setObservationList(observationList);
+		return vod;
+	}
+
+	private VmeObservationDomain vo2Vod(VmeObservation vo) {
+		RefVme refVme = em.find(RefVme.class, vo.getVmeId());
 		VmeObservationDomain vod = new VmeObservationDomain();
 		vod.setRefVme(refVme);
 		vod.setReportingYear(vo.getReportingYear());
-		Observation o = em.find(Observation.class, id);
+		Observation o = em.find(Observation.class, vo.getObservationId());
 		List<Observation> observationList = new ArrayList<Observation>();
 		observationList.add(o);
 		vod.setObservationList(observationList);
 		return vod;
 	}
+
+	/**
+	 * find the VmeObservationDomain by the vme id and reporting year.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public VmeObservationDomain findVmeObservationDomainByVme(Long vmeId, String reportingYear) {
+		Query query = em
+				.createQuery("select vo FROM VmeObservation vo where vo.vmeId = :vmeId and vo.reportingYear = :reportingYear");
+		query.setParameter("vmeId", vmeId);
+		query.setParameter("reportingYear", reportingYear);
+		VmeObservationDomain vod = null;
+		try {
+			VmeObservation vo = (VmeObservation) query.getSingleResult();
+			vod = vo2Vod(vo);
+		} catch (NoResultException e) {
+			// TODO change this, detect in another way upfront whether the object exist, for instance by calculating the
+			// number of objects.
+		}
+		return vod;
+	}
+
 }

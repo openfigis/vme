@@ -19,7 +19,7 @@ public class Profile {
 	private Long id;
 
 	/**
-	 * Year in which the features where defined.
+	 * Year in which the features where defined. This maps to the figis reporting year.
 	 */
 	private Long year;
 
