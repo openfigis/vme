@@ -11,7 +11,10 @@ import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
-import org.fao.fi.vme.domain.Rfmo;
+import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeoRef;
+import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.test.RefVmeMock;
 import org.fao.fi.vme.test.VmeMock;
@@ -41,19 +44,40 @@ public class ObservationSyncTest {
 
 	@Before
 	public void generateVme() {
-		Vme vme = VmeMock.create();
+		Vme vme = VmeMock.generateVme(1);
+
+		for (GeneralMeasures o : vme.getRfmo().getGeneralMeasuresList()) {
+			vmeDao.persist(o);
+		}
+
+		for (History h : vme.getRfmo().getFishingHistoryList()) {
+			vmeDao.persist(h);
+		}
+
+		for (InformationSource informationSource : vme.getRfmo().getInformationSourceList()) {
+			vmeDao.persist(informationSource);
+		}
+
+		vmeDao.persist(vme.getRfmo());
+
+		for (History h : vme.getHistoryList()) {
+			vmeDao.persist(h);
+		}
+		for (GeoRef geoRef : vme.getGeoRefList()) {
+			vmeDao.persist(geoRef);
+		}
+
+		vmeDao.persist(vme);
+
 		RefVme refVme = RefVmeMock.create();
-		vme.setRfmo(new Rfmo());
-		id = refVme.getId();
 		refVme.setId(vme.getId());
 		figisDao.persist(refVme);
-		vmeDao.persist(vme);
 	}
 
 	/**
-	 * TODO test the update
+	 * 
 	 */
-	@Ignore
+
 	@Test
 	public void testSync() {
 		assertNrOfObjects(0);

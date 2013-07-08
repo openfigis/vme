@@ -57,7 +57,7 @@ public class VmeAccessDbImportIntegrationTest {
 			rfmo.setFishingHistoryList(null);
 			rfmo.setInformationSourceList(null);
 			rfmo.setListOfManagedVmes(null);
-			rfmo.setGeneralMeasures(null);
+			rfmo.setGeneralMeasuresList(null);
 			vmeDao.merge(rfmo);
 		}
 

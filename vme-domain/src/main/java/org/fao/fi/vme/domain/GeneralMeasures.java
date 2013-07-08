@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
  * 
  */
 @Entity(name = "GENERAL_MEASURES")
-public class GeneralMeasures implements YearObject {
+public class GeneralMeasures implements YearObject<GeneralMeasures> {
 
 	/** 
 	 * 

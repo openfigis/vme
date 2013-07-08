@@ -16,13 +16,7 @@ public class VmeAccessDbImportTest {
 	VmeAccessDbImport i;
 
 	/**
-	 * This is not yet working because of
-	 * 
-	 * Caused by: org.hibernate.TransientPropertyValueException: object references an unsaved transient instance - save
-	 * the transient instance before flushing: org.fao.fi.vme.domain.Vme.rfmo -> org.fao.fi.vme.domain.Rfmo
-	 * 
-	 * TODO: This can be solved immediately, or first the domain model can be updated according the latest insights of
-	 * the VME model.
+
 	 * 
 	 * 
 	 * 

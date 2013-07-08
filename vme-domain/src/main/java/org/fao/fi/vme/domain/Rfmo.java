@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  * 
@@ -23,8 +22,8 @@ public class Rfmo {
 	@Id
 	private Integer id;
 
-	@OneToOne
-	private GeneralMeasures generalMeasures;
+	@OneToMany(mappedBy = "rfmo")
+	private List<GeneralMeasures> generalMeasuresList;
 
 	/**
 	 * 
@@ -47,16 +46,16 @@ public class Rfmo {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public GeneralMeasures getGeneralMeasures() {
-		return generalMeasures;
+	public List<GeneralMeasures> getGeneralMeasuresList() {
+		return generalMeasuresList;
 	}
 
-	public void setGeneralMeasures(GeneralMeasures generalMeasures) {
-		this.generalMeasures = generalMeasures;
+	public void setGeneralMeasuresList(List<GeneralMeasures> generalMeasuresList) {
+		this.generalMeasuresList = generalMeasuresList;
 	}
 
 	public List<Vme> getListOfManagedVmes() {

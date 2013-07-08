@@ -118,7 +118,7 @@ public class LinkerTest {
 	private void validateRfmoObject(Object object) {
 		Rfmo o = (Rfmo) object;
 		assertTrue(o.getFishingHistoryList().size() > 0);
-		assertNotNull(o.getGeneralMeasures());
+		assertTrue(o.getGeneralMeasuresList().size() > 0);
 		assertTrue(o.getListOfManagedVmes().size() > 0);
 		if (o.getId() == 1 || o.getId() == 3) {
 			assertTrue(o.getInformationSourceList().size() > 0);

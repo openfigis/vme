@@ -15,11 +15,6 @@ import javax.persistence.Table;
 @Table(name = "FS_OBSERVATION_XML", schema = "figis")
 public class ObservationXml implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final Long serialVersionUID = -5224910306107015509L;
-
 	// <class name="FsLanguageXml" table="FS_OBSERVATION_XML">
 	// <id name="id" column="CD_XML" type="string">
 	// <generator class="assigned" />
@@ -43,6 +38,11 @@ public class ObservationXml implements Serializable {
 	// class="org.fao.fi.figis.util.db.AppTransaction"/> -->
 	// <property name="xmlAsString" column="XML" type="text" length="10000000" />
 	// </class>
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9021056977755922614L;
 
 	@Id
 	@Column(name = "CD_XML", unique = true, nullable = false, length = 765)

@@ -94,7 +94,14 @@ public class Linker {
 
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
 		gm.setRfmo(rfmo);
-		rfmo.setGeneralMeasures(gm);
+
+		if (rfmo.getGeneralMeasuresList() == null) {
+			rfmo.setGeneralMeasuresList(new ArrayList<GeneralMeasures>());
+		}
+		if (!rfmo.getGeneralMeasuresList().contains(gm)) {
+			rfmo.getGeneralMeasuresList().add(gm);
+		}
+
 	}
 
 	/**
