@@ -26,12 +26,12 @@ public class ObservationSync implements Sync {
 	public static final Integer COLLECTION = 7300;
 
 	@Inject
-	FigisDao figisDao;
+	private FigisDao figisDao;
 
 	@Inject
-	VmeDao vmeDao;
+	private VmeDao vmeDao;
 
-	ObjectMapping om = new ObjectMapping();
+	private final ObjectMapping om = new ObjectMapping();
 
 	@Override
 	public void sync() {

@@ -29,13 +29,10 @@ public class SyncBatch2 {
 	VmeRefSync vmeRefSync;
 
 	@Inject
+	GeoRefSync geoRefSync;
+
+	@Inject
 	ObservationSync observationSync;
-
-	@Inject
-	VmeObservationSync vmeObservationSync;
-
-	@Inject
-	XmlSync xmlSync;
 
 	public void syncFigisWithVme() {
 		List<Sync> syncList = composeList();
@@ -44,12 +41,21 @@ public class SyncBatch2 {
 		}
 	}
 
+	/**
+	 * 
+	 * 
+	 * @return The order in which the domain objects are pushed into Figis.
+	 */
 	private List<Sync> composeList() {
 		List<Sync> syncList = new ArrayList<Sync>();
+
+		// reference data
 		syncList.add(vmeRefSync);
+		syncList.add(geoRefSync);
+
+		// data
 		syncList.add(observationSync);
-		syncList.add(vmeObservationSync);
-		syncList.add(xmlSync);
+
 		return syncList;
 	}
 }
