@@ -25,4 +25,24 @@ public class VmeMock {
 		return vme;
 
 	}
+
+	/**
+	 * vme1 plain vme; vme2 is another with 2 observations for 2 years; vme3 is
+	 * 
+	 * 
+	 * 
+	 * @return list with 3 vmes
+	 */
+	public static List<Vme> create3() {
+		List<Vme> l = new ArrayList<Vme>();
+		Vme vme1 = create();
+		Vme vme2 = create();
+
+		vme2.setId(ID + 1);
+		vme2.getGeoRefList().get(0).setYear(YEAR + 1);
+
+		l.add(vme1);
+		l.add(vme2);
+		return l;
+	}
 }

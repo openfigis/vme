@@ -20,9 +20,7 @@ public class VmeObservationDomain {
 
 	private RefVme refVme;
 
-	private String reportingYear;
-
-	private List<Observation> observationList;
+	private List<ObservationDomain> observationList;
 
 	public RefVme getRefVme() {
 		return refVme;
@@ -32,38 +30,23 @@ public class VmeObservationDomain {
 		this.refVme = refVme;
 	}
 
-	public String getReportingYear() {
-		return reportingYear;
-	}
-
-	public void setReportingYear(String reportingYear) {
-		this.reportingYear = reportingYear;
-	}
-
-	public List<Observation> getObservationList() {
+	public List<ObservationDomain> getObservationDomainList() {
 		return observationList;
 	}
 
-	public void setObservationList(List<Observation> observationList) {
+	public void setObservationDomainList(List<ObservationDomain> observationList) {
 		this.observationList = observationList;
 	}
 
-	/**
-	 * this assumes that the observationList has always one element.
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((observationList == null) ? 0 : observationList.get(0).getId().intValue());
+		result = prime * result + ((observationList == null) ? 0 : observationList.hashCode());
 		result = prime * result + ((refVme == null) ? 0 : refVme.hashCode());
-		result = prime * result + ((reportingYear == null) ? 0 : reportingYear.hashCode());
 		return result;
 	}
 
-	/**
-	 * here the observation list has been ignored.
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -73,15 +56,15 @@ public class VmeObservationDomain {
 		if (getClass() != obj.getClass())
 			return false;
 		VmeObservationDomain other = (VmeObservationDomain) obj;
+		if (observationList == null) {
+			if (other.observationList != null)
+				return false;
+		} else if (!observationList.equals(other.observationList))
+			return false;
 		if (refVme == null) {
 			if (other.refVme != null)
 				return false;
 		} else if (!refVme.equals(other.refVme))
-			return false;
-		if (reportingYear == null) {
-			if (other.reportingYear != null)
-				return false;
-		} else if (!reportingYear.equals(other.reportingYear))
 			return false;
 		return true;
 	}

@@ -1,6 +1,5 @@
 package org.fao.fi.figis.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,10 +10,12 @@ import javax.persistence.Query;
 
 import org.fao.fi.dao.Dao;
 import org.fao.fi.figis.domain.Observation;
+import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
+import org.fao.fi.figis.domain.VmeObservationPk;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.vme.dao.config.FigisDB;
 import org.fao.fi.vme.msaccess.component.VmeDaoException;
@@ -86,7 +87,7 @@ public class FigisDao extends Dao {
 	 * 
 	 * @param vod
 	 */
-	public void persistVmeObservationDomain(VmeObservationDomain vod) {
+	public void syncVmeObservationDomain(VmeObservationDomain vod) {
 		// precondition
 
 		if (vod.getRefVme().getId() == null) {
@@ -95,43 +96,74 @@ public class FigisDao extends Dao {
 
 		// logic
 		em.getTransaction().begin();
-		List<Observation> oList = vod.getObservationList();
-		for (Observation observation : oList) {
-			// there should be not yet an id assigned
-			if (observation.getId() != null) {
-				throw new VmeDaoException("FigisDao Exception, assuming the RefVme is not registered yet. ");
+		List<ObservationDomain> oList = vod.getObservationDomainList();
+		for (ObservationDomain od : oList) {
+
+			// find VmeObservation
+			VmeObservation vo = findVmeObservationByVme(vod.getRefVme().getId(), od.getReportingYear());
+			if (vo == null) {
+				// create VmeObservation plus the derived objects.
+				persistObservationDomain(od, vod.getRefVme().getId());
+			} else {
+				// VmeObservation exists. sync it plus the derived objects.
 			}
-			em.persist(observation);
-			VmeObservation vo = new VmeObservation();
-			vo.setObservationId(observation.getId());
-			vo.setVmeId(vod.getRefVme().getId());
-			vo.setReportingYear(vod.getReportingYear());
-			em.persist(vo);
-			List<ObservationXml> xmlList = observation.getObservationsPerLanguage();
-			for (ObservationXml observationXml : xmlList) {
-				DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
-				observationXml.setObservation(observation);
-				// genereate the id for the xml, based upon the id of the observation
-				rule.composeId(observationXml);
-				em.persist(observationXml);
-			}
+
 		}
 		em.getTransaction().commit();
 	}
 
-	public void removeVmeObservationDomain(VmeObservationDomain vod) {
-		em.getTransaction().begin();
-		List<Observation> oList = vod.getObservationList();
-		for (Observation observation : oList) {
-			List<ObservationXml> xmlList = observation.getObservationsPerLanguage();
-			for (ObservationXml observationXml : xmlList) {
-				em.remove(observationXml);
-			}
-			em.remove(observation);
-			Long id = new Long(observation.getId());
-			em.remove(em.find(VmeObservation.class, id));
+	/**
+	 * 
+	 * @param od
+	 * @param vmeId
+	 */
+	private void persistObservationDomain(ObservationDomain od, Long vmeId) {
+		// first the observation needs to be persisted in order to get an id
+		Observation o = new Observation(od);
+		em.persist(o);
+
+		// then a VmeObservation can be persisted.
+		VmeObservation vo = new VmeObservation();
+		VmeObservationPk pk = new VmeObservationPk();
+		vo.setId(pk);
+		pk.setObservationId(o.getId());
+		pk.setVmeId(vmeId);
+		pk.setReportingYear(od.getReportingYear());
+		em.persist(vo);
+
+		List<ObservationXml> xmlList = od.getObservationsPerLanguage();
+		for (ObservationXml observationXml : xmlList) {
+			DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
+			observationXml.setObservation(o);
+			// genereate the id for the xml, based upon the id of the observation
+			rule.composeId(observationXml);
+			em.persist(observationXml);
 		}
-		em.getTransaction().commit();
+		o.setObservationsPerLanguage(xmlList);
+		em.merge(o);
+
+	}
+
+	/**
+	 * This means removing all the observations related to a certain reference object
+	 * 
+	 * 
+	 * @param vod
+	 */
+	public void removeVmeObservationDomain(RefVme refVme) {
+		em.getTransaction().begin();
+		// TODO
+		// List<VmeObservation> l = findVmeObservationDomainByVme(refVme.getId());
+		// for (VmeObservation vmeObservation : l) {
+		// Observation observation = em.find(Observation.class, vmeObservation.getId().getObservationId());
+		// List<ObservationXml> xmlList = observation.getObservationsPerLanguage();
+		// for (ObservationXml observationXml : xmlList) {
+		// em.remove(observationXml);
+		// }
+		// em.remove(observation);
+		// em.remove(vmeObservation);
+		// }
+		// em.getTransaction().commit();
 	}
 
 	public Long count(Class<?> clazz) {
@@ -145,32 +177,57 @@ public class FigisDao extends Dao {
 	 * @param id
 	 * @return
 	 */
-	public VmeObservationDomain findVmeObservationDomain(Long observationId) {
-		VmeObservation vo = em.find(VmeObservation.class, observationId);
+	// public VmeObservationDomain findVmeObservationDomain(Long observationId) {
+	// VmeObservation vo = em.find(VmeObservation.class, observationId);
+	//
+	// VmeObservationDomain vod = vo2Vod(vo);
+	//
+	// RefVme refVme = em.find(RefVme.class, vo.getVmeId());
+	// VmeObservationDomain vod = new VmeObservationDomain();
+	// vod.setRefVme(refVme);
+	// vod.setReportingYear(vo.getReportingYear());
+	// Observation o = em.find(Observation.class, observationId);
+	// List<Observation> observationList = new ArrayList<Observation>();
+	// observationList.add(o);
+	// vod.setObservationList(observationList);
+	// return vod;
+	// }
 
-		VmeObservationDomain vod = vo2Vod(vo);
+	// private VmeObservationDomain vo2Vod(VmeObservation vo) {
+	//
+	// RefVme refVme = em.find(RefVme.class, vo.getId().getVmeId());
+	// VmeObservationDomain vod = new VmeObservationDomain();
+	// vod.setRefVme(refVme);
+	//
+	// vod.setReportingYear(vo.getId().getReportingYear());
+	//
+	// Observation o = em.find(Observation.class, vo.getId().getObservationId());
+	// List<ObservationDomain> observationList = new ArrayList<ObservationDomain>();
+	//
+	// observationList.add(o);
+	// vod.setObservationList(observationList);
+	// return vod;
+	// }
 
-		// RefVme refVme = em.find(RefVme.class, vo.getVmeId());
-		// VmeObservationDomain vod = new VmeObservationDomain();
-		// vod.setRefVme(refVme);
-		// vod.setReportingYear(vo.getReportingYear());
-		// Observation o = em.find(Observation.class, observationId);
-		// List<Observation> observationList = new ArrayList<Observation>();
-		// observationList.add(o);
-		// vod.setObservationList(observationList);
-		return vod;
-	}
-
-	private VmeObservationDomain vo2Vod(VmeObservation vo) {
-		RefVme refVme = em.find(RefVme.class, vo.getVmeId());
-		VmeObservationDomain vod = new VmeObservationDomain();
-		vod.setRefVme(refVme);
-		vod.setReportingYear(vo.getReportingYear());
-		Observation o = em.find(Observation.class, vo.getObservationId());
-		List<Observation> observationList = new ArrayList<Observation>();
-		observationList.add(o);
-		vod.setObservationList(observationList);
-		return vod;
+	/**
+	 * find the VmeObservationDomain by the vme id and reporting year.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public VmeObservation findVmeObservationByVme(Long vmeId, String reportingYear) {
+		Query query = em
+				.createQuery("select vo FROM VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear = :reportingYear");
+		query.setParameter("vmeId", vmeId);
+		query.setParameter("reportingYear", reportingYear);
+		VmeObservation vo = null;
+		try {
+			vo = (VmeObservation) query.getSingleResult();
+		} catch (NoResultException e) {
+			// TODO change this, detect in another way upfront whether the object exist, for instance by calculating the
+			// number of objects.
+		}
+		return vo;
 	}
 
 	/**
@@ -179,20 +236,18 @@ public class FigisDao extends Dao {
 	 * @param id
 	 * @return
 	 */
-	public VmeObservationDomain findVmeObservationDomainByVme(Long vmeId, String reportingYear) {
-		Query query = em
-				.createQuery("select vo FROM VmeObservation vo where vo.vmeId = :vmeId and vo.reportingYear = :reportingYear");
+	@SuppressWarnings("unchecked")
+	public VmeObservationDomain findVmeObservationDomainByVme(Long vmeId) {
+		Query query = em.createQuery("select vo FROM VmeObservation vo where vo.id.vmeId = :vmeId ");
 		query.setParameter("vmeId", vmeId);
-		query.setParameter("reportingYear", reportingYear);
-		VmeObservationDomain vod = null;
-		try {
-			VmeObservation vo = (VmeObservation) query.getSingleResult();
-			vod = vo2Vod(vo);
-		} catch (NoResultException e) {
-			// TODO change this, detect in another way upfront whether the object exist, for instance by calculating the
-			// number of objects.
+		List<VmeObservation> voList = query.getResultList();
+		for (VmeObservation vo : voList) {
+			ObservationDomain od = new ObservationDomain();
+			od.setReportingYear(vo.getId().getReportingYear());
+			od.setId(vo.getId().getObservationId());
 		}
-		return vod;
-	}
+		VmeObservationDomain vod = new VmeObservationDomain();
 
+		return null;
+	}
 }
