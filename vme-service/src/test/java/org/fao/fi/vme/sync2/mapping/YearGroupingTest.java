@@ -16,12 +16,12 @@ public class YearGroupingTest {
 
 	@Test
 	public void testCollect() {
-		// int year = 2012;
-		// Vme vme = generateVme(year);
-		Vme vme = VmeMock.generateVme(1);
-		Map<Integer, List<YearObject<?>>> map = yg.collect(vme);
-		assertEquals(1, map.size());
-		assertEquals(6, map.get(VmeMock.YEAR).size());
+		for (int i = 1; i < 4; i++) {
+			Vme vme = VmeMock.generateVme(i);
+			Map<Integer, List<YearObject<?>>> map = yg.collect(vme);
+			assertEquals(i, map.size());
+			assertEquals(6, map.get(VmeMock.YEAR).size());
+		}
 	}
 
 }

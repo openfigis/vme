@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.fao.fi.figis.domain.ObservationDomain;
+import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.GeneralMeasures;
@@ -46,9 +47,17 @@ public class ObjectMapping {
 		Object[] years = map.keySet().toArray();
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
 		for (Object year : years) {
+			ObservationDomain od = new ObservationDomain();
+			ObservationXml xml = new ObservationXml();
+			List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
+			observationsPerLanguage.add(xml);
+			od.setObservationsPerLanguage(observationsPerLanguage);
+			od.setReportingYear(year.toString());
+			odList.add(od);
+
 			List<YearObject<?>> l = map.get(year);
 			for (YearObject<?> yearObject : l) {
-				ObservationDomain od = new ObservationDomain();
+
 				if (yearObject instanceof SpecificMeasures) {
 				}
 				if (yearObject instanceof VmeHistory) {
@@ -59,8 +68,6 @@ public class ObjectMapping {
 				}
 				if (yearObject instanceof GeneralMeasures) {
 				}
-				od.setReportingYear(year.toString());
-				odList.add(od);
 			}
 		}
 		VmeObservationDomain vod = new VmeObservationDomain();

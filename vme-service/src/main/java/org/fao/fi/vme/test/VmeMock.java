@@ -55,8 +55,6 @@ public class VmeMock {
 	public static Vme generateVme(int nrOfyears) {
 		int startYear = YEAR;
 
-		Rfmo rfmo = new Rfmo();
-
 		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 		List<Profile> pList = new ArrayList<Profile>();
 		List<SpecificMeasures> specificMeasureList = new ArrayList<SpecificMeasures>();
@@ -71,12 +69,6 @@ public class VmeMock {
 			History rfmoHistory = new History();
 			rfmoHistory.setYear(year);
 			fishingHistoryList.add(rfmoHistory);
-
-			GeneralMeasures gm = new GeneralMeasures();
-			gm.setYear(year);
-			gm.setInformationSourceList(informationSourceList);
-			rfmo.setGeneralMeasures(gm);
-			rfmo.setFishingHistoryList(fishingHistoryList);
 
 			Profile profile = new Profile();
 			profile.setYear(year);
@@ -95,6 +87,14 @@ public class VmeMock {
 			geoRefList.add(geoRef);
 
 		}
+		GeneralMeasures gm = new GeneralMeasures();
+		gm.setYear(YEAR);
+
+		Rfmo rfmo = new Rfmo();
+		rfmo.setGeneralMeasures(gm);
+		rfmo.setFishingHistoryList(fishingHistoryList);
+		rfmo.setInformationSourceList(informationSourceList);
+
 		Vme vme = new Vme();
 		vme.setRfmo(rfmo);
 		vme.setProfileList(pList);
