@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
  * 
  */
 @Entity
-public class Profile {
+public class Profile implements Year {
 
 	@Id
 	private Long id;
@@ -21,7 +21,7 @@ public class Profile {
 	/**
 	 * Year in which the features where defined. This maps to the figis reporting year.
 	 */
-	private Long year;
+	private Integer year;
 
 	/**
 	 * Physical description of the VME
@@ -51,11 +51,13 @@ public class Profile {
 		this.id = id;
 	}
 
-	public Long getYear() {
+	@Override
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(long year) {
+	@Override
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 

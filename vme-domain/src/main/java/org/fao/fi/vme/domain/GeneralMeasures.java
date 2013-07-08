@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
  * 
  */
 @Entity(name = "GENERAL_MEASURES")
-public class GeneralMeasures {
+public class GeneralMeasures implements Year {
 
 	/** 
 	 * 
@@ -101,11 +101,13 @@ public class GeneralMeasures {
 		this.informationSourceList = informationSourceList;
 	}
 
+	@Override
 	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	@Override
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 

@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
  * 
  */
 @Entity(name = "SPECIFIC_MEASURES")
-public class SpecificMeasures {
+public class SpecificMeasures implements Year {
 
 	/**
 	 *  
@@ -67,11 +67,13 @@ public class SpecificMeasures {
 		this.validityPeriod = validityPeriod;
 	}
 
+	@Override
 	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	@Override
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 

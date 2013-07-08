@@ -44,7 +44,7 @@ public class ValidityPeriod {
 		return beginYear;
 	}
 
-	public void setBeginYear(int beginYear) {
+	public void setBeginYear(Integer beginYear) {
 		this.beginYear = beginYear;
 	}
 
@@ -52,7 +52,7 @@ public class ValidityPeriod {
 		return endYear;
 	}
 
-	public void setEndYear(int endYear) {
+	public void setEndYear(Integer endYear) {
 		this.endYear = endYear;
 	}
 
