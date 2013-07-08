@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.fao.fi.vme.msaccess.component.VmeDaoException;
+import org.fao.fi.vme.VmeException;
 
 public class MeetingDateParser {
 
@@ -42,7 +42,7 @@ public class MeetingDateParser {
 			this.start = sf.parse(startDate);
 			this.end = sf.parse(endDate);
 		} catch (ParseException e) {
-			throw new VmeDaoException(e);
+			throw new VmeException(e);
 		}
 
 	}

@@ -5,11 +5,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.fao.fi.vme.msaccess.component.VmeDaoException;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.mapping.ValidityPeriodRule;
 
@@ -157,7 +157,7 @@ public class Measures_VME_General implements TableDomainMapper {
 				isList.add(is);
 				o.setInformationSourceList(isList);
 			} catch (MalformedURLException e) {
-				throw new VmeDaoException(e);
+				throw new VmeException(e);
 			}
 		}
 

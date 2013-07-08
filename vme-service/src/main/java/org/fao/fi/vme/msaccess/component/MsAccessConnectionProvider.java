@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.fao.fi.vme.VmeException;
+
 public class MsAccessConnectionProvider {
 
 	Connection connecton;
@@ -17,9 +19,9 @@ public class MsAccessConnectionProvider {
 			System.out.println("Connected!");
 			this.connecton = DriverManager.getConnection(url);
 		} catch (SQLException e) {
-			throw new VmeDaoException(e);
+			throw new VmeException(e);
 		} catch (ClassNotFoundException e) {
-			throw new VmeDaoException(e);
+			throw new VmeException(e);
 		}
 	}
 

@@ -75,8 +75,8 @@ public class VmeAccessDbImportIntegrationTest {
 			vme.setGeoRefList(null);
 			vme.setRfmo(null);
 			vme.setSpecificMeasureList(null);
-			vme.setVmeFeaturesList(null);
-			vme.setVmeHistoryList(null);
+			vme.setProfileList(null);
+			vme.setHistoryList(null);
 			vmeDao.merge(vme);
 		}
 

@@ -3,6 +3,8 @@ package org.fao.fi.vme.msaccess.component;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
 
+import org.fao.fi.vme.VmeException;
+
 /**
  * generate an object, given a resultset
  * 
@@ -33,13 +35,13 @@ public class GenericMapper {
 						method.invoke(object, rs.getInt(attributeName));
 					}
 					if (clazz != String.class && clazz != int.class) {
-						throw new VmeDaoException("This type is not yet supported :" + clazz.getSimpleName());
+						throw new VmeException("This type is not yet supported :" + clazz.getSimpleName());
 					}
 				}
 			}
 			return object;
 		} catch (Exception e) {
-			throw new VmeDaoException(e);
+			throw new VmeException(e);
 		}
 	}
 }

@@ -13,13 +13,13 @@ import javax.persistence.OneToOne;
  * 
  */
 @Entity
-public class Profile implements Year {
+public class Profile implements YearObject<YearObject> {
 
 	@Id
 	private Long id;
 
 	/**
-	 * Year in which the features where defined. This maps to the figis reporting year.
+	 * YearObject in which the features where defined. This maps to the figis reporting year.
 	 */
 	private Integer year;
 

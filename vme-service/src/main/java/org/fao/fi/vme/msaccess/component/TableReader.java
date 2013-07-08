@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.msaccess.model.Table;
 
 public class TableReader {
@@ -31,7 +32,7 @@ public class TableReader {
 				list.add(o);
 			}
 		} catch (SQLException e) {
-			throw new VmeDaoException(e);
+			throw new VmeException(e);
 		}
 
 		return table;
@@ -46,7 +47,7 @@ public class TableReader {
 			stmt = connection.createStatement();
 			return stmt.executeQuery(SQL);
 		} catch (SQLException e) {
-			throw new VmeDaoException(e);
+			throw new VmeException(e);
 		}
 	}
 

@@ -17,8 +17,8 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.VmeObservationPk;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.dao.config.FigisDB;
-import org.fao.fi.vme.msaccess.component.VmeDaoException;
 
 /**
  * 
@@ -91,7 +91,7 @@ public class FigisDao extends Dao {
 		// precondition
 
 		if (vod.getRefVme().getId() == null) {
-			throw new VmeDaoException("FigisDao Exception, detected a non registered RefVme.");
+			throw new VmeException("FigisDao Exception, detected a non registered RefVme.");
 		}
 
 		// logic

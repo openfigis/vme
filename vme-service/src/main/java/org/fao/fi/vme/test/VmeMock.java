@@ -3,7 +3,13 @@ package org.fao.fi.vme.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.GeoRef;
+import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.InformationSource;
+import org.fao.fi.vme.domain.Profile;
+import org.fao.fi.vme.domain.Rfmo;
+import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
 
 public class VmeMock {
@@ -27,7 +33,7 @@ public class VmeMock {
 	}
 
 	/**
-	 * vme1 plain vme; vme2 is another with 2 observations for 2 years; vme3 is
+	 * vme1 plain vme; vme2 is another with 2 observations for 2 yearObjectList; vme3 is
 	 * 
 	 * 
 	 * 
@@ -45,4 +51,57 @@ public class VmeMock {
 		l.add(vme2);
 		return l;
 	}
+
+	public static Vme generateVme(int nrOfyears) {
+		int startYear = YEAR;
+
+		Rfmo rfmo = new Rfmo();
+
+		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
+		List<Profile> pList = new ArrayList<Profile>();
+		List<SpecificMeasures> specificMeasureList = new ArrayList<SpecificMeasures>();
+		List<History> vmeHistoryList = new ArrayList<History>();
+		List<GeoRef> geoRefList = new ArrayList<GeoRef>();
+		List<History> fishingHistoryList = new ArrayList<History>();
+
+		for (int i = 0; i < nrOfyears; i++) {
+			int year = startYear + i;
+			InformationSource is = new InformationSource();
+			informationSourceList.add(is);
+			History rfmoHistory = new History();
+			rfmoHistory.setYear(year);
+			fishingHistoryList.add(rfmoHistory);
+
+			GeneralMeasures gm = new GeneralMeasures();
+			gm.setYear(year);
+			gm.setInformationSourceList(informationSourceList);
+			rfmo.setGeneralMeasures(gm);
+			rfmo.setFishingHistoryList(fishingHistoryList);
+
+			Profile profile = new Profile();
+			profile.setYear(year);
+			pList.add(profile);
+
+			SpecificMeasures specificMeasures = new SpecificMeasures();
+			specificMeasures.setYear(year);
+			specificMeasureList.add(specificMeasures);
+
+			History vmeHistory = new History();
+			vmeHistory.setYear(year);
+			vmeHistoryList.add(vmeHistory);
+
+			GeoRef geoRef = new GeoRef();
+			geoRef.setYear(year);
+			geoRefList.add(geoRef);
+
+		}
+		Vme vme = new Vme();
+		vme.setRfmo(rfmo);
+		vme.setProfileList(pList);
+		vme.setSpecificMeasureList(specificMeasureList);
+		vme.setHistoryList(vmeHistoryList);
+		vme.setGeoRefList(geoRefList);
+		return vme;
+	}
+
 }

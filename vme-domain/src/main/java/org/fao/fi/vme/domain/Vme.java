@@ -36,13 +36,13 @@ public class Vme {
 	private List<SpecificMeasures> specificMeasureList;
 
 	@OneToMany(cascade = { CascadeType.ALL })
-	private List<Profile> vmeFeaturesList;;
+	private List<Profile> profileList;;
 
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<GeoRef> geoRefList;;
 
 	@OneToMany(cascade = { CascadeType.ALL })
-	private List<History> vmeHistoryList;
+	private List<History> historyList;
 
 	/**
 	 * This validity period on the level of the reference object and applies to the VME itself. It has noting to do with
@@ -105,12 +105,12 @@ public class Vme {
 		this.specificMeasureList = specificMeasureList;
 	}
 
-	public List<Profile> getVmeFeaturesList() {
-		return vmeFeaturesList;
+	public List<Profile> getProfileList() {
+		return profileList;
 	}
 
-	public void setVmeFeaturesList(List<Profile> vmeFeaturesList) {
-		this.vmeFeaturesList = vmeFeaturesList;
+	public void setProfileList(List<Profile> profileList) {
+		this.profileList = profileList;
 	}
 
 	public List<GeoRef> getGeoRefList() {
@@ -121,12 +121,12 @@ public class Vme {
 		this.geoRefList = geoRefList;
 	}
 
-	public List<History> getVmeHistoryList() {
-		return vmeHistoryList;
+	public List<History> getHistoryList() {
+		return historyList;
 	}
 
-	public void setVmeHistoryList(List<History> vmeHistoryList) {
-		this.vmeHistoryList = vmeHistoryList;
+	public void setHistoryList(List<History> vmeHistoryList) {
+		this.historyList = vmeHistoryList;
 	}
 
 	public ValidityPeriod getValidityPeriod() {

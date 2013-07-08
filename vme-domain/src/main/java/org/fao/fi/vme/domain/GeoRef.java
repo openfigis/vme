@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
  * 
  */
 @Entity(name = "GEO_REF")
-public class GeoRef {
+public class GeoRef implements YearObject<YearObject> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,11 +44,13 @@ public class GeoRef {
 		this.id = id;
 	}
 
+	@Override
 	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	@Override
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 

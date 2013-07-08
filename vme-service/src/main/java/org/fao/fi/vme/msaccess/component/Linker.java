@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.InformationSource;
@@ -194,7 +195,7 @@ public class Linker {
 					Rfmo rfmoDomainObject = (Rfmo) object;
 					RFB_MetaData rfmoRecord = (RFB_MetaData) domainTableMap.get(rfmoDomainObject);
 					if (rfmoRecord == null) {
-						throw new VmeDaoException("rfmoRecord " + rfmoDomainObject.getId()
+						throw new VmeException("rfmoRecord " + rfmoDomainObject.getId()
 								+ " at this point should not be null");
 					}
 					if (rfmId.equals(rfmoRecord.getRFB_ID())) {
@@ -204,7 +205,7 @@ public class Linker {
 			}
 		}
 		if (rfmo == null) {
-			throw new VmeDaoException("rfmo " + rfmId + " could not be found");
+			throw new VmeException("rfmo " + rfmId + " could not be found");
 		}
 		return rfmo;
 	}

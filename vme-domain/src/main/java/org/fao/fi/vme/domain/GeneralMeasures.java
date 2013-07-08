@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
  * 
  */
 @Entity(name = "GENERAL_MEASURES")
-public class GeneralMeasures implements Year {
+public class GeneralMeasures implements YearObject {
 
 	/** 
 	 * 
@@ -39,7 +39,7 @@ public class GeneralMeasures implements Year {
 	private List<InformationSource> informationSourceList;
 
 	/**
-	 * Year in which the measures are defined, established.
+	 * YearObject in which the measures are defined, established.
 	 */
 	private Integer year;
 

@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
  * 
  */
 @Entity(name = "HISTORY")
-public class History {
+public class History implements YearObject<History> {
 
 	/** 
 	 * 
@@ -38,11 +38,13 @@ public class History {
 		this.id = id;
 	}
 
+	@Override
 	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	@Override
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 
