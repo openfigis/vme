@@ -57,7 +57,7 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 	@Override
 	public Object map() {
 		History o = new History();
-		o.setId(this.ID);
+		o.setId(new Long(this.ID));
 		o.setHistory(u.english(this.getRFB_VMEs_GeneralText()));
 
 		// TODO where will this one be mapped to?

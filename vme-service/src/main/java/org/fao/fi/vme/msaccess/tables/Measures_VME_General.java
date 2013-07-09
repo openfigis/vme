@@ -140,7 +140,7 @@ public class Measures_VME_General implements TableDomainMapper {
 
 		GeneralMeasures o = new GeneralMeasures();
 
-		o.setId(this.getID());
+		o.setId(new Long(this.getID()));
 		o.setVmeEncounterProtocols(u.english(this.getVME_Encounter()));
 		o.setVmeIndicatorSpecies(u.english(this.getVME_Indicator_Sp()));
 

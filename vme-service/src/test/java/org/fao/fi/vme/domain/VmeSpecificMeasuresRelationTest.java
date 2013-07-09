@@ -25,7 +25,7 @@ public class VmeSpecificMeasuresRelationTest {
 		vme.setId(10l);
 
 		SpecificMeasures s = new SpecificMeasures();
-		s.setId(20);
+		s.setId(20l);
 
 		List<Vme> vl = new ArrayList<Vme>();
 		vl.add(vme);

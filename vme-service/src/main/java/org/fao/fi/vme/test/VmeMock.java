@@ -54,7 +54,7 @@ public class VmeMock {
 
 	public static Vme generateVme(int nrOfyears) {
 		int startYear = YEAR;
-		int id = 0;
+		long id = 0;
 
 		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 		List<Profile> pList = new ArrayList<Profile>();

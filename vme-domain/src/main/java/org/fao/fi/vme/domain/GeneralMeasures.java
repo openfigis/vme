@@ -21,7 +21,7 @@ public class GeneralMeasures implements YearObject<GeneralMeasures> {
 	 * 
 	 */
 	@Id
-	private Integer id;
+	private Long id;
 
 	/**
 	 * GeneralMeasures are defined on the level of a RFMO.
@@ -77,11 +77,11 @@ public class GeneralMeasures implements YearObject<GeneralMeasures> {
 	 */
 	private ValidityPeriod validityPeriod;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -157,28 +157,6 @@ public class GeneralMeasures implements YearObject<GeneralMeasures> {
 
 	public void setValidityPeriod(ValidityPeriod validityPeriod) {
 		this.validityPeriod = validityPeriod;
-	}
-
-	@Override
-	public int hashCode() {
-		final Integer prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		GeneralMeasures other = (GeneralMeasures) obj;
-		if (id != other.id)
-			return false;
-		return true;
 	}
 
 }

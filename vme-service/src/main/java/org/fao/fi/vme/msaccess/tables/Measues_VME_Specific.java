@@ -74,7 +74,7 @@ public class Measues_VME_Specific implements TableDomainMapper {
 	public Object map() {
 		SpecificMeasures o = new SpecificMeasures();
 		// o.getDocument().setUrl(this.get)
-		o.setId(this.getID());
+		o.setId(new Long(this.getID()));
 		// o.setMeasureSummary(this.get)
 		o.setValidityPeriod(new ValidityPeriod());
 		o.getValidityPeriod().setBeginYear(new Integer(this.getVME_SpecificMeasure_Validity_Start()).intValue());

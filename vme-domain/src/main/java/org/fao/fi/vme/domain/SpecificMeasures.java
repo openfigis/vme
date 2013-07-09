@@ -20,7 +20,7 @@ public class SpecificMeasures implements YearObject<SpecificMeasures> {
 	 *  
 	 */
 	@Id
-	private Integer id;
+	private Long id;
 
 	/**
 	 * The SpecificMeasures are defined on the level of this VME, sometimes applies also to other VMEs.
@@ -49,11 +49,11 @@ public class SpecificMeasures implements YearObject<SpecificMeasures> {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeSpecificMeasure;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

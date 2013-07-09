@@ -17,7 +17,7 @@ public class History implements YearObject<History> {
 	 * 
 	 */
 	@Id
-	private Integer id;
+	private Long id;
 
 	/**
 	 *  
@@ -30,11 +30,11 @@ public class History implements YearObject<History> {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString history;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -58,9 +58,11 @@ public class History implements YearObject<History> {
 
 	@Override
 	public int hashCode() {
-		final Integer prime = 31;
+		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((history == null) ? 0 : history.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
 	}
 
@@ -73,7 +75,20 @@ public class History implements YearObject<History> {
 		if (getClass() != obj.getClass())
 			return false;
 		History other = (History) obj;
-		if (id != other.id)
+		if (history == null) {
+			if (other.history != null)
+				return false;
+		} else if (!history.equals(other.history))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (year == null) {
+			if (other.year != null)
+				return false;
+		} else if (!year.equals(other.year))
 			return false;
 		return true;
 	}
