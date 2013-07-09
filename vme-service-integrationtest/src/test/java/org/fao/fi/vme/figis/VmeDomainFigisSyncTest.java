@@ -7,6 +7,7 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
+import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.sync2.SyncBatch2;
 import org.fao.fi.vme.test.ValidityPeriodMock;
@@ -44,7 +45,13 @@ public class VmeDomainFigisSyncTest {
 				Vme vme = new Vme();
 				vme.setValidityPeriod(ValidityPeriodMock.create());
 				vme.setId(new Long(i));
+				Rfmo rfmo = new Rfmo();
+				rfmo.setId(id);
+				vmeDao.persist(rfmo);
+				vme.setRfmo(rfmo);
+
 				vmeDao.persist(vme);
+
 			}
 			// remove them from figis, if they exist
 			RefVme refVme = (RefVme) figisDao.find(RefVme.class, id);
