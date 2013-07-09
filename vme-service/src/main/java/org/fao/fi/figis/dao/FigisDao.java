@@ -249,6 +249,6 @@ public class FigisDao extends Dao {
 		}
 		VmeObservationDomain vod = new VmeObservationDomain();
 
-		return null;
+		return vod;
 	}
 }
