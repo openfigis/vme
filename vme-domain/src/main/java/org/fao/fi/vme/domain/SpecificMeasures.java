@@ -25,6 +25,9 @@ public class SpecificMeasures implements YearObject<SpecificMeasures> {
 	/**
 	 * The SpecificMeasures are defined on the level of this VME, sometimes applies also to other VMEs.
 	 */
+	/*
+	 * This is the inverse side of the ManyToMany relationship
+	 */
 	@ManyToMany(mappedBy = "specificMeasureList")
 	private List<Vme> vmeList;
 
