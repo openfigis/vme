@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
  * 
  */
 @Entity
-public class Profile implements YearObject<YearObject> {
+public class Profile implements YearObject<Profile> {
 
 	@Id
 	private Long id;
