@@ -90,7 +90,7 @@ public class VmeMock {
 			vmeHistoryList.add(vmeHistory);
 
 			GeoRef geoRef = new GeoRef();
-			geoRef.setId(id++);
+			// geoRef.setId(id++);
 			geoRef.setYear(year);
 			geoRefList.add(geoRef);
 

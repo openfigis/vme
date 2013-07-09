@@ -28,8 +28,8 @@ public class VmeObservationDomainFactory {
 
 	public ObservationDomain createObservation() {
 		ObservationDomain o = new ObservationDomain();
-		o.setOrder(RtmsVme.ORDER);
-		o.setCollection(RtmsVme.COLLECTION);
+		o.setOrder(Figis.ORDER);
+		o.setCollection(Figis.COLLECTION);
 		return o;
 	}
 

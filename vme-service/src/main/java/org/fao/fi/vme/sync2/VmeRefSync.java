@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.RefVme;
-import org.fao.fi.figis.domain.rule.RtmsVme;
+import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.domain.Vme;
@@ -61,6 +61,6 @@ public class VmeRefSync implements Sync {
 
 	private void map(Vme vme, RefVme object) {
 		object.setId(vme.getId());
-		object.setMeta(RtmsVme.META);
+		object.setMeta(Figis.META);
 	}
 }

@@ -48,7 +48,8 @@ public class ObjectMapping {
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
 		for (Object year : years) {
 			ObservationDomain od = new ObservationDomain();
-			ObservationXml xml = new ObservationXml();
+			ObservationXml xml = new DefaultObservationXml().defineDefaultObservationXml();
+
 			List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
 			observationsPerLanguage.add(xml);
 			od.setObservationsPerLanguage(observationsPerLanguage);

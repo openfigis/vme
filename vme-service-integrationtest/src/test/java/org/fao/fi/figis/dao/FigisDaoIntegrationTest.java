@@ -5,7 +5,7 @@ import javax.inject.Inject;
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationPk;
-import org.fao.fi.figis.domain.rule.RtmsVme;
+import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -45,8 +45,8 @@ public class FigisDaoIntegrationTest extends FigisDaoTestLogic {
 	@Test
 	public void testPersistObservation() {
 		Observation observation = new Observation();
-		observation.setOrder(RtmsVme.ORDER);
-		observation.setCollection(RtmsVme.COLLECTION);
+		observation.setOrder(Figis.ORDER);
+		observation.setCollection(Figis.COLLECTION);
 		observation.setPrimary(true);
 		observation.setReference(true);
 

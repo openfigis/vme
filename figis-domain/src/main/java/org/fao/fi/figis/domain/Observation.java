@@ -17,6 +17,19 @@ import javax.persistence.Table;
 @Table(name = "FS_OBSERVATION", schema = "figis")
 public class Observation implements Serializable {
 
+	public Observation(ObservationDomain od) {
+		this.collection = od.getCollection();
+		this.id = od.getId();
+		// this.observationsPerLanguage = od.getObservationsPerLanguage();
+		this.order = od.getOrder();
+		this.primary = od.isPrimary();
+		this.reference = od.isReference();
+	}
+
+	public Observation() {
+
+	}
+
 	/**
 	 * 
 	 */
@@ -42,19 +55,6 @@ public class Observation implements Serializable {
 
 	@OneToMany(targetEntity = ObservationXml.class, cascade = { CascadeType.MERGE }, mappedBy = "observation")
 	private List<ObservationXml> observationsPerLanguage;
-
-	public Observation(ObservationDomain od) {
-		this.collection = od.getCollection();
-		this.id = od.getId();
-		// this.observationsPerLanguage = od.getObservationsPerLanguage();
-		this.order = od.getOrder();
-		this.primary = od.isPrimary();
-		this.reference = od.isReference();
-	}
-
-	public Observation() {
-
-	}
 
 	public short getOrder() {
 		return order;
