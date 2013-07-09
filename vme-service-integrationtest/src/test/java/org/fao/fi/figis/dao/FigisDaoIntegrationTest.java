@@ -24,7 +24,7 @@ public class FigisDaoIntegrationTest extends FigisDaoTestLogic {
 	public void testPersistVmeObservation2() {
 
 		VmeObservationPk id = new VmeObservationPk();
-		id.setObservationId(10000);
+		id.setObservationId(10000l);
 		id.setReportingYear("1010");
 		id.setVmeId(5050l);
 

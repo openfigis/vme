@@ -15,8 +15,13 @@ public class VmeDao extends Dao {
 	@VmeDB
 	private EntityManager em;
 
+	public EntityManager getEm() {
+		return em;
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<Vme> loadVmes() {
+
 		return (List<Vme>) this.generateTypedQuery(em, Vme.class).getResultList();
 	}
 

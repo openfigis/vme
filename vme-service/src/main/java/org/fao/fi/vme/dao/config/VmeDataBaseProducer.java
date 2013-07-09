@@ -18,7 +18,11 @@ public class VmeDataBaseProducer {
 	// The scope of the produced bean, in our case since we want to have only one EntityManagerFactory we mark it as
 	// application-scoped
 	public EntityManagerFactory create() {
-		return Persistence.createEntityManagerFactory("vme-persistence"); // 3
+		// if (factory == null) {
+		// factory = Persistence.createEntityManagerFactory("vme-persistence");
+		// }
+		// return factory;
+		return Persistence.createEntityManagerFactory("vme-persistence");
 	}
 
 	@Produces

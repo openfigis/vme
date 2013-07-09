@@ -1,5 +1,7 @@
 package org.fao.fi.vme.sync2;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
@@ -7,7 +9,6 @@ import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
@@ -15,13 +16,13 @@ import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.InformationSource;
+import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.test.RefVmeMock;
 import org.fao.fi.vme.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -90,32 +91,28 @@ public class ObservationSyncTest {
 		assertNrOfObjects(1);
 	}
 
-	@Ignore
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testSyncWithUpdate() {
 		observationSync.sync();
 		assertNrOfObjects(1);
-		VmeObservationDomain vod = figisDao.findVmeObservationDomainByVme(id);
 
-		// TODO
-		// Integer y = new Integer(vod.getReportingYear()).intValue() + 1;
-		Vme vme = vmeDao.findVme(id);
+		assertEquals(1, vmeDao.count(SpecificMeasures.class).intValue());
 
-		// TODO
-		// vme.getValidityPeriod().setEndYear(y);
-		vmeDao.merge(vme);
+		List<Vme> vmeList = (List<Vme>) vmeDao.loadObjects(Vme.class);
+		for (Vme vme : vmeList) {
+			SpecificMeasures specificMeasures = new SpecificMeasures();
+			specificMeasures.setId(333333333l);
+			specificMeasures.setYear(VmeMock.YEAR + 1);
+			vme.getSpecificMeasureList().add(specificMeasures);
+			vmeDao.merge(vme);
+		}
 		observationSync.sync();
+		assertNrOfObjects(2);
 
-		// TODO
-		// vod = figisDao.findVmeObservationDomain(id);
-
-		// TODO
-		// asssertEquals(y.toString(), vod.getReportingYear());
-	}
-
-	private void asssertEquals(String string, String reportingYear) {
-		// TODO Auto-generated method stub
-
+		// test repeatability
+		observationSync.sync();
+		assertNrOfObjects(2);
 	}
 
 	private void assertNrOfObjects(int i) {

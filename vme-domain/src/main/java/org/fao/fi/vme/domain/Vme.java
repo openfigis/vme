@@ -32,11 +32,6 @@ public class Vme {
 	/*
 	 * This is the owning side of the manyToMany relationship
 	 */
-	// @ManyToMany(cascade = CascadeType.MERGE)
-	// @JoinTable(name = "VME_SPECIFIC_MEASURES", //
-	// joinColumns = { @JoinColumn(name = "VME_ID", referencedColumnName = "ID") }, //
-	// inverseJoinColumns = { @JoinColumn(name = "SPECIFIC_MEASURES_ID", referencedColumnName = "ID") })
-
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "VME_SPECIFIC_MEASURES", //
 	joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURES_ID"))

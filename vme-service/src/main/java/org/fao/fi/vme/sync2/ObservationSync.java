@@ -35,8 +35,11 @@ public class ObservationSync implements Sync {
 
 	@Override
 	public void sync() {
+
 		List<Vme> objects = vmeDao.loadVmes();
+
 		for (Vme vme : objects) {
+			vmeDao.getEm().refresh(vme);
 			VmeObservationDomain vod = om.mapVme2Figis(vme);
 			RefVme refVme = (RefVme) figisDao.find(RefVme.class, vme.getId());
 			vod.setRefVme(refVme);
