@@ -13,10 +13,10 @@
 			<xs:attribute name="AltElemName"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="abstract">
+	<xs:element name="Abstract">
 		<xs:annotation>
 			<xs:documentation>
-				<Title>Abstrakt</Title>
+				<Title>Abstract</Title>
 				<Description>A summary of the content of the resource.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -25,11 +25,11 @@
 			<xs:attribute name="AltElemName"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="Abstrakt">
+	<xs:element name="bibliographicCitation">
 		<xs:annotation>
 			<xs:documentation>
-				<Title>Abstrakt</Title>
-				<Description>A summary of the content of the resource.</Description>
+				<Title>Bibliographic Citation</Title>
+				<Description>A bibliographic reference for the resource.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="true">
@@ -41,7 +41,7 @@
 		<xs:annotation>
 			<xs:documentation>
 				<Title>Date of creation</Title>
-				<Description>Date of creation of the information resource's intellectual content.</Description>
+				<Description>Date of creation of the information resource&apos;s intellectual content.</Description>
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
@@ -70,6 +70,30 @@
 		<xs:complexType mixed="true">
 			<xs:attribute ref="xml:lang"/>
 			<xs:attribute name="AltElemName"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="replaces">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Replaces</Title>
+				<Description>A related resource that is supplanted, displaced, or superseded by the described resource.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Title"/>
+			<xs:attribute ref="xml:lang"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="isReplacedBy">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Is Replaced By</Title>
+				<Description>A related resource that supplants, displaces, or supersedes the described resource.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:attribute name="Title"/>
+			<xs:attribute ref="xml:lang"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>
