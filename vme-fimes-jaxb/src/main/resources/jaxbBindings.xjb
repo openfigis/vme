@@ -21,13 +21,10 @@
 
 
 
-	<jxb:bindings node="xs:element[@name='abstract']" schemaLocation="dcterms.xsd">
+	<jxb:bindings node="xs:element[@name='dcterms:Abstract']" schemaLocation="dcterms.xsd">
 		<jxb:class name="Abstrakt" />
 	</jxb:bindings>
 
-	<jxb:bindings node="xs:element[@name='Abstract']" schemaLocation="dcterms.xsd">
-		<jxb:class name="Kut" />
-	</jxb:bindings>
 
 	<jxb:bindings node="xs:element[@name='OrgRef']/xs:complexType/xs:attribute[3]" schemaLocation="fi.xsd">
 		<jxb:property name="dcTitle" />

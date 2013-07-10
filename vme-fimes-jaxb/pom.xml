@@ -23,7 +23,7 @@
 				<executions>
 					<execution>
 						<goals>
-							
+							<goal>generate</goal>
 						</goals>
 					</execution>
 				</executions>
