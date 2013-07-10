@@ -114,7 +114,8 @@ public class FigisDao extends Dao {
 				persistObservationDomain(od, vod.getRefVme().getId());
 			} else {
 				// VmeObservation exists. sync it plus the derived objects.
-				logger.error("the case that VmeObservation exists is not yet implemented");
+				logger.error("The case that VmeObservation exists is not yet implemented, vme id = "
+						+ vod.getRefVme().getId() + ", reporting year is " + od.getReportingYear());
 			}
 
 		}
@@ -165,7 +166,7 @@ public class FigisDao extends Dao {
 	 */
 	public VmeObservation findVmeObservationByVme(Long vmeId, String reportingYear) {
 		Query query = em
-				.createQuery("select vo FROM VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear = :reportingYear");
+				.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear = :reportingYear");
 		query.setParameter("vmeId", vmeId);
 		query.setParameter("reportingYear", reportingYear);
 		VmeObservation vo = null;

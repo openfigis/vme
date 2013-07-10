@@ -63,11 +63,13 @@ public class VmeRefSync implements Sync {
 	private void map(Vme vme, RefVme object) {
 		object.setId(vme.getId());
 		object.setMeta(Figis.META);
-		object.setNameA(vme.getName().getStringMap().get(Lang.AR));
-		object.setNameC(vme.getName().getStringMap().get(Lang.ZH));
-		object.setNameE(vme.getName().getStringMap().get(Lang.EN));
-		object.setNameF(vme.getName().getStringMap().get(Lang.FR));
-		object.setNameR(vme.getName().getStringMap().get(Lang.RU));
-		object.setNameS(vme.getName().getStringMap().get(Lang.ES));
+		if (vme.getName() != null && vme.getName().getStringMap() != null) {
+			object.setNameA(vme.getName().getStringMap().get(Lang.AR));
+			object.setNameC(vme.getName().getStringMap().get(Lang.ZH));
+			object.setNameE(vme.getName().getStringMap().get(Lang.EN));
+			object.setNameF(vme.getName().getStringMap().get(Lang.FR));
+			object.setNameR(vme.getName().getStringMap().get(Lang.RU));
+			object.setNameS(vme.getName().getStringMap().get(Lang.ES));
+		}
 	}
 }
