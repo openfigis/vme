@@ -1,7 +1,5 @@
 package org.fao.fi.vme.domain;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,7 +26,7 @@ public class GeoRef implements YearObject<GeoRef> {
 	/**
 	 * 
 	 */
-	private BigDecimal geographicFeatureID;
+	private String geographicFeatureID;
 
 	/**
 	 * 
@@ -54,11 +52,11 @@ public class GeoRef implements YearObject<GeoRef> {
 		this.year = year;
 	}
 
-	public BigDecimal getGeographicFeatureID() {
+	public String getGeographicFeatureID() {
 		return geographicFeatureID;
 	}
 
-	public void setGeographicFeatureID(BigDecimal geographicFeatureID) {
+	public void setGeographicFeatureID(String geographicFeatureID) {
 		this.geographicFeatureID = geographicFeatureID;
 	}
 
