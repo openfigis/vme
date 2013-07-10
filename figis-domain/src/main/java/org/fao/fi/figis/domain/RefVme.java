@@ -14,25 +14,35 @@ public class RefVme implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1166509835208065643L;
+	private static final long serialVersionUID = 668544146447799769L;
 
 	@Id
 	@Column(name = "CD_VME")
 	private Long id;
 
-	@Column(name = "CD_meta")
+	@Column(name = "CD_META")
 	private Integer meta;
 
-	// @OneToMany(cascade = { CascadeType.ALL })
-	// @OneToMany(cascade = { CascadeType.ALL })
-	// @JoinTable(name = "FS_VME_OBSERVATION", joinColumns = @JoinColumn(name = "CD_VME", referencedColumnName =
-	// "CD_VME"), inverseJoinColumns = @JoinColumn(name = "CD_OBSERVATION", referencedColumnName = "CD_OBSERVATION"))
-	// private List<Observation> observationList;
+	@Column(name = "INVENTORY_ID")
+	private String inventoryId;
 
-	// @OneToMany
-	// @JoinTable(name = "FS_VME_OBSERVATION", joinColumns = @JoinColumn(name = "CD_VME", referencedColumnName =
-	// "CD_VME"), inverseJoinColumns = @JoinColumn(name = "CD_OBSERVATION", referencedColumnName = "CD_OBSERVATION"))
-	// private List<VmeObservation> vmeObservationList;
+	@Column(name = "NAME_A")
+	private String nameA;
+
+	@Column(name = "NAME_C")
+	private String nameC;
+
+	@Column(name = "NAME_E")
+	private String nameE;
+
+	@Column(name = "NAME_F")
+	private String nameF;
+
+	@Column(name = "NAME_R")
+	private String nameR;
+
+	@Column(name = "NAME_S")
+	private String nameS;
 
 	public Long getId() {
 		return id;
@@ -50,35 +60,60 @@ public class RefVme implements Serializable {
 		this.meta = meta;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((meta == null) ? 0 : meta.hashCode());
-		return result;
+	public String getInventoryId() {
+		return inventoryId;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		RefVme other = (RefVme) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (meta == null) {
-			if (other.meta != null)
-				return false;
-		} else if (!meta.equals(other.meta))
-			return false;
-		return true;
+	public void setInventoryId(String inventoryId) {
+		this.inventoryId = inventoryId;
+	}
+
+	public String getNameA() {
+		return nameA;
+	}
+
+	public void setNameA(String nameA) {
+		this.nameA = nameA;
+	}
+
+	public String getNameC() {
+		return nameC;
+	}
+
+	public void setNameC(String nameC) {
+		this.nameC = nameC;
+	}
+
+	public String getNameE() {
+		return nameE;
+	}
+
+	public void setNameE(String nameE) {
+		this.nameE = nameE;
+	}
+
+	public String getNameF() {
+		return nameF;
+	}
+
+	public void setNameF(String nameF) {
+		this.nameF = nameF;
+	}
+
+	public String getNameR() {
+		return nameR;
+	}
+
+	public void setNameR(String nameR) {
+		this.nameR = nameR;
+	}
+
+	public String getNameS() {
+		return nameS;
+	}
+
+	public void setNameS(String nameS) {
+		this.nameS = nameS;
 	}
 
 }

@@ -37,7 +37,6 @@
 				<xs:element name="FishTechnique" type="fi:FishTechnique"/>
 				<xs:element name="Geartype" type="fi:Geartype"/>
 				<xs:element name="LegalFramework" type="fi:LegalFramework"/>
-				<xs:element name="ManageSystem" type="fi:ManageSystem"/>
 				<xs:element name="PortStateMeasure" type="fi:PortStateMeasure"/>
 				<xs:element name="Standard" type="fi:Standard"/>
 				<xs:element name="Org" type="fi:Org"/>
@@ -69,6 +68,7 @@
 			<xs:element name="Contacts" type="fi:Contacts"/>
 			<xs:element name="FIGISSearch" type="fi:FIGISSearch"/>
 			<xs:element name="FIGISCondLink" type="fi:FIGISCondLink"/>
+			<xs:element name="FIGISCondLinkSet" type="fi:FIGISCondLinkSet"/>
 		</xs:choice>
 	</xs:group>
 	<xs:group name="textEntNoKOR">
@@ -318,7 +318,6 @@
 			<xs:element name="OrgsInvolved" type="fi:OrgsInvolved"/>
 			<xs:element name="TermsAndConditions" type="fi:TermsAndConditions"/>
 			<xs:element name="Procedures" type="fi:Procedures"/>
-			<xs:element name="ManageSystemOverview" type="fi:ManageSystemOverview"/>
 		</xs:choice>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
@@ -1244,6 +1243,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 			<xs:element ref="dc:Identifier"/>
 			<xs:element ref="dc:Description"/>
 			<xs:element ref="dcterms:Abstract"/>
+			<xs:element ref="dcterms:bibliographicCitation"/>
 			<xs:element ref="dc:Subject"/>
 			<xs:element ref="dc:Publisher"/>
 			<xs:element ref="dc:Language"/>
@@ -2104,7 +2104,6 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 			<xs:element name="Overview" type="fi:Overview"/>
 			<!--<xs:element name="OverallStrategies" type="fi:OverallStrategies"/>
 			<xs:element name="OverallMethods" type="fi:OverallMethods"/>-->
-			<xs:element name="ManageSystemOverview" type="fi:ManageSystemOverview"/>
 			<xs:element name="Cooperation" type="fi:Cooperation"/>
 			<xs:element name="OrgsInvolved" type="fi:OrgsInvolved"/>
 			<xs:element name="LegalFrameworks" type="fi:LegalFrameworks"/>
@@ -2696,7 +2695,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 		</xs:annotation>
 		<xs:choice maxOccurs="unbounded">
 			<xs:group ref="fi:textEnt"/>
-			<!--<xs:element name="Fieldmarks" type="fi:Fieldmarks"/>-->
+			<xs:element name="Fieldmarks" type="fi:Fieldmarks"/>
 			<xs:element name="CanBeConf" type="fi:CanBeConf"/>
 			<xs:element name="DiagnosticFeatEntry" type="fi:DiagnosticFeatEntry"/>
 			<xs:element name="Size" type="fi:Size"/>
@@ -3629,7 +3628,6 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 			<xs:element name="Procedures" type="fi:Procedures"/>
 			<xs:element name="Guidelines" type="fi:Guidelines"/>
 			<xs:element name="OrgsInvolved" type="fi:OrgsInvolved"/>
-			<xs:element name="ManageSystemOverview" type="fi:ManageSystemOverview"/>
 		</xs:choice>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
@@ -3820,11 +3818,6 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:choice maxOccurs="unbounded">
-			<!--
-				<xs:element ref="fi:CollectionRef"/>
-				<xs:element ref="fi:LandAreaRef"/>
-				<xs:element ref="fi:ManageAuthRef"/>
--->
 			<xs:element name="AqResRef" type="fi:AqResRef"/>
 			<xs:element name="FACPRef" type="fi:FACPRef"/>
 			<xs:element name="FisheryRef" type="fi:FisheryRef"/>
@@ -4061,7 +4054,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
 	</xs:complexType>
-	<!--<xs:complexType name="Fieldmarks" mixed="false">
+	<xs:complexType name="Fieldmarks" mixed="false">
 		<xs:annotation>
 			<xs:documentation>
 				<Title>Fieldmarks</Title>
@@ -4073,7 +4066,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 		</xs:choice>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
-	</xs:complexType>-->
+	</xs:complexType>
 	<xs:complexType name="FigisID" mixed="true">
 		<xs:annotation>
 			<xs:documentation>
@@ -4197,9 +4190,23 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 				<xs:restriction base="xs:token">
 					<xs:enumeration value="Block"/>
 					<xs:enumeration value="Bullet"/>
+					<xs:enumeration value="Inline"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="FIGISCondLinkSet" mixed="true">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>FIGIS Set of Conditional Links</Title>
+				<Description>FIGIS Set of Conditional Links is a wrapper element which is used to contain multiple FIGISCOndLink elements at application level.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Param" type="fi:Param"/>
+		</xs:choice>
+		<xs:attribute name="Type" type="xs:string"/>
 		<xs:attribute ref="xml:lang"/>
 	</xs:complexType>
 	<xs:complexType name="FIITEquipID" mixed="true">
@@ -5165,6 +5172,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 		</xs:annotation>
 		<xs:choice maxOccurs="unbounded">
 			<xs:group ref="fi:textEnt"/>
+			<xs:element name="FlagStateList" type="fi:FlagStateList"/>
 			<xs:element name="VesseltypeOverview" type="fi:VesseltypeOverview"/>
 			<xs:element name="GeartypeOverview" type="fi:GeartypeOverview"/>
 			<!--<xs:element ref="fi:FleetSegment"/>-->
@@ -5261,6 +5269,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 					<xs:enumeration value="pac_tuna_rep"/>
 					<xs:enumeration value="un"/>
 					<xs:enumeration value="un_continent"/>
+					<xs:enumeration value="vme"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
@@ -5646,13 +5655,16 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
 	</xs:complexType>
-	<xs:complexType name="GeoForm" mixed="false">
+	<xs:complexType name="GeoForm" mixed="true">
 		<xs:annotation>
 			<xs:documentation>
 				<Title>Bottom morphology</Title>
 				<Description>"Marine habitat/Fishing ground: type of sea floor physiography in which the fishery resource is distributed or in which the fishery is conducted" (FIRMS Inventory Guidelines 2011). "Type of sea floor physiography in which the aquatic resource is distributed" (FIRMS TWG2, 2008). </Description>
 			</xs:documentation>
 		</xs:annotation>
+		<xs:choice maxOccurs="unbounded">
+			<xs:group ref="fi:textEnt"/>
+		</xs:choice>
 		<xs:attribute name="Value" use="optional">
 			<xs:simpleType>
 				<xs:restriction base="xs:token">
@@ -7025,7 +7037,6 @@ an historical review of the Stock or Resource exploitation, management regimes o
 				<xs:element ref="dc:Title"/>
 			</xs:choice>
 			<xs:element name="ForeignID" type="fi:ForeignID" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="ManageAuthRef" type="fi:ManageAuthRef" minOccurs="0"/>
 			<xs:element name="LegalFrameworkParent" type="fi:LegalFrameworkParent" minOccurs="0"/>
 			<xs:element name="SpatialScale" type="fi:SpatialScale" minOccurs="0"/>
 		</xs:sequence>
@@ -7348,24 +7359,6 @@ an historical review of the Stock or Resource exploitation, management regimes o
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
 	</xs:complexType>
-	<xs:complexType name="ManageAuthRef" mixed="false">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management Authority reference</Title>
-				<Description>is used to Reference a state or regional body that is the legal authority for a management system. Tag its dc:Title and then choose either fi:LandAreaRef or fi:OrgRef depending on which is more appropriate to the situation.</Description>
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:choice maxOccurs="6">
-				<xs:element name="FigisID" type="fi:FigisID"/>
-				<xs:element ref="dc:Title"/>
-			</xs:choice>
-			<xs:element name="ForeignID" type="fi:ForeignID" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="CollectionRef" type="fi:CollectionRef" minOccurs="0"/>
-			<xs:element name="LandAreaRef" type="fi:LandAreaRef" minOccurs="0"/>
-			<xs:element name="OrgRef" type="fi:OrgRef" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
 	<xs:complexType name="Management" mixed="false">
 		<xs:annotation>
 			<xs:documentation>
@@ -7445,7 +7438,9 @@ an historical review of the Stock or Resource exploitation, management regimes o
 			<xs:element ref="dc:Title"/>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:group ref="fi:textEnt"/>
+				<xs:element name="Sources" type="fi:Sources"/>
 				<xs:element name="Measure" type="fi:Measure"/>
+				<xs:element name="Range" type="fi:Range"/>
 				<xs:element name="RelatedFisheries" type="fi:RelatedFisheries"/>
 				<xs:element name="RelatedAquaticResources" type="fi:RelatedAquaticResources"/>
 				<xs:element name="AqResRef" type="fi:AqResRef"/>
@@ -7461,29 +7456,6 @@ an historical review of the Stock or Resource exploitation, management regimes o
 			</xs:simpleType>
 		</xs:attribute>
 		<xs:attribute name="Focus" type="xs:string"/>
-		<xs:attribute ref="xml:lang"/>
-		<xs:attribute name="Label" type="xs:string"/>
-	</xs:complexType>
-	<xs:complexType name="ManageSystem" mixed="false">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management system</Title>
-				<Description>This is the root element for the domain and contains three levels of complexity:Select the Text container for lightweight description. It allows for text, formatting, and simple elements related to the domain.Select the Ref container for positive linking to an existing database object. This will cause the FIGIS database loader to link to the existing object so that any description in the document will be complemented by the existing information in the database, though it will NOT alter the existing contents of the referenced database object.Select Ident only when the goal is to create a new database object.</Description>
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:element name="ManageSystemIdent" type="fi:ManageSystemIdent"/>
-			<xs:element name="LegalFrameworkOverview" type="fi:LegalFrameworkOverview"/>
-			<xs:element name="OrgsInvolved" type="fi:OrgsInvolved"/>
-			<xs:element name="ManageSystemStruct" type="fi:ManageSystemStruct"/>
-			<xs:element name="Objectives" type="fi:Objectives"/>
-			<xs:element name="Objectives" type="fi:Objectives"/>
-			<xs:element name="Strategies" type="fi:Strategies"/>
-			<xs:element name="Methods" type="fi:Methods"/>
-			<xs:element name="Resolutions" type="fi:Resolutions"/>
-			<xs:element name="Problems" type="fi:Problems"/>
-			<xs:group ref="fi:indexEnt" minOccurs="0"/>
-		</xs:sequence>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
 	</xs:complexType>
@@ -7542,108 +7514,6 @@ an historical review of the Stock or Resource exploitation, management regimes o
 			<xs:element name="RelatedAquaticResources" type="fi:RelatedAquaticResources"/>
 			<xs:element name="AqResRef" type="fi:AqResRef"/>
 			<xs:element name="FisheryRef" type="fi:FisheryRef"/>
-		</xs:choice>
-		<xs:attribute ref="xml:lang"/>
-		<xs:attribute name="Label" type="xs:string"/>
-	</xs:complexType>
-	<xs:complexType name="ManageSystemIdent" mixed="false">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management System Identity</Title>
-				<Description>Ident contains the elements needed to positively and uniquely Identify a domain object. Inclusion of this element in a document causes the FIGIS database loader to create a database object that will be keyed using the information found in the Ident element.</Description>
-			</xs:documentation>
-			<xs:appinfo>
-				<input>
-					<allow>fi:FigisID</allow>
-					<allow>dc:Title</allow>
-					<allow>fi:ReportingYear</allow>
-				</input>
-			</xs:appinfo>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:choice maxOccurs="6">
-				<xs:element name="FigisID" type="fi:FigisID"/>
-				<xs:element ref="dc:Title"/>
-			</xs:choice>
-			<xs:element name="ForeignID" type="fi:ForeignID" minOccurs="0"/>
-			<xs:element name="ManageAuthRef" type="fi:ManageAuthRef" minOccurs="0"/>
-			<xs:element name="JurisdictionRef" type="fi:JurisdictionRef" minOccurs="0"/>
-			<xs:element name="CountrySectorRef" type="fi:CountrySectorRef" minOccurs="0"/>
-			<xs:element name="FisheryRef" type="fi:FisheryRef" minOccurs="0"/>
-		</xs:sequence>
-		<xs:attributeGroup ref="fi:sectorEnt"/>
-		<xs:attribute ref="xml:lang"/>
-		<xs:attribute name="Label" type="xs:string"/>
-	</xs:complexType>
-	<xs:complexType name="ManageSystemOverview" mixed="false">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management System Overview</Title>
-				<Description>is a container for broad overviews of management systems.</Description>
-			</xs:documentation>
-			<xs:appinfo>
-				<restrict>
-					<restrictDomain>Fishery</restrictDomain>
-					<restrictElement>fi:Fisheries</restrictElement>
-					<restrictElement>fi:AqResources</restrictElement>
-				</restrict>
-			</xs:appinfo>
-		</xs:annotation>
-		<xs:choice maxOccurs="unbounded">
-			<xs:group ref="fi:textEnt"/>
-			<xs:element name="ManageSystemRef" type="fi:ManageSystemRef"/>
-			<xs:element name="Objectives" type="fi:Objectives"/>
-			<xs:element name="Strategies" type="fi:Strategies"/>
-			<xs:element name="Methods" type="fi:Methods"/>
-			<xs:element name="AqResOverview" type="fi:AqResOverview"/>
-			<!--<xs:element name="Fisheries" type="fi:Fisheries"/>-->
-		</xs:choice>
-		<xs:attribute ref="xml:lang"/>
-		<xs:attribute name="Label" type="xs:string"/>
-	</xs:complexType>
-	<xs:complexType name="ManageSystemProfile" mixed="false">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management System Profile</Title>
-				<Description>Profile contains the elements used by domain specialists to profile a domain object and declare it as a unique type. That is, rather than containing the Identifying codes or names (Keys) for the object as in Ident, the Profile block contains the information that is intrinsic and invariable to a description of the object, e.g. for an aquatic species this would be elements such as fieldmarks or diagnostic features. </Description>
-			</xs:documentation>
-		</xs:annotation>
-		<xs:choice minOccurs="0" maxOccurs="unbounded">
-			<xs:group ref="fi:textEnt"/>
-		</xs:choice>
-		<xs:attribute ref="xml:lang"/>
-		<xs:attribute name="Label" type="xs:string"/>
-	</xs:complexType>
-	<xs:complexType name="ManageSystemRef" mixed="false">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management system reference</Title>
-				<Description>Element used to refer to a Management System domain element. It contains the domain elements such as Management authority, Jurisdiction, Fishery Management Unit, which altogether enable positive Referencing of a Management System. </Description>
-			</xs:documentation>
-		</xs:annotation>
-		<xs:sequence>
-			<xs:choice maxOccurs="6">
-				<xs:element name="FigisID" type="fi:FigisID"/>
-				<xs:element ref="dc:Title"/>
-			</xs:choice>
-			<xs:element name="ForeignID" type="fi:ForeignID" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="CollectionRef" type="fi:CollectionRef" minOccurs="0"/>
-			<xs:element name="ManageAuthRef" type="fi:ManageAuthRef" minOccurs="0"/>
-			<xs:element name="JurisdictionRef" type="fi:JurisdictionRef" minOccurs="0"/>
-			<xs:element name="CountrySectorRef" type="fi:CountrySectorRef" minOccurs="0"/>
-			<xs:element name="FisheryRef" type="fi:FisheryRef" minOccurs="0"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="ManageSystemStruct" mixed="false">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management System Child</Title>
-				<Description>is a container for references to child management systems.</Description>
-			</xs:documentation>
-		</xs:annotation>
-		<xs:choice maxOccurs="unbounded">
-			<xs:group ref="fi:textEnt"/>
-			<xs:element name="ManageSystemRef" type="fi:ManageSystemRef"/>
 		</xs:choice>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
@@ -7795,6 +7665,8 @@ an historical review of the Stock or Resource exploitation, management regimes o
 			<xs:element name="TargetSpecies" type="fi:TargetSpecies"/>
 			<xs:element name="VesselUnderJurisdiction" type="fi:VesselUnderJurisdiction"/>
 			<xs:element name="FishingArea" type="fi:FishingArea"/>
+			<xs:element name="Range" type="fi:Range"/>
+			<xs:element name="Sources" type="fi:Sources"/>
 		</xs:choice>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
@@ -7865,11 +7737,18 @@ an historical review of the Stock or Resource exploitation, management regimes o
 					<xs:enumeration value="Trade-related_measures"/>
 					<xs:enumeration value="Port_departure_requirements"/>
 					<xs:enumeration value="Miscellaneous"/>
+					<!-- the following  are from the Fishery module -->
 					<xs:enumeration value="Aquatic species-related measures"/>
 					<xs:enumeration value="Gear-related measures"/>
 					<xs:enumeration value="Vessel-related measures"/>
 					<xs:enumeration value="Fishing activity-related measures"/>
-					<!-- the following  are from the Fishery module -->
+					<!-- the following  are from the VME module -->
+					<xs:enumeration value="VME-specific measures"/>
+					<xs:enumeration value="VME_threshold"/>
+					<xs:enumeration value="VME_encounter_protocols"/>
+					<xs:enumeration value="VME_indicatorspecies"/>
+					<xs:enumeration value="Fishing_areas"/>
+					<xs:enumeration value="Exploratory_fishing_protocol"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
@@ -9106,6 +8985,16 @@ an historical review of the Stock or Resource exploitation, management regimes o
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
 	</xs:complexType>
+	<xs:complexType name="Param" mixed="false">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Param</Title>
+				<Description>Parameter related to the parent element.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Name" type="xs:string"/>
+		<xs:attribute name="Value" type="xs:string"/>
+	</xs:complexType>
 	<xs:complexType name="Perspective" mixed="false">
 		<xs:annotation>
 			<xs:documentation>
@@ -9816,7 +9705,6 @@ an historical review of the Stock or Resource exploitation, management regimes o
 		<xs:choice maxOccurs="unbounded">
 			<xs:element name="AqResRef" type="fi:AqResRef"/>
 			<xs:element name="FisheryRef" type="fi:FisheryRef"/>
-			<xs:element name="ManageSystemRef" type="fi:ManageSystemRef"/>
 		</xs:choice>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
@@ -12140,7 +12028,12 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 			<xs:element name="VMEIdent" type="fi:VMEIdent"/>
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
 				<xs:element name="Overview" type="fi:Overview"/>
-				<xs:element name="VMERef" type="fi:VMERef"/>
+				<xs:element name="HabitatBio" type="fi:HabitatBio"/>
+				<xs:element name="Impacts" type="fi:Impacts"/>
+				<xs:element name="History" type="fi:History"/>
+				<xs:element name="FisheryHistory" type="fi:FisheryHistory"/>
+				<xs:element name="Management" type="fi:Management"/>
+				<xs:element name="AddInfo" type="fi:AddInfo"/>
 				<xs:group ref="fi:indexEnt"/>
 			</xs:choice>
 		</xs:sequence>
@@ -12157,10 +12050,14 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 		<xs:sequence>
 			<xs:choice maxOccurs="unbounded">
 				<xs:element name="FigisID" type="fi:FigisID"/>
-				<xs:element name="ForeignID" type="fi:ForeignID" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="WaterAreaRef" type="fi:WaterAreaRef"/>
+				<xs:element name="OrgRef" type="fi:OrgRef"/>
 				<xs:element ref="dc:Title"/>
+				<xs:element name="VMEType" type="fi:VMEType"/>
+				<xs:element name="VMECriteria" type="fi:VMECriteria"/>
 				<xs:element name="ReportingYear" type="fi:ReportingYear" maxOccurs="1"/>
-			<xs:element name="AdditionalRefData" type="fi:AdditionalRefData" minOccurs="0"/>
+				<xs:element name="Range" type="fi:Range" minOccurs="0"/>
+				<xs:element name="GeoReference" type="fi:GeoReference"/>
 			</xs:choice>
 		</xs:sequence>
 		<xs:attributeGroup ref="fi:statusEnt"/>
@@ -12177,5 +12074,38 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 			<xs:element ref="dc:Title" maxOccurs="6"/>
 			<xs:element name="ForeignID" type="fi:ForeignID" maxOccurs="unbounded"/>
 		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="VMEType" mixed="false">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>VME Type</Title>
+				<Description>XXXX</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Value" use="required"/>
+		<xs:attribute ref="xml:lang"/>
+		<xs:attribute name="Label" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="VMECriteria" mixed="false">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>VME Criteria</Title>
+				<Description>XXXX</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Value" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="Uniqueness or rarity"/>
+					<xs:enumeration value="Functional significance of the habitat"/>
+					<xs:enumeration value="Fragility"/>
+					<xs:enumeration value="Life-history traits"/>
+					<xs:enumeration value="Structural complexity"/>
+					<xs:enumeration value="Unspecified"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute ref="xml:lang"/>
+		<xs:attribute name="Label" type="xs:string"/>
 	</xs:complexType>
 </xs:schema>

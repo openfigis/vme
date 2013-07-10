@@ -162,6 +162,8 @@ public class VME implements TableDomainMapper {
 
 		MultiLingualStringUtil u = new MultiLingualStringUtil();
 
+		o.setName(u.english(this.getVME_ID()));
+
 		o.setAreaType(this.VME_Area_Type);
 		// o.setCriteria(this.)
 		o.setGeoform(this.VME_Geoform);
