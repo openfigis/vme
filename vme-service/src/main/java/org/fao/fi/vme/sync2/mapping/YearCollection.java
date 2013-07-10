@@ -17,7 +17,7 @@ import org.fao.fi.vme.domain.YearObject;
 public class YearCollection {
 
 	protected Integer year;
-	protected List<YearObject> yearObjectList;
+	protected List<YearObject<?>> yearObjectList;
 
 	public Integer getYear() {
 		return year;
@@ -27,11 +27,11 @@ public class YearCollection {
 		this.year = year;
 	}
 
-	public List<YearObject> getYearObjectList() {
+	public List<YearObject<?>> getYearObjectList() {
 		return yearObjectList;
 	}
 
-	public void setYearObjectList(List<YearObject> years) {
+	public void setYearObjectList(List<YearObject<?>> years) {
 		this.yearObjectList = years;
 	}
 

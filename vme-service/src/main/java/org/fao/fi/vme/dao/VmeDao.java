@@ -9,6 +9,13 @@ import org.fao.fi.dao.Dao;
 import org.fao.fi.vme.dao.config.VmeDB;
 import org.fao.fi.vme.domain.Vme;
 
+/**
+ * * The dao in order to dconnect to the vme database. Connection details to be found in
+ * /vme-configuration/src/main/resources/META-INF/persistence.xml
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 public class VmeDao extends Dao {
 
 	@Inject

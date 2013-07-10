@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import org.fao.fi.vme.VmeException;
 
 /**
- * generate an object, given a resultset
+ * Generate an object, given a resultset
  * 
  * 
  * @author Erik van Ingen
@@ -14,6 +14,14 @@ import org.fao.fi.vme.VmeException;
  */
 public class GenericMapper {
 
+	/**
+	 * 
+	 * @param rs
+	 *            coming from the Ms Acces DB.
+	 * @param clazz
+	 *            to map the resultset to.
+	 * @return an instance of the class with
+	 */
 	public Object generateObject(ResultSet rs, Class<?> clazz) {
 
 		try {

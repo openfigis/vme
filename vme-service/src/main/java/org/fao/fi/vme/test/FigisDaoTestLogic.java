@@ -13,7 +13,6 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
-import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,44 +21,44 @@ public abstract class FigisDaoTestLogic {
 	@Inject
 	protected FigisDao dao;
 
-	@Test
-	public void testPersistVmeObservationDomain1() {
+	// @Test
+	// public void testPersistVmeObservationDomain1() {
+	//
+	// int sizes[] = count();
+	//
+	// RefVme r = registerRefVme();
+	//
+	// // save the related factsheet
+	// VmeObservationDomain vod = createVmeObservationDomain();
+	// vod.setRefVme(r);
+	// dao.syncVmeObservationDomain(vod);
+	//
+	// checkCount(sizes, 1);
+	//
+	// dao.removeVmeObservationDomain(vod.getRefVme());
+	//
+	// // TODO
+	// // checkCount(sizes, 0);
+	//
+	// }
 
-		int sizes[] = count();
-
-		RefVme r = registerRefVme();
-
-		// save the related factsheet
-		VmeObservationDomain vod = createVmeObservationDomain();
-		vod.setRefVme(r);
-		dao.syncVmeObservationDomain(vod);
-
-		checkCount(sizes, 1);
-
-		dao.removeVmeObservationDomain(vod.getRefVme());
-
-		// TODO
-		// checkCount(sizes, 0);
-
-	}
-
-	@Test
-	public void testRemoveVmeObservationDomain() {
-
-		int sizes[] = count();
-		// pre-register RefVme
-		RefVme r = createRefVme();
-		dao.syncRefVme(r);
-
-		// save the related factsheet
-		VmeObservationDomain vod = createVmeObservationDomain();
-		vod.setRefVme(r);
-		dao.syncVmeObservationDomain(vod);
-		dao.removeVmeObservationDomain(vod.getRefVme());
-
-		// TODO
-		// checkCount(sizes, 0);
-	}
+	// @Test
+	// public void testRemoveVmeObservationDomain() {
+	//
+	// int sizes[] = count();
+	// // pre-register RefVme
+	// RefVme r = createRefVme();
+	// dao.syncRefVme(r);
+	//
+	// // save the related factsheet
+	// VmeObservationDomain vod = createVmeObservationDomain();
+	// vod.setRefVme(r);
+	// dao.syncVmeObservationDomain(vod);
+	// dao.removeVmeObservationDomain(vod.getRefVme());
+	//
+	// // TODO
+	// // checkCount(sizes, 0);
+	// }
 
 	protected RefVme createRefVme() {
 

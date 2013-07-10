@@ -11,6 +11,13 @@ import org.fao.fi.vme.msaccess.tables.RFB_MetaData;
 import org.fao.fi.vme.msaccess.tables.RFB_VME_Fishing_History;
 import org.fao.fi.vme.msaccess.tables.VME;
 
+/**
+ * Reads from the MS Access DB.
+ * 
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 public class VmeReader {
 
 	private final TableReader tableReader = new TableReader();
@@ -20,8 +27,6 @@ public class VmeReader {
 		tableReader.setConnection(connectionProvider.getConnecton());
 	}
 
-	// private final Class<?> tables[] = { Meetings.class, RFB_MetaData.class, VME.class, Measues_VME_Specific.class,
-	// Measures_VME_General.class, RFB_VME_Fishing_History.class };
 	private final Class<?> tables[] = { Meetings.class, RFB_MetaData.class, VME.class, Measues_VME_Specific.class,
 			Measures_VME_General.class, RFB_VME_Fishing_History.class };
 

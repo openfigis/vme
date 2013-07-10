@@ -6,6 +6,13 @@ import java.util.Date;
 
 import org.fao.fi.vme.VmeException;
 
+/**
+ * Tony Thompson used a specific convention for noting the start to end dates. This logic reflects that convention and
+ * parses the dates.
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 public class MeetingDateParser {
 
 	private Date start;

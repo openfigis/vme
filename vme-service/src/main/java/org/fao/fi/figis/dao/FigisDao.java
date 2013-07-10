@@ -21,6 +21,9 @@ import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.dao.config.FigisDB;
 
 /**
+ * The dao in order to dconnect to the Figis database. Connection details to be found in
+ * /vme-configuration/src/main/resources/META-INF/persistence.xml
+ * 
  * 
  * 
  * 
@@ -145,27 +148,27 @@ public class FigisDao extends Dao {
 
 	}
 
-	/**
-	 * This means removing all the observations related to a certain reference object
-	 * 
-	 * 
-	 * @param vod
-	 */
-	public void removeVmeObservationDomain(RefVme refVme) {
-		em.getTransaction().begin();
-		// TODO
-		// List<VmeObservation> l = findVmeObservationDomainByVme(refVme.getId());
-		// for (VmeObservation vmeObservation : l) {
-		// Observation observation = em.find(Observation.class, vmeObservation.getId().getObservationId());
-		// List<ObservationXml> xmlList = observation.getObservationsPerLanguage();
-		// for (ObservationXml observationXml : xmlList) {
-		// em.remove(observationXml);
-		// }
-		// em.remove(observation);
-		// em.remove(vmeObservation);
-		// }
-		// em.getTransaction().commit();
-	}
+	// /**
+	// * This means removing all the observations related to a certain reference object
+	// *
+	// *
+	// * @param vod
+	// */
+	// public void removeVmeObservationDomain(RefVme refVme) {
+	// em.getTransaction().begin();
+	// // TODO
+	// // List<VmeObservation> l = findVmeObservationDomainByVme(refVme.getId());
+	// // for (VmeObservation vmeObservation : l) {
+	// // Observation observation = em.find(Observation.class, vmeObservation.getId().getObservationId());
+	// // List<ObservationXml> xmlList = observation.getObservationsPerLanguage();
+	// // for (ObservationXml observationXml : xmlList) {
+	// // em.remove(observationXml);
+	// // }
+	// // em.remove(observation);
+	// // em.remove(vmeObservation);
+	// // }
+	// // em.getTransaction().commit();
+	// }
 
 	public Long count(Class<?> clazz) {
 		return count(em, clazz);

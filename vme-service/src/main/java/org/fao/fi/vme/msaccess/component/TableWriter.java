@@ -9,11 +9,18 @@ import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 
+/**
+ * Writes a series of objects of the same class to the vme DB.
+ * 
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 public class TableWriter {
 
 	@Inject
-	VmeDao vmeDao;
-	IdGen4InformationSource idGen = new IdGen4InformationSource();
+	private VmeDao vmeDao;
+	private final IdGen4InformationSource idGen = new IdGen4InformationSource();
 
 	public void write(ObjectCollection objectCollection) {
 

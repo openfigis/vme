@@ -6,6 +6,12 @@ import javax.inject.Inject;
 
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 
+/**
+ * Writes the data to the vme DB.
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 public class VmeWriter {
 
 	@Inject

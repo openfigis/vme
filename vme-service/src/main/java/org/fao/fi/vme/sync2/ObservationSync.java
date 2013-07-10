@@ -13,7 +13,8 @@ import org.fao.fi.vme.sync2.mapping.ObjectMapping;
 
 /**
  * 
- * sync the Vme DB with the FIGIS VME DB. This includes also the famous FIGIS XML.
+ * Sync the Vme DB with the FIGIS VME DB. This includes also the famous FIGIS XML. The data is pushed from the vme DB to
+ * the figis DB.
  * 
  * 
  * @author Erik van Ingen

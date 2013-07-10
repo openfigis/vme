@@ -13,7 +13,7 @@ import org.fao.fi.vme.domain.Vme;
 
 /**
  * 
- * map the REF_VME and the FS_OBSERVATION
+ * Map the REF_VME and the FS_OBSERVATION
  * 
  * 
  * @author Erik van Ingen

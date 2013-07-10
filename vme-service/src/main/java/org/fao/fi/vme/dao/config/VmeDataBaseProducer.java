@@ -7,6 +7,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+/**
+ * 
+ * Produces a link to the vme DB.
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 @Alternative
 public class VmeDataBaseProducer {
 

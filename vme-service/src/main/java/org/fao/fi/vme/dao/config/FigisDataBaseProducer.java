@@ -7,6 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+/**
+ * 
+ * Produces the link to the figis DB.
+ * 
+ * TODO investigate whether this one should be moved to vme-configuration.
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 @Alternative
 public class FigisDataBaseProducer {
 
