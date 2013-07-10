@@ -13,15 +13,10 @@
 		may or not may effect the performance in a negative way, this has not been measured. -->
 		
 		
-	<jaxb:globalBindings xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb">
-		<xjc:treatRestrictionLikeNewType />
-		<xjc:simple />
-	</jaxb:globalBindings>
 
 
 
-
-	<jxb:bindings node="xs:element[@name='dcterms:Abstract']" schemaLocation="dcterms.xsd">
+	<jxb:bindings node="xs:element[@name='Abstract']" schemaLocation="dcterms.xsd">
 		<jxb:class name="Abstrakt" />
 	</jxb:bindings>
 
