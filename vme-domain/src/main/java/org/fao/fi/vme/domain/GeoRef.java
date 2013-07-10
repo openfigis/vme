@@ -24,7 +24,7 @@ public class GeoRef implements YearObject<GeoRef> {
 	private Integer year;
 
 	/**
-	 *  
+	 *   
 	 */
 	private String geographicFeatureID;
 
