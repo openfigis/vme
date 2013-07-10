@@ -19,6 +19,8 @@ import org.fao.fi.figis.domain.VmeObservationPk;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.dao.config.FigisDB;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The dao in order to dconnect to the Figis database. Connection details to be found in
@@ -33,6 +35,8 @@ import org.fao.fi.vme.dao.config.FigisDB;
 
 @Singleton
 public class FigisDao extends Dao {
+
+	final static Logger logger = LoggerFactory.getLogger(FigisDao.class);
 
 	@Inject
 	@FigisDB
@@ -110,6 +114,7 @@ public class FigisDao extends Dao {
 				persistObservationDomain(od, vod.getRefVme().getId());
 			} else {
 				// VmeObservation exists. sync it plus the derived objects.
+				logger.error("the case that VmeObservation exists is not yet implemented");
 			}
 
 		}
@@ -148,70 +153,9 @@ public class FigisDao extends Dao {
 
 	}
 
-	// /**
-	// * This means removing all the observations related to a certain reference object
-	// *
-	// *
-	// * @param vod
-	// */
-	// public void removeVmeObservationDomain(RefVme refVme) {
-	// em.getTransaction().begin();
-	// // TODO
-	// // List<VmeObservation> l = findVmeObservationDomainByVme(refVme.getId());
-	// // for (VmeObservation vmeObservation : l) {
-	// // Observation observation = em.find(Observation.class, vmeObservation.getId().getObservationId());
-	// // List<ObservationXml> xmlList = observation.getObservationsPerLanguage();
-	// // for (ObservationXml observationXml : xmlList) {
-	// // em.remove(observationXml);
-	// // }
-	// // em.remove(observation);
-	// // em.remove(vmeObservation);
-	// // }
-	// // em.getTransaction().commit();
-	// }
-
 	public Long count(Class<?> clazz) {
 		return count(em, clazz);
 	}
-
-	/**
-	 * find the VmeObservationDomain by the observation id
-	 * 
-	 * 
-	 * @param id
-	 * @return
-	 */
-	// public VmeObservationDomain findVmeObservationDomain(Long observationId) {
-	// VmeObservation vo = em.find(VmeObservation.class, observationId);
-	//
-	// VmeObservationDomain vod = vo2Vod(vo);
-	//
-	// RefVme refVme = em.find(RefVme.class, vo.getVmeId());
-	// VmeObservationDomain vod = new VmeObservationDomain();
-	// vod.setRefVme(refVme);
-	// vod.setReportingYear(vo.getReportingYear());
-	// Observation o = em.find(Observation.class, observationId);
-	// List<Observation> observationList = new ArrayList<Observation>();
-	// observationList.add(o);
-	// vod.setObservationList(observationList);
-	// return vod;
-	// }
-
-	// private VmeObservationDomain vo2Vod(VmeObservation vo) {
-	//
-	// RefVme refVme = em.find(RefVme.class, vo.getId().getVmeId());
-	// VmeObservationDomain vod = new VmeObservationDomain();
-	// vod.setRefVme(refVme);
-	//
-	// vod.setReportingYear(vo.getId().getReportingYear());
-	//
-	// Observation o = em.find(Observation.class, vo.getId().getObservationId());
-	// List<ObservationDomain> observationList = new ArrayList<ObservationDomain>();
-	//
-	// observationList.add(o);
-	// vod.setObservationList(observationList);
-	// return vod;
-	// }
 
 	/**
 	 * find the VmeObservationDomain by the vme id and reporting year.

@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
-public class TemporaryBatchTest {
+public class TemporaryBatchIntegrationTest {
 
 	@Inject
 	TemporaryBatch temporaryBatch;

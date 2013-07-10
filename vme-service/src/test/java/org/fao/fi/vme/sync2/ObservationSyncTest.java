@@ -27,6 +27,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
@@ -72,7 +73,9 @@ public class ObservationSyncTest {
 
 		RefVme refVme = RefVmeMock.create();
 		refVme.setId(vme.getId());
-		figisDao.persist(refVme);
+		// figisDao.persist(refVme);
+		System.out.println("=========================================");
+		System.out.println("=========================================");
 	}
 
 	/**
@@ -113,6 +116,34 @@ public class ObservationSyncTest {
 		// test repeatability
 		observationSync.sync();
 		assertNrOfObjects(2);
+	}
+
+	@Test
+	public void testSyncCD_COLLECTION() {
+		assertNrOfObjectsX(0);
+		observationSync.sync();
+		assertNrOfObjectsX(1);
+		List<?> oss = figisDao.loadObjects(Observation.class);
+		for (Object object : oss) {
+			Observation o = (Observation) object;
+			assertNotNull(o.getCollection());
+			assertNotNull(o.getOrder());
+			String id = new String(o.getId() + ":en");
+			System.out.println("======================about to check====" + id);
+
+			ObservationXml xml = (ObservationXml) figisDao.find(ObservationXml.class, id);
+			assertNotNull(xml);
+			assertEquals(o.getId(), xml.getObservation().getId());
+			System.out.println("==========================" + o.getId());
+		}
+
+	}
+
+	private void assertNrOfObjectsX(int i) {
+		System.out.println("assertNrOfObjectsX = " + i);
+		System.out.println(figisDao.count(VmeObservation.class));
+		System.out.println(figisDao.count(Observation.class));
+		System.out.println(figisDao.count(ObservationXml.class));
 	}
 
 	private void assertNrOfObjects(int i) {

@@ -21,12 +21,12 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
-public class VmeDomainFigisSyncTest {
+public class SyncBatch2IntegrationTest {
 
 	private static int INSERTED = 5;
 
 	@Inject
-	SyncBatch2 vmeDomainFigisSync;
+	SyncBatch2 syncBatch2;
 
 	@Inject
 	VmeDao vmeDao;
@@ -65,11 +65,11 @@ public class VmeDomainFigisSyncTest {
 	public void testSyncFigisWithVme() {
 
 		int total = figisDao.count(RefVme.class).intValue() + INSERTED;
-		vmeDomainFigisSync.syncFigisWithVme();
+		syncBatch2.syncFigisWithVme();
 		assertEquals(total, figisDao.count(RefVme.class).intValue());
 
 		// a subsequent synch should return the same numbers
-		vmeDomainFigisSync.syncFigisWithVme();
+		syncBatch2.syncFigisWithVme();
 		assertEquals(total, figisDao.count(RefVme.class).intValue());
 
 	}

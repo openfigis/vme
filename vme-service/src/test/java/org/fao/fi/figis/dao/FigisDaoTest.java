@@ -3,7 +3,6 @@ package org.fao.fi.figis.dao;
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
-import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.test.ObservationMock;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
@@ -86,49 +85,6 @@ public class FigisDaoTest extends FigisDaoTestLogic {
 	public void testLoadRefVmeNull() {
 		RefVme found = (RefVme) dao.find(RefVme.class, 4561l);
 		assertNull(found);
-	}
-
-	/**
-	 * to be promoted to the parent class.
-	 */
-	@Test
-	public void testFindVmeObservationDomain() {
-		RefVme r = registerRefVme();
-
-		VmeObservationDomain vod = createVmeObservationDomain();
-		vod.setRefVme(r);
-
-		dao.syncVmeObservationDomain(vod);
-
-		// TODO
-		// VmeObservationDomain found = dao.findVmeObservationDomain(vod.getObservationList().get(0).getId());
-		// delegateTest(vod, found);
-
-	}
-
-	@Test
-	public void testFindVmeObservationDomainByVme() {
-		RefVme r = registerRefVme();
-		VmeObservationDomain vod = createVmeObservationDomain();
-		vod.setRefVme(r);
-		dao.syncVmeObservationDomain(vod);
-
-		// TODO
-		// VmeObservationDomain found = dao.findVmeObservationDomainByVme(r.getId(), vod.getReportingYear());
-		// delegateTest(vod, found);
-	}
-
-	// @Test
-	// public void testFindVmeObservationDomainByVmeNull() {
-	// VmeObservationDomain found = dao.findVmeObservationDomainByVme(3000l, "3000");
-	// assertNull(found);
-	// }
-
-	private void delegateTest(VmeObservationDomain vod, VmeObservationDomain found) {
-		assertEquals(vod.getRefVme(), found.getRefVme());
-		assertEquals(vod.getObservationDomainList().get(0), found.getObservationDomainList().get(0));
-		// TODO
-		// assertEquals(vod.getReportingYear(), found.getReportingYear());
 	}
 
 }

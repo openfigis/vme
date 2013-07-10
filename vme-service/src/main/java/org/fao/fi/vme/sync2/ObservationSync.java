@@ -23,9 +23,6 @@ import org.fao.fi.vme.sync2.mapping.ObjectMapping;
 
 public class ObservationSync implements Sync {
 
-	public static final Short ORDER = -1;
-	public static final Integer COLLECTION = 7300;
-
 	@Inject
 	private FigisDao figisDao;
 
