@@ -44,7 +44,8 @@ public class FIGISDocTest extends XMLTestCase {
 		Title title = new Title();
 		title.setContent("Corner Rise Seamounts");
 
-		// ReportingYear ReportingYear = new ReportingYear();
+		ReportingYear reportingYear = new ReportingYear();
+		reportingYear.setContent("2012");
 
 		WaterAreaRef waterAreaRef = new WaterAreaRef();
 
@@ -53,16 +54,22 @@ public class FIGISDocTest extends XMLTestCase {
 		foreignID.setCode("VME_5067");
 		waterAreaRef.getFigisIDsAndForeignIDs().add(foreignID);
 
-		vmeIdent.getFigisIDsAndForeignIDsAndTitles().add(figisID);
-		vmeIdent.getFigisIDsAndForeignIDsAndTitles().add(title);
-		vmeIdent.getFigisIDsAndForeignIDsAndTitles().add(waterAreaRef);
+		// vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().
+
+		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(figisID);
+		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(title);
+		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(waterAreaRef);
+		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(reportingYear);
+
+		// aqResRevesAndFACPRevesAndFisheryReves
 
 		VME vme = new VME();
 		vme.setVMEIdent(vmeIdent);
 
 		FIGISDoc figisDoc = new FIGISDoc();
 		figisDoc.setVME(vme);
-		// this.expectedResult = figisDoc;
+
+		this.expectedResult = figisDoc;
 
 	}
 
@@ -112,7 +119,7 @@ public class FIGISDocTest extends XMLTestCase {
 	 * 
 	 * @throws JAXBException
 	 */
-	public void testUnmarshall() throws JAXBException {
+	public void _testUnmarshall() throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(clazz);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 
