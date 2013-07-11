@@ -40,14 +40,6 @@
 			<xs:attribute name="AltElemName" />
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="Created">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Date of creation</Title>
-				<Description>Date of creation of the information resource&apos;s intellectual content.</Description>
-			</xs:documentation>
-		</xs:annotation>
-	</xs:element>
 	<xs:element name="Modified">
 	</xs:element>
 	<xs:element name="Extent">

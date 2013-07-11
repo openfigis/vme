@@ -19,7 +19,6 @@
 				<xs:element ref="nameAccordingToID"/>
 				<xs:element ref="namePublishedInID"/>
 				<xs:element ref="taxonConceptID"/>-->
-				<xs:element ref="dwc:scientificName" minOccurs="0"/>
 				<!--<xs:element ref="dwc:acceptedNameUsage"/>
 				<xs:element ref="dwc:parentNameUsage"/>
 				<xs:element ref="dwc:originalNameUsage"/>
@@ -54,15 +53,6 @@
 				<Title>Taxon Identifier</Title>
 				<Description>An identifier for the set of taxon information (data associated with the Taxon class). May be a global unique identifier or an identifier specific to the data set.</Description>
 				<usage>Examples: "8fa58e08-08de-4ac1-b69c-1235340b7001", "32567", "http://species.gbif.org/abies_alba_1753", "urn:lsid:gbif.org:usages:32567". For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
-			</xs:documentation>
-		</xs:annotation>
-	</xs:element>
-	<xs:element name="scientificName">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Scientific Name</Title>
-				<Description>The full scientific name, with authorship and date information if known. When forming part of an Identification, this should be the name in lowest level taxonomic rank that can be determined. This term should not contain identification qualifications, which should instead be supplied in the IdentificationQualifier term.</Description>
-				<usage>Examples: "Coleoptera" (order), "Vespertilionidae" (family), "Manis" (genus), "Ctenomys sociabilis" (genus + specificEpithet), "Ambystoma tigrinum diaboli" (genus + specificEpithet + infraspecificEpithet), "Roptrocerus typographi (Györfi, 1952)" (genus + specificEpithet + scientificNameAuthorship), "Quercus agrifolia var. oxyadenia (Torr.) J.T. Howell" (genus + specificEpithet + taxonRank + infraspecificEpithet + scientificNameAuthorship). For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>

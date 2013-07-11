@@ -1238,8 +1238,6 @@ targetNamespace="http://www.fao.org/fi/figis/devcon/" elementFormDefault="qualif
 				<xs:element ref="ags:CreatorPersonal"/>
 				<xs:element ref="ags:CreatorCorporate"/>
 				<xs:element ref="fi:Editor"/>
-				<xs:element ref="dcterms:Created"/>
-				<xs:element ref="dcterms:Modified"/>
 				<xs:element ref="dc:Identifier"/>
 				<xs:element ref="dc:Description"/>
 				<xs:element ref="dcterms:Abstract"/>
@@ -2304,7 +2302,6 @@ targetNamespace="http://www.fao.org/fi/figis/devcon/" elementFormDefault="qualif
 		<xs:complexType mixed="false">
 			<xs:choice maxOccurs="unbounded">
 				<xs:element ref="ags:CreatorPersonal"/>
-				<xs:element ref="dcterms:Created"/>
 				<xs:element ref="dcterms:Modified"/>
 				<xs:element ref="dc:Language"/>
 				<xs:element ref="dc:Description"/>
@@ -2549,7 +2546,6 @@ targetNamespace="http://www.fao.org/fi/figis/devcon/" elementFormDefault="qualif
 		<xs:complexType mixed="false">
 			<xs:sequence>
 				<xs:element ref="fi:Editor"/>
-				<xs:element ref="dcterms:Created" minOccurs="0"/>
 				<xs:element ref="dcterms:Modified" minOccurs="0"/>
 			</xs:sequence>
 			<xs:attribute name="Version" type="xs:decimal"/>
@@ -7894,7 +7890,7 @@ an historical review of the Stock or Resource exploitation, management regimes o
 		</xs:annotation>
 		<xs:complexType mixed="true">
 			<xs:choice maxOccurs="unbounded">
-				<xs:element ref="dwc:scientificName" minOccurs="0"/>
+				
 				<xs:group ref="fi:textEnt"/>
 			</xs:choice>
 			<xs:attribute ref="xml:lang"/>

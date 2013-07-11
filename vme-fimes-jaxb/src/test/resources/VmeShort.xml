@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fi:FIGISDoc xmlns:fi="http://www.fao.org/fi/figis/devcon/" xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.1"
+	xmlns:ags="http://www.purl.org/agmes/1.1/" xmlns:aida="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd"
+	xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xml:lang="en" xsi:schemaLocation="http://www.fao.org/fi/figis/devcon/ http://figisapps.fao.org/figis/fimes/schema/3_6/fi.xsd">
+	<fi:VME>
+		<fi:VMEIdent>
+			<fi:FigisID>10</fi:FigisID>
+			<dc:Title>Corner Rise Seamounts</dc:Title>
+			<fi:ReportingYear>2012</fi:ReportingYear>
+			<fi:WaterAreaRef>
+				<fi:ForeignID CodeSystem="vme" Code="VME_5067" />
+			</fi:WaterAreaRef>
+		</fi:VMEIdent>
+	</fi:VME>
+</fi:FIGISDoc>
