@@ -13,10 +13,11 @@
 		<xs:documentation>
 			<Title>Fisheries Metadata Element Set (FIMES)</Title>
 			<Description>To manage information in a systematic and cost-effective way, FIGIS has built a metadata level (a topic
-				tree) for each information domain, providing a standard template for the display of Web page content. The Fisheries
-				Metadata Element Set (FIMES) describes this meta level which is based on XML language.</Description>
+				tree) for each information
+				domain, providing a standard template for the display of Web page content. The Fisheries
+				Metadata Element Set (FIMES) describes this meta level
+				which is based on XML language.</Description>
 		</xs:documentation>
-
 	</xs:annotation>
 	<xs:group name="indexEnt">
 		<xs:choice>
@@ -35,6 +36,7 @@
 			<xs:element ref="fi:Contacts" />
 			<xs:element ref="fi:FIGISSearch" />
 			<xs:element ref="fi:FIGISCondLink" />
+			<xs:element ref="fi:FIGISCondLinkSet" />
 		</xs:choice>
 	</xs:group>
 	<xs:group name="textEntNoKOR">
@@ -250,7 +252,24 @@
 			<xs:pattern value="[0-9]{4,}[a-zA-Z]?" />
 		</xs:restriction>
 	</xs:simpleType>
-
+	<xs:simpleType name="ReportingYear">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Reporting year</Title>
+				<Description>"The year in which the scientific meeting (or equivalent scientific validation process) reviewed the
+					status of the target object
+					(e.g. Marine Resource, Fishery...) pertaining to the fact sheet" (FIRMS TWG2, 2008).</Description>
+				<Usage>Year, eventually followed by an index (e.g. 1999a), attached to the observation reporting status and trends
+					on a Marine resource or
+					Fishery. It is used in the construction of the Title of the observation. Reporting Year
+					should not be confused with the Year of Publication nor
+					with the Reference Year.</Usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{4,}[a-zA-Z]?" />
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:element name="AbundanceLevel">
 		<xs:annotation>
 			<xs:documentation>
@@ -308,7 +327,6 @@
 				<xs:element ref="fi:OrgsInvolved" />
 				<xs:element ref="fi:TermsAndConditions" />
 				<xs:element ref="fi:Procedures" />
-				<xs:element ref="fi:ManageSystemOverview" />
 			</xs:choice>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -454,12 +472,10 @@
 				<Title>Management advice</Title>
 				<Description>"Management advice are those recommendations generally evolving from the assessment addressed to
 					management authorities. It evolves
-					from biological scientific advice (found under assessment results) but takes
-					into
+					from biological scientific advice (found under assessment results) but takes into
 					account a broader spectrum of issues. Advice may be proposed
-					under different management options, each one
-					including a
-					risk assessment element" (FIGIS-FIRMS 2002 workshop).</Description>
+					under different management options, each one including
+					a risk assessment element" (FIGIS-FIRMS 2002 workshop).</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -567,8 +583,8 @@
 				<Description>According to the FAO Fisheries Glossary, "Biotic element of the aquatic ecosystem, including genetic
 					resources, organisms or parts
 					thereof, populations, etc. with actual or potential use or value (sensu lato) for
-					humanity. Fishery resources are those aquatic resources of value
-					to fisheries".</Description>
+					humanity. Fishery resources are those aquatic resources of
+					value to fisheries".</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -735,8 +751,7 @@
 					subunit(s) of the aquatic resource under consideration (use
 					fi:AqStockRef to positively refer a lower level of
 					aggregation of an aquatic resource). Where possible, a short explanation should be provided to
-					justify the
-					existence
+					justify the existence
 					of the sub-unit(s).</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -1054,10 +1069,9 @@
 					fishing mortality, biomass,
 					recruitment, abundance index). According to the FAO Fisheries Glossary, an indicator is
 					"a variable, pointer, or index. Its fluctuation reveals
-					the variations in key elements of a system. The position
-					and
-					trend of the indicator in relation to reference points or values indicate the present
-					state and dynamics of the
+					the variations in key elements of a system. The position and
+					trend of the indicator in relation to reference points or values indicate the
+					present state and dynamics of the
 					system. Indicators provide a bridge between objectives and action".</Description>
 			</xs:documentation>
 			<xs:appinfo>
@@ -1309,9 +1323,12 @@
 				<xs:element ref="ags:CreatorPersonal" />
 				<xs:element ref="ags:CreatorCorporate" />
 				<xs:element ref="fi:Editor" />
+				<xs:element ref="dcterms:Created" />
+				<xs:element ref="dcterms:Modified" />
 				<xs:element ref="dc:Identifier" />
 				<xs:element ref="dc:Description" />
 				<xs:element ref="dcterms:Abstract" />
+				<xs:element ref="dcterms:bibliographicCitation" />
 				<xs:element ref="dc:Subject" />
 				<xs:element ref="dc:Publisher" />
 				<xs:element ref="dc:Language" />
@@ -1557,18 +1574,15 @@
 			<xs:documentation>
 				<Title>By-catch</Title>
 				<Description>"Part of a catch of a fishing unit taken incidentally in addition to the target species towards which
-					fishing effort is directed. Some
-					or all of it may be returned to the sea as discards, usually dead or dying.
-					Associated species: commercial species caught with the main target
-					ones. Discarded species: those species,
-					including
-					for specific life stages, released or returned to the sea, dead or alive, whether or not such
-					organisms
-					are brought
-					fully on board a fishing vessel. Protected species: species (marine mammals, seabirds etc.) caught
-					accidentally with
-					the main
-					target ones." (Fisheries Inventory: Method and Guidelines. FIRMS, 2007).</Description>
+					fishing effort is directed.
+					Some or all of it may be returned to the sea as discards, usually dead or dying.
+					Associated species: commercial species caught with the main
+					target ones. Discarded species: those species, including
+					for specific life stages, released or returned to the sea, dead or alive, whether or not
+					such organisms are brought
+					fully on board a fishing vessel. Protected species: species (marine mammals, seabirds etc.) caught accidentally
+					with
+					the main target ones." (Fisheries Inventory: Method and Guidelines. FIRMS, 2007).</Description>
 				<Usage>is a container for listing all the bycatch species caught by a fishery. Use the Type attribute to
 					differentiate such bycatch.</Usage>
 			</xs:documentation>
@@ -1810,9 +1824,17 @@
 			<xs:choice>
 				<xs:sequence>
 					<xs:element ref="fi:CollectionRef" />
+					<xs:choice maxOccurs="unbounded">
+						<xs:element ref="fi:CollectionProfile" />
+						<xs:element ref="fi:CollectionFeature" />
+					</xs:choice>
 				</xs:sequence>
 				<xs:sequence>
 					<xs:element ref="fi:CollectionIdent" />
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="fi:CollectionProfile" />
+						<xs:element ref="fi:CollectionFeature" />
+					</xs:choice>
 					<xs:group ref="fi:indexEnt" minOccurs="0" />
 				</xs:sequence>
 			</xs:choice>
@@ -1997,8 +2019,8 @@
 			<xs:documentation>
 				<Title>Consolidated Date</Title>
 				<Description>ConsolidatedDate contains the last consolidated date of a legal object. "The date in which a provision
-					has been consolidated including
-					amending texts, should be together with 'date of original text' " (LEGN, 2008).</Description>
+					has been consolidated
+					including amending texts, should be together with 'date of original text' " (LEGN, 2008).</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="true">
@@ -2159,8 +2181,8 @@
 				<Description>Corporate Cover Page is a container for bibliographic elements commonly found on the cover or inset of
 					a print publication,
 					particularly title , corporate author , series, publisher. It is a mandatory element of
-					fi:ObjectSource and contributes to build the citation of a
-					domain object presented as FIGIS fact sheet or web site.
+					fi:ObjectSource and contributes to build the citation of
+					a domain object presented as FIGIS fact sheet or web site.
 					The two required elements are: dc:Title - contributes part or entirety of the title of
 					the web page, and the
 					ags:CreatorCorporate tag.</Description>
@@ -2234,6 +2256,7 @@
 		<xs:complexType mixed="false">
 			<xs:sequence>
 				<xs:element ref="fi:LandAreaRef" />
+				<xs:choice minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -2356,19 +2379,16 @@
 				<Description>is a container element for overviews of a Sector's fisheries management. Use instances of
 					fi:ManageSystemOverview to profile various
 					management systems, including overview of stocks exploited or fisheries
-					managed within the system and provide information if one or several stocks
-					or fishing capacity/effort are subject
-					to
-					management decision-making with a bilateral or regional fishery management arrangement (reference should
-					be made
-					to
+					managed within the system and provide information if one or several
+					stocks or fishing capacity/effort are subject to
+					management decision-making with a bilateral or regional fishery management arrangement
+					(reference should be made to
 					the respective bilateral or regional fishery management arrangement.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
 			<xs:choice maxOccurs="unbounded">
 				<xs:element ref="fi:Overview" />
-				<xs:element ref="fi:ManageSystemOverview" />
 				<xs:element ref="fi:Cooperation" />
 				<xs:element ref="fi:OrgsInvolved" />
 				<xs:element ref="fi:LegalFrameworks" />
@@ -2405,26 +2425,6 @@
 			<xs:attribute name="Label" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="CountrySectorRef">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Sector reference</Title>
-				<Description>allows for positive referencing of a country's fishing sector profile.</Description>
-			</xs:documentation>
-		</xs:annotation>
-		<xs:complexType mixed="false">
-			<xs:sequence>
-				<xs:choice maxOccurs="unbounded">
-					<xs:element ref="fi:FigisID" />
-					<xs:element ref="fi:ForeignID" />
-				</xs:choice>
-				<xs:element ref="dc:Title" minOccurs="0" maxOccurs="6" />
-				<xs:element ref="fi:CollectionRef" minOccurs="0" />
-				<xs:element ref="fi:LandAreaRef" minOccurs="0" />
-			</xs:sequence>
-			<xs:attributeGroup ref="fi:sectorEnt" />
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="CountryTo">
 		<xs:annotation>
 			<xs:documentation>
@@ -2435,6 +2435,7 @@
 		<xs:complexType mixed="false">
 			<xs:sequence>
 				<xs:element ref="fi:LandAreaRef" />
+				<xs:choice minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -2448,19 +2449,17 @@
 					publication, and particularly
 					personal author(s), publication date , and abstract or description. It is an optional
 					element of fi:ObjectSource and contributes to build the
-					citation of a domain object presented as FIGIS fact sheet
-					or
-					web. If there are multiple creators use the ags:CreatorPersonal. dc:Created - this is
-					the date of the creation
-					of the
-					intellectual content of the information resource. Recommended best practice for encoding the date value is
-					defined
-					in a profile of ISO 8601 [W3CDTF] and follows the YYYY-MM-DD format.</Description>
+					citation of a domain object presented as FIGIS fact sheet or
+					web. If there are multiple creators use the ags:CreatorPersonal. dc:Created - this
+					is the date of the creation of
+					the intellectual content of the information resource. Recommended best practice for encoding the date value is
+					defined in a profile of ISO 8601 [W3CDTF] and follows the YYYY-MM-DD format.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
 			<xs:choice maxOccurs="unbounded">
 				<xs:element ref="ags:CreatorPersonal" />
+				<xs:element ref="dcterms:Created" />
 				<xs:element ref="dcterms:Modified" />
 				<xs:element ref="dc:Language" />
 				<xs:element ref="dc:Description" />
@@ -2468,6 +2467,8 @@
 				<xs:element ref="dcterms:Abstract" />
 				<xs:element ref="dcterms:Alternative" />
 				<xs:element ref="dc:Title" />
+				<xs:element ref="dcterms:replaces" />
+				<xs:element ref="dcterms:isReplacedBy" />
 				<xs:element ref="fi:ChapterTitle" />
 				<xs:element ref="fi:VolumeTitle" />
 			</xs:choice>
@@ -2672,7 +2673,8 @@
 			<xs:documentation>
 				<Title>Culture Systems</Title>
 				<Description>contains information about aquaculture production. Use an fi:CultureSystemEntry tag for every distinct
-					type of aquaculture production.</Description>
+					type of aquaculture
+					production.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -2712,20 +2714,19 @@
 				<Description>DataEntry refers to the actual data formatting of a FIGISDoc. This refers to the action of putting the
 					document into its current XML
 					form. fi:Editor - name of the person who put the document into its current XML form.
-					Use a new occurrence of this element for every editor who has
-					worked on the XML document. dc:Date - contains the
-					date on which the current version was last edited. Use ISO 8601 standard YYYY-MM-DD. Version -
-					version number of
-					the
+					Use a new occurrence of this element for every editor who
+					has worked on the XML document. dc:Date - contains the
+					date on which the current version was last edited. Use ISO 8601 standard YYYY-MM-DD.
+					Version - version number of the
 					data in its present form. Add one (1) to the previous number for each cycle in which the document will be
 					reloaded
-					into the
-					database.</Description>
+					into the database.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
 			<xs:sequence>
 				<xs:element ref="fi:Editor" />
+				<xs:element ref="dcterms:Created" minOccurs="0" />
 				<xs:element ref="dcterms:Modified" minOccurs="0" />
 			</xs:sequence>
 			<xs:attribute name="Version" type="xs:decimal" />
@@ -2877,8 +2878,8 @@
 			<xs:documentation>
 				<Title>Depth Zone</Title>
 				<Description>"Marine habitat/Fishing ground: Bathymetric depth range in which a fishery resource is distributed or
-					in which a fishery is conducted"
-					(FIRMS Inventory Guidelines 2011).</Description>
+					in which a fishery is
+					conducted" (FIRMS Inventory Guidelines 2011).</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -2965,6 +2966,7 @@
 		<xs:complexType mixed="false">
 			<xs:choice maxOccurs="unbounded">
 				<xs:group ref="fi:textEnt" />
+				<xs:element ref="fi:Fieldmarks" />
 				<xs:element ref="fi:CanBeConf" />
 				<xs:element ref="fi:DiagnosticFeatEntry" />
 				<xs:element ref="fi:Size" />
@@ -3250,12 +3252,12 @@
 				<Description>The capacity needed to use a tool depends upon the complexity of the tool. What technical capacity and
 					experience is required to use
 					it effectively? Some tools require a high degree of technical expertise to operate
-					effectively (e.g. simulation modelling), some tools can be used
-					with minimal training (e.g. attending a meeting).</Description>
+					effectively (e.g. simulation modelling), some tools can be
+					used with minimal training (e.g. attending a meeting).</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
-			<xs:choice maxOccurs="unbounded">
+			<xs:choice minOccurs="1" maxOccurs="unbounded">
 				<xs:element ref="fi:Range" />
 				<xs:group ref="fi:textEnt" />
 			</xs:choice>
@@ -3911,7 +3913,6 @@
 				<xs:element ref="fi:Procedures" />
 				<xs:element ref="fi:Guidelines" />
 				<xs:element ref="fi:OrgsInvolved" />
-				<xs:element ref="fi:ManageSystemOverview" />
 			</xs:choice>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -3957,11 +3958,9 @@
 				<Title>Exploitation</Title>
 				<Description>Information about "the exploitation of the aquatic resource, including typically the description of the
 					various fisheries exploiting
-					the stock, and exploitation indicators such as catches, effort parameters, size of
-					fish
-					caught ..." (FIGIS-FIRMS 2002 workshop). Use fi:FisheryRef
-					to positively reference the fisheries exploiting
-					this
+					the stock, and exploitation indicators such as catches, effort parameters, size of fish
+					caught ..." (FIGIS-FIRMS 2002 workshop). Use
+					fi:FisheryRef to positively reference the fisheries exploiting this
 					aquatic resource.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -3980,8 +3979,8 @@
 			<xs:documentation>
 				<Title>Exploitation Rate</Title>
 				<Description>"The proportion of a population at the beginning of a given time period that is caught during that time
-					period (usually expressed on a
-					yearly basis)." (FAO Fisheries Glossary)</Description>
+					period (usually expressed on
+					a yearly basis)." (FAO Fisheries Glossary)</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -4330,6 +4329,21 @@
 			<xs:attribute name="Label" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="Fieldmarks">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Fieldmarks</Title>
+				<Description>Fieldmarks contains information on species field marks.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="false">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:group ref="fi:textEnt" />
+			</xs:choice>
+			<xs:attribute ref="xml:lang" />
+			<xs:attribute name="Label" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="FIGISCondLink">
 		<xs:annotation>
 			<xs:documentation>
@@ -4397,9 +4411,26 @@
 					<xs:restriction base="xs:token">
 						<xs:enumeration value="Block" />
 						<xs:enumeration value="Bullet" />
+						<xs:enumeration value="Inline" />
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
+			<xs:attribute ref="xml:lang" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FIGISCondLinkSet">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>FIGIS Set of Conditional Links</Title>
+				<Description>FIGIS Set of Conditional Links is a wrapper element which is used to contain multiple FIGISCOndLink
+					elements at application level.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="fi:Param" />
+			</xs:choice>
+			<xs:attribute name="Type" type="xs:string" />
 			<xs:attribute ref="xml:lang" />
 		</xs:complexType>
 	</xs:element>
@@ -4428,7 +4459,6 @@
 					<xs:element ref="fi:FishTechnique" />
 					<xs:element ref="fi:Geartype" />
 					<xs:element ref="fi:LegalFramework" />
-					<xs:element ref="fi:ManageSystem" />
 					<xs:element ref="fi:PortStateMeasure" />
 					<xs:element ref="fi:Standard" />
 					<xs:element ref="fi:Org" />
@@ -4470,11 +4500,9 @@
 				<Description>FIGISSearch is a query into the FIGIS data base.</Description>
 				<Usage>The element "FIGISSearch" contains two main attributes: "Domain" and "Keyword". Use "Domain" to specify in
 					which branch of the database the
-					search should be performed. Use "Keyword" to specify in which tags of the XML
-					files
+					search should be performed. Use "Keyword" to specify in which tags of the XML files
 					the search should be performed (e.g. name, code, country...).
-					Not using "Domain" means that the search will
-					be made
+					Not using "Domain" means that the search will be made
 					across all domains while not using "Keyword" means that a full text search will be run.</Usage>
 			</xs:documentation>
 		</xs:annotation>
@@ -4658,7 +4686,6 @@
 					gathers indication of human fishing activity, including from economic, management, biological/
 					environmental and
 					technological viewpoints.
-
 				</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -4748,9 +4775,10 @@
 			<xs:documentation>
 				<Title>Fishery identity</Title>
 				<Description>FisheryIdent is a container that uses elements referencing Species, Location, and Exploitation Units to
-					positively identify a fishery.
-					It may contain a title and must contain one or more of each of the following: a
-					species, an area or environment, and an exploitation unit.</Description>
+					positively identify a
+					fishery. It may contain a title and must contain one or more of each of the following: a
+					species, an area or environment, and an exploitation
+					unit.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -5105,11 +5133,10 @@
 			<xs:documentation>
 				<Title>Fishing Systems</Title>
 				<Description>According to the local context, this element can be used either on presenting the fishing fleet by main
-					fleet segment, and/or the main
-					fishing techniques in use. It may includes some light description of the main type
-					of
-					vessels and gears, and strive to quantify the numbers of
-					units by fleet segment of fishing technique.</Description>
+					fleet segment, and/or the
+					main fishing techniques in use. It may includes some light description of the main type of
+					vessels and gears, and strive to quantify the numbers
+					of units by fleet segment of fishing technique.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -5121,6 +5148,7 @@
 					<xs:element ref="fi:VesseltypeRef" minOccurs="0" />
 					<xs:element ref="fi:FishTechniqueRef" />
 				</xs:choice>
+				<xs:choice minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -5235,10 +5263,10 @@
 			<xs:documentation>
 				<Title>Fishing Technique Identity</Title>
 				<Description>FishTechniqueIdent contains positive ID references to all the domains that together make up the
-					compound domain of Fishing Techniques.
-					If the fishing techique uses a new kind of geartype not found in any
-					classification system then the user should select fi:Geartype and create a
-					new gear.</Description>
+					compound domain of Fishing
+					Techniques. If the fishing techique uses a new kind of geartype not found in any
+					classification system then the user should select fi:Geartype
+					and create a new gear.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -5459,6 +5487,7 @@
 		<xs:complexType mixed="false">
 			<xs:choice maxOccurs="unbounded">
 				<xs:group ref="fi:textEnt" />
+				<xs:element ref="fi:FlagStateList" />
 				<xs:element ref="fi:VesseltypeOverview" />
 				<xs:element ref="fi:GeartypeOverview" />
 			</xs:choice>
@@ -5526,9 +5555,8 @@
 					to the foreign system (CodeSystem), one for the identifier in that system (Code).
 					"fao_taxonomic" is the unique code of a genus , species , group
 					, family , sub-order or order. Taxonomic code
-					descriptors are taken from FAO's ASFIS and is addressed to identify items up to species level trough
-					a maximum of
-					10
+					descriptors are taken from FAO's ASFIS and is addressed to identify items up to species level
+					trough a maximum of 10
 					digit number. "fao3alpha" is a unique FAO species identifier consisting of three letters.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -5568,6 +5596,7 @@
 						<xs:enumeration value="pac_tuna_rep" />
 						<xs:enumeration value="un" />
 						<xs:enumeration value="un_continent" />
+						<xs:enumeration value="vme" />
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
@@ -5742,8 +5771,8 @@
 			<xs:documentation>
 				<Title>Gear type reference</Title>
 				<Description>is used for positive gear type identification of existing gear type objects. ISSSCFG or FIES code is
-					required. Select a classification
-					system, and enter the value in 'Code'.</Description>
+					required. Select a
+					classification system, and enter the value in 'Code'.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -5953,14 +5982,17 @@
 			<xs:documentation>
 				<Title>Bottom morphology</Title>
 				<Description>"Marine habitat/Fishing ground: type of sea floor physiography in which the fishery resource is
-					distributed or in which the fishery is
-					conducted" (FIRMS Inventory Guidelines 2011). "Type of sea floor
-					physiography
-					in which the aquatic resource is distributed" (FIRMS TWG2, 2008).
+					distributed or in which the fishery
+					is conducted" (FIRMS Inventory Guidelines 2011). "Type of sea floor physiography
+					in which the aquatic resource is distributed" (FIRMS TWG2,
+					2008).
 				</Description>
 			</xs:documentation>
 		</xs:annotation>
-		<xs:complexType mixed="false">
+		<xs:complexType mixed="true">
+			<xs:choice maxOccurs="unbounded">
+				<xs:group ref="fi:textEnt" />
+			</xs:choice>
 			<xs:attribute name="Value" use="optional">
 				<xs:simpleType>
 					<xs:restriction base="xs:token">
@@ -6096,8 +6128,8 @@
 			<xs:documentation>
 				<Title>Handling Mode</Title>
 				<Description>HandlingMode is the container element containing description and information about the ways in which
-					aquatic species are handled after
-					being caught.</Description>
+					aquatic species are handled
+					after being caught.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -6217,8 +6249,7 @@
 				<Description>Historic information related to the element which contains fi:History. e.g.
 					an historical review of the
 					Stock or Resource
-					exploitation, management regimes over time and their effect, and
-					trends.</Description>
+					exploitation, management regimes over time and their effect, and trends.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -6250,8 +6281,8 @@
 			<xs:documentation>
 				<Title>Horizontal distribution</Title>
 				<Description>"Marine habitat: inshore to offshore range in which the fishery resource is distributed (e.g. littoral,
-					neritic, oceanic ...)." (FIRMS
-					Inventory Guidelines 2011).</Description>
+					neritic, oceanic ...)."
+					(FIRMS Inventory Guidelines 2011).</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -6621,7 +6652,7 @@
 				<xs:element ref="fi:AquacultureUse" />
 				<xs:element ref="fi:EcologicEffects" />
 				<xs:element ref="fi:SocioEconomicEffects" />
-
+				<xs:choice minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -6632,9 +6663,8 @@
 			<xs:documentation>
 				<Title>Introduced Aquatic Species Identity</Title>
 				<Description>Ident contains the elements needed to positively and uniquely Identify a domain object. Inclusion of
-					this element in a document causes
-					the FIGIS database loader to create a database object that will be keyed using
-					the
+					this element in a document
+					causes the FIGIS database loader to create a database object that will be keyed using the
 					information found in the Ident element.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -6673,7 +6703,7 @@
 				</xs:choice>
 				<xs:element ref="fi:ReasonIntroducedAqSpecies" />
 				<xs:element ref="fi:Introducer" />
-
+				<xs:choice minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -6858,24 +6888,6 @@
 			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="JurisdictionRef">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Jurisdiction area reference</Title>
-				<Description>is used to Reference a jurisdiction area for a management system.</Description>
-			</xs:documentation>
-		</xs:annotation>
-		<xs:complexType mixed="false">
-			<xs:sequence>
-				<xs:choice maxOccurs="6">
-					<xs:element ref="fi:FigisID" />
-					<xs:element ref="dc:Title" />
-				</xs:choice>
-				<xs:element ref="fi:LandAreaRef" minOccurs="0" maxOccurs="unbounded" />
-				<xs:element ref="fi:WaterAreaRef" minOccurs="0" maxOccurs="unbounded" />
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="Key">
 		<xs:complexType mixed="true">
 			<xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -7028,13 +7040,14 @@
 			<xs:documentation>
 				<Title>Law</Title>
 				<Description>Law contains information about a law relating to a legal framework. "A text which is enacted by the
-					Parliament is generally classified
-					as an Act/Law. The main exception to this rule are Ordinances and (Presidential)
-					Decrees which, depending on the legal system, may have the nature
-					of a law or be adopted instead of laws where the
-					country has not (whether permanently or temporarily) a Parliament. Well known examples are
-					Ordinances enacted under
-					colonial rule and still in force (often transformed in the meantime in Acts or amended by Acts) and (Presidential)
+					Parliament is generally
+					classified as an Act/Law. The main exception to this rule are Ordinances and (Presidential)
+					Decrees which, depending on the legal system, may
+					have the nature of a law or be adopted instead of laws where the
+					country has not (whether permanently or temporarily) a Parliament. Well known
+					examples are Ordinances enacted under
+					colonial rule and still in force (often transformed in the meantime in Acts or amended by Acts) and
+					(Presidential)
 					Decrees where the military rules a country (e.g. Nigeria, Sierra Leone)" (LEGN, 2008).</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -7164,9 +7177,17 @@
 			<xs:choice>
 				<xs:sequence>
 					<xs:element ref="fi:LegalFrameworkRef" />
+					<xs:choice maxOccurs="unbounded">
+						<xs:element ref="fi:LegalFrameworkProfile" />
+						<xs:element ref="fi:LegalFrameworkFeature" />
+					</xs:choice>
 				</xs:sequence>
 				<xs:sequence>
 					<xs:element ref="fi:LegalFrameworkIdent" />
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element ref="fi:LegalFrameworkProfile" />
+						<xs:element ref="fi:LegalFrameworkFeature" />
+					</xs:choice>
 					<xs:group ref="fi:indexEnt" minOccurs="0" maxOccurs="unbounded" />
 				</xs:sequence>
 			</xs:choice>
@@ -7181,8 +7202,8 @@
 			<xs:documentation>
 				<Title>Legal Framework Child</Title>
 				<Description>LegalFrameworkChild contains the legalframework names of any legalframeworks related and subordinate to
-					the general legal framework in
-					which it is found.</Description>
+					the general legal framework
+					in which it is found.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -7344,7 +7365,6 @@
 					<xs:element ref="dc:Title" />
 				</xs:choice>
 				<xs:element ref="fi:ForeignID" minOccurs="0" maxOccurs="unbounded" />
-				<xs:element ref="fi:ManageAuthRef" minOccurs="0" />
 				<xs:element ref="fi:LegalFrameworkParent" minOccurs="0" />
 				<xs:element ref="fi:SpatialScale" minOccurs="0" />
 			</xs:sequence>
@@ -7582,8 +7602,7 @@
 				<Title>Local Name entry</Title>
 				<Description>LocalNameEntry is a species' localname , where it is used , and any additional information like the
 					name of the dialect or more
-					detailed geographical information on where exactly the local-common name is used for
-					the
+					detailed geographical information on where exactly the local-common name is used for the
 					aqualtic species in a given country.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -7641,44 +7660,18 @@
 			<xs:attribute name="Label" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="ManageAuthRef">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management Authority reference</Title>
-				<Description>is used to Reference a state or regional body that is the legal authority for a management system. Tag
-					its dc:Title and then choose
-					either fi:LandAreaRef or fi:OrgRef depending on which is more appropriate to the
-					situation.</Description>
-			</xs:documentation>
-		</xs:annotation>
-		<xs:complexType mixed="false">
-			<xs:sequence>
-				<xs:choice maxOccurs="6">
-					<xs:element ref="fi:FigisID" />
-					<xs:element ref="dc:Title" />
-				</xs:choice>
-				<xs:element ref="fi:ForeignID" minOccurs="0" maxOccurs="unbounded" />
-				<xs:element ref="fi:CollectionRef" minOccurs="0" />
-				<xs:element ref="fi:LandAreaRef" minOccurs="0" />
-				<xs:element ref="fi:OrgRef" minOccurs="0" />
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="Management">
 		<xs:annotation>
 			<xs:documentation>
 				<Title>Management</Title>
 				<Description>Information about the management of the fishery or the aquatic resource. This element includes an
 					attribute describing whether Yes or
-					Not the aquatic resource is considered a Management Unit. If Yes, a
-					Jurisdiction
+					Not the aquatic resource is considered a Management Unit. If Yes, a Jurisdiction
 					area is required as primary or secondary georeferencing system.
-					According to the FAO Fisheries
-					Glossary, Management
+					According to the FAO Fisheries Glossary, Management
 					is "the art of taking measures affecting a resource and its exploitation with a view to
 					achieving certain
-					objectives, such as the maximisation of the production of that resource. Management includes, for
-					example, fishery
+					objectives, such as the maximisation of the production of that resource. Management includes, for example, fishery
 					regulations
 					such as catch quotas or closed seasons. Managers are those who practice management".</Description>
 			</xs:documentation>
@@ -7748,7 +7741,9 @@
 				<xs:element ref="dc:Title" />
 				<xs:choice minOccurs="0" maxOccurs="unbounded">
 					<xs:group ref="fi:textEnt" />
+					<xs:element ref="fi:Sources" />
 					<xs:element ref="fi:Measure" />
+					<xs:element ref="fi:Range" />
 					<xs:element ref="fi:RelatedFisheries" />
 					<xs:element ref="fi:RelatedAquaticResources" />
 					<xs:element ref="fi:AqResRef" />
@@ -7846,144 +7841,6 @@
 				<xs:element ref="fi:RelatedAquaticResources" />
 				<xs:element ref="fi:AqResRef" />
 				<xs:element ref="fi:FisheryRef" />
-			</xs:choice>
-			<xs:attribute ref="xml:lang" />
-			<xs:attribute name="Label" type="xs:string" />
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="ManageSystem">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management system</Title>
-				<Description>This is the root element for the domain and contains three levels of complexity:Select the Text
-					container for lightweight description.
-					It allows for text, formatting, and simple elements related to the
-					domain.Select the Ref container for positive linking to an existing database
-					object. This will cause the FIGIS
-					database loader to link to the existing object so that any description in the document will be complemented by
-					the
-					existing information in the database, though it will NOT alter the existing contents of the referenced database
-					object.Select Ident only when
-					the goal is to create a new database object.</Description>
-			</xs:documentation>
-		</xs:annotation>
-		<xs:complexType mixed="false">
-			<xs:sequence>
-				<xs:element ref="fi:ManageSystemIdent" />
-				<xs:element ref="fi:LegalFrameworkOverview" />
-				<xs:element ref="fi:OrgsInvolved" />
-				<xs:element ref="fi:ManageSystemStruct" />
-				<xs:element ref="fi:Objectives" />
-				<xs:element ref="fi:Objectives" />
-				<xs:element ref="fi:Strategies" />
-				<xs:element ref="fi:Methods" />
-				<xs:element ref="fi:Resolutions" />
-				<xs:element ref="fi:Problems" />
-				<xs:group ref="fi:indexEnt" minOccurs="0" />
-			</xs:sequence>
-			<xs:attribute ref="xml:lang" />
-			<xs:attribute name="Label" type="xs:string" />
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="ManageSystemIdent">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management System Identity</Title>
-				<Description>Ident contains the elements needed to positively and uniquely Identify a domain object. Inclusion of
-					this element in a document causes
-					the FIGIS database loader to create a database object that will be keyed using
-					the
-					information found in the Ident element.</Description>
-			</xs:documentation>
-			<xs:appinfo>
-				<input>
-					<allow>fi:FigisID</allow>
-					<allow>dc:Title</allow>
-					<allow>fi:ReportingYear</allow>
-				</input>
-			</xs:appinfo>
-		</xs:annotation>
-		<xs:complexType mixed="false">
-			<xs:sequence>
-				<xs:choice maxOccurs="6">
-					<xs:element ref="fi:FigisID" />
-					<xs:element ref="dc:Title" />
-				</xs:choice>
-				<xs:element ref="fi:ForeignID" minOccurs="0" />
-				<xs:element ref="fi:ManageAuthRef" minOccurs="0" />
-				<xs:element ref="fi:JurisdictionRef" minOccurs="0" />
-				<xs:element ref="fi:CountrySectorRef" minOccurs="0" />
-				<xs:element ref="fi:FisheryRef" minOccurs="0" />
-			</xs:sequence>
-			<xs:attributeGroup ref="fi:sectorEnt" />
-			<xs:attribute ref="xml:lang" />
-			<xs:attribute name="Label" type="xs:string" />
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="ManageSystemOverview">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management System Overview</Title>
-				<Description>is a container for broad overviews of management systems.</Description>
-			</xs:documentation>
-			<xs:appinfo>
-				<restrict>
-					<restrictDomain>Fishery</restrictDomain>
-					<restrictElement>fi:Fisheries</restrictElement>
-					<restrictElement>fi:AqResources</restrictElement>
-				</restrict>
-			</xs:appinfo>
-		</xs:annotation>
-		<xs:complexType mixed="false">
-			<xs:choice maxOccurs="unbounded">
-				<xs:group ref="fi:textEnt" />
-				<xs:element ref="fi:ManageSystemRef" />
-				<xs:element ref="fi:Objectives" />
-				<xs:element ref="fi:Strategies" />
-				<xs:element ref="fi:Methods" />
-				<xs:element ref="fi:AqResOverview" />
-			</xs:choice>
-			<xs:attribute ref="xml:lang" />
-			<xs:attribute name="Label" type="xs:string" />
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="ManageSystemRef">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management system reference</Title>
-				<Description>Element used to refer to a Management System domain element. It contains the domain elements such as
-					Management authority,
-					Jurisdiction, Fishery Management Unit, which altogether enable positive Referencing of a
-					Management System.
-				</Description>
-			</xs:documentation>
-		</xs:annotation>
-		<xs:complexType mixed="false">
-			<xs:sequence>
-				<xs:choice maxOccurs="6">
-					<xs:element ref="fi:FigisID" />
-					<xs:element ref="dc:Title" />
-				</xs:choice>
-				<xs:element ref="fi:ForeignID" minOccurs="0" maxOccurs="unbounded" />
-				<xs:element ref="fi:CollectionRef" minOccurs="0" />
-				<xs:element ref="fi:ManageAuthRef" minOccurs="0" />
-				<xs:element ref="fi:JurisdictionRef" minOccurs="0" />
-				<xs:element ref="fi:CountrySectorRef" minOccurs="0" />
-				<xs:element ref="fi:FisheryRef" minOccurs="0" />
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="ManageSystemStruct">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management System Child</Title>
-				<Description>is a container for references to child management systems.</Description>
-			</xs:documentation>
-		</xs:annotation>
-		<xs:complexType mixed="false">
-			<xs:choice maxOccurs="unbounded">
-				<xs:group ref="fi:textEnt" />
-				<xs:element ref="fi:ManageSystemRef" />
 			</xs:choice>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -8113,8 +7970,8 @@
 				<Description>The markets (national or international) are described in terms of the final destination of the fishery
 					products, by geographical
 					location and type of consumers. National fish markets supplied from imported products
-					should also be described. Price levels in the markets can be
-					provided when available, as well as employment
+					should also be described. Price levels in the markets can
+					be provided when available, as well as employment
 					generated, and necessary infrastructures. Use fi:MarketEntry for each instance of a separate
 					market.</Description>
 			</xs:documentation>
@@ -8160,6 +8017,8 @@
 				<xs:element ref="fi:TargetSpecies" />
 				<xs:element ref="fi:VesselUnderJurisdiction" />
 				<xs:element ref="fi:FishingArea" />
+				<xs:element ref="fi:Range" />
+				<xs:element ref="fi:Sources" />
 			</xs:choice>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -8212,6 +8071,12 @@
 						<xs:enumeration value="Gear-related measures" />
 						<xs:enumeration value="Vessel-related measures" />
 						<xs:enumeration value="Fishing activity-related measures" />
+						<xs:enumeration value="VME-specific measures" />
+						<xs:enumeration value="VME_threshold" />
+						<xs:enumeration value="VME_encounter_protocols" />
+						<xs:enumeration value="VME_indicatorspecies" />
+						<xs:enumeration value="Fishing_areas" />
+						<xs:enumeration value="Exploratory_fishing_protocol" />
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
@@ -8310,43 +8175,6 @@
 			<xs:attribute name="Label" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="Methods">
-		<xs:annotation>
-			<xs:documentation>
-				<Title>Management methods</Title>
-				<Description>Management methods describes the set of methods or measures affecting fisheries, and used to implement
-					management strategies. Use one
-					fi:MethodEntry for each instance of a measure.</Description>
-			</xs:documentation>
-			<xs:appinfo>
-				<restrict>
-					<restrictDomain>AqRes</restrictDomain>
-				</restrict>
-			</xs:appinfo>
-		</xs:annotation>
-		<xs:complexType mixed="false">
-			<xs:choice minOccurs="0" maxOccurs="unbounded">
-				<xs:group ref="fi:textEnt" />
-				<xs:element ref="fi:MethodEntry" />
-			</xs:choice>
-			<xs:attribute name="ManagementMethodType">
-				<xs:simpleType>
-					<xs:restriction base="xs:token">
-						<xs:enumeration value="Effort control" />
-						<xs:enumeration value="Catch control" />
-						<xs:enumeration value="Fish size limits" />
-						<xs:enumeration value="Spawner/Juvenile protection" />
-						<xs:enumeration value="Environment protection" />
-						<xs:enumeration value="Social measures" />
-						<xs:enumeration value="Economical measures" />
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:attribute>
-			<xs:attributeGroup ref="fi:sectorEnt" />
-			<xs:attribute ref="xml:lang" />
-			<xs:attribute name="Label" type="xs:string" />
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="Min">
 		<xs:annotation>
 			<xs:documentation>
@@ -8369,8 +8197,8 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="true">
-			<xs:choice maxOccurs="unbounded">
-
+			<xs:choice minOccurs="1" maxOccurs="unbounded">
+				<xs:element ref="dwc:scientificName" minOccurs="0" />
 				<xs:group ref="fi:textEnt" />
 			</xs:choice>
 			<xs:attribute ref="xml:lang" />
@@ -8807,24 +8635,22 @@
 				<Title>Object Source</Title>
 				<Description>ObjectSource is a container for elements that identify the source of an object that goes into the FIGIS
 					database. It is required at
-					the top level FIGISDoc. All objects below the top level inherit the information found
-					in
+					the top level FIGISDoc. All objects below the top level inherit the information found in
 					fi:ObjectSource unless they contain their own
 					fi:ObjectSource. fi:ObjectSource is the actual ORIGIN of the
-					document/object : it contains ownership and cover page information. There can be ONLY
-					ONE fi:ObjectSource in an
+					document/object : it contains ownership and cover page information. There can be
+					ONLY ONE fi:ObjectSource in an
 					object, located at its root. At fi:FigisDoc level, the fi:ObjectSource is mandatory, and optional in any other
-					object. At
-					document load time, if an object doesn't have an fi:ObjectSource, it inherits it from the parent object
-					(Being an fi:FigisDoc or another object);
-					if the object already HAS an fi:ObjectSource it keeps it and there is no
-					inheritance. fi:Owner - This element contains corporate ownership
-					information. It is oriented towards the
-					identification of the Programme(S) that created the object(S) that are now formatted in XML in the
-					FIGISDoc.
+					object. At document load time, if an object doesn't have an fi:ObjectSource, it inherits it from the parent object
+					(Being an fi:FigisDoc or
+					another object); if the object already HAS an fi:ObjectSource it keeps it and there is no
+					inheritance. fi:Owner - This element contains corporate
+					ownership information. It is oriented towards the
+					identification of the Programme(S) that created the object(S) that are now formatted in XML in
+					the FIGISDoc.
 					fi:CoverPage - This bibliographic type element contains all the elements necessary to define the Object source.
-					Three are mandatory:
-					dc:Title, dc:Creator and dc:Date.</Description>
+					Three are
+					mandatory: dc:Title, dc:Creator and dc:Date.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -9001,9 +8827,8 @@
 			<xs:documentation>
 				<Title>Org Identity</Title>
 				<Description>Ident contains the elements needed to positively and uniquely Identify a domain object. Inclusion of
-					this element in a document causes
-					the FIGIS database loader to create a database object that will be keyed using
-					the
+					this element in a document
+					causes the FIGIS database loader to create a database object that will be keyed using the
 					information found in the Ident element.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -9194,8 +9019,8 @@
 			<xs:documentation>
 				<Title>Org Structure</Title>
 				<Description>contains organigram information for an organisation. Use one fi:OrgStructEntry for each top-level
-					structure. Nest the entries for each
-					child.</Description>
+					structure. Nest the entries for
+					each child.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -9379,8 +9204,8 @@
 				<Description>Owner contains contact a name and/or contact information of the owner/creator of an object , legal or
 					otherwise. It is oriented
 					towards the identification of the Programme(S) that created the object(S) that are now
-					formatted in XML in the FIGISDoc. One must choose between a
-					programme and a collection or series. If one chooses
+					formatted in XML in the FIGISDoc. One must choose between
+					a programme and a collection or series. If one chooses
 					programme, then the programme and related institution must be defined within the fi:OrgRef
 					element. If one chooses
 					collection or series, the related institution must be defined within fi:OrgRef. fi:OrgRef - a container containing
@@ -9465,6 +9290,18 @@
 			<xs:attribute ref="xml:lang" />
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="Param">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Param</Title>
+				<Description>Parameter related to the parent element.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="false">
+			<xs:attribute name="Name" type="xs:string" />
+			<xs:attribute name="Value" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="Performance">
 		<xs:annotation>
 			<xs:documentation>
@@ -9513,7 +9350,7 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="true">
-
+			<xs:choice minOccurs="0" maxOccurs="unbounded" />
 			<xs:attribute name="Value" type="xs:positiveInteger" />
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -9568,9 +9405,8 @@
 			<xs:documentation>
 				<Title>PortStateMeasure Identity</Title>
 				<Description>Ident contains the elements needed to positively and uniquely Identify a domain object. Inclusion of
-					this element in a document causes
-					the FIGIS database loader to create a database object that will be keyed using
-					the
+					this element in a document
+					causes the FIGIS database loader to create a database object that will be keyed using the
 					information found in the Ident element.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -10018,11 +9854,10 @@
 			<xs:documentation>
 				<Title>QualityControl</Title>
 				<Description>A management function whereby control of the quality of (a) raw materials, assemblies, produced
-					materiel, and components, (b) services
-					related to production, and (c) management, production, and inspection
-					processes is exercised for the purpose of preventing undetected production
-					of defective materiel or the rendering
-					of
+					materiel, and components, (b)
+					services related to production, and (c) management, production, and inspection
+					processes is exercised for the purpose of preventing undetected
+					production of defective materiel or the rendering of
 					faulty services.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -10042,6 +9877,7 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
+			<xs:choice minOccurs="0" maxOccurs="unbounded" />
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
 		</xs:complexType>
@@ -10082,8 +9918,7 @@
 				<Title>Reason of IntroducedAqSpecies </Title>
 				<Description>Elements contains information on the Reason Why the species has been IntroducedAqSpecies. The Reasons
 					that have been considered are
-					given by three different eleemts that can have the values given by the attributes
-					that
+					given by three different eleemts that can have the values given by the attributes that
 					have been set.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -10130,8 +9965,7 @@
 					Glossary, "a reference point
 					indicates a particular state of a fishery indicator corresponding to a situation
 					considered as desirable (Target reference point, TRP) or
-					undesirable and requiring immediate action (Limit
-					reference
+					undesirable and requiring immediate action (Limit reference
 					point, LRP, and Threshold reference point, ThRP)".</Description>
 			</xs:documentation>
 			<xs:appinfo>
@@ -10225,14 +10059,11 @@
 				<Title>RelActivities</Title>
 				<Description>Literature of papers cited in the source text that may or may not have been used in the construction of
 					the object , and/or are
-					considered as 'sugggested additional reading'. It is an element for entering literature
-					info
+					considered as 'sugggested additional reading'. It is an element for entering literature info
 					that has no direct relation with the origin of the
-					data in the object: it can be considered as 'additional
-					reading'
+					data in the object: it can be considered as 'additional reading'
 					information. fi:RelatedResources contains a list of fi:BiblioEntry elements,
-					which ARE NOT COLLECTED in
-					the
+					which ARE NOT COLLECTED in the
 					fi:Bibliography element. There can be ONLY ONE fi:RelatedResources in a given object, located at its root (This
 					includes FIGISDoc).</Description>
 			</xs:documentation>
@@ -10284,8 +10115,7 @@
 			<xs:documentation>
 				<Title>Related Fisheries</Title>
 				<Description>"The list of fisheries with which another fishery is connected by a described link." (FIRMS TWG2,
-					2008).
-				</Description>
+					2008). </Description>
 				<Usage>Use the attribute Type to specify which is the relation between fisheries.</Usage>
 			</xs:documentation>
 		</xs:annotation>
@@ -10325,7 +10155,6 @@
 			<xs:choice maxOccurs="unbounded">
 				<xs:element ref="fi:AqResRef" />
 				<xs:element ref="fi:FisheryRef" />
-				<xs:element ref="fi:ManageSystemRef" />
 			</xs:choice>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -10337,14 +10166,11 @@
 				<Title>Related information</Title>
 				<Description>Literature of papers cited in the source text that may or may not have been used in the construction of
 					the object , and/or are
-					considered as 'sugggested additional reading'. It is an element for entering literature
-					info
+					considered as 'sugggested additional reading'. It is an element for entering literature info
 					that has no direct relation with the origin of the
-					data in the object: it can be considered as 'additional
-					reading'
+					data in the object: it can be considered as 'additional reading'
 					information. fi:RelatedResources contains a list of fi:BiblioEntry elements,
-					which ARE NOT COLLECTED in
-					the
+					which ARE NOT COLLECTED in the
 					fi:Bibliography element. There can be ONLY ONE fi:RelatedResources in a given object, located at its root (This
 					includes FIGISDoc).</Description>
 			</xs:documentation>
@@ -10376,14 +10202,11 @@
 				<Title>RelDocs</Title>
 				<Description>Literature of papers cited in the source text that may or may not have been used in the construction of
 					the object , and/or are
-					considered as 'sugggested additional reading'. It is an element for entering literature
-					info
+					considered as 'sugggested additional reading'. It is an element for entering literature info
 					that has no direct relation with the origin of the
-					data in the object: it can be considered as 'additional
-					reading'
+					data in the object: it can be considered as 'additional reading'
 					information. fi:RelatedResources contains a list of fi:BiblioEntry elements,
-					which ARE NOT COLLECTED in
-					the
+					which ARE NOT COLLECTED in the
 					fi:Bibliography element. There can be ONLY ONE fi:RelatedResources in a given object, located at its root (This
 					includes FIGISDoc).</Description>
 			</xs:documentation>
@@ -10412,14 +10235,11 @@
 				<Title>RelInfo</Title>
 				<Description>Literature of papers cited in the source text that may or may not have been used in the construction of
 					the object , and/or are
-					considered as 'sugggested additional reading'. It is an element for entering literature
-					info
+					considered as 'sugggested additional reading'. It is an element for entering literature info
 					that has no direct relation with the origin of the
-					data in the object: it can be considered as 'additional
-					reading'
+					data in the object: it can be considered as 'additional reading'
 					information. fi:RelatedResources contains a list of fi:BiblioEntry elements,
-					which ARE NOT COLLECTED in
-					the
+					which ARE NOT COLLECTED in the
 					fi:Bibliography element. There can be ONLY ONE fi:RelatedResources in a given object, located at its root (This
 					includes FIGISDoc).</Description>
 			</xs:documentation>
@@ -10448,14 +10268,11 @@
 				<Title>RelLinks</Title>
 				<Description>Literature of papers cited in the source text that may or may not have been used in the construction of
 					the object , and/or are
-					considered as 'sugggested additional reading'. It is an element for entering literature
-					info
+					considered as 'sugggested additional reading'. It is an element for entering literature info
 					that has no direct relation with the origin of the
-					data in the object: it can be considered as 'additional
-					reading'
+					data in the object: it can be considered as 'additional reading'
 					information. fi:RelatedResources contains a list of fi:BiblioEntry elements,
-					which ARE NOT COLLECTED in
-					the
+					which ARE NOT COLLECTED in the
 					fi:Bibliography element. There can be ONLY ONE fi:RelatedResources in a given object, located at its root (This
 					includes FIGISDoc).</Description>
 			</xs:documentation>
@@ -10484,14 +10301,11 @@
 				<Title>RelSearch</Title>
 				<Description>Literature of papers cited in the source text that may or may not have been used in the construction of
 					the object , and/or are
-					considered as 'sugggested additional reading'. It is an element for entering literature
-					info
+					considered as 'sugggested additional reading'. It is an element for entering literature info
 					that has no direct relation with the origin of the
-					data in the object: it can be considered as 'additional
-					reading'
+					data in the object: it can be considered as 'additional reading'
 					information. fi:RelatedResources contains a list of fi:BiblioEntry elements,
-					which ARE NOT COLLECTED in
-					the
+					which ARE NOT COLLECTED in the
 					fi:Bibliography element. There can be ONLY ONE fi:RelatedResources in a given object, located at its root (This
 					includes FIGISDoc).</Description>
 			</xs:documentation>
@@ -10514,16 +10328,7 @@
 			<xs:attribute name="Label" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
-
-	<xs:element name="ReportingYear">
-		<xs:complexType mixed="true">
-		</xs:complexType>
-	</xs:element>
-
-
-
-
-
+	<xs:element name="ReportingYear" />
 	<xs:element name="Reproduction">
 		<xs:annotation>
 			<xs:documentation>
@@ -10544,8 +10349,7 @@
 			<xs:documentation>
 				<Title>Research and Education</Title>
 				<Description>contains information about institution or programme research and education activities which are part of
-					development plans.
-				</Description>
+					development plans. </Description>
 				<Usage>Use the fi:ResearchEntry container for each instance of a research activity and use fi:Education Entry for
 					each instance of an education
 					activity.</Usage>
@@ -10567,8 +10371,7 @@
 			<xs:documentation>
 				<Title>ResearchEducation</Title>
 				<Description>contains information about institution or programme research and education activities which are part of
-					development plans.
-				</Description>
+					development plans. </Description>
 				<Usage>Use the fi:ResearchEntry container for each instance of a research activity and use fi:Education Entry for
 					each instance of an education
 					activity.</Usage>
@@ -10663,8 +10466,8 @@
 					description
 					of the outputs of assessment, providing a synthesis embracing the set of
 					assessment indicator values
-					generated during
-					the assessment and found meaningful to contribute to state and trends statement" (FIGIS-FIRMS 2002
+					generated during the assessment and found
+					meaningful to contribute to state and trends statement" (FIGIS-FIRMS 2002
 					workshop).</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -10754,8 +10557,7 @@
 					the level of the taxonomical
 					classification and Authoryear. Genus, species plus author that did the valid
 					description of the considered species and year of the publication in
-					which this description was first published,
-					are
+					which this description was first published, are
 					the elements which allow unequivocal identification of a species.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -11123,8 +10925,8 @@
 			<xs:documentation>
 				<Title>Source of information</Title>
 				<Description>Sources is a container for biblio entry elements. It is used to identify the source of a piece of data
-					within an object when it is not
-					part of a bibliography. For example, an editor inserting a table of data from a FAO
+					within an object when it is
+					not part of a bibliography. For example, an editor inserting a table of data from a FAO
 					dataset into the middle of an object might cite FAO using
 					fi:Sources. Use an instance of fi:BiblioEntry for each
 					separate citation. Use fi:BiblioEntryLink to point a source citation to an existing
@@ -11290,11 +11092,11 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
-			<xs:choice maxOccurs="unbounded">
-				<xs:element ref="fi:FigisID" minOccurs="0" />
+			<xs:choice minOccurs="1" maxOccurs="unbounded">
+				<xs:element ref="fi:FigisID" minOccurs="0" maxOccurs="1" />
 				<xs:element ref="fi:ForeignID" minOccurs="0" maxOccurs="unbounded" />
 				<xs:element ref="dc:Title" minOccurs="0" maxOccurs="6" />
-				<xs:element ref="dwc:Taxon" minOccurs="0" />
+				<xs:element ref="dwc:Taxon" minOccurs="0" maxOccurs="1" />
 				<xs:element ref="fi:SciName" minOccurs="0" />
 				<xs:element ref="fi:FAOName" minOccurs="0" />
 				<xs:element ref="dc:Identifier" minOccurs="0" maxOccurs="unbounded" />
@@ -11362,15 +11164,14 @@
 			<xs:documentation>
 				<Title>Fisheries Standard</Title>
 				<Description>This is the root element for the domain and contains three levels of complexity:Select the Text
-					container for lightweight description.
-					It allows for text, formatting, and simple elements related to the
-					domain.Select the Ref container for positive linking to an existing database
-					object. This will cause the FIGIS
-					database loader to link to the existing object so that any description in the document will be complemented by
-					the
+					container for lightweight
+					description. It allows for text, formatting, and simple elements related to the
+					domain.Select the Ref container for positive linking to an
+					existing database object. This will cause the FIGIS
+					database loader to link to the existing object so that any description in the document will
+					be complemented by the
 					existing information in the database, though it will NOT alter the existing contents of the referenced database
-					object.Select Ident only when
-					the goal is to create a new database object.</Description>
+					object.Select Ident only when the goal is to create a new database object.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -11452,9 +11253,8 @@
 			<xs:documentation>
 				<Title>Fisheries Standard Identity</Title>
 				<Description>Ident contains the elements needed to positively and uniquely Identify a domain object. Inclusion of
-					this element in a document causes
-					the FIGIS database loader to create a database object that will be keyed using
-					the
+					this element in a document
+					causes the FIGIS database loader to create a database object that will be keyed using the
 					information found in the Ident element.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -11496,8 +11296,8 @@
 				<Description>Profile contains the elements used by domain specialists to profile a domain object and declare it as a
 					unique type. That is, rather
 					than containing the Identifying codes or names (Keys) for the object as in Ident, the
-					Profile block contains the information that is intrinsic and
-					invariable to a description of the object, e.g. for an
+					Profile block contains the information that is intrinsic
+					and invariable to a description of the object, e.g. for an
 					aquatic species this would be elements such as fieldmarks or diagnostic features.
 				</Description>
 			</xs:documentation>
@@ -11519,9 +11319,8 @@
 			<xs:documentation>
 				<Title>Fisheries Standard Identity</Title>
 				<Description>Ident contains the elements needed to positively and uniquely Identify a domain object. Inclusion of
-					this element in a document causes
-					the FIGIS database loader to create a database object that will be keyed using
-					the
+					this element in a document
+					causes the FIGIS database loader to create a database object that will be keyed using the
 					information found in the Ident element.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -11656,8 +11455,8 @@
 			<xs:documentation>
 				<Title>Management strategies</Title>
 				<Description>Management Strategies are strategies related to missions, outputs, projects, etc. Use one instance of
-					fi:Strategy for each instance of
-					a Strategy.</Description>
+					fi:Strategy for each instance
+					of a Strategy.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -11879,8 +11678,8 @@
 			<xs:documentation>
 				<Title>Target Species</Title>
 				<Description>Those species that are primarily sought by the fishermen in a particular fishery. The subject of
-					directed fishing effort in a fishery.
-					There may be primary as well as secondary target species.</Description>
+					directed fishing effort in a
+					fishery. There may be primary as well as secondary target species.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -12029,7 +11828,8 @@
 				<Description>Tonnage is a measurement of a vessel's capacity. The gross tonnage is the overall volume of a ship's
 					hull, including crew cabins,
 					storerooms and machinery spaces. GRT is the gross registered tonnage of the vessel as
-					entered on the national reigster or other record of vessels.</Description>
+					entered on the national reigster or other record of
+					vessels.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="true">
@@ -12060,15 +11860,14 @@
 			<xs:documentation>
 				<Title>Fisheries Topic</Title>
 				<Description>This is the root element for the domain and contains three levels of complexity:Select the Text
-					container for lightweight description.
-					It allows for text, formatting, and simple elements related to the
-					domain.Select the Ref container for positive linking to an existing database
-					object. This will cause the FIGIS
-					database loader to link to the existing object so that any description in the document will be complemented by
-					the
+					container for lightweight
+					description. It allows for text, formatting, and simple elements related to the
+					domain.Select the Ref container for positive linking to an
+					existing database object. This will cause the FIGIS
+					database loader to link to the existing object so that any description in the document will
+					be complemented by the
 					existing information in the database, though it will NOT alter the existing contents of the referenced database
-					object.Select Ident only when
-					the goal is to create a new database object.</Description>
+					object.Select Ident only when the goal is to create a new database object.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -12144,9 +11943,8 @@
 			<xs:documentation>
 				<Title>Fisheries Topic Identity</Title>
 				<Description>Ident contains the elements needed to positively and uniquely Identify a domain object. Inclusion of
-					this element in a document causes
-					the FIGIS database loader to create a database object that will be keyed using
-					the
+					this element in a document
+					causes the FIGIS database loader to create a database object that will be keyed using the
 					information found in the Ident element.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -12306,7 +12104,8 @@
 			<xs:documentation>
 				<Title>Trip duration</Title>
 				<Description>"Average duration of fishing trip specifying in which unit it is expressed" (Fisheries Inventory:
-					Method and Guidelines. FIRMS, 2007).</Description>
+					Method and Guidelines. FIRMS,
+					2007).</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -12496,15 +12295,14 @@
 			<xs:documentation>
 				<Title>VesselRecord</Title>
 				<Description>This is the root element for the domain and contains three levels of complexity:Select the Text
-					container for lightweight description.
-					It allows for text, formatting, and simple elements related to the
-					domain.Select the Ref container for positive linking to an existing database
-					object. This will cause the FIGIS
-					database loader to link to the existing object so that any description in the document will be complemented by
-					the
+					container for lightweight
+					description. It allows for text, formatting, and simple elements related to the
+					domain.Select the Ref container for positive linking to an
+					existing database object. This will cause the FIGIS
+					database loader to link to the existing object so that any description in the document will
+					be complemented by the
 					existing information in the database, though it will NOT alter the existing contents of the referenced database
-					object.Select Ident only when
-					the goal is to create a new database object.</Description>
+					object.Select Ident only when the goal is to create a new database object.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -12545,9 +12343,8 @@
 			<xs:documentation>
 				<Title>VesselRecord Identity</Title>
 				<Description>Ident contains the elements needed to positively and uniquely Identify a domain object. Inclusion of
-					this element in a document causes
-					the FIGIS database loader to create a database object that will be keyed using
-					the
+					this element in a document
+					causes the FIGIS database loader to create a database object that will be keyed using the
 					information found in the Ident element.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -12615,8 +12412,8 @@
 					(Itu), codes beginning with specific characters. The first two characters are two letters or a letter
 					followed by a
 					digit or a digit followed by a letter. The first two characters or in certain cases the first character of a call
-					sign constitute the
-					nationality Identification.</Description>
+					sign constitute
+					the nationality Identification.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -12643,8 +12440,8 @@
 				<Description>Profile contains the elements used by domain specialists to profile a domain object and declare it as a
 					unique type. That is, rather
 					than containing the Identifying codes or names (Keys) for the object as in Ident, the
-					Profile block contains the information that is intrinsic and
-					invariable to a description of the object, e.g. for an
+					Profile block contains the information that is intrinsic
+					and invariable to a description of the object, e.g. for an
 					aquatic species this would be elements such as fieldmarks or diagnostic features.
 				</Description>
 			</xs:documentation>
@@ -12673,6 +12470,7 @@
 					<xs:element ref="fi:VesselActive" />
 					<xs:element ref="fi:VesselSuspended" />
 				</xs:choice>
+				<xs:choice minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
@@ -12896,17 +12694,13 @@
 				<Description>is a measurement of a boat's longest dimension. For purposes of the HSVAR agreement the attribute
 					ComplianceType has been added. TYPE
 					1 for any fishing vessel built after 18 July 1982, 96 percent of the total
-					length on a waterline at 85 percent of the least moulded depth measured
-					from the top of the keel, or the length
-					from
-					the foreside of the stern to the axis of the rudder stock on that waterline, if that be greater. In
-					ships
-					designed
-					with a rake of keel the waterline on which this length is measured shall be parallel to the designed
-					waterline TYPE
-					2 For any
-					fishing vessel built before 18 July 1982, registered length as entered on the national
-					register or other
+					length on a waterline at 85 percent of the least moulded depth
+					measured from the top of the keel, or the length from
+					the foreside of the stern to the axis of the rudder stock on that waterline, if that be
+					greater. In ships designed
+					with a rake of keel the waterline on which this length is measured shall be parallel to the designed waterline TYPE
+					2
+					For any fishing vessel built before 18 July 1982, registered length as entered on the national register or other
 					record of vessels</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -13035,10 +12829,39 @@
 				<xs:element ref="fi:VMEIdent" />
 				<xs:choice minOccurs="0" maxOccurs="unbounded">
 					<xs:element ref="fi:Overview" />
-					<xs:element ref="fi:VMERef" />
+					<xs:element ref="fi:HabitatBio" />
+					<xs:element ref="fi:Impacts" />
+					<xs:element ref="fi:History" />
+					<xs:element ref="fi:FisheryHistory" />
+					<xs:element ref="fi:Management" />
+					<xs:element ref="fi:AddInfo" />
 					<xs:group ref="fi:indexEnt" />
 				</xs:choice>
 			</xs:sequence>
+			<xs:attribute ref="xml:lang" />
+			<xs:attribute name="Label" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="VMECriteria">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>VME Criteria</Title>
+				<Description>XXXX</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="false">
+			<xs:attribute name="Value" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="Uniqueness or rarity" />
+						<xs:enumeration value="Functional significance of the habitat" />
+						<xs:enumeration value="Fragility" />
+						<xs:enumeration value="Life-history traits" />
+						<xs:enumeration value="Structural complexity" />
+						<xs:enumeration value="Unspecified" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
 			<xs:attribute ref="xml:lang" />
 			<xs:attribute name="Label" type="xs:string" />
 		</xs:complexType>
@@ -13057,7 +12880,9 @@
 					<xs:element ref="fi:WaterAreaRef" />
 					<xs:element ref="fi:OrgRef" />
 					<xs:element ref="dc:Title" />
-					<xs:element ref="fi:ReportingYear" />
+					<xs:element ref="fi:VMEType" />
+					<xs:element ref="fi:VMECriteria" />
+					<xs:element ref="fi:ReportingYear" maxOccurs="1" />
 					<xs:element ref="fi:Range" minOccurs="0" />
 					<xs:element ref="fi:GeoReference" />
 				</xs:choice>
@@ -13074,10 +12899,23 @@
 		</xs:annotation>
 		<xs:complexType mixed="false">
 			<xs:choice maxOccurs="unbounded">
-				<xs:element ref="fi:FigisID" />
+				<xs:element ref="fi:FigisID" maxOccurs="1" />
 				<xs:element ref="dc:Title" maxOccurs="6" />
 				<xs:element ref="fi:ForeignID" maxOccurs="unbounded" />
 			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="VMEType">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>VME Type</Title>
+				<Description>XXXX</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="false">
+			<xs:attribute name="Value" use="required" />
+			<xs:attribute ref="xml:lang" />
+			<xs:attribute name="Label" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="Volume">
@@ -13085,8 +12923,8 @@
 			<xs:documentation>
 				<Title>Volume</Title>
 				<Description>contains a measurement. It may be by weight or by volume (Space). Define the correct fi:Unit attribute
-					and tag the value. Use Scale if
-					necessary, e.g. if the text reads '20 million' tag '20' as a value and insert
+					and tag the value. Use Scale
+					if necessary, e.g. if the text reads '20 million' tag '20' as a value and insert
 					'million' in the Scale attribute.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -13154,8 +12992,7 @@
 				<Title>Water area reference</Title>
 				<Description>Element used to refer to a Water Area domain element. It contains water geographic systems and codes
 					(FAO Area, Five Degree Square,
-					ISO country, regional/local codes, water competence zones and environments, ...)
-					used
+					ISO country, regional/local codes, water competence zones and environments, ...) used
 					for positive referencing of a water area.</Description>
 			</xs:documentation>
 		</xs:annotation>
@@ -13253,8 +13090,7 @@
 				<Title>Wheel Equipment</Title>
 				<Description>WheelhEquip is a vessel's wheelhouse equipment.Contains information on all the equipment present in the
 					wheelhouse. An enclosed area,
-					usually on the bridge of a vessel, from which the vessel is controlled when under
-					way.</Description>
+					usually on the bridge of a vessel, from which the vessel is controlled when under way.</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:complexType mixed="false">
@@ -13278,6 +13114,4 @@
 			<xs:attribute name="Label" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
-
-	<xs:element name="NewElement" type="xs:int"></xs:element>
 </xs:schema>

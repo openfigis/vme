@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<fi:FIGISDoc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:aida="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd" xmlns:dwc="http://rs.tdwg.org/dwc/terms/" xmlns:fi="http://www.fao.org/fi/figis/devcon/" xmlns:ags="http://www.purl.org/agmes/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">
+	<fi:VME>
+		<fi:VMEIdent>
+			<fi:FigisID>10</fi:FigisID>
+			<dc:Title>Corner Rise Seamounts</dc:Title>
+			<fi:WaterAreaRef>
+				<fi:ForeignID CodeSystem="vme" Code="VME_5067" />
+			</fi:WaterAreaRef>
+			<fi:ReportingYear>2012</fi:ReportingYear>
+		</fi:VMEIdent>
+	</fi:VME>
+</fi:FIGISDoc>
