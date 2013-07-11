@@ -82,6 +82,16 @@
 			<artifactId>ojdbcOracle</artifactId>
 			<version>10g</version>
 		</dependency>
+		<dependency>
+			<groupId>com.healthmarketscience.jackcess</groupId>
+			<artifactId>jackcess</artifactId>
+			<version>1.2.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.2.9</version>
+		</dependency>
 	</dependencies>
 
 	<build>
