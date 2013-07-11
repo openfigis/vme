@@ -1,1 +1,1 @@
-mvn test -P vme-integration
+mvn install:install-file -Dfile=ucanaccess-1.0.2.jar -DgroupId=ucanaccess -DartifactId=ucanaccess -Dversion=1.0.2 -Dpackaging=jar

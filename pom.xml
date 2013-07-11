@@ -92,6 +92,11 @@
 			<artifactId>hsqldb</artifactId>
 			<version>2.2.9</version>
 		</dependency>
+		<dependency>
+			<groupId>ucanaccess</groupId>
+			<artifactId>ucanaccess</artifactId>
+			<version>1.0.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>
