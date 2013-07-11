@@ -1,8 +1,9 @@
-<jxb:bindings version="1.0" xmlns:jxb="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxb:bindings xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" jaxb:extensionBindingPrefixes="xjc">
 
 
-<!-- Using xjc:simple has advantages and disadvantages. Advantages: - Class names do not end with Type for elements. - It 
+	<!-- Using xjc:simple has advantages and disadvantages. Advantages: - Class names do not end with Type for elements. - It 
 		adds @XmlRootElement at appropriate classes Disadvantages: - All classes will be put in one package. - Therefore package 
 		names per xsd need to be specified. These names need to be repeated as well in the pom.xml. For the SDMXMessage.xsd there 
 		are also a few custom bindings specified because of name collisions. -->
@@ -11,20 +12,24 @@
 	<!-- (1) generateIsSetMethod="false" because it generate set methods for setting certain properties to null. (2)generateElementClass="true" 
 		because it generate classes instead of using the less readable JAXBElement.class. It generates therefore more classes. This 
 		may or not may effect the performance in a negative way, this has not been measured. -->
-		
-		
 
 
 
-	<jxb:bindings node="xs:element[@name='Abstract']" schemaLocation="dcterms.xsd">
-		<jxb:class name="Abstrakt" />
-	</jxb:bindings>
 
 
-	<jxb:bindings node="xs:element[@name='OrgRef']/xs:complexType/xs:attribute[3]" schemaLocation="fi.xsd">
-		<jxb:property name="dcTitle" />
-	</jxb:bindings>
-	
+
+	<jaxb:globalBindings xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb">
+		<xjc:treatRestrictionLikeNewType />
+		<xjc:simple />
+	</jaxb:globalBindings>
 
 
-</jxb:bindings> 
+	<jaxb:bindings node="xs:element[@name='Abstract']" schemaLocation="dcterms.xsd">
+		<jaxb:class name="Abstrakt" />
+	</jaxb:bindings>
+
+
+
+
+
+</jaxb:bindings> 
