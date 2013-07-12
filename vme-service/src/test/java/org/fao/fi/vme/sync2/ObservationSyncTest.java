@@ -73,7 +73,7 @@ public class ObservationSyncTest {
 
 		RefVme refVme = RefVmeMock.create();
 		refVme.setId(vme.getId());
-		// figisDao.persist(refVme);
+		figisDao.persist(refVme);
 		System.out.println("=========================================");
 		System.out.println("=========================================");
 	}
