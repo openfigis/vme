@@ -1309,9 +1309,12 @@
 				<xs:element ref="ags:CreatorPersonal" />
 				<xs:element ref="ags:CreatorCorporate" />
 				<xs:element ref="fi:Editor" />
+				<xs:element ref="dcterms:Created" />
+				<xs:element ref="dcterms:Modified" />
 				<xs:element ref="dc:Identifier" />
 				<xs:element ref="dc:Description" />
 				<xs:element ref="dcterms:Abstract" />
+				<xs:element ref="dcterms:bibliographicCitation" />
 				<xs:element ref="dc:Subject" />
 				<xs:element ref="dc:Publisher" />
 				<xs:element ref="dc:Language" />
