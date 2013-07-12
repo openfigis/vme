@@ -8,7 +8,7 @@ public class VmeSearchDto {
 	private String localName;
 	
 	private String factsheetUrl;
-	private int  vmeId;
+	private long  vmeId;
 	private String geoArea;
 	private String owner;
 	private String vmeType;
@@ -43,14 +43,14 @@ public class VmeSearchDto {
 	/**
 	 * @return the vmeId
 	 */
-	public int getVmeId() {
+	public long getVmeId() {
 		return vmeId;
 	}
 
 	/**
 	 * @param vmeId the vmeId to set
 	 */
-	public void setVmeId(int vmeId) {
+	public void setVmeId(long vmeId) {
 		this.vmeId = vmeId;
 	}
 
