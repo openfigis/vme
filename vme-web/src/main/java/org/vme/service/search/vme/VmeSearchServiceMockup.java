@@ -1,11 +1,11 @@
-package org.vme.service;
+package org.vme.service.search.vme;
 
 import org.vme.service.dto.VmeSearchDto;
 import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
 
 
-public class VmeSearchService {
+public class VmeSearchServiceMockup {
 
 
 

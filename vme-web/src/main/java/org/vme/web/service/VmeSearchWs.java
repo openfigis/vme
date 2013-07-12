@@ -13,19 +13,19 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.service.VmeSearchService;
 import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
+import org.vme.service.search.vme.VmeSearchServiceMockup;
 
 @Path("/search-params/{id_authority}/{id_vme_type}/{id_vme_criteria}/{year}")
 @Singleton
 public class VmeSearchWs {
 
 
-	private final VmeSearchService service;
+	private final VmeSearchServiceMockup service;
 
 	@Inject
-	public VmeSearchWs(VmeSearchService serv) {
+	public VmeSearchWs(VmeSearchServiceMockup serv) {
 		service = serv;
 	}
 

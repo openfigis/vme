@@ -12,10 +12,9 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.service.VmeSearchRefService;
 import org.vme.service.dto.VmeSearchRefRequestDto;
 import org.vme.service.dto.VmeSearchRefResult;
-import org.vme.service.dto.VmeSearchRequestDto;
+import org.vme.service.search.reference.VmeSearchRefService;
 
 @Path("/references/{concept}/{lang}/")
 @Singleton

@@ -1,4 +1,4 @@
-package org.vme.service;
+package org.vme.service.search.reference;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.vme.service.dto.VmeSearchRefRequestDto;
 import org.vme.service.dto.VmeSearchRefResult;
 
 
-public class VmeSearchRefService {
+public class VmeSearchRefServiceMockup {
 
 
 
