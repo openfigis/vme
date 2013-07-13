@@ -1,13 +1,13 @@
 package org.fao.fi.figis.domain;
 
 import java.io.Serializable;
-import java.sql.Clob;
 import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -65,7 +65,8 @@ public class ObservationXml implements Serializable {
 	@Column(name = "DT_LAST_EDIT", nullable = false)
 	private Date lastEditDate;
 
-	private Clob xml;
+	@Lob
+	private String xml;
 
 	public String getId() {
 		return this.id;
@@ -115,11 +116,11 @@ public class ObservationXml implements Serializable {
 		this.lastEditDate = lastEditDate;
 	}
 
-	public Clob getXml() {
+	public String getXml() {
 		return xml;
 	}
 
-	public void setXml(Clob xml) {
+	public void setXml(String xml) {
 		this.xml = xml;
 	}
 

@@ -1,4 +1,4 @@
-package org.fao.fi.vme.sync2.mapping;
+package org.fao.fi.vme.sync2.mapping.xml;
 
 import java.sql.Date;
 

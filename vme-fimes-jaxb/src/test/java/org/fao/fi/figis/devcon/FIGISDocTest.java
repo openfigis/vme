@@ -74,12 +74,11 @@ public class FIGISDocTest extends XMLTestCase {
 	}
 
 	/**
-	 * Unmarshall is from xml to java. Does not work yet, there is a problem with illegal annotations. For the project
-	 * we only need from java to xml.
+	 * Unmarshall is from xml to java. For the project we only need from java to xml.
 	 * 
 	 * @throws JAXBException
 	 */
-	public void _testUnmarshall() throws JAXBException {
+	public void testUnmarshall() throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(clazz);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 
