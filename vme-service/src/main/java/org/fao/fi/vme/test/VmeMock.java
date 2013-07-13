@@ -15,6 +15,7 @@ import org.fao.fi.vme.domain.Vme;
 public class VmeMock {
 
 	public final static Long ID = 1000l;
+	public final static Long VME_ID = 2000l;
 	public final static int YEAR = 2013;
 
 	public static Vme create() {
@@ -108,12 +109,13 @@ public class VmeMock {
 		rfmo.setGeneralMeasuresList(generalMeasuresList);
 
 		Vme vme = new Vme();
-		vme.setId(new Long(id++));
+		vme.setId(new Long(VME_ID));
 		vme.setRfmo(rfmo);
 		vme.setProfileList(pList);
 		vme.setSpecificMeasureList(specificMeasureList);
 		vme.setHistoryList(vmeHistoryList);
 		vme.setGeoRefList(geoRefList);
+		vme.setValidityPeriod(ValidityPeriodMock.create());
 		return vme;
 	}
 }

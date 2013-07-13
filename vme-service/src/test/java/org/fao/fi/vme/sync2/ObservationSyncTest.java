@@ -12,13 +12,11 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
-import org.fao.fi.vme.domain.GeneralMeasures;
-import org.fao.fi.vme.domain.GeoRef;
-import org.fao.fi.vme.domain.History;
-import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.fao.fi.vme.test.RefVmeMock;
+import org.fao.fi.vme.test.VmeDaoTestLogic;
 import org.fao.fi.vme.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -31,7 +29,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
-public class ObservationSyncTest {
+public class ObservationSyncTest extends FigisDaoTestLogic {
 
 	@Inject
 	ObservationSync observationSync;
@@ -46,36 +44,11 @@ public class ObservationSyncTest {
 
 	@Before
 	public void generateVme() {
-		Vme vme = VmeMock.generateVme(1);
-
-		for (GeneralMeasures o : vme.getRfmo().getGeneralMeasuresList()) {
-			vmeDao.persist(o);
-		}
-
-		for (History h : vme.getRfmo().getFishingHistoryList()) {
-			vmeDao.persist(h);
-		}
-
-		for (InformationSource informationSource : vme.getRfmo().getInformationSourceList()) {
-			vmeDao.persist(informationSource);
-		}
-
-		vmeDao.persist(vme.getRfmo());
-
-		for (History h : vme.getHistoryList()) {
-			vmeDao.persist(h);
-		}
-		for (GeoRef geoRef : vme.getGeoRefList()) {
-			vmeDao.persist(geoRef);
-		}
-
-		vmeDao.persist(vme);
-
+		VmeDaoTestLogic l = new VmeDaoTestLogic();
+		l.mockAndSaveVme(vmeDao, 1);
 		RefVme refVme = RefVmeMock.create();
-		refVme.setId(vme.getId());
-		// figisDao.persist(refVme);
-		System.out.println("=========================================");
-		System.out.println("=========================================");
+		refVme.setId(VmeMock.VME_ID);
+		figisDao.persist(refVme);
 	}
 
 	/**

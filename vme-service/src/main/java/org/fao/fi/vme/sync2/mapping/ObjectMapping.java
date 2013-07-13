@@ -56,7 +56,7 @@ public class ObjectMapping {
 			ObservationDomain od = new DefaultObservationDomain().defineDefaultObservationXml();
 			ObservationXml xml = new DefaultObservationXml().defineDefaultObservationXml();
 			FIGISDoc figisDoc = new DefaultFigisDoc().defineDefaultFIGISDoc();
-			xml.setXml(marshall.marshalToString(figisDoc));
+			// xml.setXml(marshall.marshalToString(figisDoc));
 
 			List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
 			observationsPerLanguage.add(xml);

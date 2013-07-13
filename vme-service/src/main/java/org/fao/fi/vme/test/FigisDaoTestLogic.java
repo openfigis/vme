@@ -83,14 +83,14 @@ public abstract class FigisDaoTestLogic {
 	}
 
 	protected void delegateCheckOnNumberOfObjectsInModel(int i) {
-		assertEquals(i, dao.loadObjects(ObservationXml.class).size());
-		assertEquals(i, dao.loadObjects(Observation.class).size());
-		assertEquals(i, dao.loadObjects(VmeObservation.class).size());
+		assertEquals(i, dao.count(ObservationXml.class).intValue());
+		assertEquals(i, dao.count(Observation.class).intValue());
+		assertEquals(i, dao.count(VmeObservation.class).intValue());
 	}
 
 	protected int[] count() {
-		int[] sizes = { dao.loadObjects(ObservationXml.class).size(), dao.loadObjects(Observation.class).size(),
-				dao.loadObjects(VmeObservation.class).size() };
+		int[] sizes = { dao.count(ObservationXml.class).intValue(), dao.count(Observation.class).intValue(),
+				dao.count(VmeObservation.class).intValue() };
 		return sizes;
 	}
 

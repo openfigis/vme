@@ -42,6 +42,10 @@ public class FigisDao extends Dao {
 	@FigisDB
 	private EntityManager em;
 
+	public EntityManager getEm() {
+		return em;
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<RefVme> loadRefVmes() {
 		return (List<RefVme>) this.generateTypedQuery(em, RefVme.class).getResultList();
@@ -159,7 +163,7 @@ public class FigisDao extends Dao {
 	}
 
 	/**
-	 * find the VmeObservationDomain by the vme id and reporting year.
+	 * find the VmeObservation by the vme id and reporting year.
 	 * 
 	 * @param id
 	 * @return
@@ -173,8 +177,7 @@ public class FigisDao extends Dao {
 		try {
 			vo = (VmeObservation) query.getSingleResult();
 		} catch (NoResultException e) {
-			// TODO change this, detect in another way upfront whether the object exist, for instance by calculating the
-			// number of objects.
+			// a bit strange
 		}
 		return vo;
 	}
@@ -196,7 +199,9 @@ public class FigisDao extends Dao {
 			od.setId(vo.getId().getObservationId());
 		}
 		VmeObservationDomain vod = new VmeObservationDomain();
+		// TODO
+		throw new VmeException("bug here");
 
-		return vod;
+		// return vod;
 	}
 }

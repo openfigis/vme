@@ -17,6 +17,7 @@ public class VmeDataBaseProducerTest {
 
 	@Inject
 	EntityManagerFactory f;
+
 	@Inject
 	@VmeDB
 	EntityManager e;
