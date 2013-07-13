@@ -115,9 +115,6 @@ public class FIGISDocTest extends XMLTestCase {
 		Title title = new Title();
 		title.setContent("Corner Rise Seamounts");
 
-		ReportingYear reportingYear = new ReportingYear();
-		reportingYear.setContent("2012");
-
 		WaterAreaRef waterAreaRef = new WaterAreaRef();
 
 		ForeignID foreignID = new ForeignID();
@@ -125,14 +122,10 @@ public class FIGISDocTest extends XMLTestCase {
 		foreignID.setCode("VME_5067");
 		waterAreaRef.getFigisIDsAndForeignIDs().add(foreignID);
 
-		// vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().
-
 		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(figisID);
 		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(title);
 		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(waterAreaRef);
-		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(reportingYear);
-
-		// aqResRevesAndFACPRevesAndFisheryReves
+		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add("2012");
 
 		VME vme = new VME();
 		vme.setVMEIdent(vmeIdent);

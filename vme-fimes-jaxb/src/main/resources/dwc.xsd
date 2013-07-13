@@ -19,6 +19,7 @@
 				<xs:element ref="nameAccordingToID"/>
 				<xs:element ref="namePublishedInID"/>
 				<xs:element ref="taxonConceptID"/>-->
+				<xs:element ref="dwc:scientificName" minOccurs="0"/>
 				<!--<xs:element ref="dwc:acceptedNameUsage"/>
 				<xs:element ref="dwc:parentNameUsage"/>
 				<xs:element ref="dwc:originalNameUsage"/>
@@ -56,6 +57,17 @@
 			</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="scientificName">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Scientific Name</Title>
+				<Description>The full scientific name, with authorship and date information if known. When forming part of an Identification, this should be the name in lowest level taxonomic rank that can be determined. This term should not contain identification qualifications, which should instead be supplied in the IdentificationQualifier term.</Description>
+				<usage>Examples: "Coleoptera" (order), "Vespertilionidae" (family), "Manis" (genus), "Ctenomys sociabilis" (genus + specificEpithet), "Ambystoma tigrinum diaboli" (genus + specificEpithet + infraspecificEpithet), "Roptrocerus typographi (Györfi, 1952)" (genus + specificEpithet + scientificNameAuthorship), "Quercus agrifolia var. oxyadenia (Torr.) J.T. Howell" (genus + specificEpithet + taxonRank + infraspecificEpithet + scientificNameAuthorship). For discussion see http://code.google.com/p/darwincore/wiki/Taxon</usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType mixed="true">
+			</xs:complexType>		
+		</xs:element>
 	<xs:element name="namePublishedIn">
 		<xs:annotation>
 			<xs:documentation>
