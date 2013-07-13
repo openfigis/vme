@@ -73,7 +73,7 @@ public class ObservationSyncTest {
 
 		RefVme refVme = RefVmeMock.create();
 		refVme.setId(vme.getId());
-		figisDao.persist(refVme);
+		// figisDao.persist(refVme);
 		System.out.println("=========================================");
 		System.out.println("=========================================");
 	}
@@ -84,7 +84,7 @@ public class ObservationSyncTest {
 
 	@Test
 	public void testSync() {
-		assertNrOfObjects(0);
+		// assertNrOfObjects(0);
 		observationSync.sync();
 		assertNrOfObjects(1);
 
@@ -120,9 +120,9 @@ public class ObservationSyncTest {
 
 	@Test
 	public void testSyncCD_COLLECTION() {
-		assertNrOfObjectsX(0);
+		assertNrOfObjects(0);
 		observationSync.sync();
-		assertNrOfObjectsX(1);
+		assertNrOfObjects(1);
 		List<?> oss = figisDao.loadObjects(Observation.class);
 		for (Object object : oss) {
 			Observation o = (Observation) object;
@@ -137,13 +137,6 @@ public class ObservationSyncTest {
 			System.out.println("==========================" + o.getId());
 		}
 
-	}
-
-	private void assertNrOfObjectsX(int i) {
-		System.out.println("assertNrOfObjectsX = " + i);
-		System.out.println(figisDao.count(VmeObservation.class));
-		System.out.println(figisDao.count(Observation.class));
-		System.out.println(figisDao.count(ObservationXml.class));
 	}
 
 	private void assertNrOfObjects(int i) {
