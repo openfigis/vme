@@ -3,7 +3,10 @@ package org.fao.fi.vme.figis;
 import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
+import org.fao.fi.figis.domain.Observation;
+import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
+import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
@@ -64,13 +67,22 @@ public class SyncBatch2IntegrationTest {
 	@Test
 	public void testSyncFigisWithVme() {
 
-		int total = figisDao.count(RefVme.class).intValue() + INSERTED;
+		int totalR = figisDao.count(RefVme.class).intValue() + INSERTED;
+		int totalX = figisDao.count(ObservationXml.class).intValue() + INSERTED;
+		int totalO = figisDao.count(Observation.class).intValue() + INSERTED;
+		int totalV = figisDao.count(VmeObservation.class).intValue() + INSERTED;
 		syncBatch2.syncFigisWithVme();
-		assertEquals(total, figisDao.count(RefVme.class).intValue());
+		assertEquals(totalR, figisDao.count(RefVme.class).intValue());
+		assertEquals(totalX, figisDao.count(ObservationXml.class).intValue());
+		assertEquals(totalO, figisDao.count(Observation.class).intValue());
+		assertEquals(totalV, figisDao.count(VmeObservation.class).intValue());
 
 		// a subsequent synch should return the same numbers
 		syncBatch2.syncFigisWithVme();
-		assertEquals(total, figisDao.count(RefVme.class).intValue());
+		assertEquals(totalR, figisDao.count(RefVme.class).intValue());
+		assertEquals(totalX, figisDao.count(ObservationXml.class).intValue());
+		assertEquals(totalO, figisDao.count(Observation.class).intValue());
+		assertEquals(totalV, figisDao.count(VmeObservation.class).intValue());
 
 	}
 }
