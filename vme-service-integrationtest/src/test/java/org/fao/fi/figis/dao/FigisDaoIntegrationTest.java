@@ -11,6 +11,7 @@ import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.fao.fi.vme.test.RefVmeMock;
+import org.fao.fi.vme.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -23,10 +24,28 @@ public class FigisDaoIntegrationTest extends FigisDaoTestLogic {
 	@Inject
 	FigisDao figisDao;
 
+	/**
+	 * TODO Bizarre problem. When it finds a RefVme, it will just block and the program never stops.
+	 * 
+	 * One hour later. Bizar, it looks like not using this anymore was the solution:
+	 * dao.loadObjects(ObservationXml.class).size()
+	 * 
+	 */
+	@Test
+	public void testDeleteRefVme() {
+		RefVme r = (RefVme) figisDao.find(RefVme.class, VmeMock.VME_ID);
+		if (r != null) {
+			figisDao.getEm().refresh(r);
+			figisDao.remove(r);
+		}
+	}
+
 	@Test
 	public void testSyncVmeObservationDomain() {
 		RefVme refVme = RefVmeMock.create();
-		figisDao.persist(refVme);
+		if (figisDao.find(RefVme.class, refVme.getId()) == null) {
+			figisDao.persist(refVme);
+		}
 		int count[] = count();
 		VmeObservationDomain vod = createVmeObservationDomain();
 		vod.setRefVme(refVme);

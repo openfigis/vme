@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile=ojdbc-6.jar -DgroupId=ojdbc -DartifactId=ojdbc -Dversion=6 -Dpackaging=jar

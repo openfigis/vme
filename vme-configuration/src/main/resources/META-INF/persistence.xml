@@ -54,6 +54,7 @@
 			<property name="hibernate.dialect" value="${hibernate.dialect.figis}" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
+								
 
 		</properties>
 
