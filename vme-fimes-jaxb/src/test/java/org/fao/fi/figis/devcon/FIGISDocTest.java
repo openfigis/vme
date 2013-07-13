@@ -42,7 +42,7 @@ public class FIGISDocTest extends XMLTestCase {
 	 * @throws JAXBException
 	 */
 	@Test
-	public void testMarshall() throws SAXException, IOException, JAXBException {
+	public void testMarshallShort() throws SAXException, IOException, JAXBException {
 		FIGISDoc expectedResult = prepareExpectedResult();
 
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -78,7 +78,7 @@ public class FIGISDocTest extends XMLTestCase {
 	 * 
 	 * @throws JAXBException
 	 */
-	public void testUnmarshall() throws JAXBException {
+	public void testUnmarshallFull() throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(clazz);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 

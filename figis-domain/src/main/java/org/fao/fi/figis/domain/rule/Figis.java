@@ -28,5 +28,6 @@ public class Figis {
 	public static final Integer META = 172000;
 	public static final Integer STATUS = 2;
 	public static final Integer LANG = 1;
+	public static final String CODE_SYSTEM = "vme";
 
 }

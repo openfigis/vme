@@ -52,18 +52,23 @@ public class ObjectMapping {
 		Map<Integer, List<YearObject<?>>> map = groupie.collect(vme);// not processed here InformationSource, To be done
 		Object[] years = map.keySet().toArray();
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
+
+		// every year results in one observation in English
 		for (Object year : years) {
 			ObservationDomain od = new DefaultObservationDomain().defineDefaultObservationXml();
-			ObservationXml xml = new DefaultObservationXml().defineDefaultObservationXml();
-			FIGISDoc figisDoc = new DefaultFigisDoc().defineDefaultFIGISDoc();
-			// xml.setXml(marshall.marshalToString(figisDoc));
-
 			List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
-			observationsPerLanguage.add(xml);
 			od.setObservationsPerLanguage(observationsPerLanguage);
 			od.setReportingYear(year.toString());
 			odList.add(od);
+			ObservationXml xml = new DefaultObservationXml().defineDefaultObservationXml();
+			observationsPerLanguage.add(xml);
 
+			FIGISDoc figisDoc = new DefaultFigisDoc().defineDefaultFIGISDoc();
+			figisDocBuilder.vme(vme, figisDoc);
+			figisDocBuilder.year(figisDoc, year);
+
+			// now we get all the year related objects for that vme. The observation gets filled up with the information
+			// for that year.
 			List<YearObject<?>> l = map.get(year);
 			for (YearObject<?> yearObject : l) {
 
@@ -83,6 +88,7 @@ public class ObjectMapping {
 					figisDocBuilder.generalMeasures(figisDoc);
 				}
 			}
+			xml.setXml(marshall.marshalToString(figisDoc));
 		}
 		VmeObservationDomain vod = new VmeObservationDomain();
 		vod.setObservationDomainList(odList);

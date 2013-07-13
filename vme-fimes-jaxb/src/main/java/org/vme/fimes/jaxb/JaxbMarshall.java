@@ -23,7 +23,7 @@ public class JaxbMarshall {
 		try {
 			JAXBContext context = JAXBContext.newInstance(FIGISDoc.class);
 			marshaller = context.createMarshaller();
-			// marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			// this property works fine with jdk1.6.0_16
 			marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new FimesNamespacePrefixMapper());
 		} catch (JAXBException e) {
@@ -42,7 +42,7 @@ public class JaxbMarshall {
 		try {
 			marshaller.marshal(figisDoc, sw);
 		} catch (JAXBException e) {
-			throw new RuntimeException("There was a problem creating a the figis xml from a java object");
+			throw new RuntimeException("There was a problem creating a the figis xml from a java object", e);
 		}
 		return sw.toString();
 	}

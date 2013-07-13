@@ -11,12 +11,15 @@ import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class VmeMock {
 
 	public final static Long ID = 1000l;
 	public final static Long VME_ID = 2000l;
 	public final static int YEAR = 2013;
+
+	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	public static Vme create() {
 
@@ -110,6 +113,7 @@ public class VmeMock {
 
 		Vme vme = new Vme();
 		vme.setId(new Long(VME_ID));
+		vme.setName(u.english("Hard Corner Bugs "));
 		vme.setRfmo(rfmo);
 		vme.setProfileList(pList);
 		vme.setSpecificMeasureList(specificMeasureList);
