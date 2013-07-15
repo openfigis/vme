@@ -62,6 +62,7 @@ public class FigisDocBuilder {
 	 * @param figisDoc
 	 */
 	public void profile(Profile profile, FIGISDoc figisDoc) {
+		//Habitat-Biological profile
 		HabitatBio habitatBio = f.createHabitatBio();
 
 		Text text1 = f.createText();
@@ -69,15 +70,13 @@ public class FigisDocBuilder {
 		habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(text1);
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
 
-		GeoForm geoForm = f.createGeoForm();
-		Text text2 = f.createText();
-		text2.getContent().add(u.getEnglish(profile.getDescriptionPhisical()));
-
-		habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoForm);
-
+		//Physical profile
+		//TODO
+		
+		//Impacts profile
 		Impacts impacts = f.createImpacts();
 		Text text3 = f.createText();
-		text3.getContent().add(u.getEnglish(profile.getDescriptionBiological()));
+		text3.getContent().add(u.getEnglish(profile.getDescriptionImpact()));
 		impacts.getTextsAndImagesAndTables().add(text3);
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(impacts);
 

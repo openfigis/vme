@@ -50,7 +50,6 @@ public class FigisDocBuilderTest {
 	 * 
 	 * descriptionImpact fi:FIGISDoc/fi:VME/fi:Impacts/fi
 	 */
-	@Ignore
 	@Test
 	public void testProfile() {
 		String descriptionBiological = "111111111111111";
@@ -78,7 +77,7 @@ public class FigisDocBuilderTest {
 		Text text1 = (Text) habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().get(0);
 		assertEquals(descriptionBiological, text1.getContent().get(0));
 
-		Impacts Impacts = (Impacts) list.get(2);
+		Impacts Impacts = (Impacts) list.get(1);
 		Text text3 = (Text) Impacts.getTextsAndImagesAndTables().get(0);
 		assertEquals(descriptionImpact, text3.getContent().get(0));
 
