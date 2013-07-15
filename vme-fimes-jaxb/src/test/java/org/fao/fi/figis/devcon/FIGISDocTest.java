@@ -17,7 +17,6 @@ import javax.xml.bind.Unmarshaller;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.IgnoreTextAndAttributeValuesDifferenceListener;
 import org.custommonkey.xmlunit.XMLTestCase;
-import org.fao.fi.commons.JaxbValidationEventHandler;
 import org.junit.Test;
 import org.purl.dc.elements._1.Title;
 import org.vme.fimes.jaxb.FimesNamespacePrefixMapper;

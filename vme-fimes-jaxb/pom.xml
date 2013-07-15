@@ -52,10 +52,5 @@
 			<version>1.4</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.fao.figis</groupId>
-			<artifactId>figis-commons</artifactId>
-			<version>0.0.2</version>
-		</dependency>
 	</dependencies>
 </project>
