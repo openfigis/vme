@@ -23,7 +23,6 @@ public class VME implements TableDomainMapper {
 	String VME_GeogAreaFAO;
 	String VME_Coord;
 	String VME_Area_Type;
-	String VME_Status;
 	String VME_Description_Physical;
 	String VME_Description_Biology;
 	String VME_Description_Impact;
@@ -122,14 +121,6 @@ public class VME implements TableDomainMapper {
 
 	public void setVME_Area_Type(String vME_Area_Type) {
 		VME_Area_Type = vME_Area_Type;
-	}
-
-	public String getVME_Status() {
-		return VME_Status;
-	}
-
-	public void setVME_Status(String vME_Status) {
-		VME_Status = vME_Status;
 	}
 
 	public String getVME_Description_Physical() {

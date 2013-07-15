@@ -106,12 +106,14 @@ public class Meetings implements TableDomainMapper {
 
 		is.setReportSummary(u.english(this.getReport_Summary()));
 
+		
 		try {
 			URL url = new URL(this.getLink_Source());
 			is.setUrl(url);
 		} catch (MalformedURLException e) {
 			throw new VmeException(e);
 		}
+		
 		is.setCitation(u.english(this.getLink_Tagged_File()));
 		return is;
 	}

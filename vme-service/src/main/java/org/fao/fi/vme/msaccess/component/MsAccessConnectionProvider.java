@@ -18,7 +18,9 @@ public class MsAccessConnectionProvider {
 	
 	Connection connecton;
 
-	String dbLocation = "../vme-service-integrationtest/src/test/resources/VME_DBTest-FC.accdb";
+	//String dbLocation = "../vme-service-integrationtest/src/test/resources/VME_DBTest-FC.accdb";
+	
+	String dbLocation = "../vme-service-integrationtest/src/test/resources/VME_DB_production.accdb";
 
 	public MsAccessConnectionProvider() {
 		try {

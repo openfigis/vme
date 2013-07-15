@@ -15,17 +15,18 @@ import javax.ws.rs.core.Response;
 
 import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
-import org.vme.service.search.vme.VmeSearchServiceMockup;
+import org.vme.service.search.vme.SearchService;
+import org.vme.service.search.vme.VmeSearchService;
 
 @Path("/search-params/{id_authority}/{id_vme_type}/{id_vme_criteria}/{year}")
 @Singleton
 public class VmeSearchWs {
 
 
-	private final VmeSearchServiceMockup service;
+	private final SearchService service;
 
 	@Inject
-	public VmeSearchWs(VmeSearchServiceMockup serv) {
+	public VmeSearchWs(VmeSearchService serv) {
 		service = serv;
 	}
 

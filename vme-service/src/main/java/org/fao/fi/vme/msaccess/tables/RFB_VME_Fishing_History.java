@@ -14,6 +14,7 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 	private String RFB_FishingAreas_GeneralText;
 	private String RFB_VMEs_GeneralText;
 
+
 	public int getID() {
 		return ID;
 	}

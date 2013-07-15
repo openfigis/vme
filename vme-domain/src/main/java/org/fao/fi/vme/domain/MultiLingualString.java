@@ -2,11 +2,13 @@ package org.fao.fi.vme.domain;
 
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapKeyColumn;
 
 /**
  * Not applied yet.
@@ -33,7 +35,9 @@ public class MultiLingualString {
 	 * 
 	 */
 
+	
 	@ElementCollection
+	@Column(length=4096)
 	private Map<Integer, String> stringMap;
 
 	public Long getId() {

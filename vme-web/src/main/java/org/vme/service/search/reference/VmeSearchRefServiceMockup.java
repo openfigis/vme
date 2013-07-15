@@ -8,14 +8,14 @@ import org.vme.service.dto.VmeSearchRefRequestDto;
 import org.vme.service.dto.VmeSearchRefResult;
 
 
-public class VmeSearchRefServiceMockup {
+public class VmeSearchRefServiceMockup implements SearchRefService {
 
 
 
 	
 	
 	
-	public VmeSearchRefResult retrieveResultsFor(VmeSearchRefRequestDto request) {
+	public VmeSearchRefResult search(VmeSearchRefRequestDto request) {
 		VmeSearchRefResult res = new VmeSearchRefResult(request);
 		if (request.getConcept().equalsIgnoreCase("authority")){
 			res.addElements(getVmeAuthorityList());

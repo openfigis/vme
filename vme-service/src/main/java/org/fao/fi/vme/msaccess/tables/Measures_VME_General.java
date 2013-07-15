@@ -26,8 +26,8 @@ public class Measures_VME_General implements TableDomainMapper {
 	private String VME_Threshold;
 	private String Link_CEM_Bookmarked;
 	private String Link_CEM_Source;
-	private String RFB_Bottom_Fishing_Areas;
-	private String RFB_Exploratary_Fishing_Protocol;
+	private String RFB_Fishing_Areas;
+	private String RFB_Exploratory_Fishing_Protocol;
 
 	public int getID() {
 		return ID;
@@ -117,20 +117,20 @@ public class Measures_VME_General implements TableDomainMapper {
 		Link_CEM_Source = link_CEM_Source;
 	}
 
-	public String getRFB_Bottom_Fishing_Areas() {
-		return RFB_Bottom_Fishing_Areas;
+	public String getRFB_Fishing_Areas() {
+		return RFB_Fishing_Areas;
 	}
 
-	public void setRFB_Bottom_Fishing_Areas(String rFB_Bottom_Fishing_Areas) {
-		RFB_Bottom_Fishing_Areas = rFB_Bottom_Fishing_Areas;
+	public void setRFB_Fishing_Areas(String rFB_Fishing_Areas) {
+		RFB_Fishing_Areas = rFB_Fishing_Areas;
 	}
 
-	public String getRFB_Exploratary_Fishing_Protocol() {
-		return RFB_Exploratary_Fishing_Protocol;
+	public String getRFB_Exploratory_Fishing_Protocol() {
+		return RFB_Exploratory_Fishing_Protocol;
 	}
 
-	public void setRFB_Exploratary_Fishing_Protocol(String rFB_Exploratary_Fishing_Protocol) {
-		RFB_Exploratary_Fishing_Protocol = rFB_Exploratary_Fishing_Protocol;
+	public void setRFB_Exploratory_Fishing_Protocol(String rFB_Exploratory_Fishing_Protocol) {
+		RFB_Exploratory_Fishing_Protocol = rFB_Exploratory_Fishing_Protocol;
 	}
 
 	@Override
@@ -146,6 +146,8 @@ public class Measures_VME_General implements TableDomainMapper {
 
 		// It should be the column Link_CEM_Source within the Measures_VME_general table.
 
+		
+		
 		URL url = null;
 		if (this.getLink_CEM_Source() != null) {
 			try {
@@ -160,8 +162,10 @@ public class Measures_VME_General implements TableDomainMapper {
 				throw new VmeException(e);
 			}
 		}
-
-		o.setFishingAreas(this.getRFB_Bottom_Fishing_Areas());
+		 
+		
+		
+		o.setFishingAreas(this.getRFB_Fishing_Areas());
 		// o.setRfmo(rfmo)
 		o.setVmeThreshold(u.english(this.getVME_Threshold()));
 

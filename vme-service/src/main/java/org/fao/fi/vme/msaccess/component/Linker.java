@@ -23,7 +23,7 @@ import org.fao.fi.vme.msaccess.tables.VME;
 public class Linker {
 
 	/**
-	 * Link the diffent domain objects, using the original MS-Access table objects.
+	 * Link the different domain objects, using the original MS-Access table objects.
 	 * 
 	 * 
 	 * @param objectCollectionList

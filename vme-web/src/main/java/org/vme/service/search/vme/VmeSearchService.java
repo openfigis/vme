@@ -42,8 +42,8 @@ public class VmeSearchService implements SearchService {
 
 	
 	private void loadQueryParameters(Query query, VmeSearchRequestDto request){
-		
-		
+
+		query.setParameter("id", new Long(1));
 		
 	}
 	
