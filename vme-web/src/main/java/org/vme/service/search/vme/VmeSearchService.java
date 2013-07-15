@@ -13,7 +13,7 @@ import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
 
 
-public class VmeSearchService {
+public class VmeSearchService implements SearchService {
 
 
 	@Inject
@@ -22,7 +22,7 @@ public class VmeSearchService {
 	
 	
 	
-	public VmeSearchResult retrieveResultsFor(VmeSearchRequestDto request) {
+	public VmeSearchResult search(VmeSearchRequestDto request)  {
 		
 		Query query = createHibernateQuery();
 		loadQueryParameters(query, request);
@@ -50,8 +50,6 @@ public class VmeSearchService {
 	
 	private VmeSearchResult convertPersistenceResult(VmeSearchRequestDto request,  List<Vme> result){
 		VmeSearchResult res = new VmeSearchResult(request);
-		
-		
 		for (Vme vme : result) {
 			res.addElement(getVmeSearchDto(vme));
 		}
@@ -64,8 +62,6 @@ public class VmeSearchService {
 	private VmeSearchDto getVmeSearchDto(Vme vme) {
 		VmeSearchDto res = new VmeSearchDto();
 		res.setVmeId(vme.getId());
-		
-		
 		return res;
 	}
 	

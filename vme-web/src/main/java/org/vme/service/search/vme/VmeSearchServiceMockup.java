@@ -5,14 +5,14 @@ import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
 
 
-public class VmeSearchServiceMockup {
+public class VmeSearchServiceMockup  implements SearchService  {
 
 
 
 	
 	
 	
-	public VmeSearchResult retrieveResultsFor(VmeSearchRequestDto request) {
+	public VmeSearchResult search(VmeSearchRequestDto request) {
 		VmeSearchResult res = new VmeSearchResult(request);
 		String authority;
 		String vme_type;

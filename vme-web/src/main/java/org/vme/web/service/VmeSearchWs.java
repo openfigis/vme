@@ -55,7 +55,7 @@ public class VmeSearchWs {
 		}
 		if (requestDto.getAuthority() > 0) {
 			System.out.println("REST SERVICE: Service was called with param id: [" + id_authority + "] - text param:  " + text);
-			VmeSearchResult result =  service.retrieveResultsFor(requestDto);
+			VmeSearchResult result =  service.search(requestDto);
 			return Response.status(200).entity(result).build();
 		} else {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);

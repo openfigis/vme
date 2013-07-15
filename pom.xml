@@ -13,8 +13,13 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
-
 	<repositories>
+		<repository>
+			<snapshots />
+			<id>openfigis</id>
+			<name>openfigis-release</name>
+			<url>http://78.46.99.131:8080/artifactory/libs-releases-local</url>
+		</repository>
 		<repository>
 			<id>artifactory.fao.org</id>
 			<name>artifactory.fao.org-releases</name>
