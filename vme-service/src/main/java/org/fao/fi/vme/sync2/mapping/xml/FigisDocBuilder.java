@@ -140,10 +140,10 @@ public class FigisDocBuilder {
 		VMECriteria vmeCriteria = new VMECriteria();
 		vmeCriteria.setValue(vmeDomain.getCriteria());
 
-		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(figisID);
-		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(title);
-		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(waterAreaRef);
-		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(vmeCriteria);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(figisID);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(title);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeCriteria);
 		// vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(range);
 
 		VME vme = new VME();
@@ -153,7 +153,7 @@ public class FigisDocBuilder {
 	}
 
 	public void year(FIGISDoc figisDoc, Object year) {
-		figisDoc.getVME().getVMEIdent().getFigisIDsAndWaterAreaRevesAndOrgReves().add(year);
+		figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves().add(year);
 	}
 
 }

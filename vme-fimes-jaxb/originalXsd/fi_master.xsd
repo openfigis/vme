@@ -12050,6 +12050,7 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 		<xs:sequence>
 			<xs:choice maxOccurs="unbounded">
 				<xs:element name="FigisID" type="fi:FigisID"/>
+				<xs:element name="ForeignID" type="fi:ForeignID" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element name="WaterAreaRef" type="fi:WaterAreaRef"/>
 				<xs:element name="OrgRef" type="fi:OrgRef"/>
 				<xs:element ref="dc:Title"/>
@@ -12060,6 +12061,7 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 				<xs:element name="GeoReference" type="fi:GeoReference"/>
 			</xs:choice>
 		</xs:sequence>
+		<xs:attribute name="Factsheet" type="xs:boolean"/>
 		<xs:attributeGroup ref="fi:statusEnt"/>
 	</xs:complexType>
 	<xs:complexType name="VMERef" mixed="false">

@@ -120,10 +120,10 @@ public class FIGISDocTest extends XMLTestCase {
 		foreignID.setCode("VME_5067");
 		waterAreaRef.getFigisIDsAndForeignIDs().add(foreignID);
 
-		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(figisID);
-		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(title);
-		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(waterAreaRef);
-		vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add("2012");
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(figisID);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(title);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add("2012");
 
 		VME vme = new VME();
 		vme.setVMEIdent(vmeIdent);
