@@ -16,6 +16,8 @@ import org.fao.fi.vme.domain.util.Lang;
  * 
  * Map the REF_VME and the FS_OBSERVATION
  * 
+ * TODO extract isolate code from GeoRefSync and VmeRefSync
+ * 
  * 
  * @author Erik van Ingen
  * 
@@ -62,7 +64,7 @@ public class VmeRefSync implements Sync {
 
 	private void map(Vme vme, RefVme object) {
 		object.setId(vme.getId());
-		object.setMeta(Figis.META);
+		object.setMeta(Figis.META_VME);
 		if (vme.getName() != null && vme.getName().getStringMap() != null) {
 			object.setNameA(vme.getName().getStringMap().get(Lang.AR));
 			object.setNameC(vme.getName().getStringMap().get(Lang.ZH));

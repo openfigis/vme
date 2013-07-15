@@ -34,7 +34,7 @@ public class RefWaterArea implements Serializable {
 	private String iso3Code;
 
 	@Column(name = "CD_META")
-	private Long meta;
+	private Integer meta;
 
 	@Column(name = "CD_UN_CODE")
 	private Long unCode;
@@ -94,11 +94,11 @@ public class RefWaterArea implements Serializable {
 		this.iso3Code = iso3Code;
 	}
 
-	public Long getMeta() {
+	public Integer getMeta() {
 		return meta;
 	}
 
-	public void setMeta(Long meta) {
+	public void setMeta(Integer meta) {
 		this.meta = meta;
 	}
 

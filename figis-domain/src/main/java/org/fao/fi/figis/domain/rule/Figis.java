@@ -25,7 +25,8 @@ public class Figis {
 	 * cms.
 	 */
 	public static final Boolean REFERENCE = false;
-	public static final Integer META = 172000;
+	public static final Integer META_VME = 172000;
+	public static final Integer META_WATER_AREA = 280001;
 	public static final Integer STATUS = 2;
 	public static final Integer LANG = 1;
 	public static final String CODE_SYSTEM = "vme";

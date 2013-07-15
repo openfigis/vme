@@ -34,7 +34,12 @@
 	</persistence-unit>
 
 	<persistence-unit name="figis-persistence">
+
+		<!-- reference tables -->
 		<class>org.fao.fi.figis.domain.RefVme</class>
+		<class>org.fao.fi.figis.domain.RefWaterArea</class>
+
+		<!-- factsheet tables -->
 		<class>org.fao.fi.figis.domain.VmeObservation</class>
 		<class>org.fao.fi.figis.domain.Observation</class>
 		<class>org.fao.fi.figis.domain.ObservationXml</class>
@@ -54,7 +59,7 @@
 			<property name="hibernate.dialect" value="${hibernate.dialect.figis}" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
-								
+
 
 		</properties>
 

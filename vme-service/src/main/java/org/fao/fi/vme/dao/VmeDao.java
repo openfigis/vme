@@ -11,7 +11,7 @@ import org.fao.fi.vme.domain.Vme;
 
 /**
  * * The dao in order to dconnect to the vme database. Connection details to be found in
- * /vme-configuration/src/main/resources/META-INF/persistence.xml
+ * /vme-configuration/src/main/resources/META_VME-INF/persistence.xml
  * 
  * @author Erik van Ingen
  * 

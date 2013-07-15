@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The dao in order to dconnect to the Figis database. Connection details to be found in
- * /vme-configuration/src/main/resources/META-INF/persistence.xml
+ * /vme-configuration/src/main/resources/META_VME-INF/persistence.xml
  * 
  * 
  * 
