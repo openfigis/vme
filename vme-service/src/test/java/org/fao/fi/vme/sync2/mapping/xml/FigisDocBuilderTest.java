@@ -8,10 +8,12 @@ import org.fao.fi.figis.devcon.Impacts;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
 import org.fao.fi.figis.devcon.VMEIdent;
+import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.test.VmeMock;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.vme.fimes.jaxb.JaxbMarshall;
@@ -22,11 +24,20 @@ import static org.junit.Assert.assertTrue;
 
 public class FigisDocBuilderTest {
 
-	FigisDocBuilder b = new FigisDocBuilder();
+	FigisDocBuilder b;
+	JaxbMarshall m;
+	MultiLingualStringUtil u;
 	int nrOfYears = 2;
-	JaxbMarshall m = new JaxbMarshall();
-	MultiLingualStringUtil u = new MultiLingualStringUtil();
-
+	Vme vme;
+	
+	@Before
+	public void prepareBefore(){
+		 b = new FigisDocBuilder();
+		 m = new JaxbMarshall();
+		 u = new MultiLingualStringUtil();
+		 vme = VmeMock.generateVme(nrOfYears);
+	}
+	
 	@Test
 	public void testSpecificMeasures() {
 		// TODO
@@ -90,24 +101,24 @@ public class FigisDocBuilderTest {
 
 	@Test
 	public void testVme() {
-		Vme vme = VmeMock.generateVme(nrOfYears);
 		FIGISDoc figisDoc = new FIGISDoc();
 		b.vme(vme, figisDoc);
+		
 		assertNotNull(figisDoc.getVME());
 		assertNotNull(figisDoc.getVME().getVMEIdent());
 		String s = m.marshalToString(figisDoc);
-		System.out.println(s);
+
 		assertTrue(s.contains(VMEIdent.class.getSimpleName()));
 
 	}
 
 	@Test
 	public void testYear() {
-		String reportingYear = Integer.toString(VmeMock.YEAR - 10);
+		String reportingYear = Integer.toString(2013);
 		FIGISDoc figisDoc = new FIGISDoc();
-		Vme vme = VmeMock.generateVme(nrOfYears);
-
-		b.vme(vme, figisDoc);
+  
+		figisDoc.setVME(new VME());
+		figisDoc.getVME().setVMEIdent(new VMEIdent());
 		b.year(reportingYear, figisDoc);
 		
 		for(Object obj : figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves()){
@@ -117,7 +128,5 @@ public class FigisDocBuilderTest {
 		}
 		
 	}
-	
-	
 
 }
