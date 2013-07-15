@@ -38,9 +38,9 @@ import org.vme.fimes.jaxb.JaxbMarshall;
  */
 public class ObjectMapping {
 
-	YearGrouping groupie = new YearGrouping();
-	FigisDocBuilder figisDocBuilder = new FigisDocBuilder();
-	JaxbMarshall marshall = new JaxbMarshall();
+	private final YearGrouping groupie = new YearGrouping();
+	private final FigisDocBuilder figisDocBuilder = new FigisDocBuilder();
+	private final JaxbMarshall marshall = new JaxbMarshall();
 
 	public VmeObservationDomain mapVme2Figis(Vme vme) {
 		// precondition
