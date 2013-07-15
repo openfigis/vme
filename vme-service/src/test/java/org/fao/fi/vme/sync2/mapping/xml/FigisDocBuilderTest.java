@@ -103,7 +103,21 @@ public class FigisDocBuilderTest {
 
 	@Test
 	public void testYear() {
-		// TODO
+		String reportingYear = Integer.toString(VmeMock.YEAR - 10);
+		FIGISDoc figisDoc = new FIGISDoc();
+		Vme vme = VmeMock.generateVme(nrOfYears);
+
+		b.vme(vme, figisDoc);
+		b.year(reportingYear, figisDoc);
+		
+		for(Object obj : figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves()){
+			if( obj instanceof String){
+				assertEquals(reportingYear, obj);
+			}
+		}
+		
 	}
+	
+	
 
 }

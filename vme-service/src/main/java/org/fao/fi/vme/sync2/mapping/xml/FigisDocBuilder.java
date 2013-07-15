@@ -165,7 +165,12 @@ public class FigisDocBuilder {
 
 	}
 
-	public void year(FIGISDoc figisDoc, Object year) {
+	/**
+	 * 	Observation/Year	fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ReportingYear 
+	 * 
+	 * @param figisDoc
+	 */
+	public void year(Object year, FIGISDoc figisDoc) {
 		figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves().add(year);
 	}
 
