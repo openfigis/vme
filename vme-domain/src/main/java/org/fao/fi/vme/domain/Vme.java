@@ -75,6 +75,16 @@ public class Vme {
 	 */
 	private String criteria;
 
+	private String inventoryIdentifier;
+
+	public String getInventoryIdentifier() {
+		return inventoryIdentifier;
+	}
+
+	public void setInventoryIdentifier(String inventoryIdentifier) {
+		this.inventoryIdentifier = inventoryIdentifier;
+	}
+
 	public MultiLingualString getName() {
 		return name;
 	}
