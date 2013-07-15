@@ -16,6 +16,7 @@ import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
 import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
+import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.domain.GeneralMeasures;
@@ -90,11 +91,13 @@ public class FigisDocBuilder {
 	/**
 	 * VME Identifier fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:FigisID
 	 * 
+	 * VME Identifier fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ForeignID
+	 * 
 	 * name fi:FIGISDoc/fi:VME/fi:VMEIdent/dc:Title
 	 * 
 	 * geographicLayerId fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:WaterAreaRef/fi:ForeignID@CodeSystem="vme"/@Code
 	 * 
-	 * TODO areaType fi:FIGISDoc/fi:VME/fi:VMEIdent/VMEType/@Value
+	 * areaType fi:FIGISDoc/fi:VME/fi:VMEIdent/VMEType/@Value
 	 * 
 	 * criteria fi:FIGISDoc/fi:VME/fi:VMEIdent/VMECriteria/@Value
 	 * 
@@ -109,20 +112,25 @@ public class FigisDocBuilder {
 	 */
 	public void vme(Vme vmeDomain, FIGISDoc figisDoc) {
 		VMEIdent vmeIdent = new VMEIdent();
-
+		
+		//FigisID
 		FigisID figisID = new FigisID();
 		figisID.setContent(vmeDomain.getId().toString());
-
+		
+		//Title
 		Title title = new Title();
 		title.setContent(vmeDomain.getName().getStringMap().get(Lang.EN));
-
-		WaterAreaRef waterAreaRef = new WaterAreaRef();
-
+		
+		//ForeignID
 		ForeignID foreignID = new ForeignID();
 		foreignID.setCodeSystem(Figis.CODE_SYSTEM);
 		foreignID.setCode(vmeDomain.getGeoRefList().get(0).getGeographicFeatureID());
+		
+		//WaterAreaRef
+		WaterAreaRef waterAreaRef = new WaterAreaRef();
 		waterAreaRef.getFigisIDsAndForeignIDs().add(foreignID);
-
+		
+		//Validity period - Range
 		Min min = f.createMin();
 		min.setContent(vmeDomain.getValidityPeriod().getBeginYear().toString());
 		JAXBElement<Min> minJAXBElement = f.createRangeMin(f.createMin());
@@ -132,17 +140,23 @@ public class FigisDocBuilder {
 		JAXBElement<Max> maxJAXBElement = f.createRangeMax(f.createMax());
 
 		Range range = f.createRange();
-
 		range.getContent().add(minJAXBElement);
 		range.getContent().add(maxJAXBElement);
 
+		//VME Type
+		VMEType vmeType = new VMEType();
+		vmeType.setValue(vmeDomain.getAreaType());
+		
+		//VME Criteria
 		VMECriteria vmeCriteria = new VMECriteria();
 		vmeCriteria.setValue(vmeDomain.getCriteria());
-
+		
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(figisID);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(title);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(foreignID);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeCriteria);
+		// vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
 		// vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(range);
 
 		VME vme = new VME();
