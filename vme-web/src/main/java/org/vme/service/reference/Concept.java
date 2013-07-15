@@ -1,8 +1,6 @@
-package org.vme.service.search.reference;
+package org.vme.service.reference;
 
 import java.util.Collection;
-import java.util.Map;
-
 
 import org.fao.fi.vme.domain.MultiLingualString;
 
@@ -13,6 +11,7 @@ import org.fao.fi.vme.domain.MultiLingualString;
  */
 public interface Concept   {
 
+	
 	/**
 	 * Get the concept unique ID.
 	 * @return the ID
@@ -104,5 +103,12 @@ public interface Concept   {
 	 * @throws ReferenceServiceException
 	 */
 	public ReferenceObject addObject(ReferenceObject object, Long id) throws ReferenceServiceException;
-	
+	/**
+	 * Add all the ReferenceObject instances.
+	 * @param objects the instances to add
+	 * @return the collection of newly added reference objects
+	 * @throws ReferenceServiceException
+	 */
+	public Collection<ReferenceObject> addAll(Collection<ReferenceObject> objects) throws ReferenceServiceException;
+
 }

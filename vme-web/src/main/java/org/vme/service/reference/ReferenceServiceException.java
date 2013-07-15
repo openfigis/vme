@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.vme.service.search.reference;
+package org.vme.service.reference;
 
 
 
