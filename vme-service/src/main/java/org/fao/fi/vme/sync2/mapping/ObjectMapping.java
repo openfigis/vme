@@ -73,19 +73,19 @@ public class ObjectMapping {
 			for (YearObject<?> yearObject : l) {
 
 				if (yearObject instanceof SpecificMeasures) {
-					figisDocBuilder.specificMeasures(figisDoc);
+					figisDocBuilder.specificMeasures((SpecificMeasures) yearObject, figisDoc);
 				}
 				if (yearObject instanceof VmeHistory) {
-					figisDocBuilder.vmeHistory(figisDoc);
+					figisDocBuilder.vmeHistory((VmeHistory) yearObject, figisDoc);
 				}
 				if (yearObject instanceof RfmoHistory) {
-					figisDocBuilder.rfmoHistory(figisDoc);
+					figisDocBuilder.rfmoHistory((RfmoHistory) yearObject, figisDoc);
 				}
 				if (yearObject instanceof Profile) {
-					figisDocBuilder.profile(figisDoc);
+					figisDocBuilder.profile((Profile) yearObject, figisDoc);
 				}
 				if (yearObject instanceof GeneralMeasures) {
-					figisDocBuilder.generalMeasures(figisDoc);
+					figisDocBuilder.generalMeasures((GeneralMeasures) yearObject, figisDoc);
 				}
 			}
 			xml.setXml(marshall.marshalToString(figisDoc));
