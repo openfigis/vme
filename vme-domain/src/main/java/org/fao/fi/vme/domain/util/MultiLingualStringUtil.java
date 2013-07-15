@@ -20,4 +20,9 @@ public class MultiLingualStringUtil {
 		l.setStringMap(stringMap);
 		return l;
 	}
+
+	public String getEnglish(MultiLingualString multiLingualString) {
+		return multiLingualString.getStringMap().get(Lang.EN);
+	}
+
 }
