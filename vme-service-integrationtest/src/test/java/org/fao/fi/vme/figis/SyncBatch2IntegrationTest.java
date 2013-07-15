@@ -39,11 +39,11 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 	public void testBefore() {
 
 		// Bizarre problem, see also FigisDaoIntegrationTest.testDeleteRefVme
-		// RefVme r = (RefVme) figisDao.find(RefVme.class, VmeMock.VME_ID);
-		// if (r != null) {
-		// figisDao.getEm().refresh(r);
-		// figisDao.remove(r);
-		// }
+		RefVme r = (RefVme) figisDao.find(RefVme.class, VmeMock.VME_ID);
+		if (r != null) {
+			figisDao.getEm().refresh(r);
+			figisDao.remove(r);
+		}
 
 		VmeDaoTestLogic l = new VmeDaoTestLogic();
 		l.mockAndSaveVme(vmeDao, 1);

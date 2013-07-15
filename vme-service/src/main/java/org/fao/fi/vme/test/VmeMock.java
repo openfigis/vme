@@ -79,6 +79,11 @@ public class VmeMock {
 			fishingHistoryList.add(rfmoHistory);
 
 			Profile profile = new Profile();
+
+			profile.setDescriptionBiological(u.english("Hello World DescriptionBiological"));
+			profile.setDescriptionImpact(u.english("Hello World DescriptionImpact"));
+			profile.setDescriptionPhisical(u.english("Hello World DescriptionPhisical"));
+
 			profile.setId(id++);
 			profile.setYear(year);
 			pList.add(profile);
