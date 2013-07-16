@@ -111,7 +111,8 @@ public class VmeMock {
 		}
 
 		Rfmo rfmo = new Rfmo();
-		rfmo.setId(id++);
+		String rfmoId = new Long(id++).toString();
+		rfmo.setId(rfmoId);
 		rfmo.setFishingHistoryList(fishingHistoryList);
 		rfmo.setInformationSourceList(informationSourceList);
 		rfmo.setGeneralMeasuresList(generalMeasuresList);

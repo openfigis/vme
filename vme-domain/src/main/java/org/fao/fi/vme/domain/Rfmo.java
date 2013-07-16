@@ -21,7 +21,7 @@ public class Rfmo {
 	 * The id comes from RMTS
 	 */
 	@Id
-	private Long id;
+	private String id;
 
 	/**
 	 * 
@@ -60,11 +60,11 @@ public class Rfmo {
 	@OneToMany
 	private List<History> fishingHistoryList;
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
