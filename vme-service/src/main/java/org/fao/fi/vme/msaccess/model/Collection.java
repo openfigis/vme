@@ -19,8 +19,13 @@ public abstract class Collection {
 		return objectList;
 	}
 
-	public void setObjectList(List<Object> records) {
-		this.objectList = records;
+	/**
+	 * these objects can be records or domain objects
+	 * 
+	 * @param objects
+	 */
+	public void setObjectList(List<Object> objects) {
+		this.objectList = objects;
 	}
 
 }

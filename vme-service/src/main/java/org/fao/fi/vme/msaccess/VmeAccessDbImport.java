@@ -9,6 +9,7 @@ import org.fao.fi.vme.msaccess.component.Linker;
 import org.fao.fi.vme.msaccess.component.MsAcces2DomainMapper;
 import org.fao.fi.vme.msaccess.component.VmeReader;
 import org.fao.fi.vme.msaccess.component.VmeWriter;
+import org.fao.fi.vme.msaccess.mapping.RelationVmeGeoRef;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
 
@@ -26,7 +27,7 @@ public class VmeAccessDbImport {
 
 	private final MsAcces2DomainMapper m = new MsAcces2DomainMapper();
 	private final Linker linker = new Linker();
-
+	private RelationVmeGeoRef relationVmeGeoRef = new RelationVmeGeoRef(); 
 	private final VmeReader reader = new VmeReader();
 
 	/**
@@ -43,6 +44,10 @@ public class VmeAccessDbImport {
 			objectCollectionList.add(m.map(table));
 		}
 
+		// correct the relation Vme - GeoRef
+		relationVmeGeoRef.correct(objectCollectionList);
+		
+		
 		// write the domain objects to the DB
 		writer.write(objectCollectionList);
 

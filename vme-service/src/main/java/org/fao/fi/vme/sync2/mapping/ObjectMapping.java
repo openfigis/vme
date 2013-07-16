@@ -51,6 +51,11 @@ public class ObjectMapping {
 		// logic
 		Map<Integer, List<YearObject<?>>> map = groupie.collect(vme);// not processed here InformationSource, To be done
 		Object[] years = map.keySet().toArray();
+		for (Object object : years) {
+			System.out.println("---------------" + object + " vme = " + vme.getId() + vme.getInventoryIdentifier());
+		}
+		
+		
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
 
 		// every year results in one observation in English
