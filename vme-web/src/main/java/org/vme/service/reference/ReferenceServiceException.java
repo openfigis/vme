@@ -6,7 +6,7 @@ package org.vme.service.reference;
 
 
 /**
- * @author Francesco
+ * @author Fabrizio Sibeni
  *
  */
 public class ReferenceServiceException extends Exception {

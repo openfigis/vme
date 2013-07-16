@@ -9,7 +9,7 @@ import org.vme.service.reference.impl.ReferenceServiceImpl;
 
 /**
  * Static factory class for obtaining a reference service instance.
- * @author  Francesco
+ * @author  Fabrizio Sibeni
  */
 public class ReferenceServiceFactory {
 	/**
