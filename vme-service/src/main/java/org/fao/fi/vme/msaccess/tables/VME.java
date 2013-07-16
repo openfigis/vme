@@ -202,6 +202,7 @@ public class VME implements TableDomainMapper {
 		List<GeoRef> geoRefList = new ArrayList<GeoRef>();
 		GeoRef geoRef = new GeoRef();
 		geoRef.setGeographicFeatureID(this.VME_Feature_ID);
+		geoRef.setYear(this.Year_ID);
 		geoRefList.add(geoRef);
 		o.setGeoRefList(geoRefList);
 		o.setInventoryIdentifier(this.VME_Inventory_Identifier);

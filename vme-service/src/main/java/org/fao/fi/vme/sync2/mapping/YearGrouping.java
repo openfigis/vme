@@ -46,27 +46,26 @@ public class YearGrouping {
 	}
 
 	private void add2Map(Map<Integer, List<YearObject<?>>> map, YearObject<?> yearObject) {
-		
-		if (yearObject == null || yearObject.getYear()==null) {
-			String className = ""; 
-			if (yearObject != null){
+
+		if (yearObject == null || yearObject.getYear() == null) {
+			String className = "";
+			if (yearObject != null) {
 				className = yearObject.getClass().getSimpleName();
 			}
-			if (yearObject instanceof GeoRef ){
+			if (yearObject instanceof GeoRef) {
 				GeoRef geoRef = (GeoRef) yearObject;
-				className = className + " geoRef id = " + geoRef.getId();
+				className = className + " geoRef id = " + geoRef.getId() + ", year = " + geoRef.getYear();
 			}
 			throw new VmeException("The year in the yearObject is null. Class is " + className);
 		}
-		
-		
+
 		if (yearObject != null) {
 			if (map.containsKey(yearObject.getYear())) {
 				map.get(yearObject.getYear()).add(yearObject);
 			} else {
 				List<YearObject<?>> list = new ArrayList<YearObject<?>>();
 				list.add(yearObject);
-				if(yearObject.getYear()==null){
+				if (yearObject.getYear() == null) {
 					throw new VmeException("yearObject.year is null, should not be at this point.");
 				}
 				map.put(yearObject.getYear(), list);
