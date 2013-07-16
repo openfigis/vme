@@ -35,6 +35,6 @@ public interface ReferenceService {
 	 * @return the requested concept class if existing
 	 * @throws ReferenceServiceException
 	 */
-	public Object getReference(Class<?> concept, Long id);
+	public Object getReference(Class<?> concept, Long id) throws ReferenceServiceException;
 	
 }

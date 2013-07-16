@@ -11,6 +11,10 @@ import org.fao.fi.vme.domain.Vme;
 import org.vme.service.dto.VmeSearchDto;
 import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
+import org.vme.service.reference.ReferenceServiceFactory;
+import org.vme.service.reference.domain.Authority;
+import org.vme.service.reference.domain.VmeCriteria;
+import org.vme.service.reference.domain.VmeType;
 
 
 public class VmeSearchService implements SearchService {
@@ -19,42 +23,64 @@ public class VmeSearchService implements SearchService {
 	@Inject
 	@VmeDB
 	private EntityManager entityManager;
-	
-	
-	
+
+
 	public VmeSearchResult search(VmeSearchRequestDto request)  {
-		
+
 		Query query = createHibernateQuery();
 		loadQueryParameters(query, request);
 		List<?> result =   query.getResultList();
-		
-		
 		VmeSearchResult res = convertPersistenceResult(request, (List<Vme>) result);
 		return res;
 	}
-	
-	
+
+
 	private Query createHibernateQuery(){
-		Query res = entityManager.createQuery("from Vme where id = :id");
-		
+		Query res = entityManager.createQuery("from Vme where authority = :id and criteria= :criteria and type = :type");
+
 		return res;
 	}
 
-	
+
 	private void loadQueryParameters(Query query, VmeSearchRequestDto request){
 
-		query.setParameter("id", new Long(1));
 		
+
+		try {
+			String authority = "*";
+			if (request.getAuthority()>0){
+				Authority vmeAuthority = (Authority) ReferenceServiceFactory.getService().getReference(Authority.class, (long) request.getAuthority());
+				authority = vmeAuthority.getName();
+			}
+			String criteria = "*";
+			if (request.getCriteria()>0){
+				VmeCriteria vmeCriteria = (VmeCriteria) ReferenceServiceFactory.getService().getReference(VmeCriteria.class, (long) request.getCriteria());
+				criteria = vmeCriteria.getName();
+			}
+			String type = "*";
+			if (request.getCriteria()>0){
+				VmeType vmeType = (VmeType) ReferenceServiceFactory.getService().getReference(VmeType.class, (long) request.getType());
+				type = vmeType.getName();
+			}
+
+			query.setParameter("authority", authority);
+			query.setParameter("criteria", criteria);
+			query.setParameter("type", type);
+
+
+		} catch (Exception e){
+
+		}
+
+
 	}
-	
-	
+
+
 	private VmeSearchResult convertPersistenceResult(VmeSearchRequestDto request,  List<Vme> result){
 		VmeSearchResult res = new VmeSearchResult(request);
 		for (Vme vme : result) {
 			res.addElement(getVmeSearchDto(vme));
 		}
-		
-		
 		return res;
 	}
 
@@ -64,8 +90,8 @@ public class VmeSearchService implements SearchService {
 		res.setVmeId(vme.getId());
 		return res;
 	}
-	
-	
-	
+
+
+
 
 }

@@ -4,6 +4,11 @@
 package org.vme.service.reference.impl;
 
 import java.util.Hashtable;
+
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
+import org.fao.fi.vme.dao.config.VmeDB;
 import org.vme.service.reference.domain.Authority;
 import org.vme.service.reference.domain.VmeCriteria;
 import org.vme.service.reference.domain.VmeType;
@@ -16,11 +21,15 @@ import org.vme.service.reference.domain.VmeType;
 
 
 public class ReferenceServiceHelper {
+	
+	
 	private Hashtable<Long, Authority> repAuthority;
 	private Hashtable<Long, VmeCriteria> repVmeCriteria;
 	private Hashtable<Long, VmeType> repVmeType;
 	
-	
+	//@Inject
+	//@VmeDB
+	//private EntityManager em;
 
 	public ReferenceServiceHelper() {
 		super();
@@ -34,7 +43,28 @@ public class ReferenceServiceHelper {
 
 
 	
-	public void createAuthorities() {
+	
+	public Authority getAuthority(Long key) {
+		return repAuthority.get(key);
+	}
+
+	public VmeCriteria getVmeCriteria(Long key) {
+		return repVmeCriteria.get(key);
+	}
+
+	public VmeType getVmeType(Long key) {
+		return repVmeType.get(key);
+	}
+
+
+
+
+
+
+
+
+
+	private void createAuthorities() {
 		repAuthority.put((long)20010, new Authority(20010,"CCAMLR",null));
 		repAuthority.put((long)22080, new Authority(22080,"GFCM",null));
 		repAuthority.put((long)20220, new Authority(20220,"NAFO",null));
@@ -42,10 +72,7 @@ public class ReferenceServiceHelper {
 		repAuthority.put((long)22140, new Authority(22140,"SEAFO",null));
 	}
 
-
-		
-	
-	public void createVmeCriterias() {
+	private void createVmeCriterias() {
 		repVmeCriteria.put((long)10, new VmeCriteria(10,"Uniqueness or rarity"));
 		repVmeCriteria.put((long)20, new VmeCriteria(20,"Functional significance of the habitat"));
 		repVmeCriteria.put((long)30, new VmeCriteria(30,"Fragility"));
@@ -54,17 +81,15 @@ public class ReferenceServiceHelper {
 		repVmeCriteria.put((long)60, new VmeCriteria(60,"Unspecified"));
 	}	
 
-	public void createVmeTypes() {
+	private void createVmeTypes() {
 		repVmeType.put((long)10, new VmeType(10,"Established VME"));
-		repVmeType.put((long)20, new VmeType(20,"Established VME"));
-		repVmeType.put((long)30, new VmeType(30,"Temporary VME"));
-		repVmeType.put((long)40, new VmeType(40,"Risk area"));
-		repVmeType.put((long)50, new VmeType(50,"Benthic protected area"));
-		repVmeType.put((long)60, new VmeType(60,""));
-		repVmeType.put((long)70, new VmeType(70,"Voluntary closed area"));
-		repVmeType.put((long)80, new VmeType(80,"Other types of managed area"));
-
+		repVmeType.put((long)20, new VmeType(20,"Temporary VME"));
+		repVmeType.put((long)30, new VmeType(30,"Risk area"));
+		repVmeType.put((long)40, new VmeType(40,"Benthic protected area"));
+		repVmeType.put((long)50, new VmeType(50,"Voluntary closed area"));
+		repVmeType.put((long)60, new VmeType(60,"Other types of managed area"));
 	}
+
 	
 	
 }

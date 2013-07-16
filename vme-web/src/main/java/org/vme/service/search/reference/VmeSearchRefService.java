@@ -52,13 +52,11 @@ public class VmeSearchRefService implements SearchRefService {
 	private List<VmeSearchRefDto> getVmeTypeList(){
 		LinkedList<VmeSearchRefDto> res = new LinkedList<VmeSearchRefDto>();
 		res.add(new VmeSearchRefDto(10, "en", "Established VME")); 
-		res.add(new VmeSearchRefDto(20, "en", "getVmeTypeList")); 
-		res.add(new VmeSearchRefDto(30, "en", "Temporary VME")); 
-		res.add(new VmeSearchRefDto(40, "en", "Risk area")); 
-		res.add(new VmeSearchRefDto(50, "en", "Benthic protected area")); 
-		res.add(new VmeSearchRefDto(60, "en", "VmeSearchRefDto")); 
-		res.add(new VmeSearchRefDto(70, "en", "Voluntary closed area")); 
-		res.add(new VmeSearchRefDto(80, "en", "Other types of managed area")); 
+		res.add(new VmeSearchRefDto(20, "en", "Temporary VME")); 
+		res.add(new VmeSearchRefDto(30, "en", "Risk area")); 
+		res.add(new VmeSearchRefDto(40, "en", "Benthic protected area")); 
+		res.add(new VmeSearchRefDto(50, "en", "Voluntary closed area")); 
+		res.add(new VmeSearchRefDto(60, "en", "Other types of managed area")); 
 		return res;
 	}
 
