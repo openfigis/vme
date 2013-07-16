@@ -28,6 +28,7 @@ import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasures;
@@ -35,8 +36,11 @@ import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync2.mapping.RfmoHistory;
+import org.purl.agmes._1.CreatorCorporate;
+import org.purl.dc.elements._1.Date;
 import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.elements._1.Title;
+import org.purl.dc.terms.Abstrakt;
 import org.purl.dc.terms.BibliographicCitation;
 
 public class FigisDocBuilder {
@@ -305,6 +309,57 @@ public class FigisDocBuilder {
 		rfmoOrg.getForeignIDsAndFigisIDsAndTitles().add(rfmoForeignID);
 		figisDoc.getVME().getVMEIdent()
 				.getFigisIDsAndForeignIDsAndWaterAreaReves().add(rfmoOrg);
+	}
+	
+	
+	/**
+	 * date
+	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
+	 * 
+	 * committee
+	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/ags:CreatorCorporate
+	 * 
+	 * reportSummary
+	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Abstract
+	 * 
+	 * url
+	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Identifier@Type="URI"
+	 * 
+	 * citation
+	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:bibliographicCitation 
+	 * 
+	 * @param infoSource
+	 * @param figisDoc
+	 */
+	public void informationSource(InformationSource infoSource, FIGISDoc figisDoc){
+		Sources sources = f.createSources();
+		
+		BiblioEntry biblioEntry = f.createBiblioEntry();
+		
+		CreatorCorporate cc = new CreatorCorporate();
+		cc.setContent(u.getEnglish(infoSource.getCommittee()));
+		biblioEntry.getContent().add(cc);
+		
+		Date date = new Date();
+		date.setContent(infoSource.getDate().toString());
+		biblioEntry.getContent().add(date);
+		
+		Abstrakt bibAbstract = new Abstrakt();
+		bibAbstract.setContent(u.getEnglish(infoSource.getReportSummary()));
+		biblioEntry.getContent().add(bibAbstract);
+		
+		Identifier identifier = new Identifier();
+		identifier.setType("URI");
+		identifier.setContent(infoSource.getUrl().toString());
+		biblioEntry.getContent().add(identifier);
+		
+		BibliographicCitation citation = new BibliographicCitation();
+		citation.setContent(u.getEnglish(infoSource.getCitation()));
+		biblioEntry.getContent().add(citation);
+		
+		sources.getTextsAndImagesAndTables().add(biblioEntry);
+		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(sources);
+		
 	}
 
 }

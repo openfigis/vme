@@ -28,6 +28,7 @@ import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.MultiLingualString;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
@@ -37,7 +38,10 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.test.VmeMock;
 import org.junit.Before;
 import org.junit.Test;
+import org.purl.agmes._1.CreatorCorporate;
+import org.purl.dc.elements._1.Date;
 import org.purl.dc.elements._1.Identifier;
+import org.purl.dc.terms.Abstrakt;
 import org.purl.dc.terms.BibliographicCitation;
 import org.vme.fimes.jaxb.JaxbMarshall;
 
@@ -291,6 +295,37 @@ public class FigisDocBuilderTest {
 	}
 	
 	
+	@Test
+	public void testInformationSource(){
+		FIGISDoc figisDoc = new FIGISDoc();
+		figisDoc.setVME(new VME());
+		
+		InformationSource infoSource = vme.getRfmo().getInformationSourceList().get(0);
+		b.informationSource(infoSource, figisDoc);
+		
+		Sources sources = (Sources) figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
+		assertNotNull(sources);
+		
+		BiblioEntry biblioEntry = (BiblioEntry) sources.getTextsAndImagesAndTables().get(0);
+		assertNotNull(biblioEntry);
+		
+		for(Object obj : biblioEntry.getContent()){
+			if(obj instanceof CreatorCorporate){
+				assertEquals(u.getEnglish(infoSource.getCommittee()),((CreatorCorporate) obj).getContent());
+			}else if (obj instanceof Date){
+				assertEquals(infoSource.getDate().toString(), ((Date) obj).getContent());
+			}else if (obj instanceof Abstrakt){
+				assertEquals(u.getEnglish(infoSource.getReportSummary()),((Abstrakt) obj).getContent());
+			}else if (obj instanceof BibliographicCitation){
+				assertEquals(u.getEnglish(infoSource.getCitation()), ((BibliographicCitation) obj).getContent());
+			}else if (obj instanceof Identifier){
+				assertEquals("URI", ((Identifier) obj).getType());
+				assertEquals(infoSource.getUrl().toString(), ((Identifier) obj).getContent());
+			}
+		}
+	}
+	
+	
 	
 	@Test
 	public void testFigisDocMarshall(){
@@ -301,6 +336,7 @@ public class FigisDocBuilderTest {
 		b.rfmo(vme.getRfmo(), figisDoc);
 		b.vmeHistory(vme.getHistoryList().get(0), figisDoc);
 		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc);
+		b.informationSource(vme.getRfmo().getInformationSourceList().get(0), figisDoc);
 		
 		String s = m.marshalToString(figisDoc);
 		assertTrue(s.contains(VMEIdent.class.getSimpleName()));
