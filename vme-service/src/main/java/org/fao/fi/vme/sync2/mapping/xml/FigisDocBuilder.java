@@ -5,7 +5,6 @@ import javax.xml.bind.JAXBElement;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.ForeignID;
-import org.fao.fi.figis.devcon.GeoForm;
 import org.fao.fi.figis.devcon.HabitatBio;
 import org.fao.fi.figis.devcon.Impacts;
 import org.fao.fi.figis.devcon.Max;
@@ -60,6 +59,7 @@ public class FigisDocBuilder {
 	 * TODO finish this one.
 	 * 
 	 * 
+	 * @param profile
 	 * @param figisDoc
 	 */
 	public void profile(Profile profile, FIGISDoc figisDoc) {
@@ -91,7 +91,7 @@ public class FigisDocBuilder {
 	/**
 	 * VME Identifier fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:FigisID
 	 * 
-	 * VME Identifier fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ForeignID
+	 * inventoryIdentifier fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ForeignID@CodeSystem="invid"/@Code
 	 * 
 	 * name fi:FIGISDoc/fi:VME/fi:VMEIdent/dc:Title
 	 * 
@@ -106,8 +106,6 @@ public class FigisDocBuilder {
 	 * ValidityPeriod/endYear fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:Range@Type="Time"/fi:Max
 	 * 
 	 * @param vme
-	 *            *
-	 * 
 	 * @param figisDoc
 	 */
 	public void vme(Vme vmeDomain, FIGISDoc figisDoc) {
@@ -122,13 +120,16 @@ public class FigisDocBuilder {
 		title.setContent(vmeDomain.getName().getStringMap().get(Lang.EN));
 		
 		//ForeignID
-		ForeignID foreignID = new ForeignID();
-		foreignID.setCodeSystem(Figis.CODE_SYSTEM);
-		foreignID.setCode(vmeDomain.getGeoRefList().get(0).getGeographicFeatureID());
+		ForeignID vmeForeignID = new ForeignID();
+		vmeForeignID.setCodeSystem("invid");
+		vmeForeignID.setCode(vmeDomain.getInventoryIdentifier());
 		
 		//WaterAreaRef
 		WaterAreaRef waterAreaRef = new WaterAreaRef();
-		waterAreaRef.getFigisIDsAndForeignIDs().add(foreignID);
+		ForeignID areaForeignID = new ForeignID();
+		areaForeignID.setCodeSystem("vme");
+		areaForeignID.setCode(vmeDomain.getGeoRefList().get(0).getGeographicFeatureID());
+		waterAreaRef.getFigisIDsAndForeignIDs().add(areaForeignID);
 		
 		//Validity period - Range
 		Min min = f.createMin();
@@ -153,7 +154,7 @@ public class FigisDocBuilder {
 		
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(figisID);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(title);
-		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(foreignID);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeForeignID);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeCriteria);
 		// vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
@@ -168,10 +169,12 @@ public class FigisDocBuilder {
 	/**
 	 * 	Observation/Year	fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ReportingYear 
 	 * 
+	 * @param year
 	 * @param figisDoc
 	 */
 	public void year(Object year, FIGISDoc figisDoc) {
 		figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves().add(year);
 	}
+	
 
 }
