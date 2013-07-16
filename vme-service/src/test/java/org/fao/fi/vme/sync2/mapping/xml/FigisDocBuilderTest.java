@@ -170,6 +170,7 @@ public class FigisDocBuilderTest {
 			} else if (obj instanceof VMECriteria) {
 				assertEquals(vme.getCriteria(), ((VMECriteria) obj).getValue());
 			} else if (obj instanceof Range) {
+				assertEquals("Time",((Range)obj).getType());
 				JAXBElement<Min> min = (JAXBElement<Min>) ((Range) obj)
 						.getContent().get(0);
 				assertEquals(vme.getValidityPeriod().getBeginYear().toString(),

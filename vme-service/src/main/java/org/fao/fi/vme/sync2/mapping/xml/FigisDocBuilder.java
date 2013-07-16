@@ -158,6 +158,7 @@ public class FigisDocBuilder {
 		JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
 
 		Range range = f.createRange();
+		range.setType("Time");
 		range.getContent().add(minJAXBElement);
 		range.getContent().add(maxJAXBElement);
 
