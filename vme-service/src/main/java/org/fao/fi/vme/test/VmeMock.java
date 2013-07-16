@@ -17,7 +17,7 @@ public class VmeMock {
 
 	public final static Long ID = 1000l;
 	public final static Long VME_ID = 2000l;
-	public final static int YEAR = 2013;
+	public final static int YEAR = 2000;
 	public final static String INVENTORY_ID = "VME_RFMO_1";
 
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
@@ -97,6 +97,7 @@ public class VmeMock {
 			History vmeHistory = new History();
 			vmeHistory.setId(id++);
 			vmeHistory.setYear(year);
+			vmeHistory.setHistory(u.english("Some VME history for the year "+year));
 			vmeHistoryList.add(vmeHistory);
 
 			GeoRef geoRef = new GeoRef();
