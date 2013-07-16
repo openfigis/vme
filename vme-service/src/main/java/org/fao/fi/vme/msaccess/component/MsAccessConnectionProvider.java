@@ -1,5 +1,7 @@
 package org.fao.fi.vme.msaccess.component;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,14 +22,14 @@ public class MsAccessConnectionProvider {
 
 	//String dbLocation = "../vme-service-integrationtest/src/test/resources/VME_DBTest-FC.accdb";
 	
-	String dbLocation = "../vme-service-integrationtest/src/test/resources/VME_DB_production.accdb";
+	public static String dbLocation = "../vme-service-integrationtest/src/test/resources/VME_DB_production.accdb";
 
 	public MsAccessConnectionProvider() {
 		try {
 			Class.forName(UCANACCESS_DRIVER);
 			String url = UCANACCESS_URL + dbLocation;
-			System.out.println("Microsoft Access file : " +  dbLocation + "successfully connected!");
 			this.connecton = DriverManager.getConnection(url);
+			System.out.println("Microsoft Access file : " +  dbLocation + "successfully connected!");
 		} catch (SQLException e) {
 			throw new VmeException(e);
 		} catch (ClassNotFoundException e) {

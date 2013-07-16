@@ -21,13 +21,20 @@ import org.vme.service.search.vme.VmeSearchService;
 @Path("/search-params/{id_authority}/{id_vme_type}/{id_vme_criteria}/{year}")
 @Singleton
 public class VmeSearchWs {
-
-
+	
+	
 	private final SearchService service;
 
 	@Inject
-	public VmeSearchWs(VmeSearchService serv) {
+	public VmeSearchWs(VmeSearchService serv, DbBootstrapper bootstrapper) {
 		service = serv;
+		try {
+			bootstrapper.bootDb();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Path("/search")
@@ -52,7 +59,7 @@ public class VmeSearchWs {
 			requestDto.setCriteria(Integer.parseInt(id_vme_criteria));
 		}
 		if (!("*").equals(year.trim())){
-			requestDto.setCriteria(Integer.parseInt(year));
+			requestDto.setYear(Integer.parseInt(year));
 		}
 		if (requestDto.getAuthority() > 0) {
 			System.out.println("REST SERVICE: Service was called with param id: [" + id_authority + "] - text param:  " + text);

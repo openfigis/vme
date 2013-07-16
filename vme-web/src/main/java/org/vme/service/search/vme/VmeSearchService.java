@@ -24,6 +24,14 @@ public class VmeSearchService implements SearchService {
 	@VmeDB
 	private EntityManager entityManager;
 
+	
+	
+
+	public VmeSearchService() {
+		System.out.println("VME search engine 1.0 - Microsoft Access connettor");
+
+	}
+
 
 	public VmeSearchResult search(VmeSearchRequestDto request)  {
 
@@ -36,40 +44,37 @@ public class VmeSearchService implements SearchService {
 
 
 	private Query createHibernateQuery(){
-		Query res = entityManager.createQuery("from Vme where authority = :id and criteria= :criteria and type = :type");
+		Query res = entityManager.createQuery("from Vme");
 
 		return res;
 	}
 
 
 	private void loadQueryParameters(Query query, VmeSearchRequestDto request){
-
-		
-
 		try {
 			String authority = "*";
 			if (request.getAuthority()>0){
 				Authority vmeAuthority = (Authority) ReferenceServiceFactory.getService().getReference(Authority.class, (long) request.getAuthority());
-				authority = vmeAuthority.getName();
+				authority = vmeAuthority.getAcronym();
 			}
 			String criteria = "*";
 			if (request.getCriteria()>0){
 				VmeCriteria vmeCriteria = (VmeCriteria) ReferenceServiceFactory.getService().getReference(VmeCriteria.class, (long) request.getCriteria());
 				criteria = vmeCriteria.getName();
 			}
-			String type = "*";
+			String areaType = "*";
 			if (request.getCriteria()>0){
 				VmeType vmeType = (VmeType) ReferenceServiceFactory.getService().getReference(VmeType.class, (long) request.getType());
-				type = vmeType.getName();
+				areaType = vmeType.getName();
 			}
 
-			query.setParameter("authority", authority);
-			query.setParameter("criteria", criteria);
-			query.setParameter("type", type);
+			//query.setParameter("authority", authority);
+			//query.setParameter("criteria", criteria);
+			//query.setParameter("areaType", areaType);
 
 
 		} catch (Exception e){
-
+			e.printStackTrace();
 		}
 
 

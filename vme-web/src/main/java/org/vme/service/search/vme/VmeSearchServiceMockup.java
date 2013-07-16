@@ -12,6 +12,11 @@ public class VmeSearchServiceMockup  implements SearchService  {
 	
 	
 	
+	public VmeSearchServiceMockup() {
+		System.out.println("VME search engine 1.0 - Mockup service");
+
+	}
+
 	public VmeSearchResult search(VmeSearchRequestDto request) {
 		VmeSearchResult res = new VmeSearchResult(request);
 		String authority;
