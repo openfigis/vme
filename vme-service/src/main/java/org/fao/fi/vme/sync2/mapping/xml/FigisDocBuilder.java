@@ -11,6 +11,7 @@ import org.fao.fi.figis.devcon.Impacts;
 import org.fao.fi.figis.devcon.Max;
 import org.fao.fi.figis.devcon.Min;
 import org.fao.fi.figis.devcon.ObjectFactory;
+import org.fao.fi.figis.devcon.OrgRef;
 import org.fao.fi.figis.devcon.Range;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
@@ -20,6 +21,7 @@ import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.Profile;
+import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.Lang;
@@ -181,5 +183,22 @@ public class FigisDocBuilder {
 		figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves().add(year);
 	}
 	
+	
+	/**
+	 * Rfmo fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:OrgRef/fi:ForeignID@CodeSystem="rfb"/@Code
+	 * 
+	 * @param rfmo
+	 * @param figisDoc
+	 */
+	public void rfmo(Rfmo rfmo, FIGISDoc figisDoc) {
+		ForeignID rfmoForeignID = f.createForeignID();
+		rfmoForeignID.setCodeSystem("rfb");
+		rfmoForeignID.setCode(rfmo.getId());
+
+		OrgRef rfmoOrg = f.createOrgRef();
+		rfmoOrg.getForeignIDsAndFigisIDsAndTitles().add(rfmoForeignID);
+		figisDoc.getVME().getVMEIdent()
+				.getFigisIDsAndForeignIDsAndWaterAreaReves().add(rfmoOrg);
+	}
 
 }

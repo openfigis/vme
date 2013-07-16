@@ -12,6 +12,7 @@ import org.fao.fi.figis.devcon.HabitatBio;
 import org.fao.fi.figis.devcon.Impacts;
 import org.fao.fi.figis.devcon.Max;
 import org.fao.fi.figis.devcon.Min;
+import org.fao.fi.figis.devcon.OrgRef;
 import org.fao.fi.figis.devcon.Range;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
@@ -20,6 +21,7 @@ import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.Profile;
+import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.test.VmeMock;
@@ -185,6 +187,28 @@ public class FigisDocBuilderTest {
 		}
 		
 	}
+	
+	@Test
+	public void testRfmo(){
+		FIGISDoc figisDoc = new FIGISDoc();
+		figisDoc.setVME(new VME());
+		figisDoc.getVME().setVMEIdent(new VMEIdent());
+		
+		Rfmo rfmo = new Rfmo();
+		rfmo.setId("RFMO");
+		b.rfmo(rfmo, figisDoc);
+		
+		for(Object obj : figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves()){
+			if( obj instanceof OrgRef){
+				assertNotNull(obj);
+				ForeignID foreignID = (ForeignID) ((OrgRef) obj).getForeignIDsAndFigisIDsAndTitles().get(0);
+				assertEquals("rfb", foreignID.getCodeSystem());
+				assertEquals("RFMO", foreignID.getCode());
+			}
+		}
+	}
+	
+	
 
 	@Test
 	public void testFigisDocMarshall(){
@@ -192,6 +216,7 @@ public class FigisDocBuilderTest {
 		b.vme(vme, figisDoc);
 		b.year(vme.getValidityPeriod().getBeginYear().toString(), figisDoc);
 		b.profile(vme.getProfileList().get(0), figisDoc);
+		b.rfmo(vme.getRfmo(), figisDoc);
 		
 		String s = m.marshalToString(figisDoc);
 		assertTrue(s.contains(VMEIdent.class.getSimpleName()));
