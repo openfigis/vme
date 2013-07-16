@@ -2,19 +2,27 @@ package org.fao.fi.vme.sync2.mapping.xml;
 
 import java.util.List;
 
+import javax.xml.bind.JAXBElement;
+
 import org.fao.fi.figis.devcon.FIGISDoc;
+import org.fao.fi.figis.devcon.FigisID;
+import org.fao.fi.figis.devcon.ForeignID;
 import org.fao.fi.figis.devcon.HabitatBio;
 import org.fao.fi.figis.devcon.Impacts;
+import org.fao.fi.figis.devcon.Max;
+import org.fao.fi.figis.devcon.Min;
+import org.fao.fi.figis.devcon.Range;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
+import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
-import org.fao.fi.vme.domain.History;
+import org.fao.fi.figis.devcon.VMEType;
+import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.test.VmeMock;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.vme.fimes.jaxb.JaxbMarshall;
 
@@ -106,10 +114,41 @@ public class FigisDocBuilderTest {
 		
 		assertNotNull(figisDoc.getVME());
 		assertNotNull(figisDoc.getVME().getVMEIdent());
-		String s = m.marshalToString(figisDoc);
+		assertNotNull(figisDoc.getVME().getVMEIdent()
+				.getFigisIDsAndForeignIDsAndWaterAreaReves());
+		assertTrue(figisDoc.getVME().getVMEIdent()
+				.getFigisIDsAndForeignIDsAndWaterAreaReves().size() > 0);
 
-		assertTrue(s.contains(VMEIdent.class.getSimpleName()));
+		// test VMEIDent properties encoding
+		for (Object obj : figisDoc.getVME().getVMEIdent()
+				.getFigisIDsAndForeignIDsAndWaterAreaReves()) {
+			if (obj instanceof FigisID) {
+				assertEquals(Long.toString(vme.getId()),
+						((FigisID) obj).getContent());
+			} else if (obj instanceof ForeignID) {
+				assertEquals(vme.getInventoryIdentifier(),
+						((ForeignID) obj).getCode());
+			} else if (obj instanceof WaterAreaRef) {
+				assertEquals(vme.getGeoRefList().get(0)
+						.getGeographicFeatureID(),
+						((ForeignID) ((WaterAreaRef) obj)
+								.getFigisIDsAndForeignIDs().get(0)).getCode());
+			} else if (obj instanceof VMEType) {
+				assertEquals(vme.getAreaType(), ((VMEType) obj).getValue());
+			} else if (obj instanceof VMECriteria) {
+				assertEquals(vme.getCriteria(), ((VMECriteria) obj).getValue());
+			} else if (obj instanceof Range) {
+				JAXBElement<Min> min = (JAXBElement<Min>) ((Range) obj)
+						.getContent().get(0);
+				assertEquals(vme.getValidityPeriod().getBeginYear().toString(),
+						min.getValue().getContent());
 
+				JAXBElement<Max> max = (JAXBElement<Max>) ((Range) obj)
+						.getContent().get(1);
+				assertEquals(vme.getValidityPeriod().getEndYear().toString(),
+						max.getValue().getContent());
+			}
+		}
 	}
 
 	@Test
@@ -129,4 +168,16 @@ public class FigisDocBuilderTest {
 		
 	}
 
+	@Test
+	public void testFigisDocMarshall(){
+		FIGISDoc figisDoc = new FIGISDoc();
+		b.vme(vme, figisDoc);
+		b.year(vme.getValidityPeriod().getBeginYear().toString(), figisDoc);
+		
+		String s = m.marshalToString(figisDoc);
+		assertTrue(s.contains(VMEIdent.class.getSimpleName()));
+		
+		System.out.println(s);
+	}
+	
 }

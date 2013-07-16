@@ -17,7 +17,6 @@ import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
-import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.SpecificMeasures;
@@ -134,11 +133,11 @@ public class FigisDocBuilder {
 		//Validity period - Range
 		Min min = f.createMin();
 		min.setContent(vmeDomain.getValidityPeriod().getBeginYear().toString());
-		JAXBElement<Min> minJAXBElement = f.createRangeMin(f.createMin());
+		JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
 
 		Max max = f.createMax();
 		max.setContent(vmeDomain.getValidityPeriod().getEndYear().toString());
-		JAXBElement<Max> maxJAXBElement = f.createRangeMax(f.createMax());
+		JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
 
 		Range range = f.createRange();
 		range.getContent().add(minJAXBElement);
@@ -157,8 +156,8 @@ public class FigisDocBuilder {
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeForeignID);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeCriteria);
-		// vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
-		// vmeIdent.getFigisIDsAndWaterAreaRevesAndOrgReves().add(range);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(range);
 
 		VME vme = new VME();
 		vme.setVMEIdent(vmeIdent);
