@@ -1,5 +1,6 @@
 package org.fao.fi.vme.test;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +74,14 @@ public class VmeMock {
 			int year = startYear + i;
 			InformationSource is = new InformationSource();
 			is.setId(id++);
+			is.setCitation(u.english("RFMO Conservation and Enforcement Measures "+year+" (Doc No. ####)"));
+			try{
+				is.setUrl(new URL("http://www.rfmo.org"));
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			informationSourceList.add(is);
+			
 			History rfmoHistory = new History();
 			rfmoHistory.setId(id++);
 			rfmoHistory.setYear(year);
@@ -92,6 +100,9 @@ public class VmeMock {
 			SpecificMeasures specificMeasures = new SpecificMeasures();
 			specificMeasures.setId(id++);
 			specificMeasures.setYear(year);
+			specificMeasures.setVmeSpecificMeasure(u.english("A specific measure for the year "+year));
+			specificMeasures.setValidityPeriod(ValidityPeriodMock.create(year, year+1));
+			specificMeasures.setInformationSource(is);
 			specificMeasureList.add(specificMeasures);
 
 			History vmeHistory = new History();

@@ -2,17 +2,24 @@ package org.fao.fi.vme.sync2.mapping.xml;
 
 import javax.xml.bind.JAXBElement;
 
+import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.ForeignID;
 import org.fao.fi.figis.devcon.GeoForm;
 import org.fao.fi.figis.devcon.HabitatBio;
 import org.fao.fi.figis.devcon.Impacts;
+import org.fao.fi.figis.devcon.Management;
+import org.fao.fi.figis.devcon.ManagementMethodEntry;
+import org.fao.fi.figis.devcon.ManagementMethods;
 import org.fao.fi.figis.devcon.Max;
+import org.fao.fi.figis.devcon.Measure;
+import org.fao.fi.figis.devcon.MeasureType;
 import org.fao.fi.figis.devcon.Min;
 import org.fao.fi.figis.devcon.ObjectFactory;
 import org.fao.fi.figis.devcon.OrgRef;
 import org.fao.fi.figis.devcon.Range;
+import org.fao.fi.figis.devcon.Sources;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
 import org.fao.fi.figis.devcon.VMECriteria;
@@ -28,20 +35,108 @@ import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync2.mapping.RfmoHistory;
+import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.elements._1.Title;
+import org.purl.dc.terms.BibliographicCitation;
 
 public class FigisDocBuilder {
 
 	ObjectFactory f = new ObjectFactory();
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
-
+	
+	/**
+	 * 
+	 * measureSummary 
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/fi:Text
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/dc:Title[VME-specific measures]
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/MeasureType Value="vulnerable marine ecosystem"
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * 
+	 * Source/url
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Sources/fi:BiblioEntry/dc:Identifier@Type="URI"
+	 * 
+	 * Source/citation 
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Sources/fi:BiblioEntry/dcterms:bibliographicCitation
+	 * 
+	 * ValidityPeriod/beginYear
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Range@Type="Time"/fi:Min
+	 * 
+	 * ValidityPeriod/endYear
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Range@Type="Time"/fi:Max 
+	 * 
+	 * 
+	 * @param yearObject
+	 * @param figisDoc
+	 */
 	public void specificMeasures(SpecificMeasures yearObject, FIGISDoc figisDoc) {
-		// TODO Auto-generated method stub
+		
+		//ManagementMethodEntry
+		ManagementMethodEntry entry = f.createManagementMethodEntry();
+		entry.setFocus("Vulnerable Marine Ecosystems");
+		
+		//title
+		Title entryTitle = new Title();
+		entryTitle.setContent("VME-specific measures");
+		entry.setTitle(entryTitle);
+		
+		//Measure
+		Measure measure = f.createMeasure();
+			
+			//measureType
+			MeasureType measureType = f.createMeasureType();
+			measureType.setValue("VME-specific measures");
+			measure.getTextsAndImagesAndTables().add(measureType);
+			
+			//text
+			Text measureText = f.createText();
+			measureText.getContent().add(u.getEnglish(yearObject.getVmeSpecificMeasure()));
+			measure.getTextsAndImagesAndTables().add(measureText);
+			
+			//range (time)
+			Min min = f.createMin();
+			min.setContent(yearObject.getValidityPeriod().getBeginYear().toString());
+			JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
 
+			Max max = f.createMax();
+			max.setContent(yearObject.getValidityPeriod().getEndYear().toString());
+			JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
+
+			Range range = f.createRange();
+			range.setType("Time");
+			range.getContent().add(minJAXBElement);
+			range.getContent().add(maxJAXBElement);
+			measure.getTextsAndImagesAndTables().add(range);
+			
+			//sources
+			Sources sources = f.createSources();
+			BiblioEntry biblioEntry = f.createBiblioEntry();
+			
+			BibliographicCitation citation = new BibliographicCitation();
+			citation.setContent(u.getEnglish(yearObject.getInformationSource().getCitation()));
+			biblioEntry.getContent().add(citation);
+			
+			Identifier identifier = new Identifier();
+			identifier.setType("URI");
+			identifier.setContent(yearObject.getInformationSource().getUrl().toString());
+			biblioEntry.getContent().add(identifier);
+			
+			sources.getTextsAndImagesAndTables().add(biblioEntry);
+			measure.getTextsAndImagesAndTables().add(sources);
+		
+			
+		entry.getTextsAndImagesAndTables().add(measure); //add measure to ManagementMethodEntry
+		
+		ManagementMethods managementMethods = f.createManagementMethods();
+		managementMethods.getManagementMethodEntriesAndTextsAndImages().add(entry);
+		Management management = f.createManagement();
+		management.getTextsAndImagesAndTables().add(managementMethods);
+		
+		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(management);
+				
 	}
 
 	/**
-	 * VME_history 	fi:FIGISDoc/fi:VME/fi:History/fi:Text 
+	 * VME_history 	fi:FIGISDoc/fi:VME/fi:History/fi:Text
 	 * 
 	 * @param history
 	 * @param figisDoc

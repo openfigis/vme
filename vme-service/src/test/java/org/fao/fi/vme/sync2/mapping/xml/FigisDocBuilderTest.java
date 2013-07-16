@@ -4,16 +4,23 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
+import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.ForeignID;
 import org.fao.fi.figis.devcon.GeoForm;
 import org.fao.fi.figis.devcon.HabitatBio;
 import org.fao.fi.figis.devcon.Impacts;
+import org.fao.fi.figis.devcon.Management;
+import org.fao.fi.figis.devcon.ManagementMethodEntry;
+import org.fao.fi.figis.devcon.ManagementMethods;
 import org.fao.fi.figis.devcon.Max;
+import org.fao.fi.figis.devcon.Measure;
+import org.fao.fi.figis.devcon.MeasureType;
 import org.fao.fi.figis.devcon.Min;
 import org.fao.fi.figis.devcon.OrgRef;
 import org.fao.fi.figis.devcon.Range;
+import org.fao.fi.figis.devcon.Sources;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
 import org.fao.fi.figis.devcon.VMECriteria;
@@ -21,13 +28,17 @@ import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.MultiLingualString;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
+import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.test.VmeMock;
 import org.junit.Before;
 import org.junit.Test;
+import org.purl.dc.elements._1.Identifier;
+import org.purl.dc.terms.BibliographicCitation;
 import org.vme.fimes.jaxb.JaxbMarshall;
 
 import static org.junit.Assert.assertEquals;
@@ -52,7 +63,65 @@ public class FigisDocBuilderTest {
 	
 	@Test
 	public void testSpecificMeasures() {
-		// TODO
+		FIGISDoc figisDoc = new FIGISDoc();
+		figisDoc.setVME(new VME());
+
+		SpecificMeasures specificMeasure = vme.getSpecificMeasureList().get(0);
+		b.specificMeasures(specificMeasure, figisDoc);
+		Management management = (Management) figisDoc.getVME()
+				.getOverviewsAndHabitatBiosAndImpacts().get(0);
+		assertNotNull(management);
+
+		ManagementMethods manMethods = (ManagementMethods) management
+				.getTextsAndImagesAndTables().get(0);
+		assertNotNull(manMethods);
+
+		ManagementMethodEntry entry = (ManagementMethodEntry) manMethods
+				.getManagementMethodEntriesAndTextsAndImages().get(0);
+		assertNotNull(entry);
+		assertEquals("Vulnerable Marine Ecosystems", entry.getFocus());
+		assertEquals("VME-specific measures", entry.getTitle().getContent());
+
+		Measure measure = (Measure) entry.getTextsAndImagesAndTables().get(0);
+		assertNotNull(measure);
+
+		for (Object obj : measure.getTextsAndImagesAndTables()) {
+			if (obj instanceof MeasureType) {
+				assertEquals("VME-specific measures",
+						((MeasureType) obj).getValue());
+				
+			} else if (obj instanceof Text) {
+				assertEquals(
+						u.getEnglish(specificMeasure.getVmeSpecificMeasure()),
+						((Text) obj).getContent().get(0));
+				
+			} else if (obj instanceof Range) {
+				assertEquals("Time", ((Range) obj).getType());
+				assertEquals(specificMeasure.getValidityPeriod().getBeginYear()
+						.toString(), ((JAXBElement<Min>) ((Range) obj)
+						.getContent().get(0)).getValue().getContent());
+				assertEquals(specificMeasure.getValidityPeriod().getEndYear()
+						.toString(), ((JAXBElement<Max>) ((Range) obj)
+						.getContent().get(1)).getValue().getContent());
+				
+			} else if(obj instanceof Sources){
+				BiblioEntry biblioEntry = (BiblioEntry) ((Sources) obj)
+						.getTextsAndImagesAndTables().get(0);
+				for (Object bibObj : biblioEntry.getContent()) {
+					if (bibObj instanceof BibliographicCitation) {
+						assertEquals(u.getEnglish(specificMeasure
+								.getInformationSource().getCitation()),
+								((BibliographicCitation) bibObj).getContent());
+
+					} else if (bibObj instanceof Identifier) {
+						assertEquals("URI", ((Identifier) bibObj).getType());
+						assertEquals(specificMeasure.getInformationSource()
+								.getUrl().toString(),
+								((Identifier) bibObj).getContent());
+					}
+				}
+			}
+		}
 	}
 
 	@Test
@@ -222,7 +291,7 @@ public class FigisDocBuilderTest {
 	}
 	
 	
-
+	
 	@Test
 	public void testFigisDocMarshall(){
 		FIGISDoc figisDoc = new FIGISDoc();
@@ -231,6 +300,7 @@ public class FigisDocBuilderTest {
 		b.profile(vme.getProfileList().get(0), figisDoc);
 		b.rfmo(vme.getRfmo(), figisDoc);
 		b.vmeHistory(vme.getHistoryList().get(0), figisDoc);
+		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc);
 		
 		String s = m.marshalToString(figisDoc);
 		assertTrue(s.contains(VMEIdent.class.getSimpleName()));
