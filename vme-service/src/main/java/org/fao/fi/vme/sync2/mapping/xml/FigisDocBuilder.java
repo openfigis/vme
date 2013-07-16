@@ -28,7 +28,6 @@ import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync2.mapping.RfmoHistory;
-import org.fao.fi.vme.sync2.mapping.VmeHistory;
 import org.purl.dc.elements._1.Title;
 
 public class FigisDocBuilder {
@@ -44,7 +43,7 @@ public class FigisDocBuilder {
 	/**
 	 * VME_history 	fi:FIGISDoc/fi:VME/fi:History/fi:Text 
 	 * 
-	 * @param yearObject
+	 * @param history
 	 * @param figisDoc
 	 */
 	public void vmeHistory(History history, FIGISDoc figisDoc) {	
