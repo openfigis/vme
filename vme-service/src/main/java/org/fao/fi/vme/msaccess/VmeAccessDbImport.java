@@ -27,7 +27,7 @@ public class VmeAccessDbImport {
 
 	private final MsAcces2DomainMapper m = new MsAcces2DomainMapper();
 	private final Linker linker = new Linker();
-	private RelationVmeGeoRef relationVmeGeoRef = new RelationVmeGeoRef(); 
+	private RelationVmeGeoRef relationVmeGeoRef = new RelationVmeGeoRef();
 	private final VmeReader reader = new VmeReader();
 
 	/**
@@ -46,8 +46,7 @@ public class VmeAccessDbImport {
 
 		// correct the relation Vme - GeoRef
 		relationVmeGeoRef.correct(objectCollectionList);
-		
-		
+
 		// write the domain objects to the DB
 		writer.write(objectCollectionList);
 

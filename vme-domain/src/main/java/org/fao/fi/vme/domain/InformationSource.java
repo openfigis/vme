@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -30,8 +31,9 @@ public class InformationSource {
 	/**
 	 * 
 	 */
-	@ManyToMany
-	List<Rfmo> rfmoList;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Rfmo> rfmoList;
 
 	/**
 	 * InformationSource has 0,1 SpecificMeasures

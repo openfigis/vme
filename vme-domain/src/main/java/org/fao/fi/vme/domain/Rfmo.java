@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -22,7 +23,24 @@ public class Rfmo {
 	@Id
 	private Long id;
 
-	@OneToMany(mappedBy = "rfmo")
+	/**
+	 * 
+	 * 
+	 * 
+	 * Rfmo
+	 */
+	/*
+	 * This error occurs
+	 * 
+	 * org.hibernate.exception.GenericJDBCException: could not initialize a collection:
+	 * [org.fao.fi.vme.domain.Rfmo.generalMeasuresList#3] Caused by: java.sql.SQLException: Stream has already been
+	 * closed
+	 * 
+	 * 
+	 * 
+	 * http://www.razorsql.com/docs/support_oracle_long.html
+	 */
+	@OneToMany(mappedBy = "rfmo", fetch = FetchType.EAGER)
 	private List<GeneralMeasures> generalMeasuresList;
 
 	/**

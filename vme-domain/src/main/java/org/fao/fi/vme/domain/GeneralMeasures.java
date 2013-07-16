@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
@@ -27,7 +28,7 @@ public class GeneralMeasures implements YearObject<GeneralMeasures> {
 	/**
 	 * GeneralMeasures are defined on the level of a RFMO.
 	 */
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	private Rfmo rfmo;
 
 	/**
@@ -47,7 +48,7 @@ public class GeneralMeasures implements YearObject<GeneralMeasures> {
 	/**
 	 * 
 	 */
-	@Column(length=4096)
+	@Column(length = 4096)
 	private String fishingAreas;
 
 	/**

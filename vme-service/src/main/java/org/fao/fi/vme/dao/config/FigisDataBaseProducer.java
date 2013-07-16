@@ -19,6 +19,8 @@ import javax.persistence.Persistence;
 @Alternative
 public class FigisDataBaseProducer {
 
+	static int i = 0;
+
 	// private static EntityManagerFactory factory;
 
 	@Produces
@@ -33,6 +35,17 @@ public class FigisDataBaseProducer {
 	@Produces
 	@FigisDB
 	public EntityManager produceEntityManager() {
+		// System.out.println("=====================================================");
+		// System.out.println("=====================================================");
+		// System.out.println("=====================================================");
+		// System.out.println("=====================================================");
+		// System.out.println("=====================================================");
+		// System.out.println("=====================================================");
+		// System.out.println("=====================================================");
+		// System.out.println("=====================================================");
+		// System.out.println("=====================================================");
+		// System.out.println("=====================================================called this number of times" + ++i);
+
 		return create().createEntityManager();
 	}
 

@@ -46,7 +46,7 @@ public class RefWaterArea implements Serializable {
 	private String externalId;
 
 	@Column(name = "GRP_IND")
-	private String grpInd;
+	private char grpInd;
 
 	@Column(name = "MAX_LAT")
 	private BigDecimal maxLat;
@@ -126,11 +126,11 @@ public class RefWaterArea implements Serializable {
 		this.externalId = externalId;
 	}
 
-	public String getGrpInd() {
+	public char getGrpInd() {
 		return grpInd;
 	}
 
-	public void setGrpInd(String grpInd) {
+	public void setGrpInd(char grpInd) {
 		this.grpInd = grpInd;
 	}
 
