@@ -7,6 +7,7 @@ import javax.xml.bind.JAXBElement;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.ForeignID;
+import org.fao.fi.figis.devcon.GeoForm;
 import org.fao.fi.figis.devcon.HabitatBio;
 import org.fao.fi.figis.devcon.Impacts;
 import org.fao.fi.figis.devcon.Max;
@@ -89,17 +90,34 @@ public class FigisDocBuilderTest {
 		b.profile(profile, figisDoc);
 
 		// test
-		List<Object> list = figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts();
+		List<Object> list = figisDoc.getVME()
+				.getOverviewsAndHabitatBiosAndImpacts();
 		assertEquals(2, list.size());
 
-		HabitatBio habitatBio = (HabitatBio) list.get(0);
-		Text text1 = (Text) habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().get(0);
-		assertEquals(descriptionBiological, text1.getContent().get(0));
-
-		Impacts Impacts = (Impacts) list.get(1);
-		Text text3 = (Text) Impacts.getTextsAndImagesAndTables().get(0);
-		assertEquals(descriptionImpact, text3.getContent().get(0));
-
+		for (Object obj : list) {
+			if (obj instanceof HabitatBio) {
+				for (Object pObj : ((HabitatBio) obj)
+						.getClimaticZonesAndDepthZonesAndDepthBehavs()) {
+					if (pObj instanceof Text) {
+						// test text HabitatBio property
+						assertEquals(descriptionBiological, ((Text) pObj)
+								.getContent().get(0));
+					} else if (pObj instanceof GeoForm) {
+						String geoformString = (String) ((JAXBElement<Text>) (((GeoForm) pObj)
+								.getContent().get(0))).getValue().getContent()
+								.get(0);
+						assertEquals(descriptionPhysical, geoformString);
+					}
+				}
+			} else if (obj instanceof Impacts) {
+				for (Object pObj : ((Impacts) obj).getTextsAndImagesAndTables()) {
+					if (pObj instanceof Text) {
+						assertEquals(descriptionImpact, ((Text) pObj)
+								.getContent().get(0));
+					}
+				}
+			}
+		}
 	}
 
 	@Test
@@ -173,6 +191,7 @@ public class FigisDocBuilderTest {
 		FIGISDoc figisDoc = new FIGISDoc();
 		b.vme(vme, figisDoc);
 		b.year(vme.getValidityPeriod().getBeginYear().toString(), figisDoc);
+		b.profile(vme.getProfileList().get(0), figisDoc);
 		
 		String s = m.marshalToString(figisDoc);
 		assertTrue(s.contains(VMEIdent.class.getSimpleName()));

@@ -5,6 +5,7 @@ import javax.xml.bind.JAXBElement;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.ForeignID;
+import org.fao.fi.figis.devcon.GeoForm;
 import org.fao.fi.figis.devcon.HabitatBio;
 import org.fao.fi.figis.devcon.Impacts;
 import org.fao.fi.figis.devcon.Max;
@@ -71,7 +72,12 @@ public class FigisDocBuilder {
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
 
 		//Physical profile
-		//TODO
+		Text text2 = f.createText();
+		text2.getContent().add(u.getEnglish(profile.getDescriptionPhisical()));
+		GeoForm geoform = f.createGeoForm();
+		JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(text2);
+		geoform.getContent().add(geoformJAXBElement);
+		habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); //geoForm is part of HabitatBio profile
 		
 		//Impacts profile
 		Impacts impacts = f.createImpacts();
