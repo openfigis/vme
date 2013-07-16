@@ -72,6 +72,7 @@ public class ObjectMapping {
 			FIGISDoc figisDoc = new DefaultFigisDoc().defineDefaultFIGISDoc();
 			figisDocBuilder.vme(vme, figisDoc);
 			figisDocBuilder.year(year, figisDoc);
+			figisDocBuilder.rfmo(vme.getRfmo(), figisDoc);
 
 			// now we get all the year related objects for that vme. The observation gets filled up with the information
 			// for that year.
