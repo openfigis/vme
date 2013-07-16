@@ -20,6 +20,7 @@ import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
+import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.Vme;
@@ -56,7 +57,18 @@ public class FigisDocBuilderTest {
 
 	@Test
 	public void testVmeHistory() {
-		// TODO
+		FIGISDoc figisDoc = new FIGISDoc();
+		figisDoc.setVME(new VME());
+		
+		History vmeHistory = (History) vme.getHistoryList().get(0);
+		b.vmeHistory(vmeHistory, figisDoc);
+		
+		org.fao.fi.figis.devcon.History hist = (org.fao.fi.figis.devcon.History) figisDoc
+				.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
+		assertNotNull(hist);
+		
+		String expected = u.getEnglish(vmeHistory.getHistory());
+		assertEquals(expected, ((Text) hist.getTextsAndImagesAndTables().get(0)).getContent().get(0));
 	}
 
 	@Test
@@ -217,6 +229,7 @@ public class FigisDocBuilderTest {
 		b.year(vme.getValidityPeriod().getBeginYear().toString(), figisDoc);
 		b.profile(vme.getProfileList().get(0), figisDoc);
 		b.rfmo(vme.getRfmo(), figisDoc);
+		b.vmeHistory(vme.getHistoryList().get(0), figisDoc);
 		
 		String s = m.marshalToString(figisDoc);
 		assertTrue(s.contains(VMEIdent.class.getSimpleName()));

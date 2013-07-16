@@ -20,6 +20,7 @@ import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasures;
@@ -27,7 +28,6 @@ import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync2.mapping.RfmoHistory;
-import org.fao.fi.vme.sync2.mapping.VmeHistory;
 import org.purl.dc.elements._1.Title;
 
 public class FigisDocBuilder {
@@ -40,11 +40,21 @@ public class FigisDocBuilder {
 
 	}
 
-	public void vmeHistory(VmeHistory yearObject, FIGISDoc figisDoc) {
-		// TODO Auto-generated method stub
-
+	/**
+	 * VME_history 	fi:FIGISDoc/fi:VME/fi:History/fi:Text 
+	 * 
+	 * @param history
+	 * @param figisDoc
+	 */
+	public void vmeHistory(History history, FIGISDoc figisDoc) {	
+		org.fao.fi.figis.devcon.History hist = f.createHistory();
+		Text historyText = f.createText();
+		historyText.getContent().add(u.getEnglish(history.getHistory()));
+		hist.getTextsAndImagesAndTables().add(historyText);
+		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(hist);
 	}
 
+	
 	public void rfmoHistory(RfmoHistory yearObject, FIGISDoc figisDoc) {
 		// TODO Auto-generated method stub
 
