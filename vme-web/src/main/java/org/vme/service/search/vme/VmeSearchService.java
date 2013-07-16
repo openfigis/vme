@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import org.fao.fi.vme.dao.config.VmeDB;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.vme.service.dto.VmeSearchDto;
 import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
@@ -25,6 +26,7 @@ public class VmeSearchService implements SearchService {
 	private EntityManager entityManager;
 
 	
+	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 	
 
 	public VmeSearchService() {
@@ -93,6 +95,17 @@ public class VmeSearchService implements SearchService {
 	private VmeSearchDto getVmeSearchDto(Vme vme) {
 		VmeSearchDto res = new VmeSearchDto();
 		res.setVmeId(vme.getId());
+		res.setLocalName(u.getEnglish(vme.getName()));
+		res.setEnvelope("");
+		res.setFactsheetUrl("fishery/vme/"+vme.getId()+"/en");
+		res.setGeoArea(vme.getGeoRefList().size()>0?vme.getGeoRefList().get(0).getGeographicFeatureID():"");
+		res.setOwner(vme.getRfmo().getId());
+		res.setValidityPeriod(vme.getValidityPeriod().getBeginYear() + "-" + vme.getValidityPeriod().getEndYear());
+		res.setVmeType(vme.getAreaType());
+		res.setYear( vme.getGeoRefList().size()>0?vme.getGeoRefList().get(0).getYear():0);
+		res.setGeographicLayerId(vme.getGeoRefList().size()>0?vme.getGeoRefList().get(0).getGeographicFeatureID():"");
+		
+		
 		return res;
 	}
 
