@@ -65,7 +65,8 @@ public class RFB_MetaData implements TableDomainMapper {
 		Rfmo o = new Rfmo();
 		// o.setFishingActivityList(fishingActivityList);
 		// o.setGeneralMeasuresList(generalMeasuresList)
-		o.setId(new Long(this.ID));
+		o.setId(this.RFB_ID);
+
 		// o.setManagedVmeList(managedVmeList)
 		// o.setMeetingList(meetingList)
 		return o;
