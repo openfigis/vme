@@ -18,6 +18,7 @@ public class VmeSearchDto {
 	private String validityPeriod;
 
 
+
 	public String getLocalName() {
 		return localName;
 	}

@@ -31,7 +31,7 @@
 		<servlet-class>org.vme.web.service.StartupServlet</servlet-class>
 		<init-param>
 			<param-name>dbaccess-path</param-name>
-			<param-value>C:\temp\VME_DB_production.accdb</param-value>
+			<param-value>/work/FIGIS/vme/webapps/VME_DB_production.accdb</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

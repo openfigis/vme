@@ -46,7 +46,7 @@ public class VmeSearchService implements SearchService {
 
 
 	private Query createHibernateQuery(){
-		Query res = entityManager.createQuery("from Vme");
+		Query res = entityManager.createQuery("from Vme vme where vme.rfmo.id like :authority and vme.areaType like :areaType  ORDER BY vme.id  ");
 
 		return res;
 	}
@@ -54,25 +54,25 @@ public class VmeSearchService implements SearchService {
 
 	private void loadQueryParameters(Query query, VmeSearchRequestDto request){
 		try {
-			String authority = "*";
+			String authority = "%";
 			if (request.getAuthority()>0){
 				Authority vmeAuthority = (Authority) ReferenceServiceFactory.getService().getReference(Authority.class, (long) request.getAuthority());
 				authority = vmeAuthority.getAcronym();
 			}
-			String criteria = "*";
+			String criteria = "%";
 			if (request.getCriteria()>0){
 				VmeCriteria vmeCriteria = (VmeCriteria) ReferenceServiceFactory.getService().getReference(VmeCriteria.class, (long) request.getCriteria());
 				criteria = vmeCriteria.getName();
 			}
-			String areaType = "*";
+			String areaType = "%";
 			if (request.getCriteria()>0){
 				VmeType vmeType = (VmeType) ReferenceServiceFactory.getService().getReference(VmeType.class, (long) request.getType());
 				areaType = vmeType.getName();
 			}
 
-			//query.setParameter("authority", authority);
+			query.setParameter("authority", authority);
+			query.setParameter("areaType", areaType);
 			//query.setParameter("criteria", criteria);
-			//query.setParameter("areaType", areaType);
 
 
 		} catch (Exception e){
@@ -104,8 +104,6 @@ public class VmeSearchService implements SearchService {
 		res.setVmeType(vme.getAreaType());
 		res.setYear( vme.getGeoRefList().size()>0?vme.getGeoRefList().get(0).getYear():0);
 		res.setGeographicLayerId(vme.getGeoRefList().size()>0?vme.getGeoRefList().get(0).getGeographicFeatureID():"");
-		
-		
 		return res;
 	}
 
