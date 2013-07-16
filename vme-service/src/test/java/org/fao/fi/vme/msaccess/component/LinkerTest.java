@@ -1,5 +1,7 @@
 package org.fao.fi.vme.msaccess.component;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,8 +21,6 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertNotNull;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class })
