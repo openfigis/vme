@@ -4,18 +4,18 @@ package org.vme.service.dto;
 public class VmeSearchDto {
 
 
-	
+	private long  vmeId;	
 	private String localName;
-	
+	private String inventoryIdentifier;
 	private String factsheetUrl;
-	private long  vmeId;
 	private String geoArea;
 	private String owner;
 	private String vmeType;
-	private String geographicLayerId;
+	private String geographicFeatureId;
 	private int year;
 	private String envelope;
-	private String validityPeriod;
+	private int validityPeriodFrom;
+	private int validityPeriodTo;
 
 
 
@@ -59,17 +59,31 @@ public class VmeSearchDto {
 	
 	
 	/**
+	 * @return the inventoryIdentifier
+	 */
+	public String getInventoryIdentifier() {
+		return inventoryIdentifier;
+	}
+
+	/**
+	 * @param inventoryIdentifier the inventoryIdentifier to set
+	 */
+	public void setInventoryIdentifier(String inventoryIdentifier) {
+		this.inventoryIdentifier = inventoryIdentifier;
+	}
+
+	/**
 	 * @return the geographicLayerId
 	 */
-	public String getGeographicLayerId() {
-		return geographicLayerId;
+	public String getgeographicFeatureId() {
+		return geographicFeatureId;
 	}
 
 	/**
 	 * @param geographicLayerId the geographicLayerId to set
 	 */
-	public void setGeographicLayerId(String geographicLayerId) {
-		this.geographicLayerId = geographicLayerId;
+	public void setGeographicFeatureId(String geographicFeatureId) {
+		this.geographicFeatureId = geographicFeatureId;
 	}
 
 	/**
@@ -143,21 +157,33 @@ public class VmeSearchDto {
 	}
 
 	/**
-	 * @return the validityPeriod
+	 * @return the validityPeriodFrom 
 	 */
-	public String getValidityPeriod() {
-		return validityPeriod;
+	public int getValidityPeriodFrom() {
+		return validityPeriodFrom;
 	}
 
 	/**
-	 * @param validityPeriod the validityPeriod to set
+	 * @param validityPeriod the validityPeriodFrom to set
 	 */
-	public void setValidityPeriod(String validityPeriod) {
-		this.validityPeriod = validityPeriod;
+	public void setValidityPeriodFrom(int validityPeriodFrom) {
+		this.validityPeriodFrom = validityPeriodFrom;
 	}
 
 	
-	
+	/**
+	 * @return the validityPeriodTo 
+	 */
+	public int getValidityPeriodTo() {
+		return validityPeriodTo;
+	}
+
+	/**
+	 * @param validityPeriod the validityPeriodTo to set
+	 */
+	public void setValidityPeriodTo(int validityPeriodTo) {
+		this.validityPeriodTo = validityPeriodTo;
+	}
 	
 	
 }

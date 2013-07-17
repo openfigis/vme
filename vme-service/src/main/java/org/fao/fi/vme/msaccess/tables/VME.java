@@ -180,6 +180,8 @@ public class VME implements TableDomainMapper {
 		o.setAreaType(this.VME_Area_Type);
 		// o.setCriteria(this.)
 		o.setGeoform(this.VME_Geoform);
+		o.setGeoArea(this.VME_GeogArea1);
+		
 		// o.setGeographicLayerId(this.)
 		o.setId(new Long(this.ID));
 		// o.setName(this.get)

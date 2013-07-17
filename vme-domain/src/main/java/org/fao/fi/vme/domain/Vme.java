@@ -70,6 +70,13 @@ public class Vme {
 	 *
 	 */
 	private String areaType;
+	
+	
+	/**
+	 *
+	 */
+	private String geoarea;
+	
 
 	/**
 	 *
@@ -173,5 +180,21 @@ public class Vme {
 	public void setCriteria(String criteria) {
 		this.criteria = criteria;
 	}
+
+	/**
+	 * @return the geoarea
+	 */
+	public String getGeoArea() {
+		return geoarea;
+	}
+
+	/**
+	 * @param geoarea the geoarea to set
+	 */
+	public void setGeoArea(String geoarea) {
+		this.geoarea = geoarea;
+	}
+	
+	
 
 }

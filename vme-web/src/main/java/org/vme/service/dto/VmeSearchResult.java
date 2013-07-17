@@ -16,14 +16,14 @@ import java.util.List;
 public class VmeSearchResult {
 
 	
-	private VmeSearchRequestDto request;
+	private VmeRequestDto request;
 	
 	private List<VmeSearchDto> resultList;
 
 	/**
 	 * @param request
 	 */
-	public VmeSearchResult(VmeSearchRequestDto request) {
+	public VmeSearchResult(VmeRequestDto request) {
 		super();
 		this.request = request;
 		resultList = new LinkedList<VmeSearchDto>();

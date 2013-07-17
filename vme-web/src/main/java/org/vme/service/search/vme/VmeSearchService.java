@@ -9,6 +9,8 @@ import javax.persistence.Query;
 import org.fao.fi.vme.dao.config.VmeDB;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.vme.service.dto.VmeGetRequestDto;
+import org.vme.service.dto.VmeRequestDto;
 import org.vme.service.dto.VmeSearchDto;
 import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
@@ -37,20 +39,31 @@ public class VmeSearchService implements SearchService {
 
 	public VmeSearchResult search(VmeSearchRequestDto request)  {
 
-		Query query = createHibernateQuery();
+		Query query = createHibernateSearchQuery();
 		loadQueryParameters(query, request);
 		List<?> result =   query.getResultList();
 		VmeSearchResult res = convertPersistenceResult(request, (List<Vme>) result);
 		return res;
 	}
 
+	
+	public VmeSearchResult get(VmeGetRequestDto request)  {
+		Query query = entityManager.createQuery("from Vme vme where vme.id = :id");
+		
+		query.setParameter("id", request.getId());
+		List<?> result =   query.getResultList();
+		VmeSearchResult res = convertPersistenceResult(request, (List<Vme>) result);
+		return res;
+	}
+	
+	
 
-	private Query createHibernateQuery(){
+	private Query createHibernateSearchQuery(){
 		Query res = entityManager.createQuery("from Vme vme where vme.rfmo.id like :authority and vme.areaType like :areaType  ORDER BY vme.id  ");
-
 		return res;
 	}
 
+	
 
 	private void loadQueryParameters(Query query, VmeSearchRequestDto request){
 		try {
@@ -83,7 +96,7 @@ public class VmeSearchService implements SearchService {
 	}
 
 
-	private VmeSearchResult convertPersistenceResult(VmeSearchRequestDto request,  List<Vme> result){
+	private VmeSearchResult convertPersistenceResult(VmeRequestDto request,  List<Vme> result){
 		VmeSearchResult res = new VmeSearchResult(request);
 		for (Vme vme : result) {
 			res.addElement(getVmeSearchDto(vme));
@@ -92,18 +105,22 @@ public class VmeSearchService implements SearchService {
 	}
 
 
+	
+	
 	private VmeSearchDto getVmeSearchDto(Vme vme) {
 		VmeSearchDto res = new VmeSearchDto();
 		res.setVmeId(vme.getId());
+		res.setInventoryIdentifier(vme.getInventoryIdentifier());
 		res.setLocalName(u.getEnglish(vme.getName()));
 		res.setEnvelope("");
 		res.setFactsheetUrl("fishery/vme/"+vme.getId()+"/en");
-		res.setGeoArea(vme.getGeoRefList().size()>0?vme.getGeoRefList().get(0).getGeographicFeatureID():"");
+		res.setGeoArea(vme.getGeoArea());
 		res.setOwner(vme.getRfmo().getId());
-		res.setValidityPeriod(vme.getValidityPeriod().getBeginYear() + "-" + vme.getValidityPeriod().getEndYear());
+		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginYear());
+		res.setValidityPeriodTo(vme.getValidityPeriod().getEndYear());
 		res.setVmeType(vme.getAreaType());
 		res.setYear( vme.getGeoRefList().size()>0?vme.getGeoRefList().get(0).getYear():0);
-		res.setGeographicLayerId(vme.getGeoRefList().size()>0?vme.getGeoRefList().get(0).getGeographicFeatureID():"");
+		res.setGeographicFeatureId(vme.getGeoRefList().size()>0?vme.getGeoRefList().get(0).getGeographicFeatureID():"");
 		return res;
 	}
 

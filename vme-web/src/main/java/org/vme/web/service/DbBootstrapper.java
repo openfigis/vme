@@ -19,7 +19,14 @@ public class DbBootstrapper {
 	 */
 	public final static int EMBEDDED_ACCESS_DB = 0 ;
 	
+	private static boolean hasbooted = false;
 	
+	
+
+
+
+
+
 	@Inject
 	private VmeAccessDbImport vmeAccessDbImport;
 	
@@ -36,10 +43,16 @@ public class DbBootstrapper {
 
 	public void bootDb() throws Exception {
 		vmeAccessDbImport.importMsAccessData();
+		hasbooted = true;
 	}
 	
 	
-	
+	/**
+	 * @return the hasbooted
+	 */
+	public static boolean hasbooted() {
+		return hasbooted;
+	}	
 	
 	
 }

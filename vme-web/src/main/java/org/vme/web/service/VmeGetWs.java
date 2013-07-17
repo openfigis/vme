@@ -11,20 +11,21 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.vme.service.dto.VmeGetRequestDto;
 import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
 import org.vme.service.search.vme.SearchService;
 import org.vme.service.search.vme.VmeSearchService;
 
-@Path("/search")
+@Path("/get")
 @Singleton
-public class VmeSearchWs {
+public class VmeGetWs {
 
 
 	private final SearchService service;
 
 	@Inject
-	public VmeSearchWs(VmeSearchService serv, DbBootstrapper bootstrapper) {
+	public VmeGetWs(VmeSearchService serv, DbBootstrapper bootstrapper) {
 		service = serv;
 			try {
 				bootstrapper.bootDb();
@@ -32,8 +33,7 @@ public class VmeSearchWs {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	
-
+		
 	}
 
 	//@Path("/search")
@@ -41,35 +41,17 @@ public class VmeSearchWs {
 	@Produces(MediaType.APPLICATION_JSON)
 	//@Produces(MediaType.TEXT_HTML)
 	public Response find(
-			@QueryParam("text") String text,
-			@QueryParam("authority") String id_authority, 
-			@QueryParam("vme_type") String id_vme_type, 
-			@QueryParam("vme_criteria") String id_vme_criteria,
-			@QueryParam("year") String year) {
+			@QueryParam("id") String id) {
 
-		VmeSearchRequestDto requestDto = new VmeSearchRequestDto(UUID.randomUUID());
-		if ((id_authority!=null) &&!("*").equals(id_authority.trim())){
-			requestDto.setAuthority(Integer.parseInt(id_authority));
+		VmeGetRequestDto requestDto = new VmeGetRequestDto(UUID.randomUUID());
+		
+		if ((id!=null) &&!("*").equals(id.trim())){
+			requestDto.setId(Integer.parseInt(id));
 		} else {
-			requestDto.setAuthority(0);
+			requestDto.setId(0);
 		}
-		if ((id_vme_type!=null) &&!("*").equals(id_vme_type.trim())){
-			requestDto.setType(Integer.parseInt(id_vme_type));	
-		} else {
-			requestDto.setType(0);
-		}
-		if ((id_vme_criteria!=null) && !("*").equals(id_vme_criteria.trim())){
-			requestDto.setCriteria(Integer.parseInt(id_vme_criteria));
-		} else {
-			requestDto.setCriteria(0);
-		}
-		if ((year!=null) &&!("*").equals(year.trim())){
-			requestDto.setYear(Integer.parseInt(year));
-		} else {
-			requestDto.setYear(0);
-		}
-		System.out.println("FS: called with [" + id_authority + " - " + id_vme_type + " - " + id_vme_criteria +  "] - text param:  " + text);
-		VmeSearchResult result =  service.search(requestDto);
+		System.out.println("FS: get service called with [" + id  +  "]");
+		VmeSearchResult result =  service.get(requestDto);
 		return Response.status(200).entity(result).build();
 	}
 

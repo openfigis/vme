@@ -1,5 +1,6 @@
 package org.vme.service.search.vme;
 
+import org.vme.service.dto.VmeGetRequestDto;
 import org.vme.service.dto.VmeSearchDto;
 import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
@@ -9,9 +10,9 @@ public class VmeSearchServiceMockup  implements SearchService  {
 
 
 
-	
-	
-	
+
+
+
 	public VmeSearchServiceMockup() {
 		System.out.println("VME search engine 1.0 - Mockup service");
 
@@ -23,9 +24,9 @@ public class VmeSearchServiceMockup  implements SearchService  {
 		String vme_type;
 		int start_cycle;
 		int end_cycle;
-		
-		
-		
+
+
+
 		switch (request.getAuthority()) {
 		case 20010:
 			authority = "CCAMLR";
@@ -64,8 +65,8 @@ public class VmeSearchServiceMockup  implements SearchService  {
 			end_cycle = 0;
 			break;
 		}
-		
-		
+
+
 		for (int i = start_cycle; i < end_cycle; i++) {
 			VmeSearchDto dto = new VmeSearchDto();
 			dto.setEnvelope("envelope_" + i);
@@ -73,15 +74,39 @@ public class VmeSearchServiceMockup  implements SearchService  {
 			dto.setGeoArea("Geographical reference test n. " + i);
 			dto.setOwner(authority);
 			dto.setVmeType(vme_type);
-			dto.setValidityPeriod("period " + i);
+			dto.setValidityPeriodFrom(1999);
+			dto.setValidityPeriodFrom(2000);
 			dto.setLocalName("VME of " + request.getYear() + " n." + i);
 			dto.setVmeId(10);
-			dto.setGeographicLayerId("VME_" + authority + "_" + i);
+			dto.setInventoryIdentifier("");
+			dto.setGeographicFeatureId("VME_" + authority + "_" + i);
 			dto.setYear(request.getYear());
 			res.addElement(dto);
 		}
-		
 		return res;
 	}
+
+
+
+	public VmeSearchResult get(VmeGetRequestDto request) {
+		VmeSearchResult res = new VmeSearchResult(request);
+		VmeSearchDto dto = new VmeSearchDto();
+		dto.setEnvelope("envelope");
+		dto.setFactsheetUrl("fishery/vme/10/en");
+		dto.setGeoArea("Geographic reference");
+		dto.setOwner("GFCM");
+		dto.setVmeType("");
+		dto.setValidityPeriodFrom(1999);
+		dto.setValidityPeriodFrom(2000);
+		dto.setLocalName("VME of 999");
+		dto.setVmeId(10);
+		dto.setInventoryIdentifier("");
+		dto.setGeographicFeatureId("");
+		dto.setYear(9999);
+		res.addElement(dto);
+		return res;
+	}
+
+
 
 }
