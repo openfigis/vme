@@ -83,8 +83,8 @@ public class ObjectMapping {
 				if (yearObject instanceof SpecificMeasures) {
 					figisDocBuilder.specificMeasures((SpecificMeasures) yearObject, figisDoc);
 				}
-				if (yearObject instanceof History) {
-					figisDocBuilder.vmeHistory((History) yearObject, figisDoc);
+				if (yearObject instanceof VmeHistory) {
+					figisDocBuilder.vmeHistory((VmeHistory) yearObject, figisDoc);
 				}
 				if (yearObject instanceof RfmoHistory) {
 					figisDocBuilder.rfmoHistory((RfmoHistory) yearObject, figisDoc);

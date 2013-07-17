@@ -130,7 +130,9 @@ public class FigisDocBuilderTest {
 
 	@Test
 	public void testVmeHistory() {
-		FIGISDoc figisDoc = new FIGISDoc();
+		// TODO
+		
+		/*FIGISDoc figisDoc = new FIGISDoc();
 		figisDoc.setVME(new VME());
 		
 		History vmeHistory = (History) vme.getHistoryList().get(0);
@@ -141,7 +143,7 @@ public class FigisDocBuilderTest {
 		assertNotNull(hist);
 		
 		String expected = u.getEnglish(vmeHistory.getHistory());
-		assertEquals(expected, ((Text) hist.getTextsAndImagesAndTables().get(0)).getContent().get(0));
+		assertEquals(expected, ((Text) hist.getTextsAndImagesAndTables().get(0)).getContent().get(0));*/
 	}
 
 	@Test
@@ -337,7 +339,7 @@ public class FigisDocBuilderTest {
 		b.year(vme.getValidityPeriod().getBeginYear().toString(), figisDoc);
 		b.profile(vme.getProfileList().get(0), figisDoc);
 		b.rfmo(vme.getRfmo(), figisDoc);
-		b.vmeHistory(vme.getHistoryList().get(0), figisDoc);
+		//b.vmeHistory(vme.getHistoryList().get(0), figisDoc);
 		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc);
 		b.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
 		

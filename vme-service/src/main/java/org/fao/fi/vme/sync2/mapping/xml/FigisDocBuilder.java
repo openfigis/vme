@@ -38,6 +38,7 @@ import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync2.mapping.RfmoHistory;
+import org.fao.fi.vme.sync2.mapping.VmeHistory;
 import org.purl.agmes._1.CreatorCorporate;
 import org.purl.dc.elements._1.Date;
 import org.purl.dc.elements._1.Identifier;
@@ -147,12 +148,14 @@ public class FigisDocBuilder {
 	 * @param history
 	 * @param figisDoc
 	 */
-	public void vmeHistory(History history, FIGISDoc figisDoc) {	
-		org.fao.fi.figis.devcon.History hist = f.createHistory();
+	public void vmeHistory(VmeHistory history, FIGISDoc figisDoc) {	
+		//TODO
+		
+		/*org.fao.fi.figis.devcon.History hist = f.createHistory();
 		Text historyText = f.createText();
 		historyText.getContent().add(u.getEnglish(history.getHistory()));
 		hist.getTextsAndImagesAndTables().add(historyText);
-		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(hist);
+		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(hist);*/
 	}
 
 	
