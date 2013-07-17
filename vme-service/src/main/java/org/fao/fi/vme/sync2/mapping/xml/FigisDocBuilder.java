@@ -204,9 +204,171 @@ public class FigisDocBuilder {
 
 	}
 
+	
+	/**
+	 * Adds GeneralMeasures to the FigisDocBuilder, assuming the Management and ManagementMethods children
+	 * have been yet created by specifying the specificMeasures.
+	 * 
+	 * FishingAreas
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/MeasureType@Value="Fishing_areas"
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * 
+	 * ExploratoryFishingProtocol
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/MeasureType@Value="Exploratory_fishing_protocol"
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * 
+	 * EncounterProtocols
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/MeasureType@Value="VME_encounter_protocols"
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text 
+	 * 
+	 * Threshold
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/MeasureType@Value="VME_threshold"
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * 
+	 * IndicatorSpecies
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/MeasureType@Value="VME_indicatorspecies"
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text 
+	 * 
+	 * Source/url	fi:FIGISDoc/fi:VME//fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Sources/fi:BiblioEntry/dc:Identifier@Type="URI"
+	 * Source/citation	fi:FIGISDoc/fi:VME//fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Sources/fi:BiblioEntry/dcterms:bibliographicCitation
+	 * 
+	 * ValidityPeriod/beginYear	fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Range@Type="Time"/fi:Min
+	 * ValidityPeriod/endYear	fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Range@Type="Time"/fi:Max
+	 * 
+	 * @param yearObject
+	 * @param figisDoc
+	 */
 	public void generalMeasures(GeneralMeasures yearObject, FIGISDoc figisDoc) {
-		// TODO Auto-generated method stub
+		
+		//entry
+		ManagementMethodEntry entry = f.createManagementMethodEntry();
+		entry.setFocus("Vulnerable Marine Ecosystems");
+		Title entryTitle = new Title();
+		entryTitle.setContent("VME general measures");
+		entry.setTitle(entryTitle);
+		
+		//Measures
+		//1. FishingAreas
+		Measure measure1 = f.createMeasure();
+		MeasureType measureType1 = f.createMeasureType();
+		measureType1.setValue("Fishing_areas");
+		Text measureText1 = f.createText();
+		measureText1.getContent().add(yearObject.getFishingAreas());
+		
+		measure1.getTextsAndImagesAndTables().add(measureType1);
+		measure1.getTextsAndImagesAndTables().add(measureText1);
+		entry.getTextsAndImagesAndTables().add(measure1); //add measure to entry
+		
+		//2. ExploratoryFishingProtocol
+		Measure measure2 = f.createMeasure();
+		MeasureType measureType2 = f.createMeasureType();
+		measureType2.setValue("Exploratory_fishing_protocol");
+		Text measureText2 = f.createText();
+		measureText2.getContent().add(u.getEnglish(yearObject.getExplorataryFishingProtocols()));
+		
+		measure2.getTextsAndImagesAndTables().add(measureType2);
+		measure2.getTextsAndImagesAndTables().add(measureText2);
+		entry.getTextsAndImagesAndTables().add(measure2); //add measure to entry
 
+		//3. EncounterProtocol
+		Measure measure3 = f.createMeasure();
+		MeasureType measureType3 = f.createMeasureType();
+		measureType3.setValue("VME_encounter_protocols");
+		Text measureText3 = f.createText();
+		measureText3.getContent().add(u.getEnglish(yearObject.getVmeEncounterProtocols()));
+		
+		measure3.getTextsAndImagesAndTables().add(measureType3);
+		measure3.getTextsAndImagesAndTables().add(measureText3);
+		entry.getTextsAndImagesAndTables().add(measure3); //add measure to entry
+		
+		//4. Threshold
+		Measure measure4 = f.createMeasure();
+		MeasureType measureType4 = f.createMeasureType();
+		measureType4.setValue("VME_threshold");
+		Text measureText4 = f.createText();
+		measureText4.getContent().add(u.getEnglish(yearObject.getVmeThreshold()));
+		
+		measure4.getTextsAndImagesAndTables().add(measureType4);
+		measure4.getTextsAndImagesAndTables().add(measureText4);
+		entry.getTextsAndImagesAndTables().add(measure4); //add measure to entry
+		
+		//5. IndicatorSpecies
+		Measure measure5 = f.createMeasure();
+		MeasureType measureType5 = f.createMeasureType();
+		measureType5.setValue("VME_indicatorspecies");
+		Text measureText5 = f.createText();
+		measureText5.getContent().add(u.getEnglish(yearObject.getVmeIndicatorSpecies()));
+		
+		measure5.getTextsAndImagesAndTables().add(measureType5);
+		measure5.getTextsAndImagesAndTables().add(measureText5);
+		entry.getTextsAndImagesAndTables().add(measure5);
+		
+		
+		//ManagementMethodEntry Sources
+		Sources sources = f.createSources();
+		for(InformationSource infoSource : yearObject.getInformationSourceList()){
+			BiblioEntry biblioEntry = f.createBiblioEntry();
+			
+			Identifier identifier = new Identifier();
+			identifier.setType("URI");
+			identifier.setContent(infoSource.getUrl().toString());
+			
+			BibliographicCitation citation = new BibliographicCitation();
+			citation.setContent(u.getEnglish(infoSource.getCitation()));
+			
+			biblioEntry.getContent().add(identifier);
+			biblioEntry.getContent().add(citation);
+			sources.getTextsAndImagesAndTables().add(biblioEntry);
+		}
+		entry.getTextsAndImagesAndTables().add(sources);
+		
+		//ManagementMethodEntry ValidityPeriod
+		Min min = f.createMin();
+		min.setContent(yearObject.getValidityPeriod().getBeginYear().toString());
+		JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
+
+		Max max = f.createMax();
+		max.setContent(yearObject.getValidityPeriod().getEndYear().toString());
+		JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
+
+		Range range = f.createRange();
+		range.setType("Time");
+		range.getContent().add(minJAXBElement);
+		range.getContent().add(maxJAXBElement);
+		entry.getTextsAndImagesAndTables().add(range);
+		
+		
+		// Adding to FigisDocBuilder...
+		// get Management & ManagementMethods list indexes to then set
+		// new ManagementMethodEntry to existing ManagementMethod
+		int i = 0;
+		int j = 0;
+		for (Object obj : figisDoc.getVME()
+				.getOverviewsAndHabitatBiosAndImpacts()) {
+			if (obj instanceof Management) {
+				for (Object obj2 : ((Management) obj)
+						.getTextsAndImagesAndTables()) {
+					if (obj2 instanceof ManagementMethods) {
+						break;
+					} else {
+						j++;
+					}
+				}
+			} else {
+				i++;
+			}
+		}
+		//use Management index (i) and ManagementMethod index(j) to add
+		//the new ManagementMethodEntry
+		((ManagementMethods) ((Management) figisDoc.getVME()
+				.getOverviewsAndHabitatBiosAndImpacts().get(i))
+				.getTextsAndImagesAndTables().get(j))
+				.getManagementMethodEntriesAndTextsAndImages().add(entry);
 	}
 
 	/**

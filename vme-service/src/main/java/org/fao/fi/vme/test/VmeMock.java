@@ -2,6 +2,7 @@ package org.fao.fi.vme.test;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -124,6 +125,13 @@ public class VmeMock {
 			GeneralMeasures gm = new GeneralMeasures();
 			gm.setYear(year);
 			gm.setId(id++);
+			gm.setFishingAreas("a [FishingArea] general measure");
+			gm.setExplorataryFishingProtocols(u.english("an [ExploratoryFishingProtocol] general measure"));
+			gm.setVmeEncounterProtocols(u.english("a [VmeEncounterProtocols] general measure"));
+			gm.setVmeThreshold(u.english("a [VmeThreshold] general measure"));
+			gm.setVmeIndicatorSpecies(u.english("a [VmeIndicatorSpecies] general measure"));
+			gm.setValidityPeriod(ValidityPeriodMock.create(year, year+1));
+			gm.setInformationSourceList(Arrays.asList(is));
 			generalMeasuresList.add(gm);
 
 		}
