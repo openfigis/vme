@@ -27,9 +27,9 @@ public class VmeSearchService implements SearchService {
 	@VmeDB
 	private EntityManager entityManager;
 
-	
+
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
-	
+
 
 	public VmeSearchService() {
 		System.out.println("VME search engine 1.0 - Microsoft Access connettor");
@@ -46,24 +46,24 @@ public class VmeSearchService implements SearchService {
 		return res;
 	}
 
-	
+
 	public VmeSearchResult get(VmeGetRequestDto request)  {
 		Query query = entityManager.createQuery("from Vme vme where vme.id = :id");
-		
+
 		query.setParameter("id", request.getId());
 		List<?> result =   query.getResultList();
 		VmeSearchResult res = convertPersistenceResult(request, (List<Vme>) result);
 		return res;
 	}
-	
-	
+
+
 
 	private Query createHibernateSearchQuery(){
 		Query res = entityManager.createQuery("from Vme vme where vme.rfmo.id like :authority and vme.areaType like :areaType  ORDER BY vme.id  ");
 		return res;
 	}
 
-	
+
 
 	private void loadQueryParameters(Query query, VmeSearchRequestDto request){
 		try {
@@ -105,17 +105,30 @@ public class VmeSearchService implements SearchService {
 	}
 
 
-	
-	
+
+
 	private VmeSearchDto getVmeSearchDto(Vme vme) {
 		VmeSearchDto res = new VmeSearchDto();
 		res.setVmeId(vme.getId());
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
 		res.setLocalName(u.getEnglish(vme.getName()));
 		res.setEnvelope("");
-		res.setFactsheetUrl("fishery/vme/"+vme.getId()+"/en");
+		String authority = vme.getRfmo().getId();
+		if (authority.equals("NAFO")){
+			res.setFactsheetUrl("fishery/vme/10/en");
+		} else 	if (authority.equals("CCAMLR")){
+			res.setFactsheetUrl("fishery/vme/11/en");
+		} else 	if (authority.equals("GFCM")){
+			res.setFactsheetUrl("fishery/vme/12/en");
+		} else 	if (authority.equals("NEAFC")){
+			res.setFactsheetUrl("fishery/vme/13/en");
+		} else 	if (authority.equals("SEAFO")){
+			res.setFactsheetUrl("fishery/vme/14/en");
+		} 
+
+		//res.setFactsheetUrl("fishery/vme/"+vme.getId()+"/en");
 		res.setGeoArea(vme.getGeoArea());
-		res.setOwner(vme.getRfmo().getId());
+		res.setOwner(authority);
 		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginYear());
 		res.setValidityPeriodTo(vme.getValidityPeriod().getEndYear());
 		res.setVmeType(vme.getAreaType());
