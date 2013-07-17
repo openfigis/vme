@@ -300,27 +300,30 @@ public class FigisDocBuilderTest {
 		FIGISDoc figisDoc = new FIGISDoc();
 		figisDoc.setVME(new VME());
 		
-		InformationSource infoSource = vme.getRfmo().getInformationSourceList().get(0);
-		b.informationSource(infoSource, figisDoc);
+		List<InformationSource> infoSourceList = vme.getRfmo().getInformationSourceList();
+		b.informationSource(infoSourceList, figisDoc);
 		
 		Sources sources = (Sources) figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
 		assertNotNull(sources);
 		
-		BiblioEntry biblioEntry = (BiblioEntry) sources.getTextsAndImagesAndTables().get(0);
-		assertNotNull(biblioEntry);
-		
-		for(Object obj : biblioEntry.getContent()){
-			if(obj instanceof CreatorCorporate){
-				assertEquals(u.getEnglish(infoSource.getCommittee()),((CreatorCorporate) obj).getContent());
-			}else if (obj instanceof Date){
-				assertEquals(infoSource.getDate().toString(), ((Date) obj).getContent());
-			}else if (obj instanceof Abstrakt){
-				assertEquals(u.getEnglish(infoSource.getReportSummary()),((Abstrakt) obj).getContent());
-			}else if (obj instanceof BibliographicCitation){
-				assertEquals(u.getEnglish(infoSource.getCitation()), ((BibliographicCitation) obj).getContent());
-			}else if (obj instanceof Identifier){
-				assertEquals("URI", ((Identifier) obj).getType());
-				assertEquals(infoSource.getUrl().toString(), ((Identifier) obj).getContent());
+		for(int i=0; i<infoSourceList.size(); i++){
+	
+			BiblioEntry biblioEntry = (BiblioEntry) sources.getTextsAndImagesAndTables().get(i);
+			assertNotNull(biblioEntry);
+			
+			for(Object obj : biblioEntry.getContent()){
+				if(obj instanceof CreatorCorporate){
+					assertEquals(u.getEnglish(infoSourceList.get(i).getCommittee()),((CreatorCorporate) obj).getContent());
+				}else if (obj instanceof Date){
+					assertEquals(infoSourceList.get(i).getDate().toString(), ((Date) obj).getContent());
+				}else if (obj instanceof Abstrakt){
+					assertEquals(u.getEnglish(infoSourceList.get(i).getReportSummary()),((Abstrakt) obj).getContent());
+				}else if (obj instanceof BibliographicCitation){
+					assertEquals(u.getEnglish(infoSourceList.get(i).getCitation()), ((BibliographicCitation) obj).getContent());
+				}else if (obj instanceof Identifier){
+					assertEquals("URI", ((Identifier) obj).getType());
+					assertEquals(infoSourceList.get(i).getUrl().toString(), ((Identifier) obj).getContent());
+				}
 			}
 		}
 	}
@@ -336,7 +339,7 @@ public class FigisDocBuilderTest {
 		b.rfmo(vme.getRfmo(), figisDoc);
 		b.vmeHistory(vme.getHistoryList().get(0), figisDoc);
 		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc);
-		b.informationSource(vme.getRfmo().getInformationSourceList().get(0), figisDoc);
+		b.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
 		
 		String s = m.marshalToString(figisDoc);
 		assertTrue(s.contains(VMEIdent.class.getSimpleName()));

@@ -1,5 +1,7 @@
 package org.fao.fi.vme.sync2.mapping.xml;
 
+import java.util.List;
+
 import javax.xml.bind.JAXBElement;
 
 import org.fao.fi.figis.devcon.BiblioEntry;
@@ -328,38 +330,41 @@ public class FigisDocBuilder {
 	 * citation
 	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:bibliographicCitation 
 	 * 
-	 * @param infoSource
+	 * @param infoSourceList
 	 * @param figisDoc
 	 */
-	public void informationSource(InformationSource infoSource, FIGISDoc figisDoc){
+	public void informationSource(List<InformationSource> infoSourceList, FIGISDoc figisDoc){
 		Sources sources = f.createSources();
 		
-		BiblioEntry biblioEntry = f.createBiblioEntry();
+		for(InformationSource infoSource : infoSourceList){
+			
+			BiblioEntry biblioEntry = f.createBiblioEntry();
+			
+			CreatorCorporate cc = new CreatorCorporate();
+			cc.setContent(u.getEnglish(infoSource.getCommittee()));
+			biblioEntry.getContent().add(cc);
+			
+			Date date = new Date();
+			date.setContent(infoSource.getDate().toString());
+			biblioEntry.getContent().add(date);
+			
+			Abstrakt bibAbstract = new Abstrakt();
+			bibAbstract.setContent(u.getEnglish(infoSource.getReportSummary()));
+			biblioEntry.getContent().add(bibAbstract);
+			
+			Identifier identifier = new Identifier();
+			identifier.setType("URI");
+			identifier.setContent(infoSource.getUrl().toString());
+			biblioEntry.getContent().add(identifier);
+			
+			BibliographicCitation citation = new BibliographicCitation();
+			citation.setContent(u.getEnglish(infoSource.getCitation()));
+			biblioEntry.getContent().add(citation);
+
+			sources.getTextsAndImagesAndTables().add(biblioEntry);
+		}
 		
-		CreatorCorporate cc = new CreatorCorporate();
-		cc.setContent(u.getEnglish(infoSource.getCommittee()));
-		biblioEntry.getContent().add(cc);
-		
-		Date date = new Date();
-		date.setContent(infoSource.getDate().toString());
-		biblioEntry.getContent().add(date);
-		
-		Abstrakt bibAbstract = new Abstrakt();
-		bibAbstract.setContent(u.getEnglish(infoSource.getReportSummary()));
-		biblioEntry.getContent().add(bibAbstract);
-		
-		Identifier identifier = new Identifier();
-		identifier.setType("URI");
-		identifier.setContent(infoSource.getUrl().toString());
-		biblioEntry.getContent().add(identifier);
-		
-		BibliographicCitation citation = new BibliographicCitation();
-		citation.setContent(u.getEnglish(infoSource.getCitation()));
-		biblioEntry.getContent().add(citation);
-		
-		sources.getTextsAndImagesAndTables().add(biblioEntry);
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(sources);
-		
 	}
 
 }
