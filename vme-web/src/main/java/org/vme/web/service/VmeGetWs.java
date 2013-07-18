@@ -41,7 +41,9 @@ public class VmeGetWs {
 	@Produces(MediaType.APPLICATION_JSON)
 	//@Produces(MediaType.TEXT_HTML)
 	public Response find(
-			@QueryParam("id") String id) {
+			@QueryParam("id") String id,
+			@QueryParam("inventoryIdentifier") String inventoryIdentifier,
+			@QueryParam("geographicFeatureId") String geographicFeatureId) {
 
 		VmeGetRequestDto requestDto = new VmeGetRequestDto(UUID.randomUUID());
 		
@@ -50,6 +52,19 @@ public class VmeGetWs {
 		} else {
 			requestDto.setId(0);
 		}
+		
+		if ((inventoryIdentifier!=null) &&!("*").equals(inventoryIdentifier.trim())){
+			requestDto.setInventoryIdentifier(inventoryIdentifier);
+		} else {
+			requestDto.setInventoryIdentifier(null);
+		}
+		
+		if ((geographicFeatureId!=null) &&!("*").equals(geographicFeatureId.trim())){
+			requestDto.setGeographicFeatureId(geographicFeatureId);
+		} else {
+			requestDto.setGeographicFeatureId(null);
+		}
+		
 		System.out.println("FS: get service called with [" + id  +  "]");
 		VmeSearchResult result =  service.get(requestDto);
 		return Response.status(200).entity(result).build();

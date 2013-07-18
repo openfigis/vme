@@ -48,9 +48,16 @@ public class VmeSearchService implements SearchService {
 
 
 	public VmeSearchResult get(VmeGetRequestDto request)  {
-		Query query = entityManager.createQuery("from Vme vme where vme.id = :id");
+		String text_query;
 
-		query.setParameter("id", request.getId());
+		if (request.getId()>0){
+			text_query = "from Vme vme where vme.id = " + request.getId();
+		} else if (request.hasInventoryIdentifier()) {
+			text_query = "from Vme vme where vme.inventoryIdentifier = '" + request.getInventoryIdentifier() + "'";
+		} else if (request.hasGeographicFeatureId()) {
+			text_query = "SELECT vme from Vme vme, IN (vme.geoRefList) AS gfl WHERE gfl.geographicFeatureID = '" + request.getGeographicFeatureId() + "'";
+		} else text_query = "";
+		Query query = entityManager.createQuery(text_query);
 		List<?> result =   query.getResultList();
 		VmeSearchResult res = convertPersistenceResult(request, (List<Vme>) result);
 		return res;

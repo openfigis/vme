@@ -17,9 +17,20 @@ public class VmeGetRequestDto implements VmeRequestDto {
 	private UUID uuid;
 	
 	/**
-	 * Identifier of the requested VME object. 
+	 * Internal Identifier of the requested VME object. 
 	 */
 	private long id;
+	
+	
+	/**
+	 * Geographical Identifier of the requested VME object. 
+	 */
+	private String geographicFeatureId;
+	
+	/**
+	 * Inventory identifier of the requested VME object. 
+	 */
+	private String inventoryIdentifier;
 
 	
 	/**
@@ -52,8 +63,51 @@ public class VmeGetRequestDto implements VmeRequestDto {
 		this.id = id;
 	}
 
+	/**
+	 * @return the geographicFeatureId
+	 */
+	public String getGeographicFeatureId() {
+		return geographicFeatureId;
+	}
+
+	/**
+	 * @param geographicFeatureId the geographicFeatureId to set
+	 */
+	public void setGeographicFeatureId(String geographicFeatureId) {
+		this.geographicFeatureId = geographicFeatureId;
+	}
+
+	/**
+	 * @return <code>true</code> if request has the geographicFeatureId not null, <code>false</code> otherwise
+	 */
+	public boolean hasGeographicFeatureId() {
+		return geographicFeatureId!=null;
+	}
 
 
+
+
+	/**
+	 * @return the inventoryIdentifier
+	 */
+	public String getInventoryIdentifier() {
+		return inventoryIdentifier;
+	}
+
+	/**
+	 * @param inventoryIdentifier the inventoryIdentifier to set
+	 */
+	public void setInventoryIdentifier(String inventoryIdentifier) {
+		this.inventoryIdentifier = inventoryIdentifier;
+	}
+
+	/**
+	 * @return <code>true</code> if request has the inventoryIdentifier not null, <code>false</code> otherwise
+	 */
+	public boolean hasInventoryIdentifier() {
+		return inventoryIdentifier!=null;
+	}
+	
 
 
 	/**
@@ -62,6 +116,12 @@ public class VmeGetRequestDto implements VmeRequestDto {
 	public String getUuid() {
 		return uuid.toString();
 	}
+
+
+
+
+
+
 	
 	
 	
