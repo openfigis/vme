@@ -62,6 +62,13 @@ public class VmeSearchRequestDto implements VmeRequestDto {
 	public int getAuthority() {
 		return authority;
 	}
+	
+	/**
+	 * @return <code>true</code> if request has the Authority defined, <code>false</code> otherwise
+	 */
+	public boolean hasAuthority() {
+		return authority>0;
+	}
 
 	/**
 	 * @param authority the authority to set
@@ -76,6 +83,13 @@ public class VmeSearchRequestDto implements VmeRequestDto {
 	 */
 	public int getType() {
 		return type;
+	}
+	
+	/**
+	 * @return <code>true</code> if request has the type defined, <code>false</code> otherwise
+	 */
+	public boolean hasType() {
+		return type>0;
 	}
 
 	/**
@@ -93,6 +107,13 @@ public class VmeSearchRequestDto implements VmeRequestDto {
 	}
 
 	/**
+	 * @return <code>true</code> if request has the criteria defined, <code>false</code> otherwise
+	 */
+	public boolean hasCriteria() {
+		return criteria>0;
+	}
+	
+	/**
 	 * @param criteria the criteria to set
 	 */
 	public void setCriteria(int criteria) {
@@ -106,6 +127,14 @@ public class VmeSearchRequestDto implements VmeRequestDto {
 		return year;
 	}
 
+	/**
+	 * @return <code>true</code> if request has the year defined, <code>false</code> otherwise
+	 */
+	public boolean hasYear() {
+		return year>0;
+	}
+	
+	
 	/**
 	 * @param year the year to set
 	 */
@@ -126,6 +155,13 @@ public class VmeSearchRequestDto implements VmeRequestDto {
 	public void setText(String text) {
 		this.text = text;
 	}
+	
+	/**
+	 * @return <code>true</code> if request has some text defined (not *) , <code>false</code> otherwise
+	 */
+	public boolean hasText() {
+		return (text!=null && !text.trim().equals("*"));
+	}
 
 	/**
 	 * @return the uuid of the request
@@ -136,7 +172,9 @@ public class VmeSearchRequestDto implements VmeRequestDto {
 	
 	
 	
-	
+	public boolean hasAtLeastOneParameter(){
+		return hasAuthority() || hasCriteria() || hasType() || hasText() ;
+	}
 
 	
 	

@@ -14,8 +14,8 @@ import org.vme.service.dto.VmeSearchResult;
 public interface SearchService {
 
 	
-	public VmeSearchResult search(VmeSearchRequestDto request);
+	public VmeSearchResult search(VmeSearchRequestDto request) throws Exception;
 	
-	public VmeSearchResult get(VmeGetRequestDto request);
+	public VmeSearchResult get(VmeGetRequestDto request) throws Exception;
 	
 }

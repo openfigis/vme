@@ -45,7 +45,7 @@ public class VmeSearchWs {
 			@QueryParam("authority") String id_authority, 
 			@QueryParam("vme_type") String id_vme_type, 
 			@QueryParam("vme_criteria") String id_vme_criteria,
-			@QueryParam("year") String year) {
+			@QueryParam("year") String year) throws Exception {
 
 		VmeSearchRequestDto requestDto = new VmeSearchRequestDto(UUID.randomUUID());
 		if ((id_authority!=null) &&!("*").equals(id_authority.trim())){

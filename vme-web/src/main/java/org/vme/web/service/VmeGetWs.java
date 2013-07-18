@@ -43,7 +43,7 @@ public class VmeGetWs {
 	public Response find(
 			@QueryParam("id") String id,
 			@QueryParam("inventoryIdentifier") String inventoryIdentifier,
-			@QueryParam("geographicFeatureId") String geographicFeatureId) {
+			@QueryParam("geographicFeatureId") String geographicFeatureId) throws Exception {
 
 		VmeGetRequestDto requestDto = new VmeGetRequestDto(UUID.randomUUID());
 		

@@ -74,7 +74,14 @@ public class VmeSearchRefService implements SearchRefService {
 	
 	private List<VmeSearchRefDto> getVmeYearsList(){
 		LinkedList<VmeSearchRefDto> res = new LinkedList<VmeSearchRefDto>();
+		res.add(new VmeSearchRefDto(2013, "en", "2013")); 
 		res.add(new VmeSearchRefDto(2012, "en", "2012")); 
+		res.add(new VmeSearchRefDto(2011, "en", "2011")); 
+		res.add(new VmeSearchRefDto(2010, "en", "2010")); 
+		res.add(new VmeSearchRefDto(2009, "en", "2009")); 
+		res.add(new VmeSearchRefDto(2008, "en", "2008")); 
+		res.add(new VmeSearchRefDto(2007, "en", "2007")); 
+		res.add(new VmeSearchRefDto(2006, "en", "2006")); 
 		return res;
 	}
 

@@ -39,10 +39,10 @@ public class Vme {
 	private List<SpecificMeasures> specificMeasureList;
 
 	@OneToMany(cascade = { CascadeType.ALL })
-	private List<Profile> profileList;;
+	private List<Profile> profileList;
 
 	@OneToMany(cascade = { CascadeType.ALL })
-	private List<GeoRef> geoRefList;;
+	private List<GeoRef> geoRefList;
 
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<History> historyList;
