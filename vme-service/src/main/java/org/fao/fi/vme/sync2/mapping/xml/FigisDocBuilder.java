@@ -46,12 +46,20 @@ import org.purl.dc.elements._1.Title;
 import org.purl.dc.terms.Abstrakt;
 import org.purl.dc.terms.BibliographicCitation;
 
+/**
+ * FigisDocBuilder, to build a FIGISDoc from VME Domain database
+ * 
+ * @author Emmanuel Blondel
+ * @author Erik van Ingen
+ *
+ */
 public class FigisDocBuilder {
 
 	ObjectFactory f = new ObjectFactory();
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 	
 	/**
+	 * Adds specificMeasures to a FIGISDoc
 	 * 
 	 * measureSummary 
 	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/fi:Text
@@ -143,12 +151,14 @@ public class FigisDocBuilder {
 	}
 
 	/**
+	 * Adds a VME history to the FIGISDoc
+	 * 
 	 * VME_history 	fi:FIGISDoc/fi:VME/fi:History/fi:Text
 	 * 
-	 * @param history
+	 * @param yearObject
 	 * @param figisDoc
 	 */
-	public void vmeHistory(VmeHistory history, FIGISDoc figisDoc) {	
+	public void vmeHistory(VmeHistory yearObject, FIGISDoc figisDoc) {	
 		//TODO
 		
 		/*org.fao.fi.figis.devcon.History hist = f.createHistory();
@@ -159,12 +169,19 @@ public class FigisDocBuilder {
 	}
 
 	
+	/**
+	 * Adds a Fishery history to the FIGISDoc
+	 * 
+	 * @param yearObject
+	 * @param figisDoc
+	 */
 	public void rfmoHistory(RfmoHistory yearObject, FIGISDoc figisDoc) {
 		// TODO Auto-generated method stub
 
 	}
 
 	/**
+	 * Adds a profile to the FIGISDoc
 	 * 
 	 * descriptionBiological fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:Text
 	 * 
@@ -172,24 +189,22 @@ public class FigisDocBuilder {
 	 * 
 	 * descriptionImpact fi:FIGISDoc/fi:VME/fi:Impacts/fi:Text
 	 * 
-	 * TODO finish this one.
-	 * 
 	 * 
 	 * @param profile
 	 * @param figisDoc
 	 */
-	public void profile(Profile profile, FIGISDoc figisDoc) {
+	public void profile(Profile yearObject, FIGISDoc figisDoc) {
 		//Habitat-Biological profile
 		HabitatBio habitatBio = f.createHabitatBio();
 
 		Text text1 = f.createText();
-		text1.getContent().add(u.getEnglish(profile.getDescriptionBiological()));
+		text1.getContent().add(u.getEnglish(yearObject.getDescriptionBiological()));
 		habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(text1);
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
 
 		//Physical profile
 		Text text2 = f.createText();
-		text2.getContent().add(u.getEnglish(profile.getDescriptionPhisical()));
+		text2.getContent().add(u.getEnglish(yearObject.getDescriptionPhisical()));
 		GeoForm geoform = f.createGeoForm();
 		JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(text2);
 		geoform.getContent().add(geoformJAXBElement);
@@ -198,7 +213,7 @@ public class FigisDocBuilder {
 		//Impacts profile
 		Impacts impacts = f.createImpacts();
 		Text text3 = f.createText();
-		text3.getContent().add(u.getEnglish(profile.getDescriptionImpact()));
+		text3.getContent().add(u.getEnglish(yearObject.getDescriptionImpact()));
 		impacts.getTextsAndImagesAndTables().add(text3);
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(impacts);
 
@@ -206,7 +221,7 @@ public class FigisDocBuilder {
 
 	
 	/**
-	 * Adds GeneralMeasures to the FigisDocBuilder, assuming the Management and ManagementMethods children
+	 * Adds GeneralMeasures to the FIGISDoc assuming the Management and ManagementMethods children
 	 * have been yet created by specifying the specificMeasures.
 	 * 
 	 * FishingAreas
@@ -372,6 +387,8 @@ public class FigisDocBuilder {
 	}
 
 	/**
+	 * Adds a Vme to the FIGISDoc
+	 * 
 	 * VME Identifier fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:FigisID
 	 * 
 	 * inventoryIdentifier fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ForeignID@CodeSystem="invid"/@Code
@@ -388,7 +405,7 @@ public class FigisDocBuilder {
 	 * 
 	 * ValidityPeriod/endYear fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:Range@Type="Time"/fi:Max
 	 * 
-	 * @param vme
+	 * @param vmeDomain
 	 * @param figisDoc
 	 */
 	public void vme(Vme vmeDomain, FIGISDoc figisDoc) {
@@ -451,7 +468,9 @@ public class FigisDocBuilder {
 	}
 
 	/**
-	 * 	Observation/Year	fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ReportingYear 
+	 * Adds a reporting year to the FIGISDoc
+	 * 
+	 * Observation/Year	fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ReportingYear 
 	 * 
 	 * @param year
 	 * @param figisDoc
@@ -462,6 +481,8 @@ public class FigisDocBuilder {
 	
 	
 	/**
+	 * Adds a RFMO to the FIGISDoc
+	 * 
 	 * Rfmo fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:OrgRef/fi:ForeignID@CodeSystem="rfb"/@Code
 	 * 
 	 * @param rfmo
@@ -480,6 +501,8 @@ public class FigisDocBuilder {
 	
 	
 	/**
+	 * Adds a list of InformationSource to the FIGISDoc
+	 * 
 	 * date
 	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
 	 * 
