@@ -287,6 +287,7 @@ public class FigisDocBuilder {
 
 		// entry
 		ManagementMethodEntry entry = f.createManagementMethodEntry();
+
 		mmeBuilder.init(entry);
 		mmeBuilder.addMeasureToEntry1(yearObject, entry);
 		mmeBuilder.addMeasureToEntry2(yearObject, entry);

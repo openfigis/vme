@@ -21,8 +21,18 @@ public class MultiLingualStringUtil {
 		return l;
 	}
 
+	/**
+	 * Return english string if there is, else null.
+	 * 
+	 * @param multiLingualString
+	 * @return
+	 */
 	public String getEnglish(MultiLingualString multiLingualString) {
-		return multiLingualString.getStringMap().get(Lang.EN);
+		String english = null;
+		if (multiLingualString != null) {
+			english = multiLingualString.getStringMap().get(Lang.EN);
+		}
+		return english;
 	}
 
 }

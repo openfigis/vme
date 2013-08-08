@@ -73,10 +73,14 @@ public class ObjectMapping {
 			figisDocBuilder.rfmo(vme.getRfmo(), figisDoc);
 			figisDocBuilder.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
 
-			// now we get all the year related objects for that vme. The observation gets filled up with the information
-			// for that year.
+			// now we get all the year related objects for that vme. Do not get confused here! Here we are processing 1
+			// year and for that year we need to get all the related yearObjects of 1 VME. The observation gets filled
+			// up with the information for the processed year.
 			List<YearObject<?>> l = map.get(year);
 			for (YearObject<?> yearObject : l) {
+
+				// see the discussion below this file, it could be that missing parts in the observation need to be
+				// filled up with information from the previous years.
 
 				if (yearObject instanceof SpecificMeasures) {
 					figisDocBuilder.specificMeasures((SpecificMeasures) yearObject, figisDoc);
@@ -99,4 +103,26 @@ public class ObjectMapping {
 		vod.setObservationDomainList(odList);
 		return vod;
 	}
+	/*
+	 * 
+	 * Subject: FIGISDoc from the VME domain model
+	 * 
+	 * Hi Aureliano and Fabio,
+	 * 
+	 * Question. If a VME has some information for a given year, should the FIGIS VME observation XML then ‘copy’ the
+	 * missing information (if available) from the previous years?
+	 * 
+	 * What we do now is that only these elements will be added which are present in the VME domain for that year
+	 * (Option A).
+	 * 
+	 * Example: A VME has only GeneralMeasures for 2010 and SpecificMeasures for 2011. Would the FIGIS XML 2010
+	 * observation contain then only GeneralMeasures and the FIGIS XML 2011 observation only SpecificMeasures (Option
+	 * A)? Or would the FIGIS XML 2011 observation have both GeneralMeasures(2010) and SpecificMeasures(2011) (Option
+	 * B)?
+	 * 
+	 * Option A would only work if in the Tony DB and the VME domain DB the measures are repeated for every year, even
+	 * if they are the same.
+	 * 
+	 * Cheers, Erik
+	 */
 }
