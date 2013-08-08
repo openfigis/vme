@@ -1,5 +1,7 @@
 package org.fao.fi.vme.sync2;
 
+import static org.junit.Assert.assertEquals;
+
 import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
@@ -13,8 +15,6 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertEquals;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })

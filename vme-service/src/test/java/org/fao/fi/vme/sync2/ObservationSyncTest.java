@@ -1,5 +1,8 @@
 package org.fao.fi.vme.sync2;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,9 +26,6 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
@@ -67,7 +67,6 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 		assertNrOfObjects(1);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testSyncWithUpdate() {
 		observationSync.sync();
@@ -75,6 +74,7 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 
 		assertEquals(1, vmeDao.count(SpecificMeasures.class).intValue());
 
+		@SuppressWarnings("unchecked")
 		List<Vme> vmeList = (List<Vme>) vmeDao.loadObjects(Vme.class);
 		for (Vme vme : vmeList) {
 			SpecificMeasures specificMeasures = new SpecificMeasures();

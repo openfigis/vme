@@ -1,5 +1,9 @@
 package org.fao.fi.vme.sync2.mapping.xml;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -28,9 +32,7 @@ import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.GeneralMeasures;
-import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.InformationSource;
-import org.fao.fi.vme.domain.MultiLingualString;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasures;
@@ -45,10 +47,6 @@ import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.terms.Abstrakt;
 import org.purl.dc.terms.BibliographicCitation;
 import org.vme.fimes.jaxb.JaxbMarshall;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 public class FigisDocBuilderTest {
 

@@ -1,13 +1,13 @@
 package org.fao.fi.vme.msaccess.mapping;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.fao.fi.vme.msaccess.component.MsAccessConnectionProvider;
 import org.fao.fi.vme.msaccess.component.TableReader;
 import org.fao.fi.vme.msaccess.component.VmeReader;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertNotNull;
 
 public class TableDomainMapperTest {
 	TableReader tr = new TableReader();

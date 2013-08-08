@@ -1,5 +1,7 @@
 package org.fao.fi.vme.test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +15,6 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
-
-import static org.junit.Assert.assertEquals;
 
 public abstract class FigisDaoTestLogic {
 

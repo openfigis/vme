@@ -10,7 +10,6 @@ import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.GeneralMeasures;
-import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
@@ -55,8 +54,7 @@ public class ObjectMapping {
 		for (Object object : years) {
 			System.out.println("---------------" + object + " vme = " + vme.getId() + vme.getInventoryIdentifier());
 		}
-		
-		
+
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
 
 		// every year results in one observation in English
@@ -69,7 +67,7 @@ public class ObjectMapping {
 			ObservationXml xml = new DefaultObservationXml().defineDefaultObservationXml();
 			observationsPerLanguage.add(xml);
 
-			FIGISDoc figisDoc = new DefaultFigisDoc().defineDefaultFIGISDoc();
+			FIGISDoc figisDoc = new FIGISDoc();
 			figisDocBuilder.vme(vme, figisDoc);
 			figisDocBuilder.year(year, figisDoc);
 			figisDocBuilder.rfmo(vme.getRfmo(), figisDoc);
@@ -83,12 +81,11 @@ public class ObjectMapping {
 				if (yearObject instanceof SpecificMeasures) {
 					figisDocBuilder.specificMeasures((SpecificMeasures) yearObject, figisDoc);
 				}
-				/*if (yearObject instanceof VmeHistory) {
-					figisDocBuilder.vmeHistory((VmeHistory) yearObject, figisDoc);
-				}
-				if (yearObject instanceof RfmoHistory) {
-					figisDocBuilder.rfmoHistory((RfmoHistory) yearObject, figisDoc);
-				}*/
+				/*
+				 * if (yearObject instanceof VmeHistory) { figisDocBuilder.vmeHistory((VmeHistory) yearObject,
+				 * figisDoc); } if (yearObject instanceof RfmoHistory) { figisDocBuilder.rfmoHistory((RfmoHistory)
+				 * yearObject, figisDoc); }
+				 */
 				if (yearObject instanceof Profile) {
 					figisDocBuilder.profile((Profile) yearObject, figisDoc);
 				}
