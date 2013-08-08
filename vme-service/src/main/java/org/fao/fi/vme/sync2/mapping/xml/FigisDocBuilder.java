@@ -446,9 +446,11 @@ public class FigisDocBuilder {
 			cc.setContent(u.getEnglish(infoSource.getCommittee()));
 			biblioEntry.getContent().add(cc);
 
-			Date date = new Date();
-			date.setContent(infoSource.getDate().toString());
-			biblioEntry.getContent().add(date);
+			if (infoSource.getDate() != null) {
+				Date date = new Date();
+				date.setContent(infoSource.getDate().toString());
+				biblioEntry.getContent().add(date);
+			}
 
 			Abstrakt bibAbstract = new Abstrakt();
 			bibAbstract.setContent(u.getEnglish(infoSource.getReportSummary()));
