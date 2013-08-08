@@ -19,6 +19,14 @@ import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.elements._1.Title;
 import org.purl.dc.terms.BibliographicCitation;
 
+/**
+ * 
+ * Building up the ManagementMethodEntry, using the vme yearobjects from the vme domain.
+ * 
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 public class ManagementMethodEntryBuilder {
 
 	private ObjectFactory f = new ObjectFactory();
