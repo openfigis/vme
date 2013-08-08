@@ -15,50 +15,42 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
+import org.fao.fi.vme.sync2.mapping.DefaultObservationDomain;
+import org.junit.Test;
 
 public abstract class FigisDaoTestLogic {
 
 	@Inject
 	protected FigisDao dao;
 
-	// @Test
-	// public void testPersistVmeObservationDomain1() {
-	//
-	// int sizes[] = count();
-	//
-	// RefVme r = registerRefVme();
-	//
-	// // save the related factsheet
-	// VmeObservationDomain vod = createVmeObservationDomain();
-	// vod.setRefVme(r);
-	// dao.syncVmeObservationDomain(vod);
-	//
-	// checkCount(sizes, 1);
-	//
-	// dao.removeVmeObservationDomain(vod.getRefVme());
-	//
-	// // TODO
-	// // checkCount(sizes, 0);
-	//
-	// }
+	@Test
+	public void testSyncVmeObservationDomain() {
+		RefVme refVme = RefVmeMock.create();
+		if (dao.find(RefVme.class, refVme.getId()) == null) {
+			dao.persist(refVme);
+		}
+		int count[] = count();
+		VmeObservationDomain vod = createVmeObservationDomain();
+		assertEquals(1, vod.getObservationDomainList().size());
 
-	// @Test
-	// public void testRemoveVmeObservationDomain() {
-	//
-	// int sizes[] = count();
-	// // pre-register RefVme
-	// RefVme r = createRefVme();
-	// dao.syncRefVme(r);
-	//
-	// // save the related factsheet
-	// VmeObservationDomain vod = createVmeObservationDomain();
-	// vod.setRefVme(r);
-	// dao.syncVmeObservationDomain(vod);
-	// dao.removeVmeObservationDomain(vod.getRefVme());
-	//
-	// // TODO
-	// // checkCount(sizes, 0);
-	// }
+		vod.setRefVme(refVme);
+		dao.syncVmeObservationDomain(vod);
+		checkCount(count, 1);
+		dao.syncVmeObservationDomain(vod);
+		checkCount(count, 1);
+
+		ObservationXml xml = ObservationXmlMock.create();
+
+		ObservationDomain o = new DefaultObservationDomain().defineDefaultObservationXml();
+		o.setReportingYear("2015");
+		o.setObservationsPerLanguage(new ArrayList<ObservationXml>());
+		o.getObservationsPerLanguage().add(xml);
+		vod.getObservationDomainList().add(o);
+		dao.syncVmeObservationDomain(vod);
+		assertEquals(2, vod.getObservationDomainList().size());
+		checkCount(count, 2);
+
+	}
 
 	protected RefVme createRefVme() {
 
@@ -70,9 +62,10 @@ public abstract class FigisDaoTestLogic {
 
 	protected VmeObservationDomain createVmeObservationDomain() {
 		VmeObservationDomain vo = new VmeObservationDomain();
+
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
 		vo.setObservationDomainList(odList);
-		ObservationDomain o = new ObservationDomain();
+		ObservationDomain o = new DefaultObservationDomain().defineDefaultObservationXml();
 		o.setReportingYear("2014");
 		ObservationXml xml = ObservationXmlMock.create();
 

@@ -37,6 +37,7 @@ import org.slf4j.LoggerFactory;
 public class FigisDao extends Dao {
 
 	final static Logger logger = LoggerFactory.getLogger(FigisDao.class);
+	private DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
 
 	@Inject
 	@FigisDB
@@ -118,12 +119,49 @@ public class FigisDao extends Dao {
 				persistObservationDomain(od, vod.getRefVme().getId());
 			} else {
 				// VmeObservation exists. sync it plus the derived objects.
-				logger.error("The case that VmeObservation exists is not yet implemented, vme id = "
-						+ vod.getRefVme().getId() + ", reporting year is " + od.getReportingYear());
+				updateObservationDomain(od, vo.getId().getObservationId());
 			}
 
 		}
 		em.getTransaction().commit();
+	}
+
+	/**
+	 * The observation may need to be updated or needs to be inserted because it is new.
+	 * 
+	 * 
+	 * @param od
+	 * @param vmeId
+	 */
+	private void updateObservationDomain(ObservationDomain od, Long observationId) {
+
+		Observation o = em.find(Observation.class, observationId);
+		o.setCollection(od.getCollection());
+		o.setObservationsPerLanguage(od.getObservationsPerLanguage());
+		o.setOrder(od.getOrder());
+
+		List<ObservationXml> xmlList = od.getObservationsPerLanguage();
+		for (ObservationXml xml : xmlList) {
+			xml.setObservation(o);
+			rule.composeId(xml);
+			ObservationXml xmlFound = em.find(ObservationXml.class, xml.getId());
+			if (xmlFound == null) {
+				xml.setObservation(o);
+				// genereate the id for the xml, based upon the id of the observation
+				rule.composeId(xml);
+				em.persist(xml);
+			} else {
+				xmlFound.setCreationDate(xml.getCreationDate());
+				xmlFound.setLanguage(xml.getLanguage());
+				xmlFound.setLastEditDate(xml.getLastEditDate());
+				xmlFound.setObservation(xml.getObservation());
+				xmlFound.setStatus(xml.getStatus());
+				xmlFound.setXml(xml.getXml());
+				em.merge(xmlFound);
+			}
+		}
+		o.setObservationsPerLanguage(xmlList);
+		em.merge(o);
 	}
 
 	/**
@@ -147,7 +185,6 @@ public class FigisDao extends Dao {
 
 		List<ObservationXml> xmlList = od.getObservationsPerLanguage();
 		for (ObservationXml observationXml : xmlList) {
-			DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
 			observationXml.setObservation(o);
 			// genereate the id for the xml, based upon the id of the observation
 			rule.composeId(observationXml);
@@ -177,7 +214,7 @@ public class FigisDao extends Dao {
 		try {
 			vo = (VmeObservation) query.getSingleResult();
 		} catch (NoResultException e) {
-			// a bit strange
+			// is valid, a new object needs to be created.
 		}
 		return vo;
 	}
