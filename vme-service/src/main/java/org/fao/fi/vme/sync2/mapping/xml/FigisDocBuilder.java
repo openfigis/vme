@@ -117,32 +117,37 @@ public class FigisDocBuilder {
 		measure.getTextsAndImagesAndTables().add(measureText);
 
 		// range (time)
-		Min min = f.createMin();
-		min.setContent(yearObject.getValidityPeriod().getBeginYear().toString());
-		JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
+		if (yearObject.getValidityPeriod() != null) {
+			Min min = f.createMin();
+			min.setContent(yearObject.getValidityPeriod().getBeginYear().toString());
+			JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
 
-		Max max = f.createMax();
-		max.setContent(yearObject.getValidityPeriod().getEndYear().toString());
-		JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
+			Max max = f.createMax();
+			max.setContent(yearObject.getValidityPeriod().getEndYear().toString());
+			JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
 
-		Range range = f.createRange();
-		range.setType("Time");
-		range.getContent().add(minJAXBElement);
-		range.getContent().add(maxJAXBElement);
-		measure.getTextsAndImagesAndTables().add(range);
+			Range range = f.createRange();
+			range.setType("Time");
+			range.getContent().add(minJAXBElement);
+			range.getContent().add(maxJAXBElement);
+			measure.getTextsAndImagesAndTables().add(range);
+		}
 
 		// sources
 		Sources sources = f.createSources();
 		BiblioEntry biblioEntry = f.createBiblioEntry();
 
-		BibliographicCitation citation = new BibliographicCitation();
-		citation.setContent(u.getEnglish(yearObject.getInformationSource().getCitation()));
-		biblioEntry.getContent().add(citation);
-
-		Identifier identifier = new Identifier();
-		identifier.setType("URI");
-		identifier.setContent(yearObject.getInformationSource().getUrl().toString());
-		biblioEntry.getContent().add(identifier);
+		if (yearObject.getInformationSource() != null) {
+			BibliographicCitation citation = new BibliographicCitation();
+			citation.setContent(u.getEnglish(yearObject.getInformationSource().getCitation()));
+			biblioEntry.getContent().add(citation);
+			if (yearObject.getInformationSource().getUrl() != null) {
+				Identifier identifier = new Identifier();
+				identifier.setType("URI");
+				identifier.setContent(yearObject.getInformationSource().getUrl().toString());
+				biblioEntry.getContent().add(identifier);
+			}
+		}
 
 		sources.getTextsAndImagesAndTables().add(biblioEntry);
 		measure.getTextsAndImagesAndTables().add(sources);
