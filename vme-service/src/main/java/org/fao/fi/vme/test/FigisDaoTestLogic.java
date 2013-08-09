@@ -34,11 +34,21 @@ public abstract class FigisDaoTestLogic {
 		assertEquals(1, vod.getObservationDomainList().size());
 
 		vod.setRefVme(refVme);
+		checkCount(count, 0);
 		dao.syncVmeObservationDomain(vod);
 		checkCount(count, 1);
 		dao.syncVmeObservationDomain(vod);
 		checkCount(count, 1);
 
+		add1Observation2Vod(vod);
+
+		dao.syncVmeObservationDomain(vod);
+		assertEquals(2, vod.getObservationDomainList().size());
+		checkCount(count, 2);
+
+	}
+
+	protected void add1Observation2Vod(VmeObservationDomain vod) {
 		ObservationXml xml = ObservationXmlMock.create();
 
 		ObservationDomain o = new DefaultObservationDomain().defineDefaultObservationXml();
@@ -46,9 +56,6 @@ public abstract class FigisDaoTestLogic {
 		o.setObservationsPerLanguage(new ArrayList<ObservationXml>());
 		o.getObservationsPerLanguage().add(xml);
 		vod.getObservationDomainList().add(o);
-		dao.syncVmeObservationDomain(vod);
-		assertEquals(2, vod.getObservationDomainList().size());
-		checkCount(count, 2);
 
 	}
 
@@ -61,18 +68,18 @@ public abstract class FigisDaoTestLogic {
 	}
 
 	protected VmeObservationDomain createVmeObservationDomain() {
-		VmeObservationDomain vo = new VmeObservationDomain();
+		VmeObservationDomain vod = new VmeObservationDomain();
 
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
-		vo.setObservationDomainList(odList);
+		vod.setObservationDomainList(odList);
 		ObservationDomain o = new DefaultObservationDomain().defineDefaultObservationXml();
 		o.setReportingYear("2014");
 		ObservationXml xml = ObservationXmlMock.create();
 
 		o.setObservationsPerLanguage(new ArrayList<ObservationXml>());
 		o.getObservationsPerLanguage().add(xml);
-		vo.getObservationDomainList().add(o);
-		return vo;
+		vod.getObservationDomainList().add(o);
+		return vod;
 	}
 
 	protected void delegateCheckOnNumberOfObjectsInModel(int i) {
