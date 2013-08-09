@@ -16,6 +16,21 @@ ojdbc14-10_2_0_3_0.jar
 ojdbc14.jar
 
 
+Update:
+--ojdbc-6.jar		2,714,189  bytes
+--ojdbc6 (1).jar	3,389,454  bytes
+--I just did dowload the Oracle 12g driver, it is also called ojdbc6.jar and renamed by the browser to ojdbc6 (1).jar. The size of these jars are not the same.
+--Official documentation:
+--Oracle Database 12c Release 1 JDBC Driver Download
+--ojdbc6.jar (3,389,454 bytes) - For use with JDK 6; It contains the JDBC driver classes
+--So I have reasons to believe that, even though they are called the same, the bigger driver is a more recent version.
+--Anyway, the driver does not make a difference for the problem described here VmeAccessDbImportIntegrationTest.testProblemCouldNotInitializeACollection
+-- so I decided not to use it.    
+
+
+
+
+
 
 
 
