@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -36,11 +35,13 @@ public class Rfmo {
 	 * [org.fao.fi.vme.domain.Rfmo.generalMeasuresList#3] Caused by: java.sql.SQLException: Stream has already been
 	 * closed
 	 * 
+	 * See also VmeAccessDbImportIntegrationTest.testProblemCouldNotInitializeACollection
 	 * 
 	 * 
 	 * http://www.razorsql.com/docs/support_oracle_long.html
 	 */
-	@OneToMany(mappedBy = "rfmo", fetch = FetchType.EAGER)
+	// @OneToMany(mappedBy = "rfmo", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "rfmo")
 	private List<GeneralMeasures> generalMeasuresList;
 
 	/**

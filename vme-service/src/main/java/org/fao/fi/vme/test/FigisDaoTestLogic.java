@@ -23,6 +23,10 @@ public abstract class FigisDaoTestLogic {
 	@Inject
 	protected FigisDao dao;
 
+	/**
+	 * This test is done in unit test context and integration test context. In integration test context the @Before and @After
+	 * do the cleaning work.
+	 */
 	@Test
 	public void testSyncVmeObservationDomain() {
 		RefVme refVme = RefVmeMock.create();

@@ -3,11 +3,12 @@ package org.fao.fi.vme.domain;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -27,9 +28,22 @@ public class GeneralMeasures implements YearObject<GeneralMeasures> {
 
 	/**
 	 * GeneralMeasures are defined on the level of a RFMO.
+	 * 
+	 * This was here @OneToOne but I believe that this should be @ManyToOne
+	 * 
 	 */
-	@OneToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Rfmo rfmo;
+
+	/**
+	 * YearObject in which the measures are defined, established.
+	 */
+	private Integer year;
+
+	/**
+	 * 
+	 */
+	private ValidityPeriod validityPeriod;
 
 	/**
 	 * GeneralMeasure has one linkCemSource. It should be the column Link_CEM_Source within the Measures_VME_general
@@ -41,14 +55,10 @@ public class GeneralMeasures implements YearObject<GeneralMeasures> {
 	private List<InformationSource> informationSourceList;
 
 	/**
-	 * YearObject in which the measures are defined, established.
-	 */
-	private Integer year;
-
-	/**
 	 * 
 	 */
-	@Column(length = 4096)
+
+	@Lob
 	private String fishingAreas;
 
 	/**
@@ -74,11 +84,6 @@ public class GeneralMeasures implements YearObject<GeneralMeasures> {
 	 */
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeThreshold;
-
-	/**
-	 * 
-	 */
-	private ValidityPeriod validityPeriod;
 
 	public Long getId() {
 		return id;

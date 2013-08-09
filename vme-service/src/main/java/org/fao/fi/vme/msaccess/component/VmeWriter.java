@@ -26,8 +26,8 @@ public class VmeWriter {
 
 	public void merge(List<ObjectCollection> objectCollectionList) {
 		for (ObjectCollection objectCollection : objectCollectionList) {
-			// System.out.println("========================");
-			// System.out.println(objectCollection.getClazz().getSimpleName());
+			System.out.println("========================");
+			System.out.println(objectCollection.getClazz().getSimpleName());
 			tableWriter.merge(objectCollection);
 		}
 	}

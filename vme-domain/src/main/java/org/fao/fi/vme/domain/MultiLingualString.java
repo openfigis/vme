@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MapKeyColumn;
 
 /**
  * Not applied yet.
@@ -35,9 +34,8 @@ public class MultiLingualString {
 	 * 
 	 */
 
-	
 	@ElementCollection
-	@Column(length=4096)
+	@Column(columnDefinition = "CLOB")
 	private Map<Integer, String> stringMap;
 
 	public Long getId() {
