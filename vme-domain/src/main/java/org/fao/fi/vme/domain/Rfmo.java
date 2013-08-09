@@ -23,24 +23,9 @@ public class Rfmo {
 	private String id;
 
 	/**
-	 * 
-	 * 
-	 * 
 	 * Rfmo
+	 * 
 	 */
-	/*
-	 * This error occurs
-	 * 
-	 * org.hibernate.exception.GenericJDBCException: could not initialize a collection:
-	 * [org.fao.fi.vme.domain.Rfmo.generalMeasuresList#3] Caused by: java.sql.SQLException: Stream has already been
-	 * closed
-	 * 
-	 * See also VmeAccessDbImportIntegrationTest.testProblemCouldNotInitializeACollection
-	 * 
-	 * 
-	 * http://www.razorsql.com/docs/support_oracle_long.html
-	 */
-	// @OneToMany(mappedBy = "rfmo", fetch = FetchType.EAGER)
 	@OneToMany(mappedBy = "rfmo")
 	private List<GeneralMeasures> generalMeasuresList;
 
