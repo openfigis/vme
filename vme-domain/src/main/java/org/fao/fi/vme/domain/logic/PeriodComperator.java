@@ -1,6 +1,8 @@
-package org.fao.fi.vme.domain.interfacee;
+package org.fao.fi.vme.domain.logic;
 
 import java.util.Comparator;
+
+import org.fao.fi.vme.domain.interfacee.Period;
 
 /**
  * 

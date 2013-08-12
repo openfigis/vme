@@ -1,4 +1,4 @@
-package org.fao.fi.vme.domain.interfacee;
+package org.fao.fi.vme.domain.logic;
 
 import static org.junit.Assert.fail;
 
@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.interfacee.Period;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.junit.Test;
 
@@ -28,6 +29,9 @@ public class PeriodListValidatorTest {
 
 		// earlier fails
 		testFail(createList(2010, 2011, 2008, 2009));
+
+		// gap in between fails
+		testFail(createList(2006, 2007, 2009, 2010));
 
 		// after each other is valid
 		v.validate(createList(2010, 2011, 2012, 2013));
