@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.fao.fi.vme.domain.interfacee.YearObject;
+
 /**
  * 
  * @author Erik van Ingen

@@ -13,13 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.fao.fi.vme.domain.interfacee.Valid;
+
 /**
  * 
  * @author Erik van Ingen
  * 
  */
 @Entity
-public class Vme {
+public class Vme implements Valid {
 
 	@Id
 	private Long id;
@@ -70,13 +72,11 @@ public class Vme {
 	 *
 	 */
 	private String areaType;
-	
-	
+
 	/**
 	 *
 	 */
 	private String geoarea;
-	
 
 	/**
 	 *
@@ -189,12 +189,11 @@ public class Vme {
 	}
 
 	/**
-	 * @param geoarea the geoarea to set
+	 * @param geoarea
+	 *            the geoarea to set
 	 */
 	public void setGeoArea(String geoarea) {
 		this.geoarea = geoarea;
 	}
-	
-	
 
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.domain.YearObject;
+import org.fao.fi.vme.domain.interfacee.YearObject;
 
 public class YearGrouping {
 

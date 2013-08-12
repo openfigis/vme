@@ -2,7 +2,7 @@ package org.fao.fi.vme.sync2.mapping;
 
 import java.util.List;
 
-import org.fao.fi.vme.domain.YearObject;
+import org.fao.fi.vme.domain.interfacee.YearObject;
 
 /**
  * 

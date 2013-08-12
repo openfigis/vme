@@ -1,4 +1,4 @@
-package org.fao.fi.vme.test;
+package org.fao.fi.vme.domain.test;
 
 import java.net.URL;
 import java.util.ArrayList;

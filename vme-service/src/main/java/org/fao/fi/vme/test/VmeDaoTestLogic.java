@@ -6,6 +6,7 @@ import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.test.VmeMock;
 
 public class VmeDaoTestLogic {
 

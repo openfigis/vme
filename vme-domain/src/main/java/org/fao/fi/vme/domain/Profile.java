@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.fao.fi.vme.domain.interfacee.YearObject;
+
 /**
  * The features of a VME, defined in a certain year.
  * 

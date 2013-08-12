@@ -1,4 +1,4 @@
-package org.fao.fi.vme.test;
+package org.fao.fi.figis.domain.test;
 
 import org.fao.fi.figis.domain.RefVme;
 

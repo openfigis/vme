@@ -13,7 +13,7 @@ import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.domain.YearObject;
+import org.fao.fi.vme.domain.interfacee.YearObject;
 import org.fao.fi.vme.sync2.mapping.xml.DefaultObservationXml;
 import org.fao.fi.vme.sync2.mapping.xml.FigisDocBuilder;
 import org.vme.fimes.jaxb.JaxbMarshall;

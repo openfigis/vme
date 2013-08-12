@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.domain.YearObject;
-import org.fao.fi.vme.test.VmeMock;
+import org.fao.fi.vme.domain.interfacee.YearObject;
+import org.fao.fi.vme.domain.test.VmeMock;
 import org.junit.Test;
 
 public class YearGroupingTest {

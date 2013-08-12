@@ -15,6 +15,7 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
+import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.fao.fi.vme.sync2.mapping.DefaultObservationDomain;
 import org.junit.Test;
 

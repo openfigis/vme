@@ -8,13 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
+import org.fao.fi.vme.domain.interfacee.Valid;
+import org.fao.fi.vme.domain.interfacee.YearObject;
+
 /**
  * 
  * @author Erik van Ingen
  * 
  */
 @Entity(name = "SPECIFIC_MEASURES")
-public class SpecificMeasures implements YearObject<SpecificMeasures> {
+public class SpecificMeasures implements YearObject<SpecificMeasures>, Valid {
 
 	/**
 	 *  

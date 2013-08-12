@@ -10,7 +10,7 @@ import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.GeoRef;
-import org.fao.fi.vme.test.GeoRefMock;
+import org.fao.fi.vme.domain.test.GeoRefMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
