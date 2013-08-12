@@ -3,6 +3,7 @@ package org.fao.fi.vme.domain;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -22,6 +23,9 @@ public class Profile implements YearObject<Profile> {
 	 * YearObject in which the features where defined. This maps to the figis reporting year.
 	 */
 	private Integer year;
+
+	@ManyToOne
+	private Vme vme;
 
 	/**
 	 * Physical description of the VME
@@ -47,18 +51,24 @@ public class Profile implements YearObject<Profile> {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	@Override
 	public Integer getYear() {
 		return year;
 	}
 
-	@Override
 	public void setYear(Integer year) {
 		this.year = year;
+	}
+
+	public Vme getVme() {
+		return vme;
+	}
+
+	public void setVme(Vme vme) {
+		this.vme = vme;
 	}
 
 	public MultiLingualString getDescriptionPhisical() {
