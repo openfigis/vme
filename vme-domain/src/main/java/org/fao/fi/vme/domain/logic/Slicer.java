@@ -3,7 +3,7 @@ package org.fao.fi.vme.domain.logic;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fao.fi.vme.domain.interfacee.Valid;
+import org.fao.fi.vme.domain.interfacee.Period;
 
 /**
  * This class implements the rules for DisseminationYear.
@@ -17,17 +17,17 @@ public class Slicer {
 
 	/**
 	 * 
-	 * Return all valid objects where the beginYear is equal or earlier than the disseminationYear.
+	 * Return all period objects where the beginYear is equal or earlier than the disseminationYear.
 	 * 
 	 * @param disseminationYear
 	 * @param collection
 	 * @return
 	 */
-	public List<Valid> slice(int disseminationYear, List<Valid> collection) {
-		List<Valid> slice = new ArrayList<Valid>();
-		for (Valid valid : collection) {
-			if (valid.getValidityPeriod().getBeginYear() <= disseminationYear) {
-				slice.add(valid);
+	public List<Period> slice(int disseminationYear, List<Period> collection) {
+		List<Period> slice = new ArrayList<Period>();
+		for (Period period : collection) {
+			if (period.getValidityPeriod().getBeginYear() <= disseminationYear) {
+				slice.add(period);
 			}
 		}
 		return slice;

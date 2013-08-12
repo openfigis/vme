@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.fao.fi.vme.domain.interfacee.Valid;
+import org.fao.fi.vme.domain.interfacee.Period;
 
 /**
  * 
@@ -21,7 +21,7 @@ import org.fao.fi.vme.domain.interfacee.Valid;
  * 
  */
 @Entity
-public class Vme implements Valid {
+public class Vme implements Period {
 
 	@Id
 	private Long id;

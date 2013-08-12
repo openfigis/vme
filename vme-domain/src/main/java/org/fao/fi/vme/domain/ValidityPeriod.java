@@ -24,12 +24,14 @@ import javax.persistence.Embeddable;
  * ValidityPeriods for GeneralMeasureSet = {2000-2007, 2008-2009, 2010-9999}
  * 
  * 
+ * See also http://km.fao.org/FIGISwiki/index.php/VME_UML#Rules_for_the_validity_period
+ * 
  * 
  * @author Erik van Ingen
  * 
  */
 @Embeddable
-public class ValidityPeriod {
+public class ValidityPeriod implements Comparable<ValidityPeriod> {
 
 	/** 
 	  
@@ -56,4 +58,18 @@ public class ValidityPeriod {
 		this.endYear = endYear;
 	}
 
+	/**
+	 * This method does not validate
+	 */
+	@Override
+	public int compareTo(ValidityPeriod vp) {
+		int compare = 0;
+		if (this.getEndYear() < vp.getBeginYear()) {
+			compare = -1;
+		}
+		if (this.getBeginYear() > vp.getEndYear()) {
+			compare = 1;
+		}
+		return compare;
+	}
 }
