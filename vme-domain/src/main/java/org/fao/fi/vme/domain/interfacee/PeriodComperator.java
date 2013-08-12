@@ -2,6 +2,12 @@ package org.fao.fi.vme.domain.interfacee;
 
 import java.util.Comparator;
 
+/**
+ * 
+ * @author Erik van Ingen
+ * 
+ */
+
 public class PeriodComperator implements Comparator<Period> {
 
 	@Override
