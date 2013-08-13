@@ -61,7 +61,7 @@ public class PeriodGroupingTest {
 		vme.setRfmo(new Rfmo());
 		ValidityPeriod vpVme = ValidityPeriodMock.create(startYear, endYear);
 		vme.setValidityPeriod(vpVme);
-		vme.setSpecificMeasureList(specificMeasureList);
+		vme.setSpecificMeasuresList(specificMeasureList);
 
 		List<DisseminationYearSlice> slices = g.collect(vme);
 		for (DisseminationYearSlice s : slices) {

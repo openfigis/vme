@@ -24,7 +24,7 @@ public class YearGrouping {
 		Map<Integer, List<YearObject<?>>> map = new HashMap<Integer, List<YearObject<?>>>();
 
 		add2Map(map, vme.getHistoryList());
-		add2Map(map, vme.getSpecificMeasureList());
+		add2Map(map, vme.getSpecificMeasuresList());
 		add2Map(map, vme.getProfileList());
 		add2Map(map, vme.getGeoRefList());
 

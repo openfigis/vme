@@ -109,7 +109,7 @@ public class LinkerTest {
 		Vme o = (Vme) object;
 		assertNotNull(o.getRfmo().getId());
 		// TODO commented, please validate with Aureliano
-		// assertTrue(o.getSpecificMeasureList().size() > 0);
+		// assertTrue(o.getSpecificMeasuresList().size() > 0);
 		assertNotNull(o.getValidityPeriod().getBeginYear());
 		assertNotNull(o.getValidityPeriod().getEndYear());
 		// TODO commented, please validate with Aureliano

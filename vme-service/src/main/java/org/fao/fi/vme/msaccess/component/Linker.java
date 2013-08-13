@@ -125,8 +125,8 @@ public class Linker {
 				List<Object> objectList = oc.getObjectList();
 				for (Object object : objectList) {
 					Vme vme = (Vme) object;
-					if (vme.getSpecificMeasureList() == null) {
-						vme.setSpecificMeasureList(new ArrayList<SpecificMeasures>());
+					if (vme.getSpecificMeasuresList() == null) {
+						vme.setSpecificMeasuresList(new ArrayList<SpecificMeasures>());
 					}
 					VME vmeRecord = (VME) domainTableMap.get(vme);
 					if (record.getVME_ID().equals(vmeRecord.getVME_ID())) {
@@ -134,9 +134,9 @@ public class Linker {
 							// add only when not already in the list
 							sm.getVmeList().add(vme);
 						}
-						if (!vme.getSpecificMeasureList().contains(sm)) {
+						if (!vme.getSpecificMeasuresList().contains(sm)) {
 							// add only when not already in the list
-							vme.getSpecificMeasureList().add(sm);
+							vme.getSpecificMeasuresList().add(sm);
 						}
 					}
 				}

@@ -18,6 +18,7 @@ import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.fao.fi.vme.test.VmeDaoTestLogic;
@@ -57,20 +58,21 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 
 	@Test
 	public void testSync() {
-		// assertNrOfObjects(0);
+		assertNrOfObjects(0);
 		observationSync.sync();
-		assertNrOfObjects(1);
+
+		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
 
 		// // test repeatability
 		observationSync.sync();
 		observationSync.sync();
-		assertNrOfObjects(1);
+		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
 	}
 
 	@Test
 	public void testSyncWithUpdate() {
 		observationSync.sync();
-		assertNrOfObjects(1);
+		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
 
 		assertEquals(1, vmeDao.count(SpecificMeasures.class).intValue());
 
@@ -80,22 +82,22 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 			SpecificMeasures specificMeasures = new SpecificMeasures();
 			specificMeasures.setId(333333333l);
 			specificMeasures.setYear(VmeMock.YEAR + 1);
-			vme.getSpecificMeasureList().add(specificMeasures);
+			vme.getSpecificMeasuresList().add(specificMeasures);
 			vmeDao.merge(vme);
 		}
 		observationSync.sync();
-		assertNrOfObjects(2);
+		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
 
 		// test repeatability
 		observationSync.sync();
-		assertNrOfObjects(2);
+		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
 	}
 
 	@Test
 	public void testSyncCD_COLLECTION() {
 		assertNrOfObjects(0);
 		observationSync.sync();
-		assertNrOfObjects(1);
+		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
 		List<?> oss = figisDao.loadObjects(Observation.class);
 		for (Object object : oss) {
 			Observation o = (Observation) object;

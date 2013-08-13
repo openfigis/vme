@@ -33,18 +33,18 @@ public class VmeSpecificMeasuresRelationTest {
 		s.setId(30l);
 
 		vmeDao.merge(vme);
-		List<SpecificMeasures> originalList = vme.getSpecificMeasureList();
-		List<SpecificMeasures> foundList = vmeDao.findVme(vme.getId()).getSpecificMeasureList();
+		List<SpecificMeasures> originalList = vme.getSpecificMeasuresList();
+		List<SpecificMeasures> foundList = vmeDao.findVme(vme.getId()).getSpecificMeasuresList();
 		for (int i = 0; i < originalList.size(); i++) {
 			assertEquals(originalList.get(i), foundList.get(i));
 		}
 
 		assertEquals(2, vmeDao.count(SpecificMeasures.class).intValue());
 		Vme vmeFound = vmeDao.findVme(vme.getId());
-		assertEquals(2, vmeFound.getSpecificMeasureList().size());
+		assertEquals(2, vmeFound.getSpecificMeasuresList().size());
 
-		assertEquals(vme.getSpecificMeasureList().get(0), vmeFound.getSpecificMeasureList().get(0));
-		assertEquals(s, vmeFound.getSpecificMeasureList().get(1));
+		assertEquals(vme.getSpecificMeasuresList().get(0), vmeFound.getSpecificMeasuresList().get(0));
+		assertEquals(s, vmeFound.getSpecificMeasuresList().get(1));
 
 	}
 
@@ -62,12 +62,12 @@ public class VmeSpecificMeasuresRelationTest {
 		List<Vme> slv = new ArrayList<Vme>();
 		slv.add(vme);
 		s.setVmeList(slv);
-		if (vme.getSpecificMeasureList() == null) {
+		if (vme.getSpecificMeasuresList() == null) {
 			List<SpecificMeasures> sl = new ArrayList<SpecificMeasures>();
-			vme.setSpecificMeasureList(sl);
+			vme.setSpecificMeasuresList(sl);
 		}
 
-		vme.getSpecificMeasureList().add(s);
+		vme.getSpecificMeasuresList().add(s);
 		return s;
 	}
 

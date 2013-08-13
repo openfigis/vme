@@ -31,7 +31,7 @@ public class SpecificMeasures implements YearObject<SpecificMeasures>, Period<Sp
 	/*
 	 * This is the inverse side of the ManyToMany relationship
 	 */
-	@ManyToMany(mappedBy = "specificMeasureList")
+	@ManyToMany(mappedBy = "specificMeasuresList")
 	private List<Vme> vmeList;
 
 	@OneToOne

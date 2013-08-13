@@ -2,10 +2,12 @@ package org.fao.fi.vme.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
 
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
+import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.test.VmeDaoTestLogic;
@@ -27,6 +29,11 @@ public class VmeDaoTest {
 		Vme vme = VmeMock.generateVme(nrOfyears);
 		VmeDaoTestLogic l = new VmeDaoTestLogic();
 		l.saveVme(vme, dao);
+		Vme vmeFound = dao.findVme(vme.getId());
+		assertTrue(vmeFound.getRfmo().getGeneralMeasuresList().size() > 0);
+		for (GeneralMeasures gm : vmeFound.getRfmo().getGeneralMeasuresList()) {
+			assertNotNull(gm.getFishingAreas());
+		}
 
 	}
 

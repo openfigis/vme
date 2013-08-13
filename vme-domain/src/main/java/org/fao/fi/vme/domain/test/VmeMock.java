@@ -76,17 +76,17 @@ public class VmeMock {
 			int year = startYear + i;
 			InformationSource is = new InformationSource();
 			is.setId(id++);
-			is.setCitation(u.english("RFMO Conservation and Enforcement Measures "+year+" (Doc No. ####)"));
-			try{
+			is.setCitation(u.english("RFMO Conservation and Enforcement Measures " + year + " (Doc No. ####)"));
+			try {
 				is.setUrl(new URL("http://www.rfmo.org"));
-			}catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			is.setDate(new Date());
 			is.setCommittee(u.english("Regional Fishery Management Organization (RFMO)"));
 			is.setReportSummary(u.english("This is an abstract (report summary)"));
 			informationSourceList.add(is);
-			
+
 			History rfmoHistory = new History();
 			rfmoHistory.setId(id++);
 			rfmoHistory.setYear(year);
@@ -105,21 +105,21 @@ public class VmeMock {
 			SpecificMeasures specificMeasures = new SpecificMeasures();
 			specificMeasures.setId(id++);
 			specificMeasures.setYear(year);
-			specificMeasures.setVmeSpecificMeasure(u.english("A specific measure for the year "+year));
-			specificMeasures.setValidityPeriod(ValidityPeriodMock.create(year, year+1));
+			specificMeasures.setVmeSpecificMeasure(u.english("A specific measure for the year " + year));
+			specificMeasures.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
 			specificMeasures.setInformationSource(is);
 			specificMeasureList.add(specificMeasures);
 
 			History vmeHistory = new History();
 			vmeHistory.setId(id++);
 			vmeHistory.setYear(year);
-			vmeHistory.setHistory(u.english("Some VME history for the year "+year));
+			vmeHistory.setHistory(u.english("Some VME history for the year " + year));
 			vmeHistoryList.add(vmeHistory);
 
 			GeoRef geoRef = new GeoRef();
 			// geoRef.setId(id++);
 			geoRef.setYear(year);
-			geoRef.setGeographicFeatureID(INVENTORY_ID+"_"+YEAR);
+			geoRef.setGeographicFeatureID(INVENTORY_ID + "_" + YEAR);
 			geoRefList.add(geoRef);
 
 			GeneralMeasures gm = new GeneralMeasures();
@@ -130,7 +130,7 @@ public class VmeMock {
 			gm.setVmeEncounterProtocols(u.english("a [VmeEncounterProtocols] general measure"));
 			gm.setVmeThreshold(u.english("a [VmeThreshold] general measure"));
 			gm.setVmeIndicatorSpecies(u.english("a [VmeIndicatorSpecies] general measure"));
-			gm.setValidityPeriod(ValidityPeriodMock.create(year, year+1));
+			gm.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
 			gm.setInformationSourceList(Arrays.asList(is));
 			generalMeasuresList.add(gm);
 
@@ -149,7 +149,7 @@ public class VmeMock {
 		vme.setName(u.english("Hard Corner Bugs "));
 		vme.setRfmo(rfmo);
 		vme.setProfileList(pList);
-		vme.setSpecificMeasureList(specificMeasureList);
+		vme.setSpecificMeasuresList(specificMeasureList);
 		vme.setHistoryList(vmeHistoryList);
 		vme.setGeoRefList(geoRefList);
 		vme.setValidityPeriod(ValidityPeriodMock.create());

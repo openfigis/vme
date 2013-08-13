@@ -69,7 +69,7 @@ public class FigisDocBuilderTest {
 		FIGISDoc figisDoc = new FIGISDoc();
 		figisDoc.setVME(new VME());
 
-		SpecificMeasures specificMeasure = vme.getSpecificMeasureList().get(0);
+		SpecificMeasures specificMeasure = vme.getSpecificMeasuresList().get(0);
 		b.specificMeasures(specificMeasure, figisDoc);
 		Management management = (Management) figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
 		assertNotNull(management);
@@ -373,7 +373,7 @@ public class FigisDocBuilderTest {
 		b.year(vme.getValidityPeriod().getBeginYear().toString(), figisDoc);
 		b.profile(vme.getProfileList().get(0), figisDoc);
 		b.rfmo(vme.getRfmo(), figisDoc);
-		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc);
+		b.specificMeasures(vme.getSpecificMeasuresList().get(0), figisDoc);
 		b.generalMeasures(vme.getRfmo().getGeneralMeasuresList().get(0), figisDoc);
 		b.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
 

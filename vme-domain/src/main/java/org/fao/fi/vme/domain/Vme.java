@@ -38,7 +38,7 @@ public class Vme implements Period<Vme> {
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "VME_SPECIFIC_MEASURES", //
 	joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURES_ID"))
-	private List<SpecificMeasures> specificMeasureList;
+	private List<SpecificMeasures> specificMeasuresList;
 
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<Profile> profileList;
@@ -117,14 +117,6 @@ public class Vme implements Period<Vme> {
 		this.rfmo = rfmo;
 	}
 
-	public List<SpecificMeasures> getSpecificMeasureList() {
-		return specificMeasureList;
-	}
-
-	public void setSpecificMeasureList(List<SpecificMeasures> specificMeasureList) {
-		this.specificMeasureList = specificMeasureList;
-	}
-
 	public List<Profile> getProfileList() {
 		return profileList;
 	}
@@ -196,4 +188,11 @@ public class Vme implements Period<Vme> {
 		this.geoarea = geoarea;
 	}
 
+	public List<SpecificMeasures> getSpecificMeasuresList() {
+		return specificMeasuresList;
+	}
+
+	public void setSpecificMeasuresList(List<SpecificMeasures> specificMeasuresList) {
+		this.specificMeasuresList = specificMeasuresList;
+	}
 }

@@ -45,6 +45,7 @@ public class PeriodGrouping {
 			DisseminationYearSlice slice = new DisseminationYearSlice();
 			doValidityPeriodStuff(vme, disseminationYear, slice);
 			doYearStuff(vme, disseminationYear, slice);
+
 			slice.setYear(disseminationYear);
 			l.add(slice);
 		}
@@ -101,7 +102,7 @@ public class PeriodGrouping {
 			slice.setVme(vme);
 		}
 
-		List<SpecificMeasures> smList = vme.getSpecificMeasureList();
+		List<SpecificMeasures> smList = vme.getSpecificMeasuresList();
 		if (smList != null) {
 			Collections.sort(smList, new PeriodComperator());
 			for (SpecificMeasures specificMeasures : smList) {

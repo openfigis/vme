@@ -80,7 +80,7 @@ public class VmeAccessDbImportIntegrationTest {
 		for (Vme vme : vmeList) {
 			vme.setGeoRefList(null);
 			vme.setRfmo(null);
-			vme.setSpecificMeasureList(null);
+			vme.setSpecificMeasuresList(null);
 			vme.setProfileList(null);
 			vme.setHistoryList(null);
 			vmeDao.merge(vme);
