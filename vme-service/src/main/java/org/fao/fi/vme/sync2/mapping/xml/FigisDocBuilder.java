@@ -95,71 +95,74 @@ public class FigisDocBuilder {
 	public void specificMeasures(SpecificMeasures yearObject, FIGISDoc figisDoc) {
 
 		// ManagementMethodEntry
-		ManagementMethodEntry entry = f.createManagementMethodEntry();
-		entry.setFocus("Vulnerable Marine Ecosystems");
+		if (yearObject != null) {
 
-		// title
-		Title entryTitle = new Title();
-		entryTitle.setContent("VME-specific measures");
-		entry.setTitle(entryTitle);
+			ManagementMethodEntry entry = f.createManagementMethodEntry();
+			entry.setFocus("Vulnerable Marine Ecosystems");
 
-		// Measure
-		Measure measure = f.createMeasure();
+			// title
+			Title entryTitle = new Title();
+			entryTitle.setContent("VME-specific measures");
+			entry.setTitle(entryTitle);
 
-		// measureType
-		MeasureType measureType = f.createMeasureType();
-		measureType.setValue("VME-specific measures");
-		measure.getTextsAndImagesAndTables().add(measureType);
+			// Measure
+			Measure measure = f.createMeasure();
 
-		// text
-		Text measureText = f.createText();
-		measureText.getContent().add(u.getEnglish(yearObject.getVmeSpecificMeasure()));
-		measure.getTextsAndImagesAndTables().add(measureText);
+			// measureType
+			MeasureType measureType = f.createMeasureType();
+			measureType.setValue("VME-specific measures");
+			measure.getTextsAndImagesAndTables().add(measureType);
 
-		// range (time)
-		if (yearObject.getValidityPeriod() != null) {
-			Min min = f.createMin();
-			min.setContent(yearObject.getValidityPeriod().getBeginYear().toString());
-			JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
+			// text
+			Text measureText = f.createText();
+			measureText.getContent().add(u.getEnglish(yearObject.getVmeSpecificMeasure()));
+			measure.getTextsAndImagesAndTables().add(measureText);
 
-			Max max = f.createMax();
-			max.setContent(yearObject.getValidityPeriod().getEndYear().toString());
-			JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
+			// range (time)
+			if (yearObject.getValidityPeriod() != null) {
+				Min min = f.createMin();
+				min.setContent(yearObject.getValidityPeriod().getBeginYear().toString());
+				JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
 
-			Range range = f.createRange();
-			range.setType("Time");
-			range.getContent().add(minJAXBElement);
-			range.getContent().add(maxJAXBElement);
-			measure.getTextsAndImagesAndTables().add(range);
-		}
+				Max max = f.createMax();
+				max.setContent(yearObject.getValidityPeriod().getEndYear().toString());
+				JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
 
-		// sources
-		Sources sources = f.createSources();
-		BiblioEntry biblioEntry = f.createBiblioEntry();
-
-		if (yearObject.getInformationSource() != null) {
-			BibliographicCitation citation = new BibliographicCitation();
-			citation.setContent(u.getEnglish(yearObject.getInformationSource().getCitation()));
-			biblioEntry.getContent().add(citation);
-			if (yearObject.getInformationSource().getUrl() != null) {
-				Identifier identifier = new Identifier();
-				identifier.setType("URI");
-				identifier.setContent(yearObject.getInformationSource().getUrl().toString());
-				biblioEntry.getContent().add(identifier);
+				Range range = f.createRange();
+				range.setType("Time");
+				range.getContent().add(minJAXBElement);
+				range.getContent().add(maxJAXBElement);
+				measure.getTextsAndImagesAndTables().add(range);
 			}
+
+			// sources
+			Sources sources = f.createSources();
+			BiblioEntry biblioEntry = f.createBiblioEntry();
+
+			if (yearObject.getInformationSource() != null) {
+				BibliographicCitation citation = new BibliographicCitation();
+				citation.setContent(u.getEnglish(yearObject.getInformationSource().getCitation()));
+				biblioEntry.getContent().add(citation);
+				if (yearObject.getInformationSource().getUrl() != null) {
+					Identifier identifier = new Identifier();
+					identifier.setType("URI");
+					identifier.setContent(yearObject.getInformationSource().getUrl().toString());
+					biblioEntry.getContent().add(identifier);
+				}
+			}
+
+			sources.getTextsAndImagesAndTables().add(biblioEntry);
+			measure.getTextsAndImagesAndTables().add(sources);
+
+			entry.getTextsAndImagesAndTables().add(measure); // add measure to ManagementMethodEntry
+
+			ManagementMethods managementMethods = f.createManagementMethods();
+			managementMethods.getManagementMethodEntriesAndTextsAndImages().add(entry);
+			Management management = f.createManagement();
+			management.getTextsAndImagesAndTables().add(managementMethods);
+
+			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(management);
 		}
-
-		sources.getTextsAndImagesAndTables().add(biblioEntry);
-		measure.getTextsAndImagesAndTables().add(sources);
-
-		entry.getTextsAndImagesAndTables().add(measure); // add measure to ManagementMethodEntry
-
-		ManagementMethods managementMethods = f.createManagementMethods();
-		managementMethods.getManagementMethodEntriesAndTextsAndImages().add(entry);
-		Management management = f.createManagement();
-		management.getTextsAndImagesAndTables().add(managementMethods);
-
-		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(management);
 
 	}
 
@@ -208,27 +211,30 @@ public class FigisDocBuilder {
 	 */
 	public void profile(Profile yearObject, FIGISDoc figisDoc) {
 		// Habitat-Biological profile
-		HabitatBio habitatBio = f.createHabitatBio();
+		if (yearObject != null) {
+			HabitatBio habitatBio = f.createHabitatBio();
 
-		Text text1 = f.createText();
-		text1.getContent().add(u.getEnglish(yearObject.getDescriptionBiological()));
-		habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(text1);
-		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
+			Text text1 = f.createText();
+			text1.getContent().add(u.getEnglish(yearObject.getDescriptionBiological()));
+			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(text1);
+			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
 
-		// Physical profile
-		Text text2 = f.createText();
-		text2.getContent().add(u.getEnglish(yearObject.getDescriptionPhisical()));
-		GeoForm geoform = f.createGeoForm();
-		JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(text2);
-		geoform.getContent().add(geoformJAXBElement);
-		habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm is part of HabitatBio profile
+			// Physical profile
+			Text text2 = f.createText();
+			text2.getContent().add(u.getEnglish(yearObject.getDescriptionPhisical()));
+			GeoForm geoform = f.createGeoForm();
+			JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(text2);
+			geoform.getContent().add(geoformJAXBElement);
+			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm is part of HabitatBio
+																					// profile
 
-		// Impacts profile
-		Impacts impacts = f.createImpacts();
-		Text text3 = f.createText();
-		text3.getContent().add(u.getEnglish(yearObject.getDescriptionImpact()));
-		impacts.getTextsAndImagesAndTables().add(text3);
-		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(impacts);
+			// Impacts profile
+			Impacts impacts = f.createImpacts();
+			Text text3 = f.createText();
+			text3.getContent().add(u.getEnglish(yearObject.getDescriptionImpact()));
+			impacts.getTextsAndImagesAndTables().add(text3);
+			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(impacts);
+		}
 
 	}
 

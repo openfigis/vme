@@ -1,5 +1,7 @@
 package org.fao.fi.vme.figis;
 
+import static org.junit.Assert.assertEquals;
+
 import javax.inject.Inject;
 
 import org.fao.fi.figis.dao.FigisDao;
@@ -8,6 +10,7 @@ import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
+import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.sync2.SyncBatch2;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
@@ -17,8 +20,6 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertEquals;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
@@ -61,12 +62,13 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 		// we cannot test this because of the FigisDaoIntegrationTest.testDeleteRefVme problem.
 		// assertEquals(totalR, dao.count(RefVme.class).intValue());
 
-		checkCount(c, INSERTED);
+		int observations = ValidityPeriodMock.getNumberOfYearInclusive() * INSERTED;
+		checkCount(c, observations);
 
 		// a subsequent synch should return the same numbers
 		syncBatch2.syncFigisWithVme();
 		assertEquals(totalR, dao.count(RefVme.class).intValue());
-		checkCount(c, INSERTED);
+		checkCount(c, observations);
 
 	}
 }
