@@ -21,7 +21,7 @@ import org.fao.fi.vme.domain.interfacee.YearObject;
  * 
  */
 @Entity(name = "GENERAL_MEASURES")
-public class GeneralMeasures implements YearObject<GeneralMeasures>, Period {
+public class GeneralMeasures implements YearObject<GeneralMeasures>, Period<GeneralMeasures> {
 
 	/** 
 	 * 

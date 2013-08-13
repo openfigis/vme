@@ -8,7 +8,7 @@ import org.fao.fi.vme.domain.interfacee.Period;
 
 public class PeriodListValidator {
 
-	public void validate(List<Period> sortedPeriods) {
+	public void validate(List<Period<?>> sortedPeriods) {
 		int indexLastElement = sortedPeriods.size() - 1;
 		for (int i = 0; i < sortedPeriods.size(); i++) {
 			int indexNextElement = i + 1;

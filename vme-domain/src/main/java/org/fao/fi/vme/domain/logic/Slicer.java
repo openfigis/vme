@@ -10,6 +10,8 @@ import org.fao.fi.vme.domain.interfacee.Period;
  * 
  * http://km.fao.org/FIGISwiki/index.php/VME_UML#Rules_for_the_validity_period_and_Year
  * 
+ * @deprecated see PeriodGrouping
+ * 
  * @author Erik van Ingen
  * 
  */
@@ -23,14 +25,15 @@ public class Slicer {
 	 * @param collection
 	 * @return
 	 */
-	public List<Period> slice(int disseminationYear, List<Period> collection) {
-		List<Period> slice = new ArrayList<Period>();
-		for (Period period : collection) {
+	public List<Period<?>> slice(int disseminationYear, List<Period<?>> collection) {
+
+		List<Period<?>> slice = new ArrayList<Period<?>>();
+
+		for (Period<?> period : collection) {
 			if (period.getValidityPeriod().getBeginYear() <= disseminationYear) {
 				slice.add(period);
 			}
 		}
 		return slice;
 	}
-
 }
