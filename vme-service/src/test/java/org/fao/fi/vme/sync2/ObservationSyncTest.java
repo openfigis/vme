@@ -28,6 +28,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
 public class ObservationSyncTest extends FigisDaoTestLogic {
