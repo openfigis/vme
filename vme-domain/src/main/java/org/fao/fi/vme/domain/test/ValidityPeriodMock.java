@@ -13,12 +13,16 @@ public class ValidityPeriodMock {
 		vp.setEndYear(END_YEAR);
 		return vp;
 	};
-	
+
 	public static ValidityPeriod create(Integer beginYear, Integer endYear) {
 		ValidityPeriod vp = new ValidityPeriod();
 		vp.setBeginYear(beginYear);
 		vp.setEndYear(endYear);
 		return vp;
+	}
+
+	public static int getNumberOfYearInclusive() {
+		return END_YEAR - BEGIN_YEAR + 1;
 	}
 
 }

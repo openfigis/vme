@@ -14,6 +14,7 @@ import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.junit.Test;
 
@@ -26,10 +27,10 @@ public class ObjectMappingTest {
 		int nrOfYears = 3;
 		Vme vme = VmeMock.generateVme(nrOfYears);
 
-		VmeObservationDomain vod = om.mapVme2Figis(vme);
+		VmeObservationDomain vod = om.mapVme2Figis2(vme);
 
 		List<ObservationDomain> odList = vod.getObservationDomainList();
-		assertEquals(nrOfYears, odList.size());
+		assertEquals(ValidityPeriodMock.getNumberOfYearInclusive(), odList.size());
 		for (ObservationDomain od : odList) {
 			assertNotNull(od.getReportingYear());
 			List<ObservationXml> xmlList = od.getObservationsPerLanguage();

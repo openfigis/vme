@@ -1,14 +1,18 @@
 package org.fao.fi.vme.sync2.mapping;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
 import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.interfacee.Period;
+import org.fao.fi.vme.domain.interfacee.YearObject;
 import org.fao.fi.vme.domain.logic.PeriodComperator;
 import org.fao.fi.vme.domain.logic.YearComperator;
 
@@ -26,12 +30,17 @@ import org.fao.fi.vme.domain.logic.YearComperator;
  */
 public class PeriodGrouping {
 
+	private static final int FUTURE = 9999;
+
 	public List<DisseminationYearSlice> collect(Vme vme) {
 		List<DisseminationYearSlice> l = new ArrayList<DisseminationYearSlice>();
 
 		int beginYear = vme.getValidityPeriod().getBeginYear();
 		int endYear = vme.getValidityPeriod().getEndYear();
 
+		if (endYear == FUTURE) {
+			endYear = Calendar.getInstance().get(Calendar.YEAR);
+		}
 		for (int disseminationYear = beginYear; disseminationYear <= endYear; disseminationYear++) {
 			DisseminationYearSlice slice = new DisseminationYearSlice();
 			doValidityPeriodStuff(vme, disseminationYear, slice);
@@ -45,26 +54,40 @@ public class PeriodGrouping {
 	private void doYearStuff(Vme vme, int disseminationYear, DisseminationYearSlice slice) {
 
 		// fishing history
-		List<History> fishingHistoryList = vme.getRfmo().getFishingHistoryList();
+		List<? extends YearObject<?>> fishingHistoryList = vme.getRfmo().getFishingHistoryList();
 		if (fishingHistoryList != null) {
-			History fishingHistory = findRelavantYear(fishingHistoryList, disseminationYear);
-			slice.setRfmoHistory(fishingHistory);
+			YearObject<?> fishingHistory = findRelavantYear(fishingHistoryList, disseminationYear);
+			slice.setRfmoHistory((History) fishingHistory);
 		}
 
 		// vme history
 		List<History> vmeHistoryList = vme.getHistoryList();
 		if (vmeHistoryList != null) {
-			History vmeHistory = findRelavantYear(vmeHistoryList, disseminationYear);
-			slice.setVmeHistory(vmeHistory);
+			YearObject<?> vmeHistory = findRelavantYear(vmeHistoryList, disseminationYear);
+			slice.setVmeHistory((History) vmeHistory);
 		}
-		// TODO GeoRef
+
+		// GeoRef
+		List<GeoRef> geoRefList = vme.getGeoRefList();
+		if (geoRefList != null) {
+			YearObject<?> geoRef = findRelavantYear(geoRefList, disseminationYear);
+			slice.setGeoRef((GeoRef) geoRef);
+		}
+
+		// Profile.
+		List<Profile> profileList = vme.getProfileList();
+		if (profileList != null) {
+			YearObject<?> geoRef = findRelavantYear(profileList, disseminationYear);
+			slice.setProfile((Profile) geoRef);
+		}
 
 	}
 
-	private History findRelavantYear(List<History> hList, int disseminationYear) {
+	private YearObject<?> findRelavantYear(List<? extends YearObject<?>> hList, int disseminationYear) {
+
 		Collections.sort(hList, new YearComperator());
-		History history = null;
-		for (History foundHistory : hList) {
+		YearObject<?> history = null;
+		for (YearObject<?> foundHistory : hList) {
 			// take the first you can get. Otherwise the year of the object founds need to be equal or less.
 			if (history == null || disseminationYear >= foundHistory.getYear()) {
 				history = foundHistory;

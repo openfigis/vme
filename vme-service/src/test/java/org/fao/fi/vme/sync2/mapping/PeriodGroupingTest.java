@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.fao.fi.vme.domain.History;
@@ -18,6 +19,27 @@ import org.junit.Test;
 public class PeriodGroupingTest {
 
 	PeriodGrouping g = new PeriodGrouping();
+
+	@Test
+	public void testCollect() {
+		int nrOfYears = 3;
+		Vme vme = VmeMock.generateVme(nrOfYears);
+		List<DisseminationYearSlice> slices = g.collect(vme);
+		for (DisseminationYearSlice disseminationYearSlice : slices) {
+			System.out.println(disseminationYearSlice.getYear());
+		}
+		assertEquals(ValidityPeriodMock.getNumberOfYearInclusive(), slices.size());
+	}
+
+	@Test
+	public void testCollect9999() {
+		Vme vme = VmeMock.create();
+		vme.setRfmo(new Rfmo());
+		vme.getValidityPeriod().setEndYear(9999);
+		int years = Calendar.getInstance().get(Calendar.YEAR) - vme.getValidityPeriod().getBeginYear();
+		assertEquals(++years, g.collect(vme).size());
+
+	}
 
 	@Test
 	public void testCollectPeriod() {

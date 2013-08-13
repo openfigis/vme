@@ -74,6 +74,11 @@ public class ObjectMapping {
 		return vod;
 	}
 
+	/**
+	 * @deprecated
+	 * @param vme
+	 * @return
+	 */
 	public VmeObservationDomain mapVme2Figis(Vme vme) {
 		// precondition
 		if (vme.getRfmo() == null) {

@@ -1,6 +1,7 @@
 package org.fao.fi.vme.sync2.mapping;
 
 import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.SpecificMeasures;
@@ -38,6 +39,9 @@ public class DisseminationYearSlice {
 
 	// year object
 	private History rfmoHistory;
+
+	// year object
+	private GeoRef geoRef;
 
 	public int getYear() {
 		return year;
@@ -93,6 +97,14 @@ public class DisseminationYearSlice {
 
 	public void setRfmoHistory(History rfmoHistory) {
 		this.rfmoHistory = rfmoHistory;
+	}
+
+	public GeoRef getGeoRef() {
+		return geoRef;
+	}
+
+	public void setGeoRef(GeoRef geoRef) {
+		this.geoRef = geoRef;
 	}
 
 }
