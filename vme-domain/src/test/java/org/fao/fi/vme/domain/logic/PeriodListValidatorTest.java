@@ -37,7 +37,7 @@ public class PeriodListValidatorTest {
 		v.validate(createList(2010, 2011, 2012, 2013));
 	}
 
-	private void testFail(List<Period> sortedPeriods) {
+	private void testFail(List<Period<?>> sortedPeriods) {
 		try {
 			v.validate(sortedPeriods);
 			fail();
@@ -46,14 +46,14 @@ public class PeriodListValidatorTest {
 		}
 	}
 
-	private List<Period> createList(int i, int j, int k, int l) {
+	private List<Period<?>> createList(int i, int j, int k, int l) {
 		ValidityPeriod vp1 = ValidityPeriodMock.create(i, j);
 		ValidityPeriod vp2 = ValidityPeriodMock.create(k, l);
 		Vme vme1 = new Vme();
 		vme1.setValidityPeriod(vp1);
 		Vme vme2 = new Vme();
 		vme2.setValidityPeriod(vp2);
-		List<Period> sortedPeriods = new ArrayList<Period>();
+		List<Period<?>> sortedPeriods = new ArrayList<Period<?>>();
 		sortedPeriods.add(vme1);
 		sortedPeriods.add(vme2);
 		return sortedPeriods;

@@ -11,7 +11,7 @@ import org.fao.fi.vme.domain.ValidityPeriod;
  * @author Erik van Ingen
  * 
  */
-public interface Period {
+public interface Period<T> {
 
 	public ValidityPeriod getValidityPeriod();
 

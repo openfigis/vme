@@ -21,7 +21,7 @@ import org.fao.fi.vme.domain.interfacee.Period;
  * 
  */
 @Entity
-public class Vme implements Period {
+public class Vme implements Period<Vme> {
 
 	@Id
 	private Long id;

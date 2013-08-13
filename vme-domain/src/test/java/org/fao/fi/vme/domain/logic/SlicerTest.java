@@ -10,6 +10,11 @@ import org.fao.fi.vme.domain.interfacee.Period;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.junit.Test;
 
+/**
+ * @deprecated
+ * @author Erik van Ingen
+ * 
+ */
 public class SlicerTest {
 
 	Slicer slicer = new Slicer();
@@ -54,7 +59,7 @@ public class SlicerTest {
 	@Test
 	public void testSliceMultiple() {
 		// create inclusive one
-		List<Period> vList = create(disseminationYear, 2020);
+		List<Period<?>> vList = create(disseminationYear, 2020);
 
 		// add future one
 		Vme vme = new Vme();
@@ -65,10 +70,10 @@ public class SlicerTest {
 		assertEquals(1, slicer.slice(disseminationYear, vList).size());
 	}
 
-	protected List<Period> create(Integer beginYear, Integer endYear) {
+	protected List<Period<?>> create(Integer beginYear, Integer endYear) {
 		Vme vme = new Vme();
 		vme.setValidityPeriod(ValidityPeriodMock.create(beginYear, endYear));
-		List<Period> collection = new ArrayList<Period>();
+		List<Period<?>> collection = new ArrayList<Period<?>>();
 		collection.add(vme);
 		return collection;
 	}

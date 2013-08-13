@@ -16,6 +16,7 @@ public class GeneralMeasuresMock {
 		gm.setVmeIndicatorSpecies(u.english(longString));
 		gm.setVmeThreshold(u.english(longString));
 		gm.setYear(4567);
+
 		return gm;
 	}
 }

@@ -41,6 +41,38 @@ public class ObjectMapping {
 	private final YearGrouping groupie = new YearGrouping();
 	private final FigisDocBuilder figisDocBuilder = new FigisDocBuilder();
 	private final JaxbMarshall marshall = new JaxbMarshall();
+	private final PeriodGrouping groupie2 = new PeriodGrouping();
+
+	public VmeObservationDomain mapVme2Figis2(Vme vme) {
+
+		List<DisseminationYearSlice> slices = groupie2.collect(vme);
+
+		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
+
+		for (DisseminationYearSlice disseminationYearSlice : slices) {
+			ObservationDomain od = new DefaultObservationDomain().defineDefaultObservationXml();
+			List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
+			od.setObservationsPerLanguage(observationsPerLanguage);
+			od.setReportingYear(String.valueOf(disseminationYearSlice.getYear()));
+			odList.add(od);
+
+			FIGISDoc figisDoc = new FIGISDoc();
+			figisDocBuilder.vme(vme, figisDoc);
+			figisDocBuilder.year(disseminationYearSlice.getYear(), figisDoc);
+			figisDocBuilder.rfmo(vme.getRfmo(), figisDoc);
+			figisDocBuilder.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
+			figisDocBuilder.specificMeasures(disseminationYearSlice.getSpecificMeasures(), figisDoc);
+			figisDocBuilder.profile(disseminationYearSlice.getProfile(), figisDoc);
+			figisDocBuilder.generalMeasures(disseminationYearSlice.getGeneralMeasures(), figisDoc);
+
+			ObservationXml xml = new DefaultObservationXml().defineDefaultObservationXml();
+			xml.setXml(marshall.marshalToString(figisDoc));
+			observationsPerLanguage.add(xml);
+		}
+		VmeObservationDomain vod = new VmeObservationDomain();
+		vod.setObservationDomainList(odList);
+		return vod;
+	}
 
 	public VmeObservationDomain mapVme2Figis(Vme vme) {
 		// precondition
