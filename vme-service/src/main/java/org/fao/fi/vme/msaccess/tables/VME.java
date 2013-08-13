@@ -181,7 +181,7 @@ public class VME implements TableDomainMapper {
 		// o.setCriteria(this.)
 		o.setGeoform(this.VME_Geoform);
 		o.setGeoArea(this.VME_GeogArea1);
-		
+
 		// o.setGeographicLayerId(this.)
 		o.setId(new Long(this.ID));
 		// o.setName(this.get)
@@ -207,6 +207,7 @@ public class VME implements TableDomainMapper {
 		geoRef.setYear(this.Year_ID);
 		geoRefList.add(geoRef);
 		o.setGeoRefList(geoRefList);
+
 		o.setInventoryIdentifier(this.VME_Inventory_Identifier);
 
 		if (this.getRFB_ID() == null) {

@@ -15,7 +15,7 @@ import org.fao.fi.figis.domain.rule.Figis;
  */
 public class DefaultObservationXml {
 
-	public ObservationXml defineDefaultObservationXml() {
+	public ObservationXml define() {
 		ObservationXml xml = new ObservationXml();
 		xml.setLastEditDate(new Date(System.currentTimeMillis()));
 		xml.setCreationDate(new Date(System.currentTimeMillis()));

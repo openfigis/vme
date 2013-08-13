@@ -11,8 +11,11 @@ import org.fao.fi.vme.domain.test.VmeMock;
 public class VmeDaoTestLogic {
 
 	public void mockAndSaveVme(VmeDao vmeDao, int nrOfyears) {
-
 		Vme vme = VmeMock.generateVme(nrOfyears);
+		saveVme(vme, vmeDao);
+	}
+
+	public void saveVme(Vme vme, VmeDao vmeDao) {
 
 		for (GeneralMeasures o : vme.getRfmo().getGeneralMeasuresList()) {
 			vmeDao.persist(o);

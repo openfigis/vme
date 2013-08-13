@@ -42,6 +42,9 @@ public class ObservationSync implements Sync {
 			// this problem costed me about 3 hours...
 			vmeDao.getEm().refresh(vme);
 
+			System.out.println("==============================================================================="
+					+ vme.getInventoryIdentifier());
+
 			VmeObservationDomain vod = om.mapVme2Figis2(vme);
 			RefVme refVme = (RefVme) figisDao.find(RefVme.class, vme.getId());
 			vod.setRefVme(refVme);

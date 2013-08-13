@@ -65,7 +65,7 @@ public class ObjectMapping {
 			figisDocBuilder.profile(disseminationYearSlice.getProfile(), figisDoc);
 			figisDocBuilder.generalMeasures(disseminationYearSlice.getGeneralMeasures(), figisDoc);
 
-			ObservationXml xml = new DefaultObservationXml().defineDefaultObservationXml();
+			ObservationXml xml = new DefaultObservationXml().define();
 			xml.setXml(marshall.marshalToString(figisDoc));
 			observationsPerLanguage.add(xml);
 		}
@@ -101,7 +101,7 @@ public class ObjectMapping {
 			od.setObservationsPerLanguage(observationsPerLanguage);
 			od.setReportingYear(year.toString());
 			odList.add(od);
-			ObservationXml xml = new DefaultObservationXml().defineDefaultObservationXml();
+			ObservationXml xml = new DefaultObservationXml().define();
 			observationsPerLanguage.add(xml);
 
 			FIGISDoc figisDoc = new FIGISDoc();

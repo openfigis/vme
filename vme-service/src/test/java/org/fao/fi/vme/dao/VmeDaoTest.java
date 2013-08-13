@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.test.VmeDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -19,6 +20,15 @@ public class VmeDaoTest {
 
 	@Inject
 	VmeDao dao;
+
+	@Test
+	public void testSave() {
+		int nrOfyears = 1;
+		Vme vme = VmeMock.generateVme(nrOfyears);
+		VmeDaoTestLogic l = new VmeDaoTestLogic();
+		l.saveVme(vme, dao);
+
+	}
 
 	@Test
 	public void testLoadVmes() {
