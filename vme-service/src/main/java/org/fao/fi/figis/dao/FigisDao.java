@@ -235,7 +235,7 @@ public class FigisDao extends Dao {
 			od.setReportingYear(vo.getId().getReportingYear());
 			od.setId(vo.getId().getObservationId());
 		}
-		VmeObservationDomain vod = new VmeObservationDomain();
+		// VmeObservationDomain vod = new VmeObservationDomain();
 		// TODO
 		throw new VmeException("bug here");
 
