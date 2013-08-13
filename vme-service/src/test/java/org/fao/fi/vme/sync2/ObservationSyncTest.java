@@ -87,6 +87,7 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 			SpecificMeasures specificMeasures = new SpecificMeasures();
 			specificMeasures.setId(333333333l);
 			specificMeasures.setYear(VmeMock.YEAR + 1);
+			specificMeasures.setValidityPeriod(ValidityPeriodMock.create());
 			vme.getSpecificMeasuresList().add(specificMeasures);
 			vmeDao.merge(vme);
 		}
