@@ -19,7 +19,7 @@ public class Figis {
 	/**
 	 * 
 	 */
-	public static final Boolean PRIMARY = true;
+	public static final Boolean PRIMARY = false;
 	/**
 	 * A reference factsheet is not to be published. Is not relevant for vme because the lifecycle is outside the figis
 	 * cms.

@@ -11,7 +11,7 @@ import org.fao.fi.figis.domain.rule.Figis;
  */
 public class DefaultObservationDomain {
 
-	public ObservationDomain defineDefaultObservationXml() {
+	public ObservationDomain defineDefaultObservation() {
 		ObservationDomain o = new ObservationDomain();
 		o.setCollection(Figis.COLLECTION);
 		o.setPrimary(Figis.PRIMARY);

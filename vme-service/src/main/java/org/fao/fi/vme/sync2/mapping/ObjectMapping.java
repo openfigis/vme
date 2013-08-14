@@ -42,6 +42,7 @@ public class ObjectMapping {
 	private final FigisDocBuilder figisDocBuilder = new FigisDocBuilder();
 	private final JaxbMarshall marshall = new JaxbMarshall();
 	private final PeriodGrouping groupie2 = new PeriodGrouping();
+	private final PrimaryRule primaryRule = new PrimaryRule();
 
 	public VmeObservationDomain mapVme2Figis2(Vme vme) {
 
@@ -50,7 +51,7 @@ public class ObjectMapping {
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
 
 		for (DisseminationYearSlice disseminationYearSlice : slices) {
-			ObservationDomain od = new DefaultObservationDomain().defineDefaultObservationXml();
+			ObservationDomain od = new DefaultObservationDomain().defineDefaultObservation();
 			List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
 			od.setObservationsPerLanguage(observationsPerLanguage);
 			od.setReportingYear(String.valueOf(disseminationYearSlice.getYear()));
@@ -71,6 +72,7 @@ public class ObjectMapping {
 		}
 		VmeObservationDomain vod = new VmeObservationDomain();
 		vod.setObservationDomainList(odList);
+		primaryRule.apply(vod);
 		return vod;
 	}
 
@@ -96,7 +98,7 @@ public class ObjectMapping {
 
 		// every year results in one observation in English
 		for (Object year : years) {
-			ObservationDomain od = new DefaultObservationDomain().defineDefaultObservationXml();
+			ObservationDomain od = new DefaultObservationDomain().defineDefaultObservation();
 			List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
 			od.setObservationsPerLanguage(observationsPerLanguage);
 			od.setReportingYear(year.toString());

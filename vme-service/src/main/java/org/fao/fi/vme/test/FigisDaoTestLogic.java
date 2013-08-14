@@ -56,7 +56,7 @@ public abstract class FigisDaoTestLogic {
 	protected void add1Observation2Vod(VmeObservationDomain vod) {
 		ObservationXml xml = ObservationXmlMock.create();
 
-		ObservationDomain o = new DefaultObservationDomain().defineDefaultObservationXml();
+		ObservationDomain o = new DefaultObservationDomain().defineDefaultObservation();
 		o.setReportingYear("2015");
 		o.setObservationsPerLanguage(new ArrayList<ObservationXml>());
 		o.getObservationsPerLanguage().add(xml);
@@ -77,7 +77,7 @@ public abstract class FigisDaoTestLogic {
 
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
 		vod.setObservationDomainList(odList);
-		ObservationDomain o = new DefaultObservationDomain().defineDefaultObservationXml();
+		ObservationDomain o = new DefaultObservationDomain().defineDefaultObservation();
 		o.setReportingYear("2014");
 		ObservationXml xml = ObservationXmlMock.create();
 
