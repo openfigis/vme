@@ -32,6 +32,16 @@ public class PeriodGroupingTest {
 	}
 
 	@Test
+	public void testCollectYears() {
+		Vme vme = VmeMock.create();
+		vme.setRfmo(new Rfmo());
+		List<DisseminationYearSlice> slices = g.collect(vme);
+
+		assertEquals(ValidityPeriodMock.YEARS, slices.size());
+
+	}
+
+	@Test
 	public void testCollect9999() {
 		Vme vme = VmeMock.create();
 		vme.setRfmo(new Rfmo());

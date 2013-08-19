@@ -6,6 +6,7 @@ public class ValidityPeriodMock {
 
 	public final static int BEGIN_YEAR = 2000;
 	public final static int END_YEAR = 2003;
+	public final static int YEARS = END_YEAR - BEGIN_YEAR + 1;
 
 	public static ValidityPeriod create() {
 		ValidityPeriod vp = new ValidityPeriod();

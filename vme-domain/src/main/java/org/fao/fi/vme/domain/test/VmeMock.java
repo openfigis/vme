@@ -30,6 +30,7 @@ public class VmeMock {
 		Vme vme = new Vme();
 		vme.setValidityPeriod(ValidityPeriodMock.create());
 		vme.setId(ID);
+		vme.setName(u.english("Hard Corner Bugs "));
 
 		GeoRef g = new GeoRef();
 		g.setYear(YEAR);
