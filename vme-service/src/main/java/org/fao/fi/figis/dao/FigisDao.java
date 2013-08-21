@@ -17,6 +17,7 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.VmeObservationPk;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
+import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.dao.config.FigisDB;
 import org.slf4j.Logger;
@@ -220,25 +221,45 @@ public class FigisDao extends Dao {
 	}
 
 	/**
-	 * find the VmeObservationDomain by the vme id and reporting year.
+	 * find the VmeObservation by the vme id and reporting year.
 	 * 
 	 * @param id
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	public VmeObservationDomain findVmeObservationDomainByVme(Long vmeId) {
-		Query query = em.createQuery("select vo FROM VmeObservation vo where vo.id.vmeId = :vmeId ");
+	public VmeObservation findVmeObservationByVme(Long vmeId) {
+		Query query = em.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId ");
 		query.setParameter("vmeId", vmeId);
-		List<VmeObservation> voList = query.getResultList();
-		for (VmeObservation vo : voList) {
-			ObservationDomain od = new ObservationDomain();
-			od.setReportingYear(vo.getId().getReportingYear());
-			od.setId(vo.getId().getObservationId());
+		VmeObservation vo = null;
+		try {
+			vo = (VmeObservation) query.getSingleResult();
+		} catch (NoResultException e) {
+			// is valid, a new object needs to be created.
 		}
-		// VmeObservationDomain vod = new VmeObservationDomain();
-		// TODO
-		throw new VmeException("bug here");
+		return vo;
+	}
 
-		// return vod;
+	/**
+	 * This one removes the whole vme, except for the reference data.
+	 * 
+	 * This only works that a Vme in FIGIS consists of a VmeObservation, one or more Observation(s) and one or more
+	 * ObaservationXml(s)
+	 * 
+	 * 
+	 * @param vmeId
+	 */
+	public void removeVme(Long vmeId) {
+		em.getTransaction().begin();
+		VmeObservation vo = findVmeObservationByVme(vmeId);
+		Observation o = (Observation) this.find(Observation.class, vo.getId().getObservationId());
+		DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
+		String xmlId = rule.composeId(o.getId(), Figis.EN);
+		ObservationXml xmlFound = (ObservationXml) this.find(ObservationXml.class, xmlId);
+		if (xmlFound != null) {
+			em.remove(xmlFound);
+			em.remove(o);
+			em.remove(vo);
+		}
+		em.getTransaction().commit();
+
 	}
 }

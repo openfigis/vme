@@ -7,9 +7,11 @@ import static org.junit.Assert.assertNull;
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
+import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.test.ObservationMock;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
+import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -85,6 +87,22 @@ public class FigisDaoTest extends FigisDaoTestLogic {
 	public void testLoadRefVmeNull() {
 		RefVme found = (RefVme) dao.find(RefVme.class, 4561l);
 		assertNull(found);
+	}
+
+	@Test
+	public void testRemoveVme() {
+		RefVme refVme = RefVmeMock.create();
+		if (dao.find(RefVme.class, refVme.getId()) == null) {
+			dao.persist(refVme);
+		}
+
+		delegateCheckOnNumberOfObjectsInModel(0);
+		VmeObservationDomain vod = createVmeObservationDomain();
+		vod.setRefVme(refVme);
+		dao.syncVmeObservationDomain(vod);
+		delegateCheckOnNumberOfObjectsInModel(1);
+		dao.removeVme(vod.getRefVme().getId());
+		delegateCheckOnNumberOfObjectsInModel(0);
 	}
 
 }

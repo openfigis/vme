@@ -12,6 +12,8 @@ import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
+import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
+import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
@@ -45,6 +47,8 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 
 	@Inject
 	VmeDao vmeDao;
+
+	DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
 
 	Long id;
 
@@ -109,13 +113,10 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 			Observation o = (Observation) object;
 			assertNotNull(o.getCollection());
 			assertNotNull(o.getOrder());
-			String id = new String(o.getId() + ":en");
-			System.out.println("======================about to check====" + id);
-
-			ObservationXml xml = (ObservationXml) figisDao.find(ObservationXml.class, id);
+			String xmlId = rule.composeId(o.getId(), Figis.EN);
+			ObservationXml xml = (ObservationXml) figisDao.find(ObservationXml.class, xmlId);
 			assertNotNull(xml);
 			assertEquals(o.getId(), xml.getObservation().getId());
-			System.out.println("==========================" + o.getId());
 		}
 
 	}

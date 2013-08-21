@@ -36,11 +36,6 @@ public class SyncBatch2Test {
 	private FigisDao figisDao;
 
 	@Test
-	public void testSyncFigisWithVme() {
-		syncBatch2.syncFigisWithVme();
-	}
-
-	@Test
 	public void testSyncFigisWithVmePrimaryRule() {
 		Vme vme = VmeMock.create();
 		Rfmo rfmo = new Rfmo();

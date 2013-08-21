@@ -44,8 +44,12 @@ public class DomainRule4ObservationXmlId {
 	 * @param o
 	 */
 	public void composeId(ObservationXml xml) {
-
-		String id = xml.getObservation().getId() + ":" + map.get(xml.getLanguage());
+		String id = composeId(xml.getObservation().getId(), map.get(xml.getLanguage()));
 		xml.setId(id);
 	}
+
+	public String composeId(Long observationId, String language) {
+		return observationId + ":" + map.get(language);
+	}
+
 }
