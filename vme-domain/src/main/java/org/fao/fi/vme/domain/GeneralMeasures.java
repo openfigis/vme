@@ -12,8 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.fao.fi.vme.domain.interfacee.Period;
-import org.fao.fi.vme.domain.interfacee.YearObject;
+import org.fao.fi.vme.domain.interfacee.PeriodYear;
 
 /**
  * 
@@ -21,7 +20,7 @@ import org.fao.fi.vme.domain.interfacee.YearObject;
  * 
  */
 @Entity(name = "GENERAL_MEASURES")
-public class GeneralMeasures implements YearObject<GeneralMeasures>, Period<GeneralMeasures> {
+public class GeneralMeasures implements PeriodYear {
 
 	/** 
 	 * 

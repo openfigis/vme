@@ -42,6 +42,39 @@ public class PeriodGroupingTest {
 	}
 
 	@Test
+	public void testOverlappingValidityPeriods() {
+		Vme vme = VmeMock.create();
+		vme.setRfmo(new Rfmo());
+
+		// vp = 2000-2003
+		SpecificMeasures sm1 = new SpecificMeasures();
+		sm1.setYear(2002);
+		sm1.setValidityPeriod(ValidityPeriodMock.create(2003, 2003));
+
+		SpecificMeasures sm2 = new SpecificMeasures();
+		sm1.setYear(2001);
+		sm2.setValidityPeriod(ValidityPeriodMock.create(2002, 2003));
+
+		List<SpecificMeasures> smList = new ArrayList<SpecificMeasures>();
+		vme.setSpecificMeasuresList(smList);
+
+		List<DisseminationYearSlice> slices = g.collect(vme);
+
+		assertEquals(2000, slices.get(0).getYear());
+		assertEquals(null, slices.get(0).getSpecificMeasures());
+
+		assertEquals(2001, slices.get(1).getYear());
+		assertEquals(null, slices.get(1).getSpecificMeasures());
+
+		assertEquals(2002, slices.get(2).getYear());
+		assertEquals(sm1, slices.get(2).getSpecificMeasures());
+
+		assertEquals(2003, slices.get(3).getYear());
+		assertEquals(sm2, slices.get(3).getSpecificMeasures());
+
+	}
+
+	@Test
 	public void testCollect9999() {
 		Vme vme = VmeMock.create();
 		vme.setRfmo(new Rfmo());

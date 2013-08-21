@@ -49,6 +49,8 @@ public class InformationSource {
 
 	/**
 	 * Also referred to as issue date of biblio entry
+	 * 
+	 * TODO change into publicationYear, type int
 	 */
 	/*
 	 * DATE_DATE because Oracle does not like date as a columnname

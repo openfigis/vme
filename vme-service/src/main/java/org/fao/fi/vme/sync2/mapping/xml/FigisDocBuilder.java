@@ -417,7 +417,7 @@ public class FigisDocBuilder {
 	 */
 	public void rfmo(Rfmo rfmo, FIGISDoc figisDoc) {
 		ForeignID rfmoForeignID = f.createForeignID();
-		rfmoForeignID.setCodeSystem("rfb");
+		rfmoForeignID.setCodeSystem("acronym");
 		rfmoForeignID.setCode(rfmo.getId());
 
 		OrgRef rfmoOrg = f.createOrgRef();
