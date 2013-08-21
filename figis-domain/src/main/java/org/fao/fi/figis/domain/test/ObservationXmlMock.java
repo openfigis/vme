@@ -11,7 +11,7 @@ public class ObservationXmlMock {
 	public static ObservationXml create() {
 
 		ObservationXml xml = new ObservationXml();
-		xml.setLanguage(2);
+		xml.setLanguage(Figis.LANG);
 		xml.setStatus(Figis.STATUS);
 		Date d = new Date(System.currentTimeMillis());
 		xml.setLastEditDate(d);

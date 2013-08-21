@@ -3,6 +3,7 @@ package org.fao.fi.figis.domain.rule;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.fao.fi.figis.FigisDomainException;
 import org.fao.fi.figis.domain.ObservationXml;
 
 /**
@@ -44,12 +45,20 @@ public class DomainRule4ObservationXmlId {
 	 * @param o
 	 */
 	public void composeId(ObservationXml xml) {
+		if (xml.getObservation().getId() == null || xml.getLanguage() == null) {
+			throw new FigisDomainException("xmlObservation.id() or xml.language is null, observationId = "
+					+ xml.getObservation().getId() + ", language = " + xml.getLanguage());
+		}
 		String id = composeId(xml.getObservation().getId(), map.get(xml.getLanguage()));
 		xml.setId(id);
 	}
 
 	public String composeId(Long observationId, String language) {
-		return observationId + ":" + map.get(language);
+		if (observationId == null || language == null) {
+			throw new FigisDomainException("observationId or language is null, observationId = " + observationId
+					+ ", language = " + language);
+		}
+		return observationId + ":" + language;
 	}
 
 }

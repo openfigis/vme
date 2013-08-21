@@ -108,8 +108,9 @@ public class FigisDao extends Dao {
 			throw new VmeException("FigisDao Exception, detected a non registered RefVme.");
 		}
 
-		// logic
 		em.getTransaction().begin();
+
+		// logic
 		List<ObservationDomain> oList = vod.getObservationDomainList();
 		for (ObservationDomain od : oList) {
 
@@ -124,6 +125,7 @@ public class FigisDao extends Dao {
 			}
 
 		}
+
 		em.getTransaction().commit();
 	}
 

@@ -1,16 +1,17 @@
 package org.fao.fi.figis.domain.rule;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
-public class DomainRuleTest extends DomainRule4ObservationXmlId {
+public class DomainRule4ObservationXmlIdTest extends DomainRule4ObservationXmlId {
+	DomainRule4ObservationXmlId r = new DomainRule4ObservationXmlId();
 
 	@Test
 	public void testComposeId() {
-		DomainRule4ObservationXmlId r = new DomainRule4ObservationXmlId();
 		Observation o = new Observation();
 		// int id = 78789;
 		Long id = new Long(78789);
@@ -23,6 +24,16 @@ public class DomainRuleTest extends DomainRule4ObservationXmlId {
 		String composed = id + ":zh";
 		System.out.println(composed);
 		assertEquals(composed, x.getId());
+
+	}
+
+	@Test
+	public void testComposeIdNull() {
+		try {
+			r.composeId(3l, null);
+			fail();
+		} catch (Exception e) {
+		}
 
 	}
 }
