@@ -70,11 +70,11 @@ public class Linker {
 		History o = (History) domainObject;
 		RFB_VME_Fishing_History record = (RFB_VME_Fishing_History) domainTableMap.get(o);
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
-		if (rfmo.getFishingHistoryList() == null) {
-			rfmo.setFishingHistoryList(new ArrayList<History>());
+		if (rfmo.getHasFisheryAreasHistory() == null) {
+			rfmo.setHasFisheryAreasHistory(new ArrayList<History>());
 		}
-		if (!rfmo.getFishingHistoryList().contains(o)) {
-			rfmo.getFishingHistoryList().add(o);
+		if (!rfmo.getHasFisheryAreasHistory().contains(o)) {
+			rfmo.getHasFisheryAreasHistory().add(o);
 		}
 
 	}

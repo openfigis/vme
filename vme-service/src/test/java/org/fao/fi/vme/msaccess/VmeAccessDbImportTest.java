@@ -40,8 +40,6 @@ public class VmeAccessDbImportTest {
 		List<?> objects = vmeDao.loadObjects(Vme.class);
 		for (Object o : objects) {
 			Vme vme = (Vme) o;
-			int beginYear = vme.getValidityPeriod().getBeginYear();
-			int endYear = vme.getValidityPeriod().getBeginYear();
 			vme.getRfmo().getGeneralMeasuresList();
 		}
 	}

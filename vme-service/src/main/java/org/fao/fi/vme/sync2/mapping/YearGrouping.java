@@ -28,7 +28,7 @@ public class YearGrouping {
 		add2Map(map, vme.getProfileList());
 		add2Map(map, vme.getGeoRefList());
 
-		add2Map(map, vme.getRfmo().getFishingHistoryList());
+		add2Map(map, vme.getRfmo().getHasFisheryAreasHistory());
 		add2Map(map, vme.getRfmo().getGeneralMeasuresList());
 
 		// add2Map(map, vme.getRfmo().getInformationSourceList());

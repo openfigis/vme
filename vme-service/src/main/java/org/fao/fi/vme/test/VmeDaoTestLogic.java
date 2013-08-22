@@ -21,7 +21,7 @@ public class VmeDaoTestLogic {
 			vmeDao.persist(o);
 		}
 
-		for (History h : vme.getRfmo().getFishingHistoryList()) {
+		for (History h : vme.getRfmo().getHasFisheryAreasHistory()) {
 			vmeDao.persist(h);
 		}
 

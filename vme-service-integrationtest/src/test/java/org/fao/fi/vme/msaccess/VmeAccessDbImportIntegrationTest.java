@@ -54,7 +54,7 @@ public class VmeAccessDbImportIntegrationTest {
 		// delete first the relations
 		List<Rfmo> rfmoList = (List<Rfmo>) vmeDao.loadObjects(Rfmo.class);
 		for (Rfmo rfmo : rfmoList) {
-			rfmo.setFishingHistoryList(null);
+			rfmo.setHasFisheryAreasHistory(null);
 			rfmo.setInformationSourceList(null);
 			rfmo.setListOfManagedVmes(null);
 
