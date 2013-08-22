@@ -13,7 +13,7 @@ import org.fao.fi.vme.domain.GeneralMeasures;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.domain.interfacee.YearObject;
+import org.fao.fi.vme.domain.interfacee.Year;
 import org.fao.fi.vme.sync2.mapping.xml.DefaultObservationXml;
 import org.fao.fi.vme.sync2.mapping.xml.FigisDocBuilder;
 import org.vme.fimes.jaxb.JaxbMarshall;
@@ -88,7 +88,7 @@ public class ObjectMapping {
 		}
 
 		// logic
-		Map<Integer, List<YearObject<?>>> map = groupie.collect(vme);// not processed here InformationSource, To be done
+		Map<Integer, List<Year<?>>> map = groupie.collect(vme);// not processed here InformationSource, To be done
 		Object[] years = map.keySet().toArray();
 		for (Object object : years) {
 			System.out.println("---------------" + object + " vme = " + vme.getId() + vme.getInventoryIdentifier());
@@ -115,8 +115,8 @@ public class ObjectMapping {
 			// now we get all the year related objects for that vme. Do not get confused here! Here we are processing 1
 			// year and for that year we need to get all the related yearObjects of 1 VME. The observation gets filled
 			// up with the information for the processed year.
-			List<YearObject<?>> l = map.get(year);
-			for (YearObject<?> yearObject : l) {
+			List<Year<?>> l = map.get(year);
+			for (Year<?> yearObject : l) {
 
 				// see the discussion below this file, it could be that missing parts in the observation need to be
 				// filled up with information from the previous years.

@@ -325,7 +325,7 @@ public class FigisDocBuilderTest {
 			if (obj instanceof OrgRef) {
 				assertNotNull(obj);
 				ForeignID foreignID = (ForeignID) ((OrgRef) obj).getForeignIDsAndFigisIDsAndTitles().get(0);
-				assertEquals("rfb", foreignID.getCodeSystem());
+				assertEquals("acronym", foreignID.getCodeSystem());
 				assertEquals("RFMO", foreignID.getCode());
 			}
 		}

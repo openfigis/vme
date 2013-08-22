@@ -12,8 +12,8 @@ import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.interfacee.Period;
-import org.fao.fi.vme.domain.interfacee.YearObject;
-import org.fao.fi.vme.domain.logic.PeriodComperator;
+import org.fao.fi.vme.domain.interfacee.Year;
+import org.fao.fi.vme.domain.logic.PeriodYearComperator;
 import org.fao.fi.vme.domain.logic.YearComperator;
 
 /**
@@ -55,40 +55,40 @@ public class PeriodGrouping {
 	private void doYearStuff(Vme vme, int disseminationYear, DisseminationYearSlice slice) {
 
 		// fishing history
-		List<? extends YearObject<?>> fishingHistoryList = vme.getRfmo().getFishingHistoryList();
+		List<? extends Year<?>> fishingHistoryList = vme.getRfmo().getFishingHistoryList();
 		if (fishingHistoryList != null) {
-			YearObject<?> fishingHistory = findRelavantYear(fishingHistoryList, disseminationYear);
+			Year<?> fishingHistory = findRelavantYear(fishingHistoryList, disseminationYear);
 			slice.setRfmoHistory((History) fishingHistory);
 		}
 
 		// vme history
 		List<History> vmeHistoryList = vme.getHistoryList();
 		if (vmeHistoryList != null) {
-			YearObject<?> vmeHistory = findRelavantYear(vmeHistoryList, disseminationYear);
+			Year<?> vmeHistory = findRelavantYear(vmeHistoryList, disseminationYear);
 			slice.setVmeHistory((History) vmeHistory);
 		}
 
 		// GeoRef
 		List<GeoRef> geoRefList = vme.getGeoRefList();
 		if (geoRefList != null) {
-			YearObject<?> geoRef = findRelavantYear(geoRefList, disseminationYear);
+			Year<?> geoRef = findRelavantYear(geoRefList, disseminationYear);
 			slice.setGeoRef((GeoRef) geoRef);
 		}
 
 		// Profile.
 		List<Profile> profileList = vme.getProfileList();
 		if (profileList != null) {
-			YearObject<?> geoRef = findRelavantYear(profileList, disseminationYear);
+			Year<?> geoRef = findRelavantYear(profileList, disseminationYear);
 			slice.setProfile((Profile) geoRef);
 		}
 
 	}
 
-	private YearObject<?> findRelavantYear(List<? extends YearObject<?>> hList, int disseminationYear) {
+	private Year<?> findRelavantYear(List<? extends Year<?>> hList, int disseminationYear) {
 
 		Collections.sort(hList, new YearComperator());
-		YearObject<?> history = null;
-		for (YearObject<?> foundHistory : hList) {
+		Year<?> history = null;
+		for (Year<?> foundHistory : hList) {
 			// take the first you can get. Otherwise the year of the object founds need to be equal or less.
 			if (history == null || disseminationYear >= foundHistory.getYear()) {
 				history = foundHistory;
@@ -104,9 +104,11 @@ public class PeriodGrouping {
 
 		List<SpecificMeasures> smList = vme.getSpecificMeasuresList();
 		if (smList != null) {
-			Collections.sort(smList, new PeriodComperator());
+
+			Collections.sort(smList, new PeriodYearComperator());
 			for (SpecificMeasures specificMeasures : smList) {
 				if (period(year, specificMeasures)) {
+					// this logic would pick the latest SpecificMeasures, which would be correct.
 					slice.setSpecificMeasures(specificMeasures);
 				}
 			}
@@ -114,7 +116,7 @@ public class PeriodGrouping {
 
 		List<GeneralMeasures> gmList = vme.getRfmo().getGeneralMeasuresList();
 		if (gmList != null) {
-			Collections.sort(gmList, new PeriodComperator());
+			Collections.sort(gmList, new PeriodYearComperator());
 			for (GeneralMeasures generalMeasures : gmList) {
 				if (period(year, generalMeasures)) {
 					slice.setGeneralMeasures(generalMeasures);

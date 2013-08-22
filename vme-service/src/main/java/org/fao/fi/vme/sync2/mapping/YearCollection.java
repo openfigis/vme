@@ -2,7 +2,7 @@ package org.fao.fi.vme.sync2.mapping;
 
 import java.util.List;
 
-import org.fao.fi.vme.domain.interfacee.YearObject;
+import org.fao.fi.vme.domain.interfacee.Year;
 
 /**
  * 
@@ -17,7 +17,7 @@ import org.fao.fi.vme.domain.interfacee.YearObject;
 public class YearCollection {
 
 	protected Integer year;
-	protected List<YearObject<?>> yearObjectList;
+	protected List<Year<?>> yearObjectList;
 
 	public Integer getYear() {
 		return year;
@@ -27,11 +27,11 @@ public class YearCollection {
 		this.year = year;
 	}
 
-	public List<YearObject<?>> getYearObjectList() {
+	public List<Year<?>> getYearObjectList() {
 		return yearObjectList;
 	}
 
-	public void setYearObjectList(List<YearObject<?>> years) {
+	public void setYearObjectList(List<Year<?>> years) {
 		this.yearObjectList = years;
 	}
 

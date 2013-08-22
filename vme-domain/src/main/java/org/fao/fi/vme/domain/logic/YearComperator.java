@@ -2,7 +2,7 @@ package org.fao.fi.vme.domain.logic;
 
 import java.util.Comparator;
 
-import org.fao.fi.vme.domain.interfacee.YearObject;
+import org.fao.fi.vme.domain.interfacee.Year;
 
 /**
  * 
@@ -10,10 +10,10 @@ import org.fao.fi.vme.domain.interfacee.YearObject;
  * 
  */
 
-public class YearComperator implements Comparator<YearObject<?>> {
+public class YearComperator implements Comparator<Year<?>> {
 
 	@Override
-	public int compare(YearObject<?> y1, YearObject<?> y2) {
+	public int compare(Year<?> y1, Year<?> y2) {
 		return y1.getYear().compareTo(y2.getYear());
 	}
 

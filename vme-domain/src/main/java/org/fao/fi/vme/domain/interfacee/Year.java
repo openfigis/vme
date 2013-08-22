@@ -8,7 +8,7 @@ package org.fao.fi.vme.domain.interfacee;
  * 
  */
 
-public interface YearObject<E> {
+public interface Year<E> {
 
 	public abstract Integer getYear();
 

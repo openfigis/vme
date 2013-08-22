@@ -41,36 +41,70 @@ public class PeriodGroupingTest {
 
 	}
 
+	/**
+	 * This is the bloody case, described by Tony, put in the Wiki by Erik
+	 * 
+	 * http://km.fao.org/FIGISwiki/index.php/VME_UML#Rules_for_Slicing
+	 * 
+	 * 
+	 * TODO There is still this case to be discussed.
+	 * 
+	 * SpecialMeasures1.year = 2010 SpecialMeasures1.validityPeriod = 2010-2012
+	 * 
+	 * SpecialMeasures2.year = 2011 SpecialMeasures2.validityPeriod = 2010-2012
+	 * 
+	 * In the year 2010, we show SpecialMeasures2 or we show SpecialMeasures1? We do show now SpecialMeasures2 because
+	 * the validityPeriod of the most recent one covers also 2010
+	 * 
+	 * 
+	 * 
+	 */
 	@Test
-	public void testOverlappingValidityPeriods() {
+	public void testOverlappingValidityPeriods1() {
+
+		// SpecialMeasures1.year = 2009 SpecialMeasures1.validityPeriod = 2010-2012
+		// SpecialMeasures2.year = 2010 SpecialMeasures2.validityPeriod = 2011-2012
+
+		ValidityPeriod vp1 = ValidityPeriodMock.create(2010, 2012);
+		ValidityPeriod vp2 = ValidityPeriodMock.create(2011, 2012);
+
 		Vme vme = VmeMock.create();
 		vme.setRfmo(new Rfmo());
+		vme.setValidityPeriod(vp1);
 
-		// vp = 2000-2003
 		SpecificMeasures sm1 = new SpecificMeasures();
-		sm1.setYear(2002);
-		sm1.setValidityPeriod(ValidityPeriodMock.create(2003, 2003));
+		sm1.setYear(2009);
+		sm1.setValidityPeriod(vp1);
 
 		SpecificMeasures sm2 = new SpecificMeasures();
-		sm1.setYear(2001);
-		sm2.setValidityPeriod(ValidityPeriodMock.create(2002, 2003));
+		sm2.setYear(2010);
+		sm2.setValidityPeriod(vp2);
 
 		List<SpecificMeasures> smList = new ArrayList<SpecificMeasures>();
+		smList.add(sm1);
+		smList.add(sm2);
+
 		vme.setSpecificMeasuresList(smList);
 
 		List<DisseminationYearSlice> slices = g.collect(vme);
 
-		assertEquals(2000, slices.get(0).getYear());
-		assertEquals(null, slices.get(0).getSpecificMeasures());
+		// d=2008: Nothing will be shown
+		// d=2009:Nothing will be shown
+		// d=2010:SpecialMeasures1 will be shown
+		// d=2011: SpecialMeasures2 will be shown
+		// d=2012: SpecialMeasures2 will be shown
+		// d=2013: Nothing will be shown
 
-		assertEquals(2001, slices.get(1).getYear());
-		assertEquals(null, slices.get(1).getSpecificMeasures());
+		assertEquals(3, slices.size());
 
-		assertEquals(2002, slices.get(2).getYear());
-		assertEquals(sm1, slices.get(2).getSpecificMeasures());
+		assertEquals(2010, slices.get(0).getYear());
+		assertEquals(sm1, slices.get(0).getSpecificMeasures());
 
-		assertEquals(2003, slices.get(3).getYear());
-		assertEquals(sm2, slices.get(3).getSpecificMeasures());
+		assertEquals(2011, slices.get(1).getYear());
+		assertEquals(sm2, slices.get(1).getSpecificMeasures());
+
+		assertEquals(2012, slices.get(2).getYear());
+		assertEquals(sm2, slices.get(2).getSpecificMeasures());
 
 	}
 

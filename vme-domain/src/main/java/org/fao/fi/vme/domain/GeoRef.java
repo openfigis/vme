@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import org.fao.fi.vme.domain.interfacee.YearObject;
+import org.fao.fi.vme.domain.interfacee.Year;
 
 /**
  * 
@@ -14,7 +14,7 @@ import org.fao.fi.vme.domain.interfacee.YearObject;
  * 
  */
 @Entity(name = "GEO_REF")
-public class GeoRef implements YearObject<GeoRef> {
+public class GeoRef implements Year<GeoRef> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

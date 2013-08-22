@@ -8,7 +8,7 @@ import java.util.Map;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.domain.interfacee.YearObject;
+import org.fao.fi.vme.domain.interfacee.Year;
 
 public class YearGrouping {
 
@@ -20,8 +20,8 @@ public class YearGrouping {
 	 * @param vme
 	 * @return
 	 */
-	public Map<Integer, List<YearObject<?>>> collect(Vme vme) {
-		Map<Integer, List<YearObject<?>>> map = new HashMap<Integer, List<YearObject<?>>>();
+	public Map<Integer, List<Year<?>>> collect(Vme vme) {
+		Map<Integer, List<Year<?>>> map = new HashMap<Integer, List<Year<?>>>();
 
 		add2Map(map, vme.getHistoryList());
 		add2Map(map, vme.getSpecificMeasuresList());
@@ -37,15 +37,15 @@ public class YearGrouping {
 		return map;
 	}
 
-	private void add2Map(Map<Integer, List<YearObject<?>>> map, List<? extends YearObject<?>> yearObjectList) {
+	private void add2Map(Map<Integer, List<Year<?>>> map, List<? extends Year<?>> yearObjectList) {
 		if (yearObjectList != null) {
-			for (YearObject<?> yearObject : yearObjectList) {
+			for (Year<?> yearObject : yearObjectList) {
 				add2Map(map, yearObject);
 			}
 		}
 	}
 
-	private void add2Map(Map<Integer, List<YearObject<?>>> map, YearObject<?> yearObject) {
+	private void add2Map(Map<Integer, List<Year<?>>> map, Year<?> yearObject) {
 
 		if (yearObject == null || yearObject.getYear() == null) {
 			String className = "";
@@ -63,7 +63,7 @@ public class YearGrouping {
 			if (map.containsKey(yearObject.getYear())) {
 				map.get(yearObject.getYear()).add(yearObject);
 			} else {
-				List<YearObject<?>> list = new ArrayList<YearObject<?>>();
+				List<Year<?>> list = new ArrayList<Year<?>>();
 				list.add(yearObject);
 				if (yearObject.getYear() == null) {
 					throw new VmeException("yearObject.year is null, should not be at this point.");

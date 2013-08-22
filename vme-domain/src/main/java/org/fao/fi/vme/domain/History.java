@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import org.fao.fi.vme.domain.interfacee.YearObject;
+import org.fao.fi.vme.domain.interfacee.Year;
 
 /**
  * 
@@ -13,7 +13,7 @@ import org.fao.fi.vme.domain.interfacee.YearObject;
  * 
  */
 @Entity(name = "HISTORY")
-public class History implements YearObject<History> {
+public class History implements Year<History> {
 
 	/** 
 	 * 

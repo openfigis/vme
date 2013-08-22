@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import org.fao.fi.vme.domain.interfacee.YearObject;
+import org.fao.fi.vme.domain.interfacee.Year;
 
 /**
  * The features of a VME, defined in a certain year.
@@ -16,7 +16,7 @@ import org.fao.fi.vme.domain.interfacee.YearObject;
  * 
  */
 @Entity
-public class Profile implements YearObject<Profile> {
+public class Profile implements Year<Profile> {
 
 	@Id
 	private Long id;
