@@ -69,7 +69,6 @@ public class VmeMock {
 		List<Profile> pList = new ArrayList<Profile>();
 		List<SpecificMeasures> specificMeasureList = new ArrayList<SpecificMeasures>();
 		List<GeneralMeasures> generalMeasuresList = new ArrayList<GeneralMeasures>();
-		List<History> vmeHistoryList = new ArrayList<History>();
 		List<GeoRef> geoRefList = new ArrayList<GeoRef>();
 		List<History> fishingHistoryList = new ArrayList<History>();
 
@@ -111,12 +110,6 @@ public class VmeMock {
 			specificMeasures.setInformationSource(is);
 			specificMeasureList.add(specificMeasures);
 
-			History vmeHistory = new History();
-			vmeHistory.setId(id++);
-			vmeHistory.setYear(year);
-			vmeHistory.setHistory(u.english("Some VME history for the year " + year));
-			vmeHistoryList.add(vmeHistory);
-
 			GeoRef geoRef = new GeoRef();
 			// geoRef.setId(id++);
 			geoRef.setYear(year);
@@ -151,7 +144,6 @@ public class VmeMock {
 		vme.setRfmo(rfmo);
 		vme.setProfileList(pList);
 		vme.setSpecificMeasuresList(specificMeasureList);
-		vme.setHistoryList(vmeHistoryList);
 		vme.setGeoRefList(geoRefList);
 		vme.setValidityPeriod(ValidityPeriodMock.create());
 		vme.setAreaType("Established VME");

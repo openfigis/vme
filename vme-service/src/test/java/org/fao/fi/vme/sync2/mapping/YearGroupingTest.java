@@ -20,7 +20,7 @@ public class YearGroupingTest {
 			Vme vme = VmeMock.generateVme(i);
 			Map<Integer, List<Year<?>>> map = yg.collect(vme);
 			assertEquals(i, map.size());
-			assertEquals(6, map.get(VmeMock.YEAR).size());
+			assertEquals(5, map.get(VmeMock.YEAR).size());
 		}
 	}
 

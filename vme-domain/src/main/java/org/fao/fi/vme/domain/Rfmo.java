@@ -3,8 +3,10 @@ package org.fao.fi.vme.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -43,8 +45,12 @@ public class Rfmo {
 	@ManyToMany
 	private List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.ALL })
 	private List<History> hasFisheryAreasHistory;
+
+	@OneToMany(cascade = { CascadeType.ALL })
+	@JoinColumn(nullable = true)
+	private List<History> hasVmesHistory;
 
 	public String getId() {
 		return id;
@@ -85,5 +91,13 @@ public class Rfmo {
 	public void setHasFisheryAreasHistory(List<History> hasFisheryAreasHistory) {
 		this.hasFisheryAreasHistory = hasFisheryAreasHistory;
 	};
+
+	public List<History> getHasVmesHistory() {
+		return hasVmesHistory;
+	}
+
+	public void setHasVmesHistory(List<History> hasVmesHistory) {
+		this.hasVmesHistory = hasVmesHistory;
+	}
 
 }

@@ -46,9 +46,6 @@ public class Vme implements Period<Vme> {
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<GeoRef> geoRefList;
 
-	@OneToMany(cascade = { CascadeType.ALL })
-	private List<History> historyList;
-
 	/**
 	 * This validity period on the level of the reference object and applies to the VME itself. It has noting to do with
 	 * the reporting year.
@@ -131,14 +128,6 @@ public class Vme implements Period<Vme> {
 
 	public void setGeoRefList(List<GeoRef> geoRefList) {
 		this.geoRefList = geoRefList;
-	}
-
-	public List<History> getHistoryList() {
-		return historyList;
-	}
-
-	public void setHistoryList(List<History> vmeHistoryList) {
-		this.historyList = vmeHistoryList;
 	}
 
 	public ValidityPeriod getValidityPeriod() {

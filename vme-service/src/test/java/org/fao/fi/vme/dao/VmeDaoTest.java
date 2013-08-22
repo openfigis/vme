@@ -4,10 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.test.VmeDaoTestLogic;
@@ -22,6 +27,27 @@ public class VmeDaoTest {
 
 	@Inject
 	VmeDao dao;
+
+	@Test
+	public void testMergeRfmo() {
+		String id = "fiosdfsd";
+		Rfmo rfmo = new Rfmo();
+		rfmo.setId(id);
+		dao.persist(rfmo);
+
+		List<History> hasFisheryAreasHistory = new ArrayList<History>();
+		History h = new History();
+		h.setYear(2008);
+		h.setId(456l);
+
+		dao.persist(h);
+
+		hasFisheryAreasHistory.add(h);
+		rfmo.setHasFisheryAreasHistory(hasFisheryAreasHistory);
+
+		dao.merge(rfmo);
+
+	}
 
 	@Test
 	public void testSave() {

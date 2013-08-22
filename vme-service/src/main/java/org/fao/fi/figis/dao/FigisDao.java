@@ -54,7 +54,6 @@ public class FigisDao extends Dao {
 	}
 
 	public List<?> loadObjects(Class<?> clazz) {
-
 		return this.generateTypedQuery(em, clazz).getResultList();
 	}
 

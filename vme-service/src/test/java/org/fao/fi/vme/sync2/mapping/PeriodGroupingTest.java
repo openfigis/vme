@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasures;
 import org.fao.fi.vme.domain.ValidityPeriod;
@@ -155,12 +155,12 @@ public class PeriodGroupingTest {
 		int startYear = 2010;
 		int endYear = 2012;
 
-		History h1 = new History();
+		GeoRef h1 = new GeoRef();
 		h1.setYear(startYear);
-		History h2 = new History();
+		GeoRef h2 = new GeoRef();
 		h2.setYear(endYear);
 
-		List<History> hList = new ArrayList<History>();
+		List<GeoRef> hList = new ArrayList<GeoRef>();
 		hList.add(h1);
 		hList.add(h2);
 
@@ -168,24 +168,21 @@ public class PeriodGroupingTest {
 		vme.setRfmo(new Rfmo());
 		ValidityPeriod vpVme = ValidityPeriodMock.create(startYear, endYear);
 		vme.setValidityPeriod(vpVme);
-		vme.setHistoryList(hList);
+		vme.setGeoRefList(hList);
 
 		List<DisseminationYearSlice> slices = g.collect(vme);
-		for (DisseminationYearSlice s : slices) {
-			assertNotNull(s.getVmeHistory());
-		}
 		assertEquals(3, slices.size());
 
 		// 2010
-		assertEquals(h1, slices.get(0).getVmeHistory());
+		assertEquals(h1, slices.get(0).getGeoRef());
 		assertEquals(startYear, slices.get(0).getYear());
 
 		// 2011
-		assertEquals(h1, slices.get(1).getVmeHistory());
+		assertEquals(h1, slices.get(1).getGeoRef());
 		assertEquals(2011, slices.get(1).getYear());
 
 		// 2012
-		assertEquals(h2, slices.get(2).getVmeHistory());
+		assertEquals(h2, slices.get(2).getGeoRef());
 		assertEquals(endYear, slices.get(2).getYear());
 
 	}

@@ -82,7 +82,6 @@ public class VmeAccessDbImportIntegrationTest {
 			vme.setRfmo(null);
 			vme.setSpecificMeasuresList(null);
 			vme.setProfileList(null);
-			vme.setHistoryList(null);
 			vmeDao.merge(vme);
 		}
 

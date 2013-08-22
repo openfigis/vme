@@ -31,9 +31,6 @@ public class VmeDaoTestLogic {
 
 		vmeDao.persist(vme.getRfmo());
 
-		for (History h : vme.getHistoryList()) {
-			vmeDao.persist(h);
-		}
 		for (GeoRef geoRef : vme.getGeoRefList()) {
 			vmeDao.persist(geoRef);
 		}

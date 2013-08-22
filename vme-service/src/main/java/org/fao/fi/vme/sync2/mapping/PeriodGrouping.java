@@ -58,14 +58,7 @@ public class PeriodGrouping {
 		List<? extends Year<?>> fishingHistoryList = vme.getRfmo().getHasFisheryAreasHistory();
 		if (fishingHistoryList != null) {
 			Year<?> fishingHistory = findRelavantYear(fishingHistoryList, disseminationYear);
-			slice.setRfmoHistory((History) fishingHistory);
-		}
-
-		// vme history
-		List<History> vmeHistoryList = vme.getHistoryList();
-		if (vmeHistoryList != null) {
-			Year<?> vmeHistory = findRelavantYear(vmeHistoryList, disseminationYear);
-			slice.setVmeHistory((History) vmeHistory);
+			slice.setFisheryAreasHistory((History) fishingHistory);
 		}
 
 		// GeoRef

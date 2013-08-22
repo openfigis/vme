@@ -35,10 +35,10 @@ public class DisseminationYearSlice {
 	private Profile profile;
 
 	// year object
-	private History vmeHistory;
+	private History fisheryAreasHistory;
 
 	// year object
-	private History rfmoHistory;
+	private History vmesHistory;
 
 	// year object
 	private GeoRef geoRef;
@@ -83,20 +83,12 @@ public class DisseminationYearSlice {
 		this.profile = profile;
 	}
 
-	public History getVmeHistory() {
-		return vmeHistory;
+	public History getFisheryAreasHistory() {
+		return fisheryAreasHistory;
 	}
 
-	public void setVmeHistory(History vmeHistory) {
-		this.vmeHistory = vmeHistory;
-	}
-
-	public History getRfmoHistory() {
-		return rfmoHistory;
-	}
-
-	public void setRfmoHistory(History rfmoHistory) {
-		this.rfmoHistory = rfmoHistory;
+	public void setFisheryAreasHistory(History fisheryAreasHistory) {
+		this.fisheryAreasHistory = fisheryAreasHistory;
 	}
 
 	public GeoRef getGeoRef() {
@@ -107,4 +99,11 @@ public class DisseminationYearSlice {
 		this.geoRef = geoRef;
 	}
 
+	public History getVmesHistory() {
+		return vmesHistory;
+	}
+
+	public void setVmesHistory(History vmesHistory) {
+		this.vmesHistory = vmesHistory;
+	}
 }
