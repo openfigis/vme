@@ -26,25 +26,25 @@ public class VmeSpecificMeasuresRelationTest {
 		Vme vme = generateVme();
 		vmeDao.persist(vme);
 		assertEquals(1, vmeDao.count(Vme.class).intValue());
-		assertEquals(1, vmeDao.count(SpecificMeasures.class).intValue());
+		assertEquals(1, vmeDao.count(SpecificMeasure.class).intValue());
 
 		// adding 1 SpecificMeasures
-		SpecificMeasures s = generateSpecificMeasures(vme);
+		SpecificMeasure s = generateSpecificMeasures(vme);
 		s.setId(30l);
 
 		vmeDao.merge(vme);
-		List<SpecificMeasures> originalList = vme.getSpecificMeasuresList();
-		List<SpecificMeasures> foundList = vmeDao.findVme(vme.getId()).getSpecificMeasuresList();
+		List<SpecificMeasure> originalList = vme.getSpecificMeasureList();
+		List<SpecificMeasure> foundList = vmeDao.findVme(vme.getId()).getSpecificMeasureList();
 		for (int i = 0; i < originalList.size(); i++) {
 			assertEquals(originalList.get(i), foundList.get(i));
 		}
 
-		assertEquals(2, vmeDao.count(SpecificMeasures.class).intValue());
+		assertEquals(2, vmeDao.count(SpecificMeasure.class).intValue());
 		Vme vmeFound = vmeDao.findVme(vme.getId());
-		assertEquals(2, vmeFound.getSpecificMeasuresList().size());
+		assertEquals(2, vmeFound.getSpecificMeasureList().size());
 
-		assertEquals(vme.getSpecificMeasuresList().get(0), vmeFound.getSpecificMeasuresList().get(0));
-		assertEquals(s, vmeFound.getSpecificMeasuresList().get(1));
+		assertEquals(vme.getSpecificMeasureList().get(0), vmeFound.getSpecificMeasureList().get(0));
+		assertEquals(s, vmeFound.getSpecificMeasureList().get(1));
 
 	}
 
@@ -56,18 +56,18 @@ public class VmeSpecificMeasuresRelationTest {
 		return vme;
 	}
 
-	private SpecificMeasures generateSpecificMeasures(Vme vme) {
-		SpecificMeasures s = new SpecificMeasures();
+	private SpecificMeasure generateSpecificMeasures(Vme vme) {
+		SpecificMeasure s = new SpecificMeasure();
 		s.setId(20l);
 		List<Vme> slv = new ArrayList<Vme>();
 		slv.add(vme);
 		s.setVmeList(slv);
-		if (vme.getSpecificMeasuresList() == null) {
-			List<SpecificMeasures> sl = new ArrayList<SpecificMeasures>();
-			vme.setSpecificMeasuresList(sl);
+		if (vme.getSpecificMeasureList() == null) {
+			List<SpecificMeasure> sl = new ArrayList<SpecificMeasure>();
+			vme.setSpecificMeasureList(sl);
 		}
 
-		vme.getSpecificMeasuresList().add(s);
+		vme.getSpecificMeasureList().add(s);
 		return s;
 	}
 

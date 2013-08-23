@@ -9,9 +9,9 @@ import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.Profile;
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.interfacee.Year;
 import org.fao.fi.vme.sync2.mapping.xml.DefaultObservationXml;
@@ -122,8 +122,8 @@ public class ObjectMapping {
 				// see the discussion below this file, it could be that missing parts in the observation need to be
 				// filled up with information from the previous years.
 
-				if (yearObject instanceof SpecificMeasures) {
-					figisDocBuilder.specificMeasures((SpecificMeasures) yearObject, figisDoc);
+				if (yearObject instanceof SpecificMeasure) {
+					figisDocBuilder.specificMeasures((SpecificMeasure) yearObject, figisDoc);
 				}
 				/*
 				 * if (yearObject instanceof VmeHistory) { figisDocBuilder.vmeHistory((VmeHistory) yearObject,
@@ -133,8 +133,8 @@ public class ObjectMapping {
 				if (yearObject instanceof Profile) {
 					figisDocBuilder.profile((Profile) yearObject, figisDoc);
 				}
-				if (yearObject instanceof GeneralMeasures) {
-					figisDocBuilder.generalMeasures((GeneralMeasures) yearObject, figisDoc);
+				if (yearObject instanceof GeneralMeasure) {
+					figisDocBuilder.generalMeasures((GeneralMeasure) yearObject, figisDoc);
 				}
 			}
 			xml.setXml(marshall.marshalToString(figisDoc));

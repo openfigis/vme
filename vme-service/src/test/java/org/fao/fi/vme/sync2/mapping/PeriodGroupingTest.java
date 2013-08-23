@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
@@ -72,19 +72,19 @@ public class PeriodGroupingTest {
 		vme.setRfmo(new Rfmo());
 		vme.setValidityPeriod(vp1);
 
-		SpecificMeasures sm1 = new SpecificMeasures();
+		SpecificMeasure sm1 = new SpecificMeasure();
 		sm1.setYear(2009);
 		sm1.setValidityPeriod(vp1);
 
-		SpecificMeasures sm2 = new SpecificMeasures();
+		SpecificMeasure sm2 = new SpecificMeasure();
 		sm2.setYear(2010);
 		sm2.setValidityPeriod(vp2);
 
-		List<SpecificMeasures> smList = new ArrayList<SpecificMeasures>();
+		List<SpecificMeasure> smList = new ArrayList<SpecificMeasure>();
 		smList.add(sm1);
 		smList.add(sm2);
 
-		vme.setSpecificMeasuresList(smList);
+		vme.setSpecificMeasureList(smList);
 
 		List<DisseminationYearSlice> slices = g.collect(vme);
 
@@ -125,12 +125,12 @@ public class PeriodGroupingTest {
 
 		ValidityPeriod vp1 = ValidityPeriodMock.create(startYear, startYear);
 		ValidityPeriod vp2 = ValidityPeriodMock.create(endYear, endYear);
-		SpecificMeasures sm1 = new SpecificMeasures();
+		SpecificMeasure sm1 = new SpecificMeasure();
 		sm1.setValidityPeriod(vp1);
-		SpecificMeasures sm2 = new SpecificMeasures();
+		SpecificMeasure sm2 = new SpecificMeasure();
 		sm2.setValidityPeriod(vp2);
 
-		List<SpecificMeasures> specificMeasureList = new ArrayList<SpecificMeasures>();
+		List<SpecificMeasure> specificMeasureList = new ArrayList<SpecificMeasure>();
 		specificMeasureList.add(sm1);
 		specificMeasureList.add(sm2);
 
@@ -138,7 +138,7 @@ public class PeriodGroupingTest {
 		vme.setRfmo(new Rfmo());
 		ValidityPeriod vpVme = ValidityPeriodMock.create(startYear, endYear);
 		vme.setValidityPeriod(vpVme);
-		vme.setSpecificMeasuresList(specificMeasureList);
+		vme.setSpecificMeasureList(specificMeasureList);
 
 		List<DisseminationYearSlice> slices = g.collect(vme);
 		for (DisseminationYearSlice s : slices) {

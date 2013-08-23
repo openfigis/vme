@@ -1,6 +1,6 @@
 package org.fao.fi.vme.msaccess.tables;
 
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 
@@ -72,7 +72,7 @@ public class Measues_VME_Specific implements TableDomainMapper {
 
 	@Override
 	public Object map() {
-		SpecificMeasures o = new SpecificMeasures();
+		SpecificMeasure o = new SpecificMeasure();
 		// o.getDocument().setUrl(this.get)
 		o.setId(new Long(this.getID()));
 		// o.setMeasureSummary(this.get)

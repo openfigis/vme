@@ -20,8 +20,8 @@ import org.fao.fi.vme.domain.interfacee.Year;
  * @author Erik van Ingen
  * 
  */
-@Entity(name = "GENERAL_MEASURES")
-public class GeneralMeasures implements Year<GeneralMeasures>, PeriodYear {
+@Entity(name = "GENERAL_MEASURE")
+public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 
 	/** 
 	 * 
@@ -30,7 +30,7 @@ public class GeneralMeasures implements Year<GeneralMeasures>, PeriodYear {
 	private Long id;
 
 	/**
-	 * GeneralMeasures are defined on the level of a RFMO.
+	 * GeneralMeasure are defined on the level of a RFMO.
 	 * 
 	 * This was here @OneToOne but I believe that this should be @ManyToOne
 	 * 
@@ -39,7 +39,7 @@ public class GeneralMeasures implements Year<GeneralMeasures>, PeriodYear {
 	private Rfmo rfmo;
 
 	/**
-	 * YearObject in which the measures are defined, established.
+	 * YearObject in which the measure are defined, established.
 	 */
 	private Integer year;
 

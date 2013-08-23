@@ -12,7 +12,7 @@ import org.fao.fi.figis.devcon.ObjectFactory;
 import org.fao.fi.figis.devcon.Range;
 import org.fao.fi.figis.devcon.Sources;
 import org.fao.fi.figis.devcon.Text;
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.purl.dc.elements._1.Identifier;
@@ -40,7 +40,7 @@ public class ManagementMethodEntryBuilder {
 
 	}
 
-	public void addMeasureToEntry1(GeneralMeasures gm, ManagementMethodEntry entry) {
+	public void addMeasureToEntry1(GeneralMeasure gm, ManagementMethodEntry entry) {
 		// Measures
 		// 1. FishingAreas
 		if (gm != null) {
@@ -58,7 +58,7 @@ public class ManagementMethodEntryBuilder {
 
 	}
 
-	public void addMeasureToEntry2(GeneralMeasures yearObject, ManagementMethodEntry entry) {
+	public void addMeasureToEntry2(GeneralMeasure yearObject, ManagementMethodEntry entry) {
 		if (yearObject != null) {
 			// 2. ExploratoryFishingProtocol
 			Measure measure2 = f.createMeasure();
@@ -74,7 +74,7 @@ public class ManagementMethodEntryBuilder {
 
 	}
 
-	public void addMeasureToEntry3(GeneralMeasures yearObject, ManagementMethodEntry entry) {
+	public void addMeasureToEntry3(GeneralMeasure yearObject, ManagementMethodEntry entry) {
 		if (yearObject != null) {
 			// 3. EncounterProtocol
 			Measure measure3 = f.createMeasure();
@@ -90,7 +90,7 @@ public class ManagementMethodEntryBuilder {
 
 	}
 
-	public void addMeasureToEntry4(GeneralMeasures yearObject, ManagementMethodEntry entry) {
+	public void addMeasureToEntry4(GeneralMeasure yearObject, ManagementMethodEntry entry) {
 		if (yearObject != null) {
 			// 4. Threshold
 			Measure measure4 = f.createMeasure();
@@ -106,7 +106,7 @@ public class ManagementMethodEntryBuilder {
 
 	}
 
-	void addMeasureToEntry5(GeneralMeasures yearObject, ManagementMethodEntry entry) {
+	void addMeasureToEntry5(GeneralMeasure yearObject, ManagementMethodEntry entry) {
 		// 5. IndicatorSpecies
 		if (yearObject != null) {
 			Measure measure5 = f.createMeasure();
@@ -122,7 +122,7 @@ public class ManagementMethodEntryBuilder {
 
 	}
 
-	public void addSources(GeneralMeasures yearObject, ManagementMethodEntry entry) {
+	public void addSources(GeneralMeasure yearObject, ManagementMethodEntry entry) {
 		// ManagementMethodEntry Sources
 		if (yearObject != null) {
 			Sources sources = f.createSources();
@@ -145,7 +145,7 @@ public class ManagementMethodEntryBuilder {
 
 	}
 
-	public void addRange(GeneralMeasures yearObject, ManagementMethodEntry entry) {
+	public void addRange(GeneralMeasure yearObject, ManagementMethodEntry entry) {
 		// ManagementMethodEntry ValidityPeriod
 		if (yearObject != null) {
 			Min min = f.createMin();

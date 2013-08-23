@@ -10,10 +10,10 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
@@ -61,10 +61,10 @@ public class LinkerTest {
 				if (object instanceof InformationSource) {
 					validateInformationSource(object);
 				}
-				if (object instanceof SpecificMeasures) {
+				if (object instanceof SpecificMeasure) {
 					validateSpecificMeasuresObject(object);
 				}
-				if (object instanceof GeneralMeasures) {
+				if (object instanceof GeneralMeasure) {
 					validateGeneralMeasuresObject(object);
 				}
 			}
@@ -79,14 +79,14 @@ public class LinkerTest {
 			// if (objectCollection.getClazz().equals(VmeDB.class)) {
 			// vmeCollection = objectCollection;
 			// }
-			if (objectCollection.getClazz().equals(SpecificMeasures.class)) {
+			if (objectCollection.getClazz().equals(SpecificMeasure.class)) {
 				specificMeasuresCollection = objectCollection;
 			}
 		}
 		List<Object> smList = specificMeasuresCollection.getObjectList();
 		Set<String> vmeIds = new HashSet<String>();
 		for (Object object : smList) {
-			SpecificMeasures sm = (SpecificMeasures) object;
+			SpecificMeasure sm = (SpecificMeasure) object;
 			// TODO commented, please validate with Aureliano
 			// String combi = sm.getVmeList().get(0).getId() + " " + sm.getId();
 			// System.out.println(combi);
@@ -129,7 +129,7 @@ public class LinkerTest {
 	}
 
 	private void validateGeneralMeasuresObject(Object object) {
-		GeneralMeasures o = (GeneralMeasures) object;
+		GeneralMeasure o = (GeneralMeasure) object;
 
 		// this one was not defined in the access DB.
 		// assertNotNull(o.getPrimairlyConcernedVme());
@@ -143,7 +143,7 @@ public class LinkerTest {
 	}
 
 	private void validateSpecificMeasuresObject(Object object) {
-		SpecificMeasures o = (SpecificMeasures) object;
+		SpecificMeasure o = (SpecificMeasure) object;
 		// TODO commented, please validate with Aureliano
 		// assertTrue(o.getVmeList().size() > 0);
 

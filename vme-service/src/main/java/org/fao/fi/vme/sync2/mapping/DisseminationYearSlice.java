@@ -1,10 +1,10 @@
 package org.fao.fi.vme.sync2.mapping;
 
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.Profile;
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 
 /**
@@ -26,10 +26,10 @@ public class DisseminationYearSlice {
 	private Vme vme;
 
 	// period object
-	private GeneralMeasures generalMeasures;
+	private GeneralMeasure generalMeasures;
 
 	// period object
-	private SpecificMeasures specificMeasures;
+	private SpecificMeasure specificMeasures;
 
 	// year object
 	private Profile profile;
@@ -59,19 +59,19 @@ public class DisseminationYearSlice {
 		this.vme = vme;
 	}
 
-	public GeneralMeasures getGeneralMeasures() {
+	public GeneralMeasure getGeneralMeasures() {
 		return generalMeasures;
 	}
 
-	public void setGeneralMeasures(GeneralMeasures generalMeasures) {
+	public void setGeneralMeasures(GeneralMeasure generalMeasures) {
 		this.generalMeasures = generalMeasures;
 	}
 
-	public SpecificMeasures getSpecificMeasures() {
+	public SpecificMeasure getSpecificMeasures() {
 		return specificMeasures;
 	}
 
-	public void setSpecificMeasures(SpecificMeasures specificMeasures) {
+	public void setSpecificMeasures(SpecificMeasure specificMeasures) {
 		this.specificMeasures = specificMeasures;
 	}
 

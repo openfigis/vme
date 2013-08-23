@@ -35,16 +35,16 @@ public class InformationSource {
 	private List<Rfmo> rfmoList;
 
 	/**
-	 * InformationSource has 0,1 SpecificMeasures
+	 * InformationSource has 0,1 SpecificMeasure
 	 */
 	@OneToOne
-	private SpecificMeasures specificMeasures;
+	private SpecificMeasure specificMeasure;
 
 	/**
-	 * InformationSource has 0,1 GeneralMeasures
+	 * InformationSource has 0,1 GeneralMeasure
 	 */
 	@OneToOne
-	private GeneralMeasures generalMeasures;
+	private GeneralMeasure generalMeasure;
 
 	/**
 	 * Also referred to as issue date of biblio entry
@@ -100,20 +100,20 @@ public class InformationSource {
 		this.rfmoList = rfmoList;
 	}
 
-	public SpecificMeasures getSpecificMeasures() {
-		return specificMeasures;
+	public SpecificMeasure getSpecificMeasure() {
+		return specificMeasure;
 	}
 
-	public void setSpecificMeasures(SpecificMeasures specificMeasures) {
-		this.specificMeasures = specificMeasures;
+	public void setSpecificMeasure(SpecificMeasure specificMeasure) {
+		this.specificMeasure = specificMeasure;
 	}
 
-	public GeneralMeasures getGeneralMeasures() {
-		return generalMeasures;
+	public GeneralMeasure getGeneralMeasure() {
+		return generalMeasure;
 	}
 
-	public void setGeneralMeasures(GeneralMeasures generalMeasures) {
-		this.generalMeasures = generalMeasures;
+	public void setGeneralMeasure(GeneralMeasure generalMeasure) {
+		this.generalMeasure = generalMeasure;
 	}
 
 	public Date getMeetingStartDate() {

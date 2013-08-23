@@ -18,7 +18,7 @@ import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
@@ -83,16 +83,16 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 		observationSync.sync();
 		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
 
-		assertEquals(1, vmeDao.count(SpecificMeasures.class).intValue());
+		assertEquals(1, vmeDao.count(SpecificMeasure.class).intValue());
 
 		@SuppressWarnings("unchecked")
 		List<Vme> vmeList = (List<Vme>) vmeDao.loadObjects(Vme.class);
 		for (Vme vme : vmeList) {
-			SpecificMeasures specificMeasures = new SpecificMeasures();
+			SpecificMeasure specificMeasures = new SpecificMeasure();
 			specificMeasures.setId(333333333l);
 			specificMeasures.setYear(VmeMock.YEAR + 1);
 			specificMeasures.setValidityPeriod(ValidityPeriodMock.create());
-			vme.getSpecificMeasuresList().add(specificMeasures);
+			vme.getSpecificMeasureList().add(specificMeasures);
 			vmeDao.merge(vme);
 		}
 		observationSync.sync();

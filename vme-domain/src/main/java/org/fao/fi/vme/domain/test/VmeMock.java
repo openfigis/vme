@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
@@ -66,8 +66,8 @@ public class VmeMock {
 
 		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 		List<Profile> pList = new ArrayList<Profile>();
-		List<SpecificMeasures> specificMeasureList = new ArrayList<SpecificMeasures>();
-		List<GeneralMeasures> generalMeasuresList = new ArrayList<GeneralMeasures>();
+		List<SpecificMeasure> specificMeasureList = new ArrayList<SpecificMeasure>();
+		List<GeneralMeasure> generalMeasureList = new ArrayList<GeneralMeasure>();
 		List<GeoRef> geoRefList = new ArrayList<GeoRef>();
 		List<History> fishingHistoryList = new ArrayList<History>();
 
@@ -75,7 +75,7 @@ public class VmeMock {
 			int year = startYear + i;
 			InformationSource is = new InformationSource();
 			is.setId(id++);
-			is.setCitation(u.english("RFMO Conservation and Enforcement Measures " + year + " (Doc No. ####)"));
+			is.setCitation(u.english("RFMO Conservation and Enforcement Measure " + year + " (Doc No. ####)"));
 			try {
 				is.setUrl(new URL("http://www.rfmo.org"));
 			} catch (Exception e) {
@@ -101,13 +101,14 @@ public class VmeMock {
 			profile.setYear(year);
 			pList.add(profile);
 
-			SpecificMeasures specificMeasures = new SpecificMeasures();
-			specificMeasures.setId(id++);
-			specificMeasures.setYear(year);
-			specificMeasures.setVmeSpecificMeasure(u.english("A specific measure for the year " + year));
-			specificMeasures.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
-			specificMeasures.setInformationSource(is);
-			specificMeasureList.add(specificMeasures);
+			SpecificMeasure specificMeasure = new SpecificMeasure();
+
+			specificMeasure.setId(id++);
+			specificMeasure.setYear(year);
+			specificMeasure.setVmeSpecificMeasure(u.english("A specific measure for the year " + year));
+			specificMeasure.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
+			specificMeasure.setInformationSource(is);
+			specificMeasureList.add(specificMeasure);
 
 			GeoRef geoRef = new GeoRef();
 			// geoRef.setId(id++);
@@ -115,7 +116,7 @@ public class VmeMock {
 			geoRef.setGeographicFeatureID(INVENTORY_ID + "_" + YEAR);
 			geoRefList.add(geoRef);
 
-			GeneralMeasures gm = new GeneralMeasures();
+			GeneralMeasure gm = new GeneralMeasure();
 			gm.setYear(year);
 			gm.setId(id++);
 			gm.setFishingAreas("a [FishingArea] general measure");
@@ -125,7 +126,7 @@ public class VmeMock {
 			gm.setVmeIndicatorSpecies(u.english("a [VmeIndicatorSpecies] general measure"));
 			gm.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
 			gm.setInformationSourceList(Arrays.asList(is));
-			generalMeasuresList.add(gm);
+			generalMeasureList.add(gm);
 
 		}
 
@@ -134,7 +135,7 @@ public class VmeMock {
 		rfmo.setId(rfmoId);
 		rfmo.setHasFisheryAreasHistory(fishingHistoryList);
 		rfmo.setInformationSourceList(informationSourceList);
-		rfmo.setGeneralMeasuresList(generalMeasuresList);
+		rfmo.setGeneralMeasureList(generalMeasureList);
 
 		Vme vme = new Vme();
 		vme.setId(new Long(VME_ID));
@@ -142,7 +143,7 @@ public class VmeMock {
 		vme.setName(u.english("Hard Corner Bugs "));
 		vme.setRfmo(rfmo);
 		vme.setProfileList(pList);
-		vme.setSpecificMeasuresList(specificMeasureList);
+		vme.setSpecificMeasureList(specificMeasureList);
 		vme.setGeoRefList(geoRefList);
 		vme.setValidityPeriod(ValidityPeriodMock.create());
 		vme.setAreaType("Established VME");

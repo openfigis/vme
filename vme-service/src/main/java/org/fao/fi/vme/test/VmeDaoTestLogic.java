@@ -1,7 +1,7 @@
 package org.fao.fi.vme.test;
 
 import org.fao.fi.vme.dao.VmeDao;
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.InformationSource;
@@ -17,7 +17,7 @@ public class VmeDaoTestLogic {
 
 	public void saveVme(Vme vme, VmeDao vmeDao) {
 
-		for (GeneralMeasures o : vme.getRfmo().getGeneralMeasuresList()) {
+		for (GeneralMeasure o : vme.getRfmo().getGeneralMeasureList()) {
 			vmeDao.persist(o);
 		}
 

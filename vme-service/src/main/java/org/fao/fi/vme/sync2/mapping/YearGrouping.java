@@ -23,13 +23,13 @@ public class YearGrouping {
 	public Map<Integer, List<Year<?>>> collect(Vme vme) {
 		Map<Integer, List<Year<?>>> map = new HashMap<Integer, List<Year<?>>>();
 
-		add2Map(map, vme.getSpecificMeasuresList());
+		add2Map(map, vme.getSpecificMeasureList());
 		add2Map(map, vme.getProfileList());
 		add2Map(map, vme.getGeoRefList());
 
 		add2Map(map, vme.getRfmo().getHasFisheryAreasHistory());
 		add2Map(map, vme.getRfmo().getHasVmesHistory());
-		add2Map(map, vme.getRfmo().getGeneralMeasuresList());
+		add2Map(map, vme.getRfmo().getGeneralMeasureList());
 
 		// add2Map(map, vme.getRfmo().getInformationSourceList());
 		// the InformationSource is not processed here because that works with date instead of year.

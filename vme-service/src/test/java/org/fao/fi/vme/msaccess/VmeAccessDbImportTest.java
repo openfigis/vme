@@ -40,7 +40,7 @@ public class VmeAccessDbImportTest {
 		List<?> objects = vmeDao.loadObjects(Vme.class);
 		for (Object o : objects) {
 			Vme vme = (Vme) o;
-			vme.getRfmo().getGeneralMeasuresList();
+			vme.getRfmo().getGeneralMeasureList();
 		}
 	}
 }

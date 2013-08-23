@@ -36,9 +36,9 @@ public class Vme implements Period<Vme> {
 	 * This is the owning side of the manyToMany relationship
 	 */
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "VME_SPECIFIC_MEASURES", //
-	joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURES_ID"))
-	private List<SpecificMeasures> specificMeasuresList;
+	@JoinTable(name = "VME_SPECIFIC_MEASURE", //
+	joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURE_ID"))
+	private List<SpecificMeasure> specificMeasureList;
 
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<Profile> profileList;
@@ -177,11 +177,11 @@ public class Vme implements Period<Vme> {
 		this.geoarea = geoarea;
 	}
 
-	public List<SpecificMeasures> getSpecificMeasuresList() {
-		return specificMeasuresList;
+	public List<SpecificMeasure> getSpecificMeasureList() {
+		return specificMeasureList;
 	}
 
-	public void setSpecificMeasuresList(List<SpecificMeasures> specificMeasuresList) {
-		this.specificMeasuresList = specificMeasuresList;
+	public void setSpecificMeasureList(List<SpecificMeasure> specificMeasureList) {
+		this.specificMeasureList = specificMeasureList;
 	}
 }

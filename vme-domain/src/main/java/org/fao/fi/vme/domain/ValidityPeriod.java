@@ -19,7 +19,7 @@ import javax.persistence.Embeddable;
  * 
  * The begin and end year are inclusive Examples:
  * 
- * Objects={ Vme, SpecificMeasures, GeneralMeasures, }
+ * Objects={ Vme, SpecificMeasure, GeneralMeasure, }
  * 
  * ValidityPeriods for GeneralMeasureSet = {2000-2007, 2008-2009, 2010-9999}
  * 

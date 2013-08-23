@@ -16,8 +16,8 @@ import org.fao.fi.vme.domain.interfacee.Year;
  * @author Erik van Ingen
  * 
  */
-@Entity(name = "SPECIFIC_MEASURES")
-public class SpecificMeasures implements PeriodYear, Year<SpecificMeasures> {
+@Entity(name = "SPECIFIC_MEASURE")
+public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 
 	/**
 	 *  
@@ -26,12 +26,12 @@ public class SpecificMeasures implements PeriodYear, Year<SpecificMeasures> {
 	private Long id;
 
 	/**
-	 * The SpecificMeasures are defined on the level of this VME, sometimes applies also to other VMEs.
+	 * The SpecificMeasure is defined on the level of this VME, sometimes applies also to other VMEs.
 	 */
 	/*
 	 * This is the inverse side of the ManyToMany relationship
 	 */
-	@ManyToMany(mappedBy = "specificMeasuresList")
+	@ManyToMany(mappedBy = "specificMeasureList")
 	private List<Vme> vmeList;
 
 	@OneToOne
@@ -43,7 +43,7 @@ public class SpecificMeasures implements PeriodYear, Year<SpecificMeasures> {
 	private ValidityPeriod validityPeriod;
 
 	/**
-	 * YearObject in which the measures are defined, established.
+	 * YearObject in which the measure are defined, established.
 	 */
 	private Integer year;
 
@@ -118,7 +118,7 @@ public class SpecificMeasures implements PeriodYear, Year<SpecificMeasures> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SpecificMeasures other = (SpecificMeasures) obj;
+		SpecificMeasure other = (SpecificMeasure) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

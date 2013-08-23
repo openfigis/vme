@@ -5,7 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.dao.VmeDao;
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 
@@ -26,8 +26,8 @@ public class TableWriter {
 
 		for (Object object : objectCollection.getObjectList()) {
 
-			if (objectCollection.getClazz().equals(GeneralMeasures.class)) {
-				handleException4GeneralMeasures((GeneralMeasures) object);
+			if (objectCollection.getClazz().equals(GeneralMeasure.class)) {
+				handleException4GeneralMeasures((GeneralMeasure) object);
 			} else {
 				vmeDao.persist(object);
 			}
@@ -40,7 +40,7 @@ public class TableWriter {
 	 * 
 	 * @param object
 	 */
-	private void handleException4GeneralMeasures(GeneralMeasures object) {
+	private void handleException4GeneralMeasures(GeneralMeasure object) {
 		if (object.getInformationSourceList() != null) {
 			List<InformationSource> list = object.getInformationSourceList();
 			for (InformationSource informationSource : list) {

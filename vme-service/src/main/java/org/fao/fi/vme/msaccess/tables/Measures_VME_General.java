@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -138,7 +138,7 @@ public class Measures_VME_General implements TableDomainMapper {
 
 		MultiLingualStringUtil u = new MultiLingualStringUtil();
 
-		GeneralMeasures o = new GeneralMeasures();
+		GeneralMeasure o = new GeneralMeasure();
 
 		o.setId(new Long(this.getID()));
 		o.setVmeEncounterProtocols(u.english(this.getVME_Encounter()));

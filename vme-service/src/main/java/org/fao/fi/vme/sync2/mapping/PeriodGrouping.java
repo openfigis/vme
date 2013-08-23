@@ -5,11 +5,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.Profile;
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.interfacee.Period;
 import org.fao.fi.vme.domain.interfacee.Year;
@@ -95,11 +95,11 @@ public class PeriodGrouping {
 			slice.setVme(vme);
 		}
 
-		List<SpecificMeasures> smList = vme.getSpecificMeasuresList();
+		List<SpecificMeasure> smList = vme.getSpecificMeasureList();
 		if (smList != null) {
 
 			Collections.sort(smList, new PeriodYearComperator());
-			for (SpecificMeasures specificMeasures : smList) {
+			for (SpecificMeasure specificMeasures : smList) {
 				if (period(year, specificMeasures)) {
 					// this logic would pick the latest SpecificMeasures, which would be correct.
 					slice.setSpecificMeasures(specificMeasures);
@@ -107,10 +107,10 @@ public class PeriodGrouping {
 			}
 		}
 
-		List<GeneralMeasures> gmList = vme.getRfmo().getGeneralMeasuresList();
+		List<GeneralMeasure> gmList = vme.getRfmo().getGeneralMeasureList();
 		if (gmList != null) {
 			Collections.sort(gmList, new PeriodYearComperator());
-			for (GeneralMeasures generalMeasures : gmList) {
+			for (GeneralMeasure generalMeasures : gmList) {
 				if (period(year, generalMeasures)) {
 					slice.setGeneralMeasures(generalMeasures);
 				}

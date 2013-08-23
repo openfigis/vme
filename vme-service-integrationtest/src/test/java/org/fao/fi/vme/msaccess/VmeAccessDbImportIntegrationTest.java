@@ -6,12 +6,12 @@ import javax.inject.Inject;
 
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -58,12 +58,12 @@ public class VmeAccessDbImportIntegrationTest {
 			rfmo.setInformationSourceList(null);
 			rfmo.setListOfManagedVmes(null);
 
-			List<GeneralMeasures> list = rfmo.getGeneralMeasuresList();
-			for (GeneralMeasures generalMeasures : list) {
+			List<GeneralMeasure> list = rfmo.getGeneralMeasureList();
+			for (GeneralMeasure generalMeasures : list) {
 				generalMeasures.setRfmo(null);
 				vmeDao.merge(generalMeasures);
 			}
-			rfmo.setGeneralMeasuresList(null);
+			rfmo.setGeneralMeasureList(null);
 			vmeDao.merge(rfmo);
 		}
 
@@ -71,8 +71,8 @@ public class VmeAccessDbImportIntegrationTest {
 				.loadObjects(InformationSource.class);
 		for (InformationSource is : informationSourceList) {
 			is.setRfmoList(null);
-			is.setGeneralMeasures(null);
-			is.setSpecificMeasures(null);
+			is.setGeneralMeasure(null);
+			is.setSpecificMeasure(null);
 			vmeDao.merge(is);
 		}
 
@@ -80,13 +80,13 @@ public class VmeAccessDbImportIntegrationTest {
 		for (Vme vme : vmeList) {
 			vme.setGeoRefList(null);
 			vme.setRfmo(null);
-			vme.setSpecificMeasuresList(null);
+			vme.setSpecificMeasureList(null);
 			vme.setProfileList(null);
 			vmeDao.merge(vme);
 		}
 
 		// now delete the actual objects
-		Class<?>[] classes = { GeneralMeasures.class, SpecificMeasures.class, InformationSource.class, Vme.class,
+		Class<?>[] classes = { GeneralMeasure.class, SpecificMeasure.class, InformationSource.class, Vme.class,
 				GeoRef.class, Profile.class, Rfmo.class };
 		for (Class<?> clazz : classes) {
 			List<?> list = vmeDao.loadObjects(clazz);

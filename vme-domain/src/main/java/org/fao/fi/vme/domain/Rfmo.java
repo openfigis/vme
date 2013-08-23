@@ -29,7 +29,7 @@ public class Rfmo {
 	 * 
 	 */
 	@OneToMany(mappedBy = "rfmo")
-	private List<GeneralMeasures> generalMeasuresList;
+	private List<GeneralMeasure> generalMeasureList;
 
 	/**
 	 * 
@@ -60,12 +60,12 @@ public class Rfmo {
 		this.id = id;
 	}
 
-	public List<GeneralMeasures> getGeneralMeasuresList() {
-		return generalMeasuresList;
+	public List<GeneralMeasure> getGeneralMeasureList() {
+		return generalMeasureList;
 	}
 
-	public void setGeneralMeasuresList(List<GeneralMeasures> generalMeasuresList) {
-		this.generalMeasuresList = generalMeasuresList;
+	public void setGeneralMeasureList(List<GeneralMeasure> generalMeasureList) {
+		this.generalMeasureList = generalMeasureList;
 	}
 
 	public List<Vme> getListOfManagedVmes() {

@@ -35,11 +35,11 @@ import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -100,7 +100,7 @@ public class FigisDocBuilder {
 	 * @param yearObject
 	 * @param figisDoc
 	 */
-	public void specificMeasures(SpecificMeasures yearObject, FIGISDoc figisDoc) {
+	public void specificMeasures(SpecificMeasure yearObject, FIGISDoc figisDoc) {
 
 		// ManagementMethodEntry
 		if (yearObject != null) {
@@ -297,7 +297,7 @@ public class FigisDocBuilder {
 	 * @param yearObject
 	 * @param figisDoc
 	 */
-	public void generalMeasures(GeneralMeasures yearObject, FIGISDoc figisDoc) {
+	public void generalMeasures(GeneralMeasure yearObject, FIGISDoc figisDoc) {
 
 		// entry
 		ManagementMethodEntry entry = f.createManagementMethodEntry();

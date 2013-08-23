@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
@@ -52,10 +52,10 @@ public class Linker {
 		if (domainObject instanceof InformationSource) {
 			linkInformationSourceObject(domainObject, domainTableMap, objectCollectionList);
 		}
-		if (domainObject instanceof SpecificMeasures) {
+		if (domainObject instanceof SpecificMeasure) {
 			linkSpecificMeasuresObject(domainObject, domainTableMap, objectCollectionList);
 		}
-		if (domainObject instanceof GeneralMeasures) {
+		if (domainObject instanceof GeneralMeasure) {
 			linkGeneralMeasuresObject(domainObject, domainTableMap, objectCollectionList);
 		}
 
@@ -89,17 +89,17 @@ public class Linker {
 	 */
 	private void linkGeneralMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
-		GeneralMeasures gm = (GeneralMeasures) domainObject;
+		GeneralMeasure gm = (GeneralMeasure) domainObject;
 		Measures_VME_General record = (Measures_VME_General) domainTableMap.get(gm);
 
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
 		gm.setRfmo(rfmo);
 
-		if (rfmo.getGeneralMeasuresList() == null) {
-			rfmo.setGeneralMeasuresList(new ArrayList<GeneralMeasures>());
+		if (rfmo.getGeneralMeasureList() == null) {
+			rfmo.setGeneralMeasureList(new ArrayList<GeneralMeasure>());
 		}
-		if (!rfmo.getGeneralMeasuresList().contains(gm)) {
-			rfmo.getGeneralMeasuresList().add(gm);
+		if (!rfmo.getGeneralMeasureList().contains(gm)) {
+			rfmo.getGeneralMeasureList().add(gm);
 		}
 
 	}
@@ -114,7 +114,7 @@ public class Linker {
 	 */
 	private void linkSpecificMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
-		SpecificMeasures sm = (SpecificMeasures) domainObject;
+		SpecificMeasure sm = (SpecificMeasure) domainObject;
 		if (sm.getVmeList() == null) {
 			sm.setVmeList(new ArrayList<Vme>());
 		}
@@ -125,8 +125,8 @@ public class Linker {
 				List<Object> objectList = oc.getObjectList();
 				for (Object object : objectList) {
 					Vme vme = (Vme) object;
-					if (vme.getSpecificMeasuresList() == null) {
-						vme.setSpecificMeasuresList(new ArrayList<SpecificMeasures>());
+					if (vme.getSpecificMeasureList() == null) {
+						vme.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
 					}
 					VME vmeRecord = (VME) domainTableMap.get(vme);
 					if (record.getVME_ID().equals(vmeRecord.getVME_ID())) {
@@ -134,9 +134,9 @@ public class Linker {
 							// add only when not already in the list
 							sm.getVmeList().add(vme);
 						}
-						if (!vme.getSpecificMeasuresList().contains(sm)) {
+						if (!vme.getSpecificMeasureList().contains(sm)) {
 							// add only when not already in the list
-							vme.getSpecificMeasuresList().add(sm);
+							vme.getSpecificMeasureList().add(sm);
 						}
 					}
 				}

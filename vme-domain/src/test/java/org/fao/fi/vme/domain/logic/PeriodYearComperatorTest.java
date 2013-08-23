@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.interfacee.PeriodYear;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.junit.Test;
@@ -17,10 +17,10 @@ public class PeriodYearComperatorTest {
 	public void testCompare1() {
 		PeriodYearComperator pyc = new PeriodYearComperator();
 
-		PeriodYear py1 = new SpecificMeasures();
+		PeriodYear py1 = new SpecificMeasure();
 		py1.setYear(2000);
 		py1.setValidityPeriod(ValidityPeriodMock.create());
-		PeriodYear py2 = new SpecificMeasures();
+		PeriodYear py2 = new SpecificMeasure();
 		py2.setYear(2000);
 		py2.setValidityPeriod(ValidityPeriodMock.create());
 		assertEquals(0, pyc.compare(py1, py2));
@@ -36,14 +36,14 @@ public class PeriodYearComperatorTest {
 	public void testCompare2() {
 
 		// vp = 2000-2003
-		SpecificMeasures sm1 = new SpecificMeasures();
+		SpecificMeasure sm1 = new SpecificMeasure();
 		sm1.setYear(2002);
 		sm1.setValidityPeriod(ValidityPeriodMock.create(2003, 2003));
 
-		SpecificMeasures sm2 = new SpecificMeasures();
+		SpecificMeasure sm2 = new SpecificMeasure();
 		sm2.setYear(2001);
 		sm2.setValidityPeriod(ValidityPeriodMock.create(2002, 2003));
-		List<SpecificMeasures> l = new ArrayList<SpecificMeasures>();
+		List<SpecificMeasure> l = new ArrayList<SpecificMeasure>();
 		l.add(sm1);
 		l.add(sm2);
 		Collections.sort(l, new PeriodYearComperator());

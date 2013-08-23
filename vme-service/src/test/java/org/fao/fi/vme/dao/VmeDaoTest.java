@@ -10,7 +10,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.Vme;
@@ -56,8 +56,8 @@ public class VmeDaoTest {
 		VmeDaoTestLogic l = new VmeDaoTestLogic();
 		l.saveVme(vme, dao);
 		Vme vmeFound = dao.findVme(vme.getId());
-		assertTrue(vmeFound.getRfmo().getGeneralMeasuresList().size() > 0);
-		for (GeneralMeasures gm : vmeFound.getRfmo().getGeneralMeasuresList()) {
+		assertTrue(vmeFound.getRfmo().getGeneralMeasureList().size() > 0);
+		for (GeneralMeasure gm : vmeFound.getRfmo().getGeneralMeasureList()) {
 			assertNotNull(gm.getFishingAreas());
 		}
 

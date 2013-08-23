@@ -31,11 +31,11 @@ import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
-import org.fao.fi.vme.domain.GeneralMeasures;
+import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.SpecificMeasures;
+import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -69,7 +69,7 @@ public class FigisDocBuilderTest {
 		FIGISDoc figisDoc = new FIGISDoc();
 		figisDoc.setVME(new VME());
 
-		SpecificMeasures specificMeasure = vme.getSpecificMeasuresList().get(0);
+		SpecificMeasure specificMeasure = vme.getSpecificMeasureList().get(0);
 		b.specificMeasures(specificMeasure, figisDoc);
 		Management management = (Management) figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
 		assertNotNull(management);
@@ -199,7 +199,7 @@ public class FigisDocBuilderTest {
 		VME vmeJAXB = new VME();
 		figisDoc.setVME(vmeJAXB);
 
-		GeneralMeasures generalMeasure = vme.getRfmo().getGeneralMeasuresList().get(0);
+		GeneralMeasure generalMeasure = vme.getRfmo().getGeneralMeasureList().get(0);
 		b.generalMeasures(generalMeasure, figisDoc);
 
 		Management management = (Management) figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
@@ -373,8 +373,8 @@ public class FigisDocBuilderTest {
 		b.year(vme.getValidityPeriod().getBeginYear().toString(), figisDoc);
 		b.profile(vme.getProfileList().get(0), figisDoc);
 		b.rfmo(vme.getRfmo(), figisDoc);
-		b.specificMeasures(vme.getSpecificMeasuresList().get(0), figisDoc);
-		b.generalMeasures(vme.getRfmo().getGeneralMeasuresList().get(0), figisDoc);
+		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc);
+		b.generalMeasures(vme.getRfmo().getGeneralMeasureList().get(0), figisDoc);
 		b.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
 
 		String s = m.marshalToString(figisDoc);
