@@ -19,6 +19,8 @@ public class FimesNamespacePrefixMapper extends NamespacePrefixMapper {
 		prefixMap.put("http://www.w3.org/2001/xmlschema-instance", "xsi");
 		prefixMap.put("http://www.w3.org/xml/1998/namespace", "xmlns");
 		prefixMap.put("http://www.w3.org/2001/XMLSchema", "xs");
+		// prefixMap.put(NamespaceSupport.XMLNS, "xmlns");
+		// prefixMap.put(NamespaceSupport.NSDECL, "nsdecl");
 
 	}
 

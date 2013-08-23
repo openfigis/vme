@@ -24,6 +24,8 @@ public class JaxbMarshall {
 			JAXBContext context = JAXBContext.newInstance(FIGISDoc.class);
 			marshaller = context.createMarshaller();
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+
 			// this property works fine with jdk1.6.0_16
 			marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new FimesNamespacePrefixMapper());
 		} catch (JAXBException e) {
