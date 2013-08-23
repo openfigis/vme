@@ -1248,6 +1248,8 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 			<xs:element ref="dc:Publisher"/>
 			<xs:element ref="dc:Language"/>
 			<xs:element ref="dcterms:Extent"/>
+			<xs:element ref="dc:Type"/>
+			<xs:element ref="dc:Date"/>
 		</xs:choice>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
@@ -5171,6 +5173,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 			</xs:documentation>
 		</xs:annotation>
 		<xs:choice maxOccurs="unbounded">
+			<xs:element ref="dc:Title"/>
 			<xs:group ref="fi:textEnt"/>
 			<xs:element name="FlagStateList" type="fi:FlagStateList"/>
 			<xs:element name="VesseltypeOverview" type="fi:VesseltypeOverview"/>
@@ -12031,7 +12034,7 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 				<xs:element name="HabitatBio" type="fi:HabitatBio"/>
 				<xs:element name="Impacts" type="fi:Impacts"/>
 				<xs:element name="History" type="fi:History"/>
-				<xs:element name="FisheryHistory" type="fi:FisheryHistory"/>
+				<xs:element name="FisheryArea" type="fi:FisheryArea"/>
 				<xs:element name="Management" type="fi:Management"/>
 				<xs:element name="AddInfo" type="fi:AddInfo"/>
 				<xs:group ref="fi:indexEnt"/>

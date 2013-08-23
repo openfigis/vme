@@ -26,6 +26,9 @@ public class JaxbMarshall {
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
 
+			marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
+					"http://www.fao.org/fi/figis/devcon/ http://www.fao.org/figis/fimes/schema/3_6/fi.xsd");
+
 			// this property works fine with jdk1.6.0_16
 			marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new FimesNamespacePrefixMapper());
 		} catch (JAXBException e) {

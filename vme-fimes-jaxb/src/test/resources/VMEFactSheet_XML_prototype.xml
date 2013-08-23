@@ -74,9 +74,9 @@ Five of the Corner Rise Seamounts have been explored using an ROV and areas of p
 		<fi:History>
 			<fi:Text><![CDATA[VME History text text text]]></fi:Text>
 		</fi:History>
-		<fi:FisheryHistory>
+		<fi:FisheryArea>
 			<fi:Text><![CDATA[Fishery history text text text]]></fi:Text>
-		</fi:FisheryHistory>
+		</fi:FisheryArea>
 		<fi:Management>
 			<fi:ManagementMethods>
 				<fi:ManagementMethodEntry Focus="Vulnerable Marine Ecosystems">

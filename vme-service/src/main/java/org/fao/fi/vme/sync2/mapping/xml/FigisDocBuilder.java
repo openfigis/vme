@@ -222,6 +222,16 @@ public class FigisDocBuilder {
 		if (yearObject != null) {
 			HabitatBio habitatBio = f.createHabitatBio();
 
+			// • VMEIdent
+			// • HabitatBio
+			// • Impacts
+			// • Management
+			// • History
+			// • FisheryAreas
+			// • AddInfo
+			// • Sources
+			// • RelatedResources
+
 			Text text1 = f.createText();
 			text1.getContent().add(u.getEnglish(yearObject.getDescriptionBiological()));
 			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(text1);

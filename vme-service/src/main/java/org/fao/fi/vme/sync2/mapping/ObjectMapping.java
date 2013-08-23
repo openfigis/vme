@@ -55,10 +55,10 @@ public class ObjectMapping {
 			figisDocBuilder.dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
 			figisDocBuilder.vme(vme, disseminationYearSlice.getYear(), figisDoc);
 			figisDocBuilder.rfmo(vme.getRfmo(), figisDoc);
-			figisDocBuilder.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
 			figisDocBuilder.specificMeasures(disseminationYearSlice.getSpecificMeasures(), figisDoc);
 			figisDocBuilder.profile(disseminationYearSlice.getProfile(), figisDoc);
 			figisDocBuilder.generalMeasures(disseminationYearSlice.getGeneralMeasures(), figisDoc);
+			figisDocBuilder.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
 
 			ObservationXml xml = new DefaultObservationXml().define();
 			xml.setXml(marshall.marshalToString(figisDoc));
