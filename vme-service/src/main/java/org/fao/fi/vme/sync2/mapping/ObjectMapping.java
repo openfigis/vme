@@ -2,18 +2,12 @@ package org.fao.fi.vme.sync2.mapping;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.VmeObservationDomain;
-import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.GeneralMeasure;
-import org.fao.fi.vme.domain.Profile;
-import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.domain.interfacee.Year;
 import org.fao.fi.vme.sync2.mapping.xml.DefaultObservationXml;
 import org.fao.fi.vme.sync2.mapping.xml.FigisDocBuilder;
 import org.vme.fimes.jaxb.JaxbMarshall;
@@ -60,7 +54,7 @@ public class ObjectMapping {
 
 			FIGISDoc figisDoc = new FIGISDoc();
 			figisDocBuilder.dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
-			figisDocBuilder.vme(vme, figisDoc);
+			figisDocBuilder.vme(vme, disseminationYearSlice.getYear(), figisDoc);
 			figisDocBuilder.year(disseminationYearSlice.getYear(), figisDoc);
 			figisDocBuilder.rfmo(vme.getRfmo(), figisDoc);
 			figisDocBuilder.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
@@ -84,67 +78,67 @@ public class ObjectMapping {
 	 * @param vme
 	 * @return
 	 */
-	public VmeObservationDomain mapVme2Figis(Vme vme) {
-		// precondition
-		if (vme.getRfmo() == null) {
-			throw new VmeException("Detected Vme without Rfmo");
-		}
-
-		// logic
-		Map<Integer, List<Year<?>>> map = groupie.collect(vme);// not processed here InformationSource, To be done
-		Object[] years = map.keySet().toArray();
-		for (Object object : years) {
-			System.out.println("---------------" + object + " vme = " + vme.getId() + vme.getInventoryIdentifier());
-		}
-
-		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
-
-		// every year results in one observation in English
-		for (Object year : years) {
-			ObservationDomain od = new DefaultObservationDomain().defineDefaultObservation();
-			List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
-			od.setObservationsPerLanguage(observationsPerLanguage);
-			od.setReportingYear(year.toString());
-			odList.add(od);
-			ObservationXml xml = new DefaultObservationXml().define();
-			observationsPerLanguage.add(xml);
-
-			FIGISDoc figisDoc = new FIGISDoc();
-			figisDocBuilder.vme(vme, figisDoc);
-			figisDocBuilder.year(year, figisDoc);
-			figisDocBuilder.rfmo(vme.getRfmo(), figisDoc);
-			figisDocBuilder.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
-
-			// now we get all the year related objects for that vme. Do not get confused here! Here we are processing 1
-			// year and for that year we need to get all the related yearObjects of 1 VME. The observation gets filled
-			// up with the information for the processed year.
-			List<Year<?>> l = map.get(year);
-			for (Year<?> yearObject : l) {
-
-				// see the discussion below this file, it could be that missing parts in the observation need to be
-				// filled up with information from the previous years.
-
-				if (yearObject instanceof SpecificMeasure) {
-					figisDocBuilder.specificMeasures((SpecificMeasure) yearObject, figisDoc);
-				}
-				/*
-				 * if (yearObject instanceof VmeHistory) { figisDocBuilder.vmeHistory((VmeHistory) yearObject,
-				 * figisDoc); } if (yearObject instanceof RfmoHistory) { figisDocBuilder.rfmoHistory((RfmoHistory)
-				 * yearObject, figisDoc); }
-				 */
-				if (yearObject instanceof Profile) {
-					figisDocBuilder.profile((Profile) yearObject, figisDoc);
-				}
-				if (yearObject instanceof GeneralMeasure) {
-					figisDocBuilder.generalMeasures((GeneralMeasure) yearObject, figisDoc);
-				}
-			}
-			xml.setXml(marshall.marshalToString(figisDoc));
-		}
-		VmeObservationDomain vod = new VmeObservationDomain();
-		vod.setObservationDomainList(odList);
-		return vod;
-	}
+	// public VmeObservationDomain mapVme2Figis(Vme vme) {
+	// // precondition
+	// if (vme.getRfmo() == null) {
+	// throw new VmeException("Detected Vme without Rfmo");
+	// }
+	//
+	// // logic
+	// Map<Integer, List<Year<?>>> map = groupie.collect(vme);// not processed here InformationSource, To be done
+	// Object[] years = map.keySet().toArray();
+	// for (Object object : years) {
+	// System.out.println("---------------" + object + " vme = " + vme.getId() + vme.getInventoryIdentifier());
+	// }
+	//
+	// List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
+	//
+	// // every year results in one observation in English
+	// for (Object year : years) {
+	// ObservationDomain od = new DefaultObservationDomain().defineDefaultObservation();
+	// List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
+	// od.setObservationsPerLanguage(observationsPerLanguage);
+	// od.setReportingYear(year.toString());
+	// odList.add(od);
+	// ObservationXml xml = new DefaultObservationXml().define();
+	// observationsPerLanguage.add(xml);
+	//
+	// FIGISDoc figisDoc = new FIGISDoc();
+	// figisDocBuilder.vme(vme, year, figisDoc);
+	// figisDocBuilder.year(year, figisDoc);
+	// figisDocBuilder.rfmo(vme.getRfmo(), figisDoc);
+	// figisDocBuilder.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
+	//
+	// // now we get all the year related objects for that vme. Do not get confused here! Here we are processing 1
+	// // year and for that year we need to get all the related yearObjects of 1 VME. The observation gets filled
+	// // up with the information for the processed year.
+	// List<Year<?>> l = map.get(year);
+	// for (Year<?> yearObject : l) {
+	//
+	// // see the discussion below this file, it could be that missing parts in the observation need to be
+	// // filled up with information from the previous years.
+	//
+	// if (yearObject instanceof SpecificMeasure) {
+	// figisDocBuilder.specificMeasures((SpecificMeasure) yearObject, figisDoc);
+	// }
+	// /*
+	// * if (yearObject instanceof VmeHistory) { figisDocBuilder.vmeHistory((VmeHistory) yearObject,
+	// * figisDoc); } if (yearObject instanceof RfmoHistory) { figisDocBuilder.rfmoHistory((RfmoHistory)
+	// * yearObject, figisDoc); }
+	// */
+	// if (yearObject instanceof Profile) {
+	// figisDocBuilder.profile((Profile) yearObject, figisDoc);
+	// }
+	// if (yearObject instanceof GeneralMeasure) {
+	// figisDocBuilder.generalMeasures((GeneralMeasure) yearObject, figisDoc);
+	// }
+	// }
+	// xml.setXml(marshall.marshalToString(figisDoc));
+	// }
+	// VmeObservationDomain vod = new VmeObservationDomain();
+	// vod.setObservationDomainList(odList);
+	// return vod;
+	// }
 	/*
 	 * 
 	 * Subject: FIGISDoc from the VME domain model

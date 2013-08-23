@@ -263,7 +263,7 @@ public class FigisDocBuilderTest {
 	@Test
 	public void testVme() {
 		FIGISDoc figisDoc = new FIGISDoc();
-		b.vme(vme, figisDoc);
+		b.vme(vme, VmeMock.YEAR, figisDoc);
 
 		assertNotNull(figisDoc.getVME());
 		assertNotNull(figisDoc.getVME().getVMEIdent());
@@ -369,7 +369,7 @@ public class FigisDocBuilderTest {
 	@Test
 	public void testFigisDocMarshall() {
 		FIGISDoc figisDoc = new FIGISDoc();
-		b.vme(vme, figisDoc);
+		b.vme(vme, VmeMock.YEAR, figisDoc);
 		b.year(vme.getValidityPeriod().getBeginYear().toString(), figisDoc);
 		b.profile(vme.getProfileList().get(0), figisDoc);
 		b.rfmo(vme.getRfmo(), figisDoc);

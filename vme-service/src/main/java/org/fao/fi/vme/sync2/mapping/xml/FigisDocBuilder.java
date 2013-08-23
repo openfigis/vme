@@ -342,9 +342,10 @@ public class FigisDocBuilder {
 	 * ValidityPeriod/endYear fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:Range@Type="Time"/fi:Max
 	 * 
 	 * @param vmeDomain
+	 * @param i
 	 * @param figisDoc
 	 */
-	public void vme(Vme vmeDomain, FIGISDoc figisDoc) {
+	public void vme(Vme vmeDomain, int year, FIGISDoc figisDoc) {
 		VMEIdent vmeIdent = new VMEIdent();
 
 		// FigisID
@@ -390,12 +391,15 @@ public class FigisDocBuilder {
 		vmeCriteria.setValue(vmeDomain.getCriteria());
 
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(figisID);
-		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(title);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeForeignID);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
-		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeCriteria);
+		// OrgRef
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(title);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeCriteria);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(Integer.toString(year));
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(range);
+		// GeoReference
 
 		VME vme = new VME();
 		vme.setVMEIdent(vmeIdent);
@@ -412,7 +416,7 @@ public class FigisDocBuilder {
 	 * @param figisDoc
 	 */
 	public void year(Object year, FIGISDoc figisDoc) {
-		figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves().add(year);
+		// figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves().add(year);
 	}
 
 	/**
