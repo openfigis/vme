@@ -44,4 +44,5 @@ public class ObjectMappingTest {
 			assertEquals(1, xmlList.size());
 		}
 	}
+
 }

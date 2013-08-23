@@ -43,6 +43,7 @@ public class ObjectMapping {
 	private final JaxbMarshall marshall = new JaxbMarshall();
 	private final PeriodGrouping groupie2 = new PeriodGrouping();
 	private final PrimaryRule primaryRule = new PrimaryRule();
+	private final PrimaryRuleValidator primaryRuleValidator = new PrimaryRuleValidator();
 
 	public VmeObservationDomain mapVme2Figis2(Vme vme) {
 
@@ -74,6 +75,7 @@ public class ObjectMapping {
 		VmeObservationDomain vod = new VmeObservationDomain();
 		vod.setObservationDomainList(odList);
 		primaryRule.apply(vod);
+		primaryRuleValidator.validate(vod);
 		return vod;
 	}
 
