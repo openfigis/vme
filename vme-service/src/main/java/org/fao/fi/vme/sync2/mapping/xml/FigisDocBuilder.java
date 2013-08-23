@@ -341,6 +341,10 @@ public class FigisDocBuilder {
 	 * 
 	 * ValidityPeriod/endYear fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:Range@Type="Time"/fi:Max
 	 * 
+	 * 
+	 * Observation/Year fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ReportingYear
+	 * 
+	 * 
 	 * @param vmeDomain
 	 * @param i
 	 * @param figisDoc
@@ -405,18 +409,6 @@ public class FigisDocBuilder {
 		vme.setVMEIdent(vmeIdent);
 		figisDoc.setVME(vme);
 
-	}
-
-	/**
-	 * Adds a reporting year to the FIGISDoc
-	 * 
-	 * Observation/Year fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ReportingYear
-	 * 
-	 * @param year
-	 * @param figisDoc
-	 */
-	public void year(Object year, FIGISDoc figisDoc) {
-		// figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves().add(year);
 	}
 
 	/**

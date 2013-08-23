@@ -301,7 +301,6 @@ public class FigisDocBuilderTest {
 
 		figisDoc.setVME(new VME());
 		figisDoc.getVME().setVMEIdent(new VMEIdent());
-		b.year(reportingYear, figisDoc);
 
 		for (Object obj : figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves()) {
 			if (obj instanceof String) {
@@ -370,7 +369,6 @@ public class FigisDocBuilderTest {
 	public void testFigisDocMarshall() {
 		FIGISDoc figisDoc = new FIGISDoc();
 		b.vme(vme, VmeMock.YEAR, figisDoc);
-		b.year(vme.getValidityPeriod().getBeginYear().toString(), figisDoc);
 		b.profile(vme.getProfileList().get(0), figisDoc);
 		b.rfmo(vme.getRfmo(), figisDoc);
 		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc);

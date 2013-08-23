@@ -17,6 +17,8 @@ public class YearGrouping {
 	 * Group all the yearObjects of the Vme per year.
 	 * 
 	 * 
+	 * @deprecated
+	 * 
 	 * @param vme
 	 * @return
 	 */

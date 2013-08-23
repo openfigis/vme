@@ -32,7 +32,6 @@ import org.vme.fimes.jaxb.JaxbMarshall;
  */
 public class ObjectMapping {
 
-	private final YearGrouping groupie = new YearGrouping();
 	private final FigisDocBuilder figisDocBuilder = new FigisDocBuilder();
 	private final JaxbMarshall marshall = new JaxbMarshall();
 	private final PeriodGrouping groupie2 = new PeriodGrouping();
@@ -55,7 +54,6 @@ public class ObjectMapping {
 			FIGISDoc figisDoc = new FIGISDoc();
 			figisDocBuilder.dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
 			figisDocBuilder.vme(vme, disseminationYearSlice.getYear(), figisDoc);
-			figisDocBuilder.year(disseminationYearSlice.getYear(), figisDoc);
 			figisDocBuilder.rfmo(vme.getRfmo(), figisDoc);
 			figisDocBuilder.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
 			figisDocBuilder.specificMeasures(disseminationYearSlice.getSpecificMeasures(), figisDoc);
