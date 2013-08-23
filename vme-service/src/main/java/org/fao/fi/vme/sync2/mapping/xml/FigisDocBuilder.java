@@ -39,7 +39,6 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync2.mapping.RfmoHistory;
 import org.fao.fi.vme.sync2.mapping.VmeHistory;
 import org.purl.agmes._1.CreatorCorporate;
-import org.purl.dc.elements._1.Date;
 import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.elements._1.Title;
 import org.purl.dc.terms.Abstrakt;
@@ -452,11 +451,7 @@ public class FigisDocBuilder {
 			cc.setContent(u.getEnglish(infoSource.getCommittee()));
 			biblioEntry.getContent().add(cc);
 
-			if (infoSource.getDate() != null) {
-				Date date = new Date();
-				date.setContent(infoSource.getDate().toString());
-				biblioEntry.getContent().add(date);
-			}
+			biblioEntry.getContent().add(Integer.toString(infoSource.getPublicationYear()));
 
 			Abstrakt bibAbstract = new Abstrakt();
 			bibAbstract.setContent(u.getEnglish(infoSource.getReportSummary()));
@@ -476,5 +471,4 @@ public class FigisDocBuilder {
 
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(sources);
 	}
-
 }

@@ -352,7 +352,7 @@ public class FigisDocBuilderTest {
 					assertEquals(u.getEnglish(infoSourceList.get(i).getCommittee()),
 							((CreatorCorporate) obj).getContent());
 				} else if (obj instanceof Date) {
-					assertEquals(infoSourceList.get(i).getDate().toString(), ((Date) obj).getContent());
+					assertEquals(infoSourceList.get(i).getPublicationYear(), ((Date) obj).getContent());
 				} else if (obj instanceof Abstrakt) {
 					assertEquals(u.getEnglish(infoSourceList.get(i).getReportSummary()), ((Abstrakt) obj).getContent());
 				} else if (obj instanceof BibliographicCitation) {

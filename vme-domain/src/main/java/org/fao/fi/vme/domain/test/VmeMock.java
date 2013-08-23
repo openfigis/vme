@@ -3,7 +3,6 @@ package org.fao.fi.vme.domain.test;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.fao.fi.vme.domain.GeneralMeasures;
@@ -82,7 +81,7 @@ public class VmeMock {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			is.setDate(new Date());
+			is.setPublicationYear(YEAR);
 			is.setCommittee(u.english("Regional Fishery Management Organization (RFMO)"));
 			is.setReportSummary(u.english("This is an abstract (report summary)"));
 			informationSourceList.add(is);

@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -52,12 +51,8 @@ public class InformationSource {
 	 * 
 	 * TODO change into publicationYear, type int
 	 */
-	/*
-	 * DATE_DATE because Oracle does not like date as a columnname
-	 */
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DATE_DATE")
-	private Date date;
+
+	private int publicationYear;
 
 	@Temporal(TemporalType.DATE)
 	private Date meetingStartDate;
@@ -121,14 +116,6 @@ public class InformationSource {
 		this.generalMeasures = generalMeasures;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
 	public Date getMeetingStartDate() {
 		return meetingStartDate;
 	}
@@ -183,6 +170,14 @@ public class InformationSource {
 
 	public void setSourceType(int sourceType) {
 		this.sourceType = sourceType;
+	}
+
+	public int getPublicationYear() {
+		return publicationYear;
+	}
+
+	public void setPublicationYear(int publicationYear) {
+		this.publicationYear = publicationYear;
 	}
 
 }
