@@ -549,8 +549,8 @@ public class FigisDocBuilder {
 
 		// corporateCoverPage <fi:FigisID MetaID="280000">791</fi:FigisID>
 		FigisID figisIDCC = new FigisID();
-		figisID.setContent("791");
-		figisID.setMetaID("280000");
+		figisIDCC.setContent("791");
+		figisIDCC.setMetaID("280000");
 		CorporateCoverPage corporateCoverPage = f.createCorporateCoverPage();
 		corporateCoverPage.getFigisIDsAndForeignIDs().add(figisIDCC);
 

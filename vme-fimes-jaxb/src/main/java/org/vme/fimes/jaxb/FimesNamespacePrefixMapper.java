@@ -17,7 +17,9 @@ public class FimesNamespacePrefixMapper extends NamespacePrefixMapper {
 		prefixMap.put("http://rs.tdwg.org/dwc/terms/", "dwc");
 		prefixMap.put("http://purl.org/dc/terms/", "dcterms");
 		prefixMap.put("http://www.w3.org/2001/xmlschema-instance", "xsi");
-		prefixMap.put("http://www.w3.org/xml/1998/namespace", "ns");
+		prefixMap.put("http://www.w3.org/xml/1998/namespace", "xmlns");
+		prefixMap.put("http://www.w3.org/2001/XMLSchema", "xs");
+
 	}
 
 	@Override
