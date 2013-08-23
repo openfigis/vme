@@ -23,8 +23,8 @@ public class VmeReaderTest {
 
 	public static Map<Class<?>, Integer> numberOfRecords = new HashMap<Class<?>, Integer>();
 	static {
-		numberOfRecords.put(VME.class, 264);
-		numberOfRecords.put(RFB_MetaData.class, 5);
+		numberOfRecords.put(VME.class, 209);
+		numberOfRecords.put(RFB_MetaData.class, 6);
 	}
 
 	@Test
@@ -38,7 +38,8 @@ public class VmeReaderTest {
 
 			Class<?> tableClazz = table.getClazz();
 			if (numberOfRecords.containsKey(table.getClazz())) {
-				assertEquals(numberOfRecords.get(tableClazz).intValue(), table.getObjectList().size());
+				assertEquals(tableClazz.getSimpleName(), numberOfRecords.get(tableClazz).intValue(), table
+						.getObjectList().size());
 			}
 
 			// checking unicity
