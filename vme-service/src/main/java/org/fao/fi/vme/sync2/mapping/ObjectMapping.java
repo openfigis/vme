@@ -58,6 +58,7 @@ public class ObjectMapping {
 			odList.add(od);
 
 			FIGISDoc figisDoc = new FIGISDoc();
+			figisDocBuilder.dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
 			figisDocBuilder.vme(vme, figisDoc);
 			figisDocBuilder.year(disseminationYearSlice.getYear(), figisDoc);
 			figisDocBuilder.rfmo(vme.getRfmo(), figisDoc);
