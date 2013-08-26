@@ -146,13 +146,13 @@ public class Measures_VME_General implements TableDomainMapper {
 
 		// It should be the column Link_CEM_Source within the Measures_VME_general table.
 
-		
-		
 		URL url = null;
 		if (this.getLink_CEM_Source() != null) {
 			try {
 				url = new URL(this.getLink_CEM_Source());
 				InformationSource is = new InformationSource();
+				// TODO what are the types??
+				is.setSourceType(0);
 				is.setUrl(url);
 				is.setCitation(u.english(this.getLink_CEM_Bookmarked()));
 				List<InformationSource> isList = new ArrayList<InformationSource>();
@@ -162,9 +162,7 @@ public class Measures_VME_General implements TableDomainMapper {
 				throw new VmeException(e);
 			}
 		}
-		 
-		
-		
+
 		o.setFishingAreas(this.getRFB_Fishing_Areas());
 		// o.setRfmo(rfmo)
 		o.setVmeThreshold(u.english(this.getVME_Threshold()));

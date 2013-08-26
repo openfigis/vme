@@ -12,6 +12,7 @@ import org.fao.fi.figis.devcon.DataEntry;
 import org.fao.fi.figis.devcon.Editor;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
+import org.fao.fi.figis.devcon.FisheryArea;
 import org.fao.fi.figis.devcon.ForeignID;
 import org.fao.fi.figis.devcon.GeoForm;
 import org.fao.fi.figis.devcon.HabitatBio;
@@ -36,6 +37,7 @@ import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.GeneralMeasure;
+import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.Rfmo;
@@ -48,6 +50,7 @@ import org.fao.fi.vme.sync2.mapping.VmeHistory;
 import org.purl.agmes._1.CreatorCorporate;
 import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.elements._1.Title;
+import org.purl.dc.elements._1.Type;
 import org.purl.dc.terms.Abstrakt;
 import org.purl.dc.terms.BibliographicCitation;
 import org.purl.dc.terms.Created;
@@ -62,7 +65,9 @@ import org.purl.dc.terms.Created;
 public class FigisDocBuilder {
 
 	private ObjectFactory f = new ObjectFactory();
+	private org.purl.dc.elements._1.ObjectFactory dcf = new org.purl.dc.elements._1.ObjectFactory();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
+	private EnglishTextUtil ut = new EnglishTextUtil();
 	private ManagementMethodEntryBuilder mmeBuilder = new ManagementMethodEntryBuilder();
 	private CurrentDate currentDate = new CurrentDate();
 
@@ -122,8 +127,7 @@ public class FigisDocBuilder {
 			measure.getTextsAndImagesAndTables().add(measureType);
 
 			// text
-			Text measureText = f.createText();
-			measureText.getContent().add(u.getEnglish(yearObject.getVmeSpecificMeasure()));
+			Text measureText = ut.getEnglishText(yearObject.getVmeSpecificMeasure());
 			measure.getTextsAndImagesAndTables().add(measureText);
 
 			// range (time)
@@ -232,14 +236,12 @@ public class FigisDocBuilder {
 			// • Sources
 			// • RelatedResources
 
-			Text text1 = f.createText();
-			text1.getContent().add(u.getEnglish(yearObject.getDescriptionBiological()));
+			Text text1 = ut.getEnglishText(yearObject.getDescriptionBiological());
 			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(text1);
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
 
 			// Physical profile
-			Text text2 = f.createText();
-			text2.getContent().add(u.getEnglish(yearObject.getDescriptionPhisical()));
+			Text text2 = ut.getEnglishText(yearObject.getDescriptionPhisical());
 			GeoForm geoform = f.createGeoForm();
 			JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(text2);
 			geoform.getContent().add(geoformJAXBElement);
@@ -248,8 +250,7 @@ public class FigisDocBuilder {
 
 			// Impacts profile
 			Impacts impacts = f.createImpacts();
-			Text text3 = f.createText();
-			text3.getContent().add(u.getEnglish(yearObject.getDescriptionImpact()));
+			Text text3 = ut.getEnglishText(yearObject.getDescriptionImpact());
 			impacts.getTextsAndImagesAndTables().add(text3);
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(impacts);
 		}
@@ -437,12 +438,12 @@ public class FigisDocBuilder {
 		OrgRef rfmoOrg = f.createOrgRef();
 		rfmoOrg.getForeignIDsAndFigisIDsAndTitles().add(rfmoForeignID);
 		figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves().add(rfmoOrg);
+
 	}
 
 	/**
-	 * Adds a list of InformationSource to the FIGISDoc
 	 * 
-	 * date fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
+	 * -- date fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
 	 * 
 	 * committee fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/ags:CreatorCorporate
 	 * 
@@ -451,6 +452,10 @@ public class FigisDocBuilder {
 	 * url fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Identifier@Type="URI"
 	 * 
 	 * citation fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:bibliographicCitation
+	 * 
+	 * -- type fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Type
+	 * 
+	 * meetingStartDate - meetingEndDate fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date *
 	 * 
 	 * @param infoSourceList
 	 * @param figisDoc
@@ -461,6 +466,11 @@ public class FigisDocBuilder {
 		for (InformationSource infoSource : infoSourceList) {
 
 			BiblioEntry biblioEntry = f.createBiblioEntry();
+
+			// Created
+			Created created = new Created();
+			created.setContent(currentDate.getCurrentDateYyyyMmDd());
+			biblioEntry.getContent().add(created);
 
 			CreatorCorporate cc = new CreatorCorporate();
 			cc.setContent(u.getEnglish(infoSource.getCommittee()));
@@ -480,6 +490,10 @@ public class FigisDocBuilder {
 			BibliographicCitation citation = new BibliographicCitation();
 			citation.setContent(u.getEnglish(infoSource.getCitation()));
 			biblioEntry.getContent().add(citation);
+
+			Type type = dcf.createType();
+			type.setType(Integer.toString(infoSource.getSourceType()));
+			biblioEntry.getContent().add(type);
 
 			sources.getTextsAndImagesAndTables().add(biblioEntry);
 		}
@@ -571,5 +585,26 @@ public class FigisDocBuilder {
 
 		figisDoc.setObjectSource(objectSource);
 
+	}
+
+	public void fisheryArea(History fisheryAreasHistory, FIGISDoc figisDoc) {
+		// // FishingArea_history fi:FIGISDoc/fi:VME/fi:FisheryArea/fi:Text
+		if (fisheryAreasHistory != null) {
+			Text text = ut.getEnglishText(fisheryAreasHistory.getHistory());
+			FisheryArea fisheryArea = f.createFisheryArea();
+			fisheryArea.getTextsAndImagesAndTables().add(text);
+			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(fisheryArea);
+		}
+
+	}
+
+	public void vmesHistory(History vmesHistory, FIGISDoc figisDoc) {
+		// // VME_history fi:FIGISDoc/fi:VME/fi:History/fi:Text
+		if (vmesHistory != null) {
+			Text text = ut.getEnglishText(vmesHistory.getHistory());
+			org.fao.fi.figis.devcon.History history = f.createHistory();
+			history.getTextsAndImagesAndTables().add(text);
+			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(history);
+		}
 	}
 }

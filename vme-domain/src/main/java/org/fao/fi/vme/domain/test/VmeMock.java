@@ -70,10 +70,12 @@ public class VmeMock {
 		List<GeneralMeasure> generalMeasureList = new ArrayList<GeneralMeasure>();
 		List<GeoRef> geoRefList = new ArrayList<GeoRef>();
 		List<History> fishingHistoryList = new ArrayList<History>();
+		List<History> hasVmesHistory = new ArrayList<History>();
 
 		for (int i = 0; i < nrOfyears; i++) {
 			int year = startYear + i;
 			InformationSource is = new InformationSource();
+			is.setSourceType(0);
 			is.setId(id++);
 			is.setCitation(u.english("RFMO Conservation and Enforcement Measure " + year + " (Doc No. ####)"));
 			try {
@@ -86,10 +88,12 @@ public class VmeMock {
 			is.setReportSummary(u.english("This is an abstract (report summary)"));
 			informationSourceList.add(is);
 
-			History rfmoHistory = new History();
-			rfmoHistory.setId(id++);
-			rfmoHistory.setYear(year);
-			fishingHistoryList.add(rfmoHistory);
+			History history = new History();
+			history.setId(id++);
+			history.setYear(year);
+			history.setHistory(u.english("History repeating"));
+			fishingHistoryList.add(history);
+			hasVmesHistory.add(history);
 
 			Profile profile = new Profile();
 
@@ -134,6 +138,7 @@ public class VmeMock {
 		String rfmoId = new Long(id++).toString();
 		rfmo.setId(rfmoId);
 		rfmo.setHasFisheryAreasHistory(fishingHistoryList);
+		rfmo.setHasVmesHistory(hasVmesHistory);
 		rfmo.setInformationSourceList(informationSourceList);
 		rfmo.setGeneralMeasureList(generalMeasureList);
 
