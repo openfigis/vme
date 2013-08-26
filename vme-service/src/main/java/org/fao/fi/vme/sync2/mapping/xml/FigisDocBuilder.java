@@ -168,14 +168,47 @@ public class FigisDocBuilder {
 
 			entry.getTextsAndImagesAndTables().add(measure); // add measure to ManagementMethodEntry
 
-			ManagementMethods managementMethods = f.createManagementMethods();
+			ManagementMethods managementMethods = findManagementMethods(figisDoc);
+
 			managementMethods.getManagementMethodEntriesAndTextsAndImages().add(entry);
-			Management management = f.createManagement();
+
+			Management management = findManagement(figisDoc);
 			management.getTextsAndImagesAndTables().add(managementMethods);
 
-			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(management);
 		}
 
+	}
+
+	private ManagementMethods findManagementMethods(FIGISDoc figisDoc) {
+		List<Object> list = figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts();
+		ManagementMethods managementMethods = f.createManagementMethods();
+		for (Object object : list) {
+			if (object instanceof Management) {
+				Management management = (Management) object;
+				List<Object> textsAndImagesAndTablesList = management.getTextsAndImagesAndTables();
+				for (Object o : textsAndImagesAndTablesList) {
+					if (o instanceof ManagementMethods) {
+						managementMethods = (ManagementMethods) o;
+					}
+				}
+			}
+		}
+		return managementMethods;
+	}
+
+	private Management findManagement(FIGISDoc figisDoc) {
+		List<Object> list = figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts();
+		Management management = null;
+		for (Object object : list) {
+			if (object instanceof Management) {
+				management = (Management) object;
+			}
+		}
+		if (management == null) {
+			management = f.createManagement();
+			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(management);
+		}
+		return management;
 	}
 
 	/**
@@ -322,12 +355,10 @@ public class FigisDocBuilder {
 		mmeBuilder.addSources(yearObject, entry);
 		mmeBuilder.addRange(yearObject, entry);
 
-		ManagementMethods methods = f.createManagementMethods();
+		ManagementMethods methods = findManagementMethods(figisDoc);
 		methods.getManagementMethodEntriesAndTextsAndImages().add(entry);
 
-		Management m = f.createManagement();
-		m.getTextsAndImagesAndTables().add(methods);
-		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(m);
+		// Management m = findManagement(figisDoc);
 
 		// fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@
 

@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
+import org.apache.commons.lang.StringUtils;
 import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
@@ -377,6 +378,8 @@ public class FigisDocBuilderTest {
 
 		String s = m.marshalToString(figisDoc);
 		assertTrue(s.contains(VMEIdent.class.getSimpleName()));
+		System.out.println(s);
+		assertEquals(1, StringUtils.countMatches(s, "<fi:Management>"));
 
 		System.out.println(s);
 	}
