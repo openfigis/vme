@@ -115,7 +115,7 @@ public class Meetings implements TableDomainMapper {
 			throw new VmeException(e);
 		}
 
-		is.setCitation(u.english(this.getLink_Tagged_File()));
+		is.setCitation(u.english(this.getCitation()));
 		return is;
 	}
 }
