@@ -2,7 +2,10 @@
 <!-- edited  by Yves Jaques, Aureliano gentile (FAO Headquarters) -->
 <?xml-stylesheet type="text/xsl" href="global_elems.xslt"?>
 <!-- global_schema_to_domain.xslt -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ags="http://www.purl.org/agmes/1.1/" xmlns:aida="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dwc="http://rs.tdwg.org/dwc/terms/" xmlns:fi="http://www.fao.org/fi/figis/devcon/" targetNamespace="http://www.fao.org/fi/figis/devcon/" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" 
+xmlns:ags="http://www.purl.org/agmes/1.1/" xmlns:aida="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd" 
+xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dwc="http://rs.tdwg.org/dwc/terms/" 
+xmlns:fi="http://www.fao.org/fi/figis/devcon/" targetNamespace="http://www.fao.org/fi/figis/devcon/" elementFormDefault="qualified">
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
 	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
 	<xs:import namespace="http://rs.tdwg.org/dwc/terms/" schemaLocation="dwc.xsd"/>
