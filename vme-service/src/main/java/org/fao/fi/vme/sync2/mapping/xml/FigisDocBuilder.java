@@ -512,9 +512,11 @@ public class FigisDocBuilder {
 
 			// Created
 			// publicationYear fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
-			Created created = new Created();
-			created.setContent(Integer.toString(infoSource.getPublicationYear()));
-			biblioEntry.getContent().add(created);
+			if (infoSource.getPublicationYear() > 0) {
+				Created created = new Created();
+				created.setContent(Integer.toString(infoSource.getPublicationYear()));
+				biblioEntry.getContent().add(created);
+			}
 
 			// meetingStartDate - meetingEndDate fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date
 			if (infoSource.getMeetingStartDate() != null) {
