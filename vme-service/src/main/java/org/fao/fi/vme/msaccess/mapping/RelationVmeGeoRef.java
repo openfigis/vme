@@ -24,9 +24,24 @@ public class RelationVmeGeoRef {
 		for (ObjectCollection objectCollection : objectCollectionList) {
 			if (objectCollection.getClazz().equals(Vme.class)) {
 				workToDo(objectCollection);
+
+				// set the vme on the GeoRef;
+				setVmeOnGeoRef(objectCollection);
+
 				// checks
 				postConditionCheck(objectCollection);
 
+			}
+		}
+	}
+
+	private void setVmeOnGeoRef(ObjectCollection objectCollection) {
+		List<Object> object = objectCollection.getObjectList();
+		for (Object found : object) {
+			Vme vme = (Vme) found;
+			List<GeoRef> l = vme.getGeoRefList();
+			for (GeoRef geoRef : l) {
+				geoRef.setVme(vme);
 			}
 		}
 	}

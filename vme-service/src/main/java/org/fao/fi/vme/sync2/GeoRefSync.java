@@ -9,6 +9,7 @@ import org.fao.fi.figis.domain.RefWaterArea;
 import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.domain.GeoRef;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 /**
  * 
@@ -25,10 +26,12 @@ import org.fao.fi.vme.domain.GeoRef;
 public class GeoRefSync implements Sync {
 
 	@Inject
-	FigisDao figisDao;
+	private FigisDao figisDao;
 
 	@Inject
-	VmeDao vmeDao;
+	private VmeDao vmeDao;
+
+	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	@Override
 	public void sync() {
@@ -54,6 +57,6 @@ public class GeoRefSync implements Sync {
 
 	private void map(GeoRef geoRef, RefWaterArea object) {
 		object.setExternalId(geoRef.getGeographicFeatureID());
+		object.setName(u.getEnglish(geoRef.getVme().getName()));
 	}
-
 }
