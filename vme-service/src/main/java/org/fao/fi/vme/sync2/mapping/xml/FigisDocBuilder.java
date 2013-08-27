@@ -172,9 +172,6 @@ public class FigisDocBuilder {
 
 			managementMethods.getManagementMethodEntriesAndTextsAndImages().add(entry);
 
-			Management management = findManagement(figisDoc);
-			management.getTextsAndImagesAndTables().add(managementMethods);
-
 		}
 
 	}

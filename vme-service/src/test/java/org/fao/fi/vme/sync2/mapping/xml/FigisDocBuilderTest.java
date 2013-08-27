@@ -380,6 +380,7 @@ public class FigisDocBuilderTest {
 		assertTrue(s.contains(VMEIdent.class.getSimpleName()));
 		System.out.println(s);
 		assertEquals(1, StringUtils.countMatches(s, "<fi:Management>"));
+		assertEquals(1, StringUtils.countMatches(s, "<fi:ManagementMethods>"));
 
 		System.out.println(s);
 	}
