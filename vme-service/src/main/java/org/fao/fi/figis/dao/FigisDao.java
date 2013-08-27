@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 
 import org.fao.fi.dao.Dao;
@@ -14,6 +15,7 @@ import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
+import org.fao.fi.figis.domain.RefWaterArea;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.VmeObservationPk;
@@ -306,4 +308,38 @@ public class FigisDao extends Dao {
 		return xmlFound;
 	}
 
+	public void syncRefWaterArea(String externalId, RefWaterArea refWaterArea) {
+
+		em.getTransaction().begin();
+
+		String queryString2 = " select r from RefWaterArea r where r.externalId = :externalId ";
+		Query query = em.createQuery(queryString2);
+		query.setParameter("externalId", externalId);
+		RefWaterArea found = null;
+		try {
+			found = (RefWaterArea) query.getSingleResult();
+		} catch (NoResultException e) {
+			// is valid, a new object needs to be created.
+		} catch (NonUniqueResultException e) {
+			// elements are not unique!
+			throw new VmeException(externalId + " is not unique, data is not consisten!");
+		}
+		if (found != null) {
+			refWaterArea.setId(found.getId());
+			em.merge(refWaterArea);
+		} else {
+			String queryString1 = " select max(id) from RefWaterArea ";
+			Object object = em.createQuery(queryString1).getSingleResult();
+			if (object == null) {
+				refWaterArea.setId(0l);
+			} else {
+				long l = ((Long) object).intValue();
+				l++;
+				refWaterArea.setId(l);
+			}
+			em.persist(refWaterArea);
+		}
+		em.getTransaction().commit();
+
+	}
 }

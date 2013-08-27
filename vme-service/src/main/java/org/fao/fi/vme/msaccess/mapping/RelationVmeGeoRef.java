@@ -2,9 +2,12 @@ package org.fao.fi.vme.msaccess.mapping;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
@@ -21,9 +24,27 @@ public class RelationVmeGeoRef {
 		for (ObjectCollection objectCollection : objectCollectionList) {
 			if (objectCollection.getClazz().equals(Vme.class)) {
 				workToDo(objectCollection);
+				// checks
+				postConditionCheck(objectCollection);
 
 			}
 		}
+	}
+
+	private void postConditionCheck(ObjectCollection objectCollection) {
+		List<Object> object = objectCollection.getObjectList();
+		Set<String> set = new HashSet<String>();
+		for (Object found : object) {
+			Vme vme = (Vme) found;
+			List<GeoRef> l = vme.getGeoRefList();
+			for (GeoRef geoRef : l) {
+				if (set.contains(geoRef.getGeographicFeatureID())) {
+					throw new VmeException("Double found : " + geoRef.getGeographicFeatureID());
+				}
+				set.add(geoRef.getGeographicFeatureID());
+			}
+		}
+
 	}
 
 	/**

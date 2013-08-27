@@ -520,17 +520,10 @@ public class FigisDocBuilder {
 
 			// meetingStartDate - meetingEndDate fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date
 			if (infoSource.getMeetingStartDate() != null) {
-				Date startDate = dcf.createDate();
-				startDate.setType("startDate");
-				startDate.setContent(df.format(infoSource.getMeetingStartDate()));
-				biblioEntry.getContent().add(startDate);
-			}
-
-			if (infoSource.getMeetingEndDate() != null) {
-				Date endDate = dcf.createDate();
-				endDate.setType("endDate");
-				endDate.setContent(df.format(infoSource.getMeetingEndDate()));
-				biblioEntry.getContent().add(endDate);
+				Date createDate = dcf.createDate();
+				createDate.setContent(df.format(infoSource.getMeetingStartDate()) + " - "
+						+ df.format(infoSource.getMeetingEndDate()));
+				biblioEntry.getContent().add(createDate);
 			}
 
 			Identifier identifier = new Identifier();
