@@ -526,7 +526,7 @@ public class FigisDocBuilder {
 
 			if (infoSource.getMeetingEndDate() != null) {
 				Date endDate = dcf.createDate();
-				endDate.setType("startDate");
+				endDate.setType("endDate");
 				endDate.setContent(df.format(infoSource.getMeetingEndDate()));
 				biblioEntry.getContent().add(endDate);
 			}
