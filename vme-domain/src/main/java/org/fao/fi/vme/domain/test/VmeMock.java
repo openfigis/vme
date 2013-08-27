@@ -76,7 +76,7 @@ public class VmeMock {
 		for (int i = 0; i < nrOfyears; i++) {
 			int year = startYear + i;
 			InformationSource is = new InformationSource();
-			is.setSourceType(0);
+			is.setSourceType(2);
 			is.setId(id++);
 			is.setCitation(u.english("RFMO Conservation and Enforcement Measure " + year + " (Doc No. ####)"));
 			is.setMeetingEndDate(Calendar.getInstance().getTime());

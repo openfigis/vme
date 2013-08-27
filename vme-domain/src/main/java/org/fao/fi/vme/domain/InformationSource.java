@@ -81,6 +81,17 @@ public class InformationSource {
 
 	/**
 	 * This field maybe used to indicate what type of source this is. One type would be link CEM Source.
+	 * 
+	 * <option value="1">Book </option>
+	 * 
+	 * <option value="3">Journal </option>
+	 * 
+	 * <option value="4">Project </option>
+	 * 
+	 * <option value="2">Meeting documents</option>
+	 * 
+	 * <option value="6">CD-ROM/DVD</option> <option VALUE="-1">Other </option>
+	 * 
 	 */
 	private Integer sourceType;
 

@@ -151,8 +151,7 @@ public class Measures_VME_General implements TableDomainMapper {
 			try {
 				url = new URL(this.getLink_CEM_Source());
 				InformationSource is = new InformationSource();
-				// TODO what are the types??
-				is.setSourceType(0);
+				is.setSourceType(2);
 				is.setUrl(url);
 				is.setCitation(u.english(this.getLink_CEM_Bookmarked()));
 				List<InformationSource> isList = new ArrayList<InformationSource>();

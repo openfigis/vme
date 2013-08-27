@@ -96,7 +96,7 @@ public class Meetings implements TableDomainMapper {
 	@Override
 	public Object map() {
 		InformationSource is = new InformationSource();
-		// TODO what are the types?
+
 		is.setSourceType(0);
 		MultiLingualStringUtil u = new MultiLingualStringUtil();
 		is.setCommittee(u.english(this.Committee));
