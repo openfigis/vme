@@ -24,6 +24,34 @@ import org.junit.runner.RunWith;
 public class FigisDaoTest extends FigisDaoTestLogic {
 
 	@Test
+	public void testFindVod() {
+		RefVme refVme = RefVmeMock.create();
+		if (dao.find(RefVme.class, refVme.getId()) == null) {
+			dao.persist(refVme);
+		}
+		int count[] = count();
+		VmeObservationDomain vod = createVmeObservationDomain();
+		assertEquals(1, vod.getObservationDomainList().size());
+		vod.setRefVme(refVme);
+		checkCount(count, 0);
+		dao.syncVmeObservationDomain(vod);
+		checkCount(count, 1);
+		VmeObservationDomain vodFound = dao.findVod(refVme.getId());
+		assertEquals(vod.getObservationDomainList().size(), vodFound.getObservationDomainList().size());
+		assertEquals(vod.getObservationDomainList().get(0), vodFound.getObservationDomainList().get(0));
+		assertEquals(vod.getObservationDomainList().get(0).getId(), vodFound.getObservationDomainList().get(0).getId());
+		assertEquals(vod.getObservationDomainList().get(0).getReportingYear(),
+				vodFound.getObservationDomainList().get(0).getReportingYear());
+		assertEquals(vod.getObservationDomainList().get(0).getCollection(), vodFound.getObservationDomainList().get(0)
+				.getCollection());
+		assertEquals(vod.getObservationDomainList().get(0).getOrder(), vodFound.getObservationDomainList().get(0)
+				.getOrder());
+		assertEquals(vod.getObservationDomainList().get(0).getObservationsPerLanguage().size(), vodFound
+				.getObservationDomainList().get(0).getObservationsPerLanguage().size());
+
+	}
+
+	@Test
 	public void testsyncRefVme() {
 		RefVme r = createRefVme();
 		assertNull(dao.find(RefVme.class, r.getId()));

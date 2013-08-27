@@ -180,18 +180,19 @@ public class FigisDocBuilder {
 	}
 
 	private ManagementMethods findManagementMethods(FIGISDoc figisDoc) {
-		List<Object> list = figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts();
-		ManagementMethods managementMethods = f.createManagementMethods();
-		for (Object object : list) {
-			if (object instanceof Management) {
-				Management management = (Management) object;
-				List<Object> textsAndImagesAndTablesList = management.getTextsAndImagesAndTables();
-				for (Object o : textsAndImagesAndTablesList) {
-					if (o instanceof ManagementMethods) {
-						managementMethods = (ManagementMethods) o;
-					}
-				}
+		Management management = findManagement(figisDoc);
+
+		ManagementMethods managementMethods = null;
+		List<Object> textsAndImagesAndTablesList = management.getTextsAndImagesAndTables();
+		for (Object o : textsAndImagesAndTablesList) {
+			if (o instanceof ManagementMethods) {
+				managementMethods = (ManagementMethods) o;
 			}
+		}
+
+		if (managementMethods == null) {
+			managementMethods = f.createManagementMethods();
+			management.getTextsAndImagesAndTables().add(managementMethods);
 		}
 		return managementMethods;
 	}

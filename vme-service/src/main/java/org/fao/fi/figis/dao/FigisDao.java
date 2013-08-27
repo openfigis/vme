@@ -1,5 +1,6 @@
 package org.fao.fi.figis.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -182,6 +183,7 @@ public class FigisDao extends Dao {
 		// first the observation needs to be persisted in order to get an id
 		Observation o = new Observation(od);
 		em.persist(o);
+		od.setId(o.getId());
 
 		// then a VmeObservation can be persisted.
 		VmeObservation vo = new VmeObservation();
@@ -253,6 +255,25 @@ public class FigisDao extends Dao {
 		return r;
 	}
 
+	public VmeObservationDomain findVod(Long vmeId) {
+		VmeObservationDomain vod = new VmeObservationDomain();
+		List<ObservationDomain> vodList = new ArrayList<ObservationDomain>();
+		List<VmeObservation> VmeObservationList = findVmeObservationByVme(vmeId);
+		for (VmeObservation vmeObservation : VmeObservationList) {
+			Observation observation = em.find(Observation.class, vmeObservation.getId().getObservationId());
+			String reportingYear = vmeObservation.getId().getReportingYear();
+			ObservationXml xml = findEnglishXml(vmeObservation.getId().getObservationId());
+			List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
+			observationsPerLanguage.add(xml);
+			ObservationDomain od = new ObservationDomain(observation, reportingYear, observationsPerLanguage);
+			vodList.add(od);
+		}
+		RefVme refVme = em.find(RefVme.class, vmeId);
+		vod.setRefVme(refVme);
+		vod.setObservationDomainList(vodList);
+		return vod;
+	}
+
 	/**
 	 * This one removes the whole vme, except for the reference data.
 	 * 
@@ -267,9 +288,7 @@ public class FigisDao extends Dao {
 		List<VmeObservation> voList = findVmeObservationByVme(vmeId);
 		for (VmeObservation vo : voList) {
 			Observation o = (Observation) this.find(Observation.class, vo.getId().getObservationId());
-			DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
-			String xmlId = rule.composeId(o.getId(), Figis.EN);
-			ObservationXml xmlFound = (ObservationXml) this.find(ObservationXml.class, xmlId);
+			ObservationXml xmlFound = findEnglishXml(o.getId());
 			if (xmlFound != null) {
 				em.remove(xmlFound);
 				em.remove(o);
@@ -279,4 +298,12 @@ public class FigisDao extends Dao {
 		em.getTransaction().commit();
 
 	}
+
+	private ObservationXml findEnglishXml(Long id) {
+		DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
+		String xmlId = rule.composeId(id, Figis.EN);
+		ObservationXml xmlFound = (ObservationXml) this.find(ObservationXml.class, xmlId);
+		return xmlFound;
+	}
+
 }

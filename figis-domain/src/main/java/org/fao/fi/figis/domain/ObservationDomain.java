@@ -1,6 +1,21 @@
 package org.fao.fi.figis.domain;
 
+import java.util.List;
+
 public class ObservationDomain extends Observation {
+
+	public ObservationDomain() {
+	}
+
+	public ObservationDomain(Observation observation, String reportingYear, List<ObservationXml> observationsPerLanguage) {
+		this.reportingYear = reportingYear;
+		this.setCollection(observation.getCollection());
+		this.setId(observation.getId());
+		this.setOrder(observation.getOrder());
+		this.setPrimary(observation.isPrimary());
+		this.setReference(observation.isReference());
+		this.setObservationsPerLanguage(observationsPerLanguage);
+	}
 
 	/**
 	 * 

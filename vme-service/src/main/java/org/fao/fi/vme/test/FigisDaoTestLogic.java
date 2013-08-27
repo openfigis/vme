@@ -1,6 +1,8 @@
 package org.fao.fi.vme.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,14 +44,20 @@ public abstract class FigisDaoTestLogic {
 		checkCount(count, 0);
 		dao.syncVmeObservationDomain(vod);
 		checkCount(count, 1);
+
+		assertTrue(vod.getObservationDomainList().get(0).getId() > 0);
+
 		dao.syncVmeObservationDomain(vod);
 		checkCount(count, 1);
 
 		add1Observation2Vod(vod);
 
+		assertFalse(vod.getObservationDomainList().get(0).isPrimary());
 		dao.syncVmeObservationDomain(vod);
 		assertEquals(2, vod.getObservationDomainList().size());
 		checkCount(count, 2);
+
+		List<VmeObservation> list = dao.findVmeObservationByVme(vod.getRefVme().getId());
 
 	}
 
