@@ -43,10 +43,10 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.purl.agmes._1.CreatorCorporate;
-import org.purl.dc.elements._1.Date;
 import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.terms.Abstrakt;
 import org.purl.dc.terms.BibliographicCitation;
+import org.purl.dc.terms.Created;
 import org.vme.fimes.jaxb.JaxbMarshall;
 
 public class FigisDocBuilderTest {
@@ -351,8 +351,9 @@ public class FigisDocBuilderTest {
 				if (obj instanceof CreatorCorporate) {
 					assertEquals(u.getEnglish(infoSourceList.get(i).getCommittee()),
 							((CreatorCorporate) obj).getContent());
-				} else if (obj instanceof Date) {
-					assertEquals(infoSourceList.get(i).getPublicationYear(), ((Date) obj).getContent());
+				} else if (obj instanceof Created) {
+					assertEquals(Integer.toString(infoSourceList.get(i).getPublicationYear()),
+							((Created) obj).getContent());
 				} else if (obj instanceof Abstrakt) {
 					assertEquals(u.getEnglish(infoSourceList.get(i).getReportSummary()), ((Abstrakt) obj).getContent());
 				} else if (obj instanceof BibliographicCitation) {
@@ -377,12 +378,13 @@ public class FigisDocBuilderTest {
 		b.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
 
 		String s = m.marshalToString(figisDoc);
-		assertTrue(s.contains(VMEIdent.class.getSimpleName()));
+
 		System.out.println(s);
+		assertTrue(s.contains(VMEIdent.class.getSimpleName()));
+		// System.out.println(s);
 		assertEquals(1, StringUtils.countMatches(s, "<fi:Management>"));
 		assertEquals(1, StringUtils.countMatches(s, "<fi:ManagementMethods>"));
 
-		System.out.println(s);
 	}
 
 }

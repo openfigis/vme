@@ -3,6 +3,7 @@ package org.fao.fi.vme.domain.test;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import org.fao.fi.vme.domain.GeneralMeasure;
@@ -78,6 +79,7 @@ public class VmeMock {
 			is.setSourceType(0);
 			is.setId(id++);
 			is.setCitation(u.english("RFMO Conservation and Enforcement Measure " + year + " (Doc No. ####)"));
+			is.setMeetingEndDate(Calendar.getInstance().getTime());
 			try {
 				is.setUrl(new URL("http://www.rfmo.org"));
 			} catch (Exception e) {

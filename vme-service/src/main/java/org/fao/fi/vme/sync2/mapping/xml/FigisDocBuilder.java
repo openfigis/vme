@@ -48,6 +48,7 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync2.mapping.RfmoHistory;
 import org.fao.fi.vme.sync2.mapping.VmeHistory;
 import org.purl.agmes._1.CreatorCorporate;
+import org.purl.dc.elements._1.Date;
 import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.elements._1.Title;
 import org.purl.dc.elements._1.Type;
@@ -69,6 +70,7 @@ public class FigisDocBuilder {
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 	private EnglishTextUtil ut = new EnglishTextUtil();
 	private ManagementMethodEntryBuilder mmeBuilder = new ManagementMethodEntryBuilder();
+	private DateFormatter df = new DateFormatter();
 	private CurrentDate currentDate = new CurrentDate();
 
 	/**
@@ -496,33 +498,47 @@ public class FigisDocBuilder {
 
 			BiblioEntry biblioEntry = f.createBiblioEntry();
 
-			// Created
-			Created created = new Created();
-			created.setContent(currentDate.getCurrentDateYyyyMmDd());
-			biblioEntry.getContent().add(created);
+			Type type = dcf.createType();
+			type.setType(Integer.toString(infoSource.getSourceType()));
+			biblioEntry.getContent().add(type);
+
+			BibliographicCitation citation = new BibliographicCitation();
+			citation.setContent(u.getEnglish(infoSource.getCitation()));
+			biblioEntry.getContent().add(citation);
 
 			CreatorCorporate cc = new CreatorCorporate();
 			cc.setContent(u.getEnglish(infoSource.getCommittee()));
 			biblioEntry.getContent().add(cc);
 
-			biblioEntry.getContent().add(Integer.toString(infoSource.getPublicationYear()));
+			// Created
+			// publicationYear fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
+			Created created = new Created();
+			created.setContent(Integer.toString(infoSource.getPublicationYear()));
+			biblioEntry.getContent().add(created);
 
-			Abstrakt bibAbstract = new Abstrakt();
-			bibAbstract.setContent(u.getEnglish(infoSource.getReportSummary()));
-			biblioEntry.getContent().add(bibAbstract);
+			// meetingStartDate - meetingEndDate fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date
+			if (infoSource.getMeetingStartDate() != null) {
+				Date startDate = dcf.createDate();
+				startDate.setType("startDate");
+				startDate.setContent(df.format(infoSource.getMeetingStartDate()));
+				biblioEntry.getContent().add(startDate);
+			}
+
+			if (infoSource.getMeetingEndDate() != null) {
+				Date endDate = dcf.createDate();
+				endDate.setType("startDate");
+				endDate.setContent(df.format(infoSource.getMeetingEndDate()));
+				biblioEntry.getContent().add(endDate);
+			}
 
 			Identifier identifier = new Identifier();
 			identifier.setType("URI");
 			identifier.setContent(infoSource.getUrl().toString());
 			biblioEntry.getContent().add(identifier);
 
-			BibliographicCitation citation = new BibliographicCitation();
-			citation.setContent(u.getEnglish(infoSource.getCitation()));
-			biblioEntry.getContent().add(citation);
-
-			Type type = dcf.createType();
-			type.setType(Integer.toString(infoSource.getSourceType()));
-			biblioEntry.getContent().add(type);
+			Abstrakt bibAbstract = new Abstrakt();
+			bibAbstract.setContent(u.getEnglish(infoSource.getReportSummary()));
+			biblioEntry.getContent().add(bibAbstract);
 
 			sources.getTextsAndImagesAndTables().add(biblioEntry);
 		}
