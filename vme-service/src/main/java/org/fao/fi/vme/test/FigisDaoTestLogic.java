@@ -57,7 +57,33 @@ public abstract class FigisDaoTestLogic {
 		assertEquals(2, vod.getObservationDomainList().size());
 		checkCount(count, 2);
 
-		List<VmeObservation> list = dao.findVmeObservationByVme(vod.getRefVme().getId());
+	}
+
+	/**
+	 * This test is done in unit test context and integration test context. In integration test context the @Before and @After
+	 * do the cleaning work.
+	 */
+	@Test
+	public void testSyncVmeObservationDomainUpdate() {
+		RefVme refVme = RefVmeMock.create();
+		if (dao.find(RefVme.class, refVme.getId()) == null) {
+			dao.persist(refVme);
+		}
+		int count[] = count();
+		VmeObservationDomain vod = createVmeObservationDomain();
+
+		vod.setRefVme(refVme);
+		checkCount(count, 0);
+		dao.syncVmeObservationDomain(vod);
+		checkCount(count, 1);
+
+		VmeObservationDomain f1 = dao.findVod(refVme.getId());
+		String xml = "Hello";
+		f1.getObservationDomainList().get(0).getObservationsPerLanguage().get(0).setXml(xml);
+		dao.syncVmeObservationDomain(f1);
+
+		VmeObservationDomain f2 = dao.findVod(refVme.getId());
+		assertEquals(xml, f2.getObservationDomainList().get(0).getObservationsPerLanguage().get(0).getXml());
 
 	}
 
