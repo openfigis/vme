@@ -37,6 +37,7 @@ public class WaterAreaRefSyncTest {
 		// assume empty DB
 		assertNrOfObjects(0);
 		GeoRef o = GeoRefMock.create();
+		vmeDao.persist(o.getVme());
 		vmeDao.persist(o);
 
 		// perform the logic
@@ -49,7 +50,7 @@ public class WaterAreaRefSyncTest {
 		geoRefSync.sync();
 		assertNrOfObjects(1);
 
-		RefWaterArea found = (RefWaterArea) figisDao.find(RefWaterArea.class, o.getId());
+		RefWaterArea found = (RefWaterArea) figisDao.find(RefWaterArea.class, 60000l);
 		assertEquals(GeoRefMock.geographicFeatureID, found.getExternalId());
 
 	}
