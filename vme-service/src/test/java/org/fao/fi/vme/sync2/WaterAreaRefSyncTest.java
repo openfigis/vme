@@ -50,7 +50,9 @@ public class WaterAreaRefSyncTest {
 		geoRefSync.sync();
 		assertNrOfObjects(1);
 
-		RefWaterArea found = (RefWaterArea) figisDao.find(RefWaterArea.class, 60000l);
+		Long id = (long) FigisDao.START_WATER_AREA_REF;
+
+		RefWaterArea found = (RefWaterArea) figisDao.find(RefWaterArea.class, id);
 		assertEquals(GeoRefMock.geographicFeatureID, found.getExternalId());
 
 	}
