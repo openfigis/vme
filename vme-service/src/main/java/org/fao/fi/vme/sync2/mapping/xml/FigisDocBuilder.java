@@ -59,6 +59,23 @@ import org.purl.dc.terms.Created;
 /**
  * FigisDocBuilder, to build a FIGISDoc from VME Domain database
  * 
+ * 
+ * Order for VMEIdent (/fi:FIGISDoc/fi:VME/fi:VMEIdent)
+ * 
+ * dc:Title
+ * 
+ * fi:Range
+ * 
+ * fi:ReportingYear
+ * 
+ * fi:OrgRef
+ * 
+ * fi:GeoReference
+ * 
+ * fi:VMEType
+ * 
+ * fi:VMECriteria
+ * 
  * @author Emmanuel Blondel
  * @author Erik van Ingen
  * 
@@ -436,15 +453,24 @@ public class FigisDocBuilder {
 		VMECriteria vmeCriteria = new VMECriteria();
 		vmeCriteria.setValue(vmeDomain.getCriteria());
 
+		// Order:
+		// dc:Title
+		// fi:Range
+		// fi:ReportingYear
+		// fi:OrgRef
+		// fi:GeoReference
+		// fi:VMEType
+		// fi:VMECriteria
+
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(figisID);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeForeignID);
-		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
 		// OrgRef
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(title);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(range);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(Integer.toString(year));
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeCriteria);
-		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(Integer.toString(year));
-		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(range);
 		// GeoReference
 
 		VME vme = new VME();
