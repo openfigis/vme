@@ -521,8 +521,7 @@ public class FigisDocBuilder {
 			// meetingStartDate - meetingEndDate fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date
 			if (infoSource.getMeetingStartDate() != null) {
 				Date createDate = dcf.createDate();
-				createDate.setContent(df.format(infoSource.getMeetingStartDate()) + " - "
-						+ df.format(infoSource.getMeetingEndDate()));
+				createDate.setContent(df.format(infoSource.getMeetingStartDate(), infoSource.getMeetingEndDate()));
 				biblioEntry.getContent().add(createDate);
 			}
 

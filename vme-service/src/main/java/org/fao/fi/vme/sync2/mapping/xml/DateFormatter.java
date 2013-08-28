@@ -6,9 +6,15 @@ import java.util.Date;
 
 public class DateFormatter {
 
+	private DateFormat dateFormatFormal = new SimpleDateFormat("yyyy-MM-dd");
+	private DateFormat dateFormatMonthIn3Char = new SimpleDateFormat("dd MMM yyyy");
+
 	public String format(Date date) {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		return dateFormat.format(date);
+
+		return dateFormatFormal.format(date);
 	}
 
+	public String format(Date fromDate, Date toDate) {
+		return dateFormatMonthIn3Char.format(fromDate) + " - " + dateFormatMonthIn3Char.format(toDate);
+	}
 }
