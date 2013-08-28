@@ -40,8 +40,24 @@ import org.slf4j.LoggerFactory;
 @Singleton
 public class FigisDao extends Dao {
 
-	final static Logger logger = LoggerFactory.getLogger(FigisDao.class);
+	private final static Logger logger = LoggerFactory.getLogger(FigisDao.class);
 	private DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
+
+	/**
+	 * Hi Fabrizio,
+	 * 
+	 * Water area refs for VME are loaded in RTMS from the Access DB, in the future from iMarine. To be sure that water
+	 * area refs coming from VME, are consistently loaded in devel, fiqa and prod, I propose to have a reserved range
+	 * from 6000-8000.
+	 * 
+	 * select max(cd_water_area) from ref_water_area --5075
+	 * 
+	 * What do you think?
+	 * 
+	 * Kind Regards, Erik
+	 */
+	public static final int START_WATER_AREA_REF = 60000;
+	public static final int END_WATER_AREA_REF = 80000;
 
 	@Inject
 	@FigisDB
@@ -328,10 +344,11 @@ public class FigisDao extends Dao {
 			refWaterArea.setId(found.getId());
 			em.merge(refWaterArea);
 		} else {
-			String queryString1 = " select max(id) from RefWaterArea ";
+			String queryString1 = " select max(id) from RefWaterArea  where id >= " + START_WATER_AREA_REF
+					+ " and id <= " + END_WATER_AREA_REF;
 			Object object = em.createQuery(queryString1).getSingleResult();
 			if (object == null) {
-				refWaterArea.setId(0l);
+				refWaterArea.setId(START_WATER_AREA_REF);
 			} else {
 				long l = ((Long) object).intValue();
 				l++;

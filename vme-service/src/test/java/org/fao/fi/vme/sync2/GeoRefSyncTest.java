@@ -10,6 +10,8 @@ import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.GeoRef;
+import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -31,8 +33,11 @@ public class GeoRefSyncTest {
 	@Test
 	public void testSync() {
 		String geographicFeatureID = "VME_X";
-		GeoRef geoRef = new GeoRef();
+
+		Vme vme = VmeMock.create();
+		GeoRef geoRef = vme.getGeoRefList().get(0);
 		geoRef.setGeographicFeatureID(geographicFeatureID);
+		vmeDao.persist(vme);
 		vmeDao.persist(geoRef);
 		int x = figisDao.loadObjects(RefWaterArea.class).size();
 		geoRefSync.sync();

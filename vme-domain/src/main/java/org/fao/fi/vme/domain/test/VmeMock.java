@@ -34,6 +34,7 @@ public class VmeMock {
 
 		GeoRef g = new GeoRef();
 		g.setYear(YEAR);
+		g.setVme(vme);
 		List<GeoRef> l = new ArrayList<GeoRef>();
 		l.add(g);
 		vme.setGeoRefList(l);
