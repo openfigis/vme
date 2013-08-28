@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
+import org.apache.commons.lang.StringUtils;
 import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.CollectionRef;
 import org.fao.fi.figis.devcon.CorporateCoverPage;
@@ -146,6 +147,7 @@ public class FigisDocBuilder {
 			measure.getTextsAndImagesAndTables().add(measureType);
 
 			// text
+
 			Text measureText = ut.getEnglishText(yearObject.getVmeSpecificMeasure());
 			measure.getTextsAndImagesAndTables().add(measureText);
 
@@ -174,7 +176,8 @@ public class FigisDocBuilder {
 				BibliographicCitation citation = new BibliographicCitation();
 				citation.setContent(u.getEnglish(yearObject.getInformationSource().getCitation()));
 				biblioEntry.getContent().add(citation);
-				if (yearObject.getInformationSource().getUrl() != null) {
+				if (yearObject.getInformationSource().getUrl() != null
+						&& !StringUtils.isBlank(yearObject.getInformationSource().getUrl().getPath())) {
 					Identifier identifier = new Identifier();
 					identifier.setType("URI");
 					identifier.setContent(yearObject.getInformationSource().getUrl().toString());

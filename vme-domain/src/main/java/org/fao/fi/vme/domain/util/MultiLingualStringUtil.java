@@ -3,6 +3,7 @@ package org.fao.fi.vme.domain.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.fao.fi.vme.domain.MultiLingualString;
 
 /**
@@ -31,6 +32,9 @@ public class MultiLingualStringUtil {
 		String english = null;
 		if (multiLingualString != null) {
 			english = multiLingualString.getStringMap().get(Lang.EN);
+			if (StringUtils.isBlank(english)) {
+				english = null;
+			}
 		}
 		return english;
 	}
