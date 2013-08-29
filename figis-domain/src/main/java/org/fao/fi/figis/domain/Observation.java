@@ -35,6 +35,17 @@ public class Observation implements Serializable {
 	 */
 	private static final long serialVersionUID = -3005557521032346438L;
 
+	/*
+	 * 
+	 * It seems that FIGIS does not use always the seq_fs_observation. therefore it had to be upgraded.
+	 * 
+	 * What could be done before running the batch, to upgrade it just above the max.
+	 * 
+	 * 
+	 * 
+	 * start with 166500
+	 */
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "G1")
 	@SequenceGenerator(name = "G1", sequenceName = "figis.SEQ_FS_OBSERVATION", allocationSize = 1)

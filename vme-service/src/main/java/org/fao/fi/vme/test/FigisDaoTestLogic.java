@@ -23,6 +23,8 @@ import org.junit.Test;
 
 public abstract class FigisDaoTestLogic {
 
+	public static String REPORTING_YEAR = "2014";
+
 	@Inject
 	protected FigisDao dao;
 
@@ -112,7 +114,7 @@ public abstract class FigisDaoTestLogic {
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
 		vod.setObservationDomainList(odList);
 		ObservationDomain o = new DefaultObservationDomain().defineDefaultObservation();
-		o.setReportingYear("2014");
+		o.setReportingYear(REPORTING_YEAR);
 		ObservationXml xml = ObservationXmlMock.create();
 
 		o.setObservationsPerLanguage(new ArrayList<ObservationXml>());

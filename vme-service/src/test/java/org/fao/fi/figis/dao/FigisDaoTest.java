@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNull;
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
+import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.test.ObservationMock;
@@ -22,6 +23,22 @@ import org.junit.runner.RunWith;
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ FigisDataBaseProducer.class })
 public class FigisDaoTest extends FigisDaoTestLogic {
+
+	@Test
+	public void testFindVmeObservationByVme() {
+		RefVme refVme = RefVmeMock.create();
+		if (dao.find(RefVme.class, refVme.getId()) == null) {
+			dao.persist(refVme);
+		}
+		VmeObservationDomain vod = createVmeObservationDomain();
+		vod.setRefVme(refVme);
+		dao.syncVmeObservationDomain(vod);
+
+		VmeObservation vo = dao.findVmeObservationByVme(vod.getRefVme().getId(), FigisDaoTestLogic.REPORTING_YEAR);
+		assertEquals(vo.getId().getVmeId(), refVme.getId());
+		assertEquals(vo.getId().getReportingYear(), FigisDaoTestLogic.REPORTING_YEAR);
+
+	}
 
 	@Test
 	public void testFindVod() {
