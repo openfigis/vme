@@ -465,6 +465,8 @@ public class FigisDocBuilder {
 		// fi:VMEType
 		// fi:VMECriteria
 
+		// bug : orgref is before areatype and criteria.
+
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(figisID);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeForeignID);
 		// OrgRef
