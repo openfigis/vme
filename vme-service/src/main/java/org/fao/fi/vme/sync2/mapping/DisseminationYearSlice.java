@@ -1,8 +1,11 @@
 package org.fao.fi.vme.sync2.mapping;
 
+import java.util.List;
+
 import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
@@ -42,6 +45,17 @@ public class DisseminationYearSlice {
 
 	// year object
 	private GeoRef geoRef;
+
+	// year object
+	private List<InformationSource> informationSourceList;
+
+	public List<InformationSource> getInformationSourceList() {
+		return informationSourceList;
+	}
+
+	public void setInformationSourceList(List<InformationSource> informationSourceList) {
+		this.informationSourceList = informationSourceList;
+	}
 
 	public int getYear() {
 		return year;

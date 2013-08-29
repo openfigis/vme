@@ -21,6 +21,16 @@ public class PeriodGroupingTest {
 	PeriodGrouping g = new PeriodGrouping();
 
 	@Test
+	public void testInformationHistoryCollectingYears() {
+		int nrOfYears = 2;
+		Vme vme = VmeMock.generateVme(nrOfYears);
+		List<DisseminationYearSlice> slices = g.collect(vme);
+
+		assertEquals(1, slices.get(0).getInformationSourceList().size());
+		assertEquals(2, slices.get(1).getInformationSourceList().size());
+	}
+
+	@Test
 	public void testCollect() {
 		int nrOfYears = 3;
 		Vme vme = VmeMock.generateVme(nrOfYears);

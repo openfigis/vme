@@ -60,7 +60,7 @@ public class ObjectMapping {
 			figisDocBuilder.specificMeasures(disseminationYearSlice.getSpecificMeasures(), figisDoc);
 			figisDocBuilder.profile(disseminationYearSlice.getProfile(), figisDoc);
 			figisDocBuilder.generalMeasures(disseminationYearSlice.getGeneralMeasures(), figisDoc);
-			figisDocBuilder.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
+			figisDocBuilder.informationSource(disseminationYearSlice.getInformationSourceList(), figisDoc);
 
 			ObservationXml xml = new DefaultObservationXml().define();
 			xml.setXml(marshall.marshalToString(figisDoc));

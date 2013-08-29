@@ -8,6 +8,7 @@ import java.util.List;
 import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
@@ -82,6 +83,23 @@ public class PeriodGrouping {
 			slice.setProfile((Profile) geoRef);
 		}
 
+		// InformationSource.
+		List<InformationSource> informationSourceList = vme.getRfmo().getInformationSourceList();
+		if (informationSourceList != null) {
+			defineCurrentAndPastSources(disseminationYear, slice, informationSourceList);
+		}
+
+	}
+
+	private void defineCurrentAndPastSources(int disseminationYear, DisseminationYearSlice slice,
+			List<InformationSource> informationSourceList) {
+		List<InformationSource> appropriateList = new ArrayList<InformationSource>();
+		for (InformationSource informationSource : informationSourceList) {
+			if (informationSource.getPublicationYear() <= disseminationYear) {
+				appropriateList.add(informationSource);
+			}
+		}
+		slice.setInformationSourceList(appropriateList);
 	}
 
 	private Year<?> findRelavantYear(List<? extends Year<?>> hList, int disseminationYear) {

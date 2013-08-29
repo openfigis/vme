@@ -77,6 +77,7 @@ public class VmeMock {
 		for (int i = 0; i < nrOfyears; i++) {
 			int year = startYear + i;
 			InformationSource is = new InformationSource();
+			is.setPublicationYear(year);
 			is.setSourceType(2);
 			is.setId(id++);
 			is.setCitation(u.english("RFMO Conservation and Enforcement Measure " + year + " (Doc No. ####)"));
@@ -86,7 +87,6 @@ public class VmeMock {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			is.setPublicationYear(YEAR);
 			is.setCommittee(u.english("Regional Fishery Management Organization (RFMO)"));
 			is.setReportSummary(u.english("This is an abstract (report summary)"));
 			informationSourceList.add(is);
