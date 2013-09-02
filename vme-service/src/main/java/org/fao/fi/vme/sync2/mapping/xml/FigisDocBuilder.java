@@ -89,6 +89,7 @@ public class FigisDocBuilder {
 	private ManagementMethodEntryBuilder mmeBuilder = new ManagementMethodEntryBuilder();
 	private DateFormatter df = new DateFormatter();
 	private CurrentDate currentDate = new CurrentDate();
+	private InformationSourceCodelist codelist = new InformationSourceCodelist();
 
 	/**
 	 * Adds specificMeasures to a FIGISDoc
@@ -544,8 +545,8 @@ public class FigisDocBuilder {
 
 			Type type = dcf.createType();
 			type.setType(Integer.toString(infoSource.getSourceType()));
-			// TODO add the english text of the meeting type as the content of the element
-			// type.setContent(value)
+			type.setContent(codelist.getDescription(infoSource.getSourceType()));
+
 			biblioEntry.getContent().add(type);
 
 			BibliographicCitation citation = new BibliographicCitation();
