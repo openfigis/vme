@@ -23,8 +23,6 @@ import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.dao.config.FigisDB;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The dao in order to dconnect to the Figis database. Connection details to be found in
@@ -40,7 +38,7 @@ import org.slf4j.LoggerFactory;
 @Singleton
 public class FigisDao extends Dao {
 
-	private final static Logger logger = LoggerFactory.getLogger(FigisDao.class);
+	// private final static Logger logger = LoggerFactory.getLogger(FigisDao.class);
 	private DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
 
 	/**
