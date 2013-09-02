@@ -3,9 +3,7 @@ package org.fao.fi.vme.msaccess.component;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -62,37 +60,14 @@ public class LinkerTest {
 					validateInformationSource(object);
 				}
 				if (object instanceof SpecificMeasure) {
-					validateSpecificMeasuresObject(object);
+					// validateSpecificMeasuresObject(object);
 				}
 				if (object instanceof GeneralMeasure) {
 					validateGeneralMeasuresObject(object);
 				}
 			}
 		}
-		validateRelationVmeSpecificMeasure(objectCollectionList);
-
-	}
-
-	private void validateRelationVmeSpecificMeasure(List<ObjectCollection> objectCollectionList) {
-		ObjectCollection specificMeasuresCollection = null;
-		for (ObjectCollection objectCollection : objectCollectionList) {
-			// if (objectCollection.getClazz().equals(VmeDB.class)) {
-			// vmeCollection = objectCollection;
-			// }
-			if (objectCollection.getClazz().equals(SpecificMeasure.class)) {
-				specificMeasuresCollection = objectCollection;
-			}
-		}
-		List<Object> smList = specificMeasuresCollection.getObjectList();
-		Set<String> vmeIds = new HashSet<String>();
-		for (Object object : smList) {
-			SpecificMeasure sm = (SpecificMeasure) object;
-			// TODO commented, please validate with Aureliano
-			// String combi = sm.getVmeList().get(0).getId() + " " + sm.getId();
-			// System.out.println(combi);
-			// assertFalse(vmeIds.contains(combi));
-			// assertTrue(vmeIds.add(combi));
-		}
+		// validateRelationVmeSpecificMeasure(objectCollectionList);
 
 	}
 
@@ -139,13 +114,6 @@ public class LinkerTest {
 
 		// there is one GM whithout an Link_CEM_Source defined
 		// assertTrue(o.getInformationSourceList().size() > 0);
-
-	}
-
-	private void validateSpecificMeasuresObject(Object object) {
-		SpecificMeasure o = (SpecificMeasure) object;
-		// TODO commented, please validate with Aureliano
-		// assertTrue(o.getVmeList().size() > 0);
 
 	}
 
