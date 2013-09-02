@@ -41,7 +41,6 @@ import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Profile;
-import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.Lang;
@@ -427,6 +426,14 @@ public class FigisDocBuilder {
 		vmeForeignID.setCodeSystem("invid");
 		vmeForeignID.setCode(vmeDomain.getInventoryIdentifier());
 
+		// OrgRef
+		ForeignID rfmoForeignID = f.createForeignID();
+		rfmoForeignID.setCodeSystem("acronym");
+		rfmoForeignID.setCode(vmeDomain.getRfmo().getId());
+
+		OrgRef rfmoOrg = f.createOrgRef();
+		rfmoOrg.getForeignIDsAndFigisIDsAndTitles().add(rfmoForeignID);
+
 		// WaterAreaRef
 		WaterAreaRef waterAreaRef = new WaterAreaRef();
 		ForeignID areaForeignID = new ForeignID();
@@ -470,36 +477,31 @@ public class FigisDocBuilder {
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(figisID);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeForeignID);
 		// OrgRef
+
+		// dc:Title
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(title);
+
+		// fi:Range
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(range);
+
+		// fi:ReportingYear
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(Integer.toString(year));
+
+		// fi:OrgRef
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(rfmoOrg);
+
+		// fi:GeoReference
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
+
+		// fi:VMEType
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
+
+		// fi:VMECriteria
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeCriteria);
-		// GeoReference
 
 		VME vme = new VME();
 		vme.setVMEIdent(vmeIdent);
 		figisDoc.setVME(vme);
-
-	}
-
-	/**
-	 * Adds a RFMO to the FIGISDoc
-	 * 
-	 * Rfmo fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:OrgRef/fi:ForeignID@CodeSystem="rfb"/@Code
-	 * 
-	 * @param rfmo
-	 * @param figisDoc
-	 */
-	public void rfmo(Rfmo rfmo, FIGISDoc figisDoc) {
-		ForeignID rfmoForeignID = f.createForeignID();
-		rfmoForeignID.setCodeSystem("acronym");
-		rfmoForeignID.setCode(rfmo.getId());
-
-		OrgRef rfmoOrg = f.createOrgRef();
-		rfmoOrg.getForeignIDsAndFigisIDsAndTitles().add(rfmoForeignID);
-		figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves().add(rfmoOrg);
 
 	}
 
