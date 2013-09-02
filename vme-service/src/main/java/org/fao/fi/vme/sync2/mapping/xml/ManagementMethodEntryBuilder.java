@@ -28,14 +28,23 @@ import org.purl.dc.terms.BibliographicCitation;
  * 
  */
 public class ManagementMethodEntryBuilder {
+	public final static String FOCUS = "Vulnerable Marine Ecosystems";
+	public final static String TITLE = "VME general measures";
+	public final static String FISHING_AREAS = "Fishing_areas";
+	public final static String EXPLORATORY_FISHING_PROTOCOL = "Exploratory_fishing_protocol";
+	public final static String VME_ENCOUNTER_PROTOCOLS = "VME_encounter_protocols";
+	public final static String VME_THRESHOLD = "VME_threshold";
+	public final static String VME_INDICATORSPECIES = "VME_indicatorspecies";
+	public final static String URI = "URI";
+	public final static String TIME = "Time";
 
 	private ObjectFactory f = new ObjectFactory();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	public void init(ManagementMethodEntry entry) {
-		entry.setFocus("Vulnerable Marine Ecosystems");
+		entry.setFocus(FOCUS);
 		Title entryTitle = new Title();
-		entryTitle.setContent("VME general measures");
+		entryTitle.setContent(TITLE);
 		entry.setTitle(entryTitle);
 
 	}
@@ -46,14 +55,12 @@ public class ManagementMethodEntryBuilder {
 		if (gm != null) {
 			Measure measure1 = f.createMeasure();
 			MeasureType measureType1 = f.createMeasureType();
-			measureType1.setValue("Fishing_areas");
+			measureType1.setValue(FISHING_AREAS);
 			Text measureText1 = f.createText();
-			measureText1.getContent().add(gm.getFishingAreas());
 
-			measure1.getTextsAndImagesAndTables().add(measureType1);
-			measure1.getTextsAndImagesAndTables().add(measureText1);
-
-			entry.getTextsAndImagesAndTables().add(measure1); // add measure to entry
+			new AddWhenContentRule().check(gm.getFishingAreas()).beforeAdding(measure1).to(measureText1.getContent());
+			new AddWhenContentRule().check(gm.getFishingAreas()).beforeAdding(measureType1).beforeAdding(measureText1)
+					.to(measure1.getTextsAndImagesAndTables());
 		}
 
 	}
@@ -63,13 +70,19 @@ public class ManagementMethodEntryBuilder {
 			// 2. ExploratoryFishingProtocol
 			Measure measure2 = f.createMeasure();
 			MeasureType measureType2 = f.createMeasureType();
-			measureType2.setValue("Exploratory_fishing_protocol");
+			measureType2.setValue(EXPLORATORY_FISHING_PROTOCOL);
 			Text measureText2 = f.createText();
 			measureText2.getContent().add(u.getEnglish(yearObject.getExplorataryFishingProtocols()));
 
 			measure2.getTextsAndImagesAndTables().add(measureType2);
 			measure2.getTextsAndImagesAndTables().add(measureText2);
-			entry.getTextsAndImagesAndTables().add(measure2); // add measure to entry
+
+			new AddWhenContentRule().check(u.getEnglish(yearObject.getExplorataryFishingProtocols()))
+					.beforeAdding(measureType2).beforeAdding(measureText2).to(measure2.getTextsAndImagesAndTables());
+
+			new AddWhenContentRule().check(u.getEnglish(yearObject.getExplorataryFishingProtocols()))
+					.beforeAdding(measureType2).beforeAdding(measure2).to(entry.getTextsAndImagesAndTables());
+
 		}
 
 	}
@@ -79,13 +92,17 @@ public class ManagementMethodEntryBuilder {
 			// 3. EncounterProtocol
 			Measure measure3 = f.createMeasure();
 			MeasureType measureType3 = f.createMeasureType();
-			measureType3.setValue("VME_encounter_protocols");
+			measureType3.setValue(VME_ENCOUNTER_PROTOCOLS);
 			Text measureText3 = f.createText();
 			measureText3.getContent().add(u.getEnglish(yearObject.getVmeEncounterProtocols()));
 
 			measure3.getTextsAndImagesAndTables().add(measureType3);
 			measure3.getTextsAndImagesAndTables().add(measureText3);
 			entry.getTextsAndImagesAndTables().add(measure3); // add measure to entry
+
+			new AddWhenContentRule().check(u.getEnglish(yearObject.getVmeEncounterProtocols()))
+					.beforeAdding(measureType3).beforeAdding(measureText3).to(entry.getTextsAndImagesAndTables());
+
 		}
 
 	}
@@ -95,13 +112,17 @@ public class ManagementMethodEntryBuilder {
 			// 4. Threshold
 			Measure measure4 = f.createMeasure();
 			MeasureType measureType4 = f.createMeasureType();
-			measureType4.setValue("VME_threshold");
+			measureType4.setValue(VME_THRESHOLD);
 			Text measureText4 = f.createText();
 			measureText4.getContent().add(u.getEnglish(yearObject.getVmeThreshold()));
 
 			measure4.getTextsAndImagesAndTables().add(measureType4);
 			measure4.getTextsAndImagesAndTables().add(measureText4);
 			entry.getTextsAndImagesAndTables().add(measure4); // add measure to entry
+
+			new AddWhenContentRule().check(u.getEnglish(yearObject.getVmeThreshold())).beforeAdding(measureType4)
+					.beforeAdding(measureText4).to(entry.getTextsAndImagesAndTables());
+
 		}
 
 	}
@@ -111,13 +132,15 @@ public class ManagementMethodEntryBuilder {
 		if (yearObject != null) {
 			Measure measure5 = f.createMeasure();
 			MeasureType measureType5 = f.createMeasureType();
-			measureType5.setValue("VME_indicatorspecies");
+			measureType5.setValue(VME_INDICATORSPECIES);
 			Text measureText5 = f.createText();
 			measureText5.getContent().add(u.getEnglish(yearObject.getVmeIndicatorSpecies()));
 
 			measure5.getTextsAndImagesAndTables().add(measureType5);
 			measure5.getTextsAndImagesAndTables().add(measureText5);
-			entry.getTextsAndImagesAndTables().add(measure5);
+
+			new AddWhenContentRule().check(u.getEnglish(yearObject.getVmeIndicatorSpecies()))
+					.beforeAdding(measureType5).to(entry.getTextsAndImagesAndTables());
 		}
 
 	}
@@ -126,21 +149,28 @@ public class ManagementMethodEntryBuilder {
 		// ManagementMethodEntry Sources
 		if (yearObject != null) {
 			Sources sources = f.createSources();
+
+			AddWhenContentRule rule = new AddWhenContentRule();
+
 			for (InformationSource infoSource : yearObject.getInformationSourceList()) {
 				BiblioEntry biblioEntry = f.createBiblioEntry();
 
 				Identifier identifier = new Identifier();
-				identifier.setType("URI");
+				identifier.setType(URI);
 				identifier.setContent(infoSource.getUrl().toString());
+				rule.check(infoSource.getUrl());
 
 				BibliographicCitation citation = new BibliographicCitation();
 				citation.setContent(u.getEnglish(infoSource.getCitation()));
+				rule.check(infoSource.getCitation());
 
 				biblioEntry.getContent().add(identifier);
 				biblioEntry.getContent().add(citation);
 				sources.getTextsAndImagesAndTables().add(biblioEntry);
+
 			}
-			entry.getTextsAndImagesAndTables().add(sources);
+			rule.beforeAdding(sources).to(entry.getTextsAndImagesAndTables());
+
 		}
 
 	}
@@ -157,11 +187,13 @@ public class ManagementMethodEntryBuilder {
 			JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
 
 			Range range = f.createRange();
-			range.setType("Time");
+			range.setType(TIME);
 			range.getContent().add(minJAXBElement);
 			range.getContent().add(maxJAXBElement);
-			entry.getTextsAndImagesAndTables().add(range);
+			new AddWhenContentRule().check(yearObject.getValidityPeriod().getBeginYear().toString())
+					.check(yearObject.getValidityPeriod().getEndYear().toString()).beforeAdding(range)
+					.to(entry.getTextsAndImagesAndTables());
+
 		}
 	}
-
 }

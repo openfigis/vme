@@ -150,6 +150,8 @@ public class FigisDocBuilder {
 			Text measureText = ut.getEnglishText(yearObject.getVmeSpecificMeasure());
 			measure.getTextsAndImagesAndTables().add(measureText);
 
+			// contentRule.add(content, measureType, measure.getTextsAndImagesAndTables())
+
 			// range (time)
 			if (yearObject.getValidityPeriod() != null) {
 				Min min = f.createMin();
@@ -171,23 +173,31 @@ public class FigisDocBuilder {
 			Sources sources = f.createSources();
 			BiblioEntry biblioEntry = f.createBiblioEntry();
 
+			AddWhenContentRule rule = new AddWhenContentRule();
+
 			if (yearObject.getInformationSource() != null) {
 				BibliographicCitation citation = new BibliographicCitation();
 				citation.setContent(u.getEnglish(yearObject.getInformationSource().getCitation()));
 				biblioEntry.getContent().add(citation);
+				rule.check(u.getEnglish(yearObject.getInformationSource().getCitation()));
+
 				if (yearObject.getInformationSource().getUrl() != null
 						&& !StringUtils.isBlank(yearObject.getInformationSource().getUrl().getPath())) {
 					Identifier identifier = new Identifier();
 					identifier.setType("URI");
 					identifier.setContent(yearObject.getInformationSource().getUrl().toString());
-					biblioEntry.getContent().add(identifier);
+					new AddWhenContentRule().check(yearObject.getInformationSource().getUrl()).beforeAdding(identifier)
+							.to(biblioEntry.getContent());
 				}
 			}
 
-			sources.getTextsAndImagesAndTables().add(biblioEntry);
-			measure.getTextsAndImagesAndTables().add(sources);
+			new AddWhenContentRule().check(yearObject.getInformationSource()).check(yearObject.getInformationSource())
+					.beforeAdding(biblioEntry).to(sources.getTextsAndImagesAndTables());
 
 			entry.getTextsAndImagesAndTables().add(measure); // add measure to ManagementMethodEntry
+
+			new AddWhenContentRule().check(yearObject.getInformationSource()).check(yearObject.getVmeSpecificMeasure())
+					.beforeAdding(measure).to(entry.getTextsAndImagesAndTables());
 
 			ManagementMethods managementMethods = findManagementMethods(figisDoc);
 
@@ -497,7 +507,8 @@ public class FigisDocBuilder {
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
 
 		// fi:VMECriteria
-		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeCriteria);
+		new AddWhenContentRule().check(vmeDomain.getCriteria()).beforeAdding(vmeCriteria)
+				.to(vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves());
 
 		VME vme = new VME();
 		vme.setVMEIdent(vmeIdent);
@@ -533,6 +544,8 @@ public class FigisDocBuilder {
 
 			Type type = dcf.createType();
 			type.setType(Integer.toString(infoSource.getSourceType()));
+			// TODO add the english text of the meeting type as the content of the element
+			// type.setContent(value)
 			biblioEntry.getContent().add(type);
 
 			BibliographicCitation citation = new BibliographicCitation();
