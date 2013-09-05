@@ -306,12 +306,16 @@ public class FigisDocBuilder {
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
 
 			// Physical profile
+
 			Text text2 = ut.getEnglishText(yearObject.getDescriptionPhisical());
 			GeoForm geoform = f.createGeoForm();
 			JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(text2);
 			geoform.getContent().add(geoformJAXBElement);
 			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm is part of HabitatBio
 																					// profile
+
+			// geoform fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value = Seamounts or Canyons) or
+			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@FreeValue (for other values)
 
 			// Impacts profile
 			Impacts impacts = f.createImpacts();
@@ -452,7 +456,7 @@ public class FigisDocBuilder {
 		spatialScale.setValue("Regional");
 
 		Title spatialScaleTitle = new Title();
-		title.setContent(vmeDomain.getGeoArea());
+		spatialScaleTitle.setContent(vmeDomain.getGeoArea().getStringMap().get(Lang.EN));
 
 		GeoReference geoReference = f.createGeoReference();
 		geoReference.setSpatialScale(spatialScale);

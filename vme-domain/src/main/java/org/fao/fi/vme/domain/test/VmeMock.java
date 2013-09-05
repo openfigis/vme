@@ -31,6 +31,7 @@ public class VmeMock {
 		vme.setValidityPeriod(ValidityPeriodMock.create());
 		vme.setId(ID);
 		vme.setName(u.english("Hard Corner Bugs "));
+		vme.setGeoArea(u.english("Southern Pacific Ocean"));
 
 		GeoRef g = new GeoRef();
 		g.setYear(YEAR);
@@ -158,6 +159,7 @@ public class VmeMock {
 		vme.setValidityPeriod(ValidityPeriodMock.create());
 		vme.setAreaType("Established VME");
 		vme.setCriteria("Uniqueness or rarity");
+		vme.setGeoArea(u.english("Southern Pacific Ocean"));
 
 		return vme;
 

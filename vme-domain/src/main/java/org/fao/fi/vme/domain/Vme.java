@@ -73,7 +73,8 @@ public class Vme implements Period<Vme> {
 	/**
 	 *
 	 */
-	private String geoarea;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString geoarea;
 
 	/**
 	 *
@@ -165,7 +166,7 @@ public class Vme implements Period<Vme> {
 	/**
 	 * @return the geoarea
 	 */
-	public String getGeoArea() {
+	public MultiLingualString getGeoArea() {
 		return geoarea;
 	}
 
@@ -173,7 +174,7 @@ public class Vme implements Period<Vme> {
 	 * @param geoarea
 	 *            the geoarea to set
 	 */
-	public void setGeoArea(String geoarea) {
+	public void setGeoArea(MultiLingualString geoarea) {
 		this.geoarea = geoarea;
 	}
 
