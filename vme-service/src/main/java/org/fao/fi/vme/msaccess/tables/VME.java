@@ -199,6 +199,7 @@ public class VME implements TableDomainMapper {
 		f.setDescriptionBiological(u.english(this.VME_Description_Biology));
 		f.setDescriptionImpact(u.english(this.VME_Description_Impact));
 		f.setDescriptionPhisical(u.english(this.VME_Description_Physical));
+		f.setGeoform(u.english(this.getVME_Geoform()));
 
 		List<Profile> l = new ArrayList<Profile>();
 		l.add(f);

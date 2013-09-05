@@ -285,9 +285,9 @@ public class FigisDocBuilder {
 	 * @param profile
 	 * @param figisDoc
 	 */
-	public void profile(Profile yearObject, FIGISDoc figisDoc) {
+	public void profile(Profile profile, FIGISDoc figisDoc) {
 		// Habitat-Biological profile
-		if (yearObject != null) {
+		if (profile != null) {
 			HabitatBio habitatBio = f.createHabitatBio();
 
 			// • VMEIdent
@@ -300,25 +300,31 @@ public class FigisDocBuilder {
 			// • Sources
 			// • RelatedResources
 
-			Text text1 = ut.getEnglishText(yearObject.getDescriptionBiological());
+			Text text1 = ut.getEnglishText(profile.getDescriptionBiological());
 			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(text1);
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
 
 			// Physical profile
 
-			Text text2 = ut.getEnglishText(yearObject.getDescriptionPhisical());
+			Text descriptionPhisical = ut.getEnglishText(profile.getDescriptionPhisical());
 			GeoForm geoform = f.createGeoForm();
-			JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(text2);
+			JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(descriptionPhisical);
 			geoform.getContent().add(geoformJAXBElement);
-			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm is part of HabitatBio
-																					// profile
 
-			// geoform fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value = Seamounts or Canyons) or
+			String profileEnglish = u.getEnglish(profile.getGeoform());
+			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value = Seamounts or Canyons) or
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@FreeValue (for other values)
+			if (profileEnglish == "Seamounts" || profileEnglish == "Canyons") {
+				geoform.setValue(profileEnglish);
+			} else {
+				geoform.setFreeValue(profileEnglish);
+			}
+			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm is part of HabitatBio
+			// profile
 
 			// Impacts profile
 			Impacts impacts = f.createImpacts();
-			Text text3 = ut.getEnglishText(yearObject.getDescriptionImpact());
+			Text text3 = ut.getEnglishText(profile.getDescriptionImpact());
 			impacts.getTextsAndImagesAndTables().add(text3);
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(impacts);
 		}
