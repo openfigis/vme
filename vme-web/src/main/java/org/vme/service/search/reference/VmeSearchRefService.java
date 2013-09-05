@@ -6,6 +6,7 @@ import java.util.List;
 import org.vme.service.dto.VmeSearchRefDto;
 import org.vme.service.dto.VmeSearchRefRequestDto;
 import org.vme.service.dto.VmeSearchRefResult;
+import org.vme.service.reference.domain.VmeType;
 
 
 public class VmeSearchRefService implements SearchRefService {
@@ -51,12 +52,10 @@ public class VmeSearchRefService implements SearchRefService {
 	
 	private List<VmeSearchRefDto> getVmeTypeList(){
 		LinkedList<VmeSearchRefDto> res = new LinkedList<VmeSearchRefDto>();
-		res.add(new VmeSearchRefDto(10, "en", "Established VME")); 
-		res.add(new VmeSearchRefDto(20, "en", "Temporary VME")); 
-		res.add(new VmeSearchRefDto(30, "en", "Risk area")); 
-		res.add(new VmeSearchRefDto(40, "en", "Benthic protected area")); 
-		res.add(new VmeSearchRefDto(50, "en", "Voluntary closed area")); 
-		res.add(new VmeSearchRefDto(60, "en", "Other types of managed area")); 
+		res.add(new VmeSearchRefDto(10, "en", "VME (Adopted)")); 
+		res.add(new VmeSearchRefDto(20, "en", "Risk area (closed area)")); 
+		res.add(new VmeSearchRefDto(30, "en", "Benthic Protected Area (voluntary / industry closed areas)")); 
+		res.add(new VmeSearchRefDto(40, "en", "Other types of managed area")); 
 		return res;
 	}
 
