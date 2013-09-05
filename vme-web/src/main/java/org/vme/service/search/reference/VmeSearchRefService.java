@@ -6,7 +6,6 @@ import java.util.List;
 import org.vme.service.dto.VmeSearchRefDto;
 import org.vme.service.dto.VmeSearchRefRequestDto;
 import org.vme.service.dto.VmeSearchRefResult;
-import org.vme.service.reference.domain.VmeType;
 
 
 public class VmeSearchRefService implements SearchRefService {

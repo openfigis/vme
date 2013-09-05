@@ -247,6 +247,29 @@ public class FigisDao extends Dao {
 	}
 
 	/**
+	 * find the VmeObservation by the vme id and reporting year.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public VmeObservation findFirstVmeObservation(Long vmeId, String year) {
+		Query query = em
+				.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear <= :year order by vo.id.reportingYear");
+		query.setParameter("vmeId", vmeId);
+		query.setParameter("year", year);
+		VmeObservation vo = null;
+		try {
+			List<?> list = query.getResultList();
+			if (list.size()>0){
+				vo = (VmeObservation) list.get(0);
+			}
+		} catch (NoResultException e) {
+			// is valid, a new object needs to be created.
+		}
+		return vo;
+	}
+	
+	/**
 	 * find the VmeObservation by the vme id
 	 * 
 	 * Wrong, you can find more VmeObservation by the vmeId

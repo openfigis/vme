@@ -5,10 +5,6 @@ package org.vme.service.reference.impl;
 
 import java.util.Hashtable;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-
-import org.fao.fi.vme.dao.config.VmeDB;
 import org.vme.service.reference.domain.Authority;
 import org.vme.service.reference.domain.VmeCriteria;
 import org.vme.service.reference.domain.VmeType;

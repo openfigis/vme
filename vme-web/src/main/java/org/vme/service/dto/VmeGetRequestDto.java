@@ -21,6 +21,11 @@ public class VmeGetRequestDto implements VmeRequestDto {
 	 */
 	private long id;
 	
+	/**
+	 * VME request Year . 
+	 */
+	private int year;
+	
 	
 	/**
 	 * Geographical Identifier of the requested VME object. 
@@ -84,7 +89,27 @@ public class VmeGetRequestDto implements VmeRequestDto {
 		return geographicFeatureId!=null;
 	}
 
+	/**
+	 * @return the year
+	 */
+	public int getYear() {
+		return year;
+	}
 
+	/**
+	 * @return <code>true</code> if request has the year defined, <code>false</code> otherwise
+	 */
+	public boolean hasYear() {
+		return year>0;
+	}
+	
+	
+	/**
+	 * @param year the year to set
+	 */
+	public void setYear(int year) {
+		this.year = year;
+	}
 
 
 	/**

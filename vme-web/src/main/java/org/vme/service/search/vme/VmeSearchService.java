@@ -1,5 +1,7 @@
 package org.vme.service.search.vme;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.dao.config.VmeDB;
 import org.fao.fi.vme.domain.GeoRef;
+import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -33,7 +36,7 @@ public class VmeSearchService implements SearchService {
 	private EntityManager entityManager;
 
 	protected FigisDao dao;
-	
+
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 
@@ -44,6 +47,10 @@ public class VmeSearchService implements SearchService {
 
 
 	public VmeSearchResult search(VmeSearchRequestDto request) throws Exception  {
+		if (request.hasYear()){
+		} else {
+			request.setYear( Calendar.getInstance().get(Calendar.YEAR));
+		}
 		Query query = entityManager.createQuery(createHibernateSearchTextualQuery(request));
 		List<Vme> result =  (List<Vme>)query.getResultList();
 		List<Vme> toRemove =  postProcessResult(request, result);
@@ -53,6 +60,10 @@ public class VmeSearchService implements SearchService {
 
 
 	public VmeSearchResult get(VmeGetRequestDto request)  {
+		if (request.hasYear()){
+		} else {
+			request.setYear( Calendar.getInstance().get(Calendar.YEAR));
+		}		
 		String text_query;
 
 		if (request.getId()>0){
@@ -113,18 +124,11 @@ public class VmeSearchService implements SearchService {
 			conjunction = " AND";
 		}
 
-
-		/*
-		if (request.hasYear()){
-			txtQuery.append(conjunction);
-
-			txtQuery.append(" profile.year = ");
-			txtQuery.append(request.getYear());
-			txtQuery.append(" AND profile  vme.profileList");
-
-			conjunction = " AND";
-		}
-		 */
+		txtQuery.append(" AND vme.validityPeriod.beginYear <= ");
+		txtQuery.append(request.getYear());
+		txtQuery.append(" AND vme.validityPeriod.endYear >= ");
+		txtQuery.append(request.getYear());
+		
 
 		String res = txtQuery.toString();
 		System.out.println("FAB:" + res);
@@ -166,18 +170,14 @@ public class VmeSearchService implements SearchService {
 
 
 
-	
 
-	
+
+
 	private VmeSearchResult convertPersistenceResult(VmeRequestDto request,  List<Vme> result, List<Vme> toRemove){
 		VmeSearchResult res = new VmeSearchResult(request);
 		for (Vme vme : result) {
 			if (toRemove==null || (toRemove!=null  && !toRemove.contains(vme))){
-				if (vme.getGeoRefList() != null){
-					for (GeoRef geoRef : vme.getGeoRefList()) {
-						res.addElement(getVmeSearchDto(vme, geoRef.getYear()));
-					} 
-				}
+				res.addElement(getVmeSearchDto(vme,request.getYear()));
 			}
 		}
 		return res;
@@ -193,12 +193,14 @@ public class VmeSearchService implements SearchService {
 		res.setLocalName(u.getEnglish(vme.getName()));
 		res.setEnvelope("");
 		String authority = vme.getRfmo().getId();
-		VmeObservation vo = dao.findVmeObservationByVme(vme.getId(), Integer.toString(year));
+		VmeObservation vo = dao.findFirstVmeObservation(vme.getId(), Integer.toString(year));
 		if (vo!=null){
 			res.setFactsheetUrl("fishery/vme/"+ vo.getId().getVmeId() + "/" + vo.getId().getObservationId() +"/en");
+		} else {
+			res.setFactsheetUrl("");
 		}
-		
-		res.setGeoArea(vme.getGeoArea());
+
+		res.setGeoArea(u.getEnglish(vme.getGeoArea()));
 		res.setOwner(authority);
 		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginYear());
 		res.setValidityPeriodTo(vme.getValidityPeriod().getEndYear());
@@ -218,7 +220,7 @@ public class VmeSearchService implements SearchService {
 	}
 
 
-	
+
 
 
 }

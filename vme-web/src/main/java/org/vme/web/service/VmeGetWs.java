@@ -50,6 +50,7 @@ public class VmeGetWs {
 	//@Produces(MediaType.TEXT_HTML)
 	public Response find(
 			@QueryParam("id") String id,
+			@QueryParam("year") String year,
 			@QueryParam("inventoryIdentifier") String inventoryIdentifier,
 			@QueryParam("geographicFeatureId") String geographicFeatureId) throws Exception {
 
@@ -59,6 +60,12 @@ public class VmeGetWs {
 			requestDto.setId(Integer.parseInt(id));
 		} else {
 			requestDto.setId(0);
+		}
+		
+		if ((year!=null) &&!("*").equals(year.trim())){
+			requestDto.setYear(Integer.parseInt(year));
+		} else {
+			requestDto.setYear(0);
 		}
 		
 		if ((inventoryIdentifier!=null) &&!("*").equals(inventoryIdentifier.trim())){

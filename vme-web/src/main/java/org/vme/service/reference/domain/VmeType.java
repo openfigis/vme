@@ -5,8 +5,6 @@ package org.vme.service.reference.domain;
 
 import javax.persistence.Id;
 
-import org.fao.fi.vme.domain.MultiLingualString;
-
 /**
  * @author Fabrizio Sibeni
  *
