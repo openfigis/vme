@@ -321,6 +321,7 @@ public class FigisDocBuilder {
 			}
 			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm is part of HabitatBio
 			// profile
+			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
 
 			// Impacts profile
 			Impacts impacts = f.createImpacts();

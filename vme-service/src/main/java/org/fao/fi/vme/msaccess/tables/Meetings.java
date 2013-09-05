@@ -97,7 +97,7 @@ public class Meetings implements TableDomainMapper {
 	public Object map() {
 		InformationSource is = new InformationSource();
 
-		is.setSourceType(0);
+		is.setSourceType(3);
 		MultiLingualStringUtil u = new MultiLingualStringUtil();
 		is.setCommittee(u.english(this.Committee));
 
