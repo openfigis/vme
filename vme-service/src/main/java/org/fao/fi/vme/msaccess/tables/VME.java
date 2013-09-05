@@ -182,13 +182,6 @@ public class VME implements TableDomainMapper {
 		o.setGeoform(this.VME_Geoform);
 		o.setGeoArea(this.VME_GeogArea1);
 
-		// Hi Finger,
-		//
-		// The Acccess VME.VME_GeogArea1 was mapped to UML Vme. geoArea. But I believe we can ignore this field,
-		// correct?
-		//
-		// Cheers,
-		// Erik
 		o.setGeoArea(this.VME_GeogArea1);
 
 		// o.setGeographicLayerId(this.)
