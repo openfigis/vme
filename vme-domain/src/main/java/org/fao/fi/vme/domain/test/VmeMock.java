@@ -66,6 +66,8 @@ public class VmeMock {
 		int startYear = YEAR;
 		long id = 0;
 
+		Vme vme = new Vme();
+
 		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 		List<Profile> pList = new ArrayList<Profile>();
 		List<SpecificMeasure> specificMeasureList = new ArrayList<SpecificMeasure>();
@@ -118,6 +120,7 @@ public class VmeMock {
 			specificMeasureList.add(specificMeasure);
 
 			GeoRef geoRef = new GeoRef();
+			geoRef.setVme(vme);
 			// geoRef.setId(id++);
 			geoRef.setYear(year);
 			geoRef.setGeographicFeatureID(INVENTORY_ID + "_" + YEAR);
@@ -145,7 +148,6 @@ public class VmeMock {
 		rfmo.setInformationSourceList(informationSourceList);
 		rfmo.setGeneralMeasureList(generalMeasureList);
 
-		Vme vme = new Vme();
 		vme.setId(new Long(VME_ID));
 		vme.setInventoryIdentifier(INVENTORY_ID);
 		vme.setName(u.english("Hard Corner Bugs "));
@@ -156,6 +158,8 @@ public class VmeMock {
 		vme.setValidityPeriod(ValidityPeriodMock.create());
 		vme.setAreaType("Established VME");
 		vme.setCriteria("Uniqueness or rarity");
+
 		return vme;
+
 	}
 }

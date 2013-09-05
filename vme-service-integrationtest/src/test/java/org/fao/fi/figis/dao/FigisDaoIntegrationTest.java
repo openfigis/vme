@@ -1,20 +1,12 @@
 package org.fao.fi.figis.dao;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.Observation;
-import org.fao.fi.figis.domain.ObservationDomain;
-import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.VmeObservationPk;
-import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.rule.Figis;
-import org.fao.fi.figis.domain.test.ObservationXmlMock;
-import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
@@ -40,30 +32,6 @@ public class FigisDaoIntegrationTest extends FigisDaoTestLogic {
 	@After
 	public void testAfter() {
 		clean();
-	}
-
-	void clean() {
-		VmeObservationDomain vod = createVmeObservationDomain();
-		vod.setRefVme(RefVmeMock.create());
-		add1Observation2Vod(vod);
-		List<ObservationDomain> oList = vod.getObservationDomainList();
-		for (ObservationDomain od : oList) {
-			// find VmeObservation
-			VmeObservation vo = figisDao.findVmeObservationByVme(vod.getRefVme().getId(), od.getReportingYear());
-			if (vo != null) {
-				Observation o = (Observation) figisDao.find(Observation.class, vo.getId().getObservationId());
-				DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
-				ObservationXml xml = ObservationXmlMock.create();
-				xml.setObservation(o);
-				rule.composeId(xml);
-				ObservationXml xmlFound = (ObservationXml) figisDao.find(ObservationXml.class, xml.getId());
-				if (xmlFound != null) {
-					figisDao.remove(xmlFound);
-					figisDao.remove(vo);
-					figisDao.remove(o);
-				}
-			}
-		}
 	}
 
 	/**

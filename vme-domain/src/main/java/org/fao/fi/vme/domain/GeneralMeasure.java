@@ -170,4 +170,106 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 		this.validityPeriod = validityPeriod;
 	}
 
+	// @Override
+	// public int hashCode() {
+	// final int prime = 31;
+	// int result = 1;
+	// result = prime * result + ((explorataryFishingProtocols == null) ? 0 : explorataryFishingProtocols.hashCode());
+	// result = prime * result + ((fishingAreas == null) ? 0 : fishingAreas.hashCode());
+	// result = prime * result + ((id == null) ? 0 : id.hashCode());
+	// result = prime * result + ((informationSourceList == null) ? 0 : informationSourceList.hashCode());
+	// result = prime * result + ((rfmo == null) ? 0 : rfmo.hashCode());
+	// result = prime * result + ((validityPeriod == null) ? 0 : validityPeriod.hashCode());
+	// result = prime * result + ((vmeEncounterProtocols == null) ? 0 : vmeEncounterProtocols.hashCode());
+	// result = prime * result + ((vmeIndicatorSpecies == null) ? 0 : vmeIndicatorSpecies.hashCode());
+	// result = prime * result + ((vmeThreshold == null) ? 0 : vmeThreshold.hashCode());
+	// result = prime * result + ((year == null) ? 0 : year.hashCode());
+	// return result;
+	// }
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof GeneralMeasure)) {
+			return false;
+		}
+		GeneralMeasure other = (GeneralMeasure) obj;
+		if (explorataryFishingProtocols == null) {
+			if (other.explorataryFishingProtocols != null) {
+				return false;
+			}
+		} else if (!explorataryFishingProtocols.equals(other.explorataryFishingProtocols)) {
+			return false;
+		}
+		if (fishingAreas == null) {
+			if (other.fishingAreas != null) {
+				return false;
+			}
+		} else if (!fishingAreas.equals(other.fishingAreas)) {
+			return false;
+		}
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
+			return false;
+		}
+		if (informationSourceList == null) {
+			if (other.informationSourceList != null) {
+				return false;
+			}
+		} else if (!informationSourceList.equals(other.informationSourceList)) {
+			return false;
+		}
+		if (rfmo == null) {
+			if (other.rfmo != null) {
+				return false;
+			}
+		} else if (!rfmo.equals(other.rfmo)) {
+			return false;
+		}
+		if (validityPeriod == null) {
+			if (other.validityPeriod != null) {
+				return false;
+			}
+		} else if (!validityPeriod.equals(other.validityPeriod)) {
+			return false;
+		}
+		if (vmeEncounterProtocols == null) {
+			if (other.vmeEncounterProtocols != null) {
+				return false;
+			}
+		} else if (!vmeEncounterProtocols.equals(other.vmeEncounterProtocols)) {
+			return false;
+		}
+		if (vmeIndicatorSpecies == null) {
+			if (other.vmeIndicatorSpecies != null) {
+				return false;
+			}
+		} else if (!vmeIndicatorSpecies.equals(other.vmeIndicatorSpecies)) {
+			return false;
+		}
+		if (vmeThreshold == null) {
+			if (other.vmeThreshold != null) {
+				return false;
+			}
+		} else if (!vmeThreshold.equals(other.vmeThreshold)) {
+			return false;
+		}
+		if (year == null) {
+			if (other.year != null) {
+				return false;
+			}
+		} else if (!year.equals(other.year)) {
+			return false;
+		}
+		return true;
+	}
+
 }

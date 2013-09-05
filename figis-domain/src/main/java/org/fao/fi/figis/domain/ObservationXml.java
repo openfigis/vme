@@ -49,6 +49,8 @@ public class ObservationXml implements Serializable {
 	private String id;
 
 	// bi-directional many-to-one association to FsObservation
+
+	// @ManyToOne(cascade = { CascadeType.DETACH })
 	@ManyToOne
 	@JoinColumn(name = "CD_OBSERVATION")
 	private Observation observation;

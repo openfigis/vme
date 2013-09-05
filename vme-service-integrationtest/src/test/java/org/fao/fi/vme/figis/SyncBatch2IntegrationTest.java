@@ -17,6 +17,7 @@ import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.fao.fi.vme.test.VmeDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,8 +39,34 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 
 	@Before
 	public void testBefore() {
+		clean();
+	}
 
-		// Bizarre problem, see also FigisDaoIntegrationTest.testDeleteRefVme
+	@After
+	public void testAfter() {
+		clean();
+	}
+
+	// @Before
+	// public void testBefore() {
+	//
+	// // Bizarre problem, see also FigisDaoIntegrationTest.testDeleteRefVme
+	// RefVme r = (RefVme) figisDao.find(RefVme.class, VmeMock.VME_ID);
+	// if (r != null) {
+	// figisDao.getEm().refresh(r);
+	// figisDao.remove(r);
+	// }
+	//
+	// VmeDaoTestLogic l = new VmeDaoTestLogic();
+	// l.mockAndSaveVme(vmeDao, 1);
+	// RefVme refVme = RefVmeMock.create();
+	// refVme.setId(VmeMock.VME_ID);
+	// }
+
+	@Test
+	public void testSyncFigisWithVme() {
+
+		// // Bizarre problem, see also FigisDaoIntegrationTest.testDeleteRefVme
 		RefVme r = (RefVme) figisDao.find(RefVme.class, VmeMock.VME_ID);
 		if (r != null) {
 			figisDao.getEm().refresh(r);
@@ -50,10 +77,7 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 		l.mockAndSaveVme(vmeDao, 1);
 		RefVme refVme = RefVmeMock.create();
 		refVme.setId(VmeMock.VME_ID);
-	}
 
-	@Test
-	public void testSyncFigisWithVme() {
 		int c[] = count();
 		int totalR = dao.count(RefVme.class).intValue();
 		syncBatch2.syncFigisWithVme();

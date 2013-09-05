@@ -35,12 +35,16 @@ public class ObjectMapping {
 	private final FigisDocBuilder figisDocBuilder = new FigisDocBuilder();
 	private final JaxbMarshall marshall = new JaxbMarshall();
 	private final PeriodGrouping groupie2 = new PeriodGrouping();
+	private final SliceDuplicateFilter filter = new SliceDuplicateFilter();
 	private final PrimaryRule primaryRule = new PrimaryRule();
 	private final PrimaryRuleValidator primaryRuleValidator = new PrimaryRuleValidator();
 
 	public VmeObservationDomain mapVme2Figis2(Vme vme) {
 
 		List<DisseminationYearSlice> slices = groupie2.collect(vme);
+
+		// filter out the duplicates.
+		filter.filter(slices);
 
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
 
@@ -58,7 +62,7 @@ public class ObjectMapping {
 			figisDocBuilder.vmesHistory(disseminationYearSlice.getVmesHistory(), figisDoc);
 			figisDocBuilder.specificMeasures(disseminationYearSlice.getSpecificMeasures(), figisDoc);
 			figisDocBuilder.profile(disseminationYearSlice.getProfile(), figisDoc);
-			figisDocBuilder.generalMeasures(disseminationYearSlice.getGeneralMeasures(), figisDoc);
+			figisDocBuilder.generalMeasures(disseminationYearSlice.getGeneralMeasure(), figisDoc);
 			figisDocBuilder.informationSource(disseminationYearSlice.getInformationSourceList(), figisDoc);
 
 			ObservationXml xml = new DefaultObservationXml().define();

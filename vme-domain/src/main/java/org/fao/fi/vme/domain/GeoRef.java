@@ -71,4 +71,58 @@ public class GeoRef implements Year<GeoRef> {
 		this.vme = vme;
 	}
 
+	// @Override
+	// public int hashCode() {
+	// final int prime = 31;
+	// int result = 1;
+	// result = prime * result + ((geographicFeatureID == null) ? 0 : geographicFeatureID.hashCode());
+	// result = prime * result + ((id == null) ? 0 : id.hashCode());
+	// result = prime * result + ((vme == null) ? 0 : vme.hashCode());
+	// result = prime * result + ((year == null) ? 0 : year.hashCode());
+	// return result;
+	// }
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		GeoRef other = (GeoRef) obj;
+		if (geographicFeatureID == null) {
+			if (other.geographicFeatureID != null) {
+				return false;
+			}
+		} else if (!geographicFeatureID.equals(other.geographicFeatureID)) {
+			return false;
+		}
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
+			return false;
+		}
+		if (vme == null) {
+			if (other.vme != null) {
+				return false;
+			}
+		} else if (!vme.equals(other.vme)) {
+			return false;
+		}
+		if (year == null) {
+			if (other.year != null) {
+				return false;
+			}
+		} else if (!year.equals(other.year)) {
+			return false;
+		}
+		return true;
+	}
+
 }

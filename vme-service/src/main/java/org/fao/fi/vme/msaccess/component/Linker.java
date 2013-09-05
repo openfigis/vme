@@ -120,6 +120,13 @@ public class Linker {
 		}
 
 		Measues_VME_Specific record = (Measues_VME_Specific) domainTableMap.get(sm);
+
+		if (record == null) {
+			throw new VmeException(
+					"At this point, the Measues_VME_Specific record or its id would need to be there, for Measues_VME_Specific"
+							+ sm.getId());
+		}
+
 		for (ObjectCollection oc : objectCollectionList) {
 			if (oc.getClazz() == Vme.class) {
 				List<Object> objectList = oc.getObjectList();
@@ -129,6 +136,12 @@ public class Linker {
 						vme.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
 					}
 					VME vmeRecord = (VME) domainTableMap.get(vme);
+
+					if (vmeRecord == null || vmeRecord.getVME_ID() == null) {
+						throw new VmeException("At this point, the record or its id would need to be there, for Vme"
+								+ vme.getId() + " " + vme.getInventoryIdentifier());
+					}
+
 					if (record.getVME_ID().equals(vmeRecord.getVME_ID())) {
 						if (!sm.getVmeList().contains(vme)) {
 							// add only when not already in the list

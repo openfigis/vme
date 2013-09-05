@@ -16,6 +16,7 @@ import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
+import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
 import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.fao.fi.vme.sync2.mapping.DefaultObservationDomain;
@@ -149,6 +150,30 @@ public abstract class FigisDaoTestLogic {
 		RefVme r = createRefVme();
 		dao.syncRefVme(r);
 		return r;
+	}
+
+	protected void clean() {
+		VmeObservationDomain vod = createVmeObservationDomain();
+		vod.setRefVme(RefVmeMock.create());
+		add1Observation2Vod(vod);
+		List<ObservationDomain> oList = vod.getObservationDomainList();
+		for (ObservationDomain od : oList) {
+			// find VmeObservation
+			VmeObservation vo = dao.findVmeObservationByVme(vod.getRefVme().getId(), od.getReportingYear());
+			if (vo != null) {
+				Observation o = (Observation) dao.find(Observation.class, vo.getId().getObservationId());
+				DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
+				ObservationXml xml = ObservationXmlMock.create();
+				xml.setObservation(o);
+				rule.composeId(xml);
+				ObservationXml xmlFound = (ObservationXml) dao.find(ObservationXml.class, xml.getId());
+				if (xmlFound != null) {
+					dao.remove(xmlFound);
+					dao.remove(vo);
+					dao.remove(o);
+				}
+			}
+		}
 	}
 
 }

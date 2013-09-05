@@ -54,7 +54,8 @@ public class VmeDaoTest {
 		int nrOfyears = 1;
 		Vme vme = VmeMock.generateVme(nrOfyears);
 		VmeDaoTestLogic l = new VmeDaoTestLogic();
-		l.saveVme(vme, dao);
+		dao.saveVme(vme);
+		// l.saveVme(vme, dao);
 		Vme vmeFound = dao.findVme(vme.getId());
 		assertTrue(vmeFound.getRfmo().getGeneralMeasureList().size() > 0);
 		for (GeneralMeasure gm : vmeFound.getRfmo().getGeneralMeasureList()) {

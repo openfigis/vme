@@ -7,6 +7,10 @@ import javax.persistence.EntityManager;
 
 import org.fao.fi.dao.Dao;
 import org.fao.fi.vme.dao.config.VmeDB;
+import org.fao.fi.vme.domain.GeneralMeasure;
+import org.fao.fi.vme.domain.GeoRef;
+import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Vme;
 
 /**
@@ -56,6 +60,31 @@ public class VmeDao extends Dao {
 		em.getTransaction().begin();
 		em.merge(object);
 		em.getTransaction().commit();
+	}
+
+	public void saveVme(Vme vme) {
+
+		em.getTransaction().begin();
+		for (GeneralMeasure o : vme.getRfmo().getGeneralMeasureList()) {
+			em.persist(o);
+		}
+
+		for (History h : vme.getRfmo().getHasFisheryAreasHistory()) {
+			em.persist(h);
+		}
+
+		for (InformationSource informationSource : vme.getRfmo().getInformationSourceList()) {
+			em.persist(informationSource);
+		}
+
+		em.persist(vme.getRfmo());
+
+		for (GeoRef geoRef : vme.getGeoRefList()) {
+			em.persist(geoRef);
+		}
+		em.persist(vme);
+		em.getTransaction().commit();
+
 	}
 
 	public Long count(Class<?> clazz) {
