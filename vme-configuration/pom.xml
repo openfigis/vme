@@ -15,20 +15,13 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-
 				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
-				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:vme</javax.persistence.jdbc.url.vme>
+				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:;INIT=create schema IF NOT EXISTS VME</javax.persistence.jdbc.url.vme>
 				<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
 				<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>
 				<hibernate.dialect.vme>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme>
 				<hibernate.hbm2ddl.auto.vme>create</hibernate.hbm2ddl.auto.vme>
 				<!--validate | update | create | create-drop -->
-
-
-
-
-
- 
 
 				<javax.persistence.jdbc.driver.figis>org.h2.Driver</javax.persistence.jdbc.driver.figis>
 				<javax.persistence.jdbc.url.figis>jdbc:h2:mem:;INIT=create schema IF NOT EXISTS FIGIS</javax.persistence.jdbc.url.figis>
@@ -36,9 +29,6 @@
 				<javax.persistence.jdbc.password.figis></javax.persistence.jdbc.password.figis>
 				<hibernate.dialect.figis>org.hibernate.dialect.H2Dialect</hibernate.dialect.figis>
 				<hibernate.hbm2ddl.auto.figis>create</hibernate.hbm2ddl.auto.figis>
-
-
-
 			</properties>
 		</profile>
 	</profiles>

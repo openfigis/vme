@@ -22,22 +22,16 @@ public class VmeAccessDbImportTest {
 	@Inject
 	VmeDao vmeDao;
 
-	/**
-
-	 * 
-	 * 
-	 * 
-	 */
-
 	@Test
 	public void testImportMsAccessData() {
 		i.importMsAccessData();
 	}
 
-	// @Test
+	//@Test
 	public void testImportMsAccessDataPlusValidation() {
 		i.importMsAccessData();
 		List<?> objects = vmeDao.loadObjects(Vme.class);
+		System.out.println("TEST: Found " + objects.size() + " Vme objects");
 		for (Object o : objects) {
 			Vme vme = (Vme) o;
 			vme.getRfmo().getGeneralMeasureList();

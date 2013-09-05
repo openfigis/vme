@@ -56,14 +56,6 @@ public class ReferenceServiceHelper {
 		return repVmeType.get(key);
 	}
 
-
-
-
-
-
-
-
-
 	private void createAuthorities() {
 		repAuthority.put((long)20010, new Authority(20010,"CCAMLR",null));
 		repAuthority.put((long)22080, new Authority(22080,"GFCM",null));
@@ -82,12 +74,10 @@ public class ReferenceServiceHelper {
 	}	
 
 	private void createVmeTypes() {
-		repVmeType.put((long)10, new VmeType(10,"Established VME"));
-		repVmeType.put((long)20, new VmeType(20,"Temporary VME"));
-		repVmeType.put((long)30, new VmeType(30,"Risk area"));
-		repVmeType.put((long)40, new VmeType(40,"Benthic protected area"));
-		repVmeType.put((long)50, new VmeType(50,"Voluntary closed area"));
-		repVmeType.put((long)60, new VmeType(60,"Other types of managed area"));
+		repVmeType.put((long)10, new VmeType(10,"VME (Adopted)"));
+		repVmeType.put((long)20, new VmeType(20,"Risk area (closed area)"));
+		repVmeType.put((long)30, new VmeType(30,"Benthic Protected Area (voluntary / industry closed areas)"));
+		repVmeType.put((long)40, new VmeType(40,"Other types of managed area"));
 	}
 
 	

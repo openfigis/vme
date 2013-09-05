@@ -24,6 +24,7 @@ public class VmeGetWs {
 
 	private final SearchService service;
 
+	/*
 	@Inject
 	public VmeGetWs(VmeSearchService serv, DbBootstrapper bootstrapper) {
 		service = serv;
@@ -35,6 +36,13 @@ public class VmeGetWs {
 			}
 		
 	}
+	*/
+	
+	@Inject
+	public VmeGetWs(VmeSearchService serv) {
+		service = serv;
+    }
+	
 
 	//@Path("/search")
 	@GET

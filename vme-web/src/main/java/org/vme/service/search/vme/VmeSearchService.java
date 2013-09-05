@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.fao.fi.figis.dao.FigisDao;
+import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.dao.config.VmeDB;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.ValidityPeriod;
@@ -30,12 +32,13 @@ public class VmeSearchService implements SearchService {
 	@VmeDB
 	private EntityManager entityManager;
 
-
+	protected FigisDao dao;
+	
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 
 	public VmeSearchService() {
-		System.out.println("VME search engine 1.0 - Microsoft Access connettor");
+		System.out.println("VME search engine 1.0");
 
 	}
 
@@ -190,20 +193,11 @@ public class VmeSearchService implements SearchService {
 		res.setLocalName(u.getEnglish(vme.getName()));
 		res.setEnvelope("");
 		String authority = vme.getRfmo().getId();
-		if (authority.equals("NAFO")){
-			res.setFactsheetUrl("fishery/vme/10/en");
-		} else 	if (authority.equals("CCAMLR")){
-			res.setFactsheetUrl("fishery/vme/11/en");
-		} else 	if (authority.equals("GFCM")){
-			res.setFactsheetUrl("fishery/vme/12/en");
-		} else 	if (authority.equals("NEAFC")){
-			res.setFactsheetUrl("fishery/vme/13/en");
-		} else 	if (authority.equals("SEAFO")){
-			res.setFactsheetUrl("fishery/vme/14/en");
-		} 
-
-
-		//res.setFactsheetUrl("fishery/vme/"+vme.getId()+"/en");
+		VmeObservation vo = dao.findVmeObservationByVme(vme.getId(), Integer.toString(year));
+		if (vo!=null){
+			res.setFactsheetUrl("fishery/vme/"+ vo.getId().getVmeId() + "/" + vo.getId().getObservationId() +"/en");
+		}
+		
 		res.setGeoArea(vme.getGeoArea());
 		res.setOwner(authority);
 		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginYear());
@@ -215,6 +209,16 @@ public class VmeSearchService implements SearchService {
 	}
 
 
+	/**
+	 * @param dao the dao to set
+	 */
+	@Inject
+	public void setDao(FigisDao dao) {
+		this.dao = dao;
+	}
+
+
+	
 
 
 }

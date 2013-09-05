@@ -22,7 +22,8 @@ public class VmeSearchWs {
 
 
 	private final SearchService service;
-
+	
+	/*
 	@Inject
 	public VmeSearchWs(VmeSearchService serv, DbBootstrapper bootstrapper) {
 		service = serv;
@@ -32,10 +33,15 @@ public class VmeSearchWs {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	
+	}
+    */
 
+	@Inject
+	public VmeSearchWs(VmeSearchService serv) {
+		service = serv;
 	}
 
+	
 	//@Path("/search")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

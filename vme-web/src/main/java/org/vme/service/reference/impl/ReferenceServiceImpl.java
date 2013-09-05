@@ -6,7 +6,6 @@ package org.vme.service.reference.impl;
 import java.util.Arrays;
 import java.util.List;
 
-import org.fao.fi.vme.domain.Vme;
 import org.vme.service.reference.ReferenceService;
 import org.vme.service.reference.ReferenceServiceException;
 import org.vme.service.reference.domain.Authority;
