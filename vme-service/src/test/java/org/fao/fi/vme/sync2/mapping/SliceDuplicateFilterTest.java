@@ -49,7 +49,17 @@ public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 	public void testFilterWith4Equals() {
 		List<DisseminationYearSlice> slices = create4Slices();
 		this.filter(slices);
+		// 4 equals should result in 1
 		assertEquals(1, slices.size());
+
+		slices = create4Slices();
+		assertEquals(4, slices.size());
+
+		slices.get(2).getInformationSourceList().get(0).setPublicationYear(2005);
+		this.filter(slices);
+
+		// the
+		assertEquals(3, slices.size());
 
 	}
 
@@ -68,8 +78,8 @@ public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 
 	List<DisseminationYearSlice> create4Slices() {
 		List<DisseminationYearSlice> slices = new ArrayList<DisseminationYearSlice>();
-		slices.addAll(createSlices());
-		slices.addAll(createSlices());
+		slices.addAll(createSlicesWithInformationSource());
+		slices.addAll(createSlicesWithInformationSource());
 		return slices;
 	}
 
