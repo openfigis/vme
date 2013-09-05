@@ -3,6 +3,14 @@ package org.fao.fi.vme.sync2.mapping.xml;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Codelist for InformationSources. To be taken from a master data repository in the future.
+ * 
+ * 
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 public class InformationSourceCodelist {
 
 	private static String value0 = "Book";
