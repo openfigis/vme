@@ -45,6 +45,14 @@ public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 
 	}
 
+	@Test
+	public void testFilterWith4Equals() {
+		List<DisseminationYearSlice> slices = create4Slices();
+		this.filter(slices);
+		assertEquals(1, slices.size());
+
+	}
+
 	List<DisseminationYearSlice> createSlicesWithInformationSource() {
 		List<DisseminationYearSlice> slices = createSlices();
 		InformationSource is1 = new InformationSource();
@@ -55,6 +63,13 @@ public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 		isList2.add(is2);
 		slices.get(0).setInformationSourceList(isList1);
 		slices.get(1).setInformationSourceList(isList2);
+		return slices;
+	}
+
+	List<DisseminationYearSlice> create4Slices() {
+		List<DisseminationYearSlice> slices = new ArrayList<DisseminationYearSlice>();
+		slices.addAll(createSlices());
+		slices.addAll(createSlices());
 		return slices;
 	}
 
