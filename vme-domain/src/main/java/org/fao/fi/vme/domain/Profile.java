@@ -49,6 +49,9 @@ public class Profile implements Year<Profile> {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString descriptionImpact;
 
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString geoform;
+
 	public Long getId() {
 		return id;
 	}
@@ -97,18 +100,13 @@ public class Profile implements Year<Profile> {
 		this.descriptionImpact = descriptionImpact;
 	}
 
-	// @Override
-	// public int hashCode() {
-	// final int prime = 31;
-	// int result = 1;
-	// result = prime * result + ((descriptionBiological == null) ? 0 : descriptionBiological.hashCode());
-	// result = prime * result + ((descriptionImpact == null) ? 0 : descriptionImpact.hashCode());
-	// result = prime * result + ((descriptionPhisical == null) ? 0 : descriptionPhisical.hashCode());
-	// result = prime * result + ((id == null) ? 0 : id.hashCode());
-	// result = prime * result + ((vme == null) ? 0 : vme.hashCode());
-	// result = prime * result + ((year == null) ? 0 : year.hashCode());
-	// return result;
-	// }
+	public MultiLingualString getGeoform() {
+		return geoform;
+	}
+
+	public void setGeoform(MultiLingualString geoform) {
+		this.geoform = geoform;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -118,7 +116,7 @@ public class Profile implements Year<Profile> {
 		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (!(obj instanceof Profile)) {
 			return false;
 		}
 		Profile other = (Profile) obj;
@@ -141,6 +139,13 @@ public class Profile implements Year<Profile> {
 				return false;
 			}
 		} else if (!descriptionPhisical.equals(other.descriptionPhisical)) {
+			return false;
+		}
+		if (geoform == null) {
+			if (other.geoform != null) {
+				return false;
+			}
+		} else if (!geoform.equals(other.geoform)) {
 			return false;
 		}
 		if (id == null) {

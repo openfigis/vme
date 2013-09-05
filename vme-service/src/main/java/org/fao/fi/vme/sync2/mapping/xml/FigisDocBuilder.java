@@ -197,8 +197,7 @@ public class FigisDocBuilder {
 			new AddWhenContentRule().check(yearObject.getInformationSource()).check(yearObject.getInformationSource())
 					.beforeAdding(biblioEntry).to(sources.getTextsAndImagesAndTables());
 
-			entry.getTextsAndImagesAndTables().add(measure); // add measure to ManagementMethodEntry
-
+			// add measure to ManagementMethodEntry
 			new AddWhenContentRule().check(yearObject.getInformationSource()).check(yearObject.getVmeSpecificMeasure())
 					.beforeAdding(measure).to(entry.getTextsAndImagesAndTables());
 
@@ -504,7 +503,7 @@ public class FigisDocBuilder {
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeForeignID);
 		// OrgRef
 
-		// should water area ref come after the foreign id?
+		// WaterAreaRef
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
 
 		// dc:Title
