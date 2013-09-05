@@ -189,7 +189,7 @@ public class VME implements TableDomainMapper {
 		//
 		// Cheers,
 		// Erik
-		// o.setGeoArea(this.VME_GeogArea1);
+		o.setGeoArea(this.VME_GeogArea1);
 
 		// o.setGeographicLayerId(this.)
 		o.setId(new Long(this.ID));

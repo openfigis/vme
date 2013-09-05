@@ -16,6 +16,7 @@ import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.FisheryArea;
 import org.fao.fi.figis.devcon.ForeignID;
 import org.fao.fi.figis.devcon.GeoForm;
+import org.fao.fi.figis.devcon.GeoReference;
 import org.fao.fi.figis.devcon.HabitatBio;
 import org.fao.fi.figis.devcon.Impacts;
 import org.fao.fi.figis.devcon.Management;
@@ -31,6 +32,7 @@ import org.fao.fi.figis.devcon.OrgRef;
 import org.fao.fi.figis.devcon.Owner;
 import org.fao.fi.figis.devcon.Range;
 import org.fao.fi.figis.devcon.Sources;
+import org.fao.fi.figis.devcon.SpatialScale;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
 import org.fao.fi.figis.devcon.VMECriteria;
@@ -445,6 +447,17 @@ public class FigisDocBuilder {
 		OrgRef rfmoOrg = f.createOrgRef();
 		rfmoOrg.getForeignIDsAndFigisIDsAndTitles().add(rfmoForeignID);
 
+		// geoReference
+		SpatialScale spatialScale = new SpatialScale();
+		spatialScale.setValue("Regional");
+
+		Title spatialScaleTitle = new Title();
+		title.setContent(vmeDomain.getGeoArea());
+
+		GeoReference geoReference = f.createGeoReference();
+		geoReference.setSpatialScale(spatialScale);
+		geoReference.setTitle(spatialScaleTitle);
+
 		// WaterAreaRef
 		WaterAreaRef waterAreaRef = new WaterAreaRef();
 		ForeignID areaForeignID = new ForeignID();
@@ -483,11 +496,12 @@ public class FigisDocBuilder {
 		// fi:VMEType
 		// fi:VMECriteria
 
-		// bug : orgref is before areatype and criteria.
-
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(figisID);
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeForeignID);
 		// OrgRef
+
+		// should water area ref come after the foreign id?
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
 
 		// dc:Title
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(title);
@@ -502,7 +516,7 @@ public class FigisDocBuilder {
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(rfmoOrg);
 
 		// fi:GeoReference
-		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(waterAreaRef);
+		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(geoReference);
 
 		// fi:VMEType
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
