@@ -48,7 +48,7 @@ public class Observation implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "G1")
-	@SequenceGenerator(name = "G1", sequenceName = "figis.SEQ_FS_OBSERVATION", allocationSize = 1)
+	@SequenceGenerator(name = "G1", sequenceName = "figis_update.SEQ_FS_OBSERVATION", allocationSize = 1)
 	@Column(name = "CD_OBSERVATION", unique = true, nullable = false, precision = 10)
 	private Long id;
 

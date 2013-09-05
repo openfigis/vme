@@ -29,7 +29,7 @@ public class DisseminationYearSlice {
 	private Vme vme;
 
 	// period object
-	private GeneralMeasure generalMeasures;
+	private GeneralMeasure generalMeasure;
 
 	// period object
 	private SpecificMeasure specificMeasures;
@@ -73,12 +73,12 @@ public class DisseminationYearSlice {
 		this.vme = vme;
 	}
 
-	public GeneralMeasure getGeneralMeasures() {
-		return generalMeasures;
+	public GeneralMeasure getGeneralMeasure() {
+		return generalMeasure;
 	}
 
-	public void setGeneralMeasures(GeneralMeasure generalMeasures) {
-		this.generalMeasures = generalMeasures;
+	public void setGeneralMeasure(GeneralMeasure generalMeasure) {
+		this.generalMeasure = generalMeasure;
 	}
 
 	public SpecificMeasure getSpecificMeasures() {
@@ -120,4 +120,95 @@ public class DisseminationYearSlice {
 	public void setVmesHistory(History vmesHistory) {
 		this.vmesHistory = vmesHistory;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fisheryAreasHistory == null) ? 0 : fisheryAreasHistory.hashCode());
+		result = prime * result + ((generalMeasure == null) ? 0 : generalMeasure.hashCode());
+		result = prime * result + ((geoRef == null) ? 0 : geoRef.hashCode());
+		result = prime * result + ((informationSourceList == null) ? 0 : informationSourceList.hashCode());
+		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
+		result = prime * result + ((specificMeasures == null) ? 0 : specificMeasures.hashCode());
+		result = prime * result + ((vme == null) ? 0 : vme.hashCode());
+		result = prime * result + ((vmesHistory == null) ? 0 : vmesHistory.hashCode());
+		result = prime * result + year;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		DisseminationYearSlice other = (DisseminationYearSlice) obj;
+		if (fisheryAreasHistory == null) {
+			if (other.fisheryAreasHistory != null) {
+				return false;
+			}
+		} else if (!fisheryAreasHistory.equals(other.fisheryAreasHistory)) {
+			return false;
+		}
+		if (generalMeasure == null) {
+			if (other.generalMeasure != null) {
+				return false;
+			}
+		} else if (!generalMeasure.equals(other.generalMeasure)) {
+			return false;
+		}
+		if (geoRef == null) {
+			if (other.geoRef != null) {
+				return false;
+			}
+		} else if (!geoRef.equals(other.geoRef)) {
+			return false;
+		}
+		if (informationSourceList == null) {
+			if (other.informationSourceList != null) {
+				return false;
+			}
+		} else if (!informationSourceList.equals(other.informationSourceList)) {
+			return false;
+		}
+		if (profile == null) {
+			if (other.profile != null) {
+				return false;
+			}
+		} else if (!profile.equals(other.profile)) {
+			return false;
+		}
+		if (specificMeasures == null) {
+			if (other.specificMeasures != null) {
+				return false;
+			}
+		} else if (!specificMeasures.equals(other.specificMeasures)) {
+			return false;
+		}
+		if (vme == null) {
+			if (other.vme != null) {
+				return false;
+			}
+		} else if (!vme.equals(other.vme)) {
+			return false;
+		}
+		if (vmesHistory == null) {
+			if (other.vmesHistory != null) {
+				return false;
+			}
+		} else if (!vmesHistory.equals(other.vmesHistory)) {
+			return false;
+		}
+		if (year != other.year) {
+			return false;
+		}
+		return true;
+	}
+
 }

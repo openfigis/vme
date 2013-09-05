@@ -86,8 +86,8 @@ public class VmeAccessDbImportIntegrationTest {
 		}
 
 		// now delete the actual objects
-		Class<?>[] classes = { GeneralMeasure.class, SpecificMeasure.class, InformationSource.class, Vme.class,
-				GeoRef.class, Profile.class, Rfmo.class };
+		Class<?>[] classes = { GeneralMeasure.class, SpecificMeasure.class, InformationSource.class, GeoRef.class,
+				Vme.class, Profile.class, Rfmo.class };
 		for (Class<?> clazz : classes) {
 			List<?> list = vmeDao.loadObjects(clazz);
 			for (Object object : list) {

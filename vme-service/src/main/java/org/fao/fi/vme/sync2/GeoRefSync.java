@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.RefWaterArea;
 import org.fao.fi.figis.domain.rule.Figis;
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -57,6 +58,9 @@ public class GeoRefSync implements Sync {
 
 	private void map(GeoRef geoRef, RefWaterArea object) {
 		object.setExternalId(geoRef.getGeographicFeatureID());
+		if (geoRef.getVme() == null) {
+			throw new VmeException("GeoRef.vme is null, is an inconsistent state. geoRef.id = " + geoRef.getId());
+		}
 		object.setName(u.getEnglish(geoRef.getVme().getName()));
 	}
 }

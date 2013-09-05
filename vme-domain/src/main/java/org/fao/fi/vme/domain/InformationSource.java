@@ -191,4 +191,117 @@ public class InformationSource {
 		this.publicationYear = publicationYear;
 	}
 
+	// @Override
+	// public int hashCode() {
+	// final int prime = 31;
+	// int result = 1;
+	// result = prime * result + ((citation == null) ? 0 : citation.hashCode());
+	// result = prime * result + ((committee == null) ? 0 : committee.hashCode());
+	// result = prime * result + ((generalMeasure == null) ? 0 : generalMeasure.hashCode());
+	// result = prime * result + ((id == null) ? 0 : id.hashCode());
+	// result = prime * result + ((meetingEndDate == null) ? 0 : meetingEndDate.hashCode());
+	// result = prime * result + ((meetingStartDate == null) ? 0 : meetingStartDate.hashCode());
+	// result = prime * result + publicationYear;
+	// result = prime * result + ((reportSummary == null) ? 0 : reportSummary.hashCode());
+	// result = prime * result + ((sourceType == null) ? 0 : sourceType.hashCode());
+	// result = prime * result + ((specificMeasure == null) ? 0 : specificMeasure.hashCode());
+	// result = prime * result + ((url == null) ? 0 : url.hashCode());
+	// return result;
+	// }
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof InformationSource)) {
+			return false;
+		}
+		InformationSource other = (InformationSource) obj;
+		if (citation == null) {
+			if (other.citation != null) {
+				return false;
+			}
+		} else if (!citation.equals(other.citation)) {
+			return false;
+		}
+		if (committee == null) {
+			if (other.committee != null) {
+				return false;
+			}
+		} else if (!committee.equals(other.committee)) {
+			return false;
+		}
+		if (generalMeasure == null) {
+			if (other.generalMeasure != null) {
+				return false;
+			}
+		} else if (!generalMeasure.equals(other.generalMeasure)) {
+			return false;
+		}
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
+			return false;
+		}
+		if (meetingEndDate == null) {
+			if (other.meetingEndDate != null) {
+				return false;
+			}
+		} else if (!meetingEndDate.equals(other.meetingEndDate)) {
+			return false;
+		}
+		if (meetingStartDate == null) {
+			if (other.meetingStartDate != null) {
+				return false;
+			}
+		} else if (!meetingStartDate.equals(other.meetingStartDate)) {
+			return false;
+		}
+		if (publicationYear != other.publicationYear) {
+			return false;
+		}
+		if (reportSummary == null) {
+			if (other.reportSummary != null) {
+				return false;
+			}
+		} else if (!reportSummary.equals(other.reportSummary)) {
+			return false;
+		}
+		if (rfmoList == null) {
+			if (other.rfmoList != null) {
+				return false;
+			}
+		} else if (!rfmoList.equals(other.rfmoList)) {
+			return false;
+		}
+		if (sourceType == null) {
+			if (other.sourceType != null) {
+				return false;
+			}
+		} else if (!sourceType.equals(other.sourceType)) {
+			return false;
+		}
+		if (specificMeasure == null) {
+			if (other.specificMeasure != null) {
+				return false;
+			}
+		} else if (!specificMeasure.equals(other.specificMeasure)) {
+			return false;
+		}
+		if (url == null) {
+			if (other.url != null) {
+				return false;
+			}
+		} else if (!url.equals(other.url)) {
+			return false;
+		}
+		return true;
+	}
+
 }

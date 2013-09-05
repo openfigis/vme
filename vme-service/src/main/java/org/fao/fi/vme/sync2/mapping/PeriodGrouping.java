@@ -137,7 +137,7 @@ public class PeriodGrouping {
 			Collections.sort(gmList, new PeriodYearComperator());
 			for (GeneralMeasure generalMeasures : gmList) {
 				if (period(year, generalMeasures)) {
-					slice.setGeneralMeasures(generalMeasures);
+					slice.setGeneralMeasure(generalMeasures);
 				}
 			}
 		}
