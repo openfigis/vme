@@ -42,7 +42,7 @@ public class VmeSearchRefService implements SearchRefService {
 		res.add(new VmeSearchRefDto(20220, "en", "NAFO")); 
 		res.add(new VmeSearchRefDto(21580, "en", "NEAFC")); 
 		res.add(new VmeSearchRefDto(22140, "en", "SEAFO"));
-
+		res.add(new VmeSearchRefDto(90010, "en", "SIODFA"));
 		
 		return res;
 	}

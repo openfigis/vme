@@ -58,6 +58,7 @@ public class ReferenceServiceHelper {
 		repAuthority.put((long)20220, new Authority(20220,"NAFO",null));
 		repAuthority.put((long)21580, new Authority(21580,"NEAFC",null));
 		repAuthority.put((long)22140, new Authority(22140,"SEAFO",null));
+		repAuthority.put((long)90010, new Authority(22140,"SIODFA",null));
 	}
 
 	private void createVmeCriterias() {

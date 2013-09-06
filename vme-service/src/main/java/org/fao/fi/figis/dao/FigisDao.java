@@ -254,7 +254,7 @@ public class FigisDao extends Dao {
 	 */
 	public VmeObservation findFirstVmeObservation(Long vmeId, String year) {
 		Query query = em
-				.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear <= :year order by vo.id.reportingYear");
+				.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear <= :year order by vo.id.reportingYear desc");
 		query.setParameter("vmeId", vmeId);
 		query.setParameter("year", year);
 		VmeObservation vo = null;
