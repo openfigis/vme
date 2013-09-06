@@ -13,9 +13,6 @@ import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.ForeignID;
-import org.fao.fi.figis.devcon.GeoForm;
-import org.fao.fi.figis.devcon.HabitatBio;
-import org.fao.fi.figis.devcon.Impacts;
 import org.fao.fi.figis.devcon.Management;
 import org.fao.fi.figis.devcon.ManagementMethodEntry;
 import org.fao.fi.figis.devcon.ManagementMethods;
@@ -151,11 +148,13 @@ public class FigisDocBuilderTest {
 		String descriptionBiological = "111111111111111";
 		String descriptionPhysical = "22222222222222222";
 		String descriptionImpact = "333333333333333333333333333";
+		String geoform = "geoform";
 
 		Profile profile = new Profile();
 		profile.setDescriptionBiological(u.english(descriptionBiological));
 		profile.setDescriptionPhisical(u.english(descriptionPhysical));
 		profile.setDescriptionImpact(u.english(descriptionImpact));
+		profile.setGeoform(u.english(geoform));
 
 		FIGISDoc figisDoc = new FIGISDoc();
 
@@ -167,28 +166,8 @@ public class FigisDocBuilderTest {
 
 		// test
 		List<Object> list = figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts();
-		assertEquals(2, list.size());
+		assertEquals(3, list.size());
 
-		for (Object obj : list) {
-			if (obj instanceof HabitatBio) {
-				for (Object pObj : ((HabitatBio) obj).getClimaticZonesAndDepthZonesAndDepthBehavs()) {
-					if (pObj instanceof Text) {
-						// test text HabitatBio property
-						assertEquals(descriptionBiological, ((Text) pObj).getContent().get(0));
-					} else if (pObj instanceof GeoForm) {
-						String geoformString = (String) ((JAXBElement<Text>) (((GeoForm) pObj).getContent().get(0)))
-								.getValue().getContent().get(0);
-						assertEquals(descriptionPhysical, geoformString);
-					}
-				}
-			} else if (obj instanceof Impacts) {
-				for (Object pObj : ((Impacts) obj).getTextsAndImagesAndTables()) {
-					if (pObj instanceof Text) {
-						assertEquals(descriptionImpact, ((Text) pObj).getContent().get(0));
-					}
-				}
-			}
-		}
 	}
 
 	@Test

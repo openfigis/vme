@@ -2,6 +2,8 @@ package org.fao.fi.vme.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -19,6 +21,7 @@ import org.fao.fi.vme.domain.interfacee.Year;
 public class Profile implements Year<Profile> {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	/**

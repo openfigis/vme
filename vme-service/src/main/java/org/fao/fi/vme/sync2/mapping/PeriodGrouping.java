@@ -78,9 +78,9 @@ public class PeriodGrouping {
 
 		// Profile.
 		List<Profile> profileList = vme.getProfileList();
-		if (profileList != null) {
-			Year<?> geoRef = findRelavantYear(profileList, disseminationYear);
-			slice.setProfile((Profile) geoRef);
+		if (profileList != null && profileList.size() > 0) {
+			Year<?> profile = findRelavantYear(profileList, disseminationYear);
+			slice.setProfile((Profile) profile);
 		}
 
 		// InformationSource.

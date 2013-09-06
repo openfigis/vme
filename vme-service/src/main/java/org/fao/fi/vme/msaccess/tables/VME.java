@@ -195,14 +195,16 @@ public class VME implements TableDomainMapper {
 		vp.setEndYear(r.getEnd());
 		o.setValidityPeriod(vp);
 
-		Profile f = new Profile();
-		f.setDescriptionBiological(u.english(this.VME_Description_Biology));
-		f.setDescriptionImpact(u.english(this.VME_Description_Impact));
-		f.setDescriptionPhisical(u.english(this.VME_Description_Physical));
-		f.setGeoform(u.english(this.getVME_Geoform()));
+		Profile p = new Profile();
+		p.setDescriptionBiological(u.english(this.VME_Description_Biology));
+		p.setDescriptionImpact(u.english(this.VME_Description_Impact));
+		p.setDescriptionPhisical(u.english(this.VME_Description_Physical));
+		p.setGeoform(u.english(this.getVME_Geoform()));
+		p.setYear(this.Year_ID);
 
 		List<Profile> l = new ArrayList<Profile>();
-		l.add(f);
+		l.add(p);
+		o.setProfileList(l);
 
 		List<GeoRef> geoRefList = new ArrayList<GeoRef>();
 		GeoRef geoRef = new GeoRef();
