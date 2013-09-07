@@ -1,12 +1,20 @@
 package org.vme.fimes.jaxb;
 
 import java.io.StringWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import org.fao.fi.figis.devcon.FIGISDoc;
+import org.xml.sax.SAXException;
+
+//import com.sun.xml.bind.v2.schemagen.xmlschema.Schema;
 
 /**
  * Convert the java jaxb xml to a string.
@@ -21,19 +29,33 @@ public class JaxbMarshall {
 
 	static {
 		try {
+
+			SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
 			JAXBContext context = JAXBContext.newInstance(FIGISDoc.class);
 			marshaller = context.createMarshaller();
+			marshaller.setEventHandler(new FimesValidationEventHandler());
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-
 			marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
 					"http://www.fao.org/fi/figis/devcon/ http://www.fao.org/figis/fimes/schema/3_6/fi.xsd");
 
+			// is this one needed, since JAXB_SCHEMA_LOCATION is also set?
+			Schema schema = sf.newSchema(new URL("http://www.fao.org/figis/fimes/schema/3_6/fi.xsd"));
+			marshaller.setSchema(schema);
+
 			// this property works fine with jdk1.6.0_16
 			marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new FimesNamespacePrefixMapper());
+
 		} catch (JAXBException e) {
-			throw new RuntimeException(
-					"There was a problem creating a JAXBContext object for formatting the object to XML.");
+			throw new FimesSchemaException(
+					"There was a problem creating a JAXBContext object for serializing the object to XML.");
+		} catch (MalformedURLException e) {
+			throw new FimesSchemaException(
+					"There was a problem creating a JAXBContext object for serializing the object to XML.");
+		} catch (SAXException e) {
+			throw new FimesSchemaException(
+					"There was a problem creating a JAXBContext object for serializing the object to XML.");
 		}
 	}
 

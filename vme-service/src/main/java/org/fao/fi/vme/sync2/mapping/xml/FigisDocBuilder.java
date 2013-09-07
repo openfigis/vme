@@ -93,6 +93,10 @@ public class FigisDocBuilder {
 	private CurrentDate currentDate = new CurrentDate();
 	private InformationSourceCodelist codelist = new InformationSourceCodelist();
 
+	public static final String VULNERABLE_MARINE_ECOSYSTEMS = "Vulnerable Marine Ecosystems";
+
+	public static final String VME_SPECIFIC_MEASURES = "VME-specific measures";
+
 	/**
 	 * Adds specificMeasures to a FIGISDoc
 	 * 
@@ -124,20 +128,20 @@ public class FigisDocBuilder {
 	 *                    :Range@Type="Time"/fi:Max
 	 * 
 	 * 
-	 * @param yearObject
+	 * @param specificMeasure
 	 * @param figisDoc
 	 */
-	public void specificMeasures(SpecificMeasure yearObject, FIGISDoc figisDoc) {
+	public void specificMeasures(SpecificMeasure specificMeasure, FIGISDoc figisDoc) {
 
 		// ManagementMethodEntry
-		if (yearObject != null) {
+		if (specificMeasure != null) {
 
 			ManagementMethodEntry entry = f.createManagementMethodEntry();
-			entry.setFocus("Vulnerable Marine Ecosystems");
+			entry.setFocus(VULNERABLE_MARINE_ECOSYSTEMS);
 
 			// title
 			Title entryTitle = new Title();
-			entryTitle.setContent("VME-specific measures");
+			entryTitle.setContent(VME_SPECIFIC_MEASURES);
 			entry.setTitle(entryTitle);
 
 			// Measure
@@ -145,24 +149,24 @@ public class FigisDocBuilder {
 
 			// measureType
 			MeasureType measureType = f.createMeasureType();
-			measureType.setValue("VME-specific measures");
+			measureType.setValue(VME_SPECIFIC_MEASURES);
 			measure.getTextsAndImagesAndTables().add(measureType);
 
 			// text
 
-			Text measureText = ut.getEnglishText(yearObject.getVmeSpecificMeasure());
+			Text measureText = ut.getEnglishText(specificMeasure.getVmeSpecificMeasure());
 			measure.getTextsAndImagesAndTables().add(measureText);
 
 			// contentRule.add(content, measureType, measure.getTextsAndImagesAndTables())
 
 			// range (time)
-			if (yearObject.getValidityPeriod() != null) {
+			if (specificMeasure.getValidityPeriod() != null) {
 				Min min = f.createMin();
-				min.setContent(yearObject.getValidityPeriod().getBeginYear().toString());
+				min.setContent(specificMeasure.getValidityPeriod().getBeginYear().toString());
 				JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
 
 				Max max = f.createMax();
-				max.setContent(yearObject.getValidityPeriod().getEndYear().toString());
+				max.setContent(specificMeasure.getValidityPeriod().getEndYear().toString());
 				JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
 
 				Range range = f.createRange();
@@ -178,28 +182,36 @@ public class FigisDocBuilder {
 
 			AddWhenContentRule rule = new AddWhenContentRule();
 
-			if (yearObject.getInformationSource() != null) {
+			if (specificMeasure.getInformationSource() != null) {
 				BibliographicCitation citation = new BibliographicCitation();
-				citation.setContent(u.getEnglish(yearObject.getInformationSource().getCitation()));
+				citation.setContent(u.getEnglish(specificMeasure.getInformationSource().getCitation()));
 				biblioEntry.getContent().add(citation);
-				rule.check(u.getEnglish(yearObject.getInformationSource().getCitation()));
+				rule.check(u.getEnglish(specificMeasure.getInformationSource().getCitation()));
 
-				if (yearObject.getInformationSource().getUrl() != null
-						&& !StringUtils.isBlank(yearObject.getInformationSource().getUrl().getPath())) {
+				if (specificMeasure.getInformationSource().getUrl() != null
+						&& !StringUtils.isBlank(specificMeasure.getInformationSource().getUrl().getPath())) {
 					Identifier identifier = new Identifier();
 					identifier.setType("URI");
-					identifier.setContent(yearObject.getInformationSource().getUrl().toString());
-					new AddWhenContentRule().check(yearObject.getInformationSource().getUrl()).beforeAdding(identifier)
-							.to(biblioEntry.getContent());
+					identifier.setContent(specificMeasure.getInformationSource().getUrl().toString());
+					new AddWhenContentRule().check(specificMeasure.getInformationSource().getUrl())
+							.beforeAdding(identifier).to(biblioEntry.getContent());
 				}
 			}
 
-			new AddWhenContentRule().check(yearObject.getInformationSource()).check(yearObject.getInformationSource())
-					.beforeAdding(biblioEntry).to(sources.getTextsAndImagesAndTables());
+			// add biblioEntry to sources
+			new AddWhenContentRule().check(specificMeasure.getInformationSource())
+					.check(specificMeasure.getInformationSource()).beforeAdding(biblioEntry)
+					.to(sources.getTextsAndImagesAndTables());
 
-			// add measure to ManagementMethodEntry
-			new AddWhenContentRule().check(yearObject.getInformationSource()).check(yearObject.getVmeSpecificMeasure())
-					.beforeAdding(measure).to(entry.getTextsAndImagesAndTables());
+			// add source to the measure (Sources are added to the SpecificMeasure, not to the entry)
+			new AddWhenContentRule().check(specificMeasure.getInformationSource())
+					.check(specificMeasure.getVmeSpecificMeasure()).beforeAdding(sources)
+					.to(measure.getTextsAndImagesAndTables());
+
+			// add measure to entry
+			new AddWhenContentRule().check(specificMeasure.getInformationSource())
+					.check(specificMeasure.getVmeSpecificMeasure()).beforeAdding(measure)
+					.to(entry.getTextsAndImagesAndTables());
 
 			ManagementMethods managementMethods = findManagementMethods(figisDoc);
 
@@ -380,29 +392,41 @@ public class FigisDocBuilder {
 	 * ValidityPeriod/endYear
 	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Range@Type="Time"/fi:Max
 	 * 
-	 * @param yearObject
+	 * @param generalMeasure
 	 * @param figisDoc
 	 */
-	public void generalMeasures(GeneralMeasure yearObject, FIGISDoc figisDoc) {
+	public void generalMeasures(GeneralMeasure generalMeasure, FIGISDoc figisDoc) {
 
 		// entry
 		ManagementMethodEntry entry = f.createManagementMethodEntry();
 
-		mmeBuilder.init(entry);
-		mmeBuilder.addMeasureToEntry1(yearObject, entry);
-		mmeBuilder.addMeasureToEntry2(yearObject, entry);
-		mmeBuilder.addMeasureToEntry3(yearObject, entry);
-		mmeBuilder.addMeasureToEntry4(yearObject, entry);
-		mmeBuilder.addMeasureToEntry5(yearObject, entry);
-		mmeBuilder.addSources(yearObject, entry);
-		mmeBuilder.addRange(yearObject, entry);
+		mmeBuilder.initGM(entry);
+
+		// FishingAreas (entry)
+		mmeBuilder.addMeasureToEntry1(generalMeasure, entry);
+
+		// ExploratoryFishingProtocol (entry)
+		mmeBuilder.addMeasureToEntry2(generalMeasure, entry);
+
+		//
+		// VME_ENCOUNTER_PROTOCOLS (entry)
+		mmeBuilder.addMeasureToEntry3(generalMeasure, entry);
+
+		//
+		// VME_THRESHOLD (entry)
+		mmeBuilder.addMeasureToEntry4(generalMeasure, entry);
+
+		// VME_INDICATORSPECIES (entry)
+		mmeBuilder.addMeasureToEntry5(generalMeasure, entry);
+
+		// this one is asociated to the method, not to any entry
+		mmeBuilder.addSources(generalMeasure, entry);
+
+		// this one is asociated to the method, not to any entry
+		mmeBuilder.addRange(generalMeasure, entry);
 
 		ManagementMethods methods = findManagementMethods(figisDoc);
 		methods.getManagementMethodEntriesAndTextsAndImages().add(entry);
-
-		// Management m = findManagement(figisDoc);
-
-		// fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@
 
 	}
 
