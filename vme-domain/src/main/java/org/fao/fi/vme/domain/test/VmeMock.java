@@ -1,9 +1,7 @@
 package org.fao.fi.vme.domain.test;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import org.fao.fi.vme.domain.GeneralMeasure;
@@ -79,20 +77,15 @@ public class VmeMock {
 
 		for (int i = 0; i < nrOfyears; i++) {
 			int year = startYear + i;
-			InformationSource is = new InformationSource();
+			InformationSource is = InformationSourceMock.create();
 			is.setPublicationYear(year);
-			is.setSourceType(2);
 			is.setId(id++);
-			is.setCitation(u.english("RFMO Conservation and Enforcement Measure " + year + " (Doc No. ####)"));
-			is.setMeetingEndDate(Calendar.getInstance().getTime());
-			try {
-				is.setUrl(new URL("http://www.rfmo.org"));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			is.setCommittee(u.english("Regional Fishery Management Organization (RFMO)"));
-			is.setReportSummary(u.english("This is an abstract (report summary)"));
 			informationSourceList.add(is);
+
+			InformationSource isSm = InformationSourceMock.create();
+			isSm.setPublicationYear(year);
+			isSm.setId(id++);
+			isSm.setCitation(u.english("This is a citation for a SpecificMeasure"));
 
 			History history = new History();
 			history.setId(id++);
@@ -117,7 +110,7 @@ public class VmeMock {
 			specificMeasure.setYear(year);
 			specificMeasure.setVmeSpecificMeasure(u.english("A specific measure for the year " + year));
 			specificMeasure.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
-			specificMeasure.setInformationSource(is);
+			specificMeasure.setInformationSource(isSm);
 			specificMeasureList.add(specificMeasure);
 
 			GeoRef geoRef = new GeoRef();

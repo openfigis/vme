@@ -76,41 +76,13 @@ public class FigisDocBuilderTest {
 		ManagementMethodEntry entry = (ManagementMethodEntry) manMethods.getManagementMethodEntriesAndTextsAndImages()
 				.get(0);
 		assertNotNull(entry);
-		assertEquals("Vulnerable Marine Ecosystems", entry.getFocus());
-		assertEquals("VME-specific measures", entry.getTitle().getContent());
+		assertEquals(FigisDocBuilder.VULNERABLE_MARINE_ECOSYSTEMS, entry.getFocus());
+		assertEquals(FigisDocBuilder.VME_SPECIFIC_MEASURES, entry.getTitle().getContent());
 
 		Measure measure = (Measure) entry.getTextsAndImagesAndTables().get(0);
 		assertNotNull(measure);
+		assertTrue(measure.getTextsAndImagesAndTables().size() > 1);
 
-		for (Object obj : measure.getTextsAndImagesAndTables()) {
-			if (obj instanceof MeasureType) {
-				assertEquals("VME-specific measures", ((MeasureType) obj).getValue());
-
-			} else if (obj instanceof Text) {
-				assertEquals(u.getEnglish(specificMeasure.getVmeSpecificMeasure()), ((Text) obj).getContent().get(0));
-
-			} else if (obj instanceof Range) {
-				assertEquals("Time", ((Range) obj).getType());
-				assertEquals(specificMeasure.getValidityPeriod().getBeginYear().toString(),
-						((JAXBElement<Min>) ((Range) obj).getContent().get(0)).getValue().getContent());
-				assertEquals(specificMeasure.getValidityPeriod().getEndYear().toString(),
-						((JAXBElement<Max>) ((Range) obj).getContent().get(1)).getValue().getContent());
-
-			} else if (obj instanceof Sources) {
-				BiblioEntry biblioEntry = (BiblioEntry) ((Sources) obj).getTextsAndImagesAndTables().get(0);
-				for (Object bibObj : biblioEntry.getContent()) {
-					if (bibObj instanceof BibliographicCitation) {
-						assertEquals(u.getEnglish(specificMeasure.getInformationSource().getCitation()),
-								((BibliographicCitation) bibObj).getContent());
-
-					} else if (bibObj instanceof Identifier) {
-						assertEquals("URI", ((Identifier) bibObj).getType());
-						assertEquals(specificMeasure.getInformationSource().getUrl().toString(),
-								((Identifier) bibObj).getContent());
-					}
-				}
-			}
-		}
 	}
 
 	@Test

@@ -28,8 +28,8 @@ import org.purl.dc.terms.BibliographicCitation;
  * 
  */
 public class ManagementMethodEntryBuilder {
-	public final static String FOCUS = "Vulnerable Marine Ecosystems";
-	public final static String TITLE = "VME general measures";
+
+	public final static String TITLE_GM = "VME general measures";
 	public final static String FISHING_AREAS = "Fishing_areas";
 	public final static String EXPLORATORY_FISHING_PROTOCOL = "Exploratory_fishing_protocol";
 	public final static String VME_ENCOUNTER_PROTOCOLS = "VME_encounter_protocols";
@@ -41,10 +41,10 @@ public class ManagementMethodEntryBuilder {
 	private ObjectFactory f = new ObjectFactory();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 
-	public void init(ManagementMethodEntry entry) {
-		entry.setFocus(FOCUS);
+	public void initGM(ManagementMethodEntry entry) {
+		entry.setFocus(FigisDocBuilder.VULNERABLE_MARINE_ECOSYSTEMS);
 		Title entryTitle = new Title();
-		entryTitle.setContent(TITLE);
+		entryTitle.setContent(TITLE_GM);
 		entry.setTitle(entryTitle);
 
 	}
@@ -65,22 +65,55 @@ public class ManagementMethodEntryBuilder {
 
 	}
 
-	public void addMeasureToEntry2(GeneralMeasure yearObject, ManagementMethodEntry entry) {
-		if (yearObject != null) {
+	/**
+	 * 
+	 * <fi:Management> <fi:ManagementMethods>
+	 * 
+	 * --<fi:ManagementMethodEntry Focus="Vulnerable Marine Ecosystems">
+	 * 
+	 * ----<dc:Title>VME general measures</dc:Title>
+	 * 
+	 * ----<fi:Measure>
+	 * 
+	 * ------<fi:MeasureType Value="Exploratory_fishing_protocol"/>
+	 * 
+	 * ------<fi:Text><![CDATA[Exploratory fishing covers all bottom fishing activities (a) outside of the existing
+	 * bottom fishing area and (b) to fisheries within the existing bottom fishing area that show significant change.
+	 * (Art 15.8). Exploratory fisheries must be conducted according to an exploratory fisheries protocol (Art 18; Annex
+	 * 1E.I-IV) and are subject to review FC and SC. Exploritory fisheries will be allowed only if there are adequate
+	 * mitigation measures to prevent SAI to VMEs (Art 19). ]]></fi:Text>
+	 * 
+	 * ----</fi:Measure>
+	 * 
+	 * 
+	 * 
+	 * 
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
+	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * 
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
+	 * "Vulnerable Marine Ecosystems"/fi:Measure/MeasureType@Value="VME_encounter_protocols"
+	 * 
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * 
+	 * @param generalMeasure
+	 * @param entry
+	 */
+
+	public void addMeasureToEntry2(GeneralMeasure generalMeasure, ManagementMethodEntry entry) {
+		if (generalMeasure != null) {
 			// 2. ExploratoryFishingProtocol
 			Measure measure2 = f.createMeasure();
 			MeasureType measureType2 = f.createMeasureType();
 			measureType2.setValue(EXPLORATORY_FISHING_PROTOCOL);
 			Text measureText2 = f.createText();
-			measureText2.getContent().add(u.getEnglish(yearObject.getExplorataryFishingProtocols()));
+			measureText2.getContent().add(u.getEnglish(generalMeasure.getExplorataryFishingProtocols()));
 
 			measure2.getTextsAndImagesAndTables().add(measureType2);
+
 			measure2.getTextsAndImagesAndTables().add(measureText2);
 
-			new AddWhenContentRule().check(u.getEnglish(yearObject.getExplorataryFishingProtocols()))
-					.beforeAdding(measureType2).beforeAdding(measureText2).to(measure2.getTextsAndImagesAndTables());
-
-			new AddWhenContentRule().check(u.getEnglish(yearObject.getExplorataryFishingProtocols()))
+			new AddWhenContentRule().check(u.getEnglish(generalMeasure.getExplorataryFishingProtocols()))
 					.beforeAdding(measureType2).beforeAdding(measure2).to(entry.getTextsAndImagesAndTables());
 
 		}
