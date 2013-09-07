@@ -138,7 +138,7 @@ public class FigisDocBuilderTest {
 
 		// test
 		List<Object> list = figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts();
-		assertEquals(3, list.size());
+		assertEquals(2, list.size());
 
 	}
 

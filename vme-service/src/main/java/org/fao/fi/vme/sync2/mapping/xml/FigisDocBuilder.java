@@ -315,7 +315,6 @@ public class FigisDocBuilder {
 
 			Text text1 = ut.getEnglishText(profile.getDescriptionBiological());
 			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(text1);
-			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
 
 			// Physical profile
 

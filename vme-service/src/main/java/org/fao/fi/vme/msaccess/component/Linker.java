@@ -128,6 +128,18 @@ public class Linker {
 		}
 
 		for (ObjectCollection oc : objectCollectionList) {
+			if (record.getMeetings_ID() > 0) {
+				if (oc.getClazz() == InformationSource.class) {
+					List<Object> objectList = oc.getObjectList();
+					for (Object object : objectList) {
+						InformationSource is = (InformationSource) object;
+						if (is.getId().intValue() == record.getMeetings_ID()) {
+							sm.setInformationSource(is);
+						}
+					}
+				}
+			}
+
 			if (oc.getClazz() == Vme.class) {
 				List<Object> objectList = oc.getObjectList();
 				for (Object object : objectList) {

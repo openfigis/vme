@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.fao.fi.vme.msaccess.model.Table;
+import org.fao.fi.vme.msaccess.tables.Measues_VME_Specific;
 import org.fao.fi.vme.msaccess.tables.RFB_MetaData;
 import org.fao.fi.vme.msaccess.tables.VME;
 import org.junit.Test;
@@ -25,6 +26,7 @@ public class VmeReaderTest {
 	static {
 		numberOfRecords.put(VME.class, 209);
 		numberOfRecords.put(RFB_MetaData.class, 6);
+		numberOfRecords.put(Measues_VME_Specific.class, 181);
 	}
 
 	@Test
@@ -51,6 +53,17 @@ public class VmeReaderTest {
 				assertFalse(ids.contains(id));
 			}
 
+			if (table.getClazz().equals(Measues_VME_Specific.class)) {
+				List<Object> records = table.getObjectList();
+				int countMeetingId = 0;
+				for (Object object : records) {
+					Measues_VME_Specific r = (Measues_VME_Specific) object;
+					if (r.getMeetings_ID() > 0) {
+						countMeetingId++;
+					}
+				}
+				assertEquals(132, countMeetingId, 10);
+			}
 		}
 	}
 }
