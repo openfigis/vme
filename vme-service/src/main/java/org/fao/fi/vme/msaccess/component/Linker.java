@@ -126,9 +126,6 @@ public class Linker {
 					"At this point, the Measues_VME_Specific record or its id would need to be there, for Measues_VME_Specific"
 							+ sm.getId());
 		}
-		if (record.getVME_ID().equals("Fogo Seamounts 1")) {
-			System.out.println(record.getVME_ID());
-		}
 
 		for (ObjectCollection oc : objectCollectionList) {
 			if (oc.getClazz() == Vme.class) {

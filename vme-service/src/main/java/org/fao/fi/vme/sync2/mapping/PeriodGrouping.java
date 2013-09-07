@@ -38,9 +38,6 @@ public class PeriodGrouping {
 	public List<DisseminationYearSlice> collect(Vme vme) {
 
 		MultiLingualStringUtil u = new MultiLingualStringUtil();
-		if (u.getEnglish(vme.getName()).equals("Fogo Seamounts 1")) {
-			System.out.println();
-		}
 
 		List<DisseminationYearSlice> l = new ArrayList<DisseminationYearSlice>();
 

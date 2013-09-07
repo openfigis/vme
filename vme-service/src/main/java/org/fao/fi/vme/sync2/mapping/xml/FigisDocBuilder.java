@@ -196,21 +196,18 @@ public class FigisDocBuilder {
 					new AddWhenContentRule().check(specificMeasure.getInformationSource().getUrl())
 							.beforeAdding(identifier).to(biblioEntry.getContent());
 				}
+				// add source to the measure (Sources are added to the SpecificMeasure, not to the entry)
+				new AddWhenContentRule().check(specificMeasure.getInformationSource())
+						.check(specificMeasure.getInformationSource().getUrl())
+						.check(specificMeasure.getInformationSource().getCitation()).beforeAdding(sources)
+						.to(measure.getTextsAndImagesAndTables());
+
 			}
 
 			// add biblioEntry to sources
 			new AddWhenContentRule().check(specificMeasure.getInformationSource())
 					.check(specificMeasure.getInformationSource()).beforeAdding(biblioEntry)
 					.to(sources.getTextsAndImagesAndTables());
-
-			// add source to the measure (Sources are added to the SpecificMeasure, not to the entry)
-			new AddWhenContentRule().check(specificMeasure.getInformationSource())
-					.check(specificMeasure.getVmeSpecificMeasure()).beforeAdding(sources)
-					.to(measure.getTextsAndImagesAndTables());
-
-			if (specificMeasure.getVmeSpecificMeasure() != null) {
-				System.out.println(ut.getEnglishText(specificMeasure.getVmeSpecificMeasure()));
-			}
 
 			// add measure to entry
 			new AddWhenContentRule().check(specificMeasure.getInformationSource())
