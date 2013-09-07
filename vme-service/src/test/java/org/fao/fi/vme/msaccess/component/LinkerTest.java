@@ -1,6 +1,7 @@
 package org.fao.fi.vme.msaccess.component;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -29,8 +31,8 @@ public class LinkerTest {
 
 	private final MsAcces2DomainMapper m = new MsAcces2DomainMapper();
 	private final Linker linker = new Linker();
-
 	private final VmeReader reader = new VmeReader();
+	private final MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	@Test
 	public void testLink() {
@@ -60,7 +62,7 @@ public class LinkerTest {
 					validateInformationSource(object);
 				}
 				if (object instanceof SpecificMeasure) {
-					// validateSpecificMeasuresObject(object);
+					validateSpecificMeasuresObject(object);
 				}
 				if (object instanceof GeneralMeasure) {
 					validateGeneralMeasuresObject(object);
@@ -68,6 +70,12 @@ public class LinkerTest {
 			}
 		}
 		// validateRelationVmeSpecificMeasure(objectCollectionList);
+
+	}
+
+	private void validateSpecificMeasuresObject(Object object) {
+		SpecificMeasure o = (SpecificMeasure) object;
+		assertTrue(o.getVmeList().size() > 0);
 
 	}
 
@@ -83,12 +91,16 @@ public class LinkerTest {
 	private void validateVmeObject(Object object) {
 		Vme o = (Vme) object;
 		assertNotNull(o.getRfmo().getId());
-		// TODO commented, please validate with Aureliano
-		// assertTrue(o.getSpecificMeasuresList().size() > 0);
+		// not all vme's do have a specific measure
+
+		if (u.getEnglish(o.getName()).equals("Fogo Seamounts 1")) {
+			assertTrue("VME " + u.getEnglish(o.getName()) + " " + o.getInventoryIdentifier()
+					+ " does not have specific measures", o.getSpecificMeasureList().size() > 0);
+			assertNotNull(o.getSpecificMeasureList().get(0).getVmeSpecificMeasure());
+		}
+
 		assertNotNull(o.getValidityPeriod().getBeginYear());
 		assertNotNull(o.getValidityPeriod().getEndYear());
-		// TODO commented, please validate with Aureliano
-		// assertTrue(o.getId() <= 212);
 
 	}
 

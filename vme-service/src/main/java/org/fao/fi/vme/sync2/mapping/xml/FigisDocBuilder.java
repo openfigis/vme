@@ -208,6 +208,10 @@ public class FigisDocBuilder {
 					.check(specificMeasure.getVmeSpecificMeasure()).beforeAdding(sources)
 					.to(measure.getTextsAndImagesAndTables());
 
+			if (specificMeasure.getVmeSpecificMeasure() != null) {
+				System.out.println(ut.getEnglishText(specificMeasure.getVmeSpecificMeasure()));
+			}
+
 			// add measure to entry
 			new AddWhenContentRule().check(specificMeasure.getInformationSource())
 					.check(specificMeasure.getVmeSpecificMeasure()).beforeAdding(measure)

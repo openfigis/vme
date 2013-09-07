@@ -22,6 +22,7 @@ import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.fao.fi.vme.test.VmeDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -49,6 +50,7 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 	VmeDao vmeDao;
 
 	DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
+	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	Long id;
 
@@ -89,6 +91,11 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 		List<Vme> vmeList = (List<Vme>) vmeDao.loadObjects(Vme.class);
 		for (Vme vme : vmeList) {
 			SpecificMeasure specificMeasures = new SpecificMeasure();
+
+			// List<Vme> vmeListForThisSM = new ArrayList<Vme>();
+			// vmeListForThisSM.add(vme);
+			// specificMeasures.setVmeList(vmeListForThisSM);
+			specificMeasures.setVmeSpecificMeasure(u.english("go sado masochistic"));
 			specificMeasures.setId(333333333l);
 			specificMeasures.setYear(VmeMock.YEAR + 1);
 			specificMeasures.setValidityPeriod(ValidityPeriodMock.create());

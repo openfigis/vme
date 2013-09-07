@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.History;
@@ -16,6 +17,7 @@ import org.fao.fi.vme.domain.interfacee.Period;
 import org.fao.fi.vme.domain.interfacee.Year;
 import org.fao.fi.vme.domain.logic.PeriodYearComperator;
 import org.fao.fi.vme.domain.logic.YearComperator;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 /**
  * 
@@ -34,6 +36,12 @@ public class PeriodGrouping {
 	private static final int FUTURE = 9999;
 
 	public List<DisseminationYearSlice> collect(Vme vme) {
+
+		MultiLingualStringUtil u = new MultiLingualStringUtil();
+		if (u.getEnglish(vme.getName()).equals("Fogo Seamounts 1")) {
+			System.out.println();
+		}
+
 		List<DisseminationYearSlice> l = new ArrayList<DisseminationYearSlice>();
 
 		int beginYear = vme.getValidityPeriod().getBeginYear();
@@ -127,6 +135,15 @@ public class PeriodGrouping {
 			for (SpecificMeasure specificMeasures : smList) {
 				if (period(year, specificMeasures)) {
 					// this logic would pick the latest SpecificMeasures, which would be correct.
+
+					if (specificMeasures.getVmeSpecificMeasure() == null) {
+						throw new VmeException(
+								"Error during generating slices. At this point, the specific measure object needs to have a value for VME "
+										+ specificMeasures.getVmeList().get(0).getInventoryIdentifier() + " "
+										+ specificMeasures.getVmeList().get(0).getId());
+
+					}
+
 					slice.setSpecificMeasures(specificMeasures);
 				}
 			}

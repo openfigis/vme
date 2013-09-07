@@ -14,11 +14,13 @@ import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.junit.Test;
 
 public class PeriodGroupingTest {
 
 	PeriodGrouping g = new PeriodGrouping();
+	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	@Test
 	public void testInformationHistoryCollectingYears() {
@@ -85,10 +87,12 @@ public class PeriodGroupingTest {
 		SpecificMeasure sm1 = new SpecificMeasure();
 		sm1.setYear(2009);
 		sm1.setValidityPeriod(vp1);
+		sm1.setVmeSpecificMeasure(u.english("go sado masochistic1"));
 
 		SpecificMeasure sm2 = new SpecificMeasure();
 		sm2.setYear(2010);
 		sm2.setValidityPeriod(vp2);
+		sm2.setVmeSpecificMeasure(u.english("go sado masochistic2"));
 
 		List<SpecificMeasure> smList = new ArrayList<SpecificMeasure>();
 		smList.add(sm1);
@@ -137,8 +141,10 @@ public class PeriodGroupingTest {
 		ValidityPeriod vp2 = ValidityPeriodMock.create(endYear, endYear);
 		SpecificMeasure sm1 = new SpecificMeasure();
 		sm1.setValidityPeriod(vp1);
+		sm1.setVmeSpecificMeasure(u.english("go sado masochistic1"));
 		SpecificMeasure sm2 = new SpecificMeasure();
 		sm2.setValidityPeriod(vp2);
+		sm2.setVmeSpecificMeasure(u.english("go sado masochistic2"));
 
 		List<SpecificMeasure> specificMeasureList = new ArrayList<SpecificMeasure>();
 		specificMeasureList.add(sm1);
