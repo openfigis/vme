@@ -71,8 +71,10 @@ public class ObjectMapping {
 
 			String xmlString = marshall.marshalToString(figisDoc);
 
-			if (xmlString.contains(RelatedFisheries.class.getSimpleName())) {
-				throw new VmeException("Vme XML contains RelatedFisheries, is not correct.");
+			if (xmlString.contains(RelatedFisheries.class.getSimpleName()) || xmlString.contains("<fi:Text xsi:nil=")) {
+				System.out.println(xmlString);
+				throw new VmeException("Vme XML contains RelatedFisheries or <fi:Text xsi:nil=, is not correct.");
+
 			}
 			xml.setXml(xmlString);
 			observationsPerLanguage.add(xml);

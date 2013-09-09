@@ -1,5 +1,6 @@
 package org.fao.fi.vme.sync2.mapping.xml;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -180,7 +181,7 @@ public class FigisDocBuilder {
 			Sources sources = f.createSources();
 			BiblioEntry biblioEntry = f.createBiblioEntry();
 
-			AddWhenContentRule rule = new AddWhenContentRule();
+			AddWhenContentRule<Object> rule = new AddWhenContentRule<Object>();
 
 			if (specificMeasure.getInformationSource() != null) {
 				BibliographicCitation citation = new BibliographicCitation();
@@ -193,11 +194,11 @@ public class FigisDocBuilder {
 					Identifier identifier = new Identifier();
 					identifier.setType("URI");
 					identifier.setContent(specificMeasure.getInformationSource().getUrl().toString());
-					new AddWhenContentRule().check(specificMeasure.getInformationSource().getUrl())
+					new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource().getUrl())
 							.beforeAdding(identifier).to(biblioEntry.getContent());
 				}
 				// add source to the measure (Sources are added to the SpecificMeasure, not to the entry)
-				new AddWhenContentRule().check(specificMeasure.getInformationSource())
+				new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())
 						.check(specificMeasure.getInformationSource().getUrl())
 						.check(specificMeasure.getInformationSource().getCitation()).beforeAdding(sources)
 						.to(measure.getTextsAndImagesAndTables());
@@ -205,12 +206,12 @@ public class FigisDocBuilder {
 			}
 
 			// add biblioEntry to sources
-			new AddWhenContentRule().check(specificMeasure.getInformationSource())
+			new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())
 					.check(specificMeasure.getInformationSource()).beforeAdding(biblioEntry)
 					.to(sources.getTextsAndImagesAndTables());
 
 			// add measure to entry
-			new AddWhenContentRule().check(specificMeasure.getInformationSource())
+			new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())
 					.check(specificMeasure.getVmeSpecificMeasure()).beforeAdding(measure)
 					.to(entry.getTextsAndImagesAndTables());
 
@@ -312,16 +313,19 @@ public class FigisDocBuilder {
 			// • AddInfo
 			// • Sources
 			// • RelatedResources
-
+			;
 			Text text1 = ut.getEnglishText(profile.getDescriptionBiological());
-			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(text1);
+			new AddWhenContentRule<Object>().check(u.getEnglish(profile.getDescriptionBiological()))
+					.beforeAdding(text1).to(habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs());
 
 			// Physical profile
 
 			Text descriptionPhisical = ut.getEnglishText(profile.getDescriptionPhisical());
 			GeoForm geoform = f.createGeoForm();
+
 			JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(descriptionPhisical);
-			geoform.getContent().add(geoformJAXBElement);
+			new AddWhenContentRule<Serializable>().check(descriptionPhisical).beforeAdding(geoformJAXBElement)
+					.to(geoform.getContent());
 
 			String profileEnglish = u.getEnglish(profile.getGeoform());
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value = Seamounts or Canyons) or
@@ -339,7 +343,9 @@ public class FigisDocBuilder {
 			Impacts impacts = f.createImpacts();
 			Text text3 = ut.getEnglishText(profile.getDescriptionImpact());
 			impacts.getTextsAndImagesAndTables().add(text3);
-			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(impacts);
+			new AddWhenContentRule<Object>().check(profile.getDescriptionImpact()).beforeAdding(impacts)
+					.to(figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts());
+
 		}
 
 	}
@@ -556,7 +562,7 @@ public class FigisDocBuilder {
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
 
 		// fi:VMECriteria
-		new AddWhenContentRule().check(vmeDomain.getCriteria()).beforeAdding(vmeCriteria)
+		new AddWhenContentRule<Object>().check(vmeDomain.getCriteria()).beforeAdding(vmeCriteria)
 				.to(vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves());
 
 		VME vme = new VME();

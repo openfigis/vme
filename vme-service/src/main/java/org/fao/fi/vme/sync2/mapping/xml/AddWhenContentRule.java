@@ -14,10 +14,10 @@ import org.apache.commons.lang.StringUtils;
  * @author Erik van Ingen
  * 
  */
-public class AddWhenContentRule {
+public class AddWhenContentRule<E> {
 
 	private List<Object> objectListToCheck = new ArrayList<Object>();
-	private List<Object> elementList = new ArrayList<Object>();
+	private List<E> elementList = new ArrayList<E>();
 
 	/**
 	 * if one of the content objects has a value, all elements will be added to the list.
@@ -25,7 +25,7 @@ public class AddWhenContentRule {
 	 * @param content
 	 * @return
 	 */
-	public AddWhenContentRule check(Object content) {
+	public AddWhenContentRule<E> check(Object content) {
 		this.objectListToCheck.add(content);
 		return this;
 	}
@@ -36,7 +36,7 @@ public class AddWhenContentRule {
 	 * @param element
 	 * @return
 	 */
-	public AddWhenContentRule beforeAdding(Object element) {
+	public AddWhenContentRule<E> beforeAdding(E element) {
 		elementList.add(element);
 		return this;
 	}
@@ -45,9 +45,11 @@ public class AddWhenContentRule {
 	 * 
 	 * the list which needs to be extend with new objects.
 	 * 
+	 * @param <E>
+	 * 
 	 * @param listToExtend
 	 */
-	public void to(List<Object> listToExtend) {
+	public void to(List<E> listToExtend) {
 		boolean add = false;
 		for (Object content : objectListToCheck) {
 			if (content != null) {
@@ -62,7 +64,7 @@ public class AddWhenContentRule {
 			}
 		}
 		if (add) {
-			for (Object element : elementList) {
+			for (E element : elementList) {
 				if (element != null) {
 					listToExtend.add(element);
 				}

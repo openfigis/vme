@@ -1,9 +1,11 @@
 package org.fao.fi.vme.sync2.mapping.xml;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -13,6 +15,8 @@ import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.ForeignID;
+import org.fao.fi.figis.devcon.GeoForm;
+import org.fao.fi.figis.devcon.HabitatBio;
 import org.fao.fi.figis.devcon.Management;
 import org.fao.fi.figis.devcon.ManagementMethodEntry;
 import org.fao.fi.figis.devcon.ManagementMethods;
@@ -20,6 +24,7 @@ import org.fao.fi.figis.devcon.Max;
 import org.fao.fi.figis.devcon.Measure;
 import org.fao.fi.figis.devcon.MeasureType;
 import org.fao.fi.figis.devcon.Min;
+import org.fao.fi.figis.devcon.ObjectFactory;
 import org.fao.fi.figis.devcon.Range;
 import org.fao.fi.figis.devcon.Sources;
 import org.fao.fi.figis.devcon.Text;
@@ -52,12 +57,39 @@ public class FigisDocBuilderTest {
 	int nrOfYears = 2;
 	Vme vme;
 
+	ObjectFactory f = new ObjectFactory();
+
 	@Before
 	public void prepareBefore() {
 		b = new FigisDocBuilder();
 		m = new JaxbMarshall();
 		u = new MultiLingualStringUtil();
 		vme = VmeMock.generateVme(nrOfYears);
+	}
+
+	@Test
+	public void testHabitatBio() {
+		FIGISDoc figisDoc = new FIGISDoc();
+		figisDoc.setVME(new VME());
+
+		GeoForm geoform = f.createGeoForm();
+		EnglishTextUtil ut = new EnglishTextUtil();
+		Text descriptionPhisical = ut.getEnglishText(null);
+		JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(descriptionPhisical);
+		// geoform.getContent().add(geoformJAXBElement);
+
+		new AddWhenContentRule<Serializable>().check(descriptionPhisical).beforeAdding(geoformJAXBElement)
+				.to(geoform.getContent());
+
+		HabitatBio habitatBio = f.createHabitatBio();
+		habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm is part of HabitatBio
+
+		habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs();
+		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
+		String xmlString = m.marshalToString(figisDoc);
+		System.out.println(xmlString);
+		assertFalse(xmlString.contains("<fi:Text xsi:nil="));
+
 	}
 
 	@Test

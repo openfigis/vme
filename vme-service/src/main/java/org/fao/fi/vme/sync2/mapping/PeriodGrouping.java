@@ -17,7 +17,6 @@ import org.fao.fi.vme.domain.interfacee.Period;
 import org.fao.fi.vme.domain.interfacee.Year;
 import org.fao.fi.vme.domain.logic.PeriodYearComperator;
 import org.fao.fi.vme.domain.logic.YearComperator;
-import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 /**
  * 
@@ -36,8 +35,6 @@ public class PeriodGrouping {
 	private static final int FUTURE = 9999;
 
 	public List<DisseminationYearSlice> collect(Vme vme) {
-
-		MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 		List<DisseminationYearSlice> l = new ArrayList<DisseminationYearSlice>();
 
