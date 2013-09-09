@@ -343,7 +343,7 @@ public class FigisDocBuilder {
 			Impacts impacts = f.createImpacts();
 			Text text3 = ut.getEnglishText(profile.getDescriptionImpact());
 			impacts.getTextsAndImagesAndTables().add(text3);
-			new AddWhenContentRule<Object>().check(profile.getDescriptionImpact()).beforeAdding(impacts)
+			new AddWhenContentRule<Object>().check(text3).beforeAdding(impacts)
 					.to(figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts());
 
 		}
