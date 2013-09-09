@@ -435,7 +435,10 @@ public class FigisDocBuilder {
 		mmeBuilder.addRange(generalMeasure, entry);
 
 		ManagementMethods methods = findManagementMethods(figisDoc);
-		methods.getManagementMethodEntriesAndTextsAndImages().add(entry);
+
+		if (entry.getTextsAndImagesAndTables().size() > 0) {
+			methods.getManagementMethodEntriesAndTextsAndImages().add(entry);
+		}
 
 	}
 
