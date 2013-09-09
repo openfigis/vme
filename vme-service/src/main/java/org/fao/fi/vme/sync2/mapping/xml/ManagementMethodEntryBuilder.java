@@ -115,7 +115,7 @@ public class ManagementMethodEntryBuilder {
 			measure2.getTextsAndImagesAndTables().add(measureText2);
 
 			new AddWhenContentRule<Object>().check(u.getEnglish(generalMeasure.getExplorataryFishingProtocols()))
-					.beforeAdding(measureType2).beforeAdding(measure2).to(entry.getTextsAndImagesAndTables());
+					.beforeAdding(measure2).to(entry.getTextsAndImagesAndTables());
 
 		}
 
@@ -132,10 +132,9 @@ public class ManagementMethodEntryBuilder {
 
 			measure3.getTextsAndImagesAndTables().add(measureType3);
 			measure3.getTextsAndImagesAndTables().add(measureText3);
-			entry.getTextsAndImagesAndTables().add(measure3); // add measure to entry
 
 			new AddWhenContentRule<Object>().check(u.getEnglish(yearObject.getVmeEncounterProtocols()))
-					.beforeAdding(measureType3).beforeAdding(measureText3).to(entry.getTextsAndImagesAndTables());
+					.beforeAdding(measure3).to(entry.getTextsAndImagesAndTables());
 
 		}
 
@@ -152,10 +151,9 @@ public class ManagementMethodEntryBuilder {
 
 			measure4.getTextsAndImagesAndTables().add(measureType4);
 			measure4.getTextsAndImagesAndTables().add(measureText4);
-			entry.getTextsAndImagesAndTables().add(measure4); // add measure to entry
 
-			new AddWhenContentRule<Object>().check(u.getEnglish(yearObject.getVmeThreshold()))
-					.beforeAdding(measureType4).beforeAdding(measureText4).to(entry.getTextsAndImagesAndTables());
+			new AddWhenContentRule<Object>().check(u.getEnglish(yearObject.getVmeThreshold())).beforeAdding(measure4)
+					.to(entry.getTextsAndImagesAndTables());
 
 		}
 
@@ -174,7 +172,7 @@ public class ManagementMethodEntryBuilder {
 			measure5.getTextsAndImagesAndTables().add(measureText5);
 
 			new AddWhenContentRule<Object>().check(u.getEnglish(yearObject.getVmeIndicatorSpecies()))
-					.beforeAdding(measureType5).to(entry.getTextsAndImagesAndTables());
+					.beforeAdding(measure5).to(entry.getTextsAndImagesAndTables());
 		}
 
 	}

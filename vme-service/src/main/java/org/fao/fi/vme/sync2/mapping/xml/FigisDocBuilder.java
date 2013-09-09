@@ -1,6 +1,5 @@
 package org.fao.fi.vme.sync2.mapping.xml;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -319,13 +318,16 @@ public class FigisDocBuilder {
 					.beforeAdding(text1).to(habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs());
 
 			// Physical profile
-
+			// terribe workaround because if there is no Text, profileEnglish will also not be added by Jaxb.
 			Text descriptionPhisical = ut.getEnglishText(profile.getDescriptionPhisical());
-			GeoForm geoform = f.createGeoForm();
+			if (descriptionPhisical == null) {
+				descriptionPhisical = new Text();
+				descriptionPhisical.getContent().add(" ");
+			}
 
 			JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(descriptionPhisical);
-			new AddWhenContentRule<Serializable>().check(descriptionPhisical).beforeAdding(geoformJAXBElement)
-					.to(geoform.getContent());
+			GeoForm geoform = f.createGeoForm();
+			geoform.getContent().add(geoformJAXBElement);
 
 			String profileEnglish = u.getEnglish(profile.getGeoform());
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value = Seamounts or Canyons) or
@@ -335,6 +337,7 @@ public class FigisDocBuilder {
 			} else {
 				geoform.setFreeValue(profileEnglish);
 			}
+
 			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm is part of HabitatBio
 			// profile
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
@@ -425,7 +428,7 @@ public class FigisDocBuilder {
 		// VME_INDICATORSPECIES (entry)
 		mmeBuilder.addMeasureToEntry5(generalMeasure, entry);
 
-		// this one is asociated to the method, not to any entry
+		// this one is associated to the method, not to any entry
 		mmeBuilder.addSources(generalMeasure, entry);
 
 		// this one is asociated to the method, not to any entry

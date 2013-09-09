@@ -72,10 +72,10 @@ public class ObjectMapping {
 			String xmlString = marshall.marshalToString(figisDoc);
 
 			if (xmlString.contains(RelatedFisheries.class.getSimpleName()) || xmlString.contains("<fi:Text xsi:nil=")
-					|| xmlString.contains("<fi:Impacts/>")) {
+					|| xmlString.contains("<fi:Impacts/>") || xmlString.contains("<fi:GeoForm/>")) {
 				System.out.println(xmlString);
 				throw new VmeException(
-						"Vme XML contains RelatedFisheries, <fi:Text xsi:nil= or <fi:Impacts/> is not correct.");
+						"Vme XML contains RelatedFisheries, <fi:Text xsi:nil=, <fi:GeoForm/> or <fi:Impacts/> is not correct.");
 
 			}
 			xml.setXml(xmlString);
