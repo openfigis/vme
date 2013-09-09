@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fao.fi.figis.devcon.FIGISDoc;
+import org.fao.fi.figis.devcon.RelatedFisheries;
 import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.VmeObservationDomain;
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.sync2.mapping.xml.DefaultObservationXml;
 import org.fao.fi.vme.sync2.mapping.xml.FigisDocBuilder;
@@ -66,7 +68,13 @@ public class ObjectMapping {
 			figisDocBuilder.informationSource(disseminationYearSlice.getInformationSourceList(), figisDoc);
 
 			ObservationXml xml = new DefaultObservationXml().define();
-			xml.setXml(marshall.marshalToString(figisDoc));
+
+			String xmlString = marshall.marshalToString(figisDoc);
+
+			if (xmlString.contains(RelatedFisheries.class.getSimpleName())) {
+				throw new VmeException("Vme XML contains RelatedFisheries, is not correct.");
+			}
+			xml.setXml(xmlString);
 			observationsPerLanguage.add(xml);
 		}
 		VmeObservationDomain vod = new VmeObservationDomain();
@@ -75,7 +83,6 @@ public class ObjectMapping {
 		primaryRuleValidator.validate(vod);
 		return vod;
 	}
-
 	/**
 	 * @deprecated
 	 * @param vme

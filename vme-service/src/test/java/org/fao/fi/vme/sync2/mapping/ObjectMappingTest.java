@@ -1,6 +1,7 @@
 package org.fao.fi.vme.sync2.mapping;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.Management;
 import org.fao.fi.figis.devcon.ManagementMethods;
+import org.fao.fi.figis.devcon.RelatedFisheries;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.ObservationXml;
@@ -40,6 +42,7 @@ public class ObjectMappingTest {
 				assertTrue(observationXml.getXml().contains(VMEIdent.class.getSimpleName()));
 				assertTrue(observationXml.getXml().contains(ManagementMethods.class.getSimpleName()));
 				assertTrue(observationXml.getXml().contains(Management.class.getSimpleName()));
+				assertFalse(observationXml.getXml().contains(RelatedFisheries.class.getSimpleName()));
 			}
 			assertEquals(1, xmlList.size());
 		}
