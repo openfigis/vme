@@ -54,6 +54,7 @@ public class VmeSearchWs {
 			@QueryParam("year") String year) throws Exception {
 
 		VmeSearchRequestDto requestDto = new VmeSearchRequestDto(UUID.randomUUID());
+		requestDto.setText(text);
 		if ((id_authority!=null) &&!("*").equals(id_authority.trim())){
 			requestDto.setAuthority(Integer.parseInt(id_authority));
 		} else {

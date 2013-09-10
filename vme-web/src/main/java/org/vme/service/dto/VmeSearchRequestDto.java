@@ -160,7 +160,7 @@ public class VmeSearchRequestDto implements VmeRequestDto {
 	 * @return <code>true</code> if request has some text defined (not *) , <code>false</code> otherwise
 	 */
 	public boolean hasText() {
-		return (text!=null && !text.trim().equals("*"));
+		return (text!=null && !text.trim().equals("") && !text.trim().equals("*"));
 	}
 
 	/**
@@ -172,8 +172,8 @@ public class VmeSearchRequestDto implements VmeRequestDto {
 	
 	
 	
-	public boolean hasAtLeastOneParameter(){
-		return hasAuthority() || hasCriteria() || hasType() || hasText() ;
+	public boolean hasAtLeastOneParameterButText(){
+		return hasAuthority() || hasCriteria() || hasType() ;
 	}
 
 	
