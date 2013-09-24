@@ -3,6 +3,7 @@ package org.fao.fi.vme.msaccess.tables;
 import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
+import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;
 
 public class RFB_VME_Fishing_History implements TableDomainMapper {
 
@@ -13,7 +14,6 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 	private int Year_ID;
 	private String RFB_FishingAreas_GeneralText;
 	private String RFB_VMEs_GeneralText;
-
 
 	public int getID() {
 		return ID;
@@ -57,15 +57,23 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 
 	@Override
 	public Object map() {
-		History o = new History();
-		o.setId(new Long(this.ID));
-		o.setHistory(u.english(this.getRFB_VMEs_GeneralText()));
 
-		// TODO where will this one be mapped to?
-		// this.getRFB_FishingAreas_GeneralText();
+		History fisheryAreasHistory = new History();
+		History vmesHistory = new History();
 
-		o.setYear(this.Year_ID);
+		// fisheryAreasHistory.setId(new Long(this.ID));
+		// vmesHistory.setId(new Long(this.ID));
 
-		return o;
+		fisheryAreasHistory.setHistory(u.english(this.getRFB_FishingAreas_GeneralText()));
+		vmesHistory.setHistory(u.english(this.getRFB_VMEs_GeneralText()));
+
+		fisheryAreasHistory.setYear(this.Year_ID);
+		vmesHistory.setYear(this.Year_ID);
+
+		HistoryHolder h = new HistoryHolder();
+		h.setFisheryAreasHistory(fisheryAreasHistory);
+		h.setVmesHistory(vmesHistory);
+
+		return h;
 	}
 }

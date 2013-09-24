@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.fao.fi.vme.domain.GeneralMeasure;
-import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasure;
@@ -14,6 +13,7 @@ import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
+import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;
 import org.fao.fi.vme.msaccess.tables.Measues_VME_Specific;
 import org.fao.fi.vme.msaccess.tables.Measures_VME_General;
 import org.fao.fi.vme.msaccess.tables.Meetings;
@@ -29,7 +29,7 @@ public class MsAcces2DomainMapper {
 		map.put(Measues_VME_Specific.class, SpecificMeasure.class);
 		map.put(Measures_VME_General.class, GeneralMeasure.class);
 		map.put(Meetings.class, InformationSource.class);
-		map.put(RFB_VME_Fishing_History.class, History.class);
+		map.put(RFB_VME_Fishing_History.class, HistoryHolder.class);
 		map.put(VME.class, Vme.class);
 		map.put(RFB_MetaData.class, Rfmo.class);
 	}

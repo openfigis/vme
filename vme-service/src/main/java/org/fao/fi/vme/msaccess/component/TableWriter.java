@@ -8,6 +8,7 @@ import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
+import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;
 
 /**
  * Writes a series of objects of the same class to the vme DB.
@@ -25,13 +26,25 @@ public class TableWriter {
 	public void write(ObjectCollection objectCollection) {
 
 		for (Object object : objectCollection.getObjectList()) {
+			boolean regular = true;
 
 			if (objectCollection.getClazz().equals(GeneralMeasure.class)) {
 				handleException4GeneralMeasures((GeneralMeasure) object);
-			} else {
+				regular = false;
+			}
+			if (objectCollection.getClazz().equals(HistoryHolder.class)) {
+				handleException4HistoryHolder((HistoryHolder) object);
+				regular = false;
+			}
+			if (regular) {
 				vmeDao.persist(object);
 			}
 		}
+	}
+
+	private void handleException4HistoryHolder(HistoryHolder h) {
+		vmeDao.persist(h.getFisheryAreasHistory());
+		vmeDao.persist(h.getVmesHistory());
 	}
 
 	/**
@@ -53,8 +66,13 @@ public class TableWriter {
 
 	public void merge(ObjectCollection objectCollection) {
 		for (Object object : objectCollection.getObjectList()) {
-			vmeDao.merge(object);
+			if (object instanceof HistoryHolder) {
+				HistoryHolder h = (HistoryHolder) object;
+				vmeDao.merge(h.getFisheryAreasHistory());
+				vmeDao.merge(h.getVmesHistory());
+			} else {
+				vmeDao.merge(object);
+			}
 		}
 	}
-
 }

@@ -37,7 +37,7 @@ public class VmeDaoTest {
 		List<History> hasFisheryAreasHistory = new ArrayList<History>();
 		History h = new History();
 		h.setYear(2008);
-		h.setId(456l);
+		// h.setId(456l);
 
 		dao.persist(h);
 

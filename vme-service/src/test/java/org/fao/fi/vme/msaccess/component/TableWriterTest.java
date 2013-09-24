@@ -12,6 +12,7 @@ import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
+import org.fao.fi.vme.msaccess.tables.RFB_VME_Fishing_History;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -41,8 +42,12 @@ public class TableWriterTest {
 			tableWriter.write(objectCollection);
 			Class<?> clazz = mapper.getDomainClass(table.getClazz());
 			assertNotNull(clazz);
-			List<?> objects = vmeDao.loadObjects(clazz);
-			assertEquals(table.getObjectList().size(), objects.size());
+			if (table.getClazz() != RFB_VME_Fishing_History.class) {
+				// History has this exception of creating two domain objects out of 1 record, therefore we skip it in
+				// the test.
+				List<?> objects = vmeDao.loadObjects(clazz);
+				assertEquals(table.getObjectList().size(), objects.size());
+			}
 		}
 	}
 

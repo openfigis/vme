@@ -88,7 +88,7 @@ public class VmeMock {
 			isSm.setCitation(u.english("This is a citation for a SpecificMeasure"));
 
 			History history = new History();
-			history.setId(id++);
+			// history.setId(id++);
 			history.setYear(year);
 			history.setHistory(u.english("History repeating"));
 			fishingHistoryList.add(history);

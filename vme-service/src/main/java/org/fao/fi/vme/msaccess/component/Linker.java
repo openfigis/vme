@@ -13,6 +13,7 @@ import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
+import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;
 import org.fao.fi.vme.msaccess.tables.Measues_VME_Specific;
 import org.fao.fi.vme.msaccess.tables.Measures_VME_General;
 import org.fao.fi.vme.msaccess.tables.Meetings;
@@ -59,7 +60,7 @@ public class Linker {
 			linkGeneralMeasuresObject(domainObject, domainTableMap, objectCollectionList);
 		}
 
-		if (domainObject instanceof History) {
+		if (domainObject instanceof HistoryHolder) {
 			linkFishingHistoryObject(domainObject, domainTableMap, objectCollectionList);
 		}
 
@@ -67,14 +68,15 @@ public class Linker {
 
 	private void linkFishingHistoryObject(Object domainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
-		History o = (History) domainObject;
-		RFB_VME_Fishing_History record = (RFB_VME_Fishing_History) domainTableMap.get(o);
+		HistoryHolder h = (HistoryHolder) domainObject;
+		RFB_VME_Fishing_History record = (RFB_VME_Fishing_History) domainTableMap.get(h);
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
 		if (rfmo.getHasFisheryAreasHistory() == null) {
 			rfmo.setHasFisheryAreasHistory(new ArrayList<History>());
 		}
-		if (!rfmo.getHasFisheryAreasHistory().contains(o)) {
-			rfmo.getHasFisheryAreasHistory().add(o);
+		if (!rfmo.getHasFisheryAreasHistory().contains(h)) {
+			rfmo.getHasFisheryAreasHistory().add(h.getFisheryAreasHistory());
+			rfmo.getHasFisheryAreasHistory().add(h.getVmesHistory());
 		}
 
 	}
