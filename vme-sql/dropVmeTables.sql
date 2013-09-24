@@ -5,14 +5,13 @@ drop table information_source CASCADE CONSTRAINTS;
 drop table rfmo_history CASCADE CONSTRAINTS;
 drop table vme_geo_ref CASCADE CONSTRAINTS;
 drop table geo_ref CASCADE CONSTRAINTS;
-drop table vme_history CASCADE CONSTRAINTS;
-drop table vme_specific_measures CASCADE CONSTRAINTS;
 drop table history CASCADE CONSTRAINTS;
-drop table specific_measures CASCADE CONSTRAINTS;
-drop table general_measures CASCADE CONSTRAINTS;
+drop table specific_measure CASCADE CONSTRAINTS;
+drop table general_measure CASCADE CONSTRAINTS;
 drop table vme_profile CASCADE CONSTRAINTS;
-drop table vme;
+drop table vme_specific_measure CASCADE CONSTRAINTS;
 drop table profile;
+drop table vme;
 drop table rfmo;
 
 
