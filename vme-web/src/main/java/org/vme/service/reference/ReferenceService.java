@@ -7,6 +7,7 @@
 package org.vme.service.reference;
 
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -36,5 +37,22 @@ public interface ReferenceService {
 	 * @throws ReferenceServiceException
 	 */
 	public Object getReference(Class<?> concept, Long id) throws ReferenceServiceException;
+	
+	/**
+	 * Return a defined concept class via its name.
+	 * @param id the concept class name
+	 * @return the requested concept class if existing
+	 * @throws ReferenceServiceException
+	 */
+	public Collection<?> getAllReferences(Class<?> concept) throws ReferenceServiceException;
+	
+	
+	/**
+	 * Return a defined concept class via its name.
+	 * @param id the concept class name
+	 * @return the requested concept class if existing
+	 * @throws ReferenceServiceException
+	 */
+	public Object getReferencebyAcronym(Class<?> concept, String acronym) throws ReferenceServiceException;
 	
 }

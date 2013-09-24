@@ -1,7 +1,6 @@
 package org.vme.service.search.vme;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,7 +16,6 @@ import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Profile;
-import org.fao.fi.vme.domain.Rfmo;
 import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
@@ -27,6 +25,7 @@ import org.vme.service.dto.VmeRequestDto;
 import org.vme.service.dto.VmeSearchDto;
 import org.vme.service.dto.VmeSearchRequestDto;
 import org.vme.service.dto.VmeSearchResult;
+import org.vme.service.reference.ReferenceServiceException;
 import org.vme.service.reference.ReferenceServiceFactory;
 import org.vme.service.reference.domain.Authority;
 import org.vme.service.reference.domain.VmeCriteria;
@@ -51,6 +50,7 @@ public class VmeSearchService implements SearchService {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	public VmeSearchResult search(VmeSearchRequestDto request) throws Exception  {
 		if (request.hasYear()){
 		} else {
@@ -80,6 +80,7 @@ public class VmeSearchService implements SearchService {
 		} else text_query = "";
 		Query query = entityManager.createQuery(text_query);
 		List<?> result =   query.getResultList();
+		@SuppressWarnings("unchecked")
 		VmeSearchResult res = convertPersistenceResult(request, (List<Vme>) result, null);
 		return res;
 	}
@@ -96,8 +97,6 @@ public class VmeSearchService implements SearchService {
 		} else {
 			return txtQuery.toString();
 		}
-
-
 
 		if (request.hasAuthority()){
 			Authority vmeAuthority = (Authority) ReferenceServiceFactory.getService().getReference(Authority.class, (long) request.getAuthority());
@@ -134,7 +133,6 @@ public class VmeSearchService implements SearchService {
 		txtQuery.append(" AND vme.validityPeriod.endYear >= ");
 		txtQuery.append(request.getYear());
 		
-
 		String res = txtQuery.toString();
 		System.out.println("FAB:" + res);
 		return res;
@@ -148,7 +146,12 @@ public class VmeSearchService implements SearchService {
 	private List<Vme> postPurgeResult (VmeSearchRequestDto request,  List<Vme> result){
 		int requested_year = request.getYear();
 		List<Vme> res = new LinkedList<Vme>();
-
+		// Patch placed to solve VME-10 JIRA issue.
+		for (Vme vme : result) {
+			if (vme.getRfmo().getId().trim().equals("SIODFA")){
+				res.add(vme);
+			}
+		}
 		if (requested_year>0) {
 			for (Vme vme : result) {
 				boolean is_good = false;
@@ -312,7 +315,15 @@ public class VmeSearchService implements SearchService {
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
 		res.setLocalName(u.getEnglish(vme.getName()));
 		res.setEnvelope("");
-		String authority = vme.getRfmo().getId();
+		String authority_acronym = vme.getRfmo().getId();
+		try {
+			Authority authority = (Authority)ReferenceServiceFactory.getService().getReferencebyAcronym(Authority.class, authority_acronym);
+			res.setOwner(authority.getName() + " (" + authority.getAcronym() + ")");
+		} catch (ReferenceServiceException e) {
+			res.setOwner(authority_acronym);
+			e.printStackTrace();
+		}
+		
 		VmeObservation vo = dao.findFirstVmeObservation(vme.getId(), Integer.toString(year));
 		if (vo!=null){
 			res.setFactsheetUrl("fishery/vme/"+ vo.getId().getVmeId() + "/" + vo.getId().getObservationId() +"/en");
@@ -321,7 +332,7 @@ public class VmeSearchService implements SearchService {
 		}
 
 		res.setGeoArea(u.getEnglish(vme.getGeoArea()));
-		res.setOwner(authority);
+		
 		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginYear());
 		res.setValidityPeriodTo(vme.getValidityPeriod().getEndYear());
 		res.setVmeType(vme.getAreaType());

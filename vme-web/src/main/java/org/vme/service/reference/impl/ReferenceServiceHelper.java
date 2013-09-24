@@ -3,6 +3,7 @@
  */
 package org.vme.service.reference.impl;
 
+import java.util.Collection;
 import java.util.Hashtable;
 
 import org.vme.service.reference.domain.Authority;
@@ -23,9 +24,6 @@ public class ReferenceServiceHelper {
 	private Hashtable<Long, VmeCriteria> repVmeCriteria;
 	private Hashtable<Long, VmeType> repVmeType;
 	
-	//@Inject
-	//@VmeDB
-	//private EntityManager em;
 
 	public ReferenceServiceHelper() {
 		super();
@@ -43,22 +41,35 @@ public class ReferenceServiceHelper {
 	public Authority getAuthority(Long key) {
 		return repAuthority.get(key);
 	}
-
+	
+	public Collection<Authority> getAllAuthorities(){
+		return repAuthority.values();
+	}
+	
+	
 	public VmeCriteria getVmeCriteria(Long key) {
 		return repVmeCriteria.get(key);
+	}
+	
+	public Collection<VmeCriteria> getAllVmeCriterias(){
+		return repVmeCriteria.values();
 	}
 
 	public VmeType getVmeType(Long key) {
 		return repVmeType.get(key);
 	}
+	
+	public Collection<VmeType> getAllVmeTypes(){
+		return repVmeType.values();
+	}
 
 	private void createAuthorities() {
-		repAuthority.put((long)20010, new Authority(20010,"CCAMLR",null));
-		repAuthority.put((long)22080, new Authority(22080,"GFCM",null));
-		repAuthority.put((long)20220, new Authority(20220,"NAFO",null));
-		repAuthority.put((long)21580, new Authority(21580,"NEAFC",null));
-		repAuthority.put((long)22140, new Authority(22140,"SEAFO",null));
-		repAuthority.put((long)90010, new Authority(22140,"SIODFA",null));
+		repAuthority.put((long)20010, new Authority(20010,"CCAMLR","Commission for the Conservation of Antarctic Marine Living Resources"));
+		repAuthority.put((long)22080, new Authority(22080,"GFCM","General Fishery Commission for the Mediterranean sea"));
+		repAuthority.put((long)20220, new Authority(20220,"NAFO","Northwest Atlantic Fisheries Organization"));
+		repAuthority.put((long)21580, new Authority(21580,"NEAFC","North East Atlantic Fisheries Commission"));
+		repAuthority.put((long)22140, new Authority(22140,"SEAFO","South East Atlantic Fisheries Organisation"));
+		//repAuthority.put((long)90010, new Authority(22140,"SIODFA","Southern Indian Ocean Deepsea Fishers' Association"));
 	}
 
 	private void createVmeCriterias() {
