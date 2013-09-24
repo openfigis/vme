@@ -71,14 +71,20 @@ public class Linker {
 		HistoryHolder h = (HistoryHolder) domainObject;
 		RFB_VME_Fishing_History record = (RFB_VME_Fishing_History) domainTableMap.get(h);
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
+
 		if (rfmo.getHasFisheryAreasHistory() == null) {
 			rfmo.setHasFisheryAreasHistory(new ArrayList<History>());
 		}
-		if (!rfmo.getHasFisheryAreasHistory().contains(h)) {
-			rfmo.getHasFisheryAreasHistory().add(h.getFisheryAreasHistory());
-			rfmo.getHasFisheryAreasHistory().add(h.getVmesHistory());
+		if (rfmo.getHasVmesHistory() == null) {
+			rfmo.setHasVmesHistory(new ArrayList<History>());
 		}
 
+		if (!rfmo.getHasFisheryAreasHistory().contains(h.getFisheryAreasHistory())) {
+			rfmo.getHasFisheryAreasHistory().add(h.getFisheryAreasHistory());
+		}
+		if (!rfmo.getHasVmesHistory().contains(h.getVmesHistory())) {
+			rfmo.getHasVmesHistory().add(h.getVmesHistory());
+		}
 	}
 
 	/**

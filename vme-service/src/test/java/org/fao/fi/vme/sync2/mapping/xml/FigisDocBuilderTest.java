@@ -14,9 +14,11 @@ import org.apache.commons.lang.StringUtils;
 import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
+import org.fao.fi.figis.devcon.FisheryArea;
 import org.fao.fi.figis.devcon.ForeignID;
 import org.fao.fi.figis.devcon.GeoForm;
 import org.fao.fi.figis.devcon.HabitatBio;
+import org.fao.fi.figis.devcon.History;
 import org.fao.fi.figis.devcon.Management;
 import org.fao.fi.figis.devcon.ManagementMethodEntry;
 import org.fao.fi.figis.devcon.ManagementMethods;
@@ -117,26 +119,22 @@ public class FigisDocBuilderTest {
 
 	}
 
+	/**
+	 * FishingArea_history fi:FIGISDoc/fi:VME/fi:FisheryArea/fi:Text
+	 * 
+	 * VME_history fi:FIGISDoc/fi:VME/fi:History/fi:Text
+	 * 
+	 */
 	@Test
-	public void testVmeHistory() {
-		// TODO
+	public void testHistory() {
+		FIGISDoc figisDoc = new FIGISDoc();
+		figisDoc.setVME(new VME());
+		b.fisheryArea(vme.getRfmo().getHasFisheryAreasHistory().get(0), figisDoc);
+		b.vmesHistory(vme.getRfmo().getHasFisheryAreasHistory().get(0), figisDoc);
+		assertNotNull(figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0));
+		assertTrue(figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0) instanceof FisheryArea);
+		assertTrue(figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(1) instanceof History);
 
-		/*
-		 * FIGISDoc figisDoc = new FIGISDoc(); figisDoc.setVME(new VME());
-		 * 
-		 * History vmeHistory = (History) vme.getHistoryList().get(0); b.vmeHistory(vmeHistory, figisDoc);
-		 * 
-		 * org.fao.fi.figis.devcon.History hist = (org.fao.fi.figis.devcon.History) figisDoc
-		 * .getVME().getOverviewsAndHabitatBiosAndImpacts().get(0); assertNotNull(hist);
-		 * 
-		 * String expected = u.getEnglish(vmeHistory.getHistory()); assertEquals(expected, ((Text)
-		 * hist.getTextsAndImagesAndTables().get(0)).getContent().get(0));
-		 */
-	}
-
-	@Test
-	public void testRfmoHistory() {
-		// TODO
 	}
 
 	/**
