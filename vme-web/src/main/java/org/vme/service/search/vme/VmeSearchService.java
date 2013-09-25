@@ -279,7 +279,7 @@ public class VmeSearchService implements SearchService {
 				if (StringUtils.containsIgnoreCase(	Integer.toString(specificMeasure.getInformationSource().getPublicationYear()), text)) return true;
 				if (StringUtils.containsIgnoreCase(specificMeasure.getInformationSource().getUrl()!=null?specificMeasure.getInformationSource().getUrl().toExternalForm():"", text)) return true;
 			}
-			if (specificMeasure.getVmeSpecificMeasure()!=null && specificMeasure.getInformationSource().getCommittee()!=null){
+			if (specificMeasure.getInformationSource()!=null && specificMeasure.getInformationSource().getCommittee()!=null){
 				for (String element : specificMeasure.getInformationSource().getCommittee().getStringMap().values()) {
 					if (StringUtils.containsIgnoreCase(element, text)) return true;
 				} 
