@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="VME" company="FAO" webLink="http://" view-date="2013-10-21" view-index="0" gantt-divider-location="334" resource-divider-location="300" version="2.0" locale="en_GB">
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="VME" company="FAO" webLink="http://" view-date="2013-07-29" view-index="1" gantt-divider-location="424" resource-divider-location="300" version="2.0" locale="en">
     <description/>
-    <view zooming-state="default:4" id="gantt-chart">
-        <field id="tpd3" name="Name" width="39" order="0"/>
-        <field id="tpd4" name="Begin date" width="20" order="1"/>
-        <field id="tpd5" name="End date" width="20" order="2"/>
-        <field id="tpc0" name="Effort" width="19" order="3"/>
-        <option id="taskLabelUp" value=""/>
-        <option id="taskLabelLeft" value="name"/>
+    <view zooming-state="default:7" id="gantt-chart">
+        <field id="tpd3" name="Name" width="36" order="0"/>
+        <field id="tpd4" name="Begin date" width="21" order="1"/>
+        <field id="tpd5" name="End date" width="21" order="2"/>
+        <field id="tpc0" name="Effort" width="21" order="3"/>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="52" order="0"/>
-        <field id="1" name="Default role" width="47" order="1"/>
+        <field id="0" name="Name" width="50" order="0"/>
+        <field id="1" name="Default role" width="49" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -66,27 +65,27 @@
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
             <taskproperty id="tpc0" name="Effort" type="custom" valuetype="text"/>
         </taskproperties>
-        <task id="0" name="rafactoring" color="#8cb6ce" meeting="false" start="2013-10-24" duration="10" complete="0" expand="true">
+        <task id="0" name="rafactoring" color="#8cb6ce" meeting="false" start="2013-10-24" duration="11" complete="0" expand="true">
             <notes><![CDATA[effort 5 days, duration 10. ]]></notes>
             <depend id="1" type="2" difference="0" hardness="Strong"/>
             <customproperty taskproperty-id="tpc0" value="5"/>
         </task>
-        <task id="1" name="functional changes" color="#8cb6ce" meeting="false" start="2013-11-07" duration="10" complete="0" expand="true">
+        <task id="1" name="functional changes" color="#8cb6ce" meeting="false" start="2013-11-11" duration="10" complete="0" expand="true">
             <depend id="2" type="2" difference="0" hardness="Strong"/>
             <customproperty taskproperty-id="tpc0" value="5"/>
         </task>
-        <task id="2" name="demo 1" color="#8cb6ce" meeting="false" start="2013-11-21" duration="1" complete="0" expand="true">
+        <task id="2" name="demo 1" color="#8cb6ce" meeting="false" start="2013-11-25" duration="1" complete="0" expand="true">
             <depend id="3" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="3" name="rework demo 1" color="#8cb6ce" meeting="false" start="2013-11-22" duration="10" complete="0" expand="true">
+        <task id="3" name="rework demo 1" color="#8cb6ce" meeting="false" start="2013-11-26" duration="7" complete="0" expand="true">
             <depend id="5" type="2" difference="0" hardness="Strong"/>
-            <customproperty taskproperty-id="tpc0" value="3"/>
+            <customproperty taskproperty-id="tpc0" value="2.5"/>
         </task>
-        <task id="5" name="demo 2" color="#8cb6ce" meeting="false" start="2013-12-06" duration="1" complete="0" expand="true">
+        <task id="5" name="demo 2" color="#8cb6ce" meeting="false" start="2013-12-05" duration="1" complete="0" expand="true">
             <depend id="12" type="2" difference="0" hardness="Strong"/>
         </task>
-        <task id="12" name="rework demo 2" color="#eeeeee" meeting="false" start="2013-12-09" duration="5" complete="0" expand="true">
-            <customproperty taskproperty-id="tpc0" value="3"/>
+        <task id="12" name="rework demo 2" color="#eeeeee" meeting="false" start="2013-12-06" duration="5" complete="0" expand="true">
+            <customproperty taskproperty-id="tpc0" value="2.5"/>
         </task>
         <task id="35" name="SOI workshop 9-13 Dec" color="#eeeeee" meeting="false" start="2013-12-09" duration="5" complete="0" expand="true">
             <notes><![CDATA[SOI workshop on EBSAs and VMEs for East Asia – December 9 to 13 (?)]]></notes>
@@ -118,10 +117,10 @@
         <displaycolumn property-id="tpd9" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd1" order="-1" width="75" visible="false"/>
         <displaycolumn property-id="tpd0" order="-1" width="75" visible="false"/>
-        <displaycolumn property-id="tpd3" order="0" width="130" visible="true"/>
-        <displaycolumn property-id="tpd4" order="1" width="67" visible="true"/>
-        <displaycolumn property-id="tpd5" order="2" width="68" visible="true"/>
-        <displaycolumn property-id="tpc0" order="3" width="65" visible="true"/>
+        <displaycolumn property-id="tpd3" order="0" width="152" visible="true"/>
+        <displaycolumn property-id="tpd4" order="1" width="90" visible="true"/>
+        <displaycolumn property-id="tpd5" order="2" width="90" visible="true"/>
+        <displaycolumn property-id="tpc0" order="3" width="89" visible="true"/>
     </taskdisplaycolumns>
     <previous/>
     <roles roleset-name="Default"/>
