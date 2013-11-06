@@ -4,7 +4,7 @@
  *
  */
 
-package org.vme.service.reference;
+package org.vme.service.dao;
 
 
 import java.util.Collection;
@@ -13,7 +13,7 @@ import java.util.List;
 
 
 
-public interface ReferenceService {
+public interface ReferenceDAO  {
 	/**
 	 * Return all the defined reference classes.
 	 * @return the existing concepts if any, an empty list otherwise
@@ -53,6 +53,6 @@ public interface ReferenceService {
 	 * @return the requested concept class if existing
 	 * @throws ReferenceServiceException
 	 */
-	public Object getReferencebyAcronym(Class<?> concept, String acronym) throws ReferenceServiceException;
+	public Object getReferenceByAcronym(Class<?> concept, String acronym) throws ReferenceServiceException;
 	
 }

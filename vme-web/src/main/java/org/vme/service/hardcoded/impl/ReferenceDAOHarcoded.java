@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.vme.service.reference.impl;
+package org.vme.service.hardcoded.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,11 +9,12 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.vme.service.reference.ReferenceService;
-import org.vme.service.reference.ReferenceServiceException;
-import org.vme.service.reference.domain.Authority;
-import org.vme.service.reference.domain.VmeCriteria;
-import org.vme.service.reference.domain.VmeType;
+import org.vme.service.dao.ReferenceDAO;
+import org.vme.service.dao.ReferenceServiceException;
+import org.vme.service.dto.ref.Authority;
+import org.vme.service.dto.ref.VmeCriteria;
+import org.vme.service.dto.ref.VmeType;
+import org.vme.service.dto.ref.Year;
 
 
 
@@ -21,15 +22,17 @@ import org.vme.service.reference.domain.VmeType;
  * @author Fabrizio Sibeni
  * 
  */
-public class ReferenceServiceImpl implements ReferenceService {
+public class ReferenceDAOHarcoded implements ReferenceDAO {
 
-	private ReferenceServiceHelper helper;
 
-	private List<Class<?>> concepts = Arrays.asList(new Class<?>[]{Authority.class, VmeCriteria.class, VmeType.class});
 
-	public ReferenceServiceImpl() {
+	private ReferenceDAOHardcodedHelper helper;
+
+	private List<Class<?>> concepts = Arrays.asList(new Class<?>[]{Authority.class, VmeCriteria.class, VmeType.class, Year.class});
+
+	public ReferenceDAOHarcoded() {
 		super();
-		helper = new ReferenceServiceHelper();
+		helper = new ReferenceDAOHardcodedHelper();
 	}
 
 	/* (non-Javadoc)
@@ -46,10 +49,15 @@ public class ReferenceServiceImpl implements ReferenceService {
 	@Override
 	public Class<?> getConcept(String acronym) throws ReferenceServiceException {
 		for (Class<?> concept : concepts) {
-			if (concept.getSimpleName().endsWith(acronym)){
-				return concept;
+			try {
+				if (concept.getDeclaredField("PARAMETER_ID").get(concept).toString().equalsIgnoreCase(acronym)){
+					return concept;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new ReferenceServiceException("Internal error");
 			}
-
 		}
 		throw new ReferenceServiceException("Undefined reference concept");
 	}
@@ -61,47 +69,46 @@ public class ReferenceServiceImpl implements ReferenceService {
 	public Object getReference(Class<?> concept, Long id) throws ReferenceServiceException  {
 		if (concept.equals(Authority.class)){
 			return helper.getAuthority(id);
-		}
-		if (concept.equals(VmeCriteria.class)){
+		} else if (concept.equals(VmeCriteria.class)){
 			return helper.getVmeCriteria(id);
-		}
-		if (concept.equals(VmeType.class)){
+		} else if (concept.equals(VmeType.class)){
 			return helper.getVmeType(id);
+		} else if(concept.equals(Year.class)){
+			return helper.getYear(id);
+		} else {
+			throw new ReferenceServiceException("Undefined reference concept");
 		}
-		throw new ReferenceServiceException("Undefined reference concept");
-
 	}
-	
-	
-	
-	
+
+
+
+
 
 	/* (non-Javadoc)
 	 * @see org.vme.service.reference.ReferenceService#getAllReferences(java.lang.Class)
 	 */
 	@Override
 	public Collection<?> getAllReferences(Class<?> concept)	throws ReferenceServiceException {
-		
-		
 		if (concept.equals(Authority.class)){
 			return helper.getAllAuthorities();
-		}
-		if (concept.equals(VmeCriteria.class)){
+		} else if (concept.equals(VmeCriteria.class)){
 			return helper.getAllVmeCriterias();
-		}
-		if (concept.equals(VmeType.class)){
+		} else if (concept.equals(VmeType.class)){
 			return helper.getAllVmeTypes();
+		} else if (concept.equals(Year.class)){
+			return helper.getAllYears();
+		} else {
+			throw new ReferenceServiceException("Undefined reference concept");
 		}
-		throw new ReferenceServiceException("Undefined reference concept");
-		
+
 	}
 
 	/* (non-Javadoc)
 	 * @see org.vme.service.reference.ReferenceService#getReferencebyAcronym(java.lang.Class, java.lang.String)
 	 */
 	@Override
-	public Object getReferencebyAcronym(Class<?> concept, String acronym) throws ReferenceServiceException {
-		
+	public Object getReferenceByAcronym(Class<?> concept, String acronym) throws ReferenceServiceException {
+
 		Method getAcronymMethod = null;
 		try {
 			getAcronymMethod =  concept.getDeclaredMethod("getAcronym");
@@ -110,7 +117,7 @@ public class ReferenceServiceImpl implements ReferenceService {
 		}
 
 		Collection<?> allObject = getAllReferences(concept);
-		
+
 		for (Object reference : allObject) {
 			try {
 				String acronymFound = (String)getAcronymMethod.invoke(reference);

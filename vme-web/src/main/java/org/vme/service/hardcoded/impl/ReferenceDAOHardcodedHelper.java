@@ -1,14 +1,17 @@
 /**
  * 
  */
-package org.vme.service.reference.impl;
+package org.vme.service.hardcoded.impl;
 
 import java.util.Collection;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import org.vme.service.reference.domain.Authority;
-import org.vme.service.reference.domain.VmeCriteria;
-import org.vme.service.reference.domain.VmeType;
+import org.vme.service.dto.ref.Authority;
+import org.vme.service.dto.ref.VmeCriteria;
+import org.vme.service.dto.ref.VmeType;
+import org.vme.service.dto.ref.Year;
 
 
 /**
@@ -17,22 +20,25 @@ import org.vme.service.reference.domain.VmeType;
  */
 
 
-public class ReferenceServiceHelper {
+public class ReferenceDAOHardcodedHelper {
 	
 	
-	private Hashtable<Long, Authority> repAuthority;
-	private Hashtable<Long, VmeCriteria> repVmeCriteria;
-	private Hashtable<Long, VmeType> repVmeType;
+	private Map<Long, Authority> repAuthority;
+	private Map<Long, VmeCriteria> repVmeCriteria;
+	private Map<Long, VmeType> repVmeType;
+	private Map<Long, Year> repYear;
 	
 
-	public ReferenceServiceHelper() {
+	public ReferenceDAOHardcodedHelper() {
 		super();
-		repAuthority = new Hashtable<Long, Authority>();
+		repAuthority = new LinkedHashMap<Long, Authority>();
 		createAuthorities();
-		repVmeCriteria = new Hashtable<Long, VmeCriteria>();
+		repVmeCriteria = new LinkedHashMap<Long, VmeCriteria>();
 		createVmeCriterias();
-		repVmeType = new Hashtable<Long, VmeType>();
+		repVmeType = new LinkedHashMap<Long, VmeType>();
 		createVmeTypes();
+		repYear = new LinkedHashMap<Long, Year>();
+		createYears();
 	}
 
 
@@ -63,6 +69,14 @@ public class ReferenceServiceHelper {
 		return repVmeType.values();
 	}
 
+	public Year getYear(Long key) {
+		return repYear.get(key);
+	}
+	
+	public Collection<Year> getAllYears(){
+		return repYear.values();
+	}
+	
 	private void createAuthorities() {
 		repAuthority.put((long)20010, new Authority(20010,"CCAMLR","Commission for the Conservation of Antarctic Marine Living Resources"));
 		repAuthority.put((long)22080, new Authority(22080,"GFCM","General Fishery Commission for the Mediterranean sea"));
@@ -88,6 +102,17 @@ public class ReferenceServiceHelper {
 		repVmeType.put((long)40, new VmeType(40,"Other types of managed area"));
 	}
 
+	
+	private void createYears() {
+		repYear.put((long)2013, new Year(2013));
+		repYear.put((long)2012, new Year(2012));
+		repYear.put((long)2011, new Year(2011));
+		repYear.put((long)2010, new Year(2010));
+		repYear.put((long)2009, new Year(2009));
+		repYear.put((long)2008, new Year(2008));
+		repYear.put((long)2007, new Year(2007));
+		repYear.put((long)2006, new Year(2006));
+	}
 	
 	
 }

@@ -1,15 +1,21 @@
 /**
  * 
  */
-package org.vme.service.reference.domain;
+package org.vme.service.dto.ref;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
  * @author Fabrizio Sibeni
  *
  */
-public class VmeType {
+@Entity
+public class Authority {
+
+	public final static String PARAMETER_ID = "authority";
+
+	
 	/**
 	 *  Identifier of the domain entity.  
 	 */
@@ -17,28 +23,36 @@ public class VmeType {
 	private int id;
 	
 	/** 
-	 * Name of the vme type
+	 * Acronym of the authority
+	 */
+	private String acronym;
+	
+	/** 
+	 * Name of the authority
 	 */
 	private String name;
-
+	
 	/** 
-	 * Verbose description of the vme type
+	 * Verbose description of the authority
 	 */
 	private String description;
 	
-	
-	/**
-	 * 
+	/** 
+	 * Language of reference
 	 */
-	public VmeType() {
+	private String lang;
+	
+	
+	public Authority() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 
-	public VmeType(int id, String name) {
+
+	public Authority(int id, String acronym, String name) {
 		super();
 		this.id = id;
+		this.acronym = acronym;
 		this.name = name;
 	}
 
@@ -52,12 +66,32 @@ public class VmeType {
 	}
 
 
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+
+	/**
+	 * @return the acronym
+	 */
+	public String getAcronym() {
+		return acronym;
+	}
+
+
+
+	/**
+	 * @param acronym the acronym to set
+	 */
+	public void setAcronym(String acronym) {
+		this.acronym = acronym;
+	}
+
 
 
 	/**
@@ -68,12 +102,32 @@ public class VmeType {
 	}
 
 
+
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+
+	/**
+	 * @return the lang
+	 */
+	public String getLang() {
+		return lang;
+	}
+
+
+
+	/**
+	 * @param lang the lang to set
+	 */
+	public void setLang(String lang) {
+		this.lang = lang;
+	}
+
 
 
 	/**
@@ -84,12 +138,15 @@ public class VmeType {
 	}
 
 
+
 	/**
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	
 	
 	
 

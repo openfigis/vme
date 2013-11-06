@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.vme.service.reference.domain;
+package org.vme.service.dto.ref;
 
 import javax.persistence.Id;
 
@@ -9,8 +9,11 @@ import javax.persistence.Id;
  * @author Fabrizio Sibeni
  *
  */
-public class VmeCriteria {
-
+public class VmeType {
+	
+	public final static String PARAMETER_ID = "type";
+	
+	
 	/**
 	 *  Identifier of the domain entity.  
 	 */
@@ -18,25 +21,31 @@ public class VmeCriteria {
 	private int id;
 	
 	/** 
-	 * Name of the vme criteria
+	 * Name of the vme type
 	 */
 	private String name;
 
 	/** 
-	 * Verbose description of the vme criteria
+	 * Verbose description of the vme type
 	 */
 	private String description;
+	
+	/** 
+	 * Language of reference
+	 */
+	private String lang;
+	
 	
 	/**
 	 * 
 	 */
-	public VmeCriteria() {
+	public VmeType() {
 		// TODO Auto-generated constructor stub
 	}
 
 	
-	
-	public VmeCriteria(int id, String name) {
+
+	public VmeType(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -51,12 +60,14 @@ public class VmeCriteria {
 		return id;
 	}
 
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 	/**
 	 * @return the name
@@ -65,12 +76,14 @@ public class VmeCriteria {
 		return name;
 	}
 
+
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
 
 	/**
 	 * @return the description
@@ -79,12 +92,30 @@ public class VmeCriteria {
 		return description;
 	}
 
+
 	/**
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	/**
+	 * @return the lang
+	 */
+	public String getLang() {
+		return lang;
+	}
+
+
+
+	/**
+	 * @param lang the lang to set
+	 */
+	public void setLang(String lang) {
+		this.lang = lang;
+	}
+	
 	
 	
 

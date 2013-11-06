@@ -1,25 +1,24 @@
-package org.vme.service.search.vme;
+package org.vme.service.hardcoded.impl;
 
-import org.vme.service.dto.VmeGetRequestDto;
-import org.vme.service.dto.VmeSearchDto;
-import org.vme.service.dto.VmeSearchRequestDto;
-import org.vme.service.dto.VmeSearchResult;
+import org.vme.service.dto.obs.ObservationDto;
+import org.vme.web.service.io.ObservationsRequest;
+import org.vme.web.service.io.ServiceResponse;
 
 
-public class VmeSearchServiceMockup  implements SearchService  {
-
+public class ObservationDAOHarcoded    {
 
 
 
 
 
-	public VmeSearchServiceMockup() {
+
+	public ObservationDAOHarcoded() {
 		System.out.println("VME search engine 1.0 - Mockup service");
 
 	}
 
-	public VmeSearchResult search(VmeSearchRequestDto request) {
-		VmeSearchResult res = new VmeSearchResult(request);
+	public ServiceResponse<ObservationDto> searchObservations(ObservationsRequest request) {
+		ServiceResponse<ObservationDto> res = new ServiceResponse<ObservationDto>(request);
 		String authority;
 		String vme_type;
 		int start_cycle;
@@ -68,7 +67,7 @@ public class VmeSearchServiceMockup  implements SearchService  {
 
 
 		for (int i = start_cycle; i < end_cycle; i++) {
-			VmeSearchDto dto = new VmeSearchDto();
+			ObservationDto dto = new ObservationDto();
 			dto.setEnvelope("envelope_" + i);
 			dto.setFactsheetUrl("fishery/vme/10/en");
 			dto.setGeoArea("Geographical reference test n. " + i);
@@ -88,9 +87,9 @@ public class VmeSearchServiceMockup  implements SearchService  {
 
 
 
-	public VmeSearchResult get(VmeGetRequestDto request) {
-		VmeSearchResult res = new VmeSearchResult(request);
-		VmeSearchDto dto = new VmeSearchDto();
+	public ServiceResponse<ObservationDto> getObservation(ObservationsRequest request) {
+		ServiceResponse<ObservationDto> res = new ServiceResponse<ObservationDto>(request);
+		ObservationDto dto = new ObservationDto();
 		dto.setEnvelope("envelope");
 		dto.setFactsheetUrl("fishery/vme/10/en");
 		dto.setGeoArea("Geographic reference");

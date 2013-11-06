@@ -1,4 +1,4 @@
-package org.vme.service.search.vme;
+package org.vme.service.hibernate.impl;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -20,19 +20,17 @@ import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.vme.service.dto.VmeGetRequestDto;
-import org.vme.service.dto.VmeRequestDto;
-import org.vme.service.dto.VmeSearchDto;
-import org.vme.service.dto.VmeSearchRequestDto;
-import org.vme.service.dto.VmeSearchResult;
-import org.vme.service.reference.ReferenceServiceException;
-import org.vme.service.reference.ReferenceServiceFactory;
-import org.vme.service.reference.domain.Authority;
-import org.vme.service.reference.domain.VmeCriteria;
-import org.vme.service.reference.domain.VmeType;
+import org.vme.service.dao.DAOFactory;
+import org.vme.service.dao.ObservationDAO;
+import org.vme.service.dao.ReferenceServiceException;
+import org.vme.service.dto.obs.ObservationDto;
+import org.vme.service.dto.ref.Authority;
+import org.vme.service.dto.ref.VmeCriteria;
+import org.vme.service.dto.ref.VmeType;
 
 
-public class VmeSearchService implements SearchService {
+
+public class ObservationDAOHibernate implements ObservationDAO {
 
 
 	@Inject
@@ -44,62 +42,79 @@ public class VmeSearchService implements SearchService {
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 
-	public VmeSearchService() {
+	public ObservationDAOHibernate() {
 		System.out.println("VME search engine 1.0");
-
 	}
 
 
 	@SuppressWarnings("unchecked")
-	public VmeSearchResult search(VmeSearchRequestDto request) throws Exception  {
-		if (request.hasYear()){
-		} else {
-			request.setYear( Calendar.getInstance().get(Calendar.YEAR));
+	public List<ObservationDto> searchObservations(long authority_id, long type_id, long criteria_id, int year, String text) throws Exception  {
+		if (year==0){
+			 year = Calendar.getInstance().get(Calendar.YEAR);
 		}
-		Query query = entityManager.createQuery(createHibernateSearchTextualQuery(request));
+		Query query = entityManager.createQuery(createHibernateSearchTextualQuery(authority_id, type_id, criteria_id, year));
 		List<Vme> result =  (List<Vme>)query.getResultList();
-		List<Vme> toRemove =  postPurgeResult(request, result);
-		VmeSearchResult res = convertPersistenceResult(request, (List<Vme>) result, toRemove);
+		List<Vme> toRemove =  postPurgeResult(year, text, result);
+		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, toRemove);
 		return res;
 	}
 
 
-	public VmeSearchResult get(VmeGetRequestDto request)  {
-		if (request.hasYear()){
-		} else {
-			request.setYear( Calendar.getInstance().get(Calendar.YEAR));
-		}		
-		String text_query;
 
-		if (request.getId()>0){
-			text_query = "from Vme vme where vme.id = " + request.getId();
-		} else if (request.hasInventoryIdentifier()) {
-			text_query = "from Vme vme where vme.inventoryIdentifier = '" + request.getInventoryIdentifier() + "'";
-		} else if (request.hasGeographicFeatureId()) {
-			text_query = "SELECT vme from Vme vme, GEO_REF gfl WHERE vme = gfl.vme and gfl IN (SELECT gfl from GEO_REF WHERE gfl.geographicFeatureID = '" + request.getGeographicFeatureId() + "')";
-		} else text_query = "";
+	
+	
+	public List<ObservationDto> getObservationById(long id, int year)  {
+		String text_query;
+		if (year==0){
+			 year = Calendar.getInstance().get(Calendar.YEAR);
+		}
+		text_query = "from Vme vme where vme.id = " + id;
 		Query query = entityManager.createQuery(text_query);
 		List<?> result =   query.getResultList();
 		@SuppressWarnings("unchecked")
-		VmeSearchResult res = convertPersistenceResult(request, (List<Vme>) result, null);
+		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
+		return res;
+	}	
+	
+	public List<ObservationDto> getObservationByInevntoryIdentifier(String inv_id, int year)  {
+		if (year==0){
+			 year = Calendar.getInstance().get(Calendar.YEAR);
+		}		
+		String	text_query = "from Vme vme where vme.inventoryIdentifier = '" + inv_id + "'";
+		Query query = entityManager.createQuery(text_query);
+		List<?> result =   query.getResultList();
+		@SuppressWarnings("unchecked")
+		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
+		return res;
+	}
+	
+	public List<ObservationDto> getObservationByGeographicFeatureId(String geo_id, int year)  {
+		if (year==0){
+			 year = Calendar.getInstance().get(Calendar.YEAR);
+		}		
+		String text_query = "SELECT vme from Vme vme, GEO_REF gfl WHERE vme = gfl.vme and gfl IN (SELECT gfl from GEO_REF WHERE gfl.geographicFeatureID = '" + geo_id + "')";
+		Query query = entityManager.createQuery(text_query);
+		List<?> result =   query.getResultList();
+		@SuppressWarnings("unchecked")
+		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
 		return res;
 	}
 
 
 
-	private String createHibernateSearchTextualQuery(VmeSearchRequestDto request) throws Exception {
+	private String createHibernateSearchTextualQuery(long authority_id, long type_id, long criteria_id, int year) throws Exception {
 		StringBuffer txtQuery = new StringBuffer(200);
 		String conjunction;
 		txtQuery.append("Select vme from Vme vme");
-		if (request.hasAtLeastOneParameterButText()){
+		if (authority_id>0 || type_id>0 || criteria_id>0){
 			txtQuery.append(" where");
 			conjunction = "";
 		} else {
 			return txtQuery.toString();
 		}
 
-		if (request.hasAuthority()){
-			Authority vmeAuthority = (Authority) ReferenceServiceFactory.getService().getReference(Authority.class, (long) request.getAuthority());
+		if (authority_id>0){
+			Authority vmeAuthority = (Authority) DAOFactory.getDaoFactory(DAOFactory.HARDCODED).getReferenceDAO().getReference(Authority.class, authority_id);
 			String authority = vmeAuthority.getAcronym();
 			txtQuery.append(conjunction);
 			txtQuery.append(" vme.rfmo.id = '");
@@ -108,8 +123,8 @@ public class VmeSearchService implements SearchService {
 			conjunction = " AND";
 		}
 
-		if (request.hasCriteria()){
-			VmeCriteria vmeCriteria = (VmeCriteria) ReferenceServiceFactory.getService().getReference(VmeCriteria.class, (long) request.getCriteria());
+		if (criteria_id>0){
+			VmeCriteria vmeCriteria = (VmeCriteria) DAOFactory.getDaoFactory(DAOFactory.HARDCODED).getReferenceDAO().getReference(VmeCriteria.class, criteria_id);
 			String criteria = vmeCriteria.getName();
 			txtQuery.append(conjunction);
 			txtQuery.append(" vme.criteria = '");
@@ -118,8 +133,8 @@ public class VmeSearchService implements SearchService {
 			conjunction = " AND";
 		}
 
-		if (request.hasType()){
-			VmeType vmeType = (VmeType) ReferenceServiceFactory.getService().getReference(VmeType.class, (long) request.getType());
+		if (type_id>0){
+			VmeType vmeType = (VmeType) DAOFactory.getDaoFactory(DAOFactory.HARDCODED).getReferenceDAO().getReference(VmeType.class, type_id);
 			String areaType = vmeType.getName();
 			txtQuery.append(conjunction);
 			txtQuery.append("  vme.areaType = '");
@@ -129,9 +144,9 @@ public class VmeSearchService implements SearchService {
 		}
 
 		txtQuery.append(" AND vme.validityPeriod.beginYear <= ");
-		txtQuery.append(request.getYear());
+		txtQuery.append(year);
 		txtQuery.append(" AND vme.validityPeriod.endYear >= ");
-		txtQuery.append(request.getYear());
+		txtQuery.append(year);
 		
 		String res = txtQuery.toString();
 		System.out.println("FAB:" + res);
@@ -143,8 +158,8 @@ public class VmeSearchService implements SearchService {
 
 
 
-	private List<Vme> postPurgeResult (VmeSearchRequestDto request,  List<Vme> result){
-		int requested_year = request.getYear();
+	private List<Vme> postPurgeResult (int year, String text,  List<Vme> result){
+		int requested_year = year;
 		List<Vme> res = new LinkedList<Vme>();
 		// Patch placed to solve VME-10 JIRA issue.
 		for (Vme vme : result) {
@@ -169,8 +184,8 @@ public class VmeSearchService implements SearchService {
 					}
 				}
 				
-				if (is_good && request.hasText()){
-					is_good = containRelevantText(vme, request.getText());
+				if (is_good && (text!=null && !text.equals(""))){
+					is_good = containRelevantText(vme, text);
 				}
 				
 				if (!is_good){
@@ -296,11 +311,11 @@ public class VmeSearchService implements SearchService {
 	}
 
 
-	private VmeSearchResult convertPersistenceResult(VmeRequestDto request,  List<Vme> result, List<Vme> toRemove){
-		VmeSearchResult res = new VmeSearchResult(request);
+	private List<ObservationDto> convertPersistenceResult(int year,  List<Vme> result, List<Vme> toRemove){
+		List<ObservationDto> res = new LinkedList<ObservationDto>();
 		for (Vme vme : result) {
 			if (toRemove==null || (toRemove!=null  && !toRemove.contains(vme))){
-				res.addElement(getVmeSearchDto(vme,request.getYear()));
+				res.add(getVmeSearchDto(vme,year));
 			}
 		}
 		return res;
@@ -309,15 +324,15 @@ public class VmeSearchService implements SearchService {
 
 
 
-	private VmeSearchDto getVmeSearchDto(Vme vme, int year) {
-		VmeSearchDto res = new VmeSearchDto();
+	private ObservationDto getVmeSearchDto(Vme vme, int year) {
+		ObservationDto res = new ObservationDto();
 		res.setVmeId(vme.getId());
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
 		res.setLocalName(u.getEnglish(vme.getName()));
 		res.setEnvelope("");
 		String authority_acronym = vme.getRfmo().getId();
 		try {
-			Authority authority = (Authority)ReferenceServiceFactory.getService().getReferencebyAcronym(Authority.class, authority_acronym);
+			Authority authority = (Authority)DAOFactory.getDaoFactory(DAOFactory.HARDCODED).getReferenceDAO().getReferenceByAcronym(Authority.class, authority_acronym);
 			res.setOwner(authority.getName() + " (" + authority.getAcronym() + ")");
 		} catch (ReferenceServiceException e) {
 			res.setOwner(authority_acronym);
@@ -332,7 +347,6 @@ public class VmeSearchService implements SearchService {
 		}
 
 		res.setGeoArea(u.getEnglish(vme.getGeoArea()));
-		
 		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginYear());
 		res.setValidityPeriodTo(vme.getValidityPeriod().getEndYear());
 		res.setVmeType(vme.getAreaType());

@@ -1,7 +1,7 @@
-package org.vme.service.dto;
+package org.vme.service.dto.obs;
 
 
-public class VmeSearchDto {
+public class ObservationDto {
 
 
 	private long  vmeId;	

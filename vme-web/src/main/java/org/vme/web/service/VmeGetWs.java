@@ -11,18 +11,17 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.service.dto.VmeGetRequestDto;
-import org.vme.service.dto.VmeSearchRequestDto;
-import org.vme.service.dto.VmeSearchResult;
-import org.vme.service.search.vme.SearchService;
-import org.vme.service.search.vme.VmeSearchService;
+import org.vme.service.dao.ObservationDAO;
+import org.vme.service.hibernate.impl.ObservationDAOHibernate;
+import org.vme.web.service.io.ObservationsRequest;
+import org.vme.web.service.io.ServiceResponse;
 
 @Path("/get")
 @Singleton
 public class VmeGetWs {
 
 
-	private final SearchService service;
+	private final ObservationDAO service;
 
 	/*
 	@Inject
@@ -39,7 +38,7 @@ public class VmeGetWs {
 	*/
 	
 	@Inject
-	public VmeGetWs(VmeSearchService serv) {
+	public VmeGetWs(ObservationDAOHibernate serv) {
 		service = serv;
     }
 	
@@ -54,40 +53,38 @@ public class VmeGetWs {
 			@QueryParam("inventoryIdentifier") String inventoryIdentifier,
 			@QueryParam("geographicFeatureId") String geographicFeatureId) throws Exception {
 
-		VmeGetRequestDto requestDto = new VmeGetRequestDto(UUID.randomUUID());
+		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
 		
 		if ((id!=null) &&!("*").equals(id.trim())){
-			requestDto.setId(Integer.parseInt(id));
+			request.setId(Integer.parseInt(id));
 		} else {
-			requestDto.setId(0);
+			request.setId(0);
 		}
 		
 		if ((year!=null) &&!("*").equals(year.trim())){
-			requestDto.setYear(Integer.parseInt(year));
+			request.setYear(Integer.parseInt(year));
 		} else {
-			requestDto.setYear(0);
+			request.setYear(0);
 		}
 		
 		if ((inventoryIdentifier!=null) &&!("*").equals(inventoryIdentifier.trim())){
-			requestDto.setInventoryIdentifier(inventoryIdentifier);
+			request.setInventoryIdentifier(inventoryIdentifier);
 		} else {
-			requestDto.setInventoryIdentifier(null);
+			request.setInventoryIdentifier(null);
 		}
 		
 		if ((geographicFeatureId!=null) &&!("*").equals(geographicFeatureId.trim())){
-			requestDto.setGeographicFeatureId(geographicFeatureId);
+			request.setGeographicFeatureId(geographicFeatureId);
 		} else {
-			requestDto.setGeographicFeatureId(null);
+			request.setGeographicFeatureId(null);
 		}
-		
-		System.out.println("FS: get service called with [" + id  +  "]");
-		VmeSearchResult result =  service.get(requestDto);
+		ServiceResponse<?> result =  ServiceInvoker.invoke(service, request);
 		return Response.status(200).entity(result).build();
 	}
 
 
 	@SuppressWarnings("unused")
-	private String produceHtmlReport(VmeSearchRequestDto dto)	{
+	private String produceHtmlReport(ObservationsRequest dto)	{
 		return 
 				"<html> " + "<title>" + "Hello Jersey" + "</title>" + 
 				"<body><h1>" + "Hello Jersey" + "</body></h1>" + dto.getUuid()  + "</br>"  

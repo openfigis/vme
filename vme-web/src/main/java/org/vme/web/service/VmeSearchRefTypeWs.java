@@ -12,19 +12,19 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.service.dto.VmeSearchRefRequestDto;
-import org.vme.service.dto.VmeSearchRefResult;
-import org.vme.service.search.reference.VmeSearchRefService;
+import org.vme.service.hardcoded.impl.ReferenceDAOHarcoded;
+import org.vme.web.service.io.ReferencesRequest;
+import org.vme.web.service.io.ServiceResponse;
 
 @Path("/references/{concept}/{lang}/")
 @Singleton
 public class VmeSearchRefTypeWs {
 
 
-	private final VmeSearchRefService service;
+	private final ReferenceDAOHarcoded service;
 
 	@Inject
-	public VmeSearchRefTypeWs(VmeSearchRefService a_service) {
+	public VmeSearchRefTypeWs(ReferenceDAOHarcoded a_service) {
 		service = a_service;
 	}
 
@@ -33,14 +33,10 @@ public class VmeSearchRefTypeWs {
 	@Produces(MediaType.APPLICATION_JSON)
 	//@Produces(MediaType.TEXT_HTML)
 	public Response find(@PathParam("concept") String concept, @PathParam("lang") String lang) {
-
-		VmeSearchRefRequestDto requestDto = new VmeSearchRefRequestDto(UUID.randomUUID());
-		
-		requestDto.setConcept(concept);
-		requestDto.setLang(lang);
-		
 		try {
-			VmeSearchRefResult result =  service.search(requestDto);
+			ReferencesRequest refRequest = new ReferencesRequest(UUID.randomUUID());
+			refRequest.setConcept(concept);
+			ServiceResponse<?> result = ServiceInvoker.invoke(service, refRequest);
 			return Response.status(200).entity(result).build();
 		} catch (Exception e){
 			throw new WebApplicationException(Response.Status.NOT_FOUND);

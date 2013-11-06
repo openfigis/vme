@@ -1,18 +1,18 @@
 /**
  * 
  */
-package org.vme.service.reference.domain;
+package org.vme.service.dto.ref;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
  * @author Fabrizio Sibeni
  *
  */
-@Entity
-public class Authority {
+public class VmeCriteria {
 
+	public final static String PARAMETER_ID = "criteria";
+	
 	/**
 	 *  Identifier of the domain entity.  
 	 */
@@ -20,32 +20,32 @@ public class Authority {
 	private int id;
 	
 	/** 
-	 * Acronym of the authority
-	 */
-	private String acronym;
-	
-	/** 
-	 * Name of the authority
+	 * Name of the vme criteria
 	 */
 	private String name;
-	
+
 	/** 
-	 * Verbose description of the authority
+	 * Verbose description of the vme criteria
 	 */
 	private String description;
 	
+	/** 
+	 * Language of reference
+	 */
+	private String lang;
 	
-	
-	public Authority() {
+	/**
+	 * 
+	 */
+	public VmeCriteria() {
 		// TODO Auto-generated constructor stub
 	}
 
-
-
-	public Authority(int id, String acronym, String name) {
+	
+	
+	public VmeCriteria(int id, String name) {
 		super();
 		this.id = id;
-		this.acronym = acronym;
 		this.name = name;
 	}
 
@@ -58,34 +58,12 @@ public class Authority {
 		return id;
 	}
 
-
-
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
-
-	/**
-	 * @return the acronym
-	 */
-	public String getAcronym() {
-		return acronym;
-	}
-
-
-
-	/**
-	 * @param acronym the acronym to set
-	 */
-	public void setAcronym(String acronym) {
-		this.acronym = acronym;
-	}
-
-
 
 	/**
 	 * @return the name
@@ -94,16 +72,12 @@ public class Authority {
 		return name;
 	}
 
-
-
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 
 	/**
 	 * @return the description
@@ -112,8 +86,6 @@ public class Authority {
 		return description;
 	}
 
-
-
 	/**
 	 * @param description the description to set
 	 */
@@ -121,8 +93,21 @@ public class Authority {
 		this.description = description;
 	}
 	
-	
-	
+	/**
+	 * @return the lang
+	 */
+	public String getLang() {
+		return lang;
+	}
+
+
+
+	/**
+	 * @param lang the lang to set
+	 */
+	public void setLang(String lang) {
+		this.lang = lang;
+	}
 	
 
 }

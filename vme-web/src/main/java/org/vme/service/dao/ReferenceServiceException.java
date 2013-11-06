@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.vme.service.reference;
+package org.vme.service.dao;
 
 
 
@@ -10,6 +10,11 @@ package org.vme.service.reference;
  *
  */
 public class ReferenceServiceException extends Exception {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4431083184702644098L;
 
 	/**
 	 * 

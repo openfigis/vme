@@ -11,17 +11,17 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.service.dto.VmeSearchRequestDto;
-import org.vme.service.dto.VmeSearchResult;
-import org.vme.service.search.vme.SearchService;
-import org.vme.service.search.vme.VmeSearchService;
+import org.vme.service.dao.ObservationDAO;
+import org.vme.service.hibernate.impl.ObservationDAOHibernate;
+import org.vme.web.service.io.ObservationsRequest;
+import org.vme.web.service.io.ServiceResponse;
 
 @Path("/search")
 @Singleton
 public class VmeSearchWs {
 
 
-	private final SearchService service;
+	private final ObservationDAO service;
 	
 	/*
 	@Inject
@@ -37,7 +37,7 @@ public class VmeSearchWs {
     */
 
 	@Inject
-	public VmeSearchWs(VmeSearchService serv) {
+	public VmeSearchWs(ObservationDAOHibernate serv) {
 		service = serv;
 	}
 
@@ -53,36 +53,35 @@ public class VmeSearchWs {
 			@QueryParam("vme_criteria") String id_vme_criteria,
 			@QueryParam("year") String year) throws Exception {
 
-		VmeSearchRequestDto requestDto = new VmeSearchRequestDto(UUID.randomUUID());
-		requestDto.setText(text);
+		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
+		request.setText(text);
 		if ((id_authority!=null) &&!("*").equals(id_authority.trim())){
-			requestDto.setAuthority(Integer.parseInt(id_authority));
+			request.setAuthority(Integer.parseInt(id_authority));
 		} else {
-			requestDto.setAuthority(0);
+			request.setAuthority(0);
 		}
 		if ((id_vme_type!=null) &&!("*").equals(id_vme_type.trim())){
-			requestDto.setType(Integer.parseInt(id_vme_type));	
+			request.setType(Integer.parseInt(id_vme_type));	
 		} else {
-			requestDto.setType(0);
+			request.setType(0);
 		}
 		if ((id_vme_criteria!=null) && !("*").equals(id_vme_criteria.trim())){
-			requestDto.setCriteria(Integer.parseInt(id_vme_criteria));
+			request.setCriteria(Integer.parseInt(id_vme_criteria));
 		} else {
-			requestDto.setCriteria(0);
+			request.setCriteria(0);
 		}
 		if ((year!=null) &&!("*").equals(year.trim())){
-			requestDto.setYear(Integer.parseInt(year));
+			request.setYear(Integer.parseInt(year));
 		} else {
-			requestDto.setYear(0);
+			request.setYear(0);
 		}
-		System.out.println("FS: called with [" + id_authority + " - " + id_vme_type + " - " + id_vme_criteria +  "] - text param:  " + text);
-		VmeSearchResult result =  service.search(requestDto);
+		ServiceResponse<?> result =  ServiceInvoker.invoke(service, request);
 		return Response.status(200).entity(result).build();
 	}
 
 
 	@SuppressWarnings("unused")
-	private String produceHtmlReport(VmeSearchRequestDto dto)	{
+	private String produceHtmlReport(ObservationsRequest dto)	{
 		return 
 				"<html> " + "<title>" + "Hello Jersey" + "</title>" + 
 				"<body><h1>" + "Hello Jersey" + "</body></h1>" + dto.getUuid()  + "</br>"  
