@@ -39,7 +39,7 @@ public class Vme implements Period<Vme> {
 	/**
 	 * This VME is managed by this Rfmo
 	 */
-//	@Name("Competent Authority")
+	@Name("Competent Authority")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@Instructions("Competent authority, please insert the acronym (e.g. NAFO, CCAMLR, SEAFO)")
 	private Rfmo rfmo;
@@ -47,13 +47,13 @@ public class Vme implements Period<Vme> {
 	/*
 	 * This is the owning side of the manyToMany relationship
 	 */
-//	@Name("VME Specific Measures")
+	@Name("VME Specific Measures")
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "VME_SPECIFIC_MEASURE", //
 	joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURE_ID"))
 	private List<SpecificMeasure> specificMeasureList;
 
-//	@Name("VME Profiles")
+	@Name("VME Profiles")
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<Profile> profileList;
 
