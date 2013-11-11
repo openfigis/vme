@@ -44,9 +44,8 @@ public class ValidityPeriod implements Comparable<ValidityPeriod> {
 
 	/** 
 	  */
-	@Instructions("End date, leave empty if not applicable")
-	
 	@Name("Validity Period - End")
+	@Instructions("End date, leave empty if not applicable")
 	private Integer endYear;
 
 	public Integer getBeginYear() {
