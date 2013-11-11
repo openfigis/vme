@@ -7,7 +7,6 @@
 package org.vme.service.dao;
 
 
-import java.util.Collection;
 import java.util.List;
 
 
@@ -44,7 +43,7 @@ public interface ReferenceDAO  {
 	 * @return the requested concept class if existing
 	 * @throws ReferenceServiceException
 	 */
-	public Collection<?> getAllReferences(Class<?> concept) throws ReferenceServiceException;
+	public List<?> getAllReferences(Class<?> concept) throws ReferenceServiceException;
 	
 	
 	/**

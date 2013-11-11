@@ -3,12 +3,12 @@ package org.vme.web.service;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
+import org.fao.fi.vme.domain.Authority;
+import org.fao.fi.vme.domain.VmeCriteria;
+import org.fao.fi.vme.domain.VmeType;
 import org.vme.service.dao.ObservationDAO;
 import org.vme.service.dao.ReferenceDAO;
 import org.vme.service.dto.obs.ObservationDto;
-import org.vme.service.dto.ref.Authority;
-import org.vme.service.dto.ref.VmeCriteria;
-import org.vme.service.dto.ref.VmeType;
 import org.vme.service.dto.ref.Year;
 import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ReferencesRequest;
@@ -16,8 +16,6 @@ import org.vme.web.service.io.ServiceResponse;
 
 public class ServiceInvoker {
 
-	
-	
 	public static ServiceResponse<?> invoke(ObservationDAO service, ObservationsRequest request) throws Exception {
 		ServiceResponse<?> result = new ServiceResponse<ObservationDto>(request);
 		if (request.getId()>0){
@@ -31,9 +29,6 @@ public class ServiceInvoker {
 		}
 		return result;
 	}
-	
-	
-	
 	
 	
 	public static ServiceResponse<?> invoke(ReferenceDAO service, ReferencesRequest request) throws Exception {

@@ -1,14 +1,19 @@
 /**
  * 
  */
-package org.vme.service.dto.ref;
+package org.fao.fi.vme.domain;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author Fabrizio Sibeni
  *
  */
+
+@Entity
+@Table(name="VME_CRITERIA")
 public class VmeCriteria {
 
 	public final static String PARAMETER_ID = "criteria";
@@ -24,15 +29,7 @@ public class VmeCriteria {
 	 */
 	private String name;
 
-	/** 
-	 * Verbose description of the vme criteria
-	 */
-	private String description;
-	
-	/** 
-	 * Language of reference
-	 */
-	private String lang;
+
 	
 	/**
 	 * 
@@ -79,35 +76,7 @@ public class VmeCriteria {
 		this.name = name;
 	}
 
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
 
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	/**
-	 * @return the lang
-	 */
-	public String getLang() {
-		return lang;
-	}
-
-
-
-	/**
-	 * @param lang the lang to set
-	 */
-	public void setLang(String lang) {
-		this.lang = lang;
-	}
 	
 
 }

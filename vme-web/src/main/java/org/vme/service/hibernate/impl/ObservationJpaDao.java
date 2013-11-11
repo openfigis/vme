@@ -4,14 +4,11 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.apache.commons.lang.StringUtils;
-import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.vme.dao.config.VmeDB;
+import org.fao.fi.vme.domain.Authority;
 import org.fao.fi.vme.domain.GeneralMeasure;
 import org.fao.fi.vme.domain.GeoRef;
 import org.fao.fi.vme.domain.InformationSource;
@@ -19,31 +16,33 @@ import org.fao.fi.vme.domain.Profile;
 import org.fao.fi.vme.domain.SpecificMeasure;
 import org.fao.fi.vme.domain.ValidityPeriod;
 import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.VmeCriteria;
+import org.fao.fi.vme.domain.VmeType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.vme.service.dao.DAOFactory;
+import org.jglue.cdiunit.CdiRunner;
+import org.junit.runner.RunWith;
+import org.vme.service.dao.JpaDaoFactory;
 import org.vme.service.dao.ObservationDAO;
 import org.vme.service.dao.ReferenceServiceException;
 import org.vme.service.dto.obs.ObservationDto;
-import org.vme.service.dto.ref.Authority;
-import org.vme.service.dto.ref.VmeCriteria;
-import org.vme.service.dto.ref.VmeType;
 
 
+@RunWith(CdiRunner.class)
+public class ObservationJpaDao implements ObservationDAO {
 
-public class ObservationDAOHibernate implements ObservationDAO {
 
+	
+	private JpaDaoFactory factory ;
+	
 
-	@Inject
-	@VmeDB
-	private EntityManager entityManager;
-
-	protected FigisDao dao;
-
+	
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 
-	public ObservationDAOHibernate() {
+
+	public ObservationJpaDao(JpaDaoFactory factory) {
 		System.out.println("VME search engine 1.0");
+		this.factory = factory;
 	}
 
 
@@ -52,7 +51,7 @@ public class ObservationDAOHibernate implements ObservationDAO {
 		if (year==0){
 			 year = Calendar.getInstance().get(Calendar.YEAR);
 		}
-		Query query = entityManager.createQuery(createHibernateSearchTextualQuery(authority_id, type_id, criteria_id, year));
+		Query query = factory.getEntityManager().createQuery(createHibernateSearchTextualQuery(authority_id, type_id, criteria_id, year));
 		List<Vme> result =  (List<Vme>)query.getResultList();
 		List<Vme> toRemove =  postPurgeResult(year, text, result);
 		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, toRemove);
@@ -61,15 +60,13 @@ public class ObservationDAOHibernate implements ObservationDAO {
 
 
 
-	
-	
 	public List<ObservationDto> getObservationById(long id, int year)  {
 		String text_query;
 		if (year==0){
 			 year = Calendar.getInstance().get(Calendar.YEAR);
 		}
 		text_query = "from Vme vme where vme.id = " + id;
-		Query query = entityManager.createQuery(text_query);
+		Query query = factory.getEntityManager().createQuery(text_query);
 		List<?> result =   query.getResultList();
 		@SuppressWarnings("unchecked")
 		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
@@ -81,7 +78,7 @@ public class ObservationDAOHibernate implements ObservationDAO {
 			 year = Calendar.getInstance().get(Calendar.YEAR);
 		}		
 		String	text_query = "from Vme vme where vme.inventoryIdentifier = '" + inv_id + "'";
-		Query query = entityManager.createQuery(text_query);
+		Query query = factory.getEntityManager().createQuery(text_query);
 		List<?> result =   query.getResultList();
 		@SuppressWarnings("unchecked")
 		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
@@ -93,7 +90,7 @@ public class ObservationDAOHibernate implements ObservationDAO {
 			 year = Calendar.getInstance().get(Calendar.YEAR);
 		}		
 		String text_query = "SELECT vme from Vme vme, GEO_REF gfl WHERE vme = gfl.vme and gfl IN (SELECT gfl from GEO_REF WHERE gfl.geographicFeatureID = '" + geo_id + "')";
-		Query query = entityManager.createQuery(text_query);
+		Query query = factory.getEntityManager().createQuery(text_query);
 		List<?> result =   query.getResultList();
 		@SuppressWarnings("unchecked")
 		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
@@ -114,7 +111,7 @@ public class ObservationDAOHibernate implements ObservationDAO {
 		}
 
 		if (authority_id>0){
-			Authority vmeAuthority = (Authority) DAOFactory.getDaoFactory(DAOFactory.HARDCODED).getReferenceDAO().getReference(Authority.class, authority_id);
+			Authority vmeAuthority = (Authority) factory.getReferenceDAO().getReference(Authority.class, authority_id);
 			String authority = vmeAuthority.getAcronym();
 			txtQuery.append(conjunction);
 			txtQuery.append(" vme.rfmo.id = '");
@@ -124,7 +121,7 @@ public class ObservationDAOHibernate implements ObservationDAO {
 		}
 
 		if (criteria_id>0){
-			VmeCriteria vmeCriteria = (VmeCriteria) DAOFactory.getDaoFactory(DAOFactory.HARDCODED).getReferenceDAO().getReference(VmeCriteria.class, criteria_id);
+			VmeCriteria vmeCriteria = (VmeCriteria) factory.getReferenceDAO().getReference(VmeCriteria.class, criteria_id);
 			String criteria = vmeCriteria.getName();
 			txtQuery.append(conjunction);
 			txtQuery.append(" vme.criteria = '");
@@ -134,7 +131,7 @@ public class ObservationDAOHibernate implements ObservationDAO {
 		}
 
 		if (type_id>0){
-			VmeType vmeType = (VmeType) DAOFactory.getDaoFactory(DAOFactory.HARDCODED).getReferenceDAO().getReference(VmeType.class, type_id);
+			VmeType vmeType = (VmeType) factory.getReferenceDAO().getReference(VmeType.class, type_id);
 			String areaType = vmeType.getName();
 			txtQuery.append(conjunction);
 			txtQuery.append("  vme.areaType = '");
@@ -332,14 +329,14 @@ public class ObservationDAOHibernate implements ObservationDAO {
 		res.setEnvelope("");
 		String authority_acronym = vme.getRfmo().getId();
 		try {
-			Authority authority = (Authority)DAOFactory.getDaoFactory(DAOFactory.HARDCODED).getReferenceDAO().getReferenceByAcronym(Authority.class, authority_acronym);
+			Authority authority = (Authority)factory.getReferenceDAO().getReferenceByAcronym(Authority.class, authority_acronym);
 			res.setOwner(authority.getName() + " (" + authority.getAcronym() + ")");
 		} catch (ReferenceServiceException e) {
 			res.setOwner(authority_acronym);
 			e.printStackTrace();
 		}
 		
-		VmeObservation vo = dao.findFirstVmeObservation(vme.getId(), Integer.toString(year));
+		VmeObservation vo = factory.getFigisDao().findFirstVmeObservation(vme.getId(), Integer.toString(year));
 		if (vo!=null){
 			res.setFactsheetUrl("fishery/vme/"+ vo.getId().getVmeId() + "/" + vo.getId().getObservationId() +"/en");
 		} else {
@@ -359,11 +356,12 @@ public class ObservationDAOHibernate implements ObservationDAO {
 	/**
 	 * @param dao the dao to set
 	 */
-	@Inject
+	
+/*
 	public void setDao(FigisDao dao) {
 		this.dao = dao;
 	}
-
+*/
 
 
 

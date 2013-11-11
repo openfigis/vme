@@ -3,14 +3,14 @@
  */
 package org.vme.service.hardcoded.impl;
 
-import java.util.Collection;
-import java.util.Hashtable;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
-import org.vme.service.dto.ref.Authority;
-import org.vme.service.dto.ref.VmeCriteria;
-import org.vme.service.dto.ref.VmeType;
+import org.fao.fi.vme.domain.Authority;
+import org.fao.fi.vme.domain.VmeCriteria;
+import org.fao.fi.vme.domain.VmeType;
 import org.vme.service.dto.ref.Year;
 
 
@@ -20,7 +20,7 @@ import org.vme.service.dto.ref.Year;
  */
 
 
-public class ReferenceDAOHardcodedHelper {
+public class ReferenceHardcodedDaoHelper {
 	
 	
 	private Map<Long, Authority> repAuthority;
@@ -29,7 +29,7 @@ public class ReferenceDAOHardcodedHelper {
 	private Map<Long, Year> repYear;
 	
 
-	public ReferenceDAOHardcodedHelper() {
+	public ReferenceHardcodedDaoHelper() {
 		super();
 		repAuthority = new LinkedHashMap<Long, Authority>();
 		createAuthorities();
@@ -48,8 +48,8 @@ public class ReferenceDAOHardcodedHelper {
 		return repAuthority.get(key);
 	}
 	
-	public Collection<Authority> getAllAuthorities(){
-		return repAuthority.values();
+	public List<Authority> getAllAuthorities(){
+		return new LinkedList<Authority>(repAuthority.values());
 	}
 	
 	
@@ -57,24 +57,24 @@ public class ReferenceDAOHardcodedHelper {
 		return repVmeCriteria.get(key);
 	}
 	
-	public Collection<VmeCriteria> getAllVmeCriterias(){
-		return repVmeCriteria.values();
+	public List<VmeCriteria> getAllVmeCriterias(){
+		return new LinkedList<VmeCriteria>(repVmeCriteria.values());
 	}
 
 	public VmeType getVmeType(Long key) {
 		return repVmeType.get(key);
 	}
 	
-	public Collection<VmeType> getAllVmeTypes(){
-		return repVmeType.values();
+	public List<VmeType> getAllVmeTypes(){
+		return new LinkedList<VmeType>(repVmeType.values());
 	}
 
 	public Year getYear(Long key) {
 		return repYear.get(key);
 	}
 	
-	public Collection<Year> getAllYears(){
-		return repYear.values();
+	public List<Year> getAllYears(){
+		return new LinkedList<Year>(repYear.values());
 	}
 	
 	private void createAuthorities() {

@@ -9,11 +9,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.fao.fi.vme.domain.Authority;
+import org.fao.fi.vme.domain.VmeCriteria;
+import org.fao.fi.vme.domain.VmeType;
 import org.vme.service.dao.ReferenceDAO;
 import org.vme.service.dao.ReferenceServiceException;
-import org.vme.service.dto.ref.Authority;
-import org.vme.service.dto.ref.VmeCriteria;
-import org.vme.service.dto.ref.VmeType;
 import org.vme.service.dto.ref.Year;
 
 
@@ -22,17 +22,17 @@ import org.vme.service.dto.ref.Year;
  * @author Fabrizio Sibeni
  * 
  */
-public class ReferenceDAOHarcoded implements ReferenceDAO {
+public class ReferenceHarcodedDao implements ReferenceDAO {
 
 
 
-	private ReferenceDAOHardcodedHelper helper;
+	private ReferenceHardcodedDaoHelper helper;
 
 	private List<Class<?>> concepts = Arrays.asList(new Class<?>[]{Authority.class, VmeCriteria.class, VmeType.class, Year.class});
 
-	public ReferenceDAOHarcoded() {
+	public ReferenceHarcodedDao() {
 		super();
-		helper = new ReferenceDAOHardcodedHelper();
+		helper = new ReferenceHardcodedDaoHelper();
 	}
 
 	/* (non-Javadoc)
@@ -88,7 +88,7 @@ public class ReferenceDAOHarcoded implements ReferenceDAO {
 	 * @see org.vme.service.reference.ReferenceService#getAllReferences(java.lang.Class)
 	 */
 	@Override
-	public Collection<?> getAllReferences(Class<?> concept)	throws ReferenceServiceException {
+	public List<?> getAllReferences(Class<?> concept)	throws ReferenceServiceException {
 		if (concept.equals(Authority.class)){
 			return helper.getAllAuthorities();
 		} else if (concept.equals(VmeCriteria.class)){

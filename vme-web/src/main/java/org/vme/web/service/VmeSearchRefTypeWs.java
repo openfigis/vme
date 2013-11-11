@@ -12,7 +12,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.service.hardcoded.impl.ReferenceDAOHarcoded;
+import org.vme.service.hardcoded.impl.ReferenceHarcodedDao;
 import org.vme.web.service.io.ReferencesRequest;
 import org.vme.web.service.io.ServiceResponse;
 
@@ -21,10 +21,10 @@ import org.vme.web.service.io.ServiceResponse;
 public class VmeSearchRefTypeWs {
 
 
-	private final ReferenceDAOHarcoded service;
+	private final ReferenceHarcodedDao service;
 
 	@Inject
-	public VmeSearchRefTypeWs(ReferenceDAOHarcoded a_service) {
+	public VmeSearchRefTypeWs(ReferenceHarcodedDao a_service) {
 		service = a_service;
 	}
 

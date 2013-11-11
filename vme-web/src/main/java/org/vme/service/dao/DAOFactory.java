@@ -7,7 +7,7 @@ package org.vme.service.dao;
  * @author Fabrizio Sibeni
  *
  */
-public abstract class DAOFactory {
+public interface DAOFactory {
 	
 	
 	public static final int HARDCODED = 1;
@@ -20,25 +20,10 @@ public abstract class DAOFactory {
 	
 	
 	
-	public abstract ReferenceDAO getReferenceDAO();
+	public ReferenceDAO getReferenceDAO();
 	
 
-	public abstract ObservationDAO getObservationDAO();
+	public ObservationDAO getObservationDAO();
 
-	
-	
-	public static DAOFactory getDaoFactory (int whichFactory) {
-		switch (whichFactory) {
-		case HARDCODED:
-			return new HardCodedDAOFactory();
-			
-		case HIBERNATE:
-			return new HibernateDAOFactory();	
-		default:
-			return null;
-		}
-		
-		
-	}
 	
 }

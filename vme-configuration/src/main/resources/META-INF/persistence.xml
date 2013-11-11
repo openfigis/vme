@@ -3,6 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
 	<persistence-unit name="vme-persistence">
+		<class>org.fao.fi.vme.domain.Authority</class>
 		<class>org.fao.fi.vme.domain.GeneralMeasure</class>
 		<class>org.fao.fi.vme.domain.GeoRef</class>
 		<class>org.fao.fi.vme.domain.History</class>
@@ -12,6 +13,9 @@
 		<class>org.fao.fi.vme.domain.Rfmo</class>
 		<class>org.fao.fi.vme.domain.SpecificMeasure</class>
 		<class>org.fao.fi.vme.domain.Vme</class>
+		<class>org.fao.fi.vme.domain.VmeType</class>
+		<class>org.fao.fi.vme.domain.VmeCriteria</class>
+		
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.vme}" />

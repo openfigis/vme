@@ -11,8 +11,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.service.dao.ObservationDAO;
-import org.vme.service.hibernate.impl.ObservationDAOHibernate;
+import org.vme.service.dao.DAOFactory;
 import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ServiceResponse;
 
@@ -20,8 +19,8 @@ import org.vme.web.service.io.ServiceResponse;
 @Singleton
 public class VmeGetWs {
 
-
-	private final ObservationDAO service;
+	@Inject
+	private DAOFactory factory;
 
 	/*
 	@Inject
@@ -37,9 +36,9 @@ public class VmeGetWs {
 	}
 	*/
 	
-	@Inject
-	public VmeGetWs(ObservationDAOHibernate serv) {
-		service = serv;
+	
+	public VmeGetWs() {
+		//factory = serv;
     }
 	
 
@@ -78,7 +77,7 @@ public class VmeGetWs {
 		} else {
 			request.setGeographicFeatureId(null);
 		}
-		ServiceResponse<?> result =  ServiceInvoker.invoke(service, request);
+		ServiceResponse<?> result =  ServiceInvoker.invoke(factory.getObservationDAO(), request);
 		return Response.status(200).entity(result).build();
 	}
 
