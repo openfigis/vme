@@ -9,6 +9,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfacee.Year;
+import org.gcube.application.rsg.support.annotations.Report;
+import org.gcube.application.rsg.support.annotations.fields.Identifier;
+import org.gcube.application.rsg.support.annotations.fields.Mandatory;
+import org.gcube.application.rsg.support.annotations.fields.Name;
 
 /**
  * The features of a VME, defined in a certain year.
@@ -17,9 +21,11 @@ import org.fao.fi.vme.domain.interfacee.Year;
  * @author Erik van Ingen
  * 
  */
+@Report(name="VME Profile")
 @Entity
 public class Profile implements Year<Profile> {
 
+	@Identifier
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -27,6 +33,8 @@ public class Profile implements Year<Profile> {
 	/**
 	 * YearObject in which the features where defined. This maps to the figis reporting year.
 	 */
+	@Name("Year")
+	@Mandatory
 	private Integer year;
 
 	@ManyToOne
@@ -36,6 +44,7 @@ public class Profile implements Year<Profile> {
 	 * Physical description of the VME
 	 * 
 	 */
+	@Name("VME Phisical description")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString descriptionPhisical;
 
@@ -43,15 +52,18 @@ public class Profile implements Year<Profile> {
 	 * 
 	 * Biological description of the VME
 	 */
+	@Name("VME Biological description")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString descriptionBiological;
 
 	/**
 	 * Description of the impact of this VME
 	 */
+	@Name("VME Impact description")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString descriptionImpact;
 
+	@Name("Geoform")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString geoform;
 

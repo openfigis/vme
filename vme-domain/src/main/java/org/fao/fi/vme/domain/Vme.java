@@ -14,6 +14,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfacee.Period;
+import org.gcube.application.rsg.support.annotations.Report;
+import org.gcube.application.rsg.support.annotations.fields.Identifier;
+import org.gcube.application.rsg.support.annotations.fields.Include;
+import org.gcube.application.rsg.support.annotations.fields.Instructions;
+import org.gcube.application.rsg.support.annotations.fields.Mandatory;
+import org.gcube.application.rsg.support.annotations.fields.Name;
+import org.gcube.application.rsg.support.annotations.fields.OneAmong;
 
 /**
  * 
@@ -21,25 +28,32 @@ import org.fao.fi.vme.domain.interfacee.Period;
  * 
  */
 @Entity
+@Report(name="VME")
+@Instructions("FAO VME TEST Input form")
 public class Vme implements Period<Vme> {
 
+	@Identifier
 	@Id
 	private Long id;
 
 	/**
 	 * This VME is managed by this Rfmo
 	 */
+//	@Name("Competent Authority")
 	@ManyToOne(fetch = FetchType.EAGER)
+	@Instructions("Competent authority, please insert the acronym (e.g. NAFO, CCAMLR, SEAFO)")
 	private Rfmo rfmo;
 
 	/*
 	 * This is the owning side of the manyToMany relationship
 	 */
+//	@Name("VME Specific Measures")
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "VME_SPECIFIC_MEASURE", //
 	joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURE_ID"))
 	private List<SpecificMeasure> specificMeasureList;
 
+//	@Name("VME Profiles")
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<Profile> profileList;
 
@@ -52,12 +66,15 @@ public class Vme implements Period<Vme> {
 	 * 
 	 * 
 	 */
+	@Include(name="Validity Period")
 	private ValidityPeriod validityPeriod;
 
 	/**
 	 *
 	 */
+	@Name("VME Name")
 	@OneToOne(cascade = { CascadeType.ALL })
+	@Mandatory
 	private MultiLingualString name;
 
 	/**
@@ -65,9 +82,15 @@ public class Vme implements Period<Vme> {
 	 */
 	private String geoform;
 
-	/**
-	 *
-	 */
+	@Name("Area Type")
+	@Mandatory
+	@OneAmong(values={ 
+		"VME",
+		"Risk area",
+		"Benthic protected area",
+		"Closed area",
+		"Other type of managed area"
+	})
 	private String areaType;
 
 	/**
@@ -79,6 +102,15 @@ public class Vme implements Period<Vme> {
 	/**
 	 *
 	 */
+	@Name("Criteria")
+	@Mandatory
+	@OneAmong(values={ 
+		"Uniqueness or rarity",
+		"Functional significance of the habitat",
+		"Fragility, Life-history traits",
+		"Structural complexity",
+		"Not specified"
+	})
 	private String criteria;
 
 	private String inventoryIdentifier;

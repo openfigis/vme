@@ -13,6 +13,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.gcube.application.rsg.support.annotations.ReferenceReport;
+import org.gcube.application.rsg.support.annotations.fields.Identifier;
+
 /**
  * 
  * The source of information available on the level of an RFMO.
@@ -21,9 +24,11 @@ import javax.persistence.TemporalType;
  * @author Erik van Ingen
  * 
  */
+@ReferenceReport(name="VME Information Source")
 @Entity(name = "INFORMATION_SOURCE")
 public class InformationSource {
 
+	@Identifier
 	@Id
 	private Long id;
 

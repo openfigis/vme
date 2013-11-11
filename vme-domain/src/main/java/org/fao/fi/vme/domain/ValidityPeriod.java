@@ -2,6 +2,9 @@ package org.fao.fi.vme.domain;
 
 import javax.persistence.Embeddable;
 
+import org.gcube.application.rsg.support.annotations.fields.Instructions;
+import org.gcube.application.rsg.support.annotations.fields.Name;
+
 /**
  * 
  * Rules for the validity period
@@ -36,10 +39,13 @@ public class ValidityPeriod implements Comparable<ValidityPeriod> {
 	/** 
 	  
 	  */
+	@Name("Validity Period - Start")
 	private Integer beginYear;
 
 	/** 
 	  */
+	@Name("Validity Period - End")
+	@Instructions("End date, leave empty if not applicable")
 	private Integer endYear;
 
 	public Integer getBeginYear() {

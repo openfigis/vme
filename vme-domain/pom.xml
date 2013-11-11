@@ -9,4 +9,11 @@
 	<artifactId>vme-domain</artifactId>
 
 
+	<dependencies>
+		<dependency>
+			<groupId>org.gcube.application.rsg</groupId>
+			<artifactId>reports-store-gateway-support</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>

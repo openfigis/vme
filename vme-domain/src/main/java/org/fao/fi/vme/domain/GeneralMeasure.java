@@ -14,18 +14,24 @@ import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfacee.PeriodYear;
 import org.fao.fi.vme.domain.interfacee.Year;
+import org.gcube.application.rsg.support.annotations.ReferenceReport;
+import org.gcube.application.rsg.support.annotations.fields.Identifier;
+import org.gcube.application.rsg.support.annotations.fields.Include;
+import org.gcube.application.rsg.support.annotations.fields.Name;
 
 /**
  * 
  * @author Erik van Ingen
  * 
  */
+@ReferenceReport(name="VME General Measure")
 @Entity(name = "GENERAL_MEASURE")
 public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 
 	/** 
 	 * 
 	 */
+	@Identifier
 	@Id
 	private Long id;
 
@@ -41,11 +47,13 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	/**
 	 * YearObject in which the measure are defined, established.
 	 */
+	@Name("Year")
 	private Integer year;
 
 	/**
 	 * 
 	 */
+	@Include(name="Validity Period")
 	private ValidityPeriod validityPeriod;
 
 	/**
@@ -61,6 +69,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * 
 	 */
 
+	@Name("RFB Fishing Areas")
 	@Lob
 	private String fishingAreas;
 
@@ -73,18 +82,21 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	/**
 	 * 
 	 */
+	@Name("VME Encounter")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeEncounterProtocols;
 
 	/**
 	 * 
 	 */
+	@Name("VME Indicator Species")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeIndicatorSpecies;
 
 	/**
 	 * 
 	 */
+	@Name("VME Threshold")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeThreshold;
 
