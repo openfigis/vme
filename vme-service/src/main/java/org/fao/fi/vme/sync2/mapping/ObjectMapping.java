@@ -3,8 +3,6 @@ package org.fao.fi.vme.sync2.mapping;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fao.fi.figis.devcon.FIGISDoc;
-import org.fao.fi.figis.devcon.RelatedFisheries;
 import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.VmeObservationDomain;

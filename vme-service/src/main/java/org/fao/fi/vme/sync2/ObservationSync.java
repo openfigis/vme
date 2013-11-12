@@ -4,12 +4,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservationDomain;
-import org.fao.fi.vme.dao.VmeDao;
 import org.fao.fi.vme.domain.Vme;
 import org.fao.fi.vme.sync2.mapping.ObjectMapping;
+import org.vme.service.dao.sources.figis.FigisDao;
+import org.vme.service.dao.sources.vme.VmeDao;
 
 /**
  * 

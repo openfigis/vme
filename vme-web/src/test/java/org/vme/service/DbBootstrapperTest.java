@@ -6,8 +6,6 @@ package org.vme.service;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.fao.fi.vme.dao.config.VmeDB;
-import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
 import org.fao.fi.vme.domain.Vme;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -15,6 +13,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.service.dao.config.vme.VmeDB;
+import org.vme.service.dao.config.vme.VmeDataBaseProducer;
 import org.vme.web.service.DbBootstrapper;
 
 /**
