@@ -15,15 +15,18 @@ import javax.persistence.OneToOne;
 import org.fao.fi.vme.domain.interfaces.PeriodYear;
 import org.fao.fi.vme.domain.interfaces.Year;
 import org.gcube.application.rsg.support.annotations.RSGReferenceReport;
+import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.annotations.fields.RSGInclude;
 import org.gcube.application.rsg.support.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.converters.impl.IntDataConverter;
 
 /**
  * 
  * @author Erik van Ingen
  * 
  */
+@RSGReferenceReport(name="General Measure")
 @Entity(name = "GENERAL_MEASURE")
 public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 
@@ -47,6 +50,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * YearObject in which the measure are defined, established.
 	 */
 	@RSGName("Year")
+	@RSGConverter(IntDataConverter.class)
 	private Integer year;
 
 	/**

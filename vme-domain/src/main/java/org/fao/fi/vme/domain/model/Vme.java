@@ -44,7 +44,7 @@ public class Vme implements Period<Vme> {
 	@RSGName("Competent Authority")
 	@RSGInstructions("Competent authority, please insert the acronym (e.g. NAFO, CCAMLR, SEAFO)")
 	@RSGOneAmong(Authority.class)
-	@RSGConceptFilter({ ConceptFilter.INCLUDE_ID, ConceptFilter.INCLUDE_ACRONYM })
+	@RSGConceptFilter({ ConceptFilter.INCLUDE_ACRONYM })
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Rfmo rfmo;
 
@@ -54,7 +54,7 @@ public class Vme implements Period<Vme> {
 	@RSGName("VME Specific Measures")
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "VME_SPECIFIC_MEASURE", //
-	joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURE_ID"))
+			   joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURE_ID"))
 	private List<SpecificMeasure> specificMeasureList;
 
 	@RSGName("VME Profiles")

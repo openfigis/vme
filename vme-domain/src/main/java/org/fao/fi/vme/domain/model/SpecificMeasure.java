@@ -10,7 +10,6 @@ import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.PeriodYear;
 import org.fao.fi.vme.domain.interfaces.Year;
-import org.gcube.application.rsg.support.annotations.RSGReport;
 import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.annotations.fields.RSGInclude;
 import org.gcube.application.rsg.support.annotations.fields.RSGName;
@@ -20,7 +19,6 @@ import org.gcube.application.rsg.support.annotations.fields.RSGName;
  * @author Erik van Ingen
  * 
  */
-@RSGReport(name="VME Specific measures")
 @Entity(name = "SPECIFIC_MEASURE")
 public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 
