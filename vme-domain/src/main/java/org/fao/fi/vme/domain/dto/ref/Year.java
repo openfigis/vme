@@ -6,7 +6,7 @@ package org.fao.fi.vme.domain.dto.ref;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import org.gcube.application.rsg.support.annotations.ConceptName;
+import org.fao.fi.vme.domain.annotations.ConceptName;
 import org.gcube.application.rsg.support.interfaces.Concept;
 
 /**

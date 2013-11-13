@@ -1,4 +1,4 @@
-package org.vme.service.dto.observations;
+package org.fao.fi.vme.domain.dto.observations;
 
 
 public class ObservationDto {
