@@ -1,9 +1,11 @@
-package org.fao.fi.vme.domain;
-
+package org.fao.fi.vme.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.fao.fi.vme.domain.annotations.ConceptName;
+import org.gcube.application.rsg.support.interfaces.AcronymAwareConcept;
+import org.gcube.application.rsg.support.interfaces.NamedConcept;
 
 /**
  * 
@@ -11,39 +13,32 @@ import javax.persistence.Id;
  * 
  */
 @Entity
-public class Authority  {
-public final static String PARAMETER_ID = "authority";
-
-	
+@ConceptName("authority")
+public class Authority implements NamedConcept, AcronymAwareConcept {
 	/**
-	 *  Identifier of the domain entity.  
+	 * Identifier of the domain entity.
 	 */
 	@Id
 	private int id;
-	
-	/** 
+
+	/**
 	 * Acronym of the authority
 	 */
 	private String acronym;
-	
-	/** 
+
+	/**
 	 * Name of the authority
 	 */
 	private String name;
-	
-	/** 
+
+	/**
 	 * Verbose description of the authority
 	 */
 	private String description;
-	
 
-	
-	
 	public Authority() {
 		// TODO Auto-generated constructor stub
 	}
-
-
 
 	public Authority(int id, String acronym, String name) {
 		super();
@@ -52,16 +47,12 @@ public final static String PARAMETER_ID = "authority";
 		this.name = name;
 	}
 
-
-
 	/**
 	 * @return the id
 	 */
 	public int getId() {
 		return id;
 	}
-
-
 
 	/**
 	 * @param id the id to set
@@ -70,16 +61,12 @@ public final static String PARAMETER_ID = "authority";
 		this.id = id;
 	}
 
-
-
 	/**
 	 * @return the acronym
 	 */
 	public String getAcronym() {
 		return acronym;
 	}
-
-
 
 	/**
 	 * @param acronym the acronym to set
@@ -88,16 +75,12 @@ public final static String PARAMETER_ID = "authority";
 		this.acronym = acronym;
 	}
 
-
-
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
-
-
 
 	/**
 	 * @param name the name to set
@@ -106,10 +89,6 @@ public final static String PARAMETER_ID = "authority";
 		this.name = name;
 	}
 
-
-
-
-
 	/**
 	 * @return the description
 	 */
@@ -117,16 +96,11 @@ public final static String PARAMETER_ID = "authority";
 		return description;
 	}
 
-
-
 	/**
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
 
-	
 }

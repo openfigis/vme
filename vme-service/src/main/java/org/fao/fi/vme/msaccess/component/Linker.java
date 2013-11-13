@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.GeneralMeasure;
-import org.fao.fi.vme.domain.History;
-import org.fao.fi.vme.domain.InformationSource;
-import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.SpecificMeasure;
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.History;
+import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;

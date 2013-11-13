@@ -1,4 +1,4 @@
-package org.fao.fi.vme.domain;
+package org.fao.fi.vme.domain.model;
 
 import java.net.URL;
 import java.util.Date;
@@ -13,8 +13,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.gcube.application.rsg.support.annotations.ReferenceReport;
-import org.gcube.application.rsg.support.annotations.fields.Identifier;
+import org.gcube.application.rsg.support.annotations.RSGReferenceReport;
+import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
 
 /**
  * 
@@ -24,11 +24,11 @@ import org.gcube.application.rsg.support.annotations.fields.Identifier;
  * @author Erik van Ingen
  * 
  */
-@ReferenceReport(name="VME Information Source")
+@RSGReferenceReport(name="VME Information Source")
 @Entity(name = "INFORMATION_SOURCE")
 public class InformationSource {
 
-	@Identifier
+	@RSGIdentifier
 	@Id
 	private Long id;
 

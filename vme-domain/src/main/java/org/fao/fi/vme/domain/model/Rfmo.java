@@ -1,4 +1,4 @@
-package org.fao.fi.vme.domain;
+package org.fao.fi.vme.domain.model;
 
 import java.util.ArrayList;
 import java.util.List;

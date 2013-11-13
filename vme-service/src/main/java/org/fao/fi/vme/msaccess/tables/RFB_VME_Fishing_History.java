@@ -1,6 +1,6 @@
 package org.fao.fi.vme.msaccess.tables;
 
-import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;

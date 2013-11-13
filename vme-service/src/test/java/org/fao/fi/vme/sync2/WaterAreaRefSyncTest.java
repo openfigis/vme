@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.RefWaterArea;
-import org.fao.fi.vme.domain.GeoRef;
+import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.test.GeoRefMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;

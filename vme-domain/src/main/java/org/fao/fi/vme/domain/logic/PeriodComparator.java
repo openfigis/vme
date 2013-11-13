@@ -2,7 +2,7 @@ package org.fao.fi.vme.domain.logic;
 
 import java.util.Comparator;
 
-import org.fao.fi.vme.domain.interfacee.Period;
+import org.fao.fi.vme.domain.interfaces.Period;
 
 /**
  * 
@@ -10,7 +10,7 @@ import org.fao.fi.vme.domain.interfacee.Period;
  * 
  */
 
-public class PeriodComperator implements Comparator<Period<?>> {
+public class PeriodComparator implements Comparator<Period<?>> {
 
 	@Override
 	public int compare(Period<?> p1, Period<?> p2) {

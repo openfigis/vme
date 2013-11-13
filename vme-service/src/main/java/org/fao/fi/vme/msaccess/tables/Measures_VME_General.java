@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.GeneralMeasure;
-import org.fao.fi.vme.domain.InformationSource;
-import org.fao.fi.vme.domain.ValidityPeriod;
+import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.mapping.ValidityPeriodRule;

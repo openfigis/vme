@@ -2,9 +2,9 @@ package org.fao.fi.vme.domain.logic;
 
 import java.util.Comparator;
 
-import org.fao.fi.vme.domain.interfacee.PeriodYear;
+import org.fao.fi.vme.domain.interfaces.PeriodYear;
 
-public class PeriodYearComperator implements Comparator<PeriodYear> {
+public class PeriodYearComparator implements Comparator<PeriodYear> {
 
 	@Override
 	public int compare(PeriodYear arg0, PeriodYear arg1) {

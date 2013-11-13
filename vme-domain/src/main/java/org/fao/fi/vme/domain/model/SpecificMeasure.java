@@ -1,4 +1,4 @@
-package org.fao.fi.vme.domain;
+package org.fao.fi.vme.domain.model;
 
 import java.util.List;
 
@@ -8,26 +8,26 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
-import org.fao.fi.vme.domain.interfacee.PeriodYear;
-import org.fao.fi.vme.domain.interfacee.Year;
-import org.gcube.application.rsg.support.annotations.Report;
-import org.gcube.application.rsg.support.annotations.fields.Identifier;
-import org.gcube.application.rsg.support.annotations.fields.Include;
-import org.gcube.application.rsg.support.annotations.fields.Name;
+import org.fao.fi.vme.domain.interfaces.PeriodYear;
+import org.fao.fi.vme.domain.interfaces.Year;
+import org.gcube.application.rsg.support.annotations.RSGReport;
+import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
+import org.gcube.application.rsg.support.annotations.fields.RSGInclude;
+import org.gcube.application.rsg.support.annotations.fields.RSGName;
 
 /**
  * 
  * @author Erik van Ingen
  * 
  */
-@Report(name="VME Specific measures")
+@RSGReport(name="VME Specific measures")
 @Entity(name = "SPECIFIC_MEASURE")
 public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 
 	/**
 	 *  
 	 */
-	@Identifier
+	@RSGIdentifier
 	@Id
 	private Long id;
 
@@ -40,25 +40,25 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	@ManyToMany(mappedBy = "specificMeasureList")
 	private List<Vme> vmeList;
 
-	@Name("Specific measure information source")
+	@RSGName("Specific measure information source")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private InformationSource informationSource;
 
 	/**
 	 *  
 	  */
-	@Include(name="Validity Period")
+	@RSGInclude(name="Validity Period")
 	private ValidityPeriod validityPeriod;
 
 	/**
 	 * YearObject in which the measure are defined, established.
 	 */
-	@Name("Year")
+	@RSGName("Year")
 	private Integer year;
 
 	/** 
 	 */
-	@Name("VME Specific Measure Summary")
+	@RSGName("VME Specific Measure Summary")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeSpecificMeasure;
 

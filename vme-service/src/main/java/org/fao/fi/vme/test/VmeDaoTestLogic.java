@@ -1,6 +1,6 @@
 package org.fao.fi.vme.test;
 
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.vme.service.dao.sources.vme.VmeDao;
 

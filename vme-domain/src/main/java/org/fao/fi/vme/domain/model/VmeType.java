@@ -1,52 +1,47 @@
 /**
  * 
  */
-package org.fao.fi.vme.domain;
+package org.fao.fi.vme.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.fao.fi.vme.domain.annotations.ConceptName;
+import org.gcube.application.rsg.support.interfaces.NamedConcept;
+
 /**
  * @author Fabrizio Sibeni
- *
+ * 
  */
 
 @Entity
-@Table(name="VME_CRITERIA")
-public class VmeCriteria {
-
-	public final static String PARAMETER_ID = "criteria";
-	
+@Table(name = "VME_TYPE")
+@ConceptName("type")
+public class VmeType implements NamedConcept {
 	/**
-	 *  Identifier of the domain entity.  
+	 * Identifier of the domain entity.
 	 */
 	@Id
 	private int id;
-	
-	/** 
-	 * Name of the vme criteria
+
+	/**
+	 * Name of the vme type
 	 */
 	private String name;
 
-
-	
 	/**
 	 * 
 	 */
-	public VmeCriteria() {
+	public VmeType() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-	public VmeCriteria(int id, String name) {
+	public VmeType(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
-
-
 
 	/**
 	 * @return the id
@@ -75,8 +70,5 @@ public class VmeCriteria {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
-	
 
 }

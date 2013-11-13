@@ -1,6 +1,6 @@
 package org.fao.fi.vme.msaccess.tableextension;
 
-import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.model.History;
 
 /**
  * The pattern is that every table in MS-Acces can be mapped to one domain object. This case is an exception where the

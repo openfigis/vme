@@ -3,8 +3,8 @@ package org.vme.service.dao.impl.hardcoded;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.fao.fi.vme.domain.dto.observations.ObservationDto;
 import org.vme.service.dao.ObservationDAO;
-import org.vme.service.dto.obs.ObservationDto;
 
 
 public class ObservationHarcodedDao implements ObservationDAO   {

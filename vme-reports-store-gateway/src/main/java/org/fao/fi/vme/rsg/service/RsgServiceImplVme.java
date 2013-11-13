@@ -8,8 +8,8 @@ import org.gcube.application.rsg.service.dto.ReportEntry;
 import org.gcube.application.rsg.service.dto.ReportType;
 import org.gcube.application.rsg.service.dto.response.Response;
 import org.gcube.application.rsg.service.util.RsgServiceUtil;
-import org.gcube.application.rsg.support.annotations.ReferenceReport;
-import org.gcube.application.rsg.support.annotations.Report;
+import org.gcube.application.rsg.support.annotations.RSGReferenceReport;
+import org.gcube.application.rsg.support.annotations.RSGReport;
 import org.reflections.Reflections;
 
 /**
@@ -26,7 +26,7 @@ public class RsgServiceImplVme implements RsgService {
 		
 		u.create();
 		
-		for(Class<?> report : reflections.getTypesAnnotatedWith(Report.class))
+		for(Class<?> report : reflections.getTypesAnnotatedWith(RSGReport.class))
 			u.add(report.getName());
 		
 		return u.getReportTypes();
@@ -38,7 +38,7 @@ public class RsgServiceImplVme implements RsgService {
 		
 		u.create();
 		
-		for(Class<?> report : reflections.getTypesAnnotatedWith(ReferenceReport.class))
+		for(Class<?> report : reflections.getTypesAnnotatedWith(RSGReferenceReport.class))
 			u.add(report.getName());
 		
 		return u.getReportTypes();

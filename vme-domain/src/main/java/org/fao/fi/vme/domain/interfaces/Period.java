@@ -1,6 +1,6 @@
-package org.fao.fi.vme.domain.interfacee;
+package org.fao.fi.vme.domain.interfaces;
 
-import org.fao.fi.vme.domain.ValidityPeriod;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
 
 /**
  * 

@@ -3,6 +3,8 @@
  */
 package org.vme.service.dao;
 
+import javax.enterprise.inject.Produces;
+
 /**
  * @author Fabrizio Sibeni
  *
@@ -19,7 +21,7 @@ public interface DAOFactory {
 	public static final int CURRENT_FACTORY = HARDCODED;
 	
 	
-	
+	@Produces
 	public ReferenceDAO getReferenceDAO();
 	
 

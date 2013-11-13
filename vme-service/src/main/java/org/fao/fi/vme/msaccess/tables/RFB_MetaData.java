@@ -1,6 +1,6 @@
 package org.fao.fi.vme.msaccess.tables;
 
-import org.fao.fi.vme.domain.Rfmo;
+import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 
 public class RFB_MetaData implements TableDomainMapper {

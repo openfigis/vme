@@ -6,8 +6,8 @@ import static org.junit.Assert.assertNotNull;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.fao.fi.vme.domain.ValidityPeriod;
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
+import org.fao.fi.vme.domain.model.Vme;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;

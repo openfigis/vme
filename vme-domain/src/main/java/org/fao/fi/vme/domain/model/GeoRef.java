@@ -1,4 +1,4 @@
-package org.fao.fi.vme.domain;
+package org.fao.fi.vme.domain.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import org.fao.fi.vme.domain.interfacee.Year;
+import org.fao.fi.vme.domain.interfaces.Year;
 
 /**
  * 

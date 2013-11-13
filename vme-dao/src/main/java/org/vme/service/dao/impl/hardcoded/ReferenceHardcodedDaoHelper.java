@@ -8,10 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.fao.fi.vme.domain.Authority;
-import org.fao.fi.vme.domain.VmeCriteria;
-import org.fao.fi.vme.domain.VmeType;
-import org.vme.service.dto.ref.Year;
+import org.fao.fi.vme.domain.dto.ref.Year;
+import org.fao.fi.vme.domain.model.Authority;
+import org.fao.fi.vme.domain.model.VmeCriteria;
+import org.fao.fi.vme.domain.model.VmeType;
 
 
 /**

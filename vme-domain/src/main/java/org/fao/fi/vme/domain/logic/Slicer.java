@@ -3,7 +3,7 @@ package org.fao.fi.vme.domain.logic;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fao.fi.vme.domain.interfacee.Period;
+import org.fao.fi.vme.domain.interfaces.Period;
 
 /**
  * This class implements the rules for DisseminationYear.

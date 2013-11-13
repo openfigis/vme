@@ -1,4 +1,4 @@
-package org.fao.fi.vme.domain;
+package org.fao.fi.vme.domain.model;
 
 import java.util.List;
 
@@ -12,26 +12,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.fao.fi.vme.domain.interfacee.PeriodYear;
-import org.fao.fi.vme.domain.interfacee.Year;
-import org.gcube.application.rsg.support.annotations.ReferenceReport;
-import org.gcube.application.rsg.support.annotations.fields.Identifier;
-import org.gcube.application.rsg.support.annotations.fields.Include;
-import org.gcube.application.rsg.support.annotations.fields.Name;
+import org.fao.fi.vme.domain.interfaces.PeriodYear;
+import org.fao.fi.vme.domain.interfaces.Year;
+import org.gcube.application.rsg.support.annotations.RSGReferenceReport;
+import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
+import org.gcube.application.rsg.support.annotations.fields.RSGInclude;
+import org.gcube.application.rsg.support.annotations.fields.RSGName;
 
 /**
  * 
  * @author Erik van Ingen
  * 
  */
-@ReferenceReport(name="VME General Measure")
 @Entity(name = "GENERAL_MEASURE")
 public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 
 	/** 
 	 * 
 	 */
-	@Identifier
+	@RSGIdentifier
 	@Id
 	private Long id;
 
@@ -47,13 +46,13 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	/**
 	 * YearObject in which the measure are defined, established.
 	 */
-	@Name("Year")
+	@RSGName("Year")
 	private Integer year;
 
 	/**
 	 * 
 	 */
-	@Include(name="Validity Period")
+	@RSGInclude(name="Validity Period")
 	private ValidityPeriod validityPeriod;
 
 	/**
@@ -69,7 +68,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * 
 	 */
 
-	@Name("RFB Fishing Areas")
+	@RSGName("RFB Fishing Areas")
 	@Lob
 	private String fishingAreas;
 
@@ -82,21 +81,21 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	/**
 	 * 
 	 */
-	@Name("VME Encounter")
+	@RSGName("VME Encounter")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeEncounterProtocols;
 
 	/**
 	 * 
 	 */
-	@Name("VME Indicator Species")
+	@RSGName("VME Indicator Species")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeIndicatorSpecies;
 
 	/**
 	 * 
 	 */
-	@Name("VME Threshold")
+	@RSGName("VME Threshold")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeThreshold;
 

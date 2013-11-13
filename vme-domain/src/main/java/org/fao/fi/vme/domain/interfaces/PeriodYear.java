@@ -1,4 +1,4 @@
-package org.fao.fi.vme.domain.interfacee;
+package org.fao.fi.vme.domain.interfaces;
 
 public interface PeriodYear extends Period<PeriodYear> {
 

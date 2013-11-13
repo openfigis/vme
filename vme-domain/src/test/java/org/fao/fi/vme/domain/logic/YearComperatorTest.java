@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.model.History;
 import org.junit.Test;
 
 public class YearComperatorTest {
@@ -20,7 +20,7 @@ public class YearComperatorTest {
 		List<History> l = new ArrayList<History>();
 		l.add(h2);
 		l.add(h1);
-		Collections.sort(l, new YearComperator());
+		Collections.sort(l, new YearComparator());
 		assertEquals(h1, l.get(0));
 		assertEquals(h2, l.get(1));
 

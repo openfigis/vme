@@ -8,23 +8,23 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang.StringUtils;
 import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.vme.domain.Authority;
-import org.fao.fi.vme.domain.GeneralMeasure;
-import org.fao.fi.vme.domain.GeoRef;
-import org.fao.fi.vme.domain.InformationSource;
-import org.fao.fi.vme.domain.Profile;
-import org.fao.fi.vme.domain.SpecificMeasure;
-import org.fao.fi.vme.domain.ValidityPeriod;
-import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.domain.VmeCriteria;
-import org.fao.fi.vme.domain.VmeType;
+import org.fao.fi.vme.domain.dto.observations.ObservationDto;
+import org.fao.fi.vme.domain.model.Authority;
+import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.GeoRef;
+import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.Profile;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
+import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.VmeCriteria;
+import org.fao.fi.vme.domain.model.VmeType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.runner.RunWith;
 import org.vme.service.dao.JpaDaoFactory;
 import org.vme.service.dao.ObservationDAO;
 import org.vme.service.dao.ReferenceServiceException;
-import org.vme.service.dto.obs.ObservationDto;
 
 
 @RunWith(CdiRunner.class)

@@ -9,10 +9,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.domain.GeneralMeasure;
-import org.fao.fi.vme.domain.History;
-import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.History;
+import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;

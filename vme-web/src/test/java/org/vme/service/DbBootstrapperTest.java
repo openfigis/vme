@@ -6,7 +6,7 @@ package org.vme.service;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.Vme;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.After;
