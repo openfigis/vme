@@ -15,12 +15,14 @@ import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.Period;
 import org.gcube.application.rsg.support.annotations.RSGReport;
+import org.gcube.application.rsg.support.annotations.fields.RSGConceptFilter;
 import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.annotations.fields.RSGInclude;
 import org.gcube.application.rsg.support.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.annotations.fields.RSGOneAmong;
+import org.gcube.application.rsg.support.annotations.fields.support.ConceptFilter;
 
 /**
  * 
@@ -40,8 +42,10 @@ public class Vme implements Period<Vme> {
 	 * This VME is managed by this Rfmo
 	 */
 	@RSGName("Competent Authority")
-	@ManyToOne(fetch = FetchType.EAGER)
 	@RSGInstructions("Competent authority, please insert the acronym (e.g. NAFO, CCAMLR, SEAFO)")
+	@RSGOneAmong(Authority.class)
+	@RSGConceptFilter({ ConceptFilter.INCLUDE_ID, ConceptFilter.INCLUDE_ACRONYM })
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Rfmo rfmo;
 
 	/*

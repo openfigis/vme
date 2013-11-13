@@ -4,6 +4,7 @@
 package org.vme.service.dao;
 
 import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -28,7 +29,7 @@ public class JpaDaoFactory implements DAOFactory {
 	@Inject
 	private FigisDao figisDao;
 
-
+	@Produces
 	private ReferenceDAO referenceDAO = null;
 	
 	private ObservationDAO observationDAO = null;

@@ -4,6 +4,7 @@
 package org.vme.service.dao;
 
 import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Produces;
 
 import org.vme.service.dao.impl.hardcoded.ObservationHarcodedDao;
 import org.vme.service.dao.impl.hardcoded.ReferenceHarcodedDao;
@@ -16,6 +17,7 @@ import org.vme.service.dao.impl.hardcoded.ReferenceHarcodedDao;
 @Alternative
 public class HardCodedDaoFactory implements DAOFactory {
 
+	@Produces
 	private ReferenceDAO referenceDAO;
 	
 	private ObservationDAO observationDAO;
