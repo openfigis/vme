@@ -1,6 +1,8 @@
 package org.fao.fi.vme.msaccess.tableextension;
 
 import org.fao.fi.vme.domain.model.History;
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 
 /**
  * The pattern is that every table in MS-Acces can be mapped to one domain object. This case is an exception where the
@@ -12,22 +14,22 @@ import org.fao.fi.vme.domain.model.History;
  */
 public class HistoryHolder {
 
-	private History fisheryAreasHistory;
-	private History vmesHistory;
+	private FisheryAreasHistory fisheryAreasHistory;
+	private VMEsHistory vmesHistory;
 
-	public History getFisheryAreasHistory() {
+	public FisheryAreasHistory getFisheryAreasHistory() {
 		return fisheryAreasHistory;
 	}
 
-	public void setFisheryAreasHistory(History fisheryAreasHistory) {
+	public void setFisheryAreasHistory(FisheryAreasHistory fisheryAreasHistory) {
 		this.fisheryAreasHistory = fisheryAreasHistory;
 	}
 
-	public History getVmesHistory() {
+	public VMEsHistory getVmesHistory() {
 		return vmesHistory;
 	}
 
-	public void setVmesHistory(History vmesHistory) {
+	public void setVmesHistory(VMEsHistory vmesHistory) {
 		this.vmesHistory = vmesHistory;
 	}
 

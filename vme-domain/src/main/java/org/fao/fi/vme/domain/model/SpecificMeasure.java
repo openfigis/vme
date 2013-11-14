@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.PeriodYear;
 import org.fao.fi.vme.domain.interfaces.Year;
+import org.gcube.application.rsg.support.annotations.RSGReferenced;
 import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.annotations.fields.RSGInclude;
 import org.gcube.application.rsg.support.annotations.fields.RSGName;
@@ -19,6 +20,7 @@ import org.gcube.application.rsg.support.annotations.fields.RSGName;
  * @author Erik van Ingen
  * 
  */
+@RSGReferenced
 @Entity(name = "SPECIFIC_MEASURE")
 public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 
@@ -38,7 +40,7 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	@ManyToMany(mappedBy = "specificMeasureList")
 	private List<Vme> vmeList;
 
-	@RSGName("Specific measure information source")
+//	@RSGName("Specific measure information source")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private InformationSource informationSource;
 

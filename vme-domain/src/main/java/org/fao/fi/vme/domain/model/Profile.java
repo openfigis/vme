@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.Year;
+import org.gcube.application.rsg.support.annotations.RSGReferenced;
 import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.annotations.fields.RSGName;
@@ -20,6 +21,7 @@ import org.gcube.application.rsg.support.annotations.fields.RSGName;
  * @author Erik van Ingen
  * 
  */
+@RSGReferenced
 @Entity
 public class Profile implements Year<Profile> {
 

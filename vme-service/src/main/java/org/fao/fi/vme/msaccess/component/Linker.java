@@ -6,11 +6,12 @@ import java.util.Map;
 
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
-import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;
@@ -73,10 +74,10 @@ public class Linker {
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
 
 		if (rfmo.getHasFisheryAreasHistory() == null) {
-			rfmo.setHasFisheryAreasHistory(new ArrayList<History>());
+			rfmo.setHasFisheryAreasHistory(new ArrayList<FisheryAreasHistory>());
 		}
 		if (rfmo.getHasVmesHistory() == null) {
-			rfmo.setHasVmesHistory(new ArrayList<History>());
+			rfmo.setHasVmesHistory(new ArrayList<VMEsHistory>());
 		}
 
 		if (!rfmo.getHasFisheryAreasHistory().contains(h.getFisheryAreasHistory())) {

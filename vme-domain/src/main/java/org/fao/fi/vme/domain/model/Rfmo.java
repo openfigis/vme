@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+
 /**
  * 
  * @author Erik van Ingen
@@ -46,11 +49,11 @@ public class Rfmo {
 	private List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
 	@OneToMany(cascade = { CascadeType.ALL })
-	private List<History> hasFisheryAreasHistory;
+	private List<FisheryAreasHistory> hasFisheryAreasHistory;
 
 	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(nullable = true)
-	private List<History> hasVmesHistory;
+	private List<VMEsHistory> hasVmesHistory;
 
 	public String getId() {
 		return id;
@@ -84,19 +87,19 @@ public class Rfmo {
 		this.informationSourceList = informationSourceList;
 	}
 
-	public List<History> getHasFisheryAreasHistory() {
+	public List<FisheryAreasHistory> getHasFisheryAreasHistory() {
 		return hasFisheryAreasHistory;
 	}
 
-	public void setHasFisheryAreasHistory(List<History> hasFisheryAreasHistory) {
+	public void setHasFisheryAreasHistory(List<FisheryAreasHistory> hasFisheryAreasHistory) {
 		this.hasFisheryAreasHistory = hasFisheryAreasHistory;
 	};
 
-	public List<History> getHasVmesHistory() {
+	public List<VMEsHistory> getHasVmesHistory() {
 		return hasVmesHistory;
 	}
 
-	public void setHasVmesHistory(List<History> hasVmesHistory) {
+	public void setHasVmesHistory(List<VMEsHistory> hasVmesHistory) {
 		this.hasVmesHistory = hasVmesHistory;
 	}
 
