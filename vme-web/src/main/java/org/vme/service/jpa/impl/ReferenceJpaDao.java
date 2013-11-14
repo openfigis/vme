@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.vme.service.hibernate.impl;
+package org.vme.service.jpa.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

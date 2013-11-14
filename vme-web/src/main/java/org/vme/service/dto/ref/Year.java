@@ -26,7 +26,13 @@ public class Year {
 	/** 
 	 * Language of reference
 	 */
-	private String lang;
+	private String lang = "en";
+	
+	/** 
+	 * Year in textual mode
+	 */
+	private String name;
+	
 	
 	/**
 	 * @return the lang
@@ -55,6 +61,7 @@ public class Year {
 	public Year(int id) {
 		super();
 		this.id = id;
+		this.name = Integer.toString(id);
 	}
 
 
@@ -74,5 +81,26 @@ public class Year {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
+	
 
 }

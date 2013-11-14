@@ -1,4 +1,4 @@
-package org.vme.service.hibernate.impl;
+package org.vme.service.jpa.impl;
 
 import java.util.Calendar;
 import java.util.LinkedList;
