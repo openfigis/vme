@@ -7,11 +7,12 @@ import org.fao.fi.vme.domain.History;
 import org.fao.fi.vme.domain.InformationSource;
 import org.fao.fi.vme.domain.Vme;
 import org.gcube.application.rsg.service.RsgService;
-import org.gcube.application.rsg.service.dto.Model;
+import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
 import org.gcube.application.rsg.service.dto.ReportType;
 import org.gcube.application.rsg.service.dto.response.Response;
 import org.gcube.application.rsg.service.util.RsgServiceUtil;
+import org.gcube.portlets.d4sreporting.common.shared.Model;
 
 /**
  * 
@@ -35,7 +36,7 @@ public class RsgServiceImplVme implements RsgService {
 	}
 
 	@Override
-	public List<ReportEntry> listReports(ReportType reportType) {
+	public List<ReportEntry> listReports(ReportType reportType, NameValue... filters) {
 		// TODO Auto-generated method stub
 		return null;
 	}
