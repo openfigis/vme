@@ -8,7 +8,7 @@ import org.fao.fi.vme.domain.dto.ref.Year;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
-import org.gcube.application.rsg.support.interfaces.Concept;
+import org.gcube.application.rsg.support.interfaces.ReferenceConcept;
 import org.vme.service.dao.ObservationDAO;
 import org.vme.service.dao.ReferenceDAO;
 import org.vme.web.service.io.ObservationsRequest;
@@ -33,7 +33,7 @@ public class ServiceInvoker {
 	
 	
 	public static ServiceResponse<?> invoke(ReferenceDAO service, ReferencesRequest request) throws Throwable {
-		Class<? extends Concept> conceptClass = service.getConcept(request.getConcept());
+		Class<? extends ReferenceConcept> conceptClass = service.getConcept(request.getConcept());
 		ServiceResponse<?> result = null;
 		if (conceptClass.equals(Authority.class)){
 			result = new ServiceResponse<Authority>(request);

@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.fao.fi.vme.domain.annotations.ConceptName;
-import org.gcube.application.rsg.support.interfaces.AcronymAwareConcept;
-import org.gcube.application.rsg.support.interfaces.NamedConcept;
+import org.gcube.application.rsg.support.interfaces.AcronymAwareReferenceConcept;
+import org.gcube.application.rsg.support.interfaces.NamedReferenceConcept;
 
 /**
  * 
@@ -14,7 +14,7 @@ import org.gcube.application.rsg.support.interfaces.NamedConcept;
  */
 @Entity
 @ConceptName("authority")
-public class Authority implements NamedConcept, AcronymAwareConcept {
+public class Authority implements NamedReferenceConcept, AcronymAwareReferenceConcept {
 	/**
 	 * Identifier of the domain entity.
 	 */

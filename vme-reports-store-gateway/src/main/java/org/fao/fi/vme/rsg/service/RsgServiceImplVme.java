@@ -3,13 +3,14 @@ package org.fao.fi.vme.rsg.service;
 import java.util.List;
 
 import org.gcube.application.rsg.service.RsgService;
-import org.gcube.application.rsg.service.dto.Model;
+import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
 import org.gcube.application.rsg.service.dto.ReportType;
 import org.gcube.application.rsg.service.dto.response.Response;
 import org.gcube.application.rsg.service.util.RsgServiceUtil;
 import org.gcube.application.rsg.support.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.annotations.RSGReport;
+import org.gcube.portlets.d4sreporting.common.shared.Model;
 import org.reflections.Reflections;
 
 /**
@@ -49,7 +50,7 @@ public class RsgServiceImplVme implements RsgService {
 	}
 
 	@Override
-	public List<ReportEntry> listReports(ReportType reportType) {
+	public List<ReportEntry> listReports(ReportType reportType, NameValue... filters) {
 		// TODO Auto-generated method stub
 		return null;
 	}

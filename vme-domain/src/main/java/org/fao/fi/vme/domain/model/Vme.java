@@ -15,14 +15,14 @@ import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.Period;
 import org.gcube.application.rsg.support.annotations.RSGReport;
-import org.gcube.application.rsg.support.annotations.fields.RSGConceptFilter;
-import org.gcube.application.rsg.support.annotations.fields.RSGConceptLabel;
 import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.annotations.fields.RSGInclude;
 import org.gcube.application.rsg.support.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.annotations.fields.RSGOneAmong;
+import org.gcube.application.rsg.support.annotations.fields.RSGReferenceConceptFilter;
+import org.gcube.application.rsg.support.annotations.fields.RSGReferenceConceptLabel;
 import org.gcube.application.rsg.support.annotations.fields.support.ConceptData;
 
 /**
@@ -45,8 +45,8 @@ public class Vme implements Period<Vme> {
 	@RSGName("Competent Authority")
 	@RSGInstructions("Competent authority, please insert the acronym (e.g. NAFO, CCAMLR, SEAFO)")
 	@RSGOneAmong(Authority.class)
-	@RSGConceptLabel(ConceptData.ACRONYM)
-	@RSGConceptFilter({ ConceptData.ACRONYM })
+	@RSGReferenceConceptLabel(ConceptData.ACRONYM)
+	@RSGReferenceConceptFilter({ ConceptData.ACRONYM })
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Rfmo rfmo;
 
@@ -91,8 +91,8 @@ public class Vme implements Period<Vme> {
 	@RSGName("Area Type")
 	@RSGMandatory
 	@RSGOneAmong(VmeType.class)
-	@RSGConceptLabel(ConceptData.NAME)
-	@RSGConceptFilter({ ConceptData.ID, ConceptData.NAME })
+	@RSGReferenceConceptLabel(ConceptData.NAME)
+	@RSGReferenceConceptFilter({ ConceptData.ID, ConceptData.NAME })
 	private String areaType;
 
 	/**
@@ -107,8 +107,8 @@ public class Vme implements Period<Vme> {
 	@RSGName("Criteria")
 	@RSGMandatory
 	@RSGOneAmong(VmeCriteria.class)
-	@RSGConceptLabel(ConceptData.NAME)
-	@RSGConceptFilter({ ConceptData.ID, ConceptData.NAME })
+	@RSGReferenceConceptLabel(ConceptData.NAME)
+	@RSGReferenceConceptFilter({ ConceptData.ID, ConceptData.NAME })
 	private String criteria;
 
 	private String inventoryIdentifier;

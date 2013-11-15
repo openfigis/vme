@@ -13,7 +13,7 @@ import org.fao.fi.vme.domain.dto.ref.Year;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
-import org.gcube.application.rsg.support.interfaces.Concept;
+import org.gcube.application.rsg.support.interfaces.ReferenceConcept;
 import org.vme.service.dao.JpaDaoFactory;
 import org.vme.service.dao.ReferenceServiceException;
 import org.vme.service.dao.impl.AbstractReferenceDAO;
@@ -41,7 +41,7 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 	 * java.lang.Long)
 	 */
 	@Override
-	public Concept getReference(Class<? extends Concept> concept, Long id)
+	public ReferenceConcept getReference(Class<? extends ReferenceConcept> concept, Long id)
 			throws ReferenceServiceException {
 		if (concept.equals(Authority.class)) {
 			return getAuthority(id);
@@ -64,8 +64,8 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 	 * .Class)
 	 */
 	@Override
-	public List<? extends Concept> getAllReferences(
-			Class<? extends Concept> concept) throws ReferenceServiceException {
+	public List<? extends ReferenceConcept> getAllReferences(
+			Class<? extends ReferenceConcept> concept) throws ReferenceServiceException {
 		if (concept.equals(Authority.class)) {
 			return getAllAuthorities();
 		} else if (concept.equals(VmeCriteria.class)) {

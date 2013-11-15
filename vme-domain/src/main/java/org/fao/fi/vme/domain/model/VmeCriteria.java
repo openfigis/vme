@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.fao.fi.vme.domain.annotations.ConceptName;
-import org.gcube.application.rsg.support.interfaces.NamedConcept;
+import org.gcube.application.rsg.support.interfaces.NamedReferenceConcept;
 
 /**
  * @author Fabrizio Sibeni
@@ -18,7 +18,7 @@ import org.gcube.application.rsg.support.interfaces.NamedConcept;
 @Entity
 @Table(name="VME_CRITERIA")
 @ConceptName("criteria")
-public class VmeCriteria implements NamedConcept {
+public class VmeCriteria implements NamedReferenceConcept {
 	/**
 	 *  Identifier of the domain entity.  
 	 */

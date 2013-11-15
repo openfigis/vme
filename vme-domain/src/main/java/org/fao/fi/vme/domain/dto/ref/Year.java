@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.fao.fi.vme.domain.annotations.ConceptName;
-import org.gcube.application.rsg.support.interfaces.Concept;
+import org.gcube.application.rsg.support.interfaces.ReferenceConcept;
 
 /**
  * @author Fabrizio Sibeni
@@ -15,7 +15,7 @@ import org.gcube.application.rsg.support.interfaces.Concept;
  */
 @Entity
 @ConceptName("years")
-public class Year implements Concept {
+public class Year implements ReferenceConcept {
 	/**
 	 * Identifier of the domain entity.
 	 */
