@@ -13,6 +13,7 @@ import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -35,8 +36,8 @@ public class VmeDaoTest {
 		rfmo.setId(id);
 		dao.persist(rfmo);
 
-		List<History> hasFisheryAreasHistory = new ArrayList<History>();
-		History h = new History();
+		List<FisheryAreasHistory> hasFisheryAreasHistory = new ArrayList<FisheryAreasHistory>();
+		FisheryAreasHistory h = new FisheryAreasHistory();
 		h.setYear(2008);
 		// h.setId(456l);
 
