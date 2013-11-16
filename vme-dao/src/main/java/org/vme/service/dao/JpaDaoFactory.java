@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.vme.service.dao.config.vme.VmeDB;
-import org.vme.service.dao.impl.hibernate.ObservationJpaDao;
-import org.vme.service.dao.impl.hibernate.ReferenceJpaDao;
+import org.vme.service.dao.impl.jpa.ObservationJpaDao;
+import org.vme.service.dao.impl.jpa.ReferenceJpaDao;
 import org.vme.service.dao.sources.figis.FigisDao;
 
 

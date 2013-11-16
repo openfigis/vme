@@ -12,7 +12,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.service.dao.impl.hardcoded.ReferenceHarcodedDao;
+import org.vme.service.dao.DAOFactory;
 import org.vme.web.service.io.ReferencesRequest;
 import org.vme.web.service.io.ServiceResponse;
 
@@ -21,11 +21,12 @@ import org.vme.web.service.io.ServiceResponse;
 public class VmeSearchRefTypeWs {
 
 
-	private final ReferenceHarcodedDao service;
-
 	@Inject
-	public VmeSearchRefTypeWs(ReferenceHarcodedDao a_service) {
-		service = a_service;
+	private DAOFactory factory;
+
+
+	public VmeSearchRefTypeWs() {
+		
 	}
 
 	@Path("/list")
@@ -36,7 +37,7 @@ public class VmeSearchRefTypeWs {
 		try {
 			ReferencesRequest refRequest = new ReferencesRequest(UUID.randomUUID());
 			refRequest.setConcept(concept);
-			ServiceResponse<?> result = ServiceInvoker.invoke(service, refRequest);
+			ServiceResponse<?> result = ServiceInvoker.invoke(factory.getReferenceDAO(), refRequest);
 			return Response.status(200).entity(result).build();
 		} catch (Throwable t){
 			throw new WebApplicationException(Response.Status.NOT_FOUND);

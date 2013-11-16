@@ -8,4 +8,4 @@
  */
 
 
-package org.vme.service.dao.impl.hibernate;
+package org.vme.service.dao.impl.jpa;
