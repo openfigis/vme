@@ -8,10 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.Year;
+import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.annotations.fields.RSGName;
-import org.gcube.application.rsg.support.converters.impl.IntDataConverter;
+import org.gcube.application.rsg.support.converters.impl.IntegerDataConverter;
 
 /**
  * 
@@ -33,14 +34,15 @@ public class History implements Year<History> {
 	 *  
 	 */
 	@RSGName("Year")
-	@RSGConverter(IntDataConverter.class)
+	@RSGConverter(IntegerDataConverter.class)
 	private Integer year;
 
 	/**
 	 *  
 	 */
-	@OneToOne(cascade = { CascadeType.ALL })
 	@RSGName("History")
+	@RSGConverter(MultiLingualStringConverter.class)
+	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString history;
 
 	public Long getId() {

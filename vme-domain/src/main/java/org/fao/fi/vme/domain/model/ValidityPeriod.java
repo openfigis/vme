@@ -2,8 +2,10 @@ package org.fao.fi.vme.domain.model;
 
 import javax.persistence.Embeddable;
 
+import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.converters.impl.IntegerDataConverter;
 
 /**
  * 
@@ -40,12 +42,14 @@ public class ValidityPeriod implements Comparable<ValidityPeriod> {
 	  
 	  */
 	@RSGName("Validity Period - Start")
+	@RSGConverter(IntegerDataConverter.class)
 	private Integer beginYear;
 
 	/** 
 	  */
 	@RSGName("Validity Period - End")
 	@RSGInstructions("End date, leave empty if not applicable")
+	@RSGConverter(IntegerDataConverter.class)
 	private Integer endYear;
 
 	public Integer getBeginYear() {

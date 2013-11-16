@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.fao.fi.vme.domain.annotations.ConceptName;
+import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
 import org.fao.fi.vme.domain.dto.ref.Year;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
@@ -68,8 +68,8 @@ abstract public class AbstractReferenceDAO implements ReferenceDAO {
 			try {
 				String name = concept.getSimpleName();
 				
-				if(concept.isAnnotationPresent(ConceptName.class))
-					name = concept.getAnnotation(ConceptName.class).value();
+				if(concept.isAnnotationPresent(ReferenceConceptName.class))
+					name = concept.getAnnotation(ReferenceConceptName.class).value();
 				
 				if (acronym.equalsIgnoreCase(name))
 					return concept;

@@ -14,9 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.Period;
+import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.annotations.RSGReport;
+import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
-import org.gcube.application.rsg.support.annotations.fields.RSGInclude;
+import org.gcube.application.rsg.support.annotations.fields.RSGEmbedded;
 import org.gcube.application.rsg.support.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.annotations.fields.RSGName;
@@ -72,15 +74,16 @@ public class Vme implements Period<Vme> {
 	 * 
 	 * 
 	 */
-	@RSGInclude(name="Validity Period")
+	@RSGEmbedded(name="Validity Period")
 	private ValidityPeriod validityPeriod;
 
 	/**
 	 *
 	 */
 	@RSGName("VME Name")
-	@OneToOne(cascade = { CascadeType.ALL })
+	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGMandatory
+	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString name;
 
 	/**

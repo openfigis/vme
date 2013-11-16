@@ -14,12 +14,13 @@ import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.PeriodYear;
 import org.fao.fi.vme.domain.interfaces.Year;
+import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
-import org.gcube.application.rsg.support.annotations.fields.RSGInclude;
+import org.gcube.application.rsg.support.annotations.fields.RSGEmbedded;
 import org.gcube.application.rsg.support.annotations.fields.RSGName;
-import org.gcube.application.rsg.support.converters.impl.IntDataConverter;
+import org.gcube.application.rsg.support.converters.impl.IntegerDataConverter;
 
 /**
  * 
@@ -50,13 +51,13 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * YearObject in which the measure are defined, established.
 	 */
 	@RSGName("Year")
-	@RSGConverter(IntDataConverter.class)
+	@RSGConverter(IntegerDataConverter.class)
 	private Integer year;
 
 	/**
 	 * 
 	 */
-	@RSGInclude(name="Validity Period")
+	@RSGEmbedded(name="Validity Period")
 	private ValidityPeriod validityPeriod;
 
 	/**
@@ -86,6 +87,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * 
 	 */
 	@RSGName("VME Encounter")
+	@RSGConverter(MultiLingualStringConverter.class)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeEncounterProtocols;
 
@@ -93,6 +95,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * 
 	 */
 	@RSGName("VME Indicator Species")
+	@RSGConverter(MultiLingualStringConverter.class)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeIndicatorSpecies;
 
@@ -100,6 +103,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * 
 	 */
 	@RSGName("VME Threshold")
+	@RSGConverter(MultiLingualStringConverter.class)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeThreshold;
 

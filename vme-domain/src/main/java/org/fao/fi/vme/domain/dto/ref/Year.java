@@ -6,7 +6,7 @@ package org.fao.fi.vme.domain.dto.ref;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import org.fao.fi.vme.domain.annotations.ConceptName;
+import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
 import org.gcube.application.rsg.support.interfaces.ReferenceConcept;
 
 /**
@@ -14,7 +14,7 @@ import org.gcube.application.rsg.support.interfaces.ReferenceConcept;
  * 
  */
 @Entity
-@ConceptName("years")
+@ReferenceConceptName("years")
 public class Year implements ReferenceConcept {
 	/**
 	 * Identifier of the domain entity.

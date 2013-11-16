@@ -3,7 +3,7 @@ package org.fao.fi.vme.domain.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import org.fao.fi.vme.domain.annotations.ConceptName;
+import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
 import org.gcube.application.rsg.support.interfaces.AcronymAwareReferenceConcept;
 import org.gcube.application.rsg.support.interfaces.NamedReferenceConcept;
 
@@ -13,7 +13,7 @@ import org.gcube.application.rsg.support.interfaces.NamedReferenceConcept;
  * 
  */
 @Entity
-@ConceptName("authority")
+@ReferenceConceptName("authority")
 public class Authority implements NamedReferenceConcept, AcronymAwareReferenceConcept {
 	/**
 	 * Identifier of the domain entity.
