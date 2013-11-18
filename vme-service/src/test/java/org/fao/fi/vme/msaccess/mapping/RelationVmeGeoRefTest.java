@@ -5,8 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fao.fi.vme.domain.GeoRef;
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.GeoRef;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.junit.Test;
 

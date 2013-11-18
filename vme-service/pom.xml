@@ -10,16 +10,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.vme</groupId>
-			<artifactId>figis-domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.vme</groupId>
-			<artifactId>vme-domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.vme</groupId>
 			<artifactId>vme-configuration</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
@@ -35,9 +25,9 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.3</version>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-dao</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

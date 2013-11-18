@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
@@ -15,11 +14,8 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.figis.domain.test.RefVmeMock;
-import org.fao.fi.vme.dao.VmeDao;
-import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
-import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
-import org.fao.fi.vme.domain.SpecificMeasure;
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -30,6 +26,10 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.service.dao.config.figis.FigisDataBaseProducer;
+import org.vme.service.dao.config.vme.VmeDataBaseProducer;
+import org.vme.service.dao.sources.figis.FigisDao;
+import org.vme.service.dao.sources.vme.VmeDao;
 
 /**
  * 

@@ -2,6 +2,7 @@ package org.fao.fi.vme.domain;
 
 import java.util.HashMap;
 
+import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -1,6 +1,6 @@
 package org.fao.fi.vme.domain.test;
 
-import org.fao.fi.vme.domain.GeneralMeasure;
+import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class GeneralMeasureMock {

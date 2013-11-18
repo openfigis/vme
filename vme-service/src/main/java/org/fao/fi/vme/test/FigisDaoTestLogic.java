@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.ObservationXml;
@@ -21,6 +20,7 @@ import org.fao.fi.figis.domain.test.ObservationXmlMock;
 import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.fao.fi.vme.sync2.mapping.DefaultObservationDomain;
 import org.junit.Test;
+import org.vme.service.dao.sources.figis.FigisDao;
 
 public abstract class FigisDaoTestLogic {
 

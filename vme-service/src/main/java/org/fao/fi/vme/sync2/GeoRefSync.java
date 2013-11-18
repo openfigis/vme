@@ -4,13 +4,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.RefWaterArea;
 import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.dao.VmeDao;
-import org.fao.fi.vme.domain.GeoRef;
+import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.vme.service.dao.sources.figis.FigisDao;
+import org.vme.service.dao.sources.vme.VmeDao;
 
 /**
  * 

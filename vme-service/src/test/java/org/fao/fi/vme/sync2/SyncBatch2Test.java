@@ -8,19 +8,19 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fao.fi.figis.dao.FigisDao;
 import org.fao.fi.figis.domain.Observation;
-import org.fao.fi.vme.dao.VmeDao;
-import org.fao.fi.vme.dao.config.FigisDataBaseProducer;
-import org.fao.fi.vme.dao.config.VmeDataBaseProducer;
-import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.service.dao.config.figis.FigisDataBaseProducer;
+import org.vme.service.dao.config.vme.VmeDataBaseProducer;
+import org.vme.service.dao.sources.figis.FigisDao;
+import org.vme.service.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })

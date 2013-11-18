@@ -5,9 +5,9 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fao.fi.vme.domain.ValidityPeriod;
-import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.domain.interfacee.Period;
+import org.fao.fi.vme.domain.interfaces.Period;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.junit.Test;
 

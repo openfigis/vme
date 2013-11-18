@@ -39,7 +39,7 @@ public class VmeSearchRefTypeWs {
 			refRequest.setConcept(concept);
 			ServiceResponse<?> result = ServiceInvoker.invoke(factory.getReferenceDAO(), refRequest);
 			return Response.status(200).entity(result).build();
-		} catch (Exception e){
+		} catch (Throwable t){
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
 		

@@ -35,6 +35,7 @@
 		<module>vme-fimes-jaxb</module>
 		<module>vme-service-integrationtest</module>
 		<module>vme-configuration</module>
+		<module>vme-dao</module>
 	</modules>
 
 	<dependencies>

@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.fao.fi.vme.domain.GeoRef;
-import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.SpecificMeasure;
-import org.fao.fi.vme.domain.ValidityPeriod;
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.GeoRef;
+import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;

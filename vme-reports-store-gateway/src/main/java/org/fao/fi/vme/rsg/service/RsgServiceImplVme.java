@@ -2,17 +2,16 @@ package org.fao.fi.vme.rsg.service;
 
 import java.util.List;
 
-import org.fao.fi.vme.domain.GeneralMeasure;
-import org.fao.fi.vme.domain.History;
-import org.fao.fi.vme.domain.InformationSource;
-import org.fao.fi.vme.domain.Vme;
 import org.gcube.application.rsg.service.RsgService;
 import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
 import org.gcube.application.rsg.service.dto.ReportType;
 import org.gcube.application.rsg.service.dto.response.Response;
 import org.gcube.application.rsg.service.util.RsgServiceUtil;
+import org.gcube.application.rsg.support.annotations.RSGReferenceReport;
+import org.gcube.application.rsg.support.annotations.RSGReport;
 import org.gcube.portlets.d4sreporting.common.shared.Model;
+import org.reflections.Reflections;
 
 /**
  * 
@@ -24,15 +23,30 @@ public class RsgServiceImplVme implements RsgService {
 
 	@Override
 	public List<ReportType> getReportTypes() {
-		u.create().add(Vme.class.getSimpleName());
+		Reflections reflections = new Reflections("org.fao.fi.vme.domain");
+		
+		u.create();
+		
+		for(Class<?> report : reflections.getTypesAnnotatedWith(RSGReport.class))
+			u.add(report.getName());
+		
 		return u.getReportTypes();
 	}
 
 	@Override
 	public List<ReportType> getRefReportTypes() {
-		u.create().add(GeneralMeasure.class.getSimpleName()).add(InformationSource.class.getSimpleName())
-				.add("FisheryAreas" + History.class.getSimpleName()).add("Vmes" + History.class.getSimpleName());
+		Reflections reflections = new Reflections("org.fao.fi.vme.domain");
+		
+		u.create();
+		
+		for(Class<?> report : reflections.getTypesAnnotatedWith(RSGReferenceReport.class))
+			u.add(report.getName());
+		
 		return u.getReportTypes();
+		
+//		u.create().add(GeneralMeasure.class.getSimpleName()).add(InformationSource.class.getSimpleName())
+//				.add("FisheryAreas" + History.class.getSimpleName()).add("Vmes" + History.class.getSimpleName());
+//		return u.getReportTypes();
 	}
 
 	@Override

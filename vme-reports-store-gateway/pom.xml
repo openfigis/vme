@@ -7,9 +7,12 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>vme-reports-store-gateway</artifactId>
-
-
 	<dependencies>
+		<dependency>
+			<groupId>org.gcube.application.rsg</groupId>
+			<artifactId>reports-store-gateway-support</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-interface-dto</artifactId>
@@ -19,6 +22,11 @@
 			<groupId>org.vme</groupId>
 			<artifactId>vme-domain</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.reflections</groupId>
+			<artifactId>reflections</artifactId>
+			<version>0.9.9-RC1</version>
 		</dependency>
 	</dependencies>
 </project>
