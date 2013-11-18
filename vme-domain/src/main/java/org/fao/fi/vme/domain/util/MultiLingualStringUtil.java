@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.fao.fi.vme.domain.MultiLingualString;
+import org.fao.fi.vme.domain.model.MultiLingualString;
 
 /**
  * Utility class in order to generate a multilingual strings

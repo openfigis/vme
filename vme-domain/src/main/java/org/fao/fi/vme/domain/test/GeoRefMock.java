@@ -1,7 +1,7 @@
 package org.fao.fi.vme.domain.test;
 
-import org.fao.fi.vme.domain.GeoRef;
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.GeoRef;
+import org.fao.fi.vme.domain.model.Vme;
 
 public class GeoRefMock {
 

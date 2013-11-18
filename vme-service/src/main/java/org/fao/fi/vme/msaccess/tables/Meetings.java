@@ -4,7 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.InformationSource;
+import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.formatter.MeetingDateParser;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;

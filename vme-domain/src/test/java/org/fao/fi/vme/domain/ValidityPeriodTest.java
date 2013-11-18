@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.junit.Test;
 

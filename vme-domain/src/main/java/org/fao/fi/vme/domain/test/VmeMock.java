@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.fao.fi.vme.domain.GeneralMeasure;
-import org.fao.fi.vme.domain.GeoRef;
-import org.fao.fi.vme.domain.History;
-import org.fao.fi.vme.domain.InformationSource;
-import org.fao.fi.vme.domain.Profile;
-import org.fao.fi.vme.domain.Rfmo;
-import org.fao.fi.vme.domain.SpecificMeasure;
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.GeoRef;
+import org.fao.fi.vme.domain.model.History;
+import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.Profile;
+import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class VmeMock {
@@ -72,8 +74,8 @@ public class VmeMock {
 		List<SpecificMeasure> specificMeasureList = new ArrayList<SpecificMeasure>();
 		List<GeneralMeasure> generalMeasureList = new ArrayList<GeneralMeasure>();
 		List<GeoRef> geoRefList = new ArrayList<GeoRef>();
-		List<History> fishingHistoryList = new ArrayList<History>();
-		List<History> hasVmesHistory = new ArrayList<History>();
+		List<FisheryAreasHistory> fishingHistoryList = new ArrayList<FisheryAreasHistory>();
+		List<VMEsHistory> hasVmesHistory = new ArrayList<VMEsHistory>();
 
 		for (int i = 0; i < nrOfyears; i++) {
 			int year = startYear + i;
@@ -87,12 +89,18 @@ public class VmeMock {
 			isSm.setId(id++);
 			isSm.setCitation(u.english("This is a citation for a SpecificMeasure"));
 
-			History history = new History();
+			FisheryAreasHistory fahistory = new FisheryAreasHistory();
 			// history.setId(id++);
-			history.setYear(year);
-			history.setHistory(u.english("History repeating"));
-			fishingHistoryList.add(history);
-			hasVmesHistory.add(history);
+			fahistory.setYear(year);
+			fahistory.setHistory(u.english("History repeating"));
+			
+			VMEsHistory vmehistory = new VMEsHistory();
+			// history.setId(id++);
+			vmehistory.setYear(year);
+			vmehistory.setHistory(u.english("History repeating"));
+			
+			fishingHistoryList.add(fahistory);
+			hasVmesHistory.add(vmehistory);
 
 			Profile profile = new Profile();
 

@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.GeoRef;
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.GeoRef;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 
 /**

@@ -3,18 +3,18 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
 	<persistence-unit name="vme-persistence">
-		<class>org.fao.fi.vme.domain.Authority</class>
-		<class>org.fao.fi.vme.domain.GeneralMeasure</class>
-		<class>org.fao.fi.vme.domain.GeoRef</class>
-		<class>org.fao.fi.vme.domain.History</class>
-		<class>org.fao.fi.vme.domain.InformationSource</class>
-		<class>org.fao.fi.vme.domain.MultiLingualString</class>
-		<class>org.fao.fi.vme.domain.Profile</class>
-		<class>org.fao.fi.vme.domain.Rfmo</class>
-		<class>org.fao.fi.vme.domain.SpecificMeasure</class>
-		<class>org.fao.fi.vme.domain.Vme</class>
-		<class>org.fao.fi.vme.domain.VmeType</class>
-		<class>org.fao.fi.vme.domain.VmeCriteria</class>
+		<class>org.fao.fi.vme.domain.model.Authority</class>
+		<class>org.fao.fi.vme.domain.model.GeneralMeasure</class>
+		<class>org.fao.fi.vme.domain.model.GeoRef</class>
+		<class>org.fao.fi.vme.domain.model.History</class>
+		<class>org.fao.fi.vme.domain.model.InformationSource</class>
+		<class>org.fao.fi.vme.domain.model.MultiLingualString</class>
+		<class>org.fao.fi.vme.domain.model.Profile</class>
+		<class>org.fao.fi.vme.domain.model.Rfmo</class>
+		<class>org.fao.fi.vme.domain.model.SpecificMeasure</class>
+		<class>org.fao.fi.vme.domain.model.Vme</class>
+		<class>org.fao.fi.vme.domain.model.VmeType</class>
+		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
 		
 
 		<properties>

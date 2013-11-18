@@ -3,8 +3,8 @@ package org.fao.fi.vme.domain.logic;
 import java.util.List;
 
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.ValidityPeriod;
-import org.fao.fi.vme.domain.interfacee.Period;
+import org.fao.fi.vme.domain.interfaces.Period;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
 
 public class PeriodListValidator {
 

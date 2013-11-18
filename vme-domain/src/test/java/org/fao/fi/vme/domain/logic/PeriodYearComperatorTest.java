@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.fao.fi.vme.domain.SpecificMeasure;
-import org.fao.fi.vme.domain.interfacee.PeriodYear;
+import org.fao.fi.vme.domain.interfaces.PeriodYear;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public class PeriodYearComperatorTest {
 
 	@Test
 	public void testCompare1() {
-		PeriodYearComperator pyc = new PeriodYearComperator();
+		PeriodYearComparator pyc = new PeriodYearComparator();
 
 		PeriodYear py1 = new SpecificMeasure();
 		py1.setYear(2000);
@@ -46,7 +46,7 @@ public class PeriodYearComperatorTest {
 		List<SpecificMeasure> l = new ArrayList<SpecificMeasure>();
 		l.add(sm1);
 		l.add(sm2);
-		Collections.sort(l, new PeriodYearComperator());
+		Collections.sort(l, new PeriodYearComparator());
 		assertEquals(sm2, l.get(0));
 		assertEquals(sm1, l.get(1));
 

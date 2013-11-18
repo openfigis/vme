@@ -3,7 +3,7 @@ package org.fao.fi.vme.sync2.mapping.xml;
 import org.apache.commons.lang.StringUtils;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.domain.rule.Figis;
-import org.fao.fi.vme.domain.MultiLingualString;
+import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class EnglishTextUtil {

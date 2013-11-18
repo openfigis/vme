@@ -1,7 +1,7 @@
 package org.fao.fi.vme.msaccess.tables;
 
-import org.fao.fi.vme.domain.SpecificMeasure;
-import org.fao.fi.vme.domain.ValidityPeriod;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 

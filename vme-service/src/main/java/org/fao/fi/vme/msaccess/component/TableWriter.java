@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.dao.VmeDao;
-import org.fao.fi.vme.domain.GeneralMeasure;
-import org.fao.fi.vme.domain.InformationSource;
+import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;
+import org.vme.service.dao.sources.vme.VmeDao;
 
 /**
  * Writes a series of objects of the same class to the vme DB.

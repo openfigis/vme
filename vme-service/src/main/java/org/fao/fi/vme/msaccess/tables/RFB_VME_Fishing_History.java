@@ -1,6 +1,7 @@
 package org.fao.fi.vme.msaccess.tables;
 
-import org.fao.fi.vme.domain.History;
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;
@@ -58,8 +59,8 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 	@Override
 	public Object map() {
 
-		History fisheryAreasHistory = new History();
-		History vmesHistory = new History();
+		FisheryAreasHistory fisheryAreasHistory = new FisheryAreasHistory();
+		VMEsHistory vmesHistory = new VMEsHistory();
 
 		// fisheryAreasHistory.setId(new Long(this.ID));
 		// vmesHistory.setId(new Long(this.ID));

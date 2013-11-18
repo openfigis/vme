@@ -3,13 +3,14 @@ package org.vme.web.service;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-import org.fao.fi.vme.domain.Authority;
-import org.fao.fi.vme.domain.VmeCriteria;
-import org.fao.fi.vme.domain.VmeType;
+import org.fao.fi.vme.domain.dto.observations.ObservationDto;
+import org.fao.fi.vme.domain.dto.ref.Year;
+import org.fao.fi.vme.domain.model.Authority;
+import org.fao.fi.vme.domain.model.VmeCriteria;
+import org.fao.fi.vme.domain.model.VmeType;
+import org.gcube.application.rsg.support.interfaces.ReferenceConcept;
 import org.vme.service.dao.ObservationDAO;
 import org.vme.service.dao.ReferenceDAO;
-import org.vme.service.dto.obs.ObservationDto;
-import org.vme.service.dto.ref.Year;
 import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ReferencesRequest;
 import org.vme.web.service.io.ServiceResponse;
@@ -31,8 +32,8 @@ public class ServiceInvoker {
 	}
 	
 	
-	public static ServiceResponse<?> invoke(ReferenceDAO service, ReferencesRequest request) throws Exception {
-		Class<?> conceptClass = service.getConcept(request.getConcept());
+	public static ServiceResponse<?> invoke(ReferenceDAO service, ReferencesRequest request) throws Throwable {
+		Class<? extends ReferenceConcept> conceptClass = service.getConcept(request.getConcept());
 		ServiceResponse<?> result = null;
 		if (conceptClass.equals(Authority.class)){
 			result = new ServiceResponse<Authority>(request);

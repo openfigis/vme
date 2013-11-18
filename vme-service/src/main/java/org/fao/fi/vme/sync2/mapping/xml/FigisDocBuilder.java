@@ -39,12 +39,12 @@ import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
-import org.fao.fi.vme.domain.GeneralMeasure;
-import org.fao.fi.vme.domain.History;
-import org.fao.fi.vme.domain.InformationSource;
-import org.fao.fi.vme.domain.Profile;
-import org.fao.fi.vme.domain.SpecificMeasure;
-import org.fao.fi.vme.domain.Vme;
+import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.History;
+import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.Profile;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync2.mapping.RfmoHistory;
@@ -748,7 +748,7 @@ public class FigisDocBuilder {
 		// // VME_history fi:FIGISDoc/fi:VME/fi:History/fi:Text
 		if (vmesHistory != null) {
 			Text text = ut.getEnglishText(vmesHistory.getHistory());
-			org.fao.fi.figis.devcon.History history = f.createHistory();
+			org.fao.fi.vme.domain.model.History history = f.createHistory();
 			history.getTextsAndImagesAndTables().add(text);
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(history);
 		}

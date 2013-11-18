@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fao.fi.vme.domain.InformationSource;
+import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.test.GeneralMeasureMock;
 import org.junit.Test;
 

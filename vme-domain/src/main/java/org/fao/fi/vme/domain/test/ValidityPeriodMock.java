@@ -1,6 +1,6 @@
 package org.fao.fi.vme.domain.test;
 
-import org.fao.fi.vme.domain.ValidityPeriod;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
 
 public class ValidityPeriodMock {
 

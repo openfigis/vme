@@ -6,17 +6,17 @@ import java.util.Collections;
 import java.util.List;
 
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.GeneralMeasure;
-import org.fao.fi.vme.domain.GeoRef;
-import org.fao.fi.vme.domain.History;
-import org.fao.fi.vme.domain.InformationSource;
-import org.fao.fi.vme.domain.Profile;
-import org.fao.fi.vme.domain.SpecificMeasure;
-import org.fao.fi.vme.domain.Vme;
-import org.fao.fi.vme.domain.interfacee.Period;
-import org.fao.fi.vme.domain.interfacee.Year;
-import org.fao.fi.vme.domain.logic.PeriodYearComperator;
-import org.fao.fi.vme.domain.logic.YearComperator;
+import org.fao.fi.vme.domain.interfaces.Period;
+import org.fao.fi.vme.domain.interfaces.Year;
+import org.fao.fi.vme.domain.logic.PeriodYearComparator;
+import org.fao.fi.vme.domain.logic.YearComparator;
+import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.GeoRef;
+import org.fao.fi.vme.domain.model.History;
+import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.Profile;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.Vme;
 
 /**
  * 
@@ -106,7 +106,7 @@ public class PeriodGrouping {
 
 	private Year<?> findRelavantYear(List<? extends Year<?>> hList, int disseminationYear) {
 
-		Collections.sort(hList, new YearComperator());
+		Collections.sort(hList, new YearComparator());
 		Year<?> history = null;
 		for (Year<?> foundHistory : hList) {
 			// take the first you can get. Otherwise the year of the object founds need to be equal or less.
@@ -125,7 +125,7 @@ public class PeriodGrouping {
 		List<SpecificMeasure> smList = vme.getSpecificMeasureList();
 		if (smList != null) {
 
-			Collections.sort(smList, new PeriodYearComperator());
+			Collections.sort(smList, new PeriodYearComparator());
 			for (SpecificMeasure specificMeasures : smList) {
 				if (period(year, specificMeasures)) {
 					// this logic would pick the latest SpecificMeasures, which would be correct.
@@ -145,7 +145,7 @@ public class PeriodGrouping {
 
 		List<GeneralMeasure> gmList = vme.getRfmo().getGeneralMeasureList();
 		if (gmList != null) {
-			Collections.sort(gmList, new PeriodYearComperator());
+			Collections.sort(gmList, new PeriodYearComparator());
 			for (GeneralMeasure generalMeasures : gmList) {
 				if (period(year, generalMeasures)) {
 					slice.setGeneralMeasure(generalMeasures);
