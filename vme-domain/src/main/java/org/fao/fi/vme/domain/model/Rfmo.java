@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.gcube.application.rsg.support.annotations.RSGReferenceReport;
+import org.gcube.application.rsg.support.annotations.fields.RSGName;
 
 /**
  * 
@@ -19,6 +21,7 @@ import org.fao.fi.vme.domain.model.extended.VMEsHistory;
  * 
  */
 @Entity
+@RSGReferenceReport(name="Authority")
 public class Rfmo {
 
 	/**
@@ -31,6 +34,7 @@ public class Rfmo {
 	 * Rfmo
 	 * 
 	 */
+	@RSGName("General Measures")
 	@OneToMany(mappedBy = "rfmo")
 	private List<GeneralMeasure> generalMeasureList;
 
@@ -46,11 +50,14 @@ public class Rfmo {
 	 * An RFMO has a number of information sources
 	 */
 	@ManyToMany
+	@RSGName("Information Sources")
 	private List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
+	@RSGName("Fishery Areas History")
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<FisheryAreasHistory> hasFisheryAreasHistory;
 
+	@RSGName("VMEs History")
 	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(nullable = true)
 	private List<VMEsHistory> hasVmesHistory;

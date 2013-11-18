@@ -13,8 +13,14 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.annotations.RSGReferenceReport;
+import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
+import org.gcube.application.rsg.support.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.converters.impl.DateDataConverter;
+import org.gcube.application.rsg.support.converters.impl.IntegerDataConverter;
+import org.gcube.application.rsg.support.converters.impl.URLDataConverter;
 
 /**
  * 
@@ -57,30 +63,44 @@ public class InformationSource {
 	 * TODO change into publicationYear, type int
 	 */
 
+	@RSGName("Publication Year")
+	@RSGConverter(IntegerDataConverter.class)
 	private int publicationYear;
 
+	@RSGName("Meeting Start Date")
+	@RSGConverter(DateDataConverter.class)
 	@Temporal(TemporalType.DATE)
 	private Date meetingStartDate;
 
+	@RSGName("Meeting End Date")
+	@RSGConverter(DateDataConverter.class)
 	@Temporal(TemporalType.DATE)
 	private Date meetingEndDate;
 
 	/** */
+	@RSGName("Committee")
+	@RSGConverter(MultiLingualStringConverter.class)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString committee;
 
 	/** */
+	@RSGName("Report Summary")
+	@RSGConverter(MultiLingualStringConverter.class)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString reportSummary;
 
 	/**
 	 * The url where the document is to be found
 	 */
+	@RSGName("URL")
+	@RSGConverter(URLDataConverter.class)
 	private URL url;
 
 	/**
 	 * The title
 	 */
+	@RSGName("Citation")
+	@RSGConverter(MultiLingualStringConverter.class)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString citation;
 

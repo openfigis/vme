@@ -17,8 +17,8 @@ import org.fao.fi.vme.domain.interfaces.Period;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.annotations.RSGReport;
 import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
-import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.annotations.fields.RSGEmbedded;
+import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.annotations.fields.RSGName;
@@ -44,12 +44,8 @@ public class Vme implements Period<Vme> {
 	/**
 	 * This VME is managed by this Rfmo
 	 */
-	@RSGName("Competent Authority")
-	@RSGInstructions("Competent authority, please insert the acronym (e.g. NAFO, CCAMLR, SEAFO)")
-	@RSGOneAmong(Authority.class)
-	@RSGReferenceConceptLabel(ConceptData.ACRONYM)
-	@RSGReferenceConceptFilter({ ConceptData.ACRONYM })
 	@ManyToOne(fetch = FetchType.EAGER)
+	@RSGEmbedded(name="Competent Authority")
 	private Rfmo rfmo;
 
 	/*
