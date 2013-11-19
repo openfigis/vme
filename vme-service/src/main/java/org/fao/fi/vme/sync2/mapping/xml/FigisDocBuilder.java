@@ -748,7 +748,7 @@ public class FigisDocBuilder {
 		// // VME_history fi:FIGISDoc/fi:VME/fi:History/fi:Text
 		if (vmesHistory != null) {
 			Text text = ut.getEnglishText(vmesHistory.getHistory());
-			org.fao.fi.vme.domain.model.History history = f.createHistory();
+			org.fao.fi.figis.devcon.History history = f.createHistory();
 			history.getTextsAndImagesAndTables().add(text);
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(history);
 		}
