@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
-import org.gcube.application.rsg.support.interfaces.ReferenceConcept;
+import org.gcube.application.rsg.support.reference.concepts.interfaces.ReferenceConcept;
 
 /**
  * @author Fabrizio Sibeni

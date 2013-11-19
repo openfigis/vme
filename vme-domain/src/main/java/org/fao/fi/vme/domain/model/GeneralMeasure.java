@@ -66,7 +66,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * table.
 	 * 
 	 */
-	@RSGEmbedded(name="Information Sources")
+	@RSGName("Information Sources")
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "INFORMATION_SOURCE_LIST")
 	private List<InformationSource> informationSourceList;
