@@ -10,7 +10,7 @@
         <dependent-module archiveName="vme-configuration-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-configuration/vme-configuration">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="fimes-vme-jaxb-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-fimes-jaxb/vme-fimes-jaxb">
+        <dependent-module archiveName="fimes-vme-jaxb-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/fimes-vme-jaxb/fimes-vme-jaxb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="vme-dao-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-dao/vme-dao">
