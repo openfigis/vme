@@ -3,7 +3,6 @@
  */
 package org.vme.service.dao;
 
-import javax.enterprise.inject.Produces;
 
 /**
  * @author Fabrizio Sibeni

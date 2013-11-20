@@ -29,10 +29,11 @@ public class JpaDaoFactory implements DAOFactory {
 	@Inject
 	private FigisDao figisDao;
 
-	@Produces
-	private ReferenceJpaDao referenceDAO = null;
+	@Inject
+	private ReferenceJpaDao referenceDAO;
 	
-	private ObservationJpaDao observationDAO = null;
+	@Inject
+	private ObservationJpaDao observationDAO;
 	
 	
 	

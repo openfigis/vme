@@ -9,13 +9,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
 import org.fao.fi.vme.domain.dto.ref.Year;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
 import org.gcube.application.rsg.support.reference.concepts.interfaces.ReferenceConcept;
-import org.vme.service.dao.JpaDaoFactory;
 import org.vme.service.dao.ReferenceServiceException;
+import org.vme.service.dao.config.vme.VmeDB;
 import org.vme.service.dao.impl.AbstractReferenceDAO;
 
 /**
@@ -23,13 +26,14 @@ import org.vme.service.dao.impl.AbstractReferenceDAO;
  * 
  */
 public class ReferenceJpaDao extends AbstractReferenceDAO {
-	private JpaDaoFactory factory;
-
+	
+	@VmeDB
+	@Inject
+	private EntityManager entityManager;
+	
 	private Map<Integer, Year> repYear;
 
-	public ReferenceJpaDao(JpaDaoFactory factory) {
-		this.factory = factory;
-
+	public ReferenceJpaDao() {
 		repYear = this.createYears();
 	}
 
@@ -81,7 +85,7 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 	}
 
 	public Authority getAuthority(Long key) {
-		List<?> res = factory.getEntityManager()
+		List<?> res = entityManager
 				.createQuery("from Authority where id = " + key)
 				.getResultList();
 		return res.size() > 0 ? (Authority) res.get(0) : null;
@@ -89,12 +93,12 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Authority> getAllAuthorities() {
-		return factory.getEntityManager().createQuery("from Authority")
+		return entityManager.createQuery("from Authority")
 				.getResultList();
 	}
 
 	public VmeCriteria getVmeCriteria(Long key) {
-		List<?> res = factory.getEntityManager()
+		List<?> res = entityManager
 				.createQuery("from VmeCriteria where id = " + key)
 				.getResultList();
 		return res.size() > 0 ? (VmeCriteria) res.get(0) : null;
@@ -102,19 +106,19 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<VmeCriteria> getAllVmeCriterias() {
-		return factory.getEntityManager().createQuery("from VmeCriteria")
+		return entityManager.createQuery("from VmeCriteria")
 				.getResultList();
 	}
 
 	public VmeType getVmeType(Long key) {
-		List<?> res = factory.getEntityManager()
+		List<?> res = entityManager
 				.createQuery("from VmeType where id = " + key).getResultList();
 		return res.size() > 0 ? (VmeType) res.get(0) : null;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<VmeType> getAllVmeTypes() {
-		return factory.getEntityManager().createQuery("from VmeType")
+		return entityManager.createQuery("from VmeType")
 				.getResultList();
 	}
 
