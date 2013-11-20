@@ -30,9 +30,9 @@ public class JpaDaoFactory implements DAOFactory {
 	private FigisDao figisDao;
 
 	@Produces
-	private ReferenceDAO referenceDAO = null;
+	private ReferenceJpaDao referenceDAO = null;
 	
-	private ObservationDAO observationDAO = null;
+	private ObservationJpaDao observationDAO = null;
 	
 	
 	
@@ -45,9 +45,6 @@ public class JpaDaoFactory implements DAOFactory {
 	 */
 	@Override
 	public ReferenceDAO getReferenceDAO() {
-		if (referenceDAO==null){
-			referenceDAO = new ReferenceJpaDao(this);
-		}
 		return referenceDAO;
 	}
 
@@ -56,9 +53,6 @@ public class JpaDaoFactory implements DAOFactory {
 	 */
 	@Override
 	public ObservationDAO getObservationDAO() {
-		if (observationDAO==null){
-			observationDAO = new ObservationJpaDao(this);
-		}
 		return observationDAO;
 	}
 

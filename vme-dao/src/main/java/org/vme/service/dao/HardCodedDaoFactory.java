@@ -5,6 +5,7 @@ package org.vme.service.dao;
 
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 
 import org.vme.service.dao.impl.hardcoded.ObservationHarcodedDao;
 import org.vme.service.dao.impl.hardcoded.ReferenceHarcodedDao;
@@ -17,10 +18,11 @@ import org.vme.service.dao.impl.hardcoded.ReferenceHarcodedDao;
 @Alternative
 public class HardCodedDaoFactory implements DAOFactory {
 
-	@Produces
-	private ReferenceDAO referenceDAO;
+	@Inject
+	private ReferenceHarcodedDao referenceDAO;
 	
-	private ObservationDAO observationDAO;
+	@Inject
+	private ObservationHarcodedDao observationDAO;
 	
 	public HardCodedDaoFactory() {
 		super();
@@ -32,9 +34,7 @@ public class HardCodedDaoFactory implements DAOFactory {
 	 */
 	@Override
 	public ReferenceDAO getReferenceDAO() {
-		if (referenceDAO==null){
-			referenceDAO = new ReferenceHarcodedDao();
-		}
+		
 		return referenceDAO;
 	}
 
@@ -43,9 +43,6 @@ public class HardCodedDaoFactory implements DAOFactory {
 	 */
 	@Override
 	public ObservationDAO getObservationDAO() {
-		if (observationDAO==null){
-			observationDAO = new ObservationHarcodedDao();
-		}
 		return observationDAO;
 	}
 
