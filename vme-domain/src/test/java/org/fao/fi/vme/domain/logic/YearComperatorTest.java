@@ -7,17 +7,18 @@ import java.util.Collections;
 import java.util.List;
 
 import org.fao.fi.vme.domain.model.History;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.junit.Test;
 
 public class YearComperatorTest {
 
 	@Test
 	public void testCompare() {
-		History h1 = new History();
+		VMEsHistory h1 = new VMEsHistory();
 		h1.setYear(2010);
-		History h2 = new History();
+		VMEsHistory h2 = new VMEsHistory();
 		h2.setYear(2011);
-		List<History> l = new ArrayList<History>();
+		List<VMEsHistory> l = new ArrayList<VMEsHistory>();
 		l.add(h2);
 		l.add(h1);
 		Collections.sort(l, new YearComparator());

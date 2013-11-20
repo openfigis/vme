@@ -58,14 +58,14 @@ public class PeriodGrouping {
 	private void doYearStuff(Vme vme, int disseminationYear, DisseminationYearSlice slice) {
 
 		// fishing area history
-		List<? extends Year<?>> fishingHistoryList = vme.getRfmo().getHasFisheryAreasHistory();
+		List<? extends Year<History>> fishingHistoryList = vme.getRfmo().getHasFisheryAreasHistory();
 		if (fishingHistoryList != null) {
 			Year<?> fishingHistory = findRelavantYear(fishingHistoryList, disseminationYear);
 			slice.setFisheryAreasHistory((History) fishingHistory);
 		}
 
 		// vme history
-		List<? extends Year<?>> hasVmesHistoryList = vme.getRfmo().getHasVmesHistory();
+		List<? extends Year<History>> hasVmesHistoryList = vme.getRfmo().getHasVmesHistory();
 		if (hasVmesHistoryList != null) {
 			Year<?> hasVmesHistory = findRelavantYear(hasVmesHistoryList, disseminationYear);
 			slice.setVmesHistory((History) hasVmesHistory);

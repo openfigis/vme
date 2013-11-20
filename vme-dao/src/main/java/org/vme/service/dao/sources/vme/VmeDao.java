@@ -7,9 +7,10 @@ import javax.persistence.EntityManager;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
-import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.vme.service.dao.Dao;
 import org.vme.service.dao.config.vme.VmeDB;
 
@@ -69,7 +70,11 @@ public class VmeDao extends Dao {
 			em.persist(o);
 		}
 
-		for (History h : vme.getRfmo().getHasFisheryAreasHistory()) {
+		for (FisheryAreasHistory h : vme.getRfmo().getHasFisheryAreasHistory()) {
+			em.persist(h);
+		}
+
+		for (VMEsHistory h : vme.getRfmo().getHasVmesHistory()) {
 			em.persist(h);
 		}
 
