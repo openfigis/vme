@@ -41,4 +41,11 @@
 		</resources>
 	</build>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
 </project>
