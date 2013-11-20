@@ -119,7 +119,7 @@ public class ObservationJpaDao implements ObservationDAO {
 		}
 
 		if (authority_id>0){
-			Authority vmeAuthority = (Authority) entityManager.getReference(Authority.class, authority_id);
+			Authority vmeAuthority = (Authority) entityManager.getReference(Authority.class, (int)authority_id);
 			String authority = vmeAuthority.getAcronym();
 			txtQuery.append(conjunction);
 			txtQuery.append(" vme.rfmo.id = '");
@@ -129,7 +129,7 @@ public class ObservationJpaDao implements ObservationDAO {
 		}
 
 		if (criteria_id>0){
-			VmeCriteria vmeCriteria = (VmeCriteria) entityManager.getReference(VmeCriteria.class, criteria_id);
+			VmeCriteria vmeCriteria = (VmeCriteria) entityManager.getReference(VmeCriteria.class, (int) criteria_id);
 			String criteria = vmeCriteria.getName();
 			txtQuery.append(conjunction);
 			txtQuery.append(" vme.criteria = '");
@@ -139,7 +139,7 @@ public class ObservationJpaDao implements ObservationDAO {
 		}
 
 		if (type_id>0){
-			VmeType vmeType = (VmeType) entityManager.getReference(VmeType.class, type_id);
+			VmeType vmeType = (VmeType) entityManager.getReference(VmeType.class, (int)type_id);
 			String areaType = vmeType.getName();
 			txtQuery.append(conjunction);
 			txtQuery.append("  vme.areaType = '");
