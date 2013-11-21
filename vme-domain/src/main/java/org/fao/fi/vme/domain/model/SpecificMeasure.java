@@ -50,7 +50,7 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	/**
 	 *  
 	  */
-	@RSGEmbedded(name="Validity Period")
+	@RSGEmbedded(name="Validity Period", standalone=false)
 	private ValidityPeriod validityPeriod;
 
 	/**

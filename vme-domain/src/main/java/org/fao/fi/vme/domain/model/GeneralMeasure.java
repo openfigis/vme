@@ -58,7 +58,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	/**
 	 * 
 	 */
-	@RSGEmbedded(name="Validity Period")
+	@RSGEmbedded(name="Validity Period", standalone=false)
 	private ValidityPeriod validityPeriod;
 
 	/**

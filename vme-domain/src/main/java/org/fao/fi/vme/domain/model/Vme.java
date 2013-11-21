@@ -70,7 +70,7 @@ public class Vme implements Period<Vme> {
 	 * 
 	 * 
 	 */
-	@RSGEmbedded(name="Validity Period")
+	@RSGEmbedded(name="Validity Period", standalone=false)
 	private ValidityPeriod validityPeriod;
 
 	/**

@@ -34,7 +34,7 @@ public class Rfmo {
 	 * Rfmo
 	 * 
 	 */
-	@RSGName("General Measures")
+	@RSGName("Authority - General Measures")
 	@OneToMany(mappedBy = "rfmo")
 	private List<GeneralMeasure> generalMeasureList;
 
@@ -50,7 +50,7 @@ public class Rfmo {
 	 * An RFMO has a number of information sources
 	 */
 	@ManyToMany
-	@RSGName("Information Sources")
+	@RSGName("Authority - Information Sources")
 	private List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
 	@RSGName("Fishery Areas History")

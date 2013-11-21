@@ -46,7 +46,7 @@ public class Profile implements Year<Profile> {
 	 * Physical description of the VME
 	 * 
 	 */
-	@RSGName("VME Phisical description")
+	@RSGName("VME Physical description")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString descriptionPhisical;
