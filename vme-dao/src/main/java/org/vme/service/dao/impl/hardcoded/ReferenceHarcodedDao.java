@@ -5,7 +5,7 @@ package org.vme.service.dao.impl.hardcoded;
 
 import java.util.List;
 
-import org.fao.fi.vme.domain.dto.ref.Year;
+import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
@@ -41,7 +41,7 @@ public class ReferenceHarcodedDao extends AbstractReferenceDAO {
 			return helper.getVmeCriteria(id);
 		} else if (concept.equals(VmeType.class)) {
 			return helper.getVmeType(id);
-		} else if (concept.equals(Year.class)) {
+		} else if (concept.equals(ReferenceYear.class)) {
 			return helper.getYear(id);
 		} else {
 			throw new ReferenceServiceException("Undefined reference concept");
@@ -64,7 +64,7 @@ public class ReferenceHarcodedDao extends AbstractReferenceDAO {
 			return helper.getAllVmeCriterias();
 		} else if (concept.equals(VmeType.class)) {
 			return helper.getAllVmeTypes();
-		} else if (concept.equals(Year.class)) {
+		} else if (concept.equals(ReferenceYear.class)) {
 			return helper.getAllYears();
 		} else {
 			throw new ReferenceServiceException("Undefined reference concept");

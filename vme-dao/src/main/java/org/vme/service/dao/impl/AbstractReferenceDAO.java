@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
-import org.fao.fi.vme.domain.dto.ref.Year;
+import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
@@ -45,7 +45,7 @@ abstract public class AbstractReferenceDAO implements ReferenceDAO {
 		this.concepts.add(Authority.class);
 		this.concepts.add(VmeCriteria.class);
 		this.concepts.add(VmeType.class);
-		this.concepts.add(Year.class);
+		this.concepts.add(ReferenceYear.class);
 	}	
 	
 	/* (non-Javadoc)

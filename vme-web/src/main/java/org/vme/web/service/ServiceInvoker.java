@@ -4,7 +4,7 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
 import org.fao.fi.vme.domain.dto.observations.ObservationDto;
-import org.fao.fi.vme.domain.dto.ref.Year;
+import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
@@ -41,8 +41,8 @@ public class ServiceInvoker {
 			result = new ServiceResponse<VmeCriteria>(request);
 		} else if (conceptClass.equals(VmeType.class)){
 			result = new ServiceResponse<VmeType>(request);
-		} else if (conceptClass.equals(Year.class)){
-			result = new ServiceResponse<Year>(request);
+		} else if (conceptClass.equals(ReferenceYear.class)){
+			result = new ServiceResponse<ReferenceYear>(request);
 		} else {
 			throw new WebApplicationException(Response.Status.BAD_REQUEST);
 		} 

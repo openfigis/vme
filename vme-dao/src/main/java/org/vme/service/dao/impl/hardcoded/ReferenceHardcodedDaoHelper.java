@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.fao.fi.vme.domain.dto.ref.Year;
+import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
@@ -26,7 +26,7 @@ public class ReferenceHardcodedDaoHelper {
 	private Map<Long, Authority> repAuthority;
 	private Map<Long, VmeCriteria> repVmeCriteria;
 	private Map<Long, VmeType> repVmeType;
-	private Map<Long, Year> repYear;
+	private Map<Long, ReferenceYear> repYear;
 	
 
 	public ReferenceHardcodedDaoHelper() {
@@ -37,7 +37,7 @@ public class ReferenceHardcodedDaoHelper {
 		createVmeCriterias();
 		repVmeType = new LinkedHashMap<Long, VmeType>();
 		createVmeTypes();
-		repYear = new LinkedHashMap<Long, Year>();
+		repYear = new LinkedHashMap<Long, ReferenceYear>();
 		createYears();
 	}
 
@@ -69,12 +69,12 @@ public class ReferenceHardcodedDaoHelper {
 		return new LinkedList<VmeType>(repVmeType.values());
 	}
 
-	public Year getYear(Long key) {
+	public ReferenceYear getYear(Long key) {
 		return repYear.get(key);
 	}
 	
-	public List<Year> getAllYears(){
-		return new LinkedList<Year>(repYear.values());
+	public List<ReferenceYear> getAllYears(){
+		return new LinkedList<ReferenceYear>(repYear.values());
 	}
 	
 	private void createAuthorities() {
@@ -104,14 +104,14 @@ public class ReferenceHardcodedDaoHelper {
 
 	
 	private void createYears() {
-		repYear.put((long)2013, new Year(2013));
-		repYear.put((long)2012, new Year(2012));
-		repYear.put((long)2011, new Year(2011));
-		repYear.put((long)2010, new Year(2010));
-		repYear.put((long)2009, new Year(2009));
-		repYear.put((long)2008, new Year(2008));
-		repYear.put((long)2007, new Year(2007));
-		repYear.put((long)2006, new Year(2006));
+		repYear.put((long)2013, new ReferenceYear(2013));
+		repYear.put((long)2012, new ReferenceYear(2012));
+		repYear.put((long)2011, new ReferenceYear(2011));
+		repYear.put((long)2010, new ReferenceYear(2010));
+		repYear.put((long)2009, new ReferenceYear(2009));
+		repYear.put((long)2008, new ReferenceYear(2008));
+		repYear.put((long)2007, new ReferenceYear(2007));
+		repYear.put((long)2006, new ReferenceYear(2006));
 	}
 	
 	

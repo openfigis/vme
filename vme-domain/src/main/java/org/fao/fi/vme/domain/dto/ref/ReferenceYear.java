@@ -15,7 +15,7 @@ import org.gcube.application.rsg.support.reference.concepts.interfaces.Reference
  */
 @Entity
 @ReferenceConceptName("years")
-public class Year implements ReferenceConcept {
+public class ReferenceYear implements ReferenceConcept {
 	/**
 	 * Identifier of the domain entity.
 	 */
@@ -41,10 +41,10 @@ public class Year implements ReferenceConcept {
 		this.lang = lang;
 	}
 
-	public Year() {
+	public ReferenceYear() {
 	}
 
-	public Year(int id) {
+	public ReferenceYear(int id) {
 		super();
 		this.id = id;
 	}
@@ -61,6 +61,11 @@ public class Year implements ReferenceConcept {
 	 */
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	
+	public String getName(){
+		return Integer.toString(id);
 	}
 
 }

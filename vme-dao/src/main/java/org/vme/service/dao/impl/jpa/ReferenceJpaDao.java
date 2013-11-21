@@ -4,7 +4,7 @@
 package org.vme.service.dao.impl.jpa;
 
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.fao.fi.vme.domain.dto.ref.Year;
+import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
@@ -31,7 +31,7 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 	@Inject
 	private EntityManager entityManager;
 	
-	private Map<Integer, Year> repYear;
+	private Map<Integer, ReferenceYear> repYear;
 
 	public ReferenceJpaDao() {
 		repYear = this.createYears();
@@ -53,7 +53,7 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 			return getVmeCriteria(id);
 		} else if (concept.equals(VmeType.class)) {
 			return getVmeType(id);
-		} else if (concept.equals(Year.class)) {
+		} else if (concept.equals(ReferenceYear.class)) {
 			return getYear(id);
 		} else {
 			throw new ReferenceServiceException("Undefined reference concept");
@@ -76,7 +76,7 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 			return getAllVmeCriterias();
 		} else if (concept.equals(VmeType.class)) {
 			return getAllVmeTypes();
-		} else if (concept.equals(Year.class)) {
+		} else if (concept.equals(ReferenceYear.class)) {
 			return getAllYears();
 		} else {
 			throw new ReferenceServiceException("Undefined reference concept");
@@ -122,19 +122,19 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 				.getResultList();
 	}
 
-	public Year getYear(Long key) {
+	public ReferenceYear getYear(Long key) {
 		return repYear.get(key);
 	}
 
-	public List<Year> getAllYears() {
-		return new LinkedList<Year>(repYear.values());
+	public List<ReferenceYear> getAllYears() {
+		return new LinkedList<ReferenceYear>(repYear.values());
 	}
 
-	private Map<Integer, Year> createYears() {
-		Map<Integer, Year> yearsMap = new HashMap<Integer, Year>();
+	private Map<Integer, ReferenceYear> createYears() {
+		Map<Integer, ReferenceYear> yearsMap = new LinkedHashMap<Integer, ReferenceYear>();
 
-		for (int year = 2006; year <= Calendar.getInstance().get(Calendar.YEAR); year++)
-			yearsMap.put(year, new Year(year));
+		for (int year = Calendar.getInstance().get(Calendar.YEAR); year >= 2006; year--)
+			yearsMap.put(year, new ReferenceYear(year));
 
 		return yearsMap;
 	}
