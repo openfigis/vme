@@ -338,7 +338,7 @@ public class ObservationJpaDao implements ObservationDAO {
 		String authority_acronym = vme.getRfmo().getId();
 		try {
 			Authority authority = (Authority)referenceDAO.getReferenceByAcronym(Authority.class, authority_acronym);
-			res.setOwner(authority.getName() + " (" + authority.getAcronym() + ")");
+			res.setOwner(authority.getName());
 		} catch (ReferenceServiceException e) {
 			res.setOwner(authority_acronym);
 			e.printStackTrace();
