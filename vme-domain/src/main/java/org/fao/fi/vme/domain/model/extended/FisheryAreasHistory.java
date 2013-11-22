@@ -14,11 +14,11 @@ import org.fao.fi.vme.domain.interfaces.Year;
 import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
-import org.gcube.application.rsg.support.annotations.RSGReferenceReport;
-import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
-import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
-import org.gcube.application.rsg.support.annotations.fields.RSGName;
-import org.gcube.application.rsg.support.converters.impl.IntegerDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 
 /**
  * Place your class / interface description here.

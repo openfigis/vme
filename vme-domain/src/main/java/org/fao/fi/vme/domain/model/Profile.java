@@ -10,11 +10,11 @@ import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.Year;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
-import org.gcube.application.rsg.support.annotations.RSGReferenced;
-import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
-import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
-import org.gcube.application.rsg.support.annotations.fields.RSGMandatory;
-import org.gcube.application.rsg.support.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenced;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 
 /**
  * The features of a VME, defined in a certain year.

@@ -9,7 +9,7 @@ import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
-import org.gcube.application.rsg.support.reference.concepts.interfaces.ReferenceConcept;
+import org.gcube.application.rsg.support.compiler.bridge.reference.interfaces.ReferenceConcept;
 import org.vme.service.dao.ReferenceServiceException;
 import org.vme.service.dao.impl.AbstractReferenceDAO;
 
@@ -55,17 +55,17 @@ public class ReferenceHarcodedDao extends AbstractReferenceDAO {
 	 * org.vme.service.reference.ReferenceService#getAllReferences(java.lang
 	 * .Class)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<? extends ReferenceConcept> getAllReferences(
-			Class<? extends ReferenceConcept> concept) throws ReferenceServiceException {
+	public <R  extends ReferenceConcept> List<R> getAllReferences(Class<R> concept) throws ReferenceServiceException {
 		if (concept.equals(Authority.class)) {
-			return helper.getAllAuthorities();
+			return (List<R>)helper.getAllAuthorities();
 		} else if (concept.equals(VmeCriteria.class)) {
-			return helper.getAllVmeCriterias();
+			return (List<R>)helper.getAllVmeCriterias();
 		} else if (concept.equals(VmeType.class)) {
-			return helper.getAllVmeTypes();
+			return (List<R>)helper.getAllVmeTypes();
 		} else if (concept.equals(ReferenceYear.class)) {
-			return helper.getAllYears();
+			return (List<R>)helper.getAllYears();
 		} else {
 			throw new ReferenceServiceException("Undefined reference concept");
 		}

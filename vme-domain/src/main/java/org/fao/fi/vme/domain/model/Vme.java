@@ -15,17 +15,17 @@ import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.Period;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
-import org.gcube.application.rsg.support.annotations.RSGReport;
-import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
-import org.gcube.application.rsg.support.annotations.fields.RSGEmbedded;
-import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
-import org.gcube.application.rsg.support.annotations.fields.RSGInstructions;
-import org.gcube.application.rsg.support.annotations.fields.RSGMandatory;
-import org.gcube.application.rsg.support.annotations.fields.RSGName;
-import org.gcube.application.rsg.support.annotations.fields.RSGOneAmong;
-import org.gcube.application.rsg.support.annotations.fields.RSGReferenceConceptFilter;
-import org.gcube.application.rsg.support.annotations.fields.RSGReferenceConceptLabel;
-import org.gcube.application.rsg.support.annotations.fields.support.ConceptData;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGNested;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGInstructions;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGOneAmong;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGReferenceConceptFilter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGReferenceConceptLabel;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
 
 /**
  * 
@@ -45,7 +45,7 @@ public class Vme implements Period<Vme> {
 	 * This VME is managed by this Rfmo
 	 */
 	@ManyToOne(fetch = FetchType.EAGER)
-	@RSGEmbedded(name="Competent Authority")
+	@RSGNested(name="Competent Authority")
 	private Rfmo rfmo;
 
 	/*
@@ -70,7 +70,7 @@ public class Vme implements Period<Vme> {
 	 * 
 	 * 
 	 */
-	@RSGEmbedded(name="Validity Period", standalone=false)
+	@RSGNested(name="Validity Period", embedded=true)
 	private ValidityPeriod validityPeriod;
 
 	/**

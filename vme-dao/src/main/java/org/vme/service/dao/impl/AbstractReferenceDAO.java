@@ -12,8 +12,8 @@ import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
-import org.gcube.application.rsg.support.reference.concepts.interfaces.AcronymAwareReferenceConcept;
-import org.gcube.application.rsg.support.reference.concepts.interfaces.ReferenceConcept;
+import org.gcube.application.rsg.support.compiler.bridge.reference.interfaces.AcronymAwareReferenceConcept;
+import org.gcube.application.rsg.support.compiler.bridge.reference.interfaces.ReferenceConcept;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.service.dao.ReferenceDAO;
@@ -90,7 +90,7 @@ abstract public class AbstractReferenceDAO implements ReferenceDAO {
 	@Override
 	final public AcronymAwareReferenceConcept getReferenceByAcronym(Class<? extends AcronymAwareReferenceConcept> concept, String acronym) throws ReferenceServiceException {
 		try {
-			Collection<? extends ReferenceConcept> allReferenceObjects = getAllReferences((Class<ReferenceConcept>)concept);
+			Collection<AcronymAwareReferenceConcept> allReferenceObjects = (Collection<AcronymAwareReferenceConcept>)getAllReferences(concept);
 	
 			for (ReferenceConcept reference : allReferenceObjects) {
 				if(reference instanceof AcronymAwareReferenceConcept) {

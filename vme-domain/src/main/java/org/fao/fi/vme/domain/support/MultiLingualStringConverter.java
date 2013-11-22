@@ -5,7 +5,7 @@ package org.fao.fi.vme.domain.support;
 
 import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.gcube.application.rsg.support.converters.impl.AbstractDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.AbstractDataConverter;
 
 /**
  * Place your class / interface description here.

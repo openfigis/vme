@@ -12,8 +12,8 @@ import javax.persistence.OneToMany;
 
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
-import org.gcube.application.rsg.support.annotations.RSGReferenceReport;
-import org.gcube.application.rsg.support.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 
 /**
  * 

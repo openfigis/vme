@@ -10,12 +10,15 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
-			<artifactId>reports-store-gateway-support</artifactId>
+			<artifactId>reports-store-gateway-interface-dto</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
-			<artifactId>reports-store-gateway-interface-dto</artifactId>
+			<artifactId>
+				reports-store-gateway-support-compiler
+			</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -28,5 +31,6 @@
 			<artifactId>reflections</artifactId>
 			<version>0.9.9-RC1</version>
 		</dependency>
+
 	</dependencies>
 </project>

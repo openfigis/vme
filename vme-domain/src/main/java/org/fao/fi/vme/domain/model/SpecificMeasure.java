@@ -11,12 +11,12 @@ import javax.persistence.OneToOne;
 import org.fao.fi.vme.domain.interfaces.PeriodYear;
 import org.fao.fi.vme.domain.interfaces.Year;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
-import org.gcube.application.rsg.support.annotations.RSGReferenced;
-import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
-import org.gcube.application.rsg.support.annotations.fields.RSGIdentifier;
-import org.gcube.application.rsg.support.annotations.fields.RSGEmbedded;
-import org.gcube.application.rsg.support.annotations.fields.RSGName;
-import org.gcube.application.rsg.support.converters.impl.IntegerDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenced;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGNested;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 
 /**
  * 
@@ -43,14 +43,14 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	@ManyToMany(mappedBy = "specificMeasureList")
 	private List<Vme> vmeList;
 
-	@RSGEmbedded(name="Specific measure information source")
+	@RSGNested(name="Specific measure information source")
 	@OneToOne(cascade = { CascadeType.ALL })
 	private InformationSource informationSource;
 
 	/**
 	 *  
 	  */
-	@RSGEmbedded(name="Validity Period", standalone=false)
+	@RSGNested(name="Validity Period", embedded=true)
 	private ValidityPeriod validityPeriod;
 
 	/**

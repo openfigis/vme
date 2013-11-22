@@ -2,10 +2,10 @@ package org.fao.fi.vme.domain.model;
 
 import javax.persistence.Embeddable;
 
-import org.gcube.application.rsg.support.annotations.fields.RSGConverter;
-import org.gcube.application.rsg.support.annotations.fields.RSGInstructions;
-import org.gcube.application.rsg.support.annotations.fields.RSGName;
-import org.gcube.application.rsg.support.converters.impl.IntegerDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGInstructions;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 
 /**
  * 

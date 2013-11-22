@@ -8,7 +8,7 @@ import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
-import org.gcube.application.rsg.support.reference.concepts.interfaces.ReferenceConcept;
+import org.gcube.application.rsg.support.compiler.bridge.reference.interfaces.ReferenceConcept;
 import org.vme.service.dao.ObservationDAO;
 import org.vme.service.dao.ReferenceDAO;
 import org.vme.web.service.io.ObservationsRequest;
