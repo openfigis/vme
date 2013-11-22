@@ -19,7 +19,12 @@
 			<name>artifactory.fao.org-releases</name>
 			<url>http://artifactory.fao.org/artifactory/ext-release-local</url>
 		</repository>
-	</repositories>
+       <repository>
+           <id>gcube-snapshots</id>
+           <snapshots><enabled>true</enabled></snapshots>
+           <url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-snapshots</url>
+       </repository>
+    </repositories>
 
 	<modules>
 		<module>figis-domain</module>
