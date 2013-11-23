@@ -65,7 +65,7 @@ public class InformationSource {
 
 	@RSGName("Publication Year")
 	@RSGConverter(IntegerDataConverter.class)
-	private int publicationYear;
+	private Integer publicationYear;
 
 	@RSGName("Meeting Start Date")
 	@RSGConverter(DateDataConverter.class)
@@ -208,11 +208,11 @@ public class InformationSource {
 		this.sourceType = sourceType;
 	}
 
-	public int getPublicationYear() {
+	public Integer getPublicationYear() {
 		return publicationYear;
 	}
 
-	public void setPublicationYear(int publicationYear) {
+	public void setPublicationYear(Integer publicationYear) {
 		this.publicationYear = publicationYear;
 	}
 

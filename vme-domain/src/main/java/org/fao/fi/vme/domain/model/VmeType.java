@@ -8,7 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
-import org.gcube.application.rsg.support.compiler.bridge.reference.interfaces.NamedReferenceConcept;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.NamedReferenceConcept;
 
 /**
  * @author Fabrizio Sibeni
@@ -22,6 +23,7 @@ public class VmeType implements NamedReferenceConcept {
 	/**
 	 * Identifier of the domain entity.
 	 */
+	@RSGIdentifier
 	@Id
 	private int id;
 

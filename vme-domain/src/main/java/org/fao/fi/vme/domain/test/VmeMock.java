@@ -39,8 +39,9 @@ public class VmeMock {
 		List<GeoRef> l = new ArrayList<GeoRef>();
 		l.add(g);
 		vme.setGeoRefList(l);
+		
+		vme.setAreaType("20");
 		return vme;
-
 	}
 
 	/**

@@ -17,15 +17,17 @@ import org.fao.fi.vme.domain.interfaces.Period;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGNested;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGNested;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGOneAmong;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGReferenceConceptFilter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGReferenceConceptLabel;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGReferenceConceptValue;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.common.UniquelyIdentifiable;
 
 /**
  * 
@@ -91,7 +93,7 @@ public class Vme implements Period<Vme> {
 	@RSGMandatory
 	@RSGOneAmong(VmeType.class)
 	@RSGReferenceConceptLabel(ConceptData.NAME)
-	@RSGReferenceConceptFilter({ ConceptData.ID, ConceptData.NAME })
+	@RSGReferenceConceptValue(ConceptData.ID)
 	private String areaType;
 
 	/**
@@ -107,7 +109,7 @@ public class Vme implements Period<Vme> {
 	@RSGMandatory
 	@RSGOneAmong(VmeCriteria.class)
 	@RSGReferenceConceptLabel(ConceptData.NAME)
-	@RSGReferenceConceptFilter({ ConceptData.ID, ConceptData.NAME })
+	@RSGReferenceConceptValue(ConceptData.ID)
 	private String criteria;
 
 	private String inventoryIdentifier;

@@ -12,7 +12,6 @@
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-interface-dto</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
@@ -32,5 +31,10 @@
 			<version>0.9.9-RC1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

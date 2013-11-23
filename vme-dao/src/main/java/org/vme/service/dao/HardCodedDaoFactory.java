@@ -8,7 +8,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.vme.service.dao.impl.hardcoded.ObservationHarcodedDao;
-import org.vme.service.dao.impl.hardcoded.ReferenceHarcodedDao;
+import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
 
 /**
  * @author SIBENI
@@ -19,14 +19,14 @@ import org.vme.service.dao.impl.hardcoded.ReferenceHarcodedDao;
 public class HardCodedDaoFactory implements DAOFactory {
 
 	@Inject
-	private ReferenceHarcodedDao referenceDAO;
+	private ReferenceHardcodedDao referenceDAO;
 	
 	@Inject
 	private ObservationHarcodedDao observationDAO;
 	
 	public HardCodedDaoFactory() {
 		super();
-		referenceDAO = new ReferenceHarcodedDao();
+		referenceDAO = new ReferenceHardcodedDao();
 	}
 
 	/* (non-Javadoc)

@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
-import org.gcube.application.rsg.support.compiler.bridge.reference.interfaces.AcronymAwareReferenceConcept;
-import org.gcube.application.rsg.support.compiler.bridge.reference.interfaces.NamedReferenceConcept;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.AcronymAwareReferenceConcept;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.NamedReferenceConcept;
 
 /**
  * 

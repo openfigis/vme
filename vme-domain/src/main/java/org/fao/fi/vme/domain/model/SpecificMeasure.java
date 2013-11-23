@@ -43,7 +43,7 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	@ManyToMany(mappedBy = "specificMeasureList")
 	private List<Vme> vmeList;
 
-	@RSGNested(name="Specific measure information source")
+	@RSGNested(name="Specific measure information source", embedded=true)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private InformationSource informationSource;
 

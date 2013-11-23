@@ -9,9 +9,9 @@ package org.vme.service.dao;
 
 import java.util.List;
 
-import org.gcube.application.rsg.support.compiler.bridge.reference.interfaces.AcronymAwareReferenceConcept;
-import org.gcube.application.rsg.support.compiler.bridge.reference.interfaces.ReferenceConcept;
-import org.gcube.application.rsg.support.compiler.bridge.reference.interfaces.ReferenceConceptProvider;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.AcronymAwareReferenceConcept;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConcept;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
 
 
 

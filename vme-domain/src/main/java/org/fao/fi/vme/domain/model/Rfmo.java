@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 
 /**
@@ -27,6 +28,7 @@ public class Rfmo {
 	/**
 	 * The id comes from RMTS
 	 */
+	@RSGIdentifier
 	@Id
 	private String id;
 

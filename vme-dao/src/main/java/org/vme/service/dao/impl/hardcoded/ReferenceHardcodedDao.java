@@ -5,11 +5,13 @@ package org.vme.service.dao.impl.hardcoded;
 
 import java.util.List;
 
+import javax.enterprise.inject.Alternative;
+
 import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
-import org.gcube.application.rsg.support.compiler.bridge.reference.interfaces.ReferenceConcept;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConcept;
 import org.vme.service.dao.ReferenceServiceException;
 import org.vme.service.dao.impl.AbstractReferenceDAO;
 
@@ -17,10 +19,11 @@ import org.vme.service.dao.impl.AbstractReferenceDAO;
  * @author Fabrizio Sibeni
  * 
  */
-public class ReferenceHarcodedDao extends AbstractReferenceDAO {
+@Alternative
+public class ReferenceHardcodedDao extends AbstractReferenceDAO {
 	private ReferenceHardcodedDaoHelper helper;
 
-	public ReferenceHarcodedDao() {
+	public ReferenceHardcodedDao() {
 		super();
 		helper = new ReferenceHardcodedDaoHelper();
 	}
