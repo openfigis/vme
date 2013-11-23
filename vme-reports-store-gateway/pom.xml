@@ -22,7 +22,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.vme</groupId>
-			<artifactId>vme-domain</artifactId>
+			<artifactId>vme-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
@@ -30,11 +30,23 @@
 			<artifactId>reflections</artifactId>
 			<version>0.9.9-RC1</version>
 		</dependency>
-
 		<dependency>
-			<groupId>org.vme</groupId>
-			<artifactId>vme-service</artifactId>
+			<groupId>reports-store-gateway-test</groupId>
+			<artifactId>reports-store-gateway-test</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.weld.se</groupId>
+			<artifactId>weld-se</artifactId>
+			<version>2.0.4.Final</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jglue.cdi-unit</groupId>
+			<artifactId>cdi-unit</artifactId>
+			<version>2.1.1</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

@@ -3,6 +3,7 @@ package org.fao.fi.vme.rsg.service;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 
 import org.gcube.application.rsg.service.RsgService;
@@ -26,12 +27,13 @@ import org.vme.service.dao.sources.vme.VmeDao;
  * @author Erik van Ingen
  * 
  */
+
 public class RsgServiceImplVme implements RsgService {
 	final static private Logger LOG = LoggerFactory.getLogger(RsgServiceImplVme.class);
 	
 	private Reflections _reflections = new Reflections("org.fao.fi.vme.domain");
 	
-	@Inject @Compiler private ReportCompiler _templateCompiler;
+	@Inject @Compiler private ReportCompiler _compiler;
 	
 	@Inject VmeDao vmeDao;
 
@@ -78,7 +80,7 @@ public class RsgServiceImplVme implements RsgService {
 		Class<?> identifiedReport = this.findReport(RSGReport.class, reportType);
 			
 		try {
-			return this._templateCompiler.compileReport(identifiedReport.newInstance());
+			return this._compiler.compileReport(identifiedReport.newInstance());
 		} catch (Throwable t) {
 			return null;
 		}
@@ -97,7 +99,7 @@ public class RsgServiceImplVme implements RsgService {
 		}
 		
 		try {
-			return this._templateCompiler.compileReport(identified);
+			return this._compiler.compileReport(identified);
 		} catch (Throwable t) {
 			LOG.info("Unable to compile report of type {} with id {}: {} [ {} ]", new Object[] { reportType.getTypeIdentifier(), reportId, t.getClass().getSimpleName(), t.getMessage() });
 
@@ -121,7 +123,7 @@ public class RsgServiceImplVme implements RsgService {
 		}
 		
 		try {
-			return this._templateCompiler.compileReport(identified);
+			return this._compiler.compileReport(identified);
 		} catch (Throwable t) {
 			LOG.info("Unable to compile ref report of type {} with id {}: {} [ {} ]", new Object[] { refReportType.getTypeIdentifier(), refReportId, t.getClass().getSimpleName(), t.getMessage() });
 
@@ -137,7 +139,7 @@ public class RsgServiceImplVme implements RsgService {
 		Class<?> identifiedReport = this.findReport(RSGReferenceReport.class, refReportType);
 			
 		try {
-			return this._templateCompiler.compileReport(identifiedReport.newInstance());
+			return this._compiler.compileReport(identifiedReport.newInstance());
 		} catch (Throwable t) {
 			return null;
 		}
