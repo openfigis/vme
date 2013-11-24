@@ -17,6 +17,7 @@ import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
@@ -68,11 +69,13 @@ public class InformationSource {
 	private Integer publicationYear;
 
 	@RSGName("Meeting Start Date")
+	@RSGInstructions("Use the YYYY/MM/DD format")
 	@RSGConverter(DateDataConverter.class)
 	@Temporal(TemporalType.DATE)
 	private Date meetingStartDate;
 
 	@RSGName("Meeting End Date")
+	@RSGInstructions("Use the YYYY/MM/DD format")
 	@RSGConverter(DateDataConverter.class)
 	@Temporal(TemporalType.DATE)
 	private Date meetingEndDate;

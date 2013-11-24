@@ -35,6 +35,7 @@
 		<module>vme-service-integrationtest</module>
 		<module>vme-configuration</module>
 		<module>vme-dao</module>
+		<module>vme-reports-store-gateway-test</module>
 	</modules>
 
 	<dependencies>

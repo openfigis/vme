@@ -31,8 +31,32 @@
 			<version>0.9.9-RC1</version>
 		</dependency>
 		<dependency>
+			<groupId>org.gcube.portal</groupId>
+			<artifactId>gcube-reporting-library</artifactId>
+			<version>[3.4.0-SNAPSHOT, 4.0.0-SNAPSHOT)</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.gcube.application</groupId>
+			<artifactId>gcube-reporting-modeler</artifactId>
+			<version>[1.0.0-SNAPSHOT, 2.0.0-SNAPSHOT)</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.gcube.application.rsg</groupId>
+			<artifactId>reports-store-gateway-support-builder</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>reports-store-gateway-test</groupId>
 			<artifactId>reports-store-gateway-test</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-reports-store-gateway-test</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
@@ -46,6 +70,12 @@
 			<groupId>org.jglue.cdi-unit</groupId>
 			<artifactId>cdi-unit</artifactId>
 			<version>2.1.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.5</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

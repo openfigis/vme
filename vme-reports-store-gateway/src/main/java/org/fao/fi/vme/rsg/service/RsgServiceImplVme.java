@@ -3,7 +3,6 @@ package org.fao.fi.vme.rsg.service;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
-import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 
 import org.gcube.application.rsg.service.RsgService;
@@ -14,9 +13,11 @@ import org.gcube.application.rsg.service.dto.response.Response;
 import org.gcube.application.rsg.service.util.RsgServiceUtil;
 import org.gcube.application.rsg.support.compiler.ReportCompiler;
 import org.gcube.application.rsg.support.compiler.annotations.Compiler;
+import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
-import org.gcube.application.rsg.support.model.components.CompiledReport;
+import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
+import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,7 @@ public class RsgServiceImplVme implements RsgService {
 	private Reflections _reflections = new Reflections("org.fao.fi.vme.domain");
 	
 	@Inject @Compiler private ReportCompiler _compiler;
+	@Inject @Evaluator private ReportEvaluator _evaluator;
 	
 	@Inject VmeDao vmeDao;
 
@@ -80,7 +82,7 @@ public class RsgServiceImplVme implements RsgService {
 		Class<?> identifiedReport = this.findReport(RSGReport.class, reportType);
 			
 		try {
-			return this._compiler.compileReport(identifiedReport.newInstance());
+			return this._compiler.compile(identifiedReport);
 		} catch (Throwable t) {
 			return null;
 		}
@@ -99,7 +101,7 @@ public class RsgServiceImplVme implements RsgService {
 		}
 		
 		try {
-			return this._compiler.compileReport(identified);
+			return this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
 		} catch (Throwable t) {
 			LOG.info("Unable to compile report of type {} with id {}: {} [ {} ]", new Object[] { reportType.getTypeIdentifier(), reportId, t.getClass().getSimpleName(), t.getMessage() });
 
@@ -123,7 +125,7 @@ public class RsgServiceImplVme implements RsgService {
 		}
 		
 		try {
-			return this._compiler.compileReport(identified);
+			return this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
 		} catch (Throwable t) {
 			LOG.info("Unable to compile ref report of type {} with id {}: {} [ {} ]", new Object[] { refReportType.getTypeIdentifier(), refReportId, t.getClass().getSimpleName(), t.getMessage() });
 
@@ -139,7 +141,7 @@ public class RsgServiceImplVme implements RsgService {
 		Class<?> identifiedReport = this.findReport(RSGReferenceReport.class, refReportType);
 			
 		try {
-			return this._compiler.compileReport(identifiedReport.newInstance());
+			return this._compiler.compile(identifiedReport);
 		} catch (Throwable t) {
 			return null;
 		}

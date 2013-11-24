@@ -1,0 +1,82 @@
+/**
+ * (c) 2013 FAO / UN (project: reports-store-gateway-test)
+ */
+package org.vme.test.mock;
+
+import java.util.ArrayList;
+
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.Vme;
+
+/**
+ * Place your class / interface description here.
+ *
+ * History:
+ *
+ * ------------- --------------- -----------------------
+ * Date			 Author			 Comment
+ * ------------- --------------- -----------------------
+ * 24/nov/2013   Fabio     Creation.
+ *
+ * @version 1.0
+ * @since 24/nov/2013
+ */
+public class VmeMocker extends AbstractMocker {
+	static private Vme addSpecificMeasure(Vme vme, SpecificMeasure toAdd) {
+		if(vme.getSpecificMeasureList() == null)
+			vme.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
+		
+		vme.getSpecificMeasureList().add(toAdd);
+		
+		return vme;
+	}
+	
+	static public Vme getMock1() throws Throwable {
+		Vme vme = new Vme();
+		vme.setId(1L);
+		
+		vme.setName(MLSu.english("Foobazzi mountain"));
+		vme.setValidityPeriod(ValidityPeriodMocker.mockNotStarted1());
+		
+		addSpecificMeasure(vme, SpecificMeasureMocker.getMock1());
+		addSpecificMeasure(vme, SpecificMeasureMocker.getMock2());
+		
+		vme.setCriteria("20");
+		vme.setAreaType("10");
+		
+		return vme;
+	}
+	
+	static public Vme getMock2() throws Throwable {
+		Vme vme = new Vme();
+		vme.setId(2L);
+		
+		vme.setName(MLSu.english("Barfoozzi hill"));
+		vme.setValidityPeriod(ValidityPeriodMocker.mockInterval1());
+		
+		addSpecificMeasure(vme, SpecificMeasureMocker.getMock3());
+		addSpecificMeasure(vme, SpecificMeasureMocker.getMock1());
+		
+		vme.setCriteria("30");
+		vme.setAreaType("20");
+		
+		return vme;
+	}
+	
+	static public Vme getMock3() throws Throwable {
+		Vme vme = new Vme();
+		vme.setId(3L);
+		
+		vme.setName(MLSu.english("Bazfoorri plateau"));
+		vme.setValidityPeriod(ValidityPeriodMocker.mockInterval2());
+		
+		addSpecificMeasure(vme, SpecificMeasureMocker.getMock2());
+		addSpecificMeasure(vme, SpecificMeasureMocker.getMock3());
+		addSpecificMeasure(vme, SpecificMeasureMocker.getMock1());
+		
+		vme.setCriteria("10");
+		vme.setAreaType("10");
+		
+		return vme;
+	}
+}
