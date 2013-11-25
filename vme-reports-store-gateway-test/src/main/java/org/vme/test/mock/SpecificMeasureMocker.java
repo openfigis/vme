@@ -25,6 +25,7 @@ public class SpecificMeasureMocker extends AbstractMocker {
 		sm.setInformationSource(InformationSourceMocker.getMock2());
 		sm.setVmeSpecificMeasure(MLSu.english("Usque tandem"));
 		sm.setYear(2004);
+		sm.setValidityPeriod(ValidityPeriodMocker.build(1956, 1980));
 		
 		return sm;
 	}
@@ -35,6 +36,7 @@ public class SpecificMeasureMocker extends AbstractMocker {
 		sm.setInformationSource(InformationSourceMocker.getMock1());
 		sm.setVmeSpecificMeasure(MLSu.english("Abutere Catilina patientiae nostram"));
 		sm.setYear(2006);
+		sm.setValidityPeriod(ValidityPeriodMocker.build(2003, 2013));
 		
 		return sm;
 	}

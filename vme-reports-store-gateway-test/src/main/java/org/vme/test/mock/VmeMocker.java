@@ -5,6 +5,7 @@ package org.vme.test.mock;
 
 import java.util.ArrayList;
 
+import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 
@@ -31,6 +32,15 @@ public class VmeMocker extends AbstractMocker {
 		return vme;
 	}
 	
+	static private Vme addProfile(Vme vme, Profile toAdd) {
+		if(vme.getProfileList() == null)
+			vme.setProfileList(new ArrayList<Profile>());
+		
+		vme.getProfileList().add(toAdd);
+		
+		return vme;
+	}
+	
 	static public Vme getMock1() throws Throwable {
 		Vme vme = new Vme();
 		vme.setId(1L);
@@ -40,6 +50,9 @@ public class VmeMocker extends AbstractMocker {
 		
 		addSpecificMeasure(vme, SpecificMeasureMocker.getMock1());
 		addSpecificMeasure(vme, SpecificMeasureMocker.getMock2());
+		
+		addProfile(vme, ProfileMocker.getMock1());
+		addProfile(vme, ProfileMocker.getMock2());
 		
 		vme.setCriteria("20");
 		vme.setAreaType("10");
@@ -57,6 +70,9 @@ public class VmeMocker extends AbstractMocker {
 		addSpecificMeasure(vme, SpecificMeasureMocker.getMock3());
 		addSpecificMeasure(vme, SpecificMeasureMocker.getMock1());
 		
+		addProfile(vme, ProfileMocker.getMock2());
+		addProfile(vme, ProfileMocker.getMock1());
+		
 		vme.setCriteria("30");
 		vme.setAreaType("20");
 		
@@ -73,6 +89,8 @@ public class VmeMocker extends AbstractMocker {
 		addSpecificMeasure(vme, SpecificMeasureMocker.getMock2());
 		addSpecificMeasure(vme, SpecificMeasureMocker.getMock3());
 		addSpecificMeasure(vme, SpecificMeasureMocker.getMock1());
+		
+		addProfile(vme, ProfileMocker.getMock2());
 		
 		vme.setCriteria("10");
 		vme.setAreaType("10");
