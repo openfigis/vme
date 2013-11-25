@@ -45,6 +45,8 @@ public class VmeMocker extends AbstractMocker {
 		Vme vme = new Vme();
 		vme.setId(1L);
 		
+		vme.setRfmo(RfmoMocker.getMock3());
+		
 		vme.setName(MLSu.english("Foobazzi mountain"));
 		vme.setValidityPeriod(ValidityPeriodMocker.mockNotStarted1());
 		
@@ -64,6 +66,8 @@ public class VmeMocker extends AbstractMocker {
 		Vme vme = new Vme();
 		vme.setId(2L);
 		
+		vme.setRfmo(RfmoMocker.getMock1());
+
 		vme.setName(MLSu.english("Barfoozzi hill"));
 		vme.setValidityPeriod(ValidityPeriodMocker.mockInterval1());
 		
@@ -83,6 +87,8 @@ public class VmeMocker extends AbstractMocker {
 		Vme vme = new Vme();
 		vme.setId(3L);
 		
+		vme.setRfmo(RfmoMocker.getMock2());
+
 		vme.setName(MLSu.english("Bazfoorri plateau"));
 		vme.setValidityPeriod(ValidityPeriodMocker.mockInterval2());
 		
