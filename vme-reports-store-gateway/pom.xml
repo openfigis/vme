@@ -58,7 +58,6 @@
 			<groupId>org.vme</groupId>
 			<artifactId>vme-reports-store-gateway-test</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>
