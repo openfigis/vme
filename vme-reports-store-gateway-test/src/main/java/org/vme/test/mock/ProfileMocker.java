@@ -22,6 +22,7 @@ public class ProfileMocker extends AbstractMocker {
 	static public Profile getMock1() {
 		Profile profile = new Profile();
 		profile.setId(1L);
+		profile.setYear(1998);
 		
 		profile.setDescriptionImpact(MLSu.english("Carpe diem"));
 		profile.setDescriptionPhisical(MLSu.english("Retro se recepit"));
@@ -32,6 +33,7 @@ public class ProfileMocker extends AbstractMocker {
 	static public Profile getMock2() {
 		Profile profile = new Profile();
 		profile.setId(2L);
+		profile.setYear(2008);
 		
 		profile.setDescriptionImpact(MLSu.english("Da mi basia mille deinde centum"));
 		profile.setDescriptionPhisical(MLSu.english("Tytire tu patulae, recubans sub tegmine fagi"));
