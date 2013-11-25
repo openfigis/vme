@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
-	<alternatives>
+	<!-- <alternatives>
 		<class>org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator</class>
 		<class>org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler</class>
 		<class>org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao</class>
 		<class>org.gcube.application.rsg.support.builder.impl.ReportManagerReportBuilder</class>
-	</alternatives>
+	</alternatives> -->
 </beans>
