@@ -3,6 +3,7 @@ package org.fao.fi.vme.msaccess.formatter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.fao.fi.vme.VmeException;
 
@@ -44,7 +45,7 @@ public class MeetingDateParser {
 			endDate = correctDayNumber(values[1]) + months[1] + values[2];
 		}
 
-		SimpleDateFormat sf = new SimpleDateFormat("ddMMMyyyy");
+		SimpleDateFormat sf = new SimpleDateFormat("ddMMMyyyy", Locale.ENGLISH);
 		try {
 			this.start = sf.parse(startDate);
 			this.end = sf.parse(endDate);
