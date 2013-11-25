@@ -96,11 +96,14 @@ public class PeriodGrouping {
 	private void defineCurrentAndPastSources(int disseminationYear, DisseminationYearSlice slice,
 			List<InformationSource> informationSourceList) {
 		List<InformationSource> appropriateList = new ArrayList<InformationSource>();
-		for (InformationSource informationSource : informationSourceList) {
-			if (informationSource.getPublicationYear() <= disseminationYear) {
-				appropriateList.add(informationSource);
+		
+		if(informationSourceList != null)
+			for (InformationSource informationSource : informationSourceList) {
+				if (informationSource.getPublicationYear() == null || informationSource.getPublicationYear() <= disseminationYear) {
+					
+					appropriateList.add(informationSource);
+				}
 			}
-		}
 		slice.setInformationSourceList(appropriateList);
 	}
 

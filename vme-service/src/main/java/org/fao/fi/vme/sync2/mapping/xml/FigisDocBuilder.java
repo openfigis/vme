@@ -619,7 +619,7 @@ public class FigisDocBuilder {
 
 			// Created
 			// publicationYear fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
-			if (infoSource.getPublicationYear() > 0) {
+			if (infoSource.getPublicationYear() != null && infoSource.getPublicationYear() > 0) {
 				Created created = new Created();
 				created.setContent(Integer.toString(infoSource.getPublicationYear()));
 				biblioEntry.getContent().add(created);
