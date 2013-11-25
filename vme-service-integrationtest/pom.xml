@@ -6,9 +6,9 @@
 		<artifactId>vme</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	
 
-	
+
+
 	<artifactId>vme-service-integrationtest</artifactId>
 	<dependencies>
 
@@ -19,11 +19,18 @@
 		</dependency>
 
 
-<!-- slf4j-log4j -->
+		<!-- slf4j-log4j -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>13.0.1</version>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>

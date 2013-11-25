@@ -1,7 +1,7 @@
 /**
  * (c) 2013 FAO / UN (project: reports-store-gateway-factory)
  */
-package org.fao.fi.vme.rsg.builder.test;
+package org.fao.fi.vme.rsg.test.builder;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +15,7 @@ import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.fao.fi.vme.rsg.test.AbstractTest;
 import org.gcube.application.reporting.ReportsModeler;
 import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.rsg.support.builder.ReportBuilder;
@@ -59,7 +60,7 @@ import com.thoughtworks.xstream.XStream;
 						 AnnotationBasedReportCompiler.class,
 						 ReportManagerReportBuilder.class,
 						 JEXLReportEvaluator.class })
-public class ReportManagerReportBuilderTest {
+public class ReportManagerReportBuilderTest extends AbstractTest {
 	@Inject @Builder private ReportBuilder<ReportsModeler> _reportBuilder;
 	@Inject @Compiler private ReportCompiler _reportCompiler;
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;

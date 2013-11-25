@@ -1,25 +1,27 @@
 /**
- * (c) 2013 FAO / UN (project: reports-store-gateway-support-compiler)
+ * (c) 2013 FAO / UN (project: vme-reports-store-gateway)
  */
-package org.fao.fi.vme.rsg.compiler.test;
+package org.fao.fi.vme.rsg.test.compiler;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.rsg.test.AbstractTest;
 import org.gcube.application.rsg.support.compiler.ReportCompiler;
 import org.gcube.application.rsg.support.compiler.annotations.Compiler;
-import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
-import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
+import org.gcube.application.rsg.support.compiler.utils.CompiledReportUtils;
+import org.gcube.application.rsg.support.compiler.utils.ScanningUtils;
 import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
-import org.vme.test.mock.VmeMocker;
 
 /**
  * Place your class / interface description here.
@@ -38,28 +40,27 @@ import org.vme.test.mock.VmeMocker;
 @ActivatedAlternatives({ ReferenceHardcodedDao.class, 
 						 AnnotationBasedReportCompiler.class,
 						 JEXLReportEvaluator.class })
-public class ReportEvaluatorTest {
+public class AnnotationBasedReportCompilerTest extends AbstractTest {
 	@Inject @Compiler private ReportCompiler _reportCompiler;
-	@Inject @Evaluator private ReportEvaluator _reportEvaluator;
 	
-	@Test
-	public void testMocked1() throws Throwable {
-		this.doSimpleTest(VmeMocker.getMock1());
+	@BeforeClass 
+	static public void initializeTest() {
+		ScanningUtils.registerPrimitiveType(MultiLingualString.class);
 	}
 	
 	@Test
-	public void testMocked2() throws Throwable {
-		this.doSimpleTest(VmeMocker.getMock2());
-	}
-	
-	@Test
-	public void testMocked3() throws Throwable {
-		this.doSimpleTest(VmeMocker.getMock3());
-	}
-	
-	private void doSimpleTest(Vme vme) throws Throwable {
-		CompiledReport evaluated = this._reportEvaluator.evaluate(this._reportCompiler.compile(Vme.class), vme);
+	public void testCompileReport() throws Throwable {
+		CompiledReport template = this._reportCompiler.compile(Vme.class);
+
+		String xml = CompiledReportUtils.toXML(template); 
 		
-		Assert.assertTrue(evaluated.getIsEvaluated());
+		CompiledReport nTemplate = (CompiledReport)CompiledReportUtils.fromXML(xml);
+		
+		String nXml = CompiledReportUtils.toXML(nTemplate);
+		
+		Assert.assertEquals(xml, nXml);
+		Assert.assertEquals(template, nTemplate);
+		
+		System.out.println(xml);
 	}
 }

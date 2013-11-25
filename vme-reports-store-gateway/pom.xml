@@ -29,7 +29,7 @@
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
 			<version>0.9.9-RC1</version>
-		</dependency>
+		</dependency>	
 		<dependency>
 			<groupId>org.gcube.portal</groupId>
 			<artifactId>gcube-reporting-library</artifactId>

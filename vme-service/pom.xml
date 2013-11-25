@@ -14,12 +14,6 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.fluttercode.datafactory</groupId>
-			<artifactId>datafactory</artifactId>
-			<version>0.8</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>fimes-vme-jaxb</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
@@ -29,9 +23,17 @@
 			<artifactId>vme-dao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.fluttercode.datafactory</groupId>
+			<artifactId>datafactory</artifactId>
+			<version>0.8</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>13.0.1</version>
+			<scope>test</scope>
+		</dependency>		
 	</dependencies>
-
-
-
-
 </project>

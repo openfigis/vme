@@ -17,17 +17,15 @@ import org.fao.fi.vme.domain.interfaces.Period;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGEmbed;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGNested;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGOneAmong;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGReferenceConceptFilter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGReferenceConceptLabel;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGReferenceConceptValue;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
-import org.gcube.application.rsg.support.compiler.bridge.interfaces.common.UniquelyIdentifiable;
 
 /**
  * 
@@ -35,7 +33,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.common.Uniqu
  * 
  */
 @Entity
-@RSGReport(name="VME")
+@RSGReport(name="Vulnerable Marine Ecosystem Data")
 @RSGInstructions("FAO VME TEST Input form")
 public class Vme implements Period<Vme> {
 
@@ -47,7 +45,7 @@ public class Vme implements Period<Vme> {
 	 * This VME is managed by this Rfmo
 	 */
 	@ManyToOne(fetch = FetchType.EAGER)
-	@RSGNested(name="Competent Authority")
+	@RSGName("Competent Authority")
 	private Rfmo rfmo;
 
 	/*
@@ -72,7 +70,8 @@ public class Vme implements Period<Vme> {
 	 * 
 	 * 
 	 */
-	@RSGNested(name="Validity Period", embedded=true)
+	@RSGName("Validity Period")
+	@RSGEmbed
 	private ValidityPeriod validityPeriod;
 
 	/**
@@ -326,5 +325,4 @@ public class Vme implements Period<Vme> {
 		}
 		return true;
 	}
-
 }

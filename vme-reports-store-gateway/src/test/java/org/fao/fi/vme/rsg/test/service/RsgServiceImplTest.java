@@ -1,5 +1,6 @@
-package org.fao.fi.vme.rsg.service;
+package org.fao.fi.vme.rsg.test.service;
 
+import org.fao.fi.vme.rsg.service.RsgServiceImplVme;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
 import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
 import org.gcube.application.rsg.test.RsgAbstractServiceTest;
