@@ -15,6 +15,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGC
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 
 /**
  * The features of a VME, defined in a certain year.
@@ -37,6 +38,7 @@ public class Profile implements Year<Profile> {
 	 */
 	@RSGName("Year")
 	@RSGMandatory
+	@RSGConverter(IntegerDataConverter.class)
 	private Integer year;
 
 	@ManyToOne
