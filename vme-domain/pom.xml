@@ -12,9 +12,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
-			<artifactId>
-				reports-store-gateway-support-compiler-bridge
-			</artifactId>
+			<artifactId>reports-store-gateway-support-compiler-bridge</artifactId>
 			<version>[0.0.2-SNAPSHOT,]</version>
 		</dependency>
 	</dependencies>

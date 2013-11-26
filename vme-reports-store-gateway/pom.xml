@@ -15,9 +15,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
-			<artifactId>
-				reports-store-gateway-support-compiler
-			</artifactId>
+			<artifactId>reports-store-gateway-support-compiler</artifactId>
 			<version>[0.0.2-SNAPSHOT,]</version>
 		</dependency>
 		<dependency>
