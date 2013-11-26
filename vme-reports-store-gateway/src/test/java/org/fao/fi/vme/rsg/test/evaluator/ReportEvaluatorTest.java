@@ -5,8 +5,9 @@ package org.fao.fi.vme.rsg.test.evaluator;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.rsg.test.AbstractTest;
+import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
 import org.gcube.application.rsg.support.compiler.ReportCompiler;
 import org.gcube.application.rsg.support.compiler.annotations.Compiler;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
@@ -39,8 +40,7 @@ import org.vme.test.mock.VmeMocker;
 @ActivatedAlternatives({ ReferenceHardcodedDao.class, 
 						 AnnotationBasedReportCompiler.class,
 						 JEXLReportEvaluator.class })
-public class ReportEvaluatorTest extends AbstractTest {
-	@Inject @Compiler private ReportCompiler _reportCompiler;
+public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;
 	
 	@Test

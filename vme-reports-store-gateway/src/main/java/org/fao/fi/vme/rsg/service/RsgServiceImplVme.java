@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.domain.model.MultiLingualString;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.gcube.application.rsg.service.RsgService;
 import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
@@ -17,7 +17,6 @@ import org.gcube.application.rsg.support.compiler.annotations.Compiler;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
-import org.gcube.application.rsg.support.compiler.utils.ScanningUtils;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
 import org.reflections.Reflections;
@@ -32,7 +31,7 @@ import org.vme.service.dao.sources.vme.VmeDao;
  */
 public class RsgServiceImplVme implements RsgService {
 	final static private Logger LOG = LoggerFactory.getLogger(RsgServiceImplVme.class);
-	
+
 	private Reflections _reflections = new Reflections("org.fao.fi.vme.domain");
 	
 	@Inject @Compiler private ReportCompiler _compiler;
@@ -43,7 +42,8 @@ public class RsgServiceImplVme implements RsgService {
 	protected RsgServiceUtil u = new RsgServiceUtil();
 
 	public RsgServiceImplVme() {
-		ScanningUtils.registerPrimitiveType(MultiLingualString.class);
+		if(this._compiler != null)
+			this._compiler.registerPrimitiveType(MultiLingualStringUtil.class);
 	}
 	
 	private Class<?> findReport(Class<? extends Annotation> marker, ReportType reportType) {

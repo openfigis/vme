@@ -11,11 +11,12 @@ import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
-import org.fao.fi.vme.rsg.test.AbstractTest;
+import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
 import org.gcube.application.reporting.ReportsModeler;
 import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.rsg.support.builder.ReportBuilder;
@@ -60,9 +61,8 @@ import com.thoughtworks.xstream.XStream;
 						 AnnotationBasedReportCompiler.class,
 						 ReportManagerReportBuilder.class,
 						 JEXLReportEvaluator.class })
-public class ReportManagerReportBuilderTest extends AbstractTest {
+public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTest {
 	@Inject @Builder private ReportBuilder<ReportsModeler> _reportBuilder;
-	@Inject @Compiler private ReportCompiler _reportCompiler;
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;
 	
 	@Test

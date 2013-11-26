@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.rsg.test.AbstractTest;
+import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
 import org.gcube.application.rsg.support.compiler.ReportCompiler;
 import org.gcube.application.rsg.support.compiler.annotations.Compiler;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
@@ -40,14 +40,7 @@ import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
 @ActivatedAlternatives({ ReferenceHardcodedDao.class, 
 						 AnnotationBasedReportCompiler.class,
 						 JEXLReportEvaluator.class })
-public class AnnotationBasedReportCompilerTest extends AbstractTest {
-	@Inject @Compiler private ReportCompiler _reportCompiler;
-	
-	@BeforeClass 
-	static public void initializeTest() {
-		ScanningUtils.registerPrimitiveType(MultiLingualString.class);
-	}
-	
+public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependentTest {
 	@Test
 	public void testCompileReport() throws Throwable {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
