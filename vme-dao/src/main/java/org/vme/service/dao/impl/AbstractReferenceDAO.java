@@ -104,4 +104,13 @@ abstract public class AbstractReferenceDAO implements ReferenceDAO {
 			throw new ReferenceServiceException(t);
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider#getReferenceByID(java.lang.Class, java.io.Serializable)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	final public <R extends ReferenceConcept> R getReferenceByID(Class<R> concept, Long id) throws Throwable {
+		return (R)this.getReference(concept, id);
+	}
 }

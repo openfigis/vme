@@ -23,9 +23,8 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGI
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGOneAmong;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGReferenceConceptLabel;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGReferenceConceptValue;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.StringDataConverter;
 
 /**
  * 
@@ -90,9 +89,8 @@ public class Vme implements Period<Vme> {
 
 	@RSGName("Area Type")
 	@RSGMandatory
-	@RSGOneAmong(VmeType.class)
-	@RSGReferenceConceptLabel(ConceptData.NAME)
-	@RSGReferenceConceptValue(ConceptData.ID)
+	@RSGOneAmong(concept=VmeType.class, label=ConceptData.NAME)
+	@RSGConverter(StringDataConverter.class)
 	private String areaType;
 
 	/**
@@ -106,9 +104,8 @@ public class Vme implements Period<Vme> {
 	 */
 	@RSGName("Criteria")
 	@RSGMandatory
-	@RSGOneAmong(VmeCriteria.class)
-	@RSGReferenceConceptLabel(ConceptData.NAME)
-	@RSGReferenceConceptValue(ConceptData.ID)
+	@RSGOneAmong(concept=VmeCriteria.class, label=ConceptData.NAME)
+	@RSGConverter(StringDataConverter.class)
 	private String criteria;
 
 	private String inventoryIdentifier;

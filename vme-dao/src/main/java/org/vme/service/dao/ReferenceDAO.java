@@ -16,7 +16,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Re
 
 
 
-public interface ReferenceDAO extends ReferenceConceptProvider {
+public interface ReferenceDAO extends ReferenceConceptProvider<Long> {
 	/**
 	 * Return all the defined reference classes.
 	 * @return the existing ReferenceConcepts if any, an empty list otherwise

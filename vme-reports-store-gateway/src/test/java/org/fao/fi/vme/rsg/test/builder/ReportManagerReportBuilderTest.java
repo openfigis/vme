@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
-import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
@@ -22,8 +21,6 @@ import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.rsg.support.builder.ReportBuilder;
 import org.gcube.application.rsg.support.builder.annotations.Builder;
 import org.gcube.application.rsg.support.builder.impl.ReportManagerReportBuilder;
-import org.gcube.application.rsg.support.compiler.ReportCompiler;
-import org.gcube.application.rsg.support.compiler.annotations.Compiler;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
 import org.gcube.application.rsg.support.compiler.utils.CompiledReportUtils;

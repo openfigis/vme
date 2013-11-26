@@ -3,22 +3,15 @@
  */
 package org.fao.fi.vme.rsg.test.compiler;
 
-import javax.inject.Inject;
-
-import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
-import org.gcube.application.rsg.support.compiler.ReportCompiler;
-import org.gcube.application.rsg.support.compiler.annotations.Compiler;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
 import org.gcube.application.rsg.support.compiler.utils.CompiledReportUtils;
-import org.gcube.application.rsg.support.compiler.utils.ScanningUtils;
 import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;

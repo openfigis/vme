@@ -3,9 +3,10 @@ package org.fao.fi.vme.rsg.service;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.gcube.application.rsg.service.RsgService;
 import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
@@ -40,10 +41,10 @@ public class RsgServiceImplVme implements RsgService {
 	@Inject VmeDao vmeDao;
 
 	protected RsgServiceUtil u = new RsgServiceUtil();
-
-	public RsgServiceImplVme() {
-		if(this._compiler != null)
-			this._compiler.registerPrimitiveType(MultiLingualStringUtil.class);
+	
+	@PostConstruct
+	private void postConstruct() {
+		this._compiler.registerPrimitiveType(MultiLingualString.class);
 	}
 	
 	private Class<?> findReport(Class<? extends Annotation> marker, ReportType reportType) {
@@ -171,19 +172,16 @@ public class RsgServiceImplVme implements RsgService {
 
 	@Override
 	public Response validateDelta(List<CompiledReport> modelList) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Response publishRef(CompiledReport refModel) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Response validateRef(CompiledReport refModel) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
