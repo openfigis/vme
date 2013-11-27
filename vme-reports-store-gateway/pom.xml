@@ -11,12 +11,12 @@
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-interface-dto</artifactId>
-			<version>[0.0.2-SNAPSHOT,]</version>
+			<version>[0.0.3-SNAPSHOT,]</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-support-compiler</artifactId>
-			<version>[0.0.2-SNAPSHOT,]</version>
+			<version>[0.0.3-SNAPSHOT,]</version>
 		</dependency>
 		<dependency>
 			<groupId>org.vme</groupId>
@@ -43,13 +43,13 @@
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-support-builder</artifactId>
-			<version>[0.0.2-SNAPSHOT,]</version>
+			<version>[0.0.3-SNAPSHOT,]</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>reports-store-gateway-test</groupId>
 			<artifactId>reports-store-gateway-test</artifactId>
-			<version>[0.0.2-SNAPSHOT,]</version>
+			<version>[0.0.3-SNAPSHOT,]</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
