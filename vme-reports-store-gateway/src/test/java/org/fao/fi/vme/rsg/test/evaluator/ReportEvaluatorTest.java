@@ -11,9 +11,12 @@ import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.StringDataConverter;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
+import org.gcube.application.rsg.support.compiler.utils.CompiledReportUtils;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
+import org.gcube.application.rsg.support.model.Bound;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
+import org.gcube.application.rsg.support.model.components.impl.InputComponent;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
@@ -87,5 +90,27 @@ public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 		Assert.assertTrue(report.getIsEvaluated());
 		
 		return (E)this._reportEvaluator.extract(report);
+	}
+	
+	@Test
+	public void testFindBindingsInReport() throws Throwable {
+		CompiledReport template = this._reportCompiler.compile(Vme.class);
+		CompiledReport evaluated = this._reportEvaluator.evaluate(template, VmeMocker.getMock1());
+		
+		Bound found = CompiledReportUtils.find(evaluated, "#.rfmo.informationSourceList[0].publicationYear");
+		
+		Assert.assertNotNull(found);
+		Assert.assertEquals(InputComponent.class, found.getClass());
+
+		found = CompiledReportUtils.find(template, "#.rfmo.informationSourceList[0].publicationYear");
+		Assert.assertNull(found);
+
+		found = CompiledReportUtils.find(evaluated, "#.rfmo.informationSourceList[0].publicationYearZ");
+		Assert.assertNull(found);
+		
+		found = CompiledReportUtils.find(evaluated, "#.rfmo.generalMeasureList[1].informationSourceList[0].publicationYear");
+		
+		Assert.assertNotNull(found);
+		Assert.assertEquals(InputComponent.class, found.getClass());
 	}
 }

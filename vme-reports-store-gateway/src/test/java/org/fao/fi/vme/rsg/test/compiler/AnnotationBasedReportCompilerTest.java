@@ -8,7 +8,9 @@ import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
 import org.gcube.application.rsg.support.compiler.utils.CompiledReportUtils;
 import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
+import org.gcube.application.rsg.support.model.Bound;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
+import org.gcube.application.rsg.support.model.components.impl.InputComponent;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
@@ -48,5 +50,31 @@ public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependent
 		Assert.assertEquals(template, nTemplate);
 		
 		System.out.println(xml);
+	}
+	
+	@Test
+	public void testFindBindingsInTemplate() throws Throwable {
+		CompiledReport template = this._reportCompiler.compile(Vme.class);
+		
+		Bound found = CompiledReportUtils.find(template, "#.rfmo.informationSourceList.publicationYear");
+		
+		Assert.assertNotNull(found);
+		Assert.assertEquals(InputComponent.class, found.getClass());
+		
+		found = CompiledReportUtils.find(template, "#.rfmo.informationSourceList.publicationYearZ");
+		Assert.assertNull(found);
+	}
+	
+	@Test
+	public void testFindBindingsInReport() throws Throwable {
+		CompiledReport template = this._reportCompiler.compile(Vme.class);
+		
+		Bound found = CompiledReportUtils.find(template, "#.rfmo.informationSourceList.publicationYear");
+		
+		Assert.assertNotNull(found);
+		Assert.assertEquals(InputComponent.class, found.getClass());
+		
+		found = CompiledReportUtils.find(template, "#.rfmo.informationSourceList.publicationYearZ");
+		Assert.assertNull(found);
 	}
 }
