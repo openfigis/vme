@@ -40,10 +40,10 @@ import org.vme.test.mock.VmeMocker;
  * @since 24/nov/2013
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ ReferenceHardcodedDao.class, 
-						 AnnotationBasedReportCompiler.class,
+@ActivatedAlternatives({ AnnotationBasedReportCompiler.class,
 						 JEXLReportEvaluator.class })
-@AdditionalClasses({ StringDataConverter.class,
+@AdditionalClasses({ ReferenceHardcodedDao.class, 
+					 StringDataConverter.class,
 					 MultiLingualString.class })
 public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;

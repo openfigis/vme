@@ -29,6 +29,7 @@ import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
 import org.gcube.portlets.d4sreporting.common.shared.Model;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Test;
@@ -54,10 +55,10 @@ import com.thoughtworks.xstream.XStream;
  */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ HardCodedDaoFactory.class, 
-						 ReferenceHardcodedDao.class,
 						 AnnotationBasedReportCompiler.class,
 						 ReportManagerReportBuilder.class,
 						 JEXLReportEvaluator.class })
+@AdditionalClasses({ReferenceHardcodedDao.class})
 public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTest {
 	@Inject @Builder private ReportBuilder<ReportsModeler> _reportBuilder;
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;

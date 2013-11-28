@@ -12,10 +12,9 @@ import org.vme.service.dao.config.vme.VmeDataBaseProducer;
 import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ RsgServiceImplVme.class })
+@AdditionalClasses({ RsgServiceImplVme.class, ReferenceHardcodedDao.class })
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class, 
 						 JEXLReportEvaluator.class,
-						 ReferenceHardcodedDao.class, 
 						 VmeDataBaseProducer.class })
 public class RsgServiceImplTest extends RsgAbstractServiceTest {
 }
