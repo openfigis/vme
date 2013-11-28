@@ -4,14 +4,13 @@
 package org.vme.service.dao;
 
 import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.vme.service.dao.impl.hardcoded.ObservationHarcodedDao;
 import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
 
 /**
- * @author SIBENI
+ * @author Fabrizio Sibeni
  *
  */
 
@@ -26,7 +25,6 @@ public class HardCodedDaoFactory implements DAOFactory {
 	
 	public HardCodedDaoFactory() {
 		super();
-		referenceDAO = new ReferenceHardcodedDao();
 	}
 
 	/* (non-Javadoc)
