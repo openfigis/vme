@@ -63,6 +63,19 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;
 	
 	@Test
+	public void testBuildAndExtractVmeReport() throws Throwable {
+		CompiledReport template = this._reportCompiler.compile(Vme.class);
+		template = this._reportEvaluator.evaluate(template, VmeMocker.getMock1());
+		
+		ReportsModeler modeler = this._reportBuilder.buildReport(template, "id:foo", "name:bar", "author:baz", new Date(), new Date(), "lastEditorId:foobaz");
+
+		CompiledReport extracted = this._reportBuilder.extract(template, modeler);
+		
+		//System.out.println(new XStream().toXML(modeler.getReportInstance()));
+		System.out.println(CompiledReportUtils.toXML(extracted));
+	}
+	
+	@Test
 	public void testBuildVmeTemplate() throws Throwable {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
 
