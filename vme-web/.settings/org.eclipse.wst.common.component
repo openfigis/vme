@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="vme-web">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
@@ -7,13 +8,7 @@
         <dependent-module archiveName="vme-service-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-service/vme-service">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="vme-configuration-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-configuration/vme-configuration">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="vme-domain-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-domain/vme-domain">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="reports-store-gateway-support-compiler-bridge-0.0.3-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/reports-store-gateway-support-compiler-bridge/reports-store-gateway-support-compiler-bridge">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="fimes-vme-jaxb-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-fimes-jaxb/vme-fimes-jaxb">

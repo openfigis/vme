@@ -5,8 +5,6 @@ package org.vme.service.dao.impl.hardcoded;
 
 import java.util.List;
 
-import javax.enterprise.inject.Alternative;
-
 import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
@@ -19,7 +17,7 @@ import org.vme.service.dao.impl.AbstractReferenceDAO;
  * @author Fabrizio Sibeni
  * 
  */
-@Alternative
+
 public class ReferenceHardcodedDao extends AbstractReferenceDAO {
 	private ReferenceHardcodedDaoHelper helper;
 
