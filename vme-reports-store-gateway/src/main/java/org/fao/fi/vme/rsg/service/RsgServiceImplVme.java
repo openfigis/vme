@@ -4,9 +4,12 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.fao.fi.vme.domain.model.MultiLingualString;
+import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.gcube.application.rsg.service.RsgService;
 import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
@@ -18,6 +21,7 @@ import org.gcube.application.rsg.support.compiler.annotations.Compiler;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
+import org.gcube.application.rsg.support.compiler.utils.ScanningUtils;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
 import org.reflections.Reflections;
@@ -26,10 +30,19 @@ import org.slf4j.LoggerFactory;
 import org.vme.service.dao.sources.vme.VmeDao;
 
 /**
- * 
- * @author Erik van Ingen
- * 
+ * Place your class / interface description here.
+ *
+ * History:
+ *
+ * ------------- --------------- -----------------------
+ * Date			 Author			 Comment
+ * ------------- --------------- -----------------------
+ * 28/nov/2013   EVanIngen, FFiorellato     Creation.
+ *
+ * @version 1.0
+ * @since 28/nov/2013
  */
+@Alternative @Singleton
 public class RsgServiceImplVme implements RsgService {
 	final static private Logger LOG = LoggerFactory.getLogger(RsgServiceImplVme.class);
 
@@ -38,6 +51,7 @@ public class RsgServiceImplVme implements RsgService {
 	@Inject @Compiler private ReportCompiler _compiler;
 	@Inject @Evaluator private ReportEvaluator _evaluator;
 	
+//	@Inject VmeAccessDbImport importer;
 	@Inject VmeDao vmeDao;
 
 	protected RsgServiceUtil u = new RsgServiceUtil();
@@ -45,9 +59,14 @@ public class RsgServiceImplVme implements RsgService {
 	@PostConstruct
 	private void postConstruct() {
 		this._compiler.registerPrimitiveType(MultiLingualString.class);
+		
+		//Testing with in-memory database makes little sense if
+		//data are not transferred from the original M$ Access DB into H2...
+		
+//		this.importer.importMsAccessData();
 	}
 	
-	private Class<?> findReport(Class<? extends Annotation> marker, ReportType reportType) {
+	private Class<?> getTemplateOfType(Class<? extends Annotation> marker, ReportType reportType) {
 		for(Class<?> report : this._reflections.getTypesAnnotatedWith(marker))
 			if(report.getSimpleName().equals(reportType.getTypeIdentifier()))
 				return report;
@@ -85,7 +104,7 @@ public class RsgServiceImplVme implements RsgService {
 	 */
 	@Override
 	public CompiledReport getTemplate(ReportType reportType) {
-		Class<?> identifiedReport = this.findReport(RSGReport.class, reportType);
+		Class<?> identifiedReport = this.getTemplateOfType(RSGReport.class, reportType);
 			
 		try {
 			return this._compiler.compile(identifiedReport);
@@ -95,13 +114,18 @@ public class RsgServiceImplVme implements RsgService {
 	}
 	
 	@Override
-	public CompiledReport getReport(ReportType reportType, int reportId) {
-		Class<?> identifiedReport = this.findReport(RSGReport.class, reportType);
+	public CompiledReport getReportById(ReportType reportType, Object reportId) {
+		Class<?> identifiedReport = this.getTemplateOfType(RSGReport.class, reportType);
 			
 		Object identified = null;
 		
 		try {
-			identified = this.vmeDao.getByID(this.vmeDao.getEm(), identifiedReport, reportId);
+			Class<?> idType = ScanningUtils.getUniqueIdentifier(identifiedReport).getType();
+			
+			if(Integer.class.equals(idType) || Long.class.equals(idType))
+				reportId = Long.valueOf(reportId.toString());
+
+			identified = this.vmeDao.getEntityById(this.vmeDao.getEm(), identifiedReport, reportId);
 		} catch(Throwable t) {
 			LOG.error("Unable to get entity of type {} with id {}", reportType.getTypeIdentifier(), reportId);
 		}
@@ -125,13 +149,18 @@ public class RsgServiceImplVme implements RsgService {
 	 * @see org.gcube.application.rsg.service.RsgService#getRefReport(org.gcube.application.rsg.service.dto.ReportType, int)
 	 */
 	@Override
-	public CompiledReport getRefReport(ReportType refReportType, int refReportId) {
-		Class<?> identifiedReport = this.findReport(RSGReferenceReport.class, refReportType);
+	public CompiledReport getReferenceReportById(ReportType refReportType, Object refReportId) {
+		Class<?> identifiedReport = this.getTemplateOfType(RSGReferenceReport.class, refReportType);
 			
 		Object identified = null;
 		
 		try {
-			identified = this.vmeDao.getByID(this.vmeDao.getEm(), identifiedReport, refReportId);
+			Class<?> idType = ScanningUtils.getUniqueIdentifier(identifiedReport).getType();
+			
+			if(Integer.class.equals(idType) || Long.class.equals(idType))
+				refReportId = Long.valueOf(refReportId.toString());
+
+			identified = this.vmeDao.getEntityById(this.vmeDao.getEm(), identifiedReport, refReportId);
 		} catch(Throwable t) {
 			LOG.error("Unable to get entity of type {} with id {}", refReportType.getTypeIdentifier(), refReportId);
 		}
@@ -150,13 +179,15 @@ public class RsgServiceImplVme implements RsgService {
 			return null;
 		}
 	}
+	
+	
 
 	/* (non-Javadoc)
 	 * @see org.gcube.application.rsg.service.RsgService#getRefTemplate(org.gcube.application.rsg.service.dto.ReportType)
 	 */
 	@Override
 	public CompiledReport getRefTemplate(ReportType refReportType) {
-		Class<?> identifiedReport = this.findReport(RSGReferenceReport.class, refReportType);
+		Class<?> identifiedReport = this.getTemplateOfType(RSGReferenceReport.class, refReportType);
 			
 		try {
 			return this._compiler.compile(identifiedReport);

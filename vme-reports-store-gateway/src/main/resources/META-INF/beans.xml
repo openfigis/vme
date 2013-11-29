@@ -4,7 +4,8 @@
 	<alternatives>
 		<class>org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator</class>
 		<class>org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler</class>
-		<class>org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao</class>
 		<class>org.gcube.application.rsg.support.builder.impl.ReportManagerReportBuilder</class>
+		<!-- <class>org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao</class> -->
+		<class>org.fao.fi.vme.rsg.service.RsgServiceImplVme</class>
 	</alternatives>
 </beans>
