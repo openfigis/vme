@@ -11,8 +11,8 @@ import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
-import org.vme.service.dao.Dao;
 import org.vme.service.dao.config.vme.VmeDB;
+import org.vme.service.dao.impl.AbstractJPADao;
 
 /**
  * * The dao in order to dconnect to the vme database. Connection details to be found in
@@ -21,7 +21,7 @@ import org.vme.service.dao.config.vme.VmeDB;
  * @author Erik van Ingen
  * 
  */
-public class VmeDao extends Dao {
+public class VmeDao extends AbstractJPADao {
 
 	@Inject
 	@VmeDB
@@ -31,7 +31,6 @@ public class VmeDao extends Dao {
 		return em;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Vme> loadVmes() {
 
 		return (List<Vme>) this.generateTypedQuery(em, Vme.class).getResultList();

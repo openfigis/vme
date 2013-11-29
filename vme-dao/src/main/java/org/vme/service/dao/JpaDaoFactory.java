@@ -8,6 +8,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
 import org.vme.service.dao.config.vme.VmeDB;
 import org.vme.service.dao.impl.jpa.ObservationJpaDao;
 import org.vme.service.dao.impl.jpa.ReferenceJpaDao;
@@ -39,6 +40,14 @@ public class JpaDaoFactory implements DAOFactory {
 	
 	public JpaDaoFactory() {
 		
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.vme.service.dao.DAOFactory#getReferenceConceptProvider()
+	 */
+	@Override
+	@Produces public ReferenceConceptProvider<Long> getReferenceConceptProvider() {
+		return this.getReferenceDAO();
 	}
 
 	/* (non-Javadoc)
