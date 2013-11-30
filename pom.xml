@@ -19,12 +19,14 @@
 			<name>artifactory.fao.org-releases</name>
 			<url>http://artifactory.fao.org/artifactory/ext-release-local</url>
 		</repository>
-       <repository>
-           <id>gcube-snapshots</id>
-           <snapshots><enabled>true</enabled></snapshots>
-           <url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-snapshots</url>
-       </repository>
-    </repositories>
+		<repository>
+			<id>gcube-snapshots</id>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-snapshots</url>
+		</repository>
+	</repositories>
 
 	<modules>
 		<module>figis-domain</module>
@@ -35,7 +37,9 @@
 		<module>vme-service-integrationtest</module>
 		<module>vme-configuration</module>
 		<module>vme-dao</module>
+		<module>vme-reports-store-gateway</module>
 		<module>vme-reports-store-gateway-test</module>
+		<module>vme-reports-store-gateway-web</module>
 	</modules>
 
 	<dependencies>

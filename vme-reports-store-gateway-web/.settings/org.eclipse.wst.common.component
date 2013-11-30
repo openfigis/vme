@@ -22,9 +22,6 @@
         <dependent-module archiveName="reports-store-gateway-support-builder-0.0.3-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/reports-store-gateway-support-builder/reports-store-gateway-support-builder">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="gcube-reporting-modeler-1.1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/gcube-reporting-modeler/gcube-reporting-modeler">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="vme-reports-store-gateway-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-reports-store-gateway/vme-reports-store-gateway">
             <dependency-type>uses</dependency-type>
         </dependent-module>
