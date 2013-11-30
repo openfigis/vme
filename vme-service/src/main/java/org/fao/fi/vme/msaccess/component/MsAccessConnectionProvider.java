@@ -1,5 +1,6 @@
 package org.fao.fi.vme.msaccess.component;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class MsAccessConnectionProvider {
 
 	//String dbLocation = "../vme-service-integrationtest/src/test/resources/VME_DBTest-FC.accdb";
 	
-	public static String dbLocation = "../vme-service-integrationtest/src/test/resources/VME_DB_production.accdb";
+	public static String dbLocation = ( System.getProperty("access.base.dir") == null ? "" : System.getProperty("access.base.dir") ) + "../vme-service-integrationtest/src/test/resources/VME_DB_production.accdb";
 
 	public MsAccessConnectionProvider() {
 		try {

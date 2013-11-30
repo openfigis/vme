@@ -8,6 +8,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
 import org.vme.service.dao.config.vme.VmeDB;
 import org.vme.service.dao.impl.jpa.ObservationJpaDao;
@@ -19,7 +20,6 @@ import org.vme.service.dao.sources.figis.FigisDao;
  * @author Fabrizio Sibeni
  *
  */
-
 @Alternative
 public class JpaDaoFactory implements DAOFactory {
 
@@ -46,7 +46,7 @@ public class JpaDaoFactory implements DAOFactory {
 	 * @see org.vme.service.dao.DAOFactory#getReferenceConceptProvider()
 	 */
 	@Override
-	@Produces public ReferenceConceptProvider<Long> getReferenceConceptProvider() {
+	@Produces @ConceptProvider public ReferenceConceptProvider<Long> getReferenceConceptProvider() {
 		return this.getReferenceDAO();
 	}
 

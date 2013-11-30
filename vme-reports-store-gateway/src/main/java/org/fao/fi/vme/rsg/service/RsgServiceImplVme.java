@@ -1,21 +1,37 @@
 package org.fao.fi.vme.rsg.service;
 
+import java.io.File;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
+import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.MultiLingualString;
+import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.VmeAccessDbImport;
+import org.gcube.application.reporting.ReportsModeler;
+import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.rsg.service.RsgService;
 import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
 import org.gcube.application.rsg.service.dto.ReportType;
 import org.gcube.application.rsg.service.dto.response.Response;
 import org.gcube.application.rsg.service.util.RsgServiceUtil;
+import org.gcube.application.rsg.support.builder.ReportBuilder;
+import org.gcube.application.rsg.support.builder.annotations.Builder;
 import org.gcube.application.rsg.support.compiler.ReportCompiler;
 import org.gcube.application.rsg.support.compiler.annotations.Compiler;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
@@ -42,28 +58,29 @@ import org.vme.service.dao.sources.vme.VmeDao;
  * @version 1.0
  * @since 28/nov/2013
  */
-@Alternative @Singleton
+@Alternative
 public class RsgServiceImplVme implements RsgService {
 	final static private Logger LOG = LoggerFactory.getLogger(RsgServiceImplVme.class);
 
-	private Reflections _reflections = new Reflections("org.fao.fi.vme.domain");
+	final private Reflections _reflections = new Reflections("org.fao.fi.vme.domain");
 	
+	final protected RsgServiceUtil u = new RsgServiceUtil();
+	final protected MultiLingualStringUtil MLSu = new MultiLingualStringUtil();
+
 	@Inject @Compiler private ReportCompiler _compiler;
+	@Inject @Builder private ReportBuilder<ReportsModeler> _builder;
 	@Inject @Evaluator private ReportEvaluator _evaluator;
 	
-//	@Inject VmeAccessDbImport importer;
+	@Inject VmeAccessDbImport importer;
 	@Inject VmeDao vmeDao;
 
-	protected RsgServiceUtil u = new RsgServiceUtil();
-	
 	@PostConstruct
 	private void postConstruct() {
 		this._compiler.registerPrimitiveType(MultiLingualString.class);
 		
-		//Testing with in-memory database makes little sense if
-		//data are not transferred from the original M$ Access DB into H2...
-		
-//		this.importer.importMsAccessData();
+		//To allow using an in-memory database requires that data
+		//are transferred from the original M$ Access DB into H2...
+		this.importer.importMsAccessData();
 	}
 	
 	private Class<?> getTemplateOfType(Class<? extends Annotation> marker, ReportType reportType) {
@@ -96,7 +113,161 @@ public class RsgServiceImplVme implements RsgService {
 
 	@Override
 	public List<ReportEntry> listReports(ReportType reportType, NameValue... filters) {
+		final String typeId = reportType.getTypeIdentifier();
+		
+		Map<String, Object> criteria = new HashMap<String, Object>();
+		
+		if(filters != null)
+			for(NameValue filter : filters) {
+				criteria.put(filter.getName(), filter.getValue());
+			}
+		
+		if("Vme".equals(typeId))
+			return this.listVMEs(criteria);
+		else if("Rfmo".equals(typeId))
+			return this.listRFMOs(criteria);
+		else if("InformationSource".equals(typeId))
+			return this.listInformationSources(criteria);
+		else if("GeneralMeasure".equals(typeId))
+			return this.listGeneralMeasure(criteria);
+		else if("VMEsHistory".equals(typeId))
+			return this.listVMEsHistory(criteria);
+		else if("FisheryAreasHistory".equals(typeId))
+			return this.listFisheryAreasHistory(criteria);
 		return null;
+	}
+	
+	private List<ReportEntry> listVMEs(Map<String, Object> criteria) {
+		Collection<Vme> vmes = this.vmeDao.filterEntities(this.vmeDao.getEm(), Vme.class, criteria);
+		
+		List<ReportEntry> results = new ArrayList<ReportEntry>();
+		
+		ReportEntry entry;
+		for(Vme vme : vmes) {
+			entry = new ReportEntry();
+			entry.setNameValueList(new ArrayList<NameValue>());
+			
+			entry.setId(vme.getId());
+			entry.setReportType(new ReportType("Vme"));
+			
+			entry.getNameValueList().add(new NameValue("RFMO", vme.getRfmo().getId()));
+			entry.getNameValueList().add(new NameValue("Name", MLSu.getEnglish(vme.getName())));
+			
+			results.add(entry);
+		}
+		
+		return results;
+	}
+
+	private List<ReportEntry> listRFMOs(Map<String, Object> criteria) {
+		Collection<Rfmo> rfmos = this.vmeDao.filterEntities(this.vmeDao.getEm(), Rfmo.class, criteria);
+		
+		List<ReportEntry> results = new ArrayList<ReportEntry>();
+		
+		ReportEntry entry;
+		for(Rfmo rfmo : rfmos) {
+			entry = new ReportEntry();
+			entry.setNameValueList(new ArrayList<NameValue>());
+			
+			entry.setId(rfmo.getId());
+			entry.setReportType(new ReportType("Rfmo"));
+			
+			entry.getNameValueList().add(new NameValue("Name", rfmo.getId()));
+			
+			results.add(entry);
+		}
+		
+		return results;
+	}
+	
+	private List<ReportEntry> listInformationSources(Map<String, Object> criteria) {
+		Collection<InformationSource> informationSources = this.vmeDao.filterEntities(this.vmeDao.getEm(), InformationSource.class, criteria);
+		
+		List<ReportEntry> results = new ArrayList<ReportEntry>();
+		
+		ReportEntry entry;
+		for(InformationSource informationSource : informationSources) {
+			entry = new ReportEntry();
+			entry.setNameValueList(new ArrayList<NameValue>());
+			
+			entry.setId(informationSource.getId());
+			entry.setReportType(new ReportType("InformationSource"));
+			
+			entry.getNameValueList().add(new NameValue("Committee", MLSu.getEnglish(informationSource.getCommittee())));
+			entry.getNameValueList().add(new NameValue("Citation", MLSu.getEnglish(informationSource.getCitation())));
+			
+			results.add(entry);
+		}
+		
+		return results;
+	}
+	
+	private List<ReportEntry> listGeneralMeasure(Map<String, Object> criteria) {
+		Collection<GeneralMeasure> generalMeasures = this.vmeDao.filterEntities(this.vmeDao.getEm(), GeneralMeasure.class, criteria);
+		
+		List<ReportEntry> results = new ArrayList<ReportEntry>();
+		
+		ReportEntry entry;
+		for(GeneralMeasure generalMeasure : generalMeasures) {
+			entry = new ReportEntry();
+			entry.setNameValueList(new ArrayList<NameValue>());
+			
+			entry.setId(generalMeasure.getId());
+			entry.setReportType(new ReportType("GeneralMeasure"));
+			
+			entry.getNameValueList().add(new NameValue("Rfmo", generalMeasure.getRfmo().getId()));
+			entry.getNameValueList().add(new NameValue("Year", generalMeasure.getYear() == null ? null : generalMeasure.getYear().toString()));
+			entry.getNameValueList().add(new NameValue("Validity start", generalMeasure.getValidityPeriod() == null || generalMeasure.getValidityPeriod().getBeginYear() == null ? null : generalMeasure.getValidityPeriod().getBeginYear().toString()));
+			entry.getNameValueList().add(new NameValue("Validity end", generalMeasure.getValidityPeriod() == null || generalMeasure.getValidityPeriod().getEndYear() == null ? null : generalMeasure.getValidityPeriod().getEndYear().toString()));
+				
+			results.add(entry);
+		}
+		
+		return results;
+	}
+	
+	private List<ReportEntry> listFisheryAreasHistory(Map<String, Object> criteria) {
+		Collection<FisheryAreasHistory> fisheryAreasHistory = this.vmeDao.filterEntities(this.vmeDao.getEm(), FisheryAreasHistory.class, criteria);
+		
+		List<ReportEntry> results = new ArrayList<ReportEntry>();
+		
+		ReportEntry entry;
+		for(FisheryAreasHistory fisheryAreaHistory : fisheryAreasHistory) {
+			entry = new ReportEntry();
+			entry.setNameValueList(new ArrayList<NameValue>());
+			
+			entry.setId(fisheryAreaHistory.getId());
+			entry.setReportType(new ReportType("FisheryAreasHistory"));
+			
+			entry.getNameValueList().add(new NameValue("Year", fisheryAreaHistory.getYear() == null ? null : fisheryAreaHistory.getYear().toString()));
+			entry.getNameValueList().add(new NameValue("History", MLSu.getEnglish(fisheryAreaHistory.getHistory())));
+			
+			results.add(entry);
+		}
+		
+		return results;
+	}
+	
+	private List<ReportEntry> listVMEsHistory(Map<String, Object> criteria) {
+		Collection<VMEsHistory> vmesHistory = this.vmeDao.filterEntities(this.vmeDao.getEm(), VMEsHistory.class, criteria);
+		
+		List<ReportEntry> results = new ArrayList<ReportEntry>();
+		
+		ReportEntry entry;
+		for(VMEsHistory vmeHistory : vmesHistory) {
+			entry = new ReportEntry();
+			entry.setNameValueList(new ArrayList<NameValue>());
+			
+			entry.setId(vmeHistory.getId());
+			entry.setReportType(new ReportType("VMEsHistory"));
+			
+			entry.getNameValueList().add(new NameValue("Year", vmeHistory.getYear() == null ? null : vmeHistory.getYear().toString()));
+			entry.getNameValueList().add(new NameValue("History", MLSu.getEnglish(vmeHistory.getHistory())));
+			
+			results.add(entry);
+		}
+		
+		return results;
 	}
 
 	/* (non-Javadoc)
@@ -127,7 +298,7 @@ public class RsgServiceImplVme implements RsgService {
 
 			identified = this.vmeDao.getEntityById(this.vmeDao.getEm(), identifiedReport, reportId);
 		} catch(Throwable t) {
-			LOG.error("Unable to get entity of type {} with id {}", reportType.getTypeIdentifier(), reportId);
+			LOG.error("Unable to get entity of type {} with id {}", reportType.getTypeIdentifier(), reportId, t);
 		}
 
 		if(identified == null) {
@@ -137,7 +308,15 @@ public class RsgServiceImplVme implements RsgService {
 		}
 		
 		try {
-			return this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
+			CompiledReport report = this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
+			
+			ReportsModeler modeler = this._builder.buildReport(report, "VME_" + reportId.toString(), "VME_" + reportId.toString(), "Foobazzi", new Date(), new Date(), "barfoozzi");
+			
+			File storage = new File("C:\\VME\\VME_" + reportType.getTypeIdentifier() + "\\VME_" + reportId.toString() + "\\");
+			
+			PersistenceManager.writeModel(modeler.getReportInstance(), new File(storage, "VME_" + reportId.toString() + ".d4st"));
+			
+			return report;
 		} catch (Throwable t) {
 			LOG.info("Unable to compile report of type {} with id {}: {} [ {} ]", new Object[] { reportType.getTypeIdentifier(), reportId, t.getClass().getSimpleName(), t.getMessage() });
 

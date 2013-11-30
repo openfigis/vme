@@ -13,7 +13,6 @@ import org.fao.fi.vme.domain.interfaces.Year;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenced;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGEmbed;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
@@ -44,7 +43,6 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	private List<Vme> vmeList;
 
 	@RSGName("Specific measure information source")
-	@RSGEmbed
 	@OneToOne(cascade = { CascadeType.ALL })
 	private InformationSource informationSource;
 
@@ -52,7 +50,6 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	 *  
 	  */
 	@RSGName("Validity Period")
-	@RSGEmbed
 	private ValidityPeriod validityPeriod;
 
 	/**

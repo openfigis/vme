@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>vme</artifactId>
+		<groupId>org.vme</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>vme-reports-store-gateway-web</artifactId>
+	<packaging>war</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.gcube.application.rsg</groupId>
+			<artifactId>reports-store-gateway-interface-dto</artifactId>
+			<version>[0.0.3-SNAPSHOT,]</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gcube.application.rsg</groupId>
+			<artifactId>
+				reports-store-gateway-support-compiler
+			</artifactId>
+			<version>[0.0.3-SNAPSHOT,]</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gcube.application.rsg</groupId>
+			<artifactId>reports-store-gateway-web-base</artifactId>
+			<version>[0.0.3-SNAPSHOT,]</version>
+		</dependency>
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-reports-store-gateway</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>el-api</artifactId>
+			<version>2.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.el</groupId>
+			<artifactId>jboss-el-api_3.0_spec</artifactId>
+			<version>1.0.0.Alpha1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.weld</groupId>
+			<artifactId>weld-core</artifactId>
+			<version>2.0.4.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet-core</artifactId>
+			<version>2.0.4.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.weld.se</groupId>
+			<artifactId>weld-se-core</artifactId>
+			<version>2.0.4.Final</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>reports-store-gateway-web</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<inherited>true</inherited>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<version>6.1.22</version>
+				<configuration>
+					<connectors>
+						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>9090</port>
+							<maxIdleTime>60000</maxIdleTime>
+						</connector>
+					</connectors>
+					<jetty-config>jetty.xml</jetty-config>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat6-maven-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>env-dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+
+				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
+				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:vme</javax.persistence.jdbc.url.vme>
+				<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
+				<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>
+				<hibernate.dialect.vme>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme>
+				<hibernate.hbm2ddl.auto.vme>create</hibernate.hbm2ddl.auto.vme>
+				<!--validate | update | create | create-drop -->
+
+				<javax.persistence.jdbc.driver.figis>org.h2.Driver</javax.persistence.jdbc.driver.figis>
+				<javax.persistence.jdbc.url.figis>jdbc:h2:mem:;INIT=create schema IF
+					NOT EXISTS FIGIS</javax.persistence.jdbc.url.figis>
+				<javax.persistence.jdbc.user.figis>sa</javax.persistence.jdbc.user.figis>
+				<javax.persistence.jdbc.password.figis></javax.persistence.jdbc.password.figis>
+				<hibernate.dialect.figis>org.hibernate.dialect.H2Dialect</hibernate.dialect.figis>
+				<hibernate.hbm2ddl.auto.figis>create</hibernate.hbm2ddl.auto.figis>
+			</properties>
+		</profile>
+	</profiles>
+</project>

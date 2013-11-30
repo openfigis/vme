@@ -23,7 +23,7 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
+import org.vme.service.dao.HardCodedDaoFactory;
 import org.vme.test.mock.VmeMocker;
 
 /**
@@ -41,9 +41,9 @@ import org.vme.test.mock.VmeMocker;
  */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class,
-						 JEXLReportEvaluator.class })
-@AdditionalClasses({ ReferenceHardcodedDao.class, 
-					 StringDataConverter.class,
+						 JEXLReportEvaluator.class,
+						 HardCodedDaoFactory.class })
+@AdditionalClasses({ StringDataConverter.class,
 					 MultiLingualString.class })
 public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;

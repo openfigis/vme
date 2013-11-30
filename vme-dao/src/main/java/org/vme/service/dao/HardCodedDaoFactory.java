@@ -7,6 +7,7 @@ import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
 import org.vme.service.dao.impl.hardcoded.ObservationHarcodedDao;
 import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
@@ -15,7 +16,6 @@ import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
  * @author Fabrizio Sibeni
  *
  */
-
 @Alternative
 public class HardCodedDaoFactory implements DAOFactory {
 
@@ -33,7 +33,7 @@ public class HardCodedDaoFactory implements DAOFactory {
 	 * @see org.vme.service.dao.DAOFactory#getReferenceConceptProvider()
 	 */
 	@Override
-	@Produces public ReferenceConceptProvider<Long> getReferenceConceptProvider() {
+	@Produces @ConceptProvider public ReferenceConceptProvider<Long> getReferenceConceptProvider() {
 		return this.getReferenceDAO();
 	}
 	

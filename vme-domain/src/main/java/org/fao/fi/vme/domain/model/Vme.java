@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import org.fao.fi.vme.domain.interfaces.Period;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGSection;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGEmbed;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
@@ -23,6 +24,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGI
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGOneAmong;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.StringDataConverter;
 
@@ -45,18 +47,24 @@ public class Vme implements Period<Vme> {
 	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@RSGName("Competent Authority")
+	@RSGWeight(4)
+	@RSGSection
 	private Rfmo rfmo;
 
 	/*
 	 * This is the owning side of the manyToMany relationship
 	 */
 	@RSGName("VME Specific Measures")
+	@RSGWeight(3)
+	@RSGSection
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "VME_SPECIFIC_MEASURE", //
 			   joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURE_ID"))
 	private List<SpecificMeasure> specificMeasureList;
 
 	@RSGName("VME Profiles")
+	@RSGWeight(2)
+	@RSGSection
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<Profile> profileList;
 
@@ -70,7 +78,7 @@ public class Vme implements Period<Vme> {
 	 * 
 	 */
 	@RSGName("Validity Period")
-	@RSGEmbed
+	@RSGWeight(1)
 	private ValidityPeriod validityPeriod;
 
 	/**
@@ -91,6 +99,7 @@ public class Vme implements Period<Vme> {
 	@RSGMandatory
 	@RSGOneAmong(concept=VmeType.class, label=ConceptData.NAME)
 	@RSGConverter(StringDataConverter.class)
+	@RSGWeight(1)
 	private String areaType;
 
 	/**
@@ -106,6 +115,7 @@ public class Vme implements Period<Vme> {
 	@RSGMandatory
 	@RSGOneAmong(concept=VmeCriteria.class, label=ConceptData.NAME)
 	@RSGConverter(StringDataConverter.class)
+	@RSGWeight(1)
 	private String criteria;
 
 	private String inventoryIdentifier;

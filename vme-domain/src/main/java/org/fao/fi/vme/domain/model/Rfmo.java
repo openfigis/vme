@@ -15,7 +15,6 @@ import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
-import org.gcube.application.rsg.support.compiler.bridge.converters.impl.StringDataConverter;
 
 /**
  * 
@@ -25,11 +24,10 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.StringD
 @Entity
 @RSGReferenceReport(name="Authority")
 public class Rfmo {
-
 	/**
 	 * The id comes from RMTS
 	 */
-	@RSGIdentifier(converter=StringDataConverter.class)
+	@RSGIdentifier
 	@Id
 	private String id;
 

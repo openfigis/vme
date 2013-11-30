@@ -1,7 +1,7 @@
-<beans >
-    <alternatives>
-        <class>org.vme.service.dao.config.vme.VmeDataBaseProducer</class>
-        <class>org.vme.service.dao.config.figis.FigisDataBaseProducer</class>
-         <class>org.vme.service.dao.JpaDaoFactory</class>
-    </alternatives>
+<beans>
+	<alternatives>
+		<class>org.vme.service.dao.config.vme.VmeDataBaseProducer</class>
+		<class>org.vme.service.dao.config.figis.FigisDataBaseProducer</class>
+		<class>org.vme.service.dao.JpaDaoFactory</class>
+	</alternatives>
 </beans>

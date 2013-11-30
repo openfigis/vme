@@ -12,12 +12,11 @@ import org.gcube.application.rsg.support.model.Bound;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
 import org.gcube.application.rsg.support.model.components.impl.InputComponent;
 import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
+import org.vme.service.dao.HardCodedDaoFactory;
 
 /**
  * Place your class / interface description here.
@@ -34,8 +33,8 @@ import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
  */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class,
-						 JEXLReportEvaluator.class })
-@AdditionalClasses({ReferenceHardcodedDao.class})
+						 JEXLReportEvaluator.class,
+						 HardCodedDaoFactory.class })
 public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependentTest {
 	@Test
 	public void testCompileReport() throws Throwable {
