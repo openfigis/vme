@@ -19,6 +19,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGC
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 
 /**
  * Place your class / interface description here.
@@ -42,6 +43,7 @@ public class VMEsHistory implements History, Year<History> {
 	 * 
 	 */
 	@RSGIdentifier
+	@RSGConverter(LongDataConverter.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

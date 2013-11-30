@@ -21,6 +21,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGI
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter;
 
 /**
@@ -36,6 +37,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLData
 public class InformationSource {
 
 	@RSGIdentifier
+	@RSGConverter(LongDataConverter.class)
 	@Id
 	private Long id;
 

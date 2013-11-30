@@ -16,6 +16,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGC
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 
 /**
  * 
@@ -30,6 +31,7 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	 *  
 	 */
 	@RSGIdentifier
+	@RSGConverter(LongDataConverter.class)
 	@Id
 	private Long id;
 
