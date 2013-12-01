@@ -1,20 +1,28 @@
 package org.fao.fi.vme.msaccess.tables;
 
+import javax.inject.Inject;
+
 import org.fao.fi.vme.msaccess.component.MsAccessConnectionProvider;
+import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.fao.fi.vme.msaccess.component.TableReader;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.model.Table;
+import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(CdiRunner.class)
+@ActivatedAlternatives({ FilesystemMsAccessConnectionProvider.class })
 public class Measues_VME_SpecificTest {
 
 	TableReader tr = new TableReader();
-	MsAccessConnectionProvider cp = new MsAccessConnectionProvider();
+	@Inject private MsAccessConnectionProvider cp;
 
 	@Before
 	public void before() {
-		tr.setConnection(cp.getConnecton());
+		tr.setConnection(cp.getConnection());
 	}
 
 	@Test

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -36,7 +37,7 @@ public class Rfmo {
 	 * 
 	 */
 	@RSGName("Authority - General Measures")
-	@OneToMany(mappedBy = "rfmo")
+	@OneToMany(mappedBy = "rfmo", fetch = FetchType.EAGER)
 	private List<GeneralMeasure> generalMeasureList;
 
 	/**
@@ -50,8 +51,8 @@ public class Rfmo {
 	/**
 	 * An RFMO has a number of information sources
 	 */
-	@ManyToMany
 	@RSGName("Authority - Information Sources")
+	@ManyToMany
 	private List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
 	@RSGName("Fishery Areas History")

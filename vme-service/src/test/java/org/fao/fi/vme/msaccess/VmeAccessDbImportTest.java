@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -13,7 +14,7 @@ import org.vme.service.dao.config.vme.VmeDataBaseProducer;
 import org.vme.service.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseProducer.class })
+@ActivatedAlternatives({ VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
 public class VmeAccessDbImportTest {
 
 	@Inject

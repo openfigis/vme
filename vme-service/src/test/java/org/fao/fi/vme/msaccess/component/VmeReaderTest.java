@@ -12,15 +12,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.fao.fi.vme.msaccess.model.Table;
 import org.fao.fi.vme.msaccess.tables.Measues_VME_Specific;
 import org.fao.fi.vme.msaccess.tables.RFB_MetaData;
 import org.fao.fi.vme.msaccess.tables.VME;
+import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(CdiRunner.class)
+@ActivatedAlternatives({ FilesystemMsAccessConnectionProvider.class })
 public class VmeReaderTest {
 
-	VmeReader reader = new VmeReader();
+	@Inject private VmeReader reader;
 
 	public static Map<Class<?>, Integer> numberOfRecords = new HashMap<Class<?>, Integer>();
 	static {

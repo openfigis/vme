@@ -1,5 +1,6 @@
 package org.fao.fi.vme.rsg.test.service;
 
+import org.fao.fi.vme.msaccess.component.EmbeddedMsAccessConnectionProvider;
 import org.fao.fi.vme.rsg.service.RsgServiceImplVme;
 import org.gcube.application.rsg.support.builder.impl.ReportManagerReportBuilder;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
@@ -17,6 +18,7 @@ import org.vme.service.dao.config.vme.VmeDataBaseProducer;
 						 ReportManagerReportBuilder.class,
 						 VmeDataBaseProducer.class,
 						 HardCodedDaoFactory.class,
-						 RsgServiceImplVme.class })
+						 RsgServiceImplVme.class,
+						 EmbeddedMsAccessConnectionProvider.class })
 public class RsgServiceImplTest extends RsgAbstractServiceTest {
 }

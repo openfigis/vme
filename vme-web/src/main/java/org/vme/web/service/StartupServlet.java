@@ -7,7 +7,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import org.fao.fi.vme.msaccess.component.MsAccessConnectionProvider;
+import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 
 /**
  * @author SIBENI
@@ -25,7 +25,7 @@ public class StartupServlet extends HttpServlet {
 		
 		super.init(config);
 		System.out.println("FAB: servlet init with parameter dbaccess-path: [" + config.getInitParameter("dbaccess-path") + "]");
-		MsAccessConnectionProvider.dbLocation = config.getInitParameter("dbaccess-path");
+		FilesystemMsAccessConnectionProvider.dbLocation = config.getInitParameter("dbaccess-path");
 		
 	}
 

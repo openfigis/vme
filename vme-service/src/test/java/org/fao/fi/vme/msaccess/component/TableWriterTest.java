@@ -19,13 +19,12 @@ import org.vme.service.dao.config.vme.VmeDataBaseProducer;
 import org.vme.service.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseProducer.class })
+@ActivatedAlternatives({ VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
 public class TableWriterTest {
 
-	VmeReader reader = new VmeReader();
+	@Inject private VmeReader reader;
 
-	@Inject
-	TableWriter tableWriter;
+	@Inject TableWriter tableWriter;
 
 	MsAcces2DomainMapper mapper = new MsAcces2DomainMapper();
 

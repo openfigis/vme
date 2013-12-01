@@ -2,6 +2,7 @@ package org.fao.fi.vme.rsg.service;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -37,6 +38,8 @@ import org.gcube.application.rsg.support.compiler.annotations.Compiler;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.DataConverter;
 import org.gcube.application.rsg.support.compiler.utils.ScanningUtils;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
@@ -173,6 +176,7 @@ public class RsgServiceImplVme implements RsgService {
 			entry.setReportType(new ReportType("Rfmo"));
 			
 			entry.getNameValueList().add(new NameValue("Name", rfmo.getId()));
+			entry.getNameValueList().add(new NameValue("Number of VMEs", String.valueOf(rfmo.getListOfManagedVmes().size())));
 			
 			results.add(entry);
 		}
@@ -291,9 +295,16 @@ public class RsgServiceImplVme implements RsgService {
 		Object identified = null;
 		
 		try {
-			Class<?> idType = ScanningUtils.getUniqueIdentifier(identifiedReport).getType();
+			Field id = ScanningUtils.getUniqueIdentifier(identifiedReport);
+			Class<?> idType = id.getType();
 			
-			if(Integer.class.equals(idType) || Long.class.equals(idType))
+			@SuppressWarnings("unchecked")
+			DataConverter<?> converter = ScanningUtils.isAnnotatedWith(id, RSGConverter.class) ? ScanningUtils.getAnnotation(id, RSGConverter.class).value().newInstance() : null;
+			
+			if(converter != null)
+				reportId = converter.fromString((String)reportId);
+			//Fallback case
+			else if(Integer.class.equals(idType) || Long.class.equals(idType))
 				reportId = Long.valueOf(reportId.toString());
 
 			identified = this.vmeDao.getEntityById(this.vmeDao.getEm(), identifiedReport, reportId);
@@ -334,9 +345,16 @@ public class RsgServiceImplVme implements RsgService {
 		Object identified = null;
 		
 		try {
-			Class<?> idType = ScanningUtils.getUniqueIdentifier(identifiedReport).getType();
+			Field id = ScanningUtils.getUniqueIdentifier(identifiedReport);
+			Class<?> idType = id.getType();
 			
-			if(Integer.class.equals(idType) || Long.class.equals(idType))
+			@SuppressWarnings("unchecked")
+			DataConverter<?> converter = ScanningUtils.isAnnotatedWith(id, RSGConverter.class) ? ScanningUtils.getAnnotation(id, RSGConverter.class).value().newInstance() : null;
+			
+			if(converter != null)
+				refReportId = converter.fromString((String)refReportId);
+			//Fallback case
+			else if(Integer.class.equals(idType) || Long.class.equals(idType))
 				refReportId = Long.valueOf(refReportId.toString());
 
 			identified = this.vmeDao.getEntityById(this.vmeDao.getEm(), identifiedReport, refReportId);

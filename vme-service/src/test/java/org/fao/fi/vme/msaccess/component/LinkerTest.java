@@ -23,15 +23,14 @@ import org.junit.runner.RunWith;
 import org.vme.service.dao.config.vme.VmeDataBaseProducer;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseProducer.class })
+@ActivatedAlternatives({ VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
 public class LinkerTest {
 
-	@Inject
-	private VmeWriter writer;
+	@Inject private VmeWriter writer;
+	@Inject private VmeReader reader;
 
 	private final MsAcces2DomainMapper m = new MsAcces2DomainMapper();
 	private final Linker linker = new Linker();
-	private final VmeReader reader = new VmeReader();
 	private final MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	@Test

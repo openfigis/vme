@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.After;
@@ -24,7 +25,7 @@ import org.vme.web.service.DbBootstrapper;
 
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseProducer.class })
+@ActivatedAlternatives({ VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
 public class DbBootstrapperTest {
 
 
