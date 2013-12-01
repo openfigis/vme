@@ -1,11 +1,9 @@
 package org.fao.fi.vme.rsg.service;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +22,6 @@ import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.gcube.application.reporting.ReportsModeler;
-import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.rsg.service.RsgService;
 import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
@@ -153,6 +150,7 @@ public class RsgServiceImplVme implements RsgService {
 			entry.setId(vme.getId());
 			entry.setReportType(new ReportType("Vme"));
 			
+			entry.getNameValueList().add(new NameValue("InventoryIdentifier", vme.getInventoryIdentifier()));
 			entry.getNameValueList().add(new NameValue("RFMO", vme.getRfmo().getId()));
 			entry.getNameValueList().add(new NameValue("Name", MLSu.getEnglish(vme.getName())));
 			
@@ -319,15 +317,7 @@ public class RsgServiceImplVme implements RsgService {
 		}
 		
 		try {
-			CompiledReport report = this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
-			
-			ReportsModeler modeler = this._builder.buildReport(report, "VME_" + reportId.toString(), "VME_" + reportId.toString(), "Foobazzi", new Date(), new Date(), "barfoozzi");
-			
-			File storage = new File("C:\\VME\\VME_" + reportType.getTypeIdentifier() + "\\VME_" + reportId.toString() + "\\");
-			
-			PersistenceManager.writeModel(modeler.getReportInstance(), new File(storage, "VME_" + reportId.toString() + ".d4st"));
-			
-			return report;
+			return this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
 		} catch (Throwable t) {
 			LOG.info("Unable to compile report of type {} with id {}: {} [ {} ]", new Object[] { reportType.getTypeIdentifier(), reportId, t.getClass().getSimpleName(), t.getMessage() });
 

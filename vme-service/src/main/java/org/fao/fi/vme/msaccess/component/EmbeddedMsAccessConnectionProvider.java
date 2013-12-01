@@ -46,7 +46,7 @@ public class EmbeddedMsAccessConnectionProvider extends MsAccessConnectionProvid
 			
 			fos = new FileOutputStream(temp);
 			
-			byte[] buffer = new byte[32768];
+			byte[] buffer = new byte[65536];
 			
 			int copied = 0;
 			int len = -1;
