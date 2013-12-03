@@ -133,68 +133,70 @@ public class Profile implements Year<Profile> {
 		this.geoform = geoform;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof Profile)) {
-			return false;
-		}
-		Profile other = (Profile) obj;
-		if (descriptionBiological == null) {
-			if (other.descriptionBiological != null) {
-				return false;
-			}
-		} else if (!descriptionBiological.equals(other.descriptionBiological)) {
-			return false;
-		}
-		if (descriptionImpact == null) {
-			if (other.descriptionImpact != null) {
-				return false;
-			}
-		} else if (!descriptionImpact.equals(other.descriptionImpact)) {
-			return false;
-		}
-		if (descriptionPhisical == null) {
-			if (other.descriptionPhisical != null) {
-				return false;
-			}
-		} else if (!descriptionPhisical.equals(other.descriptionPhisical)) {
-			return false;
-		}
-		if (geoform == null) {
-			if (other.geoform != null) {
-				return false;
-			}
-		} else if (!geoform.equals(other.geoform)) {
-			return false;
-		}
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (vme == null) {
-			if (other.vme != null) {
-				return false;
-			}
-		} else if (!vme.equals(other.vme)) {
-			return false;
-		}
-		if (year == null) {
-			if (other.year != null) {
-				return false;
-			}
-		} else if (!year.equals(other.year)) {
-			return false;
-		}
-		return true;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.descriptionBiological == null) ? 0 : this.descriptionBiological.hashCode());
+		result = prime * result + ((this.descriptionImpact == null) ? 0 : this.descriptionImpact.hashCode());
+		result = prime * result + ((this.descriptionPhisical == null) ? 0 : this.descriptionPhisical.hashCode());
+		result = prime * result + ((this.geoform == null) ? 0 : this.geoform.hashCode());
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+		result = prime * result + ((this.vme == null) ? 0 : this.vme.hashCode());
+		result = prime * result + ((this.year == null) ? 0 : this.year.hashCode());
+		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Profile other = (Profile) obj;
+		if (this.descriptionBiological == null) {
+			if (other.descriptionBiological != null)
+				return false;
+		} else if (!this.descriptionBiological.equals(other.descriptionBiological))
+			return false;
+		if (this.descriptionImpact == null) {
+			if (other.descriptionImpact != null)
+				return false;
+		} else if (!this.descriptionImpact.equals(other.descriptionImpact))
+			return false;
+		if (this.descriptionPhisical == null) {
+			if (other.descriptionPhisical != null)
+				return false;
+		} else if (!this.descriptionPhisical.equals(other.descriptionPhisical))
+			return false;
+		if (this.geoform == null) {
+			if (other.geoform != null)
+				return false;
+		} else if (!this.geoform.equals(other.geoform))
+			return false;
+		if (this.id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!this.id.equals(other.id))
+			return false;
+		if (this.vme == null) {
+			if (other.vme != null)
+				return false;
+		} else if (!this.vme.equals(other.vme))
+			return false;
+		if (this.year == null) {
+			if (other.year != null)
+				return false;
+		} else if (!this.year.equals(other.year))
+			return false;
+		return true;
+	}
 }

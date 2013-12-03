@@ -8,15 +8,23 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.Year;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenced;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 
 /**
  * 
  * @author Erik van Ingen
  * 
  */
+@RSGReferenced
 @Entity(name = "GEO_REF")
 public class GeoRef implements Year<GeoRef> {
 
+	@RSGIdentifier
+	@RSGConverter(LongDataConverter.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -24,11 +32,13 @@ public class GeoRef implements Year<GeoRef> {
 	/**
 	 * 
 	 */
+	@RSGName("Year")
 	private Integer year;
 
 	/**
 	 *   
 	 */
+	@RSGName("Geographic feature ID")
 	private String geographicFeatureID;
 
 	/**
@@ -71,58 +81,52 @@ public class GeoRef implements Year<GeoRef> {
 		this.vme = vme;
 	}
 
-	// @Override
-	// public int hashCode() {
-	// final int prime = 31;
-	// int result = 1;
-	// result = prime * result + ((geographicFeatureID == null) ? 0 : geographicFeatureID.hashCode());
-	// result = prime * result + ((id == null) ? 0 : id.hashCode());
-	// result = prime * result + ((vme == null) ? 0 : vme.hashCode());
-	// result = prime * result + ((year == null) ? 0 : year.hashCode());
-	// return result;
-	// }
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		GeoRef other = (GeoRef) obj;
-		if (geographicFeatureID == null) {
-			if (other.geographicFeatureID != null) {
-				return false;
-			}
-		} else if (!geographicFeatureID.equals(other.geographicFeatureID)) {
-			return false;
-		}
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (vme == null) {
-			if (other.vme != null) {
-				return false;
-			}
-		} else if (!vme.equals(other.vme)) {
-			return false;
-		}
-		if (year == null) {
-			if (other.year != null) {
-				return false;
-			}
-		} else if (!year.equals(other.year)) {
-			return false;
-		}
-		return true;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.geographicFeatureID == null) ? 0 : this.geographicFeatureID.hashCode());
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+		result = prime * result + ((this.vme == null) ? 0 : this.vme.hashCode());
+		result = prime * result + ((this.year == null) ? 0 : this.year.hashCode());
+		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GeoRef other = (GeoRef) obj;
+		if (this.geographicFeatureID == null) {
+			if (other.geographicFeatureID != null)
+				return false;
+		} else if (!this.geographicFeatureID.equals(other.geographicFeatureID))
+			return false;
+		if (this.id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!this.id.equals(other.id))
+			return false;
+		if (this.vme == null) {
+			if (other.vme != null)
+				return false;
+		} else if (!this.vme.equals(other.vme))
+			return false;
+		if (this.year == null) {
+			if (other.year != null)
+				return false;
+		} else if (!this.year.equals(other.year))
+			return false;
+		return true;
+	}
 }

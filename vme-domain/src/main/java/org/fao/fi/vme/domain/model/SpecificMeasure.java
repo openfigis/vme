@@ -15,6 +15,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenc
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 
@@ -45,6 +46,7 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	private List<Vme> vmeList;
 
 	@RSGName("Specific measure information source")
+	@RSGWeight(100)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private InformationSource informationSource;
 
@@ -118,74 +120,64 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 		this.vmeSpecificMeasure = vmeSpecificMeasure;
 	}
 
-	// @Override
-	// public int hashCode() {
-	// final int prime = 31;
-	// int result = 1;
-	// result = prime * result + ((id == null) ? 0 : id.hashCode());
-	// result = prime * result + ((informationSource == null) ? 0 : informationSource.hashCode());
-	// result = prime * result + ((validityPeriod == null) ? 0 : validityPeriod.hashCode());
-	// result = prime * result + ((vmeList == null) ? 0 : vmeList.hashCode());
-	// result = prime * result + ((vmeSpecificMeasure == null) ? 0 : vmeSpecificMeasure.hashCode());
-	// result = prime * result + ((year == null) ? 0 : year.hashCode());
-	// return result;
-	// }
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof SpecificMeasure)) {
-			return false;
-		}
-		SpecificMeasure other = (SpecificMeasure) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (informationSource == null) {
-			if (other.informationSource != null) {
-				return false;
-			}
-		} else if (!informationSource.equals(other.informationSource)) {
-			return false;
-		}
-		if (validityPeriod == null) {
-			if (other.validityPeriod != null) {
-				return false;
-			}
-		} else if (!validityPeriod.equals(other.validityPeriod)) {
-			return false;
-		}
-		if (vmeList == null) {
-			if (other.vmeList != null) {
-				return false;
-			}
-		} else if (!vmeList.equals(other.vmeList)) {
-			return false;
-		}
-		if (vmeSpecificMeasure == null) {
-			if (other.vmeSpecificMeasure != null) {
-				return false;
-			}
-		} else if (!vmeSpecificMeasure.equals(other.vmeSpecificMeasure)) {
-			return false;
-		}
-		if (year == null) {
-			if (other.year != null) {
-				return false;
-			}
-		} else if (!year.equals(other.year)) {
-			return false;
-		}
-		return true;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+		result = prime * result + ((this.informationSource == null) ? 0 : this.informationSource.hashCode());
+		result = prime * result + ((this.validityPeriod == null) ? 0 : this.validityPeriod.hashCode());
+		result = prime * result + ((this.vmeList == null) ? 0 : this.vmeList.hashCode());
+		result = prime * result + ((this.vmeSpecificMeasure == null) ? 0 : this.vmeSpecificMeasure.hashCode());
+		result = prime * result + ((this.year == null) ? 0 : this.year.hashCode());
+		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SpecificMeasure other = (SpecificMeasure) obj;
+		if (this.id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!this.id.equals(other.id))
+			return false;
+		if (this.informationSource == null) {
+			if (other.informationSource != null)
+				return false;
+		} else if (!this.informationSource.equals(other.informationSource))
+			return false;
+		if (this.validityPeriod == null) {
+			if (other.validityPeriod != null)
+				return false;
+		} else if (!this.validityPeriod.equals(other.validityPeriod))
+			return false;
+		if (this.vmeList == null) {
+			if (other.vmeList != null)
+				return false;
+		} else if (!this.vmeList.equals(other.vmeList))
+			return false;
+		if (this.vmeSpecificMeasure == null) {
+			if (other.vmeSpecificMeasure != null)
+				return false;
+		} else if (!this.vmeSpecificMeasure.equals(other.vmeSpecificMeasure))
+			return false;
+		if (this.year == null) {
+			if (other.year != null)
+				return false;
+		} else if (!this.year.equals(other.year))
+			return false;
+		return true;
+	}
 }

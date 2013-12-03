@@ -54,42 +54,40 @@ public class MultiLingualString {
 		this.stringMap = stringMap;
 	}
 
-	// @Override
-	// public int hashCode() {
-	// final int prime = 31;
-	// int result = 1;
-	// result = prime * result + ((id == null) ? 0 : id.hashCode());
-	// result = prime * result + ((stringMap == null) ? 0 : stringMap.hashCode());
-	// return result;
-	// }
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof MultiLingualString)) {
-			return false;
-		}
-		MultiLingualString other = (MultiLingualString) obj;
-		if (id == null) {
-			if (other.id != null) {
-				return false;
-			}
-		} else if (!id.equals(other.id)) {
-			return false;
-		}
-		if (stringMap == null) {
-			if (other.stringMap != null) {
-				return false;
-			}
-		} else if (!stringMap.equals(other.stringMap)) {
-			return false;
-		}
-		return true;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+		result = prime * result + ((this.stringMap == null) ? 0 : this.stringMap.hashCode());
+		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MultiLingualString other = (MultiLingualString) obj;
+		if (this.id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!this.id.equals(other.id))
+			return false;
+		if (this.stringMap == null) {
+			if (other.stringMap != null)
+				return false;
+		} else if (!this.stringMap.equals(other.stringMap))
+			return false;
+		return true;
+	}
 }

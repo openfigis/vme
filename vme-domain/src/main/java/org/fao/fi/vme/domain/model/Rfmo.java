@@ -112,74 +112,64 @@ public class Rfmo {
 		this.hasVmesHistory = hasVmesHistory;
 	}
 
-	// @Override
-	// public int hashCode() {
-	// final int prime = 31;
-	// int result = 1;
-	// result = prime * result + ((generalMeasureList == null) ? 0 : generalMeasureList.hashCode());
-	// result = prime * result + ((hasFisheryAreasHistory == null) ? 0 : hasFisheryAreasHistory.hashCode());
-	// result = prime * result + ((hasVmesHistory == null) ? 0 : hasVmesHistory.hashCode());
-	// result = prime * result + ((id == null) ? 0 : id.hashCode());
-	// result = prime * result + ((informationSourceList == null) ? 0 : informationSourceList.hashCode());
-	// result = prime * result + ((listOfManagedVmes == null) ? 0 : listOfManagedVmes.hashCode());
-	// return result;
-	// }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.generalMeasureList == null) ? 0 : this.generalMeasureList.hashCode());
+		result = prime * result + ((this.hasFisheryAreasHistory == null) ? 0 : this.hasFisheryAreasHistory.hashCode());
+		result = prime * result + ((this.hasVmesHistory == null) ? 0 : this.hasVmesHistory.hashCode());
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+		result = prime * result + ((this.informationSourceList == null) ? 0 : this.informationSourceList.hashCode());
+		result = prime * result + ((this.listOfManagedVmes == null) ? 0 : this.listOfManagedVmes.hashCode());
+		return result;
+	}
 
-	// @Override
-	// public boolean equals(Object obj) {
-	// if (this == obj) {
-	// return true;
-	// }
-	// if (obj == null) {
-	// return false;
-	// }
-	// if (!(obj instanceof Rfmo)) {
-	// return false;
-	// }
-	// Rfmo other = (Rfmo) obj;
-	// if (generalMeasureList == null) {
-	// if (other.generalMeasureList != null) {
-	// return false;
-	// }
-	// } else if (!generalMeasureList.equals(other.generalMeasureList)) {
-	// return false;
-	// }
-	// if (hasFisheryAreasHistory == null) {
-	// if (other.hasFisheryAreasHistory != null) {
-	// return false;
-	// }
-	// } else if (!hasFisheryAreasHistory.equals(other.hasFisheryAreasHistory)) {
-	// return false;
-	// }
-	// if (hasVmesHistory == null) {
-	// if (other.hasVmesHistory != null) {
-	// return false;
-	// }
-	// } else if (!hasVmesHistory.equals(other.hasVmesHistory)) {
-	// return false;
-	// }
-	// if (id == null) {
-	// if (other.id != null) {
-	// return false;
-	// }
-	// } else if (!id.equals(other.id)) {
-	// return false;
-	// }
-	// if (informationSourceList == null) {
-	// if (other.informationSourceList != null) {
-	// return false;
-	// }
-	// } else if (!informationSourceList.equals(other.informationSourceList)) {
-	// return false;
-	// }
-	// if (listOfManagedVmes == null) {
-	// if (other.listOfManagedVmes != null) {
-	// return false;
-	// }
-	// } else if (!listOfManagedVmes.equals(other.listOfManagedVmes)) {
-	// return false;
-	// }
-	// return true;
-	// }
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rfmo other = (Rfmo) obj;
+		if (this.generalMeasureList == null) {
+			if (other.generalMeasureList != null)
+				return false;
+		} else if (!this.generalMeasureList.equals(other.generalMeasureList))
+			return false;
+		if (this.hasFisheryAreasHistory == null) {
+			if (other.hasFisheryAreasHistory != null)
+				return false;
+		} else if (!this.hasFisheryAreasHistory.equals(other.hasFisheryAreasHistory))
+			return false;
+		if (this.hasVmesHistory == null) {
+			if (other.hasVmesHistory != null)
+				return false;
+		} else if (!this.hasVmesHistory.equals(other.hasVmesHistory))
+			return false;
+		if (this.id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!this.id.equals(other.id))
+			return false;
+		if (this.informationSourceList == null) {
+			if (other.informationSourceList != null)
+				return false;
+		} else if (!this.informationSourceList.equals(other.informationSourceList))
+			return false;
+		if (this.listOfManagedVmes == null) {
+			if (other.listOfManagedVmes != null)
+				return false;
+		} else if (!this.listOfManagedVmes.equals(other.listOfManagedVmes))
+			return false;
+		return true;
+	}
 }
