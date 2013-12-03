@@ -7,21 +7,22 @@ import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 
 public class Measues_VME_Specific implements TableDomainMapper {
 
-	public void setMeetings_ID(int meetings_ID) {
-		Meetings_ID = meetings_ID;
-	}
-
 	private int ID;
 	private String RFB_ID;
 	private String VME_ID;
 	private int Year_ID;
 	private String VME_SpecificMeasure_Validity_Start;
 	private String VME_SpecificMeasure_Validity_End;
-	private int Meetings_ID;
 	private String VME_SpecificMeasure;
 
-	public int getMeetings_ID() {
-		return Meetings_ID;
+	private int Source_ID;
+
+	public int getSource_ID() {
+		return Source_ID;
+	}
+
+	public void setSource_ID(int source_ID) {
+		Source_ID = source_ID;
 	}
 
 	public int getID() {

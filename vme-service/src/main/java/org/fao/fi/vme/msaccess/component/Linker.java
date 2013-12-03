@@ -25,7 +25,8 @@ import org.fao.fi.vme.msaccess.tables.VME;
 public class Linker {
 
 	/**
-	 * Link the different domain objects, using the original MS-Access table objects.
+	 * Link the different domain objects, using the original MS-Access table
+	 * objects.
 	 * 
 	 * 
 	 * @param objectCollectionList
@@ -137,12 +138,12 @@ public class Linker {
 		}
 
 		for (ObjectCollection oc : objectCollectionList) {
-			if (record.getMeetings_ID() > 0) {
+			if (record.getSource_ID() > 0) {
 				if (oc.getClazz() == InformationSource.class) {
 					List<Object> objectList = oc.getObjectList();
 					for (Object object : objectList) {
 						InformationSource is = (InformationSource) object;
-						if (is.getId().intValue() == record.getMeetings_ID()) {
+						if (is.getId() == record.getSource_ID()) {
 							sm.setInformationSource(is);
 						}
 					}

@@ -1,13 +1,6 @@
 package org.fao.fi.vme.msaccess.tables;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
-import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
@@ -24,10 +17,18 @@ public class Measures_VME_General implements TableDomainMapper {
 	private String VME_Encounter;
 	private String VME_Indicator_Sp;
 	private String VME_Threshold;
-	private String Link_CEM_Bookmarked;
-	private String Link_CEM_Source;
+	// private String Link_CEM_Source;
 	private String RFB_Fishing_Areas;
 	private String RFB_Exploratory_Fishing_Protocol;
+	private int Source_ID;
+
+	public int getSource_ID() {
+		return Source_ID;
+	}
+
+	public void setSource_ID(int source_ID) {
+		Source_ID = source_ID;
+	}
 
 	public int getID() {
 		return ID;
@@ -101,21 +102,13 @@ public class Measures_VME_General implements TableDomainMapper {
 		VME_Threshold = vME_Threshold;
 	}
 
-	public String getLink_CEM_Bookmarked() {
-		return Link_CEM_Bookmarked;
-	}
-
-	public void setLink_CEM_Bookmarked(String link_CEM_Bookmarked) {
-		Link_CEM_Bookmarked = link_CEM_Bookmarked;
-	}
-
-	public String getLink_CEM_Source() {
-		return Link_CEM_Source;
-	}
-
-	public void setLink_CEM_Source(String link_CEM_Source) {
-		Link_CEM_Source = link_CEM_Source;
-	}
+	// public String getLink_CEM_Source() {
+	// return Link_CEM_Source;
+	// }
+	//
+	// public void setLink_CEM_Source(String link_CEM_Source) {
+	// Link_CEM_Source = link_CEM_Source;
+	// }
 
 	public String getRFB_Fishing_Areas() {
 		return RFB_Fishing_Areas;
@@ -144,23 +137,23 @@ public class Measures_VME_General implements TableDomainMapper {
 		o.setVmeEncounterProtocols(u.english(this.getVME_Encounter()));
 		o.setVmeIndicatorSpecies(u.english(this.getVME_Indicator_Sp()));
 
-		// It should be the column Link_CEM_Source within the Measures_VME_general table.
+		// It should be the column Link_CEM_Source within the
+		// Measures_VME_general table.
 
-		URL url = null;
-		if (this.getLink_CEM_Source() != null) {
-			try {
-				url = new URL(this.getLink_CEM_Source());
-				InformationSource is = new InformationSource();
-				is.setSourceType(2);
-				is.setUrl(url);
-				is.setCitation(u.english(this.getLink_CEM_Bookmarked()));
-				List<InformationSource> isList = new ArrayList<InformationSource>();
-				isList.add(is);
-				o.setInformationSourceList(isList);
-			} catch (MalformedURLException e) {
-				throw new VmeException(e);
-			}
-		}
+		// URL url = null;
+		// if (this.getLink_CEM_Source() != null) {
+		// try {
+		// url = new URL(this.getLink_CEM_Source());
+		// InformationSource is = new InformationSource();
+		// is.setSourceType(2);
+		// is.setUrl(url);
+		// List<InformationSource> isList = new ArrayList<InformationSource>();
+		// isList.add(is);
+		// o.setInformationSourceList(isList);
+		// } catch (MalformedURLException e) {
+		// throw new VmeException(e);
+		// }
+		// }
 
 		o.setFishingAreas(this.getRFB_Fishing_Areas());
 		// o.setRfmo(rfmo)

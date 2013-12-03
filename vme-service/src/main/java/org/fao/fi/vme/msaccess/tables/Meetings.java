@@ -18,8 +18,8 @@ public class Meetings implements TableDomainMapper {
 	private String Report_Summary;
 	private String Committee;
 	private String Citation;
-	private String Link_Tagged_File;
 	private String Link_Source;
+	private int Source_Type;
 
 	public int getID() {
 		return ID;
@@ -77,20 +77,20 @@ public class Meetings implements TableDomainMapper {
 		Citation = citation;
 	}
 
-	public String getLink_Tagged_File() {
-		return Link_Tagged_File;
-	}
-
-	public void setLink_Tagged_File(String link_Tagged_File) {
-		Link_Tagged_File = link_Tagged_File;
-	}
-
 	public String getLink_Source() {
 		return Link_Source;
 	}
 
 	public void setLink_Source(String link_Source) {
 		Link_Source = link_Source;
+	}
+
+	public int getSource_Type() {
+		return Source_Type;
+	}
+
+	public void setSource_Type(int source_Type) {
+		Source_Type = source_Type;
 	}
 
 	@Override
