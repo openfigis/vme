@@ -221,27 +221,27 @@ public class InformationSource {
 		this.publicationYear = publicationYear;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((this.citation == null) ? 0 : this.citation.hashCode());
-		result = prime * result + ((this.committee == null) ? 0 : this.committee.hashCode());
-		result = prime * result + ((this.generalMeasure == null) ? 0 : this.generalMeasure.hashCode());
-		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-		result = prime * result + ((this.meetingEndDate == null) ? 0 : this.meetingEndDate.hashCode());
-		result = prime * result + ((this.meetingStartDate == null) ? 0 : this.meetingStartDate.hashCode());
-		result = prime * result + ((this.publicationYear == null) ? 0 : this.publicationYear.hashCode());
-		result = prime * result + ((this.reportSummary == null) ? 0 : this.reportSummary.hashCode());
-		result = prime * result + ((this.rfmoList == null) ? 0 : this.rfmoList.hashCode());
-		result = prime * result + ((this.sourceType == null) ? 0 : this.sourceType.hashCode());
-		result = prime * result + ((this.specificMeasure == null) ? 0 : this.specificMeasure.hashCode());
-		result = prime * result + ((this.url == null) ? 0 : this.url.hashCode());
-		return result;
-	}
+//	/* (non-Javadoc)
+//	 * @see java.lang.Object#hashCode()
+//	 */
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((this.citation == null) ? 0 : this.citation.hashCode());
+//		result = prime * result + ((this.committee == null) ? 0 : this.committee.hashCode());
+//		result = prime * result + ((this.generalMeasure == null) ? 0 : this.generalMeasure.hashCode());
+//		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+//		result = prime * result + ((this.meetingEndDate == null) ? 0 : this.meetingEndDate.hashCode());
+//		result = prime * result + ((this.meetingStartDate == null) ? 0 : this.meetingStartDate.hashCode());
+//		result = prime * result + ((this.publicationYear == null) ? 0 : this.publicationYear.hashCode());
+//		result = prime * result + ((this.reportSummary == null) ? 0 : this.reportSummary.hashCode());
+//		result = prime * result + ((this.rfmoList == null) ? 0 : this.rfmoList.hashCode());
+//		result = prime * result + ((this.sourceType == null) ? 0 : this.sourceType.hashCode());
+//		result = prime * result + ((this.specificMeasure == null) ? 0 : this.specificMeasure.hashCode());
+//		result = prime * result + ((this.url == null) ? 0 : this.url.hashCode());
+//		return result;
+//	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
