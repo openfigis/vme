@@ -17,7 +17,8 @@
 		<repository>
 			<id>artifactory.fao.org</id>
 			<name>artifactory.fao.org-releases</name>
-			<url>http://artifactory.fao.org/artifactory/ext-release-local</url>
+			<url>http://artifactory.fao.org/artifactory/fips</url>
+			<snapshots><enabled>true</enabled></snapshots>
 		</repository>
 		<repository>
 			<id>gcube-snapshots</id>
