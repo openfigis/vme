@@ -1,33 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.gcube.application.rsg</groupId>
-    <artifactId>vme-reports-store-gateway-builder</artifactId>
-    <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
-    
-    <description>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.gcube.application.rsg</groupId>
+	<artifactId>vme-reports-store-gateway-builder</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<description>
         This is just to run the vme-reports-store-gateway separatedly from vme-web 
     </description>
-    
-<!--     <parent> -->
-<!--         <artifactId>vme</artifactId> -->
-<!--         <groupId>org.vme</groupId> -->
-<!--         <version>0.0.1-SNAPSHOT</version> -->
-<!--     </parent> -->
-<!--     <repositories> -->
-<!--         <repository> -->
-<!--             <id>artifactory.fao.org</id> -->
-<!--             <name>artifactory.fao.org-fips</name> -->
-<!--             <url>http://artifactory.fao.org/artifactory/fips</url> -->
-<!--             <snapshots><enabled>true</enabled></snapshots> -->
-<!--         </repository> -->
-<!--     </repositories> -->
-        
-    <modules>
-        <module>../vme-reports-store-gateway</module>
-        <module>../vme-reports-store-gateway-web</module>
-        <module>../vme-reports-store-gateway-test</module>
-    </modules>
+
+	<modules>
+		<module>../vme-reports-store-gateway</module>
+		<module>../vme-reports-store-gateway-web</module>
+		<module>../vme-reports-store-gateway-test</module>
+	</modules>
+
+	<distributionManagement>
+		<repository>
+			<id>${dm.rel.id}</id>
+			<name>${dm.rel.id-name}</name>
+			<url>${dm.rel.id-url}</url>
+		</repository>
+		<snapshotRepository>
+			<id>${dm.snap.id}</id>
+			<name>${dm.snap.id-name}</name>
+			<url>${dm.snap.id-url}</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
