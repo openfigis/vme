@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.gcube.application.rsg</groupId>
+    <artifactId>vme-reports-store-gateway-builder</artifactId>
+    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    
+    <description>
+        This is just to run the vme-reports-store-gateway separatedly from vme-web 
+    </description>
+    
+<!--     <parent> -->
+<!--         <artifactId>vme</artifactId> -->
+<!--         <groupId>org.vme</groupId> -->
+<!--         <version>0.0.1-SNAPSHOT</version> -->
+<!--     </parent> -->
+    
+    <modules>
+        <module>../vme-reports-store-gateway</module>
+        <module>../vme-reports-store-gateway-web</module>
+        <module>../vme-reports-store-gateway-test</module>
+    </modules>
+</project>
