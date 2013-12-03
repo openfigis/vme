@@ -27,13 +27,14 @@ import org.junit.runner.RunWith;
 @ActivatedAlternatives({ FilesystemMsAccessConnectionProvider.class })
 public class VmeReaderTest {
 
-	@Inject private VmeReader reader;
+	@Inject
+	private VmeReader reader;
 
 	public static Map<Class<?>, Integer> numberOfRecords = new HashMap<Class<?>, Integer>();
 	static {
-		numberOfRecords.put(VME.class, 209);
-		numberOfRecords.put(RFB_MetaData.class, 6);
-		numberOfRecords.put(Measues_VME_Specific.class, 181);
+		numberOfRecords.put(VME.class, 197);
+		numberOfRecords.put(RFB_MetaData.class, 5);
+		numberOfRecords.put(Measues_VME_Specific.class, 151);
 	}
 
 	@Test
@@ -65,11 +66,11 @@ public class VmeReaderTest {
 				int countMeetingId = 0;
 				for (Object object : records) {
 					Measues_VME_Specific r = (Measues_VME_Specific) object;
-					if (r.getMeetings_ID() > 0) {
+					if (r.getSource_ID() > 0) {
 						countMeetingId++;
 					}
 				}
-				assertEquals(132, countMeetingId, 10);
+				assertEquals(102, countMeetingId, 10);
 			}
 		}
 	}

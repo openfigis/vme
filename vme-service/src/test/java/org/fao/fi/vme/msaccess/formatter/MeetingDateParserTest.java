@@ -12,7 +12,7 @@ public class MeetingDateParserTest {
 			"24-28 Sep 2007", "30 Apr - 7 May 2008", "22-26 Sep 2008", "21-25 Sep 2009", "20-24 Sep 2010",
 			"19-23 Sep 2011", "3-6 Oct 2005", "2-5 Oct 2006", "8-11 Oct 2007", "6-9 Oct 2008", "5-8 Oct 2009",
 			"11-15 Oct 2010", "10-14 Oct 2011", "28-30 Sep 2005", "27-29 Sep 2006", "4-5 Oct 2007", "2-3 Oct 2008",
-			"30 Sep - 2 Oct 2009", "4-9 Oct 2010", "28 Sep - 7 Oct 2011" };
+			"30 Sep - 2 Oct 2009", "4-9 Oct 2010", "28 Sep - 7 Oct 2011", "30-31 Dec 2099" };
 
 	@Test
 	public void testMeetingDateParser() {
