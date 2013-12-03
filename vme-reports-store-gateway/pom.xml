@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>org.gcube.application</groupId>
 			<artifactId>gcube-reporting-modeler</artifactId>
-			<version>[1.1.0-SNAPSHOT, 2.0.0-SNAPSHOT)</version>
+			<version>1.1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
