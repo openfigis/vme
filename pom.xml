@@ -26,6 +26,10 @@
 			</snapshots>
 			<url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-snapshots</url>
 		</repository>
+		<repository>
+			<id>gcube-releases</id>
+			<url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-releases</url>
+		</repository>
 	</repositories>
 
 	<modules>
