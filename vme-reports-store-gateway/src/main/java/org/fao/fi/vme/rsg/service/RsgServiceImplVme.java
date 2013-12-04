@@ -1,11 +1,9 @@
 package org.fao.fi.vme.rsg.service;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +22,6 @@ import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.gcube.application.reporting.ReportsModeler;
-import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.rsg.service.RsgService;
 import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
@@ -95,27 +92,27 @@ public class RsgServiceImplVme implements RsgService {
 	}
 	
 	@Override
-	public List<ReportType> getReportTypes() {
+	public ReportType[] getReportTypes() {
 		u.create();
 		
 		for(Class<?> report : this._reflections.getTypesAnnotatedWith(RSGReport.class))
 			u.add(report.getSimpleName());
 		
-		return u.getReportTypes();
+		return u.getReportTypes().toArray(new ReportType[0]);
 	}
 
 	@Override
-	public List<ReportType> getRefReportTypes() {
+	public ReportType[] getRefReportTypes() {
 		u.create();
 		
 		for(Class<?> report : this._reflections.getTypesAnnotatedWith(RSGReferenceReport.class))
 			u.add(report.getSimpleName());
 		
-		return u.getReportTypes();
+		return u.getReportTypes().toArray(new ReportType[0]);
 	}
 
 	@Override
-	public List<ReportEntry> listReports(ReportType reportType, NameValue... filters) {
+	public ReportEntry[] listReports(ReportType reportType, NameValue... filters) {
 		final String typeId = reportType.getTypeIdentifier();
 		
 		Map<String, Object> criteria = new HashMap<String, Object>();
@@ -140,7 +137,7 @@ public class RsgServiceImplVme implements RsgService {
 		return null;
 	}
 	
-	private List<ReportEntry> listVMEs(Map<String, Object> criteria) {
+	private ReportEntry[] listVMEs(Map<String, Object> criteria) {
 		Collection<Vme> vmes = this.vmeDao.filterEntities(this.vmeDao.getEm(), Vme.class, criteria);
 		
 		List<ReportEntry> results = new ArrayList<ReportEntry>();
@@ -160,10 +157,10 @@ public class RsgServiceImplVme implements RsgService {
 			results.add(entry);
 		}
 		
-		return results;
+		return results.toArray(new ReportEntry[0]);
 	}
 
-	private List<ReportEntry> listRFMOs(Map<String, Object> criteria) {
+	private ReportEntry[] listRFMOs(Map<String, Object> criteria) {
 		Collection<Rfmo> rfmos = this.vmeDao.filterEntities(this.vmeDao.getEm(), Rfmo.class, criteria);
 		
 		List<ReportEntry> results = new ArrayList<ReportEntry>();
@@ -182,10 +179,10 @@ public class RsgServiceImplVme implements RsgService {
 			results.add(entry);
 		}
 		
-		return results;
+		return results.toArray(new ReportEntry[0]);
 	}
 	
-	private List<ReportEntry> listInformationSources(Map<String, Object> criteria) {
+	private ReportEntry[] listInformationSources(Map<String, Object> criteria) {
 		Collection<InformationSource> informationSources = this.vmeDao.filterEntities(this.vmeDao.getEm(), InformationSource.class, criteria);
 		
 		List<ReportEntry> results = new ArrayList<ReportEntry>();
@@ -204,10 +201,10 @@ public class RsgServiceImplVme implements RsgService {
 			results.add(entry);
 		}
 		
-		return results;
+		return results.toArray(new ReportEntry[0]);
 	}
 	
-	private List<ReportEntry> listGeneralMeasure(Map<String, Object> criteria) {
+	private ReportEntry[] listGeneralMeasure(Map<String, Object> criteria) {
 		Collection<GeneralMeasure> generalMeasures = this.vmeDao.filterEntities(this.vmeDao.getEm(), GeneralMeasure.class, criteria);
 		
 		List<ReportEntry> results = new ArrayList<ReportEntry>();
@@ -228,10 +225,10 @@ public class RsgServiceImplVme implements RsgService {
 			results.add(entry);
 		}
 		
-		return results;
+		return results.toArray(new ReportEntry[0]);
 	}
 	
-	private List<ReportEntry> listFisheryAreasHistory(Map<String, Object> criteria) {
+	private ReportEntry[] listFisheryAreasHistory(Map<String, Object> criteria) {
 		Collection<FisheryAreasHistory> fisheryAreasHistory = this.vmeDao.filterEntities(this.vmeDao.getEm(), FisheryAreasHistory.class, criteria);
 		
 		List<ReportEntry> results = new ArrayList<ReportEntry>();
@@ -250,10 +247,10 @@ public class RsgServiceImplVme implements RsgService {
 			results.add(entry);
 		}
 		
-		return results;
+		return results.toArray(new ReportEntry[0]);
 	}
 	
-	private List<ReportEntry> listVMEsHistory(Map<String, Object> criteria) {
+	private ReportEntry[] listVMEsHistory(Map<String, Object> criteria) {
 		Collection<VMEsHistory> vmesHistory = this.vmeDao.filterEntities(this.vmeDao.getEm(), VMEsHistory.class, criteria);
 		
 		List<ReportEntry> results = new ArrayList<ReportEntry>();
@@ -272,7 +269,7 @@ public class RsgServiceImplVme implements RsgService {
 			results.add(entry);
 		}
 		
-		return results;
+		return results.toArray(new ReportEntry[0]);
 	}
 
 	/* (non-Javadoc)
@@ -322,19 +319,19 @@ public class RsgServiceImplVme implements RsgService {
 		try {
 			CompiledReport report = this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
 			
-			ReportsModeler modeler = this._builder.buildReport(report, "foo", "foo:name", "foo:author", new Date(), new Date(), "foo:editor");
-			
-			File folder = new File("C:\\VME\\VME_" + reportType.getTypeIdentifier());
-			
-			folder.mkdir();
-			
-			folder = new File(folder.getAbsolutePath() + "\\" + reportType.getTypeIdentifier().toUpperCase() + "_" + reportId);
-			
-			folder.mkdir();
-			
-			File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_" + reportId + ".d4st");
-			
-			PersistenceManager.writeModel(modeler.getReportInstance(), file);
+//			ReportsModeler modeler = this._builder.buildReport(report, "foo", "foo:name", "foo:author", new Date(), new Date(), "foo:editor");
+//			
+//			File folder = new File("C:\\VME\\VME_" + reportType.getTypeIdentifier());
+//			
+//			folder.mkdir();
+//			
+//			folder = new File(folder.getAbsolutePath() + "\\" + reportType.getTypeIdentifier().toUpperCase() + "_" + reportId);
+//			
+//			folder.mkdir();
+//			
+//			File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_" + reportId + ".d4st");
+//			
+//			PersistenceManager.writeModel(modeler.getReportInstance(), file);
 			
 			return report;
 		} catch (Throwable t) {
