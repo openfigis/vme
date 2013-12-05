@@ -56,12 +56,12 @@ public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependent
 	public void testFindBindingsInTemplate() throws Throwable {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
 		
-		Bound found = CompiledReportUtils.find(template, "#.rfmo.informationSourceList.publicationYear");
+		Bound found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSource.publicationYear");
 		
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());
 		
-		found = CompiledReportUtils.find(template, "#.rfmo.informationSourceList.publicationYearZ");
+		found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSourceZ");
 		Assert.assertNull(found);
 	}
 	
@@ -69,12 +69,12 @@ public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependent
 	public void testFindBindingsInReport() throws Throwable {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
 		
-		Bound found = CompiledReportUtils.find(template, "#.rfmo.informationSourceList.publicationYear");
+		Bound found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSource.publicationYear");
 		
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());
 		
-		found = CompiledReportUtils.find(template, "#.rfmo.informationSourceList.publicationYearZ");
+		found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSourceZ");
 		Assert.assertNull(found);
 	}
 }

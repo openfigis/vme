@@ -97,18 +97,18 @@ public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
 		CompiledReport evaluated = this._reportEvaluator.evaluate(template, VmeMocker.getMock1());
 		
-		Bound found = CompiledReportUtils.find(evaluated, "#.rfmo.informationSourceList[0].publicationYear");
+		Bound found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[0].informationSource.publicationYear");
 		
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());
 
-		found = CompiledReportUtils.find(template, "#.rfmo.informationSourceList[0].publicationYear");
+		found = CompiledReportUtils.find(template, "#.specificMeasureList[0].informationSource.publicationYear");
 		Assert.assertNull(found);
 
-		found = CompiledReportUtils.find(evaluated, "#.rfmo.informationSourceList[0].publicationYearZ");
+		found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[0].informationSource.publicationYearZ");
 		Assert.assertNull(found);
 		
-		found = CompiledReportUtils.find(evaluated, "#.rfmo.generalMeasureList[1].informationSourceList[0].publicationYear");
+		found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[1].informationSource.publicationYear");
 		
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());

@@ -375,7 +375,10 @@ public class RsgServiceImplVme implements RsgService {
 		}
 		
 		try {
-			return this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
+			CompiledReport report = this._compiler.compile(identifiedReport);
+			report.setIsAReference(true);
+			
+			return this._evaluator.evaluate(report, identified);
 		} catch (Throwable t) {
 			LOG.info("Unable to compile ref report of type {} with id {}: {} [ {} ]", new Object[] { refReportType.getTypeIdentifier(), refReportId, t.getClass().getSimpleName(), t.getMessage() });
 

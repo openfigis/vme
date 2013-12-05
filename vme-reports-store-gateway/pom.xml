@@ -39,7 +39,7 @@
 			<version>[0.0.3-SNAPSHOT,]</version>
 		</dependency>
 		<dependency>
-			<groupId>reports-store-gateway-test</groupId>
+			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-test</artifactId>
 			<version>[0.0.3-SNAPSHOT,]</version>
 			<scope>test</scope>
