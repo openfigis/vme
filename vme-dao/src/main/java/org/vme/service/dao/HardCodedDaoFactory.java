@@ -4,11 +4,9 @@
 package org.vme.service.dao;
 
 import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.Any;
 import javax.inject.Inject;
 
-import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
-import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
 import org.vme.service.dao.impl.hardcoded.ObservationHarcodedDao;
 import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
 
@@ -19,7 +17,7 @@ import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
 @Alternative
 public class HardCodedDaoFactory implements DAOFactory {
 
-	@Inject
+	@Inject @Any
 	private ReferenceHardcodedDao referenceDAO;
 	
 	@Inject
