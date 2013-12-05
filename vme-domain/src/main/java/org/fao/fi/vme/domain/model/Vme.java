@@ -98,7 +98,7 @@ public class Vme implements Period<Vme> {
 
 	@RSGName("Area Type")
 	@RSGMandatory
-	@RSGOneAmong(concept=VmeType.class, label=ConceptData.NAME)
+	@RSGOneAmong(concept=VmeType.class, label=ConceptData.NAME, value=ConceptData.NAME)
 	@RSGConverter(StringDataConverter.class)
 	@RSGWeight(1)
 	private String areaType;
@@ -114,7 +114,7 @@ public class Vme implements Period<Vme> {
 	 */
 	@RSGName("Criteria")
 	@RSGMandatory
-	@RSGOneAmong(concept=VmeCriteria.class, label=ConceptData.NAME)
+	@RSGOneAmong(concept=VmeCriteria.class, label=ConceptData.NAME, value=ConceptData.NAME)
 	@RSGConverter(StringDataConverter.class)
 	@RSGWeight(1)
 	private String criteria;

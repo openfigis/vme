@@ -12,14 +12,13 @@ import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 
 
 /**
  * @author Fabrizio Sibeni
  * 
  */
-
-
 public class ReferenceHardcodedDaoHelper {
 	
 	
@@ -96,12 +95,10 @@ public class ReferenceHardcodedDaoHelper {
 	}	
 
 	private void createVmeTypes() {
-		repVmeType.put((long)10, new VmeType(10,"VME (Adopted)"));
-		repVmeType.put((long)20, new VmeType(20,"Risk area (closed area)"));
-		repVmeType.put((long)30, new VmeType(30,"Benthic Protected Area (voluntary / industry closed areas)"));
-		repVmeType.put((long)40, new VmeType(40,"Other types of managed area"));
+		repVmeType.put((long)10, new VmeType(10,"VME"));
+		repVmeType.put((long)20, new VmeType(20,"Risk area"));
+		repVmeType.put((long)30, new VmeType(30,"Other types of closed/restricted area"));
 	}
-
 	
 	private void createYears() {
 		repYear.put((long)2013, new ReferenceYear(2013));

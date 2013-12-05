@@ -29,5 +29,5 @@ public interface DAOFactory {
 
 	public ObservationDAO getObservationDAO();
 
-	@Produces @ConceptProvider ReferenceConceptProvider<Long> getReferenceConceptProvider();
+//	@Produces @ConceptProvider ReferenceConceptProvider<Long> getReferenceConceptProvider();
 }

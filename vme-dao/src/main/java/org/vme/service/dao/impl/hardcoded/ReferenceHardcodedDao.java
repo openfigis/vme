@@ -9,6 +9,7 @@ import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConcept;
 import org.vme.service.dao.ReferenceServiceException;
 import org.vme.service.dao.impl.AbstractReferenceDAO;
@@ -17,7 +18,7 @@ import org.vme.service.dao.impl.AbstractReferenceDAO;
  * @author Fabrizio Sibeni
  * 
  */
-
+@ConceptProvider
 public class ReferenceHardcodedDao extends AbstractReferenceDAO {
 	private ReferenceHardcodedDaoHelper helper;
 

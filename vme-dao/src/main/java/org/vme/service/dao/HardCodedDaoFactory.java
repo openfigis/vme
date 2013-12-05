@@ -29,13 +29,13 @@ public class HardCodedDaoFactory implements DAOFactory {
 		super();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.vme.service.dao.DAOFactory#getReferenceConceptProvider()
-	 */
-	@Override
-	@Produces @ConceptProvider public ReferenceConceptProvider<Long> getReferenceConceptProvider() {
-		return this.getReferenceDAO();
-	}
+//	/* (non-Javadoc)
+//	 * @see org.vme.service.dao.DAOFactory#getReferenceConceptProvider()
+//	 */
+//	@Override
+//	@Produces @ConceptProvider public ReferenceConceptProvider<Long> getReferenceConceptProvider() {
+//		return this.getReferenceDAO();
+//	}
 	
 	/* (non-Javadoc)
 	 * @see org.vme.service.dao.DAOFactory#getReferenceDAO()
