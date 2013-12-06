@@ -4,13 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.fao.fi.vme.domain.dto.observations.ObservationDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.service.dao.ObservationDAO;
+import org.vme.service.dao.config.figis.FigisDataBaseProducer;
 
 
 public class ObservationHarcodedDao implements ObservationDAO   {
+	static final private Logger LOG = LoggerFactory.getLogger(ObservationHarcodedDao.class);
 
 	public ObservationHarcodedDao() {
-		System.out.println("VME search engine 1.0 - Mockup service");
+		LOG.info("VME search engine 1.0 - Mockup service");
 
 	}
 

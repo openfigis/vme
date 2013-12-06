@@ -41,6 +41,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenc
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.DataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.utilities.Utils;
 import org.gcube.application.rsg.support.compiler.utils.ScanningUtils;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
@@ -65,7 +66,7 @@ import org.vme.service.dao.sources.vme.VmeDao;
 @Alternative
 public class RsgServiceImplVme implements RsgService {
 	final static private Logger LOG = LoggerFactory.getLogger(RsgServiceImplVme.class);
-
+	
 	final private Reflections _reflections = new Reflections("org.fao.fi.vme.domain");
 	
 	final protected RsgServiceUtil u = new RsgServiceUtil();
@@ -78,6 +79,15 @@ public class RsgServiceImplVme implements RsgService {
 	@Inject VmeAccessDbImport importer;
 	@Inject VmeDao vmeDao;
 
+	final private static String getReportDumpPath() {
+		String path = Utils.coalesce(System.getProperty("rsg.reports.dump.path"), System.getProperty("java.io.tmpdir"));
+		
+		if(path != null && !path.endsWith(File.separator))
+			path += File.separator;
+		
+		return path;
+	}
+	
 	@PostConstruct
 	private void postConstruct() {
 		this._compiler.registerPrimitiveType(MultiLingualString.class);
@@ -328,7 +338,7 @@ public class RsgServiceImplVme implements RsgService {
 			
 			ReportsModeler modeler = this._builder.buildReport(report, report.getId(), "foo:name", "foo:author", new Date(), new Date(), "foo:editor");
 			
-			File folder = new File("C:\\VME\\VME_" + reportType.getTypeIdentifier());
+			File folder = new File(getReportDumpPath() + reportType.getTypeIdentifier());
 			
 			folder.mkdir();
 			
@@ -392,7 +402,7 @@ public class RsgServiceImplVme implements RsgService {
 			
 			ReportsModeler modeler = this._builder.buildReferenceReport(report, report.getId(), "foo:name", "foo:author", new Date(), new Date(), "foo:editor");
 			
-			File folder = new File("C:\\VME\\VME_" + refReportType.getTypeIdentifier());
+			File folder = new File(getReportDumpPath() + refReportType.getTypeIdentifier());
 			
 			folder.mkdir();
 			

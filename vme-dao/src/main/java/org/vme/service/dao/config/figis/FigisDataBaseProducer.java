@@ -7,6 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 
  * Produces the link to the figis DB.
@@ -18,7 +21,8 @@ import javax.persistence.Persistence;
  */
 @Alternative
 public class FigisDataBaseProducer {
-
+	static final private Logger LOG = LoggerFactory.getLogger(FigisDataBaseProducer.class);
+	
 	static int i = 0;
 
 	// private static EntityManagerFactory factory;
@@ -35,16 +39,16 @@ public class FigisDataBaseProducer {
 	@Produces
 	@FigisDB
 	public EntityManager produceEntityManager() {
-		System.out.println("=====================================================");
-		System.out.println("=====================================================");
-		System.out.println("=====================================================");
-		System.out.println("=====================================================");
-		System.out.println("=====================================================");
-		System.out.println("=====================================================");
-		System.out.println("=====================================================");
-		System.out.println("=====================================================");
-		System.out.println("=====================================================");
-		System.out.println("=====================================================called this number of times" + ++i);
+		LOG.debug("=====================================================");
+		LOG.debug("=====================================================");
+		LOG.debug("=====================================================");
+		LOG.debug("=====================================================");
+		LOG.debug("=====================================================");
+		LOG.debug("=====================================================");
+		LOG.debug("=====================================================");
+		LOG.debug("=====================================================");
+		LOG.debug("=====================================================");
+		LOG.debug("=====================================================called this number of times" + ++i);
 
 		return create().createEntityManager();
 	}
