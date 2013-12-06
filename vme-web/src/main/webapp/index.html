@@ -9,97 +9,123 @@ VME RESTful web
 service !!!&nbsp;</span> </h1>
 <br>
 <br>
-<table style="text-align: left; width: 100%;" border="0" cellpadding="2" cellspacing="2">
-<tbody>
-<tr>
-<td style="color: rgb(102, 0, 0); width: 610px;">If
-you want to see the documentation of this service ...</td>
-<td style="width: 756px;"><a href="http://km.fao.org/FIGISwiki/index.php/VME_Search_Rest_Service">http://km.fao.org/FIGISwiki/index.php/VME_Search_Rest_Service</a></td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); width: 610px;"></td>
-<td style="width: 756px;"></td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); width: 610px;">If
-you want to get the code list of the authorities&nbsp;in json format</td>
-<td style="width: 756px;"><a href="webservice/references/authority/en/list">http://figisapps.fao.org/figis/ws/vme/webservice/references/authority/en/list</a></td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); width: 610px;">If
-you want to get&nbsp;the code list of VME types&nbsp;in json
-format</td>
-<td style="width: 756px;"><a href="webservice/references/type/en/list">http://figisapps.fao.org/figis/ws/vme/webservice/references/type/en/list</a></td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); width: 610px;">If
-you want to get&nbsp;the code list of VME criterias in json format</td>
-<td style="width: 756px;"><a href="webservice/references/criteria/en/list">http://figisapps.fao.org/figis/ws/vme/webservice/references/criteria/en/list</a></td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); width: 610px;">If
-you want to get&nbsp;the data related years in json format</td>
-<td style="width: 756px;"><a href="webservice/references/years/en/list">http://figisapps.fao.org/figis/ws/vme/webservice/references/years/en/list</a></td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); width: 610px;"></td>
-<td style="width: 756px;"></td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); width: 610px;"><span style="font-style: italic;">To having an example of
-&nbsp;how...</span></td>
-<td style="width: 756px;"></td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...query
-the data&nbsp;(json format service):</td>
-<td style="width: 756px;"><a href="webservice/search?authority=20010&amp;vme_type=10&amp;year=2012">http://figisapps.fao.org/figis/ws/vme/webservice/search?authority=20010&amp;vme_type=10&amp;year=2012</a>
-</td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
-get a single vme item by its <span style="font-style: italic;">id</span>&nbsp;
-(unspecified year, it assumes current one) </td>
-<td style="width: 756px;"><a href="webservice/get?id=10">http://figisapps.fao.org/figis/ws/vme/webservice/get?id=10</a>
-</td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...
-to get a single vme item by its <span style="font-style: italic;">id</span>&nbsp;(year
-specified)</td>
-<td style="width: 756px;"><a href="webservice/get?id=10&amp;year=2010">http://figisapps.fao.org/figis/ws/vme/webservice/get?id=10&amp;year=2010</a>
-</td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
-get&nbsp;a single vme item by its<span style="font-style: italic;"> inventory identifier</span> (unspecified
-year, it assumes current one) </td>
-<td style="width: 756px;"><a href="webservice/get?inventoryIdentifier=VME_NAFO_12">http://figisapps.fao.org/figis/ws/vme/webservice/get?inventoryIdentifier=VME_NAFO_12<br>
-</a></td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
-get&nbsp;a single vme item by its<span style="font-style: italic;"> inventory identifier</span> (year
-specified)</td>
-<td style="width: 756px;"><a href="webservice/get?inventoryIdentifier=VME_NAFO_12&amp;year=2010">http://figisapps.fao.org/figis/ws/vme/webservice/get?inventoryIdentifier=VME_NAFO_12&amp;year=2010</a><a href="webservice/get?inventoryIdentifier=VME_NAFO_12&amp;year=2010">
-</a></td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
-get&nbsp;a single vme item by its <span style="font-style: italic;">geographic feature
-ident.</span>(unspecified year, it assumes current one) </td>
-<td style="width: 756px;"><a href="webservice/get?geographicFeatureId=VME_NAFO_10_2009">http://figisapps.fao.org/figis/ws/vme/webservice/get?geographicFeatureId=VME_NAFO_10_2009<br>
-</a></td>
-</tr>
-<tr>
-<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
-get&nbsp;a single vme item by its <span style="font-style: italic;">geographic feature identifier
-</span>(year specified)</td>
-<td style="width: 756px;"><a href="webservice/get?geographicFeatureId=VME_NAFO_10_2009&amp;year=2012">http://figisapps.fao.org/figis/ws/vme/webservice/get?geographicFeatureId=VME_NAFO_10_2009&amp;year=2012</a><a href="webservice/get?geographicFeatureId=VME_NAFO_10_2009&amp;year=2012">
-</a></td>
-</tr>
-</tbody>
-</table>
-<br>
+	<table style="text-align: left; width: 100%;" border="0"
+		cellpadding="2" cellspacing="2">
+		<tbody>
+			<tr>
+				<td style="color: rgb(102, 0, 0); width: 610px;">If you want to
+					see the documentation of this service ...</td>
+				<td style="width: 756px;"><a
+					href="http://km.fao.org/FIGISwiki/index.php/VME_Search_Rest_Service">http://km.fao.org/FIGISwiki/index.php/VME_Search_Rest_Service</a></td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); width: 610px;"></td>
+				<td style="width: 756px;"></td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); width: 610px;">If you want to
+					get the code list of the authorities&nbsp;in json format</td>
+				<td style="width: 756px;"><a
+					href="webservice/references/authority/en/list">webservice/references/authority/en/list</a></td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); width: 610px;">If you want to
+					get&nbsp;the code list of VME types&nbsp;in json format</td>
+				<td style="width: 756px;"><a
+					href="webservice/references/type/en/list">webservice/references/type/en/list</a></td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); width: 610px;">If you want to
+					get&nbsp;the code list of VME criterias in json format</td>
+				<td style="width: 756px;"><a
+					href="webservice/references/criteria/en/list">webservice/references/criteria/en/list</a></td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); width: 610px;">If you want to
+					get&nbsp;the data related years in json format</td>
+				<td style="width: 756px;"><a
+					href="webservice/references/years/en/list">webservice/references/years/en/list</a></td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); width: 610px;"></td>
+				<td style="width: 756px;"></td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); width: 610px;"><span
+					style="font-style: italic;">To having an example of
+						&nbsp;how...</span></td>
+				<td style="width: 756px;"></td>
+			</tr>
+			<tr>
+				<td>... search with a searchTerm</td>
+				<td style="width: 756px;"><a
+					href="webservice/search?text=lophelia">webservice/search?text=lophelia</a>
+				</td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...query
+					the data&nbsp;(json format service):</td>
+				<td style="width: 756px;"><a
+					href="webservice/search?authority=20010&amp;vme_type=10&amp;year=2012">webservice/search?authority=20010&amp;vme_type=10&amp;year=2012</a>
+				</td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
+					get a single vme item by its <span style="font-style: italic;">id</span>&nbsp;
+					(unspecified year, it assumes current one)
+				</td>
+				<td style="width: 756px;"><a href="webservice/get?id=10">webservice/get?id=10</a>
+				</td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...
+					to get a single vme item by its <span style="font-style: italic;">id</span>&nbsp;(year
+					specified)
+				</td>
+				<td style="width: 756px;"><a
+					href="webservice/get?id=10&amp;year=2010">webservice/get?id=10&amp;year=2010</a>
+				</td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
+					get&nbsp;a single vme item by its<span style="font-style: italic;">
+						inventory identifier</span> (unspecified year, it assumes current one)
+				</td>
+				<td style="width: 756px;"><a
+					href="webservice/get?inventoryIdentifier=VME_NAFO_12">webservice/get?inventoryIdentifier=VME_NAFO_12<br>
+				</a></td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
+					get&nbsp;a single vme item by its<span style="font-style: italic;">
+						inventory identifier</span> (year specified)
+				</td>
+				<td style="width: 756px;"><a
+					href="webservice/get?inventoryIdentifier=VME_NAFO_12&amp;year=2010">webservice/get?inventoryIdentifier=VME_NAFO_12&amp;year=2010</a><a
+					href="webservice/get?inventoryIdentifier=VME_NAFO_12&amp;year=2010">
+				</a></td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
+					get&nbsp;a single vme item by its <span style="font-style: italic;">geographic
+						feature ident.</span>(unspecified year, it assumes current one)
+				</td>
+				<td style="width: 756px;"><a
+					href="webservice/get?geographicFeatureId=VME_NAFO_10_2009">webservice/get?geographicFeatureId=VME_NAFO_10_2009<br>
+				</a></td>
+			</tr>
+			<tr>
+				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
+					get&nbsp;a single vme item by its <span style="font-style: italic;">geographic
+						feature identifier </span>(year specified)
+				</td>
+				<td style="width: 756px;"><a
+					href="webservice/get?geographicFeatureId=VME_NAFO_10_2009&amp;year=2012">webservice/get?geographicFeatureId=VME_NAFO_10_2009&amp;year=2012</a><a
+					href="webservice/get?geographicFeatureId=VME_NAFO_10_2009&amp;year=2012">
+				</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
 <br>
 </body></html>
