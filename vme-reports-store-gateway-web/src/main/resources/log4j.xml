@@ -18,6 +18,10 @@
 		<appender-ref ref="console"/>
 		<appender-ref ref="weld"/>
 	</category>
+	<category name="org.gcube.application.reporting.persistence" additivity="false">
+		<priority value="debug" />
+		<appender-ref ref="console"/>
+	</category>
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />

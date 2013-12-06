@@ -1,9 +1,11 @@
 package org.fao.fi.vme.rsg.service;
 
+import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,8 @@ import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.gcube.application.reporting.ReportsModeler;
+import org.gcube.application.reporting.persistence.PersistenceManager;
+import org.gcube.application.reporting.reader.ModelReader;
 import org.gcube.application.rsg.service.RsgService;
 import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
@@ -97,7 +101,10 @@ public class RsgServiceImplVme implements RsgService {
 		
 		for(Class<?> report : this._reflections.getTypesAnnotatedWith(RSGReport.class))
 			u.add(report.getSimpleName());
-		
+
+		for(Class<?> report : this._reflections.getTypesAnnotatedWith(RSGReferenceReport.class))
+			u.add(report.getSimpleName());
+
 		return u.getReportTypes().toArray(new ReportType[0]);
 	}
 
@@ -319,19 +326,22 @@ public class RsgServiceImplVme implements RsgService {
 		try {
 			CompiledReport report = this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
 			
-//			ReportsModeler modeler = this._builder.buildReport(report, "foo", "foo:name", "foo:author", new Date(), new Date(), "foo:editor");
-//			
-//			File folder = new File("C:\\VME\\VME_" + reportType.getTypeIdentifier());
-//			
-//			folder.mkdir();
-//			
-//			folder = new File(folder.getAbsolutePath() + "\\" + reportType.getTypeIdentifier().toUpperCase() + "_" + reportId);
-//			
-//			folder.mkdir();
-//			
-//			File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_" + reportId + ".d4st");
-//			
-//			PersistenceManager.writeModel(modeler.getReportInstance(), file);
+			ReportsModeler modeler = this._builder.buildReport(report, report.getId(), "foo:name", "foo:author", new Date(), new Date(), "foo:editor");
+			
+			File folder = new File("C:\\VME\\VME_" + reportType.getTypeIdentifier());
+			
+			folder.mkdir();
+			
+			folder = new File(folder.getAbsolutePath() + "\\" + reportType.getTypeIdentifier().toUpperCase() + "_" + reportId);
+			
+			folder.mkdir();
+			
+			File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_" + reportId + ".d4st");
+			
+			ModelReader reader = new ModelReader(modeler.getReportInstance());
+
+			PersistenceManager.writeModel(modeler.getReportInstance(), file);
+			PersistenceManager.readModel(file.getAbsolutePath());
 			
 			return report;
 		} catch (Throwable t) {
@@ -378,15 +388,32 @@ public class RsgServiceImplVme implements RsgService {
 			CompiledReport report = this._compiler.compile(identifiedReport);
 			report.setIsAReference(true);
 			
-			return this._evaluator.evaluate(report, identified);
+			report = this._evaluator.evaluate(report, identified);
+			
+			ReportsModeler modeler = this._builder.buildReferenceReport(report, report.getId(), "foo:name", "foo:author", new Date(), new Date(), "foo:editor");
+			
+			File folder = new File("C:\\VME\\VME_" + refReportType.getTypeIdentifier());
+			
+			folder.mkdir();
+			
+			folder = new File(folder.getAbsolutePath() + "\\" + refReportType.getTypeIdentifier().toUpperCase() + "_" + refReportId);
+			
+			folder.mkdir();
+			
+			File file = new File(folder, refReportType.getTypeIdentifier().toUpperCase() + "_" + refReportId + ".d4st");
+
+			ModelReader reader = new ModelReader(modeler.getReportInstance());
+
+			PersistenceManager.writeModel(modeler.getReportInstance(), file);
+			PersistenceManager.readModel(file.getAbsolutePath());
+			
+			return report;
 		} catch (Throwable t) {
 			LOG.info("Unable to compile ref report of type {} with id {}: {} [ {} ]", new Object[] { refReportType.getTypeIdentifier(), refReportId, t.getClass().getSimpleName(), t.getMessage() });
 
 			return null;
 		}
 	}
-	
-	
 
 	/* (non-Javadoc)
 	 * @see org.gcube.application.rsg.service.RsgService#getRefTemplate(org.gcube.application.rsg.service.dto.ReportType)
