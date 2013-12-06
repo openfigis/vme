@@ -348,7 +348,7 @@ public class RsgServiceImplVme implements RsgService {
 			
 			File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_" + reportId + ".d4st");
 			
-			ModelReader reader = new ModelReader(modeler.getReportInstance());
+			new ModelReader(modeler.getReportInstance());
 
 			PersistenceManager.writeModel(modeler.getReportInstance(), file);
 			PersistenceManager.readModel(file.getAbsolutePath());
@@ -412,7 +412,7 @@ public class RsgServiceImplVme implements RsgService {
 			
 			File file = new File(folder, refReportType.getTypeIdentifier().toUpperCase() + "_" + refReportId + ".d4st");
 
-			ModelReader reader = new ModelReader(modeler.getReportInstance());
+			new ModelReader(modeler.getReportInstance());
 
 			PersistenceManager.writeModel(modeler.getReportInstance(), file);
 			PersistenceManager.readModel(file.getAbsolutePath());
