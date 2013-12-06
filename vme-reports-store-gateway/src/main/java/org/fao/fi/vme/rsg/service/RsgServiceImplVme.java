@@ -166,9 +166,13 @@ public class RsgServiceImplVme implements RsgService {
 			
 			entry.setId(vme.getId());
 			entry.setReportType(new ReportType("Vme"));
+			entry.setOwned(true);
+			entry.setOwner(vme.getRfmo().getId());
+			
+			entry.setIdentifier(MLSu.getEnglish(vme.getName()));
 			
 			entry.getNameValueList().add(new NameValue("InventoryIdentifier", vme.getInventoryIdentifier()));
-			entry.getNameValueList().add(new NameValue("RFMO", vme.getRfmo().getId()));
+			entry.getNameValueList().add(new NameValue("Rfmo", vme.getRfmo().getId()));
 			entry.getNameValueList().add(new NameValue("Name", MLSu.getEnglish(vme.getName())));
 			
 			results.add(entry);
@@ -189,6 +193,7 @@ public class RsgServiceImplVme implements RsgService {
 			
 			entry.setId(rfmo.getId());
 			entry.setReportType(new ReportType("Rfmo"));
+			entry.setIdentifier(rfmo.getId());
 			
 			entry.getNameValueList().add(new NameValue("Name", rfmo.getId()));
 			entry.getNameValueList().add(new NameValue("Number of VMEs", String.valueOf(rfmo.getListOfManagedVmes().size())));
@@ -211,6 +216,9 @@ public class RsgServiceImplVme implements RsgService {
 			
 			entry.setId(informationSource.getId());
 			entry.setReportType(new ReportType("InformationSource"));
+			entry.setOwned(true);
+			entry.setOwner("<MISSING>"); //InformationSource has no owner attribute, currently
+			entry.setIdentifier(entry.getOwner() + " - " + ( informationSource.getPublicationYear() == null ? "<YEAR UNKNOWN>" : informationSource.getPublicationYear().toString() ) + " - " + MLSu.getEnglish(informationSource.getCitation()));
 			
 			entry.getNameValueList().add(new NameValue("Committee", MLSu.getEnglish(informationSource.getCommittee())));
 			entry.getNameValueList().add(new NameValue("Citation", MLSu.getEnglish(informationSource.getCitation())));
@@ -233,6 +241,9 @@ public class RsgServiceImplVme implements RsgService {
 			
 			entry.setId(generalMeasure.getId());
 			entry.setReportType(new ReportType("GeneralMeasure"));
+			entry.setOwned(true);
+			entry.setOwner(generalMeasure.getRfmo().getId());
+			entry.setIdentifier(entry.getOwner() + " - " + generalMeasure.getYear());
 			
 			entry.getNameValueList().add(new NameValue("Rfmo", generalMeasure.getRfmo().getId()));
 			entry.getNameValueList().add(new NameValue("Year", generalMeasure.getYear() == null ? null : generalMeasure.getYear().toString()));
@@ -257,6 +268,9 @@ public class RsgServiceImplVme implements RsgService {
 			
 			entry.setId(fisheryAreaHistory.getId());
 			entry.setReportType(new ReportType("FisheryAreasHistory"));
+			entry.setOwned(true);
+			entry.setOwner("<MISSING>"); //FisheryAreasHistory has no owner attribute, currently
+			entry.setIdentifier(entry.getOwner() + " - " + fisheryAreaHistory.getYear());
 			
 			entry.getNameValueList().add(new NameValue("Year", fisheryAreaHistory.getYear() == null ? null : fisheryAreaHistory.getYear().toString()));
 			entry.getNameValueList().add(new NameValue("History", MLSu.getEnglish(fisheryAreaHistory.getHistory())));
@@ -279,6 +293,9 @@ public class RsgServiceImplVme implements RsgService {
 			
 			entry.setId(vmeHistory.getId());
 			entry.setReportType(new ReportType("VMEsHistory"));
+			entry.setOwned(true);
+			entry.setOwner("<MISSING>"); //FisheryAreasHistory has no owner attribute, currently
+			entry.setIdentifier(entry.getOwner() + " - " + vmeHistory.getYear());
 			
 			entry.getNameValueList().add(new NameValue("Year", vmeHistory.getYear() == null ? null : vmeHistory.getYear().toString()));
 			entry.getNameValueList().add(new NameValue("History", MLSu.getEnglish(vmeHistory.getHistory())));

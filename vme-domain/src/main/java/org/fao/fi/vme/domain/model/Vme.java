@@ -48,7 +48,7 @@ public class Vme implements Period<Vme> {
 	 */
 	@ManyToOne(fetch = FetchType.EAGER)
 //	@RSGName("Competent Authority")
-//	@RSGWeight(4)
+//	@RSGWeight(5)
 //	@RSGSection
 	private Rfmo rfmo;
 
@@ -69,6 +69,9 @@ public class Vme implements Period<Vme> {
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<Profile> profileList;
 
+	@RSGName("Geo Ref")
+	@RSGWeight(4)
+	@RSGSection
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<GeoRef> geoRefList;
 

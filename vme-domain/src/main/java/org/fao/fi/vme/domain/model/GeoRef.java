@@ -12,6 +12,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenc
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 
 /**
@@ -33,6 +34,7 @@ public class GeoRef implements Year<GeoRef> {
 	 * 
 	 */
 	@RSGName("Year")
+	@RSGConverter(IntegerDataConverter.class)
 	private Integer year;
 
 	/**
