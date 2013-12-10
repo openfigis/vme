@@ -41,10 +41,11 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenc
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.DataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.utilities.ScanningUtils;
 import org.gcube.application.rsg.support.compiler.bridge.utilities.Utils;
-import org.gcube.application.rsg.support.compiler.utils.ScanningUtils;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
+import org.gcube.portlets.d4sreporting.common.shared.Model;
 import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +74,7 @@ public class RsgServiceImplVme implements RsgService {
 	final protected MultiLingualStringUtil MLSu = new MultiLingualStringUtil();
 
 	@Inject @Compiler private ReportCompiler _compiler;
-	@Inject @Builder private ReportBuilder<ReportsModeler> _builder;
+	@Inject @Builder private ReportBuilder<Model> _builder;
 	@Inject @Evaluator private ReportEvaluator _evaluator;
 	
 	@Inject VmeAccessDbImport importer;
@@ -352,8 +353,12 @@ public class RsgServiceImplVme implements RsgService {
 		
 		try {
 			CompiledReport report = this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
+			report.setCreatedBy("Foobaz");
+			report.setCreationDate(new Date());
+			report.setLastEditedBy("Foobar");
+			report.setLastEditingDate(new Date());
 			
-			ReportsModeler modeler = this._builder.buildReport(report, report.getId(), "foo:name", "foo:author", new Date(), new Date(), "foo:editor");
+			Model model = this._builder.buildReport(report);
 			
 			File folder = new File(getReportDumpPath() + reportType.getTypeIdentifier());
 			
@@ -365,9 +370,9 @@ public class RsgServiceImplVme implements RsgService {
 			
 			File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_" + reportId + ".d4st");
 			
-			new ModelReader(modeler.getReportInstance());
+			new ModelReader(model);
 
-			PersistenceManager.writeModel(modeler.getReportInstance(), file);
+			PersistenceManager.writeModel(model, file);
 			PersistenceManager.readModel(file.getAbsolutePath());
 			
 			return report;
@@ -416,8 +421,12 @@ public class RsgServiceImplVme implements RsgService {
 			report.setIsAReference(true);
 			
 			report = this._evaluator.evaluate(report, identified);
+			report.setCreatedBy("Foobaz");
+			report.setCreationDate(new Date());
+			report.setLastEditedBy("Foobar");
+			report.setLastEditingDate(new Date());
 			
-			ReportsModeler modeler = this._builder.buildReferenceReport(report, report.getId(), "foo:name", "foo:author", new Date(), new Date(), "foo:editor");
+			Model model = this._builder.buildReferenceReport(report);
 			
 			File folder = new File(getReportDumpPath() + refReportType.getTypeIdentifier());
 			
@@ -429,9 +438,9 @@ public class RsgServiceImplVme implements RsgService {
 			
 			File file = new File(folder, refReportType.getTypeIdentifier().toUpperCase() + "_" + refReportId + ".d4st");
 
-			new ModelReader(modeler.getReportInstance());
+			new ModelReader(model);
 
-			PersistenceManager.writeModel(modeler.getReportInstance(), file);
+			PersistenceManager.writeModel(model, file);
 			PersistenceManager.readModel(file.getAbsolutePath());
 			
 			return report;

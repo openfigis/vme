@@ -19,6 +19,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGC
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
@@ -68,29 +69,34 @@ public class InformationSource {
 
 	@RSGName("Publication Year")
 	@RSGConverter(IntegerDataConverter.class)
+	@RSGWeight(1)
 	private Integer publicationYear;
 
 	@RSGName("Meeting Start Date")
 	@RSGInstructions("Use the YYYY/MM/DD format")
 	@RSGConverter(DateDataConverter.class)
+	@RSGWeight(1)
 	@Temporal(TemporalType.DATE)
 	private Date meetingStartDate;
 
 	@RSGName("Meeting End Date")
 	@RSGInstructions("Use the YYYY/MM/DD format")
 	@RSGConverter(DateDataConverter.class)
+	@RSGWeight(1)
 	@Temporal(TemporalType.DATE)
 	private Date meetingEndDate;
 
 	/** */
 	@RSGName("Committee")
 	@RSGConverter(MultiLingualStringConverter.class)
+	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString committee;
 
 	/** */
 	@RSGName("Report Summary")
 	@RSGConverter(MultiLingualStringConverter.class)
+	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString reportSummary;
 
@@ -99,6 +105,7 @@ public class InformationSource {
 	 */
 	@RSGName("URL")
 	@RSGConverter(URLDataConverter.class)
+	@RSGWeight(1)
 	private URL url;
 
 	/**
@@ -106,6 +113,7 @@ public class InformationSource {
 	 */
 	@RSGName("Citation")
 	@RSGConverter(MultiLingualStringConverter.class)
+	@RSGWeight(0)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString citation;
 

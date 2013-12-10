@@ -40,7 +40,7 @@ public class GeoRef implements Year<GeoRef> {
 	/**
 	 *   
 	 */
-	@RSGName("Geographic feature ID")
+	@RSGName("Map ID")
 	private String geographicFeatureID;
 
 	/**

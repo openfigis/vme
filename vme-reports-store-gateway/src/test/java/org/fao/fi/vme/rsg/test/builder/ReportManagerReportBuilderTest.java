@@ -16,17 +16,16 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
-import org.gcube.application.reporting.ReportsModeler;
 import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.rsg.support.builder.ReportBuilder;
 import org.gcube.application.rsg.support.builder.annotations.Builder;
 import org.gcube.application.rsg.support.builder.impl.ReportManagerReportBuilder;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
-import org.gcube.application.rsg.support.compiler.utils.CompiledReportUtils;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
+import org.gcube.application.rsg.support.model.utils.CompiledReportUtils;
 import org.gcube.portlets.d4sreporting.common.shared.Model;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -60,29 +59,35 @@ import com.thoughtworks.xstream.XStream;
 						 JEXLReportEvaluator.class })
 @AdditionalClasses({ReferenceHardcodedDao.class})
 public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTest {
-	@Inject @Builder private ReportBuilder<ReportsModeler> _reportBuilder;
+	@Inject @Builder private ReportBuilder<Model> _reportBuilder;
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;
 	
 	@Test
 	public void testBuildAndExtractVmeReport() throws Throwable {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
-		template = this._reportEvaluator.evaluate(template, VmeMocker.getMock1());
+		template.setCreatedBy("author:baz");
+		template.setCreationDate(new Date());
+		template.setLastEditedBy("lastEditor:foobaz");
+		template.setLastEditingDate(new Date());
 		
-		ReportsModeler modeler = this._reportBuilder.buildReport(template, "id:foo", "name:bar", "author:baz", new Date(), new Date(), "lastEditorId:foobaz");
-
-		CompiledReport extracted = this._reportBuilder.extract(template, modeler);
+		Model model = PersistenceManager.readModel("./compiled/reports/Vme/VME_1/VME_1.d4st");
+		CompiledReport extracted = this._reportBuilder.extract(template, model);
 		
-		//System.out.println(new XStream().toXML(modeler.getReportInstance()));
+//		System.out.println(new XStream().toXML(modeler.getReportInstance()));
 		System.out.println(CompiledReportUtils.toXML(extracted));
 	}
 	
 	@Test
 	public void testBuildVmeTemplate() throws Throwable {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
+		template.setCreatedBy("author:baz");
+		template.setCreationDate(new Date());
+		template.setLastEditedBy("lastEditor:foobaz");
+		template.setLastEditingDate(new Date());
+		
+		Model model = this._reportBuilder.buildReport(template);
 
-		ReportsModeler modeler = this._reportBuilder.buildReport(template, "id:foo", "name:bar", "author:baz", new Date(), new Date(), "lastEditorId:foobaz");
-
-		System.out.println(new XStream().toXML(modeler.getReportInstance()));
+		System.out.println(new XStream().toXML(model));
 	}
 
 	@Test
@@ -91,11 +96,14 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		File tempFile = new File(tempDir, "template.d4st");
 
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
-
-		ReportsModeler modeler = this._reportBuilder.buildReport(template, "id:foo", "name:bar", "author:baz", new Date(), new Date(), "lastEditorId:foobaz");
-		Model model = modeler.getReportInstance();
+		template.setCreatedBy("author:baz");
+		template.setCreationDate(new Date());
+		template.setLastEditedBy("lastEditor:foobaz");
+		template.setLastEditingDate(new Date());
 		
-		PersistenceManager.writeModel(modeler.getReportInstance(), tempFile);
+		Model model = this._reportBuilder.buildReport(template);
+		
+		PersistenceManager.writeModel(model, tempFile);
 
 		Model nModel = PersistenceManager.readModel(tempFile.getAbsolutePath());
 		
@@ -148,11 +156,14 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		File tempFile = new File("./compiled/templates/" + name, name + ".d4st");
 		
 		CompiledReport template = this._reportCompiler.compile(reportClass);
+		template.setCreatedBy("author:baz");
+		template.setCreationDate(new Date());
+		template.setLastEditedBy("lastEditor:foobaz");
+		template.setLastEditingDate(new Date());
 		
-		ReportsModeler modeler = this._reportBuilder.buildReport(template, "id:foo", "name:bar", "author:baz", new Date(), new Date(), "lastEditorId:foobaz");
-		Model model = modeler.getReportInstance();
+		Model model = this._reportBuilder.buildReport(template);
 		
-		PersistenceManager.writeModel(modeler.getReportInstance(), tempFile);
+		PersistenceManager.writeModel(model, tempFile);
 	
 		Model nModel = PersistenceManager.readModel(tempFile.getAbsolutePath());
 		
@@ -168,14 +179,22 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		File tempFile = new File("./compiled/reports/" + name, name + ".d4st");
 		
 		CompiledReport template = this._reportCompiler.compile(data.getClass());
+		template.setCreatedBy("author:baz");
+		template.setCreationDate(new Date());
+		template.setLastEditedBy("lastEditor:foobaz");
+		template.setLastEditingDate(new Date());
+		
 		CompiledReport report = this._reportEvaluator.evaluate(template, data);
+		report.setCreatedBy("author:baz");
+		report.setCreationDate(new Date());
+		report.setLastEditedBy("lastEditor:foobaz");
+		report.setLastEditingDate(new Date());
 		
 		System.out.println(CompiledReportUtils.toXML(report));
 		
-		ReportsModeler modeler = this._reportBuilder.buildReport(report, "id:foo", "name:bar", "author:baz", new Date(), new Date(), "lastEditorId:foobaz");
-		Model model = modeler.getReportInstance();
+		Model model = this._reportBuilder.buildReport(report);
 		
-		PersistenceManager.writeModel(modeler.getReportInstance(), tempFile);
+		PersistenceManager.writeModel(model, tempFile);
 	
 		Model nModel = PersistenceManager.readModel(tempFile.getAbsolutePath());
 		
@@ -183,6 +202,8 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		String xNModel = new XStream().toXML(nModel);
 		
 		Assert.assertEquals(xModel, xNModel);
+		
+		System.out.println(xModel);
 	}
 
 	private File createTempDir() throws IOException {

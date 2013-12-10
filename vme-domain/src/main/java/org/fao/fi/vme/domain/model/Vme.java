@@ -69,7 +69,7 @@ public class Vme implements Period<Vme> {
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<Profile> profileList;
 
-	@RSGName("Geo Ref")
+	@RSGName("VME Map Reference")
 	@RSGWeight(4)
 	@RSGSection
 	@OneToMany(cascade = { CascadeType.ALL })
