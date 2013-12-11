@@ -1,6 +1,10 @@
 package org.fao.fi.vme.msaccess.tables;
 
+import java.util.ArrayList;
+
 import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 
 public class RFB_MetaData implements TableDomainMapper {
@@ -66,6 +70,9 @@ public class RFB_MetaData implements TableDomainMapper {
 		// o.setFishingActivityList(fishingActivityList);
 		// o.setGeneralMeasuresList(generalMeasuresList)
 		o.setId(this.RFB_ID);
+
+		o.setHasFisheryAreasHistory(new ArrayList<FisheryAreasHistory>());
+		o.setHasVmesHistory(new ArrayList<VMEsHistory>());
 
 		// o.setManagedVmeList(managedVmeList)
 		// o.setMeetingList(meetingList)

@@ -1,5 +1,6 @@
 package org.fao.fi.vme.msaccess.component;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -13,6 +14,8 @@ import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
@@ -26,8 +29,8 @@ import org.vme.service.dao.config.vme.VmeDataBaseProducer;
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
 public class LinkerTest {
 
-	@Inject private VmeWriter writer;
-	@Inject private VmeReader reader;
+	@Inject
+	private VmeReader reader;
 
 	private final MsAcces2DomainMapper m = new MsAcces2DomainMapper();
 	private final Linker linker = new Linker();
@@ -45,7 +48,8 @@ public class LinkerTest {
 			objectCollectionList.add(m.map(table));
 		}
 
-		// connect/link the domain objects, also using the original information from the table objects
+		// connect/link the domain objects, also using the original information
+		// from the table objects
 		linker.link(objectCollectionList, tables);
 
 		for (ObjectCollection objectCollection : objectCollectionList) {
@@ -110,12 +114,16 @@ public class LinkerTest {
 	private void validateRfmoObject(Object object) {
 		Rfmo o = (Rfmo) object;
 		System.out.println(o.getId());
-		// TODO commented, please validate with Aureliano
-		// assertTrue(o.getFishingHistoryList().size() > 0);
-		// assertTrue(o.getListOfManagedVmes().size() > 0);
-		// if (o.getId() == 1 || o.getId() == 3) {
-		// assertTrue(o.getInformationSourceList().size() > 0);
-		// }
+
+		List<FisheryAreasHistory> fahList = o.getHasFisheryAreasHistory();
+		for (FisheryAreasHistory fisheryAreasHistory : fahList) {
+			assertEquals(o, fisheryAreasHistory.getRfmo());
+		}
+		List<VMEsHistory> vmeHlist = o.getHasVmesHistory();
+		for (VMEsHistory vh : vmeHlist) {
+			assertEquals(o, vh.getRfmo());
+		}
+
 	}
 
 	private void validateGeneralMeasuresObject(Object object) {

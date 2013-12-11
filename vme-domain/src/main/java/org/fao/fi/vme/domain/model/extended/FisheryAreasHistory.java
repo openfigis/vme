@@ -5,10 +5,10 @@ package org.fao.fi.vme.domain.model.extended;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -52,7 +52,8 @@ public class FisheryAreasHistory implements History, Year<History> {
 	/**
 	 * FisheryAreasHistory has 0,1 Rfmo
 	 */
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "rfmo_id")
 	private Rfmo rfmo;
 
 	/**
@@ -89,7 +90,7 @@ public class FisheryAreasHistory implements History, Year<History> {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
