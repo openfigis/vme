@@ -11,6 +11,8 @@ import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -66,6 +68,26 @@ public class VmeAccessDbImportIntegrationTest {
 			}
 			rfmo.setGeneralMeasureList(null);
 			vmeDao.merge(rfmo);
+
+			if (rfmo.getHasFisheryAreasHistory() != null) {
+				List<FisheryAreasHistory> fahList = rfmo.getHasFisheryAreasHistory();
+				for (FisheryAreasHistory fisheryAreasHistory : fahList) {
+					fisheryAreasHistory.setRfmo(null);
+					vmeDao.merge(fisheryAreasHistory);
+				}
+			}
+
+			if (rfmo.getHasVmesHistory() != null) {
+				List<VMEsHistory> vhList = rfmo.getHasVmesHistory();
+				for (VMEsHistory vh : vhList) {
+					vh.setRfmo(null);
+					vmeDao.merge(vh);
+				}
+			}
+			rfmo.setHasFisheryAreasHistory(null);
+			rfmo.setHasVmesHistory(null);
+			vmeDao.merge(rfmo);
+
 		}
 
 		List<InformationSource> informationSourceList = (List<InformationSource>) vmeDao
@@ -86,9 +108,11 @@ public class VmeAccessDbImportIntegrationTest {
 			vmeDao.merge(vme);
 		}
 
+		// VMEsHistory.class
+
 		// now delete the actual objects
-		Class<?>[] classes = { GeneralMeasure.class, SpecificMeasure.class, InformationSource.class, GeoRef.class,
-				Vme.class, Profile.class, Rfmo.class };
+		Class<?>[] classes = { VMEsHistory.class, FisheryAreasHistory.class, GeneralMeasure.class,
+				SpecificMeasure.class, InformationSource.class, GeoRef.class, Vme.class, Profile.class, Rfmo.class };
 		for (Class<?> clazz : classes) {
 			List<?> list = vmeDao.loadObjects(clazz);
 			for (Object object : list) {
