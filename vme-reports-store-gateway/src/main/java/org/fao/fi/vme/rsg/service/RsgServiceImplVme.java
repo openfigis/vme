@@ -23,7 +23,6 @@ import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.VmeAccessDbImport;
-import org.gcube.application.reporting.ReportsModeler;
 import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.reporting.reader.ModelReader;
 import org.gcube.application.rsg.service.RsgService;
@@ -218,7 +217,7 @@ public class RsgServiceImplVme implements RsgService {
 			entry.setId(informationSource.getId());
 			entry.setReportType(new ReportType("InformationSource"));
 			entry.setOwned(true);
-			entry.setOwner("<MISSING>"); //InformationSource has no owner attribute, currently
+			entry.setOwner(informationSource.getRfmoList().get(0).getId());
 			entry.setIdentifier(entry.getOwner() + " - " + ( informationSource.getPublicationYear() == null ? "<YEAR UNKNOWN>" : informationSource.getPublicationYear().toString() ) + " - " + MLSu.getEnglish(informationSource.getCitation()));
 			
 			entry.getNameValueList().add(new NameValue("Committee", MLSu.getEnglish(informationSource.getCommittee())));
@@ -270,7 +269,7 @@ public class RsgServiceImplVme implements RsgService {
 			entry.setId(fisheryAreaHistory.getId());
 			entry.setReportType(new ReportType("FisheryAreasHistory"));
 			entry.setOwned(true);
-			entry.setOwner("<MISSING>"); //FisheryAreasHistory has no owner attribute, currently
+			entry.setOwner(fisheryAreaHistory.getRfmo().getId());
 			entry.setIdentifier(entry.getOwner() + " - " + fisheryAreaHistory.getYear());
 			
 			entry.getNameValueList().add(new NameValue("Year", fisheryAreaHistory.getYear() == null ? null : fisheryAreaHistory.getYear().toString()));
@@ -295,7 +294,7 @@ public class RsgServiceImplVme implements RsgService {
 			entry.setId(vmeHistory.getId());
 			entry.setReportType(new ReportType("VMEsHistory"));
 			entry.setOwned(true);
-			entry.setOwner("<MISSING>"); //FisheryAreasHistory has no owner attribute, currently
+			entry.setOwner(vmeHistory.getRfmo().getId()); //FisheryAreasHistory has no owner attribute, currently
 			entry.setIdentifier(entry.getOwner() + " - " + vmeHistory.getYear());
 			
 			entry.getNameValueList().add(new NameValue("Year", vmeHistory.getYear() == null ? null : vmeHistory.getYear().toString()));

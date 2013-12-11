@@ -80,6 +80,20 @@ public class VMEsHistory implements History, Year<History> {
 		return id;
 	}
 
+	/**
+	 * @return the 'rfmo' value
+	 */
+	public Rfmo getRfmo() {
+		return this.rfmo;
+	}
+
+	/**
+	 * @param rfmo the 'rfmo' value to set
+	 */
+	public void setRfmo(Rfmo rfmo) {
+		this.rfmo = rfmo;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

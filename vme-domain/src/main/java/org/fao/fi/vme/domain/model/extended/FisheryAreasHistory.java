@@ -89,7 +89,7 @@ public class FisheryAreasHistory implements History, Year<History> {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
