@@ -352,9 +352,9 @@ public class RsgServiceImplVme implements RsgService {
 		
 		try {
 			CompiledReport report = this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
-			report.setCreatedBy("Foobaz");
+			report.setCreatedBy("<MISSING>");
 			report.setCreationDate(new Date());
-			report.setLastEditedBy("Foobar");
+			report.setLastEditedBy("<MISSING>");
 			report.setLastEditingDate(new Date());
 			
 			Model model = this._builder.buildReport(report);
