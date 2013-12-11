@@ -71,6 +71,7 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		template.setLastEditingDate(new Date());
 		
 		Model model = PersistenceManager.readModel("./compiled/reports/Vme/VME_1/VME_1.d4st");
+		template.setEvaluated(true);
 		CompiledReport extracted = this._reportBuilder.extract(template, model);
 		
 //		System.out.println(new XStream().toXML(modeler.getReportInstance()));
