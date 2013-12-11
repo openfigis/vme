@@ -3,11 +3,9 @@ package org.fao.fi.vme.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
@@ -23,7 +21,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGN
  * 
  */
 @Entity
-@RSGReferenceReport(name="Authority")
+@RSGReferenceReport(name = "Authority")
 public class Rfmo {
 	/**
 	 * The id comes from RMTS
@@ -55,13 +53,19 @@ public class Rfmo {
 	@ManyToMany
 	private List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
+	/*
+	 * FetchType.LAZY instead of FetchType.EAGER was necessary in order to avoid
+	 * the
+	 * "MultipleBagFetchException: cannot simultaneously fetch multiple bags"
+	 * TODO: Investigate this more, because using LAZY here would not
+	 * necessarily be a robust solution.
+	 */
 	@RSGName("Fishery Areas History")
-	@OneToMany(cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY)
 	private List<FisheryAreasHistory> hasFisheryAreasHistory;
 
 	@RSGName("VMEs History")
-	@OneToMany(cascade = { CascadeType.ALL })
-	@JoinColumn(nullable = true)
+	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY)
 	private List<VMEsHistory> hasVmesHistory;
 
 	public String getId() {
@@ -112,23 +116,30 @@ public class Rfmo {
 		this.hasVmesHistory = hasVmesHistory;
 	}
 
-//	/* (non-Javadoc)
-//	 * @see java.lang.Object#hashCode()
-//	 */
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((this.generalMeasureList == null) ? 0 : this.generalMeasureList.hashCode());
-//		result = prime * result + ((this.hasFisheryAreasHistory == null) ? 0 : this.hasFisheryAreasHistory.hashCode());
-//		result = prime * result + ((this.hasVmesHistory == null) ? 0 : this.hasVmesHistory.hashCode());
-//		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-//		result = prime * result + ((this.informationSourceList == null) ? 0 : this.informationSourceList.hashCode());
-//		result = prime * result + ((this.listOfManagedVmes == null) ? 0 : this.listOfManagedVmes.hashCode());
-//		return result;
-//	}
+	// /* (non-Javadoc)
+	// * @see java.lang.Object#hashCode()
+	// */
+	// @Override
+	// public int hashCode() {
+	// final int prime = 31;
+	// int result = 1;
+	// result = prime * result + ((this.generalMeasureList == null) ? 0 :
+	// this.generalMeasureList.hashCode());
+	// result = prime * result + ((this.hasFisheryAreasHistory == null) ? 0 :
+	// this.hasFisheryAreasHistory.hashCode());
+	// result = prime * result + ((this.hasVmesHistory == null) ? 0 :
+	// this.hasVmesHistory.hashCode());
+	// result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+	// result = prime * result + ((this.informationSourceList == null) ? 0 :
+	// this.informationSourceList.hashCode());
+	// result = prime * result + ((this.listOfManagedVmes == null) ? 0 :
+	// this.listOfManagedVmes.hashCode());
+	// return result;
+	// }
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

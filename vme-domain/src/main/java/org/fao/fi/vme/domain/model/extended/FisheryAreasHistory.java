@@ -5,14 +5,17 @@ package org.fao.fi.vme.domain.model.extended;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.Year;
 import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.MultiLingualString;
+import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
@@ -23,22 +26,20 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
 
 /**
  * Place your class / interface description here.
- *
+ * 
  * History:
- *
- * ------------- --------------- -----------------------
- * Date			 Author			 Comment
- * ------------- --------------- -----------------------
- * 13/nov/2013   Fabio     Creation.
- *
+ * 
+ * ------------- --------------- ----------------------- Date Author Comment
+ * ------------- --------------- ----------------------- 13/nov/2013 Fabio
+ * Creation.
+ * 
  * @version 1.0
  * @since 13/nov/2013
  */
-@RSGReferenceReport(name="Fishery Areas History")
+@RSGReferenceReport(name = "Fishery Areas History")
 @Entity(name = "FISHERY_AREAS_HISTORY")
 public class FisheryAreasHistory implements History, Year<History> {
 
-		
 	/** 
 	 * 
 	 */
@@ -47,6 +48,12 @@ public class FisheryAreasHistory implements History, Year<History> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
+	/**
+	 * FisheryAreasHistory has 0,1 Rfmo
+	 */
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Rfmo rfmo;
 
 	/**
 	 *  
@@ -63,7 +70,9 @@ public class FisheryAreasHistory implements History, Year<History> {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString history;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fao.fi.vme.domain.model.IHistory#getId()
 	 */
 	@Override
@@ -71,7 +80,9 @@ public class FisheryAreasHistory implements History, Year<History> {
 		return id;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fao.fi.vme.domain.model.IHistory#setId(java.lang.Long)
 	 */
 	@Override
@@ -79,7 +90,9 @@ public class FisheryAreasHistory implements History, Year<History> {
 		this.id = id;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fao.fi.vme.domain.model.IHistory#getYear()
 	 */
 	@Override
@@ -87,7 +100,9 @@ public class FisheryAreasHistory implements History, Year<History> {
 		return year;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fao.fi.vme.domain.model.IHistory#setYear(java.lang.Integer)
 	 */
 	@Override
@@ -95,7 +110,9 @@ public class FisheryAreasHistory implements History, Year<History> {
 		this.year = year;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.fao.fi.vme.domain.model.IHistory#getHistory()
 	 */
 	@Override
@@ -103,15 +120,29 @@ public class FisheryAreasHistory implements History, Year<History> {
 		return history;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fao.fi.vme.domain.model.IHistory#setHistory(org.fao.fi.vme.domain.model.MultiLingualString)
+	public Rfmo getRfmo() {
+		return rfmo;
+	}
+
+	public void setRfmo(Rfmo rfmo) {
+		this.rfmo = rfmo;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fao.fi.vme.domain.model.IHistory#setHistory(org.fao.fi.vme.domain
+	 * .model.MultiLingualString)
 	 */
 	@Override
 	public void setHistory(MultiLingualString history) {
 		this.history = history;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -124,7 +155,9 @@ public class FisheryAreasHistory implements History, Year<History> {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
