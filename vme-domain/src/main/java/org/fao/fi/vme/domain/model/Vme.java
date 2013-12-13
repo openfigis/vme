@@ -23,6 +23,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGM
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGOneAmong;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGSection;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGSimpleReference;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
@@ -46,10 +47,9 @@ public class Vme implements Period<Vme> {
 	/**
 	 * This VME is managed by this Rfmo
 	 */
+	@RSGName("Authority")
+	@RSGSimpleReference
 	@ManyToOne(fetch = FetchType.EAGER)
-//	@RSGName("Competent Authority")
-//	@RSGWeight(5)
-//	@RSGSection
 	private Rfmo rfmo;
 
 	/*

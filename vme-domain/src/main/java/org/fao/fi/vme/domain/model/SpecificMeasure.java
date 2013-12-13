@@ -54,12 +54,14 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	 *  
 	  */
 	@RSGName("Validity Period")
+	@RSGWeight(2)
 	private ValidityPeriod validityPeriod;
 
 	/**
 	 * YearObject in which the measure are defined, established.
 	 */
 	@RSGName("Year")
+	@RSGWeight(1)
 	@RSGConverter(IntegerDataConverter.class)
 	private Integer year;
 
@@ -67,6 +69,7 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	 */
 	@RSGName("VME Specific Measure Summary")
 	@RSGConverter(MultiLingualStringConverter.class)
+	@RSGWeight(2)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeSpecificMeasure;
 

@@ -21,22 +21,25 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenc
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGSimpleReference;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 
 /**
  * Place your class / interface description here.
- * 
+ *
  * History:
- * 
- * ------------- --------------- ----------------------- Date Author Comment
- * ------------- --------------- ----------------------- 13/nov/2013 Fabio
- * Creation.
- * 
+ *
+ * ------------- --------------- -----------------------
+ * Date			 Author			 Comment
+ * ------------- --------------- -----------------------
+ * 13 Nov 2013   Fiorellato     Creation.
+ *
  * @version 1.0
- * @since 13/nov/2013
+ * @since 13 Nov 2013
  */
-@RSGReferenceReport(name = "VMEs History")
+@RSGReferenceReport(name = "Regional History of VMEs")
 @Entity(name = "VMES_HISTORY")
 public class VMEsHistory implements History, Year<History> {
 
@@ -52,7 +55,9 @@ public class VMEsHistory implements History, Year<History> {
 	/**
 	 * VMEsHistory has 0,1 Rfmo
 	 */
-
+	@RSGName("Authority")
+	@RSGSimpleReference
+	@RSGWeight(0)
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "rfmo_id")
 	private Rfmo rfmo;
@@ -61,6 +66,7 @@ public class VMEsHistory implements History, Year<History> {
 	 *  
 	 */
 	@RSGName("Year")
+	@RSGWeight(1)
 	@RSGConverter(IntegerDataConverter.class)
 	private Integer year;
 
@@ -69,6 +75,7 @@ public class VMEsHistory implements History, Year<History> {
 	 */
 	@RSGName("History")
 	@RSGConverter(MultiLingualStringConverter.class)
+	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString history;
 

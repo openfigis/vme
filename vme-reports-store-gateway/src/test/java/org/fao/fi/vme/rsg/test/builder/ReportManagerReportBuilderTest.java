@@ -315,9 +315,11 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		} else if(content instanceof ReportReferences) {
 			System.out.println("References [ " + ((ReportReferences)content).getRefType() +  " ] : {");
 
-			for(Tuple tuple : ((ReportReferences)content).getTuples()) {
-				this.dumpTuple(tuple);
-			}
+//			for(Tuple tuple : ((ReportReferences)content).getTuples()) {
+//				this.dumpTuple(tuple);
+//			}
+			
+			System.out.println("}");
 		} else {
 			System.out.println("Content is of type: " + ( content == null ? "<UNKNOWN>" : content.getClass().getName()) );
 		}

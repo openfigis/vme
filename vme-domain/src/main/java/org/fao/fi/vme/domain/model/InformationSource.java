@@ -19,6 +19,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGC
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGSimpleReference;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
@@ -47,6 +48,9 @@ public class InformationSource {
 	 */
 
 	@ManyToMany(fetch = FetchType.EAGER)
+	@RSGName("Authority")
+	@RSGWeight(0)	
+	@RSGSimpleReference
 	private List<Rfmo> rfmoList;
 
 	/**

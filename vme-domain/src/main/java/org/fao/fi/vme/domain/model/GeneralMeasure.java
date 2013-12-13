@@ -19,6 +19,8 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenc
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGSimpleReference;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 
@@ -45,6 +47,9 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * This was here @OneToOne but I believe that this should be @ManyToOne
 	 * 
 	 */
+	@RSGName("Authority")
+	@RSGSimpleReference
+	@RSGWeight(0)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Rfmo rfmo;
 
@@ -52,6 +57,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * YearObject in which the measure are defined, established.
 	 */
 	@RSGName("Year")
+	@RSGWeight(1)
 	@RSGConverter(IntegerDataConverter.class)
 	private Integer year;
 
@@ -59,6 +65,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * 
 	 */
 	@RSGName("Validity Period")
+	@RSGWeight(2)
 	private ValidityPeriod validityPeriod;
 
 	/**
@@ -67,6 +74,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 * 
 	 */
 	@RSGName("Information Sources")
+	@RSGWeight(0)
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "INFORMATION_SOURCE_LIST")
 	private List<InformationSource> informationSourceList;
@@ -76,6 +84,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 */
 
 	@RSGName("RFB Fishing Areas")
+	@RSGWeight(1)
 	@Lob
 	private String fishingAreas;
 
@@ -90,6 +99,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 */
 	@RSGName("VME Encounter")
 	@RSGConverter(MultiLingualStringConverter.class)
+	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeEncounterProtocols;
 
@@ -98,6 +108,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 */
 	@RSGName("VME Indicator Species")
 	@RSGConverter(MultiLingualStringConverter.class)
+	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeIndicatorSpecies;
 
@@ -106,6 +117,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
 	 */
 	@RSGName("VME Threshold")
 	@RSGConverter(MultiLingualStringConverter.class)
+	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeThreshold;
 
