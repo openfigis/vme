@@ -21,6 +21,7 @@ import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.fao.fi.vme.msaccess.component.EmbeddedMsAccessConnectionProvider;
 import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
 import org.gcube.application.reporting.persistence.PersistenceManager;
+import org.gcube.application.rsg.support.BindingConstants;
 import org.gcube.application.rsg.support.builder.ReportBuilder;
 import org.gcube.application.rsg.support.builder.annotations.Builder;
 import org.gcube.application.rsg.support.builder.impl.ReportManagerReportBuilder;
@@ -257,8 +258,10 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 	private void dumpSection(BasicSection toDump) {
 		int componentNumber = 0;
 		for(BasicComponent component : toDump.getComponents()) {
-			System.out.println("Component #" + componentNumber++);
-			this.dumpComponent(component);
+			if(this.hasProperty(BindingConstants.BINDING_ATTRIBUTE, component)) {
+				System.out.println("Component #" + componentNumber++);
+				this.dumpComponent(component);
+			}
 		}
 	}
 	
@@ -278,19 +281,35 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 	}
 	
 	private void dumpBindings(List<Metadata> metadata) {
+		String contextBinding, binding;
+		
+		contextBinding = this.getMetadata(BindingConstants.BINDING_CONTEXT_ATTRIBUTE, metadata);
+		binding = this.getMetadata(BindingConstants.BINDING_ATTRIBUTE, metadata);
+
+		if(contextBinding == null)
+			contextBinding = "";
+		else
+			contextBinding += ".";
+		
+		System.out.println("Binding: " + contextBinding + binding);
+	}
+	
+	private String getMetadata(String name, List<Metadata> metadata) {
 		for(Metadata current : metadata) {
-			if("bindingContext".equals(current.getAttribute()))
-				System.out.println("Binding context: " + current.getValue());
-			else if("binding".equals(current.getAttribute()))
-				System.out.println("Binding: " + current.getValue());
+			if(name.equals(current.getAttribute()))
+				return current.getValue();
 		}
+		
+		return null;
 	}
 	
 	private void dumpContent(Serializable content) {
 		if(content instanceof RepeatableSequence) {
 			System.out.println("Sequence: {");
 			for(BasicComponent grouped : ((RepeatableSequence)content).getGroupedComponents()) {
-				this.dumpComponent(grouped);
+				if(this.hasProperty(BindingConstants.BINDING_ATTRIBUTE, grouped)) {
+					this.dumpComponent(grouped);
+				}
 			}
 			System.out.println("}");
 		} else if(content instanceof ReportReferences) {
@@ -300,7 +319,7 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 				this.dumpTuple(tuple);
 			}
 		} else {
-			System.out.println("Content is of type: " + content.getClass().getName());
+			System.out.println("Content is of type: " + ( content == null ? "<UNKNOWN>" : content.getClass().getName()) );
 		}
 	}
 	
@@ -309,5 +328,13 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		for(BasicComponent inTuple : tuple.getGroupedComponents()) {
 			this.dumpComponent(inTuple);
 		}
+	}
+	
+	private boolean hasProperty(String name, BasicComponent component) {
+		for(Metadata metadata : component.getMetadata())
+			if(metadata.getAttribute().equals(name))
+				return true;
+		
+		return false;
 	}
 }
