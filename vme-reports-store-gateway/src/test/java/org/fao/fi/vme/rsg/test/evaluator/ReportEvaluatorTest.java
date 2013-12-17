@@ -4,6 +4,7 @@
 package org.fao.fi.vme.rsg.test.evaluator;
 
 import static org.gcube.application.rsg.support.model.utils.CompiledReportUtils.LOOSE;
+import static org.gcube.application.rsg.support.model.utils.CompiledReportUtils.STRICT;
 
 import javax.inject.Inject;
 

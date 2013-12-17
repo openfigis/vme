@@ -3,10 +3,6 @@
  */
 package org.vme.service.dao;
 
-import javax.enterprise.inject.Produces;
-
-import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
-import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
 
 
 /**

@@ -4,12 +4,9 @@
 package org.vme.service.dao;
 
 import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
-import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
 import org.vme.service.dao.config.vme.VmeDB;
 import org.vme.service.dao.impl.jpa.ObservationJpaDao;
 import org.vme.service.dao.impl.jpa.ReferenceJpaDao;

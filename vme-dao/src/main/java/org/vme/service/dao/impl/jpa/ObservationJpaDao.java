@@ -22,8 +22,6 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.jglue.cdiunit.CdiRunner;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.service.dao.ObservationDAO;
@@ -32,7 +30,6 @@ import org.vme.service.dao.config.vme.VmeDB;
 import org.vme.service.dao.impl.hardcoded.ObservationHarcodedDao;
 import org.vme.service.dao.sources.figis.FigisDao;
 
-@RunWith(CdiRunner.class)
 public class ObservationJpaDao implements ObservationDAO {
 	static final private Logger LOG = LoggerFactory.getLogger(ObservationHarcodedDao.class);
 
