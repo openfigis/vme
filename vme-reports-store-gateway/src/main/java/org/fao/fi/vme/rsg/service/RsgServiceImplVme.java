@@ -70,8 +70,6 @@ import org.vme.service.dao.sources.vme.VmeDao;
 public class RsgServiceImplVme implements RsgService {
 	final static private Logger LOG = LoggerFactory.getLogger(RsgServiceImplVme.class);
 	
-//	final private Reflections _reflections = new Reflections("org.fao.fi.vme.domain");
-	
 	final protected RsgServiceUtil u = new RsgServiceUtil();
 	final protected MultiLingualStringUtil MLSu = new MultiLingualStringUtil();
 
