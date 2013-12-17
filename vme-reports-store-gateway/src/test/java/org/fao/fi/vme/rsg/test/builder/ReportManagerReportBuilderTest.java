@@ -26,6 +26,14 @@ import org.gcube.application.rsg.support.builder.ReportBuilder;
 import org.gcube.application.rsg.support.builder.annotations.Builder;
 import org.gcube.application.rsg.support.builder.impl.ReportManagerReportBuilder;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.AbstractDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DoubleDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.FloatDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.StringDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
@@ -73,7 +81,15 @@ import com.thoughtworks.xstream.XStream;
 						 VmeDataBaseProducer.class, 
 						 HardCodedDaoFactory.class, 
 						 EmbeddedMsAccessConnectionProvider.class })
-@AdditionalClasses({ ReferenceHardcodedDao.class })
+@AdditionalClasses({ ReferenceHardcodedDao.class,
+					 AbstractDataConverter.class,
+					 DateDataConverter.class,
+					 DoubleDataConverter.class,
+					 FloatDataConverter.class,
+					 IntegerDataConverter.class,
+					 LongDataConverter.class,
+					 StringDataConverter.class,
+					 URLDataConverter.class })
 public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTest {
 	@Inject private VmeAccessDbImport _importer;
 	@Inject private VmeDao _vmeDao;

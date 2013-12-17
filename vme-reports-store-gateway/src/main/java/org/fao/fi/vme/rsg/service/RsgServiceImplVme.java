@@ -12,6 +12,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
@@ -40,12 +42,13 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenc
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.DataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceReport;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.Report;
 import org.gcube.application.rsg.support.compiler.bridge.utilities.ScanningUtils;
 import org.gcube.application.rsg.support.compiler.bridge.utilities.Utils;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
 import org.gcube.portlets.d4sreporting.common.shared.Model;
-import org.reflections.Reflections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.service.dao.sources.vme.VmeDao;
@@ -67,7 +70,7 @@ import org.vme.service.dao.sources.vme.VmeDao;
 public class RsgServiceImplVme implements RsgService {
 	final static private Logger LOG = LoggerFactory.getLogger(RsgServiceImplVme.class);
 	
-	final private Reflections _reflections = new Reflections("org.fao.fi.vme.domain");
+//	final private Reflections _reflections = new Reflections("org.fao.fi.vme.domain");
 	
 	final protected RsgServiceUtil u = new RsgServiceUtil();
 	final protected MultiLingualStringUtil MLSu = new MultiLingualStringUtil();
@@ -75,6 +78,9 @@ public class RsgServiceImplVme implements RsgService {
 	@Inject @Compiler private ReportCompiler _compiler;
 	@Inject @Builder private ReportBuilder<Model> _builder;
 	@Inject @Evaluator private ReportEvaluator _evaluator;
+	
+	@Inject @Any private Instance<Report> _reports;
+	@Inject @Any private Instance<ReferenceReport> _refReports;
 	
 	@Inject VmeAccessDbImport importer;
 	@Inject VmeDao vmeDao;
@@ -91,16 +97,32 @@ public class RsgServiceImplVme implements RsgService {
 	@PostConstruct
 	private void postConstruct() {
 		this._compiler.registerPrimitiveType(MultiLingualString.class);
-		
+
+		LOG.info("Available report types:");
+		for(Object report : this._reports) {
+			LOG.info("{}", report.getClass().getName());
+		}
+
+		LOG.info("Available reference report types:");
+		for(Object refReport : this._refReports) {
+			LOG.info("{}", refReport.getClass().getName());
+		}
+
 		//Using an in-memory database requires that data are 
 		//transferred from the original M$ Access DB into H2...
 		this.importer.importMsAccessData();
 	}
 	
 	private Class<?> getTemplateOfType(Class<? extends Annotation> marker, ReportType reportType) {
-		for(Class<?> report : this._reflections.getTypesAnnotatedWith(marker))
-			if(report.getSimpleName().equals(reportType.getTypeIdentifier()))
-				return report;
+		if(marker.equals(RSGReport.class)) {
+			for(Object report : this._reports)
+				if(report.getClass().getSimpleName().equals(reportType.getTypeIdentifier()))
+					return report.getClass();
+		} else if(marker.equals(RSGReferenceReport.class)) {
+			for(Object refReport : this._refReports)
+				if(refReport.getClass().getSimpleName().equals(reportType.getTypeIdentifier()))
+					return refReport.getClass();
+		} 
 		
 		return null;
 	}
@@ -109,11 +131,11 @@ public class RsgServiceImplVme implements RsgService {
 	public ReportType[] getReportTypes() {
 		u.create();
 		
-		for(Class<?> report : this._reflections.getTypesAnnotatedWith(RSGReport.class))
-			u.add(report.getSimpleName());
-
-		for(Class<?> report : this._reflections.getTypesAnnotatedWith(RSGReferenceReport.class))
-			u.add(report.getSimpleName());
+		for(Object report : this._reports)
+			u.add(report.getClass().getSimpleName());
+//
+//		for(Object report : this._refReports)
+//			u.add(report.getClass().getSimpleName());
 
 		return u.getReportTypes().toArray(new ReportType[0]);
 	}
@@ -122,8 +144,8 @@ public class RsgServiceImplVme implements RsgService {
 	public ReportType[] getRefReportTypes() {
 		u.create();
 		
-		for(Class<?> report : this._reflections.getTypesAnnotatedWith(RSGReferenceReport.class))
-			u.add(report.getSimpleName());
+		for(Object report : this._refReports)
+			u.add(report.getClass().getSimpleName());
 		
 		return u.getReportTypes().toArray(new ReportType[0]);
 	}

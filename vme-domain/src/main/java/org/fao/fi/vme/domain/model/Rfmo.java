@@ -13,7 +13,7 @@ import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceReport;
 
 /**
  * 
@@ -22,7 +22,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGN
  */
 @Entity
 @RSGReferenceReport(name = "Authority")
-public class Rfmo {
+public class Rfmo implements ReferenceReport {
 	/**
 	 * The id comes from RMTS
 	 */

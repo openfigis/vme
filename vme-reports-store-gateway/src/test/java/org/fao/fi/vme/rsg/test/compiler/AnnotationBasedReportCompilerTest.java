@@ -3,8 +3,18 @@
  */
 package org.fao.fi.vme.rsg.test.compiler;
 
+import static org.gcube.application.rsg.support.model.utils.CompiledReportUtils.LOOSE;
+
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.AbstractDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DoubleDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.FloatDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.StringDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
 import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
 import org.gcube.application.rsg.support.model.Bound;
@@ -12,6 +22,7 @@ import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
 import org.gcube.application.rsg.support.model.components.impl.InputComponent;
 import org.gcube.application.rsg.support.model.utils.CompiledReportUtils;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,6 +46,14 @@ import org.vme.service.dao.HardCodedDaoFactory;
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class,
 						 JEXLReportEvaluator.class,
 						 HardCodedDaoFactory.class })
+@AdditionalClasses({ AbstractDataConverter.class,
+					 DateDataConverter.class,
+					 DoubleDataConverter.class,
+					 FloatDataConverter.class,
+					 IntegerDataConverter.class,
+					 LongDataConverter.class,
+					 StringDataConverter.class,
+					 URLDataConverter.class })
 public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependentTest {
 	@Test
 	public void testCompileReport() throws Throwable {
@@ -56,12 +75,12 @@ public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependent
 	public void testFindBindingsInTemplate() throws Throwable {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
 		
-		Bound found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSource.publicationYear");
+		Bound found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSource.publicationYear", LOOSE);
 		
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());
 		
-		found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSourceZ");
+		found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSourceZ", LOOSE);
 		Assert.assertNull(found);
 	}
 	
@@ -69,16 +88,16 @@ public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependent
 	public void testFindBindingsInReport() throws Throwable {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
 		
-		Bound found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSource.publicationYear");
+		Bound found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSource.publicationYear", LOOSE);
 		
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());
 		
-		found = CompiledReportUtils.find(template, "#.specificMeasureList[0].informationSource.publicationYear");
+		found = CompiledReportUtils.find(template, "#.specificMeasureList[0].informationSource.publicationYear", LOOSE);
 		
 		Assert.assertNull(found);
 		
-		found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSourceZ");
+		found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSourceZ", LOOSE);
 		Assert.assertNull(found);
 	}
 }

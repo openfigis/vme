@@ -25,6 +25,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGS
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceReport;
 
 /**
  * Place your class / interface description here.
@@ -41,7 +42,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  */
 @RSGReferenceReport(name = "Fishing Footprint")
 @Entity(name = "FISHERY_AREAS_HISTORY")
-public class FisheryAreasHistory implements History, Year<History> {
+public class FisheryAreasHistory implements History, Year<History>, ReferenceReport {
 	/** 
 	 * 
 	 */

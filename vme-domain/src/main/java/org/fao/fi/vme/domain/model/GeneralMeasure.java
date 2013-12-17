@@ -23,6 +23,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGS
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceReport;
 
 /**
  * 
@@ -31,7 +32,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  */
 @RSGReferenceReport(name="General Measure")
 @Entity(name = "GENERAL_MEASURE")
-public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear {
+public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear, ReferenceReport {
 
 	/** 
 	 * 

@@ -25,6 +25,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDat
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceReport;
 
 /**
  * 
@@ -36,7 +37,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLData
  */
 @RSGReferenceReport(name="VME Information Source")
 @Entity(name = "INFORMATION_SOURCE")
-public class InformationSource {
+public class InformationSource implements ReferenceReport {
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)

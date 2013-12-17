@@ -24,9 +24,9 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.reflections</groupId>
-			<artifactId>reflections</artifactId>
-			<version>0.9.9-RC1</version>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-reports-store-gateway-test</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application</groupId>
@@ -43,11 +43,6 @@
 			<artifactId>reports-store-gateway-test</artifactId>
 			<version>[0.0.3-SNAPSHOT,]</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.vme</groupId>
-			<artifactId>vme-reports-store-gateway-test</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>

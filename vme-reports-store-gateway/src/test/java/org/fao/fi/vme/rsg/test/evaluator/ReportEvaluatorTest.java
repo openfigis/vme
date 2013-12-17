@@ -3,13 +3,21 @@
  */
 package org.fao.fi.vme.rsg.test.evaluator;
 
+import static org.gcube.application.rsg.support.model.utils.CompiledReportUtils.LOOSE;
+
 import javax.inject.Inject;
 
-import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.AbstractDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DoubleDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.FloatDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.StringDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
@@ -43,8 +51,14 @@ import org.vme.test.mock.VmeMocker;
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class,
 						 JEXLReportEvaluator.class,
 						 HardCodedDaoFactory.class })
-@AdditionalClasses({ StringDataConverter.class,
-					 MultiLingualString.class })
+@AdditionalClasses({ AbstractDataConverter.class,
+					 DateDataConverter.class,
+					 DoubleDataConverter.class,
+					 FloatDataConverter.class,
+					 IntegerDataConverter.class,
+					 LongDataConverter.class,
+					 StringDataConverter.class,
+					 URLDataConverter.class })
 public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;
 
@@ -97,18 +111,18 @@ public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
 		CompiledReport evaluated = this._reportEvaluator.evaluate(template, VmeMocker.getMock1());
 		
-		Bound found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[0].informationSource.publicationYear");
+		Bound found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[0].informationSource.publicationYear", LOOSE);
 		
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());
 
-		found = CompiledReportUtils.find(template, "#.specificMeasureList[0].informationSource.publicationYear");
+		found = CompiledReportUtils.find(template, "#.specificMeasureList[0].informationSource.publicationYear", LOOSE);
 		Assert.assertNull(found);
 
-		found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[0].informationSource.publicationYearZ");
+		found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[0].informationSource.publicationYearZ", LOOSE);
 		Assert.assertNull(found);
 		
-		found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[1].informationSource.publicationYear");
+		found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[1].informationSource.publicationYear", LOOSE);
 		
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());

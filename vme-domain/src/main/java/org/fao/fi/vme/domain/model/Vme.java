@@ -28,6 +28,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGW
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.StringDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.Report;
 
 /**
  * 
@@ -37,7 +38,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.StringD
 @Entity
 @RSGReport(name="Vulnerable Marine Ecosystem Data")
 @RSGInstructions("FAO VME TEST Input form")
-public class Vme implements Period<Vme> {
+public class Vme implements Period<Vme>, Report {
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
