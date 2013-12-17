@@ -68,7 +68,7 @@
 				<configuration>
 					<url>http://hqldvfigis1:6969/manager</url>
 					<server>DEV-Server</server>
-					<path>/reports-store-gateway-web</path>
+					<path>/figis/reports-store-gateway-web</path>
 				</configuration>
 			</plugin>
 		</plugins>
