@@ -74,6 +74,10 @@ public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependent
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());
 		
+		found = CompiledReportUtils.find(template, "#.specificMeasureList[0].informationSource.publicationYear");
+		
+		Assert.assertNull(found);
+		
 		found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSourceZ");
 		Assert.assertNull(found);
 	}

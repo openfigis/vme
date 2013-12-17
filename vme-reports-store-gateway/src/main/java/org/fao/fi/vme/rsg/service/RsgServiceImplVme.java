@@ -314,7 +314,31 @@ public class RsgServiceImplVme implements RsgService {
 		Class<?> identifiedReport = this.getTemplateOfType(RSGReport.class, reportType);
 			
 		try {
-			return this._compiler.compile(identifiedReport);
+			CompiledReport template = this._compiler.compile(identifiedReport);
+			
+			template.setCreatedBy("<MISSING>");
+			template.setCreationDate(new Date());
+			template.setLastEditedBy("<MISSING>");
+			template.setLastEditingDate(new Date());
+			
+			Model model = this._builder.buildReport(template);
+			
+			File folder = new File(getReportDumpPath() + reportType.getTypeIdentifier());
+			
+			folder.mkdir();
+			
+			folder = new File(folder.getAbsolutePath() + "\\" + reportType.getTypeIdentifier().toUpperCase() + "_template");
+			
+			folder.mkdir();
+			
+			File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_template.d4st");
+			
+			new ModelReader(model);
+
+			PersistenceManager.writeModel(model, file);
+			PersistenceManager.readModel(file.getAbsolutePath());
+			
+			return template;
 		} catch (Throwable t) {
 			return null;
 		}

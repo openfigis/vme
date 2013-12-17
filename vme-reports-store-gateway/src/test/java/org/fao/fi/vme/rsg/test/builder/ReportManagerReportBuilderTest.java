@@ -82,6 +82,16 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;
 	
 	@Test
+	public void testReadVmeReport() throws Throwable {
+		Model model = PersistenceManager.readModel("./compiled/reports/VME_1.d4st");
+		CompiledReport template = this._reportCompiler.compile(Vme.class);
+
+		CompiledReport extracted = this._reportBuilder.extract(template, model);
+		
+		System.out.println(CompiledReportUtils.toXML(extracted));
+	}
+	
+	@Test
 	public void testBuildAndExtractVmeReport() throws Throwable {
 		this._importer.importMsAccessData();
 		
@@ -99,6 +109,10 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		
 //		System.out.println(new XStream().toXML(modeler.getReportInstance()));
 		System.out.println(CompiledReportUtils.toXML(extracted));
+		
+		Vme vme = this._reportEvaluator.extract(extracted);
+		
+		System.out.println(vme);
 	}
 	
 	@Test
