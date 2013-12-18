@@ -355,6 +355,7 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void dumpTuple(Tuple tuple) {
 		System.out.println("Tuple key: " + tuple.getKey());
 		for(BasicComponent inTuple : tuple.getGroupedComponents()) {
