@@ -561,6 +561,7 @@ public class RsgServiceImplVme implements RsgService {
 	/* (non-Javadoc)
 	 * @see org.gcube.application.rsg.service.RsgService#validateRef(org.gcube.application.rsg.support.model.components.impl.CompiledReport)
 	 */
+	@Override
 	public Response validateRef(CompiledReport refModel) {
 		System.out.println("Requesting validation of " + refModel.getType() + " reference report #" + refModel.getId());
 		
