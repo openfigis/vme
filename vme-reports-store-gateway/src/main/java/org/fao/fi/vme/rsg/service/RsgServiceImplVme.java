@@ -508,23 +508,62 @@ public class RsgServiceImplVme implements RsgService {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.gcube.application.rsg.service.RsgService#deleteById(org.gcube.application.rsg.service.dto.ReportType, java.lang.Object)
+	 */
 	@Override
-	public Response publishDelta(List<CompiledReport> modelList) {
-		return null;
+	public Response deleteById(ReportType reportType, Object reportId) {
+		System.out.println("Requesting deletion of " + reportType.getTypeIdentifier() + " report #" + reportId);
+		
+		return new Response();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gcube.application.rsg.service.RsgService#deleteReferenceById(org.gcube.application.rsg.service.dto.ReportType, java.lang.Object)
+	 */
 	@Override
-	public Response validateDelta(List<CompiledReport> modelList) {
-		return null;
+	public Response deleteReferenceById(ReportType referenceReportType, Object refReportId) {
+		System.out.println("Requesting deletion of " + referenceReportType.getTypeIdentifier() + " reference report #" + refReportId);
+		
+		return new Response();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gcube.application.rsg.service.RsgService#update(org.gcube.application.rsg.support.model.components.impl.CompiledReport)
+	 */
 	@Override
-	public Response publishRef(CompiledReport refModel) {
-		return null;
+	public Response update(CompiledReport report) {
+		System.out.println("Requesting update of " + report.getType() + " report #" + report.getId());
+		
+		return new Response();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.gcube.application.rsg.service.RsgService#updateRef(org.gcube.application.rsg.support.model.components.impl.CompiledReport)
+	 */
 	@Override
+	public Response updateRef(CompiledReport report) {
+		System.out.println("Requesting update of " + report.getType() + " reference report #" + report.getId());
+		
+		return new Response();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.gcube.application.rsg.service.RsgService#validate(org.gcube.application.rsg.support.model.components.impl.CompiledReport)
+	 */
+	@Override
+	public Response validate(CompiledReport report) {
+		System.out.println("Requesting validation of " + report.getType() + " report #" + report.getId());
+		
+		return new Response();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.gcube.application.rsg.service.RsgService#validateRef(org.gcube.application.rsg.support.model.components.impl.CompiledReport)
+	 */
 	public Response validateRef(CompiledReport refModel) {
-		return null;
+		System.out.println("Requesting validation of " + refModel.getType() + " reference report #" + refModel.getId());
+		
+		return new Response();
 	}
 }

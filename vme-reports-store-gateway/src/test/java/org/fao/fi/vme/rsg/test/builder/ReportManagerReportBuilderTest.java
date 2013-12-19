@@ -121,6 +121,20 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 //		System.out.println(new XStream().toXML(model));
 		
 		template.setEvaluated(true);
+		
+		String modelType = null;
+		
+		for(Metadata current : model.getMetadata()) {
+			if("type".equals(current.getAttribute()))
+				modelType = current.getValue();
+		}
+		
+		System.out.println(modelType.substring(modelType.lastIndexOf(".") + 1));
+		
+		Assert.assertNotNull(modelType);
+		
+		template = this._reportCompiler.compile(Class.forName(modelType));
+		
 		CompiledReport extracted = this._reportBuilder.extract(template, model);
 		
 //		System.out.println(new XStream().toXML(modeler.getReportInstance()));
