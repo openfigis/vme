@@ -16,7 +16,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-
 	<dependencies>
 
 		<dependency>
@@ -86,6 +85,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
 	<profiles>
 		<profile>
 			<id>env-dev</id>
@@ -93,27 +93,26 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-
 				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
-				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:vme</javax.persistence.jdbc.url.vme>
+				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:db1;INIT=create schema IF NOT EXISTS VME</javax.persistence.jdbc.url.vme>
 				<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
 				<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>
 				<hibernate.dialect.vme>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme>
-				<hibernate.hbm2ddl.auto.vme>create</hibernate.hbm2ddl.auto.vme>
+				<hibernate.hbm2ddl.auto.vme>create-drop</hibernate.hbm2ddl.auto.vme>
 				<!--validate | update | create | create-drop -->
 
 				<javax.persistence.jdbc.driver.figis>org.h2.Driver</javax.persistence.jdbc.driver.figis>
-				<javax.persistence.jdbc.url.figis>jdbc:h2:mem:;INIT=create schema IF NOT EXISTS FIGIS</javax.persistence.jdbc.url.figis>
+				<javax.persistence.jdbc.url.figis>jdbc:h2:mem:db2;INIT=create schema IF NOT EXISTS FIGIS\;create schema IF NOT EXISTS
+					FIGIS_UPDATE</javax.persistence.jdbc.url.figis>
 				<javax.persistence.jdbc.user.figis>sa</javax.persistence.jdbc.user.figis>
 				<javax.persistence.jdbc.password.figis></javax.persistence.jdbc.password.figis>
 				<hibernate.dialect.figis>org.hibernate.dialect.H2Dialect</hibernate.dialect.figis>
-				<hibernate.hbm2ddl.auto.figis>create</hibernate.hbm2ddl.auto.figis>
-
-
-
+				<hibernate.hbm2ddl.auto.figis>create-drop</hibernate.hbm2ddl.auto.figis>
 			</properties>
 		</profile>
 	</profiles>
+
+
 
 
 </project>
