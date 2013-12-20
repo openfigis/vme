@@ -134,11 +134,10 @@ public class VmeDao extends AbstractJPADao {
 			}
 
 			em.persist(vme);
+			em.flush();
 
 			et.commit();
-			
-			em.flush();
-			
+
 			LOG.debug("Vme {} has been saved into persistence", vme);
 			
 			return vme;

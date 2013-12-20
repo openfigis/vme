@@ -37,7 +37,6 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.Report;
  */
 @Entity
 @RSGReport(name="Vulnerable Marine Ecosystem Data")
-@RSGInstructions("FAO VME TEST Input form")
 public class Vme implements Period<Vme>, Report {
 
 	@RSGIdentifier
