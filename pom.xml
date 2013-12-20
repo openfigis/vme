@@ -120,7 +120,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
-
 	</build>
 
 	<profiles>
@@ -139,7 +138,7 @@
 				</snapshotRepository>
 			</distributionManagement>
 		</profile>
-		</profiles>
+	</profiles>
 
 	<dependencyManagement>
 		<dependencies>
