@@ -12,6 +12,8 @@ import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.service.dao.config.vme.VmeDB;
 import org.vme.service.dao.impl.AbstractJPADao;
 
@@ -23,7 +25,8 @@ import org.vme.service.dao.impl.AbstractJPADao;
  * 
  */
 public class VmeDao extends AbstractJPADao {
-
+	static final private Logger LOG = LoggerFactory.getLogger(VmeDao.class);
+	
 	@Inject
 	@VmeDB
 	private EntityManager em;
@@ -33,7 +36,6 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public List<Vme> loadVmes() {
-
 		return (List<Vme>) this.generateTypedQuery(em, Vme.class).getResultList();
 	}
 
@@ -45,15 +47,24 @@ public class VmeDao extends AbstractJPADao {
 		return em.find(Vme.class, id);
 	}
 
-	public void persist(Object object) {
+	public Object persist(Object object) {
 		EntityTransaction et = em.getTransaction();
 		
 		try {
 			et.begin();
 			em.persist(object);
+			em.flush();
 			et.commit();
+			
+			LOG.debug("Object {} has been stored into persistence", object);
+			
+			return object;
 		} catch(Throwable t) {
+			LOG.error("Unable to store object {} into persistence: {} [ {} ]", object, t.getClass().getSimpleName(), t.getMessage());
+
 			et.rollback();
+			
+			return null;
 		}
 	}
 
@@ -64,24 +75,37 @@ public class VmeDao extends AbstractJPADao {
 			et.begin();
 			em.remove(object);
 			et.commit();
+			
+			LOG.debug("Object {} has been removed from persistence", object);
 		} catch(Throwable t) {
+			LOG.error("Unable to remove object {} from persistence: {} [ {} ]", object, t.getClass().getSimpleName(), t.getMessage(), t);
+			
 			et.rollback();
 		}
 	}
 
-	public void merge(Object object) {
+	public Object merge(Object object) {
 		EntityTransaction et = em.getTransaction();
 		
 		try {
 			et.begin();
 			em.merge(object);
+			em.flush();
 			et.commit();
+			
+			LOG.debug("Object {} has been merged into persistence", object);
+			
+			return object;
 		} catch(Throwable t) {
+			LOG.error("Unable to merge object {} into persistence: {} [ {} ]", object, t.getClass().getSimpleName(), t.getMessage());
+
 			et.rollback();
+			
+			return null;
 		}
 	}
 
-	public void saveVme(Vme vme) {
+	public Vme saveVme(Vme vme) {
 		EntityTransaction et = em.getTransaction();
 
 		try {
@@ -112,10 +136,18 @@ public class VmeDao extends AbstractJPADao {
 			em.persist(vme);
 
 			et.commit();
+			
+			em.flush();
+			
+			LOG.debug("Vme {} has been saved into persistence", vme);
+			
+			return vme;
 		} catch(Throwable t) {
-			t.printStackTrace();
+			LOG.error("Unable to save Vme {} into persistence: {} [ {} ]", vme, t.getClass().getSimpleName(), t.getMessage());
 			
 			et.rollback();
+			
+			return null;
 		}
 	}
 

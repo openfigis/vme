@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -22,7 +23,11 @@ public abstract class AbstractJPADao implements Dao {
 		Map<String, Object> idCriteria = new HashMap<String, Object>();
 		idCriteria.put("id", id);
 		
-		return (E)this.generateFilteringTypedQuery(em, entity, idCriteria).getSingleResult();
+		try {
+			return (E)this.generateFilteringTypedQuery(em, entity, idCriteria).getSingleResult();
+		} catch(NoResultException NRe) {
+			return null;
+		}
 	}
 	
 	/* (non-Javadoc)

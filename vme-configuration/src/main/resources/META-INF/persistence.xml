@@ -6,7 +6,6 @@
 		<class>org.fao.fi.vme.domain.model.Authority</class>
 		<class>org.fao.fi.vme.domain.model.GeneralMeasure</class>
 		<class>org.fao.fi.vme.domain.model.GeoRef</class>
-		<class>org.fao.fi.vme.domain.model.History</class>
 		<class>org.fao.fi.vme.domain.model.extended.FisheryAreasHistory</class>
 		<class>org.fao.fi.vme.domain.model.extended.VMEsHistory</class>
 		<class>org.fao.fi.vme.domain.model.InformationSource</class>
