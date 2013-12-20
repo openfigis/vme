@@ -27,13 +27,13 @@
 
 
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.vme}" />
-			<property name="javax.persistence.jdbc.url" value="${javax.persistence.jdbc.url.vme}" />
-			<property name="javax.persistence.jdbc.user" value="${javax.persistence.jdbc.user.vme}" />
-			<property name="javax.persistence.jdbc.password" value="${javax.persistence.jdbc.password.vme}" />
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:db1;INIT=create schema IF NOT EXISTS VME" />
+			<property name="javax.persistence.jdbc.user" value="sa" />
+			<property name="javax.persistence.jdbc.password" value="" />
 			<property name="show_sql" value="true" />
-			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.vme}" />
-			<property name="hibernate.dialect" value="${hibernate.dialect.vme}" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.ejb.entitymanager_factory_name" value="vme_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="VME" />
@@ -54,15 +54,15 @@
 
 
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.figis}" />
-			<property name="javax.persistence.jdbc.url" value="${javax.persistence.jdbc.url.figis}" />
-			<property name="javax.persistence.jdbc.user" value="${javax.persistence.jdbc.user.figis}" />
-			<property name="javax.persistence.jdbc.password" value="${javax.persistence.jdbc.password.figis}" />
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:db2;INIT=create schema IF NOT EXISTS FIGIS\;create schema IF NOT EXISTS FIGIS_UPDATE" />
+			<property name="javax.persistence.jdbc.user" value="sa" />
+			<property name="javax.persistence.jdbc.password" value="" />
 
 			<property name="show_sql" value="true" />
 
-			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.figis}" />
-			<property name="hibernate.dialect" value="${hibernate.dialect.figis}" />
+			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="FIGIS" />
