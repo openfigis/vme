@@ -7,6 +7,7 @@
 	<!--/vme-service-integrationtest/src/test/resources/META-INF/persistence.xml -->
 	<!--/vme-web/src/test/resources/META-INF/persistence.xml -->
 
+	<!--this version is not parameterized because it should only contain the dev parameters, never parameterized for production. -->
 
 
 	<persistence-unit name="vme-persistence">
