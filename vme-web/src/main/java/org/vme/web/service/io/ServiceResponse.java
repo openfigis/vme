@@ -7,18 +7,15 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-
-
 /**
  * @author Fabrizio Sibeni
- *
+ * 
  */
 
 public class ServiceResponse<T> {
 
-	
 	private ServiceRequest request;
-	
+
 	private List<T> resultList;
 
 	/**
@@ -29,14 +26,11 @@ public class ServiceResponse<T> {
 		this.request = request;
 		resultList = new LinkedList<T>();
 	}
-	
-	
-	
-	public int getTotalResult(){
+
+	public int getTotalResult() {
 		return resultList.size();
 	}
-	
-	
+
 	/**
 	 * @return the resultList
 	 */
@@ -51,24 +45,22 @@ public class ServiceResponse<T> {
 		return request;
 	}
 
-
-	public void addElement(T dto){
+	public void addElement(T dto) {
 		resultList.add(dto);
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public void addElements(List<?> dtos){
+	public void addElements(List<?> dtos) {
 		for (T dto : (List<T>) dtos) {
 			resultList.add(dto);
 		}
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
-	public void addElements(Collection<?> dtos){
+	public void addElements(Collection<?> dtos) {
 		for (T dto : (Collection<T>) dtos) {
 			resultList.add(dto);
 		}
 	}
-	
+
 }

@@ -20,30 +20,27 @@ import org.vme.web.service.io.ServiceResponse;
 @Singleton
 public class VmeSearchRefTypeWs {
 
-
 	@Inject
 	private DAOFactory factory;
 
-
 	public VmeSearchRefTypeWs() {
-		
+
 	}
 
 	@Path("/list")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	//@Produces(MediaType.TEXT_HTML)
+	// @Produces(MediaType.TEXT_HTML)
 	public Response find(@PathParam("concept") String concept, @PathParam("lang") String lang) {
 		try {
 			ReferencesRequest refRequest = new ReferencesRequest(UUID.randomUUID());
 			refRequest.setConcept(concept);
 			ServiceResponse<?> result = ServiceInvoker.invoke(factory.getReferenceDAO(), refRequest);
 			return Response.status(200).entity(result).build();
-		} catch (Throwable t){
+		} catch (Throwable t) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
-		
-	}
 
+	}
 
 }

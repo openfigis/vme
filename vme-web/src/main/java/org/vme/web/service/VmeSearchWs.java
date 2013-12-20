@@ -19,80 +19,61 @@ import org.vme.web.service.io.ServiceResponse;
 @Singleton
 public class VmeSearchWs {
 
-
 	@Inject
 	private DAOFactory factory;
-	
+
 	/*
-	@Inject
-	public VmeSearchWs(VmeSearchService serv, DbBootstrapper bootstrapper) {
-		service = serv;
-			try {
-				bootstrapper.bootDb();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	}
-    */
+	 * @Inject public VmeSearchWs(VmeSearchService serv, DbBootstrapper
+	 * bootstrapper) { service = serv; try { bootstrapper.bootDb(); } catch
+	 * (Exception e) { // TODO Auto-generated catch block e.printStackTrace(); }
+	 * }
+	 */
 
 	@Inject
 	public VmeSearchWs() {
-		
+
 	}
 
-	
-	//@Path("/search")
+	// @Path("/search")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	//@Produces(MediaType.TEXT_HTML)
-	public Response find(
-			@QueryParam("text") String text,
-			@QueryParam("authority") String id_authority, 
-			@QueryParam("vme_type") String id_vme_type, 
-			@QueryParam("vme_criteria") String id_vme_criteria,
+	// @Produces(MediaType.TEXT_HTML)
+	public Response find(@QueryParam("text") String text, @QueryParam("authority") String id_authority,
+			@QueryParam("vme_type") String id_vme_type, @QueryParam("vme_criteria") String id_vme_criteria,
 			@QueryParam("year") String year) throws Exception {
 
 		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
 		request.setText(text);
-		if ((id_authority!=null) &&!("*").equals(id_authority.trim())){
+		if ((id_authority != null) && !("*").equals(id_authority.trim())) {
 			request.setAuthority(Integer.parseInt(id_authority));
 		} else {
 			request.setAuthority(0);
 		}
-		if ((id_vme_type!=null) &&!("*").equals(id_vme_type.trim())){
-			request.setType(Integer.parseInt(id_vme_type));	
+		if ((id_vme_type != null) && !("*").equals(id_vme_type.trim())) {
+			request.setType(Integer.parseInt(id_vme_type));
 		} else {
 			request.setType(0);
 		}
-		if ((id_vme_criteria!=null) && !("*").equals(id_vme_criteria.trim())){
+		if ((id_vme_criteria != null) && !("*").equals(id_vme_criteria.trim())) {
 			request.setCriteria(Integer.parseInt(id_vme_criteria));
 		} else {
 			request.setCriteria(0);
 		}
-		if ((year!=null) &&!("*").equals(year.trim())){
+		if ((year != null) && !("*").equals(year.trim())) {
 			request.setYear(Integer.parseInt(year));
 		} else {
 			request.setYear(0);
 		}
-		ServiceResponse<?> result =  ServiceInvoker.invoke(factory.getObservationDAO(), request);
+		ServiceResponse<?> result = ServiceInvoker.invoke(factory.getObservationDAO(), request);
 		return Response.status(200).entity(result).build();
 	}
 
-
 	@SuppressWarnings("unused")
-	private String produceHtmlReport(ObservationsRequest dto)	{
-		return 
-				"<html> " + "<title>" + "Hello Jersey" + "</title>" + 
-				"<body><h1>" + "Hello Jersey" + "</body></h1>" + dto.getUuid()  + "</br>"  
-				+ "Id Authority....:" + dto.getAuthority() + "</br>"
-				+ "Id areatype.....:" + dto.getType() + "</br>"
-				+ "Id criteria.....:" + dto.getCriteria() + "</br>"
-				+ "Year............:" + dto.getYear() + "</br>"
-				+"</html> ";
+	private String produceHtmlReport(ObservationsRequest dto) {
+		return "<html> " + "<title>" + "Hello Jersey" + "</title>" + "<body><h1>" + "Hello Jersey" + "</body></h1>"
+				+ dto.getUuid() + "</br>" + "Id Authority....:" + dto.getAuthority() + "</br>" + "Id areatype.....:"
+				+ dto.getType() + "</br>" + "Id criteria.....:" + dto.getCriteria() + "</br>" + "Year............:"
+				+ dto.getYear() + "</br>" + "</html> ";
 	}
-
-
-
 
 }

@@ -3,7 +3,6 @@
  */
 package org.vme.service;
 
-
 /**
  * @author Fabrizio Sibeni
  * 

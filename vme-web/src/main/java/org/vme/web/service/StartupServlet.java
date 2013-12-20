@@ -11,7 +11,7 @@ import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 
 /**
  * @author SIBENI
- *
+ * 
  */
 public class StartupServlet extends HttpServlet {
 
@@ -22,11 +22,12 @@ public class StartupServlet extends HttpServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		
+
 		super.init(config);
-		System.out.println("FAB: servlet init with parameter dbaccess-path: [" + config.getInitParameter("dbaccess-path") + "]");
+		System.out.println("FAB: servlet init with parameter dbaccess-path: ["
+				+ config.getInitParameter("dbaccess-path") + "]");
 		FilesystemMsAccessConnectionProvider.dbLocation = config.getInitParameter("dbaccess-path");
-		
+
 	}
 
 }

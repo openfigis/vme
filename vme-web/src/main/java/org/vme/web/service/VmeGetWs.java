@@ -23,78 +23,60 @@ public class VmeGetWs {
 	private DAOFactory factory;
 
 	/*
-	@Inject
-	public VmeGetWs(VmeSearchService serv, DbBootstrapper bootstrapper) {
-		service = serv;
-			try {
-				bootstrapper.bootDb();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-	}
-	*/
-	
-	
-	public VmeGetWs() {
-		//factory = serv;
-    }
-	
+	 * @Inject public VmeGetWs(VmeSearchService serv, DbBootstrapper
+	 * bootstrapper) { service = serv; try { bootstrapper.bootDb(); } catch
+	 * (Exception e) { // TODO Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * }
+	 */
 
-	//@Path("/search")
+	public VmeGetWs() {
+		// factory = serv;
+	}
+
+	// @Path("/search")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	//@Produces(MediaType.TEXT_HTML)
-	public Response find(
-			@QueryParam("id") String id,
-			@QueryParam("year") String year,
+	// @Produces(MediaType.TEXT_HTML)
+	public Response find(@QueryParam("id") String id, @QueryParam("year") String year,
 			@QueryParam("inventoryIdentifier") String inventoryIdentifier,
 			@QueryParam("geographicFeatureId") String geographicFeatureId) throws Exception {
 
 		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
-		
-		if ((id!=null) &&!("*").equals(id.trim())){
+
+		if ((id != null) && !("*").equals(id.trim())) {
 			request.setId(Integer.parseInt(id));
 		} else {
 			request.setId(0);
 		}
-		
-		if ((year!=null) &&!("*").equals(year.trim())){
+
+		if ((year != null) && !("*").equals(year.trim())) {
 			request.setYear(Integer.parseInt(year));
 		} else {
 			request.setYear(0);
 		}
-		
-		if ((inventoryIdentifier!=null) &&!("*").equals(inventoryIdentifier.trim())){
+
+		if ((inventoryIdentifier != null) && !("*").equals(inventoryIdentifier.trim())) {
 			request.setInventoryIdentifier(inventoryIdentifier);
 		} else {
 			request.setInventoryIdentifier(null);
 		}
-		
-		if ((geographicFeatureId!=null) &&!("*").equals(geographicFeatureId.trim())){
+
+		if ((geographicFeatureId != null) && !("*").equals(geographicFeatureId.trim())) {
 			request.setGeographicFeatureId(geographicFeatureId);
 		} else {
 			request.setGeographicFeatureId(null);
 		}
-		ServiceResponse<?> result =  ServiceInvoker.invoke(factory.getObservationDAO(), request);
+		ServiceResponse<?> result = ServiceInvoker.invoke(factory.getObservationDAO(), request);
 		return Response.status(200).entity(result).build();
 	}
 
-
 	@SuppressWarnings("unused")
-	private String produceHtmlReport(ObservationsRequest dto)	{
-		return 
-				"<html> " + "<title>" + "Hello Jersey" + "</title>" + 
-				"<body><h1>" + "Hello Jersey" + "</body></h1>" + dto.getUuid()  + "</br>"  
-				+ "Id Authority....:" + dto.getAuthority() + "</br>"
-				+ "Id areatype.....:" + dto.getType() + "</br>"
-				+ "Id criteria.....:" + dto.getCriteria() + "</br>"
-				+ "Year............:" + dto.getYear() + "</br>"
-				+"</html> ";
+	private String produceHtmlReport(ObservationsRequest dto) {
+		return "<html> " + "<title>" + "Hello Jersey" + "</title>" + "<body><h1>" + "Hello Jersey" + "</body></h1>"
+				+ dto.getUuid() + "</br>" + "Id Authority....:" + dto.getAuthority() + "</br>" + "Id areatype.....:"
+				+ dto.getType() + "</br>" + "Id criteria.....:" + dto.getCriteria() + "</br>" + "Year............:"
+				+ dto.getYear() + "</br>" + "</html> ";
 	}
-
-
-
 
 }
