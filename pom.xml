@@ -7,6 +7,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+
+
+
 	<properties>
 		<version>0.0.1-SNAPSHOT</version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,6 +38,9 @@
 		</repository>
 	</repositories>
 
+
+
+
 	<modules>
 		<module>figis-domain</module>
 		<module>vme-service</module>
@@ -60,8 +66,7 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId> 
-			<version>1.7.2</version> </dependency> -->
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId> <version>1.7.2</version> </dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -134,6 +139,29 @@
 				</snapshotRepository>
 			</distributionManagement>
 		</profile>
+		<profile>
+			<id>env-dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
+				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:db1;INIT=create schema IF NOT EXISTS VME</javax.persistence.jdbc.url.vme>
+				<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
+				<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>
+				<hibernate.dialect.vme>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme>
+				<hibernate.hbm2ddl.auto.vme>create-drop</hibernate.hbm2ddl.auto.vme>
+				<!--validate | update | create | create-drop -->
+
+				<javax.persistence.jdbc.driver.figis>org.h2.Driver</javax.persistence.jdbc.driver.figis>
+				<javax.persistence.jdbc.url.figis>jdbc:h2:mem:db2;INIT=create schema IF NOT EXISTS FIGIS\;create schema IF NOT EXISTS
+					FIGIS_UPDATE</javax.persistence.jdbc.url.figis>
+				<javax.persistence.jdbc.user.figis>sa</javax.persistence.jdbc.user.figis>
+				<javax.persistence.jdbc.password.figis></javax.persistence.jdbc.password.figis>
+				<hibernate.dialect.figis>org.hibernate.dialect.H2Dialect</hibernate.dialect.figis>
+				<hibernate.hbm2ddl.auto.figis>create-drop</hibernate.hbm2ddl.auto.figis>
+			</properties>
+		</profile>
 	</profiles>
 
 	<dependencyManagement>
@@ -166,4 +194,8 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+
+
+
 </project>
