@@ -57,7 +57,7 @@ public class InformationSource implements ReferenceReport {
 	/**
 	 * InformationSource has 0,1 SpecificMeasure
 	 */
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private SpecificMeasure specificMeasure;
 
 	/**

@@ -47,7 +47,7 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 
 	@RSGName("Source Of Information")
 	@RSGWeight(100)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private InformationSource informationSource;
 
 	/**

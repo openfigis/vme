@@ -3,6 +3,7 @@ package org.fao.fi.vme.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -43,7 +44,7 @@ public class Rfmo implements ReferenceReport {
 	 * This RFMO manages this list of Vmes
 	 * 
 	 */
-	@OneToMany(mappedBy = "rfmo")
+	@OneToMany(mappedBy = "rfmo", cascade=CascadeType.ALL)
 	private List<Vme> listOfManagedVmes = new ArrayList<Vme>();
 
 	/**
