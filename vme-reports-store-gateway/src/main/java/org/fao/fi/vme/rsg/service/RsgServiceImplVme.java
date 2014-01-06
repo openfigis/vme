@@ -676,14 +676,14 @@ public class RsgServiceImplVme implements RsgService {
 		
 		List<GeoRef> geoRefs = vme.getGeoRefList();
 
-		if(geoRefs != null) {
-			if(geoRefs.isEmpty())
-				vme.setGeoRefList(null);
-			else
-				for(GeoRef geoRef : geoRefs) {
-					geoRef.setVme(vme);
-				}
-		}
+//		if(geoRefs != null) {
+//			if(geoRefs.isEmpty())
+//				vme.setGeoRefList(null);
+//			else
+//				for(GeoRef geoRef : geoRefs) {
+//					geoRef.setVme(vme);
+//				}
+//		}
 
 		List<SpecificMeasure> specificMeasures = vme.getSpecificMeasureList();
 		

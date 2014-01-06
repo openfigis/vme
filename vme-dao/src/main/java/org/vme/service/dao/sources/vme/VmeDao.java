@@ -1,5 +1,6 @@
 package org.vme.service.dao.sources.vme;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,6 +10,8 @@ import javax.persistence.EntityTransaction;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.Profile;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
@@ -74,6 +77,24 @@ public class VmeDao extends AbstractJPADao {
 		try {
 			et.begin();
 			em.remove(object);
+			em.flush();
+			et.commit();
+			
+			LOG.debug("Object {} has been removed from persistence", object);
+		} catch(Throwable t) {
+			LOG.error("Unable to remove object {} from persistence: {} [ {} ]", object, t.getClass().getSimpleName(), t.getMessage(), t);
+			
+			et.rollback();
+		}
+	}
+	
+	public void detach(Object object) {
+		EntityTransaction et = em.getTransaction();
+		
+		try {
+			et.begin();
+			em.detach(object);
+			em.flush();
 			et.commit();
 			
 			LOG.debug("Object {} has been removed from persistence", object);
@@ -152,5 +173,121 @@ public class VmeDao extends AbstractJPADao {
 
 	public Long count(Class<?> clazz) {
 		return count(em, clazz);
+	}
+	
+	public void deleteGeoRef(GeoRef toDelete) {
+		if(toDelete == null)
+			throw new IllegalArgumentException("GeoRef cannot be NULL");
+		
+		if(toDelete.getId() == null)
+			throw new IllegalArgumentException("GeoRef ID cannot be NULL");
+
+		if(toDelete.getVme() == null)
+			throw new IllegalArgumentException("GeoRef cannot have a NULL Vme reference");
+
+		if(toDelete.getVme().getId() == null)
+			throw new IllegalArgumentException("GeoRef cannot have a Vme reference with a NULL id");
+
+		//According to JPA plain specs, you can't automatically remove orphan child elements
+		//so you've to do it explicitly...
+		Vme vme = this.getEntityById(this.em, Vme.class, toDelete.getVme().getId());
+		
+		GeoRef current = null;
+		Iterator<GeoRef> iterator = vme.getGeoRefList() != null ? vme.getGeoRefList().iterator() : null;
+		
+		if(iterator != null) {
+			while(iterator.hasNext()) {
+				current = iterator.next();
+				
+				if(current.getId().equals(toDelete.getId()))
+					iterator.remove();
+			}
+			
+			if(current != null) {
+				this.remove(current);
+			
+				this.merge(vme);
+			}
+		}
+	}
+	
+	public void deleteProfile(Profile toDelete) {
+		if(toDelete == null)
+			throw new IllegalArgumentException("Profile cannot be NULL");
+		
+		if(toDelete.getId() == null)
+			throw new IllegalArgumentException("Profile ID cannot be NULL");
+
+		if(toDelete.getVme() == null)
+			throw new IllegalArgumentException("Profile cannot have a NULL Vme reference");
+
+		if(toDelete.getVme().getId() == null)
+			throw new IllegalArgumentException("Profile cannot have a Vme reference with a NULL id");
+
+		//According to JPA plain specs, you can't automatically remove orphan child elements
+		//so you've to do it explicitly...
+		Vme vme = this.getEntityById(this.em, Vme.class, toDelete.getVme().getId());
+		
+		Profile current = null;
+		Iterator<Profile> iterator = vme.getProfileList() != null ? vme.getProfileList().iterator() : null;
+		
+		if(iterator != null) {
+			while(iterator.hasNext()) {
+				current = iterator.next();
+				
+				if(current.getId().equals(toDelete.getId()))
+					iterator.remove();
+			}
+			
+			if(current != null) {
+				this.remove(current);
+			
+				this.merge(vme);
+			}
+		}
+	}
+	
+	public void deleteSpecificMeasure(SpecificMeasure toDelete) {
+		if(toDelete == null)
+			throw new IllegalArgumentException("SpecificMeasure cannot be NULL");
+		
+		if(toDelete.getId() == null)
+			throw new IllegalArgumentException("SpecificMeasure ID cannot be NULL");
+
+		if(toDelete.getVmeList() == null)
+			throw new IllegalArgumentException("SpecificMeasure cannot have a NULL set of Vme references");
+
+		if(toDelete.getVmeList().isEmpty())
+			throw new IllegalArgumentException("SpecificMeasure cannot have an empty set of Vme references");
+
+		for(Vme owner : toDelete.getVmeList())
+			if(owner == null)
+				throw new IllegalArgumentException("SpecificMeasure cannot have a NULL Vme reference");
+			else if(owner.getId() == null)
+				throw new IllegalArgumentException("SpecificMeasure cannot have a Vme reference with a NULL ID");
+
+		//According to JPA plain specs, you can't automatically remove orphan child elements
+		//so you've to do it explicitly...
+		for(Vme owner : toDelete.getVmeList()) {
+			Vme vme = this.getEntityById(this.em, Vme.class, owner.getId());
+			
+			Profile current = null;
+			Iterator<Profile> iterator = vme.getProfileList() != null ? vme.getProfileList().iterator() : null;
+			
+			if(iterator != null) {
+				while(iterator.hasNext()) {
+					current = iterator.next();
+					
+					if(current.getId().equals(toDelete.getId()))
+						iterator.remove();
+				}
+				
+				if(current != null) {
+					this.remove(current);
+				
+					this.merge(vme);
+				}
+			}
+		}
 	}
 }
