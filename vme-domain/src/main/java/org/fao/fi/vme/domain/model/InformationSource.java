@@ -340,4 +340,7 @@ public class InformationSource implements ReferenceReport {
 			return false;
 		return true;
 	}
+	
+	
+	equalsObjective1
 }
