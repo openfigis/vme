@@ -47,8 +47,8 @@ public class PeriodGroupingTest {
 
 		assertEquals(YEARS, vme.getGeoRefList().size());
 
-		List<DisseminationYearSlice> slices = g.collect(vme);
-		assertEquals(2, slices.get(0).getInformationSourceList().size());
+		// List<DisseminationYearSlice> slices = g.collect(vme);
+		// assertEquals(2, slices.get(0).getInformationSourceList().size());
 
 	}
 
