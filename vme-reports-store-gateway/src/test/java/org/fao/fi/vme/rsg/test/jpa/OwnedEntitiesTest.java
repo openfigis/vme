@@ -84,10 +84,8 @@ public class OwnedEntitiesTest {
 	public void testCheckInformationSources() throws Throwable {
 		InformationSource is = this._vmeDao.getEntityById(this._vmeDao.getEm(), InformationSource.class, new Long(1));
 		
-		Assert.assertNotNull(is.getRfmoList());
-		Assert.assertFalse(is.getRfmoList().isEmpty());
-		Assert.assertNotNull(is.getRfmoList().get(0));
+		Assert.assertNotNull(is.getRfmo());
 		
-		System.out.println(is.getRfmoList().get(0));
+		System.out.println(is.getRfmo());
 	}
 }

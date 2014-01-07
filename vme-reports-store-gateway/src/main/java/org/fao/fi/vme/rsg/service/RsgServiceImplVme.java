@@ -241,7 +241,7 @@ public class RsgServiceImplVme implements RsgService {
 			entry.setId(informationSource.getId());
 			entry.setReportType(new ReportType("InformationSource"));
 			entry.setOwned(true);
-			entry.setOwner(informationSource.getRfmoList().get(0).getId());
+			entry.setOwner(informationSource.getRfmo().getId());
 			entry.setIdentifier(entry.getOwner() + " - " + ( informationSource.getPublicationYear() == null ? "<YEAR UNKNOWN>" : informationSource.getPublicationYear().toString() ) + " - " + MLSu.getEnglish(informationSource.getCitation()));
 			
 			entry.getNameValueList().add(new NameValue("Committee", MLSu.getEnglish(informationSource.getCommittee())));
@@ -770,7 +770,7 @@ public class RsgServiceImplVme implements RsgService {
 			else
 				for(InformationSource source : informationSources) {
 					source.setGeneralMeasure(generalMeasure);
-					source.setRfmoList(Arrays.asList(new Rfmo[] { generalMeasure.getRfmo() }));
+					source.setRfmo(generalMeasure.getRfmo());
 				}
 		}
 
@@ -785,8 +785,8 @@ public class RsgServiceImplVme implements RsgService {
 	}
 	
 	private InformationSource doUpdateInformationSource(InformationSource source) {
-		if(source.getRfmoList() == null || source.getRfmoList().isEmpty())
-			throw new IllegalArgumentException("Rfmos are mandatory");
+		if(source.getRfmo() == null)
+			throw new IllegalArgumentException("Rfmo is mandatory");
 
 		InformationSource updated;
 		
