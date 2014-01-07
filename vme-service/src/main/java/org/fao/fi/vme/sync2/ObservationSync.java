@@ -13,8 +13,8 @@ import org.vme.service.dao.sources.vme.VmeDao;
 
 /**
  * 
- * Sync the Vme DB with the FIGIS VME DB. This includes also the famous FIGIS XML. The data is pushed from the vme DB to
- * the figis DB.
+ * Sync the Vme DB with the FIGIS VME DB. This includes also the famous FIGIS
+ * XML. The data is pushed from the vme DB to the figis DB.
  * 
  * 
  * @author Erik van Ingen
@@ -37,7 +37,8 @@ public class ObservationSync implements Sync {
 		List<Vme> objects = vmeDao.loadVmes();
 
 		for (Vme vme : objects) {
-			// this refresh here is necessary because apparently eventual new data has not yet been committed? Solving
+			// this refresh here is necessary because apparently eventual new
+			// data has not yet been committed? Solving
 			// this problem costed me about 3 hours...
 			vmeDao.getEm().refresh(vme);
 

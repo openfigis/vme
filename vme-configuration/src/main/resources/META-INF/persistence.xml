@@ -2,10 +2,18 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
+	<!-- The vme project has 3 duplicates of this same file in these locations: -->
+	<!--/vme-configuration/src/main/resources/META-INF/persistence.xml -->
+	<!--/vme-service-integrationtest/src/test/resources/META-INF/persistence.xml -->
+	<!--/vme-web/src/test/resources/META-INF/persistence.xml -->
+
+
+
 	<persistence-unit name="vme-persistence">
 		<class>org.fao.fi.vme.domain.model.Authority</class>
 		<class>org.fao.fi.vme.domain.model.GeneralMeasure</class>
 		<class>org.fao.fi.vme.domain.model.GeoRef</class>
+		<class>org.fao.fi.vme.domain.model.History</class>
 		<class>org.fao.fi.vme.domain.model.extended.FisheryAreasHistory</class>
 		<class>org.fao.fi.vme.domain.model.extended.VMEsHistory</class>
 		<class>org.fao.fi.vme.domain.model.InformationSource</class>
@@ -16,7 +24,7 @@
 		<class>org.fao.fi.vme.domain.model.Vme</class>
 		<class>org.fao.fi.vme.domain.model.VmeType</class>
 		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
-		
+
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.vme}" />
@@ -28,7 +36,7 @@
 			<property name="hibernate.dialect" value="${hibernate.dialect.vme}" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.ejb.entitymanager_factory_name" value="vme_entitymanager_factory_name" />
-			<property name="hibernate.default_schema" value="VME"/>
+			<property name="hibernate.default_schema" value="VME" />
 		</properties>
 
 	</persistence-unit>
@@ -57,7 +65,7 @@
 			<property name="hibernate.dialect" value="${hibernate.dialect.figis}" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
-			<property name="hibernate.default_schema" value="FIGIS"/>
+			<property name="hibernate.default_schema" value="FIGIS" />
 
 		</properties>
 

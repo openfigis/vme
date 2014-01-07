@@ -6,8 +6,9 @@ import java.util.List;
 public class SliceDuplicateFilter {
 
 	/**
-	 * The algorithm filters doubles which comes one after the other. If the same element is more than 1 position
-	 * distant from its equal, it will not be filtered.
+	 * The algorithm filters duplicates which comes one after the other. If the
+	 * same element is more than 1 position distant from its equal, it will not
+	 * be filtered.
 	 * 
 	 * 
 	 * 

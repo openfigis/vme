@@ -195,17 +195,8 @@ public class Linker {
 			List<ObjectCollection> objectCollectionList) {
 		InformationSource informationSource = (InformationSource) informationSourceDomainObject;
 		Meetings record = (Meetings) domainTableMap.get(MsAcces2DomainMapper.buildKey(informationSource));
-
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
-
-		if (informationSource.getRfmoList() == null) {
-			informationSource.setRfmoList(new ArrayList<Rfmo>());
-		}
-
-		if (!MsAcces2DomainMapper.contains(informationSource.getRfmoList(), rfmo)) {
-			informationSource.getRfmoList().add(rfmo);
-		}
-
+		informationSource.setRfmo(rfmo);
 		if (!MsAcces2DomainMapper.contains(rfmo.getInformationSourceList(), informationSource)) {
 			rfmo.getInformationSourceList().add(informationSource);
 		}

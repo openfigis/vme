@@ -2,13 +2,10 @@ package org.fao.fi.vme.domain.model;
 
 import java.net.URL;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,7 +32,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
  * @author Erik van Ingen
  * 
  */
-@RSGReferenceReport(name="VME Information Source")
+@RSGReferenceReport(name = "VME Information Source")
 @Entity(name = "INFORMATION_SOURCE")
 public class InformationSource implements ReferenceReport {
 
@@ -48,16 +45,16 @@ public class InformationSource implements ReferenceReport {
 	 * 
 	 */
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.REFRESH)
 	@RSGName("Authority")
-	@RSGWeight(0)	
+	@RSGWeight(0)
 	@RSGSimpleReference
-	private List<Rfmo> rfmoList;
+	private Rfmo rfmo;
 
 	/**
 	 * InformationSource has 0,1 SpecificMeasure
 	 */
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private SpecificMeasure specificMeasure;
 
 	/**
@@ -123,7 +120,8 @@ public class InformationSource implements ReferenceReport {
 	private MultiLingualString citation;
 
 	/**
-	 * This field maybe used to indicate what type of source this is. One type would be link CEM Source.
+	 * This field maybe used to indicate what type of source this is. One type
+	 * would be link CEM Source.
 	 * 
 	 * <option value="1">Book </option>
 	 * 
@@ -146,12 +144,12 @@ public class InformationSource implements ReferenceReport {
 		this.id = id;
 	}
 
-	public List<Rfmo> getRfmoList() {
-		return rfmoList;
+	public Rfmo getRfmo() {
+		return rfmo;
 	}
 
-	public void setRfmoList(List<Rfmo> rfmoList) {
-		this.rfmoList = rfmoList;
+	public void setRfmo(Rfmo rfmo) {
+		this.rfmo = rfmo;
 	}
 
 	public SpecificMeasure getSpecificMeasure() {
@@ -234,29 +232,41 @@ public class InformationSource implements ReferenceReport {
 		this.publicationYear = publicationYear;
 	}
 
-//	/* (non-Javadoc)
-//	 * @see java.lang.Object#hashCode()
-//	 */
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((this.citation == null) ? 0 : this.citation.hashCode());
-//		result = prime * result + ((this.committee == null) ? 0 : this.committee.hashCode());
-//		result = prime * result + ((this.generalMeasure == null) ? 0 : this.generalMeasure.hashCode());
-//		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-//		result = prime * result + ((this.meetingEndDate == null) ? 0 : this.meetingEndDate.hashCode());
-//		result = prime * result + ((this.meetingStartDate == null) ? 0 : this.meetingStartDate.hashCode());
-//		result = prime * result + ((this.publicationYear == null) ? 0 : this.publicationYear.hashCode());
-//		result = prime * result + ((this.reportSummary == null) ? 0 : this.reportSummary.hashCode());
-//		result = prime * result + ((this.rfmoList == null) ? 0 : this.rfmoList.hashCode());
-//		result = prime * result + ((this.sourceType == null) ? 0 : this.sourceType.hashCode());
-//		result = prime * result + ((this.specificMeasure == null) ? 0 : this.specificMeasure.hashCode());
-//		result = prime * result + ((this.url == null) ? 0 : this.url.hashCode());
-//		return result;
-//	}
+	// /* (non-Javadoc)
+	// * @see java.lang.Object#hashCode()
+	// */
+	// @Override
+	// public int hashCode() {
+	// final int prime = 31;
+	// int result = 1;
+	// result = prime * result + ((this.citation == null) ? 0 :
+	// this.citation.hashCode());
+	// result = prime * result + ((this.committee == null) ? 0 :
+	// this.committee.hashCode());
+	// result = prime * result + ((this.generalMeasure == null) ? 0 :
+	// this.generalMeasure.hashCode());
+	// result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+	// result = prime * result + ((this.meetingEndDate == null) ? 0 :
+	// this.meetingEndDate.hashCode());
+	// result = prime * result + ((this.meetingStartDate == null) ? 0 :
+	// this.meetingStartDate.hashCode());
+	// result = prime * result + ((this.publicationYear == null) ? 0 :
+	// this.publicationYear.hashCode());
+	// result = prime * result + ((this.reportSummary == null) ? 0 :
+	// this.reportSummary.hashCode());
+	// result = prime * result + ((this.rfmoList == null) ? 0 :
+	// this.rfmoList.hashCode());
+	// result = prime * result + ((this.sourceType == null) ? 0 :
+	// this.sourceType.hashCode());
+	// result = prime * result + ((this.specificMeasure == null) ? 0 :
+	// this.specificMeasure.hashCode());
+	// result = prime * result + ((this.url == null) ? 0 : this.url.hashCode());
+	// return result;
+	// }
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -308,10 +318,10 @@ public class InformationSource implements ReferenceReport {
 				return false;
 		} else if (!this.reportSummary.equals(other.reportSummary))
 			return false;
-		if (this.rfmoList == null) {
-			if (other.rfmoList != null)
+		if (this.rfmo == null) {
+			if (other.rfmo != null)
 				return false;
-		} else if (!this.rfmoList.equals(other.rfmoList))
+		} else if (!this.rfmo.equals(other.rfmo))
 			return false;
 		if (this.sourceType == null) {
 			if (other.sourceType != null)

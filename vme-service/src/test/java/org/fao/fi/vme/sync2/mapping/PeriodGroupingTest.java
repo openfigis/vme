@@ -22,6 +22,36 @@ public class PeriodGroupingTest {
 	PeriodGrouping g = new PeriodGrouping();
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
+	/**
+	 * Considering years 2000, 2001 and 2002. If there is data for 2000 and
+	 * 2002, no observation should be generated for 2001, e.g. there should be a
+	 * hole.
+	 * 
+	 */
+
+	@Test
+	public void testTheHoles() {
+
+		int YEARS = 2;
+
+		Vme vme = VmeMock.create();
+
+		Rfmo rfmo = new Rfmo();
+		vme.setRfmo(rfmo);
+
+		GeoRef g2 = new GeoRef();
+		g2.setYear(VmeMock.YEAR + YEARS);
+		g2.setVme(vme);
+
+		vme.getGeoRefList().add(g2);
+
+		assertEquals(YEARS, vme.getGeoRefList().size());
+
+		List<DisseminationYearSlice> slices = g.collect(vme);
+		assertEquals(2, slices.get(0).getInformationSourceList().size());
+
+	}
+
 	@Test
 	public void testInformationHistoryCollectingYears() {
 		int nrOfYears = 2;
@@ -65,8 +95,9 @@ public class PeriodGroupingTest {
 	 * 
 	 * SpecialMeasures2.year = 2011 SpecialMeasures2.validityPeriod = 2010-2012
 	 * 
-	 * In the year 2010, we show SpecialMeasures2 or we show SpecialMeasures1? We do show now SpecialMeasures2 because
-	 * the validityPeriod of the most recent one covers also 2010
+	 * In the year 2010, we show SpecialMeasures2 or we show SpecialMeasures1?
+	 * We do show now SpecialMeasures2 because the validityPeriod of the most
+	 * recent one covers also 2010
 	 * 
 	 * 
 	 * 
@@ -74,8 +105,10 @@ public class PeriodGroupingTest {
 	@Test
 	public void testOverlappingValidityPeriods1() {
 
-		// SpecialMeasures1.year = 2009 SpecialMeasures1.validityPeriod = 2010-2012
-		// SpecialMeasures2.year = 2010 SpecialMeasures2.validityPeriod = 2011-2012
+		// SpecialMeasures1.year = 2009 SpecialMeasures1.validityPeriod =
+		// 2010-2012
+		// SpecialMeasures2.year = 2010 SpecialMeasures2.validityPeriod =
+		// 2011-2012
 
 		ValidityPeriod vp1 = ValidityPeriodMock.create(2010, 2012);
 		ValidityPeriod vp2 = ValidityPeriodMock.create(2011, 2012);
