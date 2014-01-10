@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -26,7 +28,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  */
 @RSGReferenced
 @Entity(name = "SPECIFIC_MEASURE")
-public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
+public class SpecificMeasure implements ObjectId, PeriodYear, Year<SpecificMeasure> {
 
 	/**
 	 *  
@@ -34,10 +36,12 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	/**
-	 * The SpecificMeasure is defined on the level of this VME, sometimes applies also to other VMEs.
+	 * The SpecificMeasure is defined on the level of this VME, sometimes
+	 * applies also to other VMEs.
 	 */
 	/*
 	 * This is the inverse side of the ManyToMany relationship
@@ -73,10 +77,12 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeSpecificMeasure;
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -123,7 +129,9 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 		this.vmeSpecificMeasure = vmeSpecificMeasure;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -139,7 +147,9 @@ public class SpecificMeasure implements PeriodYear, Year<SpecificMeasure> {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

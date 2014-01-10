@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -34,11 +36,12 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
  */
 @RSGReferenceReport(name = "VME Information Source")
 @Entity(name = "INFORMATION_SOURCE")
-public class InformationSource implements ReferenceReport {
+public class InformationSource implements ObjectId, ReferenceReport {
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	/**
@@ -136,12 +139,15 @@ public class InformationSource implements ReferenceReport {
 	 */
 	private Integer sourceType;
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	@Override
+	public void setId(Long id) {
 		this.id = id;
+
 	}
 
 	public Rfmo getRfmo() {

@@ -22,7 +22,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  */
 @RSGReferenced
 @Entity(name = "GEO_REF")
-public class GeoRef implements Year<GeoRef> {
+public class GeoRef implements ObjectId, Year<GeoRef> {
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
@@ -49,11 +49,13 @@ public class GeoRef implements Year<GeoRef> {
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Vme vme;
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	@Override
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -83,7 +85,9 @@ public class GeoRef implements Year<GeoRef> {
 		this.vme = vme;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -97,7 +101,9 @@ public class GeoRef implements Year<GeoRef> {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -131,4 +137,5 @@ public class GeoRef implements Year<GeoRef> {
 			return false;
 		return true;
 	}
+
 }

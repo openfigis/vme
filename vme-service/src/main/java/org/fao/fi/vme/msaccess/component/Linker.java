@@ -34,7 +34,7 @@ public class Linker {
 	 */
 	public void link(List<ObjectCollection> objectCollectionList, List<Table> tables) {
 		for (ObjectCollection o : objectCollectionList) {
-			Map<String, Object> domainTableMap = o.getDomainTableMap();
+			Map<Object, Object> domainTableMap = o.getDomainTableMap();
 			List<Object> objectList = o.getObjectList();
 			for (Object object : objectList) {
 				linkObject(object, domainTableMap, objectCollectionList, tables);
@@ -44,7 +44,7 @@ public class Linker {
 
 	}
 
-	private void linkObject(Object domainObject, Map<String, Object> domainTableMap,
+	private void linkObject(Object domainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList, List<Table> tables) {
 		if (domainObject instanceof Vme) {
 			linkVmeObject(domainObject, domainTableMap, objectCollectionList);
@@ -68,10 +68,10 @@ public class Linker {
 
 	}
 
-	private void linkFishingHistoryObject(Object domainObject, Map<String, Object> domainTableMap,
+	private void linkFishingHistoryObject(Object domainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
 		HistoryHolder h = (HistoryHolder) domainObject;
-		RFB_VME_Fishing_History record = (RFB_VME_Fishing_History) domainTableMap.get(MsAcces2DomainMapper.buildKey(h));
+		RFB_VME_Fishing_History record = (RFB_VME_Fishing_History) domainTableMap.get(h);
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
 
 		if (rfmo.getHasFisheryAreasHistory() == null) {
@@ -81,12 +81,12 @@ public class Linker {
 			rfmo.setHasVmesHistory(new ArrayList<VMEsHistory>());
 		}
 
-		if (!MsAcces2DomainMapper.contains(rfmo.getHasFisheryAreasHistory(), h.getFisheryAreasHistory())) {
+		if (!rfmo.getHasFisheryAreasHistory().contains(h.getFisheryAreasHistory())) {
 			FisheryAreasHistory fah = h.getFisheryAreasHistory();
 			fah.setRfmo(rfmo);
 			rfmo.getHasFisheryAreasHistory().add(fah);
 		}
-		if (!MsAcces2DomainMapper.contains(rfmo.getHasVmesHistory(), h.getVmesHistory())) {
+		if (!rfmo.getHasVmesHistory().contains(h.getVmesHistory())) {
 			VMEsHistory vmeH = h.getVmesHistory();
 			vmeH.setRfmo(rfmo);
 			rfmo.getHasVmesHistory().add(vmeH);
@@ -101,10 +101,10 @@ public class Linker {
 	 * @param domainTableMap
 	 * @param objectCollectionList
 	 */
-	private void linkGeneralMeasuresObject(Object domainObject, Map<String, Object> domainTableMap,
+	private void linkGeneralMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
 		GeneralMeasure gm = (GeneralMeasure) domainObject;
-		Measures_VME_General record = (Measures_VME_General) domainTableMap.get(MsAcces2DomainMapper.buildKey(gm));
+		Measures_VME_General record = (Measures_VME_General) domainTableMap.get(gm);
 
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
 		gm.setRfmo(rfmo);
@@ -112,7 +112,8 @@ public class Linker {
 		if (rfmo.getGeneralMeasureList() == null) {
 			rfmo.setGeneralMeasureList(new ArrayList<GeneralMeasure>());
 		}
-		if (!MsAcces2DomainMapper.contains(rfmo.getGeneralMeasureList(), gm)) {
+
+		if (!rfmo.getGeneralMeasureList().contains(gm)) {
 			rfmo.getGeneralMeasureList().add(gm);
 		}
 
@@ -126,14 +127,14 @@ public class Linker {
 	 * @param domainTableMap
 	 * @param objectCollectionList
 	 */
-	private void linkSpecificMeasuresObject(Object domainObject, Map<String, Object> domainTableMap,
+	private void linkSpecificMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
 		SpecificMeasure sm = (SpecificMeasure) domainObject;
 		if (sm.getVmeList() == null) {
 			sm.setVmeList(new ArrayList<Vme>());
 		}
 
-		Measues_VME_Specific record = (Measues_VME_Specific) domainTableMap.get(MsAcces2DomainMapper.buildKey(sm));
+		Measues_VME_Specific record = (Measues_VME_Specific) domainTableMap.get(sm);
 
 		if (record == null) {
 			throw new VmeException(
@@ -161,7 +162,7 @@ public class Linker {
 					if (vme.getSpecificMeasureList() == null) {
 						vme.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
 					}
-					VME vmeRecord = (VME) domainTableMap.get(MsAcces2DomainMapper.buildKey(vme));
+					VME vmeRecord = (VME) domainTableMap.get(vme);
 
 					if (vmeRecord == null || vmeRecord.getVME_ID() == null) {
 						throw new VmeException("At this point, the record or its id would need to be there, for Vme"
@@ -169,11 +170,11 @@ public class Linker {
 					}
 
 					if (record.getVME_ID().equals(vmeRecord.getVME_ID())) {
-						if (!MsAcces2DomainMapper.contains(sm.getVmeList(), vme)) {
+						if (!sm.getVmeList().contains(vme)) {
 							// add only when not already in the list
 							sm.getVmeList().add(vme);
 						}
-						if (!MsAcces2DomainMapper.contains(vme.getSpecificMeasureList(), sm)) {
+						if (!vme.getSpecificMeasureList().contains(sm)) {
 							// add only when not already in the list
 							vme.getSpecificMeasureList().add(sm);
 						}
@@ -191,13 +192,13 @@ public class Linker {
 	 * @param domainTableMap
 	 * @param objectCollectionList
 	 */
-	private void linkInformationSourceObject(Object informationSourceDomainObject, Map<String, Object> domainTableMap,
+	private void linkInformationSourceObject(Object informationSourceDomainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
 		InformationSource informationSource = (InformationSource) informationSourceDomainObject;
-		Meetings record = (Meetings) domainTableMap.get(MsAcces2DomainMapper.buildKey(informationSource));
+		Meetings record = (Meetings) domainTableMap.get(informationSource);
 		Rfmo rfmo = findRfmo(record.getRFB_ID(), objectCollectionList, domainTableMap);
 		informationSource.setRfmo(rfmo);
-		if (!MsAcces2DomainMapper.contains(rfmo.getInformationSourceList(), informationSource)) {
+		if (!rfmo.getInformationSourceList().contains(informationSource)) {
 			rfmo.getInformationSourceList().add(informationSource);
 		}
 	}
@@ -210,28 +211,32 @@ public class Linker {
 	 * @param domainTableMap
 	 * @param objectCollectionList
 	 */
-	private void linkVmeObject(Object vmeObject, Map<String, Object> domainTableMap,
+	private void linkVmeObject(Object vmeObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
 		Vme vme = (Vme) vmeObject;
-		VME vmeRecord = (VME) domainTableMap.get(MsAcces2DomainMapper.buildKey(vme));
+		VME vmeRecord = (VME) domainTableMap.get(vme);
 
-		Rfmo rfmo = findRfmo(vmeRecord.getRFB_ID(), objectCollectionList, domainTableMap);
-		vme.setRfmo(rfmo);
-		if (!MsAcces2DomainMapper.contains(rfmo.getListOfManagedVmes(), vme)) {
-			rfmo.getListOfManagedVmes().add(vme);
+		try {
+			Rfmo rfmo = findRfmo(vmeRecord.getRFB_ID(), objectCollectionList, domainTableMap);
+			vme.setRfmo(rfmo);
+			if (!rfmo.getListOfManagedVmes().contains(vme)) {
+				rfmo.getListOfManagedVmes().add(vme);
+			}
+
+		} catch (NullPointerException e) {
+			System.out.println(e.getMessage());
 		}
 
 	}
 
-	Rfmo findRfmo(String rfmId, List<ObjectCollection> objectCollectionList, Map<String, Object> domainTableMap) {
+	Rfmo findRfmo(String rfmId, List<ObjectCollection> objectCollectionList, Map<Object, Object> domainTableMap) {
 		Rfmo rfmo = null;
 		for (ObjectCollection oc : objectCollectionList) {
 			if (oc.getClazz() == Rfmo.class) {
 				List<Object> objectList = oc.getObjectList();
 				for (Object object : objectList) {
 					Rfmo rfmoDomainObject = (Rfmo) object;
-					RFB_MetaData rfmoRecord = (RFB_MetaData) domainTableMap.get(MsAcces2DomainMapper
-							.buildKey(rfmoDomainObject));
+					RFB_MetaData rfmoRecord = (RFB_MetaData) domainTableMap.get(rfmoDomainObject);
 					if (rfmoRecord == null) {
 						throw new VmeException("rfmoRecord " + rfmoDomainObject.getId()
 								+ " at this point should not be null");

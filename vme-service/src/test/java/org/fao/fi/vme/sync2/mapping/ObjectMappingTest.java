@@ -28,6 +28,7 @@ public class ObjectMappingTest {
 	public void testMapVme2Figis() {
 		int nrOfYears = 3;
 		Vme vme = VmeMock.generateVme(nrOfYears);
+		vme.setId(456l);
 
 		VmeObservationDomain vod = om.mapVme2Figis2(vme);
 

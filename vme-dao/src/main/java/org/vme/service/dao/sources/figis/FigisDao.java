@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
@@ -25,8 +26,8 @@ import org.vme.service.dao.config.figis.FigisDB;
 import org.vme.service.dao.impl.AbstractJPADao;
 
 /**
- * The dao in order to dconnect to the Figis database. Connection details to be found in
- * /vme-configuration/src/main/resources/META_VME-INF/persistence.xml
+ * The dao in order to dconnect to the Figis database. Connection details to be
+ * found in /vme-configuration/src/main/resources/META_VME-INF/persistence.xml
  * 
  * 
  * 
@@ -38,15 +39,17 @@ import org.vme.service.dao.impl.AbstractJPADao;
 @Singleton
 public class FigisDao extends AbstractJPADao {
 
-	// private final static Logger logger = LoggerFactory.getLogger(FigisDao.class);
+	// private final static Logger logger =
+	// LoggerFactory.getLogger(FigisDao.class);
 	private DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
 
 	/**
 	 * Hi Fabrizio,
 	 * 
-	 * Water area refs for VME are loaded in RTMS from the Access DB, in the future from iMarine. To be sure that water
-	 * area refs coming from VME, are consistently loaded in devel, fiqa and prod, I propose to have a reserved range
-	 * from 6000-8000.
+	 * Water area refs for VME are loaded in RTMS from the Access DB, in the
+	 * future from iMarine. To be sure that water area refs coming from VME, are
+	 * consistently loaded in devel, fiqa and prod, I propose to have a reserved
+	 * range from 6000-8000.
 	 * 
 	 * select max(cd_water_area) from ref_water_area --5075
 	 * 
@@ -79,21 +82,24 @@ public class FigisDao extends AbstractJPADao {
 	}
 
 	public void merge(Object object) {
-		em.getTransaction().begin();
+		EntityTransaction t = em.getTransaction();
+		t.begin();
 		em.merge(object);
-		em.getTransaction().commit();
+		t.commit();
 	}
 
 	public void persist(Object object) {
-		em.getTransaction().begin();
+		EntityTransaction t = em.getTransaction();
+		t.begin();
 		em.persist(object);
-		em.getTransaction().commit();
+		t.commit();
 	}
 
 	public void remove(Object object) {
-		em.getTransaction().begin();
+		EntityTransaction t = em.getTransaction();
+		t.begin();
 		em.remove(object);
-		em.getTransaction().commit();
+		t.commit();
 	}
 
 	/**
@@ -146,7 +152,8 @@ public class FigisDao extends AbstractJPADao {
 	}
 
 	/**
-	 * The observation may need to be updated or needs to be inserted because it is new.
+	 * The observation may need to be updated or needs to be inserted because it
+	 * is new.
 	 * 
 	 * 
 	 * @param od
@@ -173,7 +180,8 @@ public class FigisDao extends AbstractJPADao {
 			ObservationXml xmlFound = em.find(ObservationXml.class, xml.getId());
 			if (xmlFound == null) {
 				xml.setObservation(o);
-				// genereate the id for the xml, based upon the id of the observation
+				// genereate the id for the xml, based upon the id of the
+				// observation
 				rule.composeId(xml);
 				em.persist(xml);
 			} else {
@@ -213,7 +221,8 @@ public class FigisDao extends AbstractJPADao {
 		List<ObservationXml> xmlList = od.getObservationsPerLanguage();
 		for (ObservationXml observationXml : xmlList) {
 			observationXml.setObservation(o);
-			// genereate the id for the xml, based upon the id of the observation
+			// genereate the id for the xml, based upon the id of the
+			// observation
 			rule.composeId(observationXml);
 			em.persist(observationXml);
 		}
@@ -260,7 +269,7 @@ public class FigisDao extends AbstractJPADao {
 		VmeObservation vo = null;
 		try {
 			List<?> list = query.getResultList();
-			if (list.size()>0){
+			if (list.size() > 0) {
 				vo = (VmeObservation) list.get(0);
 			}
 		} catch (NoResultException e) {
@@ -268,7 +277,7 @@ public class FigisDao extends AbstractJPADao {
 		}
 		return vo;
 	}
-	
+
 	/**
 	 * find the VmeObservation by the vme id
 	 * 
@@ -316,8 +325,8 @@ public class FigisDao extends AbstractJPADao {
 	/**
 	 * This one removes the whole vme, except for the reference data.
 	 * 
-	 * This only works that a Vme in FIGIS consists of a VmeObservation, one or more Observation(s) and one or more
-	 * ObaservationXml(s)
+	 * This only works that a Vme in FIGIS consists of a VmeObservation, one or
+	 * more Observation(s) and one or more ObaservationXml(s)
 	 * 
 	 * 
 	 * @param vmeId

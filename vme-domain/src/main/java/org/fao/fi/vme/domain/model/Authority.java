@@ -55,7 +55,8 @@ public class Authority implements NamedReferenceConcept, AcronymAwareReferenceCo
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -69,7 +70,8 @@ public class Authority implements NamedReferenceConcept, AcronymAwareReferenceCo
 	}
 
 	/**
-	 * @param acronym the acronym to set
+	 * @param acronym
+	 *            the acronym to set
 	 */
 	public void setAcronym(String acronym) {
 		this.acronym = acronym;
@@ -83,7 +85,8 @@ public class Authority implements NamedReferenceConcept, AcronymAwareReferenceCo
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -97,7 +100,8 @@ public class Authority implements NamedReferenceConcept, AcronymAwareReferenceCo
 	}
 
 	/**
-	 * @param description the description to set
+	 * @param description
+	 *            the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;

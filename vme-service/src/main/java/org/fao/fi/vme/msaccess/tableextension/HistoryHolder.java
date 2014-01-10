@@ -1,6 +1,5 @@
 package org.fao.fi.vme.msaccess.tableextension;
 
-import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 

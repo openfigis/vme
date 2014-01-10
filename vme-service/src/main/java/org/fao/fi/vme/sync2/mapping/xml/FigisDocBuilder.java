@@ -100,31 +100,41 @@ public class FigisDocBuilder {
 	/**
 	 * Adds specificMeasures to a FIGISDoc
 	 * 
-	 * measureSummary fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
+	 * measureSummary fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:
+	 * ManagementMethodEntry@Focus=
 	 * "Vulnerable Marine Ecosystems"/fi:Measure/fi:Text
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry
+	 * fi:FIGISDoc/fi:VME/fi:Management
+	 * /fi:ManagementMethods/fi:ManagementMethodEntry
 	 * 
 	 * @Focus="Vulnerable Marine Ecosystems"/dc:Title[VME-specific measures]
 	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 *                    /fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/MeasureType
+	 *                    /fi:ManagementMethodEntry@Focus=
+	 *                    "Vulnerable Marine Ecosystems"/fi:Measure/MeasureType
 	 *                    Value="vulnerable marine ecosystem"
-	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry
-	 *                    /fi:Measure/fi:Text
+	 *                    fi:FIGISDoc/fi:VME/
+	 *                    fi:Management/fi:ManagementMethods/fi
+	 *                    :ManagementMethodEntry /fi:Measure/fi:Text
 	 * 
 	 *                    Source/url
-	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure
-	 *                    /fi:Sources/fi :BiblioEntry/dc:Identifier@Type="URI"
+	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 *                    /fi:ManagementMethodEntry/fi:Measure /fi:Sources/fi
+	 *                    :BiblioEntry/dc:Identifier@Type="URI"
 	 * 
 	 *                    Source/citation
-	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/
-	 *                    fi:Measure/fi:Sources /fi:BiblioEntry/dcterms:bibliographicCitation
+	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 *                    /fi:ManagementMethodEntry/ fi:Measure/fi:Sources
+	 *                    /fi:BiblioEntry/dcterms:bibliographicCitation
 	 * 
 	 *                    ValidityPeriod/beginYear
-	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure
+	 *                    fi:FIGISDoc/fi:VME/fi:Management
+	 *                    /fi:ManagementMethods/fi
+	 *                    :ManagementMethodEntry/fi:Measure
 	 *                    /fi:Range@Type="Time"/fi:Min
 	 * 
 	 *                    ValidityPeriod/endYear
-	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi
+	 *                    fi:FIGISDoc/fi:VME/fi:Management
+	 *                    /fi:ManagementMethods/fi
+	 *                    :ManagementMethodEntry/fi:Measure/fi
 	 *                    :Range@Type="Time"/fi:Max
 	 * 
 	 * 
@@ -157,7 +167,8 @@ public class FigisDocBuilder {
 			Text measureText = ut.getEnglishText(specificMeasure.getVmeSpecificMeasure());
 			measure.getTextsAndImagesAndTables().add(measureText);
 
-			// contentRule.add(content, measureType, measure.getTextsAndImagesAndTables())
+			// contentRule.add(content, measureType,
+			// measure.getTextsAndImagesAndTables())
 
 			// range (time)
 			if (specificMeasure.getValidityPeriod() != null) {
@@ -196,7 +207,8 @@ public class FigisDocBuilder {
 					new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource().getUrl())
 							.beforeAdding(identifier).to(biblioEntry.getContent());
 				}
-				// add source to the measure (Sources are added to the SpecificMeasure, not to the entry)
+				// add source to the measure (Sources are added to the
+				// SpecificMeasure, not to the entry)
 				new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())
 						.check(specificMeasure.getInformationSource().getUrl())
 						.check(specificMeasure.getInformationSource().getCitation()).beforeAdding(sources)
@@ -267,7 +279,8 @@ public class FigisDocBuilder {
 		// TODO
 
 		/*
-		 * org.fao.fi.figis.devcon.History hist = f.createHistory(); Text historyText = f.createText();
+		 * org.fao.fi.figis.devcon.History hist = f.createHistory(); Text
+		 * historyText = f.createText();
 		 * historyText.getContent().add(u.getEnglish(history.getHistory()));
 		 * hist.getTextsAndImagesAndTables().add(historyText);
 		 * figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(hist);
@@ -318,7 +331,8 @@ public class FigisDocBuilder {
 					.beforeAdding(text1).to(habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs());
 
 			// Physical profile
-			// terribe workaround because if there is no Text, profileEnglish will also not be added by Jaxb.
+			// terribe workaround because if there is no Text, profileEnglish
+			// will also not be added by Jaxb.
 			Text descriptionPhisical = ut.getEnglishText(profile.getDescriptionPhisical());
 			if (descriptionPhisical == null) {
 				descriptionPhisical = new Text();
@@ -330,15 +344,21 @@ public class FigisDocBuilder {
 			geoform.getContent().add(geoformJAXBElement);
 
 			String profileEnglish = u.getEnglish(profile.getGeoform());
-			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value = Seamounts or Canyons) or
-			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@FreeValue (for other values)
+			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value =
+			// Seamounts or Canyons) or
+			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@FreeValue (for other
+			// values)
 			if (profileEnglish == "Seamounts" || profileEnglish == "Canyons") {
 				geoform.setValue(profileEnglish);
 			} else {
 				geoform.setFreeValue(profileEnglish);
 			}
 
-			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm is part of HabitatBio
+			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm
+																					// is
+																					// part
+																					// of
+																					// HabitatBio
 			// profile
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
 
@@ -354,52 +374,72 @@ public class FigisDocBuilder {
 	}
 
 	/**
-	 * Adds GeneralMeasures to the FIGISDoc assuming the Management and ManagementMethods children have been yet created
-	 * by specifying the specificMeasures.
+	 * Adds GeneralMeasures to the FIGISDoc assuming the Management and
+	 * ManagementMethods children have been yet created by specifying the
+	 * specificMeasures.
 	 * 
-	 * FishingAreas fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
-	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * FishingAreas fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:
+	 * ManagementMethodEntry@Focus= "Vulnerable Marine Ecosystems"/dc:Title[VME
+	 * general measures] fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 * /fi
+	 * :ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/
+	 * MeasureType@Value="Fishing_areas"
 	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 * /fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/MeasureType@Value="Fishing_areas"
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * /fi:ManagementMethodEntry/fi:Measure/fi:Text
 	 * 
-	 * ExploratoryFishingProtocol fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
+	 * ExploratoryFishingProtocol
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 * /fi:ManagementMethodEntry@Focus=
 	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
 	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
 	 * /fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"
 	 * /fi:Measure/MeasureType@Value="Exploratory_fishing_protocol"
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * fi:FIGISDoc/fi
+	 * :VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry
+	 * /fi:Measure/fi:Text
 	 * 
-	 * EncounterProtocols fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
-	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 * EncounterProtocols
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi
+	 * :ManagementMethodEntry@Focus= "Vulnerable Marine Ecosystems"/dc:Title[VME
+	 * general measures] fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
 	 * /fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"
 	 * /fi:Measure/MeasureType@Value="VME_encounter_protocols"
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * fi:FIGISDoc/fi:VME
+	 * /fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry
+	 * /fi:Measure/fi:Text
 	 * 
-	 * Threshold fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
-	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * Threshold fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:
+	 * ManagementMethodEntry@Focus= "Vulnerable Marine Ecosystems"/dc:Title[VME
+	 * general measures] fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 * /fi
+	 * :ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/
+	 * MeasureType@Value="VME_threshold"
 	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 * /fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/MeasureType@Value="VME_threshold"
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * /fi:ManagementMethodEntry/fi:Measure/fi:Text
 	 * 
-	 * IndicatorSpecies fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
-	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 * IndicatorSpecies
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:
+	 * ManagementMethodEntry@Focus= "Vulnerable Marine Ecosystems"/dc:Title[VME
+	 * general measures] fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
 	 * /fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"
 	 * /fi:Measure/MeasureType@Value="VME_indicatorspecies"
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * fi:FIGISDoc/fi:VME/fi
+	 * :Management/fi:ManagementMethods/fi:ManagementMethodEntry
+	 * /fi:Measure/fi:Text
 	 * 
-	 * Source/url
-	 * fi:FIGISDoc/fi:VME//fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Sources/fi:BiblioEntry
-	 * /dc:Identifier@Type="URI" Source/citation
-	 * fi:FIGISDoc/fi:VME//fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry
+	 * Source/url fi:FIGISDoc/fi:VME//fi:Management/fi:ManagementMethods/fi:
+	 * ManagementMethodEntry/fi:Sources/fi:BiblioEntry /dc:Identifier@Type="URI"
+	 * Source/citation
+	 * fi:FIGISDoc/fi:VME//fi:Management/fi:ManagementMethods/fi:
+	 * ManagementMethodEntry
 	 * /fi:Sources/fi:BiblioEntry/dcterms:bibliographicCitation
 	 * 
 	 * ValidityPeriod/beginYear
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Range@Type="Time"/fi:Min
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 * /fi:ManagementMethodEntry/fi:Range@Type="Time"/fi:Min
 	 * ValidityPeriod/endYear
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Range@Type="Time"/fi:Max
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 * /fi:ManagementMethodEntry/fi:Range@Type="Time"/fi:Max
 	 * 
 	 * @param generalMeasure
 	 * @param figisDoc
@@ -447,22 +487,32 @@ public class FigisDocBuilder {
 	 * 
 	 * VME Identifier fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:FigisID
 	 * 
-	 * inventoryIdentifier fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ForeignID@CodeSystem="invid"/@Code
+	 * inventoryIdentifier
+	 * fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ForeignID@CodeSystem="invid"/@Code
 	 * 
 	 * name fi:FIGISDoc/fi:VME/fi:VMEIdent/dc:Title
 	 * 
-	 * geographicLayerId fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:WaterAreaRef/fi:ForeignID@CodeSystem="vme"/@Code
+	 * geographicLayerId
+	 * fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:WaterAreaRef/fi:ForeignID
 	 * 
-	 * areaType fi:FIGISDoc/fi:VME/fi:VMEIdent/VMEType/@Value
+	 * @CodeSystem="vme"/@Code
 	 * 
-	 * criteria fi:FIGISDoc/fi:VME/fi:VMEIdent/VMECriteria/@Value
+	 *                         areaType fi:FIGISDoc/fi:VME/fi:VMEIdent/VMEType/@Value
 	 * 
-	 * ValidityPeriod/beginYear fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:Range@Type="Time"/fi:Min
+	 *                         criteria
+	 *                         fi:FIGISDoc/fi:VME/fi:VMEIdent/VMECriteria/@Value
 	 * 
-	 * ValidityPeriod/endYear fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:Range@Type="Time"/fi:Max
+	 *                         ValidityPeriod/beginYear
+	 *                         fi:FIGISDoc/fi:VME/fi:VMEIdent
+	 *                         /fi:Range@Type="Time"/fi:Min
+	 * 
+	 *                         ValidityPeriod/endYear
+	 *                         fi:FIGISDoc/fi:VME/fi:VMEIdent
+	 *                         /fi:Range@Type="Time"/fi:Max
 	 * 
 	 * 
-	 * Observation/Year fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ReportingYear
+	 *                         Observation/Year
+	 *                         fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ReportingYear
 	 * 
 	 * 
 	 * @param vmeDomain
@@ -581,17 +631,21 @@ public class FigisDocBuilder {
 	 * 
 	 * -- date fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
 	 * 
-	 * committee fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/ags:CreatorCorporate
+	 * committee
+	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/ags:CreatorCorporate
 	 * 
-	 * reportSummary fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Abstract
+	 * reportSummary
+	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Abstract
 	 * 
 	 * url fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Identifier@Type="URI"
 	 * 
-	 * citation fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:bibliographicCitation
+	 * citation fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:
+	 * bibliographicCitation
 	 * 
 	 * -- type fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Type
 	 * 
-	 * meetingStartDate - meetingEndDate fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date *
+	 * meetingStartDate - meetingEndDate
+	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date *
 	 * 
 	 * @param infoSourceList
 	 * @param figisDoc
@@ -618,14 +672,16 @@ public class FigisDocBuilder {
 			biblioEntry.getContent().add(cc);
 
 			// Created
-			// publicationYear fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
+			// publicationYear
+			// fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
 			if (infoSource.getPublicationYear() != null && infoSource.getPublicationYear() > 0) {
 				Created created = new Created();
 				created.setContent(Integer.toString(infoSource.getPublicationYear()));
 				biblioEntry.getContent().add(created);
 			}
 
-			// meetingStartDate - meetingEndDate fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date
+			// meetingStartDate - meetingEndDate
+			// fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date
 			if (infoSource.getMeetingStartDate() != null) {
 				Date createDate = dcf.createDate();
 				createDate.setContent(df.format(infoSource.getMeetingStartDate(), infoSource.getMeetingEndDate()));

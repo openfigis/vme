@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import org.fao.fi.vme.domain.interfaces.Year;
 import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.MultiLingualString;
+import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
@@ -29,20 +30,19 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
 
 /**
  * Place your class / interface description here.
- *
+ * 
  * History:
- *
- * ------------- --------------- -----------------------
- * Date			 Author			 Comment
- * ------------- --------------- -----------------------
- * 13 Nov 2013   Fiorellato     Creation.
- *
+ * 
+ * ------------- --------------- ----------------------- Date Author Comment
+ * ------------- --------------- ----------------------- 13 Nov 2013 Fiorellato
+ * Creation.
+ * 
  * @version 1.0
  * @since 13 Nov 2013
  */
 @RSGReferenceReport(name = "Regional History of VMEs")
 @Entity(name = "VMES_HISTORY")
-public class VMEsHistory implements History, Year<History>, ReferenceReport {
+public class VMEsHistory implements ObjectId, History, Year<History>, ReferenceReport {
 
 	/** 
 	 * 

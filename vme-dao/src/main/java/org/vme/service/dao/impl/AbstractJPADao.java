@@ -16,80 +16,92 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGC
 import org.vme.service.dao.Dao;
 
 public abstract class AbstractJPADao implements Dao {
-	/* (non-Javadoc)
-	 * @see org.vme.service.dao.Dao#getEntityById(javax.persistence.EntityManager, java.lang.Class, java.lang.Object)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.vme.service.dao.Dao#getEntityById(javax.persistence.EntityManager,
+	 * java.lang.Class, java.lang.Object)
 	 */
 	public <E> E getEntityById(EntityManager em, Class<E> entity, Object id) {
 		Map<String, Object> idCriteria = new HashMap<String, Object>();
 		idCriteria.put("id", id);
-		
+
 		try {
-			return (E)this.generateFilteringTypedQuery(em, entity, idCriteria).getSingleResult();
-		} catch(NoResultException NRe) {
+			return (E) this.generateFilteringTypedQuery(em, entity, idCriteria).getSingleResult();
+		} catch (NoResultException NRe) {
 			return null;
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.vme.service.dao.Dao#filterEntities(javax.persistence.EntityManager, java.lang.Class, java.util.Map<java.lang.String,java.lang.Object>[])
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.vme.service.dao.Dao#filterEntities(javax.persistence.EntityManager,
+	 * java.lang.Class, java.util.Map<java.lang.String,java.lang.Object>[])
 	 */
 	@Override
 	public <E> Collection<E> filterEntities(EntityManager em, Class<E> entity, Map<String, Object> criteria) {
-		return (Collection<E>)this.generateFilteringTypedQuery(em, entity, criteria).getResultList();
+		return (Collection<E>) this.generateFilteringTypedQuery(em, entity, criteria).getResultList();
 	}
-	
-	protected <E> TypedQuery<E> generateFilteringTypedQuery(EntityManager em, Class<E> entity, Map<String, Object> criteria) {
+
+	protected <E> TypedQuery<E> generateFilteringTypedQuery(EntityManager em, Class<E> entity,
+			Map<String, Object> criteria) {
 		StringBuilder q = new StringBuilder("select E from ");
 		q.append(entity.getName()).append(" as E ");
 
 		final boolean setCriteria = criteria != null && !criteria.isEmpty();
-		
-		if(setCriteria) {
+
+		if (setCriteria) {
 			q.append("where ");
-			
-			for(String key : criteria.keySet()) {
+
+			for (String key : criteria.keySet()) {
 				q.append("E.").append(key).append(" = :").append(key).append(" and ");
 			}
 		}
 
 		Field field;
 
-		for(String key : criteria.keySet()) {
+		for (String key : criteria.keySet()) {
 			try {
 				field = entity.getDeclaredField(key);
 			} catch (Throwable t) {
-				throw new RuntimeException("Unexpected " + t.getClass().getSimpleName() + " caught: " + t.getMessage(), t);
+				throw new RuntimeException("Unexpected " + t.getClass().getSimpleName() + " caught: " + t.getMessage(),
+						t);
 			}
-			
-			if(field == null) {
-				throw new IllegalArgumentException("Unknown field / parameter '" + key + "' for " + entity.getSimpleName());
+
+			if (field == null) {
+				throw new IllegalArgumentException("Unknown field / parameter '" + key + "' for "
+						+ entity.getSimpleName());
 			}
 		}
-		
-		String qs = q.toString().replaceAll(" and $", "");
-		
-		TypedQuery<E> tq = this.generateTypedQuery(em, entity, qs); 
 
-		if(setCriteria) {
+		String qs = q.toString().replaceAll(" and $", "");
+
+		TypedQuery<E> tq = this.generateTypedQuery(em, entity, qs);
+
+		if (setCriteria) {
 			Object value;
-			
+
 			try {
-				for(Entry<String, Object> parameter : criteria.entrySet()) {
+				for (Entry<String, Object> parameter : criteria.entrySet()) {
 					field = entity.getDeclaredField(parameter.getKey());
-					
+
 					value = parameter.getValue();
-					
-					if(value != null && value instanceof String && field.isAnnotationPresent(RSGConverter.class)) {
-						value = field.getAnnotation(RSGConverter.class).value().newInstance().fromString((String)value);
+
+					if (value != null && value instanceof String && field.isAnnotationPresent(RSGConverter.class)) {
+						value = field.getAnnotation(RSGConverter.class).value().newInstance()
+								.fromString((String) value);
 					}
-					
+
 					tq.setParameter(parameter.getKey(), value);
 				}
 			} catch (Throwable t) {
 				throw new RuntimeException("Unable to build query for " + entity.getSimpleName(), t);
 			}
-		}	
-		
+		}
+
 		return tq;
 	}
 
@@ -97,12 +109,12 @@ public abstract class AbstractJPADao implements Dao {
 		return generateTypedQuery(em, clazz, "select o from  " + clazz.getCanonicalName() + " o ");
 	}
 
-	protected <E> List<E> selectFrom(EntityManager em, Class<E> clazz) {
+	public <E> List<E> selectFrom(EntityManager em, Class<E> clazz) {
 		return this.generateTypedQuery(em, clazz).getResultList();
 	}
 
 	protected <E> List<E> loadObjects(EntityManager em, Class<E> clazz) {
-		//Same as selectFrom?
+		// Same as selectFrom?
 		return this.generateTypedQuery(em, clazz).getResultList();
 	}
 

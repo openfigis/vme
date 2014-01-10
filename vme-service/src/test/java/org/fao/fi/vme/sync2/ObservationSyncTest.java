@@ -20,7 +20,6 @@ import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
-import org.fao.fi.vme.test.VmeDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
@@ -56,10 +55,12 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 
 	@Before
 	public void generateVme() {
-		VmeDaoTestLogic l = new VmeDaoTestLogic();
-		l.mockAndSaveVme(vmeDao, 1);
+
+		Vme vme = VmeMock.generateVme(1);
+		vmeDao.saveVme(vme);
+
 		RefVme refVme = RefVmeMock.create();
-		refVme.setId(VmeMock.VME_ID);
+		refVme.setId(vme.getId());
 		figisDao.persist(refVme);
 	}
 

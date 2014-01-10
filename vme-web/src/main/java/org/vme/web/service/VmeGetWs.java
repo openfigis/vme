@@ -74,8 +74,8 @@ public class VmeGetWs {
 	@SuppressWarnings("unused")
 	private String produceHtmlReport(ObservationsRequest dto) {
 		return "<html> " + "<title>" + "Hello Jersey" + "</title>" + "<body><h1>" + "Hello Jersey" + "</body></h1>"
-				+ dto.getUuid() + "</br>" + "Id Authority....:" + dto.getAuthority() + "</br>" + "Id areatype.....:"
-				+ dto.getType() + "</br>" + "Id criteria.....:" + dto.getCriteria() + "</br>" + "Year............:"
+				+ dto.getUuid() + "</br>" + "ObjectId Authority....:" + dto.getAuthority() + "</br>" + "ObjectId areatype.....:"
+				+ dto.getType() + "</br>" + "ObjectId criteria.....:" + dto.getCriteria() + "</br>" + "Year............:"
 				+ dto.getYear() + "</br>" + "</html> ";
 	}
 

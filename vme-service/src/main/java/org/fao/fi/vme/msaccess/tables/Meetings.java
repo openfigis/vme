@@ -104,7 +104,7 @@ public class Meetings implements TableDomainMapper {
 		MeetingDateParser p = new MeetingDateParser(this.Meeting_Date);
 		is.setMeetingStartDate(p.getStart());
 		is.setMeetingEndDate(p.getEnd());
-		is.setId(this.ID);
+		is.setId(new Long(this.ID));
 
 		is.setReportSummary(u.english(this.getReport_Summary()));
 

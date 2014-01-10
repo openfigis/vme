@@ -12,7 +12,8 @@ import javax.persistence.Id;
 /**
  * Not applied yet.
  * 
- * See also http://stackoverflow.com/questions/5964027/localizable-strings-in-jpa
+ * See also
+ * http://stackoverflow.com/questions/5964027/localizable-strings-in-jpa
  * 
  * 
  * http://hwellmann.blogspot.it/2010/07/jpa-20-querying-map.html
@@ -23,7 +24,7 @@ import javax.persistence.Id;
  * 
  */
 @Entity(name = "MULTILINGUAL_STRING")
-public class MultiLingualString {
+public class MultiLingualString implements ObjectId {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,11 +39,13 @@ public class MultiLingualString {
 	@Column(columnDefinition = "CLOB")
 	private Map<Integer, String> stringMap;
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	@Override
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -54,7 +57,9 @@ public class MultiLingualString {
 		this.stringMap = stringMap;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -66,7 +71,9 @@ public class MultiLingualString {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

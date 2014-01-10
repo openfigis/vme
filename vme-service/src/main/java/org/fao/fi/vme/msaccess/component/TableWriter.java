@@ -23,6 +23,46 @@ public class TableWriter {
 	private VmeDao vmeDao;
 	private final IdGen4InformationSource idGen = new IdGen4InformationSource();
 
+	public void persistNew(ObjectCollection objectCollection) {
+
+		for (Object object : objectCollection.getObjectList()) {
+			boolean regular = true;
+
+			if (objectCollection.getClazz().equals(GeneralMeasure.class)) {
+				handleException4GeneralMeasures((GeneralMeasure) object);
+				regular = false;
+			}
+			if (objectCollection.getClazz().equals(HistoryHolder.class)) {
+				handleException4HistoryHolder((HistoryHolder) object);
+				regular = false;
+			}
+			if (regular) {
+				vmeDao.persist(object);
+			}
+		}
+
+	}
+
+	public void persist(ObjectCollection objectCollection) {
+
+		for (Object object : objectCollection.getObjectList()) {
+			boolean regular = true;
+
+			if (objectCollection.getClazz().equals(GeneralMeasure.class)) {
+				handleException4GeneralMeasures((GeneralMeasure) object);
+				regular = false;
+			}
+			if (objectCollection.getClazz().equals(HistoryHolder.class)) {
+				handleException4HistoryHolder((HistoryHolder) object);
+				regular = false;
+			}
+			if (regular) {
+				vmeDao.persist(object);
+			}
+		}
+
+	}
+
 	public void write(ObjectCollection objectCollection) {
 
 		for (Object object : objectCollection.getObjectList()) {
@@ -48,8 +88,9 @@ public class TableWriter {
 	}
 
 	/**
-	 * the InformationSource relation in MsAccess is primarily through Rfmo. Since GeneralMeasures also has some without
-	 * id, some ids are invented here.
+	 * the InformationSource relation in MsAccess is primarily through Rfmo.
+	 * Since GeneralMeasures also has some without id, some ids are invented
+	 * here.
 	 * 
 	 * @param object
 	 */
@@ -75,4 +116,5 @@ public class TableWriter {
 			}
 		}
 	}
+
 }

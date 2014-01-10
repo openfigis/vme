@@ -25,13 +25,7 @@ public class JPATest {
 
 	@Test
 	public void roundTrip() {
-
-		Long id = new Long(10);
-
 		Vme created = new Vme();
-		created.setId(id);
-		// String criteria = "go";
-		// created.setCriteria(criteria);
 
 		ValidityPeriod vp = new ValidityPeriod();
 		created.setValidityPeriod(vp);
@@ -42,8 +36,7 @@ public class JPATest {
 
 		assertNotNull(loaded);
 
-		assertEquals(id, loaded.getId());
-		// assertEquals(criteria, loaded.getCriteria());
+		assertEquals(created.getId(), loaded.getId());
 
 	}
 

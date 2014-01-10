@@ -67,6 +67,7 @@ public class FigisDocBuilderTest {
 		m = new JaxbMarshall();
 		u = new MultiLingualStringUtil();
 		vme = VmeMock.generateVme(nrOfYears);
+		vme.setId(67l);
 	}
 
 	@Test
@@ -84,7 +85,11 @@ public class FigisDocBuilderTest {
 				.to(geoform.getContent());
 
 		HabitatBio habitatBio = f.createHabitatBio();
-		habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm is part of HabitatBio
+		habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm
+																				// is
+																				// part
+																				// of
+																				// HabitatBio
 
 		habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs();
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);

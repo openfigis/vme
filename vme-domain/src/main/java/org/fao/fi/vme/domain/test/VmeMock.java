@@ -17,8 +17,8 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class VmeMock {
 
-	public final static Long ID = 1000l;
-	public final static Long VME_ID = 2000l;
+	// public final static Long ID = 1000l;
+	// public final static Long VME_ID = 2000l;
 	public final static int YEAR = 2000;
 	public final static String INVENTORY_ID = "VME_RFMO_1";
 
@@ -28,7 +28,7 @@ public class VmeMock {
 
 		Vme vme = new Vme();
 		vme.setValidityPeriod(ValidityPeriodMock.create());
-		vme.setId(ID);
+		// vme.setId(ID);
 		vme.setName(u.english("Hard Corner Bugs "));
 		vme.setGeoArea(u.english("Southern Pacific Ocean"));
 
@@ -38,13 +38,14 @@ public class VmeMock {
 		List<GeoRef> l = new ArrayList<GeoRef>();
 		l.add(g);
 		vme.setGeoRefList(l);
-		
+
 		vme.setAreaType("20");
 		return vme;
 	}
 
 	/**
-	 * vme1 plain vme; vme2 is another with 2 observations for 2 yearObjectList; vme3 is
+	 * vme1 plain vme; vme2 is another with 2 observations for 2 yearObjectList;
+	 * vme3 is
 	 * 
 	 * 
 	 * 
@@ -55,7 +56,7 @@ public class VmeMock {
 		Vme vme1 = create();
 		Vme vme2 = create();
 
-		vme2.setId(ID + 1);
+		// vme2.setId(ID + 1);
 		vme2.getGeoRefList().get(0).setYear(YEAR + 1);
 
 		l.add(vme1);
@@ -81,24 +82,24 @@ public class VmeMock {
 			int year = startYear + i;
 			InformationSource is = InformationSourceMock.create();
 			is.setPublicationYear(year);
-			is.setId(id++);
+			// is.setId(id++);
 			informationSourceList.add(is);
 
 			InformationSource isSm = InformationSourceMock.create();
 			isSm.setPublicationYear(year);
-			isSm.setId(id++);
+			// isSm.setId(id++);
 			isSm.setCitation(u.english("This is a citation for a SpecificMeasure"));
 
 			FisheryAreasHistory fahistory = new FisheryAreasHistory();
 			// history.setId(id++);
 			fahistory.setYear(year);
 			fahistory.setHistory(u.english("History repeating"));
-			
+
 			VMEsHistory vmehistory = new VMEsHistory();
 			// history.setId(id++);
 			vmehistory.setYear(year);
 			vmehistory.setHistory(u.english("History repeating"));
-			
+
 			fishingHistoryList.add(fahistory);
 			hasVmesHistory.add(vmehistory);
 
@@ -114,7 +115,7 @@ public class VmeMock {
 
 			SpecificMeasure specificMeasure = new SpecificMeasure();
 
-			specificMeasure.setId(id++);
+			// specificMeasure.setId(id++);
 			specificMeasure.setYear(year);
 			specificMeasure.setVmeSpecificMeasure(u.english("A specific measure for the year " + year));
 			specificMeasure.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
@@ -130,7 +131,7 @@ public class VmeMock {
 
 			GeneralMeasure gm = new GeneralMeasure();
 			gm.setYear(year);
-			gm.setId(id++);
+			// gm.setId(id++);
 			gm.setFishingAreas("a [FishingArea] general measure");
 			gm.setExplorataryFishingProtocols(u.english("an [ExploratoryFishingProtocol] general measure"));
 			gm.setVmeEncounterProtocols(u.english("a [VmeEncounterProtocols] general measure"));
@@ -150,7 +151,7 @@ public class VmeMock {
 		rfmo.setInformationSourceList(informationSourceList);
 		rfmo.setGeneralMeasureList(generalMeasureList);
 
-		vme.setId(new Long(VME_ID));
+		// vme.setId(new Long(VME_ID));
 		vme.setInventoryIdentifier(INVENTORY_ID);
 		vme.setName(u.english("Hard Corner Bugs "));
 		vme.setRfmo(rfmo);

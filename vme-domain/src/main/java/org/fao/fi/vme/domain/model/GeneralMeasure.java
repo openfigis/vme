@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
@@ -30,9 +32,9 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
  * @author Erik van Ingen
  * 
  */
-@RSGReferenceReport(name="General Measure")
+@RSGReferenceReport(name = "General Measure")
 @Entity(name = "GENERAL_MEASURE")
-public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear, ReferenceReport {
+public class GeneralMeasure implements ObjectId, Year<GeneralMeasure>, PeriodYear, ReferenceReport {
 
 	/** 
 	 * 
@@ -40,6 +42,7 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear, Referen
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	/**
@@ -70,8 +73,8 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear, Referen
 	private ValidityPeriod validityPeriod;
 
 	/**
-	 * GeneralMeasure has one linkCemSource. It should be the column Link_CEM_Source within the Measures_VME_general
-	 * table.
+	 * GeneralMeasure has one linkCemSource. It should be the column
+	 * Link_CEM_Source within the Measures_VME_general table.
 	 * 
 	 */
 	@RSGName("Information Sources")
@@ -122,10 +125,12 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear, Referen
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString vmeThreshold;
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -204,14 +209,17 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear, Referen
 		this.validityPeriod = validityPeriod;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.explorataryFishingProtocols == null) ? 0 : this.explorataryFishingProtocols.hashCode());
+		result = prime * result
+				+ ((this.explorataryFishingProtocols == null) ? 0 : this.explorataryFishingProtocols.hashCode());
 		result = prime * result + ((this.fishingAreas == null) ? 0 : this.fishingAreas.hashCode());
 		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 		result = prime * result + ((this.informationSourceList == null) ? 0 : this.informationSourceList.hashCode());
@@ -224,7 +232,9 @@ public class GeneralMeasure implements Year<GeneralMeasure>, PeriodYear, Referen
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

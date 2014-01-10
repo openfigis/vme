@@ -1,5 +1,7 @@
 package org.fao.fi.figis.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.Observation;
@@ -7,7 +9,6 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationPk;
 import org.fao.fi.figis.domain.rule.Figis;
-import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -36,18 +37,19 @@ public class FigisDaoIntegrationTest extends FigisDaoTestLogic {
 	}
 
 	/**
-	 * TODO Bizarre problem. When it finds a RefVme, it will just block and the program never stops.
+	 * TODO Bizarre problem. When it finds a RefVme, it will just block and the
+	 * program never stops.
 	 * 
-	 * One hour later. Bizar, it looks like not using this anymore was the solution:
-	 * dao.loadObjects(ObservationXml.class).size()
+	 * One hour later. Bizar, it looks like not using this anymore was the
+	 * solution: dao.loadObjects(ObservationXml.class).size()
 	 * 
 	 */
 	@Test
 	public void testDeleteRefVme() {
-		RefVme r = (RefVme) figisDao.find(RefVme.class, VmeMock.VME_ID);
-		if (r != null) {
-			figisDao.getEm().refresh(r);
-			figisDao.remove(r);
+
+		List<RefVme> refVmeList = figisDao.selectFrom(figisDao.getEm(), RefVme.class);
+		for (RefVme refVme : refVmeList) {
+			figisDao.remove(refVme);
 		}
 	}
 
@@ -70,7 +72,8 @@ public class FigisDaoIntegrationTest extends FigisDaoTestLogic {
 		// vo.setReportingYear("2013");
 		// vo.setVmeId(10l);
 		// dao.persist(vo);
-		// figisDao.remove(figisDao.find(VmeObservation.class, vo.getObservationId()));
+		// figisDao.remove(figisDao.find(VmeObservation.class,
+		// vo.getObservationId()));
 	}
 
 	@Test

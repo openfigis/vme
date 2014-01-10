@@ -27,7 +27,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  */
 @RSGReferenced
 @Entity
-public class Profile implements Year<Profile> {
+public class Profile implements ObjectId, Year<Profile> {
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
@@ -36,7 +36,8 @@ public class Profile implements Year<Profile> {
 	private Long id;
 
 	/**
-	 * YearObject in which the features where defined. This maps to the figis reporting year.
+	 * YearObject in which the features where defined. This maps to the figis
+	 * reporting year.
 	 */
 	@RSGName("Year")
 	@RSGMandatory
@@ -77,10 +78,12 @@ public class Profile implements Year<Profile> {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString geoform;
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -133,7 +136,9 @@ public class Profile implements Year<Profile> {
 		this.geoform = geoform;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -150,7 +155,9 @@ public class Profile implements Year<Profile> {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

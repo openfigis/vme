@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,7 +20,6 @@ import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGOneAmong;
@@ -36,12 +37,13 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.Report;
  * 
  */
 @Entity
-@RSGReport(name="Vulnerable Marine Ecosystem Data")
-public class Vme implements Period<Vme>, Report {
+@RSGReport(name = "Vulnerable Marine Ecosystem Data")
+public class Vme implements ObjectId, Period<Vme>, Report {
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	/**
@@ -60,7 +62,7 @@ public class Vme implements Period<Vme>, Report {
 	@RSGSection
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "VME_SPECIFIC_MEASURE", //
-			   joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURE_ID"))
+	joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURE_ID"))
 	private List<SpecificMeasure> specificMeasureList;
 
 	@RSGName("VME Profiles")
@@ -76,8 +78,8 @@ public class Vme implements Period<Vme>, Report {
 	private List<GeoRef> geoRefList;
 
 	/**
-	 * This validity period on the level of the reference object and applies to the VME itself. It has noting to do with
-	 * the reporting year.
+	 * This validity period on the level of the reference object and applies to
+	 * the VME itself. It has noting to do with the reporting year.
 	 * 
 	 * 
 	 */
@@ -101,7 +103,7 @@ public class Vme implements Period<Vme>, Report {
 
 	@RSGName("Area Type")
 	@RSGMandatory
-	@RSGOneAmong(concept=VmeType.class, label=ConceptData.NAME, value=ConceptData.NAME)
+	@RSGOneAmong(concept = VmeType.class, label = ConceptData.NAME, value = ConceptData.NAME)
 	@RSGConverter(StringDataConverter.class)
 	@RSGWeight(1)
 	private String areaType;
@@ -117,12 +119,22 @@ public class Vme implements Period<Vme>, Report {
 	 */
 	@RSGName("Criteria")
 	@RSGMandatory
-	@RSGOneAmong(concept=VmeCriteria.class, label=ConceptData.NAME, value=ConceptData.NAME)
+	@RSGOneAmong(concept = VmeCriteria.class, label = ConceptData.NAME, value = ConceptData.NAME)
 	@RSGConverter(StringDataConverter.class)
 	@RSGWeight(1)
 	private String criteria;
 
 	private String inventoryIdentifier;
+
+	@Override
+	public Long getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getInventoryIdentifier() {
 		return inventoryIdentifier;
@@ -138,14 +150,6 @@ public class Vme implements Period<Vme>, Report {
 
 	public void setName(MultiLingualString name) {
 		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Rfmo getRfmo() {
@@ -172,10 +176,12 @@ public class Vme implements Period<Vme>, Report {
 		this.geoRefList = geoRefList;
 	}
 
+	@Override
 	public ValidityPeriod getValidityPeriod() {
 		return validityPeriod;
 	}
 
+	@Override
 	public void setValidityPeriod(ValidityPeriod validityPeriod) {
 		this.validityPeriod = validityPeriod;
 	}
@@ -227,29 +233,42 @@ public class Vme implements Period<Vme>, Report {
 		this.specificMeasureList = specificMeasureList;
 	}
 
-//	/* (non-Javadoc)
-//	 * @see java.lang.Object#hashCode()
-//	 */
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((this.areaType == null) ? 0 : this.areaType.hashCode());
-//		result = prime * result + ((this.criteria == null) ? 0 : this.criteria.hashCode());
-//		result = prime * result + ((this.geoRefList == null) ? 0 : this.geoRefList.hashCode());
-//		result = prime * result + ((this.geoarea == null) ? 0 : this.geoarea.hashCode());
-//		result = prime * result + ((this.geoform == null) ? 0 : this.geoform.hashCode());
-//		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-//		result = prime * result + ((this.inventoryIdentifier == null) ? 0 : this.inventoryIdentifier.hashCode());
-//		result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-//		result = prime * result + ((this.profileList == null) ? 0 : this.profileList.hashCode());
-//		result = prime * result + ((this.rfmo == null) ? 0 : this.rfmo.hashCode());
-//		result = prime * result + ((this.specificMeasureList == null) ? 0 : this.specificMeasureList.hashCode());
-//		result = prime * result + ((this.validityPeriod == null) ? 0 : this.validityPeriod.hashCode());
-//		return result;
-//	}
+	// /* (non-Javadoc)
+	// * @see java.lang.Object#hashCode()
+	// */
+	// @Override
+	// public int hashCode() {
+	// final int prime = 31;
+	// int result = 1;
+	// result = prime * result + ((this.areaType == null) ? 0 :
+	// this.areaType.hashCode());
+	// result = prime * result + ((this.criteria == null) ? 0 :
+	// this.criteria.hashCode());
+	// result = prime * result + ((this.geoRefList == null) ? 0 :
+	// this.geoRefList.hashCode());
+	// result = prime * result + ((this.geoarea == null) ? 0 :
+	// this.geoarea.hashCode());
+	// result = prime * result + ((this.geoform == null) ? 0 :
+	// this.geoform.hashCode());
+	// result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+	// result = prime * result + ((this.inventoryIdentifier == null) ? 0 :
+	// this.inventoryIdentifier.hashCode());
+	// result = prime * result + ((this.name == null) ? 0 :
+	// this.name.hashCode());
+	// result = prime * result + ((this.profileList == null) ? 0 :
+	// this.profileList.hashCode());
+	// result = prime * result + ((this.rfmo == null) ? 0 :
+	// this.rfmo.hashCode());
+	// result = prime * result + ((this.specificMeasureList == null) ? 0 :
+	// this.specificMeasureList.hashCode());
+	// result = prime * result + ((this.validityPeriod == null) ? 0 :
+	// this.validityPeriod.hashCode());
+	// return result;
+	// }
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -323,4 +342,5 @@ public class Vme implements Period<Vme>, Report {
 			return false;
 		return true;
 	}
+
 }

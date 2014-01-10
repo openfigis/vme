@@ -35,7 +35,7 @@ public class Rfmo implements ReferenceReport {
 	 * Rfmo
 	 * 
 	 */
-//	@RSGName("Authority - General Measures")
+	// @RSGName("Authority - General Measures")
 	@OneToMany(mappedBy = "rfmo", fetch = FetchType.EAGER)
 	private List<GeneralMeasure> generalMeasureList;
 
@@ -44,13 +44,13 @@ public class Rfmo implements ReferenceReport {
 	 * This RFMO manages this list of Vmes
 	 * 
 	 */
-	@OneToMany(mappedBy = "rfmo", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "rfmo", cascade = CascadeType.ALL)
 	private List<Vme> listOfManagedVmes = new ArrayList<Vme>();
 
 	/**
 	 * An RFMO has a number of information sources
 	 */
-//	@RSGName("Authority - Information Sources")
+	// @RSGName("Authority - Information Sources")
 	@ManyToMany
 	private List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
@@ -61,11 +61,11 @@ public class Rfmo implements ReferenceReport {
 	 * TODO: Investigate this more, because using LAZY here would not
 	 * necessarily be a robust solution.
 	 */
-//	@RSGName("Fishery Areas History")
+	// @RSGName("Fishery Areas History")
 	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY)
 	private List<FisheryAreasHistory> hasFisheryAreasHistory;
 
-//	@RSGName("VMEs History")
+	// @RSGName("VMEs History")
 	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY)
 	private List<VMEsHistory> hasVmesHistory;
 
