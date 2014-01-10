@@ -25,7 +25,7 @@ public class InformationSourceMocker extends AbstractMocker {
 	static public InformationSource getMock1() throws Throwable {
 		InformationSource is = new InformationSource();
 		
-		is.setId(1);
+		is.setId(1L);
 		is.setMeetingStartDate(new Date());
 		is.setCitation(MLSu.english("Lorem ipsum"));
 		is.setCommittee(MLSu.english("Sit dolor amet"));
@@ -38,7 +38,7 @@ public class InformationSourceMocker extends AbstractMocker {
 	static public InformationSource getMock2() throws Throwable {
 		InformationSource is = new InformationSource();
 		
-		is.setId(2);
+		is.setId(2L);
 		is.setMeetingStartDate(new Date());
 		is.setCitation(MLSu.english("Odi et amo"));
 		is.setCommittee(MLSu.english("Hodie Tamo"));
