@@ -201,6 +201,14 @@ public class Linker {
 		if (!rfmo.getInformationSourceList().contains(informationSource)) {
 			rfmo.getInformationSourceList().add(informationSource);
 		}
+
+		List<SpecificMeasure> l = informationSource.getSpecificMeasureList();
+		if (l != null) {
+			for (SpecificMeasure specificMeasure : l) {
+				specificMeasure.setInformationSource(informationSource);
+			}
+		}
+
 	}
 
 	/**

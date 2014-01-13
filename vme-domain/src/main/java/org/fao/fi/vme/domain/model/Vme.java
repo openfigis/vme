@@ -68,7 +68,7 @@ public class Vme implements ObjectId, Period<Vme>, Report {
 	@RSGName("VME Profiles")
 	@RSGWeight(2)
 	@RSGSection
-	@OneToMany(cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
 	private List<Profile> profileList;
 
 	@RSGName("VME Map Reference")

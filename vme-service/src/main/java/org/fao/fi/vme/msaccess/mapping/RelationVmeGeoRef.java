@@ -13,7 +13,8 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 
 /**
- * This relation is in the vme table itself, therefore it can not be established in the table itself.
+ * This relation is in the vme table itself, therefore it can not be established
+ * in the table itself.
  * 
  * @author vaningen
  * 
@@ -57,20 +58,29 @@ public class RelationVmeGeoRef {
 					throw new VmeException("Double found : " + geoRef.getGeographicFeatureID());
 				}
 				set.add(geoRef.getGeographicFeatureID());
+				if (geoRef.getVme() == null) {
+					throw new VmeException("GeoRef without Vme found");
+				}
+
+			}
+			if (vme.getGeoRefList().size() < 1) {
+				throw new VmeException("Every Vme should have 1 or more GeoRefs, right? Number is : "
+						+ vme.getGeoRefList().size());
 			}
 		}
 
 	}
 
 	/**
-	 * the 1 to many relation in the ms access table for vme- georef was implicit in the rows.
+	 * the 1 to many relation in the ms access table for vme- georef was
+	 * implicit in the rows.
 	 * 
 	 * 
 	 * @param objectCollection
 	 */
 	private void workToDo(ObjectCollection objectCollection) {
 		List<Object> vmeList = objectCollection.getObjectList();
-		List<Object> doubles = new ArrayList<Object>();
+		List<Vme> doubles = new ArrayList<Vme>();
 		Map<String, Vme> vmeMap = new HashMap<String, Vme>();
 		for (Object object : vmeList) {
 			Vme vme = (Vme) object;
@@ -84,8 +94,8 @@ public class RelationVmeGeoRef {
 			}
 		}
 		// remove the doubles vme's
-		for (Object object : doubles) {
-			objectCollection.getObjectList().remove(object);
+		for (Vme vme : doubles) {
+			objectCollection.getObjectList().remove(vme);
 		}
 
 		// remove the double georefs.

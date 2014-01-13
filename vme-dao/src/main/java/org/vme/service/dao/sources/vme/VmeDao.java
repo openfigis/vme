@@ -47,6 +47,12 @@ public class VmeDao extends AbstractJPADao {
 		return this.generateTypedQuery(em, clazz).getResultList();
 	}
 
+	public <T> List<T> loadObjectsGeneric(Class<?> clazz) {
+		@SuppressWarnings("unchecked")
+		List<T> l = (List<T>) generateTypedQuery(em, clazz).getResultList();
+		return l;
+	}
+
 	public Vme findVme(Long id) {
 		return em.find(Vme.class, id);
 	}
