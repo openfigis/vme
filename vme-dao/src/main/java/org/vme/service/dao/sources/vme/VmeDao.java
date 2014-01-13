@@ -11,6 +11,7 @@ import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Profile;
+import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
@@ -47,6 +48,12 @@ public class VmeDao extends AbstractJPADao {
 		return this.generateTypedQuery(em, clazz).getResultList();
 	}
 
+	public <T> List<T> loadObjectsGeneric(Class<?> clazz) {
+		@SuppressWarnings("unchecked")
+		List<T> l = (List<T>) generateTypedQuery(em, clazz).getResultList();
+		return l;
+	}
+
 	public Vme findVme(Long id) {
 		return em.find(Vme.class, id);
 	}
@@ -71,7 +78,7 @@ public class VmeDao extends AbstractJPADao {
 		EntityTransaction et = em.getTransaction();
 		try {
 			et.begin();
-			em.remove(object);
+			this.doRemove(object);
 			em.flush();
 			et.commit();
 			LOG.debug("Object {} has been removed from persistence", object);
@@ -81,6 +88,10 @@ public class VmeDao extends AbstractJPADao {
 
 			et.rollback();
 		}
+	}
+	
+	private void doRemove(Object object) {
+		em.remove(object);
 	}
 
 	public void detach(Object object) {
@@ -105,7 +116,7 @@ public class VmeDao extends AbstractJPADao {
 		EntityTransaction et = em.getTransaction();
 		try {
 			et.begin();
-			em.merge(object);
+			this.doMerge(object);
 			et.commit();
 			LOG.debug("Object {} has been merged into persistence", object);
 			return object;
@@ -115,6 +126,10 @@ public class VmeDao extends AbstractJPADao {
 			et.rollback();
 			return null;
 		}
+	}
+	
+	private void doMerge(Object object) {
+		em.merge(object);
 	}
 
 	public Vme saveVme(Vme vme) {
@@ -153,51 +168,132 @@ public class VmeDao extends AbstractJPADao {
 		LOG.debug("Vme {} has been saved into persistence", vme);
 
 		return vme;
-
 	}
 
 	public Long count(Class<?> clazz) {
 		return count(em, clazz);
 	}
-
-	public void deleteGeoRef(GeoRef toDelete) {
+	
+	public void delete(Vme toDelete) {
 		if (toDelete == null)
-			throw new IllegalArgumentException("GeoRef cannot be NULL");
-
+			throw new IllegalArgumentException("Vme cannot be NULL");
+	
 		if (toDelete.getId() == null)
-			throw new IllegalArgumentException("GeoRef ID cannot be NULL");
-
-		if (toDelete.getVme() == null)
-			throw new IllegalArgumentException("GeoRef cannot have a NULL Vme reference");
-
-		if (toDelete.getVme().getId() == null)
-			throw new IllegalArgumentException("GeoRef cannot have a Vme reference with a NULL id");
-
-		// According to JPA plain specs, you can't automatically remove orphan
-		// child elements
-		// so you've to do it explicitly...
-		Vme vme = this.getEntityById(this.em, Vme.class, toDelete.getVme().getId());
-
-		GeoRef current = null;
-		Iterator<GeoRef> iterator = vme.getGeoRefList() != null ? vme.getGeoRefList().iterator() : null;
-
-		if (iterator != null) {
-			while (iterator.hasNext()) {
-				current = iterator.next();
-
-				if (current.getId().equals(toDelete.getId()))
-					iterator.remove();
-			}
-
-			if (current != null) {
-				this.remove(current);
-
-				this.merge(vme);
-			}
-		}
+			throw new IllegalArgumentException("Vme ID cannot be NULL");
+	
+		if (toDelete.getRfmo() == null)
+			throw new IllegalArgumentException("Vme cannot have a NULL parent RFMO");
+		
+		Rfmo parent = toDelete.getRfmo();
+		
+		Iterator<Vme> rfmoIterator = parent.getListOfManagedVmes().iterator();
+		
+		while(rfmoIterator.hasNext())
+			if(rfmoIterator.next().getId().equals(toDelete.getId()))
+				rfmoIterator.remove();
+		
+		this.doMerge(parent);
+		
+		if(toDelete.getProfileList() != null)
+			for(Profile profile : toDelete.getProfileList())
+				this.delete(profile);
+		
+		if(toDelete.getGeoRefList() != null)
+			for(GeoRef geoRef : toDelete.getGeoRefList())
+				this.delete(geoRef);
+		
+		if(toDelete.getSpecificMeasureList() != null)
+			for(SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList())
+				this.delete(specificMeasure);
 	}
-
-	public void deleteProfile(Profile toDelete) {
+	
+	public void delete(InformationSource toDelete) {
+		if (toDelete == null)
+			throw new IllegalArgumentException("InformationSource cannot be NULL");
+	
+		if (toDelete.getId() == null)
+			throw new IllegalArgumentException("InformationSource ID cannot be NULL");
+	
+		if (toDelete.getRfmo() == null)
+			throw new IllegalArgumentException("InformationSource cannot have a NULL parent RFMO");
+		
+		Rfmo parent = toDelete.getRfmo();
+		
+		Iterator<InformationSource> rfmoIterator = parent.getInformationSourceList().iterator();
+		
+		while(rfmoIterator.hasNext())
+			if(rfmoIterator.next().getId().equals(toDelete.getId()))
+				rfmoIterator.remove();
+		
+		this.doMerge(parent);
+		
+		for(GeneralMeasure generalMeasure : toDelete.getGeneralMeasureList()) {
+			Iterator<InformationSource> generalMeasureIterator = generalMeasure.getInformationSourceList().iterator();
+			
+			while(generalMeasureIterator.hasNext())
+				if(generalMeasureIterator.next().getId().equals(toDelete.getId()))
+					generalMeasureIterator.remove();
+			
+			this.doMerge(generalMeasure);
+		}
+		
+		for(SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList()) {
+			specificMeasure.setInformationSource(null);
+			
+			this.doMerge(specificMeasure);
+		}
+		
+		this.doRemove(toDelete);
+	}
+	
+	public void delete(VMEsHistory toDelete) {
+		if (toDelete == null)
+			throw new IllegalArgumentException("VMEsHistory cannot be NULL");
+	
+		if (toDelete.getId() == null)
+			throw new IllegalArgumentException("VMEsHistory ID cannot be NULL");
+	
+		if (toDelete.getRfmo() == null)
+			throw new IllegalArgumentException("VMEsHistory cannot have a NULL parent RFMO");
+		
+		Rfmo parent = toDelete.getRfmo();
+		
+		Iterator<VMEsHistory> rfmoIterator = parent.getHasVmesHistory().iterator();
+		
+		while(rfmoIterator.hasNext())
+			if(rfmoIterator.next().getId().equals(toDelete.getId()))
+				rfmoIterator.remove();
+		
+		this.doMerge(parent);
+		
+		this.doRemove(toDelete);
+	}
+	
+	public void delete(FisheryAreasHistory toDelete) {
+		if (toDelete == null)
+			throw new IllegalArgumentException("FisheryAreasHistory cannot be NULL");
+	
+		if (toDelete.getId() == null)
+			throw new IllegalArgumentException("FisheryAreasHistory ID cannot be NULL");
+	
+		if (toDelete.getRfmo() == null)
+			throw new IllegalArgumentException("FisheryAreasHistory cannot have a NULL parent RFMO");
+		
+		Rfmo parent = toDelete.getRfmo();
+		
+		Iterator<FisheryAreasHistory> rfmoIterator = parent.getHasFisheryAreasHistory().iterator();
+		
+		while(rfmoIterator.hasNext())
+			if(rfmoIterator.next().getId().equals(toDelete.getId()))
+				rfmoIterator.remove();
+		
+		this.doMerge(parent);
+		
+		this.doRemove(toDelete);
+	}
+	
+	//These should be used when deleting a VME...
+	public void delete(Profile toDelete) {
 		if (toDelete == null)
 			throw new IllegalArgumentException("Profile cannot be NULL");
 
@@ -210,31 +306,89 @@ public class VmeDao extends AbstractJPADao {
 		if (toDelete.getVme().getId() == null)
 			throw new IllegalArgumentException("Profile cannot have a Vme reference with a NULL id");
 
-		// According to JPA plain specs, you can't automatically remove orphan
-		// child elements
-		// so you've to do it explicitly...
-		Vme vme = this.getEntityById(this.em, Vme.class, toDelete.getVme().getId());
+		Vme parent = toDelete.getVme();
+		
+		if (parent.getProfileList() == null)
+			throw new IllegalArgumentException("Profile cannot have a parent Vme with a NULL profile list");
 
-		Profile current = null;
-		Iterator<Profile> iterator = vme.getProfileList() != null ? vme.getProfileList().iterator() : null;
+		if (parent.getProfileList().isEmpty())
+			throw new IllegalArgumentException("Profile cannot have a parent Vme with an empty profile list");
 
-		if (iterator != null) {
-			while (iterator.hasNext()) {
-				current = iterator.next();
+		Iterator<Profile> iterator = parent.getProfileList().iterator();
 
-				if (current.getId().equals(toDelete.getId()))
-					iterator.remove();
-			}
+		while(iterator.hasNext())
+			if(iterator.next().getId().equals(toDelete.getId()))
+				iterator.remove();
+		
+		this.doMerge(parent);
 
-			if (current != null) {
-				this.remove(current);
-
-				this.merge(vme);
-			}
-		}
+		this.doRemove(toDelete);
 	}
 
-	public void deleteSpecificMeasure(SpecificMeasure toDelete) {
+	public void delete(GeoRef toDelete) {
+		if (toDelete == null)
+			throw new IllegalArgumentException("GeoRef cannot be NULL");
+
+		if (toDelete.getId() == null)
+			throw new IllegalArgumentException("GeoRef ID cannot be NULL");
+
+		if (toDelete.getVme() == null)
+			throw new IllegalArgumentException("GeoRef cannot have a NULL Vme reference");
+
+		if (toDelete.getVme().getId() == null)
+			throw new IllegalArgumentException("GeoRef cannot have a Vme reference with a NULL id");
+
+		Vme parent = toDelete.getVme();
+		
+		if (parent.getProfileList() == null)
+			throw new IllegalArgumentException("Profile cannot have a parent Vme with a NULL profile list");
+
+		if (parent.getProfileList().isEmpty())
+			throw new IllegalArgumentException("Profile cannot have a parent Vme with an empty profile list");
+
+		Iterator<Profile> iterator = parent.getProfileList().iterator();
+
+		while(iterator.hasNext())
+			if(iterator.next().getId().equals(toDelete.getId()))
+				iterator.remove();
+		
+		this.doMerge(parent);
+
+		this.doRemove(toDelete);
+	}
+	
+	public void delete(GeneralMeasure toDelete) {
+		if (toDelete == null)
+			throw new IllegalArgumentException("GeneralMeasure cannot be NULL");
+	
+		if (toDelete.getId() == null)
+			throw new IllegalArgumentException("GeneralMeasure ID cannot be NULL");
+	
+		if (toDelete.getRfmo() == null)
+			throw new IllegalArgumentException("GeneralMeasure cannot have a NULL parent RFMO");
+		
+		Iterator<GeneralMeasure> rfmoIterator = toDelete.getRfmo().getGeneralMeasureList().iterator();
+		
+		while(rfmoIterator.hasNext())
+			if(rfmoIterator.next().getId().equals(toDelete.getId()))
+				rfmoIterator.remove();
+		
+		this.doMerge(toDelete.getRfmo());
+
+		for(InformationSource informationSource : toDelete.getInformationSourceList()) {
+			Iterator<GeneralMeasure> informationSourceIterator = informationSource.getGeneralMeasureList().iterator();
+			
+			while(informationSourceIterator.hasNext())
+				if(informationSourceIterator.next().getId().equals(toDelete.getId()))
+					informationSourceIterator.remove();
+
+			this.doMerge(informationSource);
+		}
+		
+		this.doRemove(toDelete);
+	}
+	
+	public void delete(SpecificMeasure toDelete) {
 		if (toDelete == null)
 			throw new IllegalArgumentException("SpecificMeasure cannot be NULL");
 
@@ -247,36 +401,26 @@ public class VmeDao extends AbstractJPADao {
 		if (toDelete.getVmeList().isEmpty())
 			throw new IllegalArgumentException("SpecificMeasure cannot have an empty set of Vme references");
 
-		for (Vme owner : toDelete.getVmeList())
-			if (owner == null)
-				throw new IllegalArgumentException("SpecificMeasure cannot have a NULL Vme reference");
-			else if (owner.getId() == null)
-				throw new IllegalArgumentException("SpecificMeasure cannot have a Vme reference with a NULL ID");
-
-		// According to JPA plain specs, you can't automatically remove orphan
-		// child elements
-		// so you've to do it explicitly...
-		for (Vme owner : toDelete.getVmeList()) {
-			Vme vme = this.getEntityById(this.em, Vme.class, owner.getId());
-
-			Profile current = null;
-			Iterator<Profile> iterator = vme.getProfileList() != null ? vme.getProfileList().iterator() : null;
-
-			if (iterator != null) {
-				while (iterator.hasNext()) {
-					current = iterator.next();
-
-					if (current.getId().equals(toDelete.getId()))
-						iterator.remove();
-				}
-
-				if (current != null) {
-					this.remove(current);
-
-					this.merge(vme);
-				}
-			}
+		for(Vme vme : toDelete.getVmeList()) {
+			Iterator<SpecificMeasure> vmeIterator = vme.getSpecificMeasureList().iterator();
+			
+			while(vmeIterator.hasNext())
+				if(vmeIterator.next().getId().equals(toDelete.getId()))
+					vmeIterator.remove();
+			
+			this.doMerge(vme);
 		}
+		
+		if(toDelete.getInformationSource() != null) {
+			Iterator<SpecificMeasure> informationSourceIterator = toDelete.getInformationSource().getSpecificMeasureList().iterator();
+			
+			while(informationSourceIterator.hasNext())
+				if(informationSourceIterator.next().getId().equals(toDelete.getId()))
+					informationSourceIterator.remove();
+			
+			this.doMerge(toDelete.getInformationSource());
+		}
+		
+		this.doRemove(toDelete);
 	}
-
 }
