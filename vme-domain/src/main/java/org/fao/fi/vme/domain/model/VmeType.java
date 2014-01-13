@@ -32,6 +32,8 @@ public class VmeType implements NamedReferenceConcept {
 	 */
 	private String name;
 
+	public VmeType() {} 
+	
 	public VmeType(int id, String name) {
 		super();
 		this.id = id;

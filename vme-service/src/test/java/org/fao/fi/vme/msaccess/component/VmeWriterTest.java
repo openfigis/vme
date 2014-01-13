@@ -1,6 +1,7 @@
 package org.fao.fi.vme.msaccess.component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -88,7 +89,7 @@ public class VmeWriterTest {
 
 		// add InformationSource to SpecificMeasure
 		InformationSource is = new InformationSource();
-		is.setSpecificMeasure(specificMeasure);
+		is.setSpecificMeasureList(new ArrayList<SpecificMeasure>(Arrays.asList(new SpecificMeasure[] { specificMeasure })));
 		specificMeasure.setInformationSource(is);
 		// bidirectional
 		specificMeasure.setInformationSource(informationSource);
@@ -119,7 +120,7 @@ public class VmeWriterTest {
 		informationSourceList.add(informationSource);
 		generalMeasure.setInformationSourceList(informationSourceList);
 		// bidirectional
-		informationSource.setGeneralMeasure(generalMeasure);
+		informationSource.setGeneralMeasureList(new ArrayList<GeneralMeasure>(Arrays.asList(new GeneralMeasure[] { generalMeasure })));
 
 		List<ObjectCollection> l = new ArrayList<ObjectCollection>();
 		l.add(createObjectCollection(authority));

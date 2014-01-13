@@ -93,8 +93,8 @@ public class VmeAccessDbImportIntegrationTest {
 		List<InformationSource> informationSourceList = (List<InformationSource>) vmeDao
 				.loadObjects(InformationSource.class);
 		for (InformationSource is : informationSourceList) {
-			is.setGeneralMeasure(null);
-			is.setSpecificMeasure(null);
+			is.setGeneralMeasureList(null);
+			is.setSpecificMeasureList(null);
 			is.setRfmo(null);
 			vmeDao.merge(is);
 		}

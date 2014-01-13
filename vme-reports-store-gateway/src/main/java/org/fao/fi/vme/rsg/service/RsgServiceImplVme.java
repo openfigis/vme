@@ -769,7 +769,7 @@ public class RsgServiceImplVme implements RsgService {
 				generalMeasure.setInformationSourceList(null);
 			else
 				for(InformationSource source : informationSources) {
-					source.setGeneralMeasure(generalMeasure);
+//					source.getGeneralMeasureList().add(generalMeasure);
 					source.setRfmo(generalMeasure.getRfmo());
 				}
 		}

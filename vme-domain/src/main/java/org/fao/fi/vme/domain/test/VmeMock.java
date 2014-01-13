@@ -34,7 +34,7 @@ public class VmeMock {
 
 		GeoRef g = new GeoRef();
 		g.setYear(YEAR);
-		g.setVme(vme);
+//		g.setVme(vme);
 		List<GeoRef> l = new ArrayList<GeoRef>();
 		l.add(g);
 		vme.setGeoRefList(l);
@@ -123,7 +123,7 @@ public class VmeMock {
 			specificMeasureList.add(specificMeasure);
 
 			GeoRef geoRef = new GeoRef();
-			geoRef.setVme(vme);
+//			geoRef.setVme(vme);
 			// geoRef.setId(id++);
 			geoRef.setYear(year);
 			geoRef.setGeographicFeatureID(INVENTORY_ID + "_" + YEAR);

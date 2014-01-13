@@ -2,12 +2,14 @@ package org.fao.fi.vme.domain.model;
 
 import java.net.URL;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -44,10 +46,6 @@ public class InformationSource implements ObjectId, ReferenceReport {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	/**
-	 * 
-	 */
-
 	@OneToOne(cascade = CascadeType.REFRESH)
 	@RSGName("Authority")
 	@RSGWeight(0)
@@ -57,14 +55,14 @@ public class InformationSource implements ObjectId, ReferenceReport {
 	/**
 	 * InformationSource has 0,1 SpecificMeasure
 	 */
-	@OneToOne(cascade = CascadeType.ALL)
-	private SpecificMeasure specificMeasure;
+	@OneToMany
+	private List<SpecificMeasure> specificMeasureList;
 
 	/**
 	 * InformationSource has 0,1 GeneralMeasure
 	 */
-	@OneToOne
-	private GeneralMeasure generalMeasure;
+	@OneToMany
+	private List<GeneralMeasure> generalMeasureList;
 
 	/**
 	 * Also referred to as issue date of biblio entry
@@ -158,20 +156,20 @@ public class InformationSource implements ObjectId, ReferenceReport {
 		this.rfmo = rfmo;
 	}
 
-	public SpecificMeasure getSpecificMeasure() {
-		return specificMeasure;
+	public List<SpecificMeasure> getSpecificMeasureList() {
+		return specificMeasureList;
 	}
 
-	public void setSpecificMeasure(SpecificMeasure specificMeasure) {
-		this.specificMeasure = specificMeasure;
+	public void setSpecificMeasureList(List<SpecificMeasure> specificMeasureList) {
+		this.specificMeasureList = specificMeasureList;
 	}
 
-	public GeneralMeasure getGeneralMeasure() {
-		return generalMeasure;
+	public List<GeneralMeasure> getGeneralMeasureList() {
+		return generalMeasureList;
 	}
 
-	public void setGeneralMeasure(GeneralMeasure generalMeasure) {
-		this.generalMeasure = generalMeasure;
+	public void setGeneralMeasureList(List<GeneralMeasure> generalMeasureList) {
+		this.generalMeasureList = generalMeasureList;
 	}
 
 	public Date getMeetingStartDate() {
@@ -294,10 +292,10 @@ public class InformationSource implements ObjectId, ReferenceReport {
 				return false;
 		} else if (!this.committee.equals(other.committee))
 			return false;
-		if (this.generalMeasure == null) {
-			if (other.generalMeasure != null)
+		if (this.generalMeasureList == null) {
+			if (other.generalMeasureList != null)
 				return false;
-		} else if (!this.generalMeasure.equals(other.generalMeasure))
+		} else if (!this.generalMeasureList.equals(other.generalMeasureList))
 			return false;
 		if (this.id == null) {
 			if (other.id != null)
@@ -334,10 +332,10 @@ public class InformationSource implements ObjectId, ReferenceReport {
 				return false;
 		} else if (!this.sourceType.equals(other.sourceType))
 			return false;
-		if (this.specificMeasure == null) {
-			if (other.specificMeasure != null)
+		if (this.specificMeasureList == null) {
+			if (other.specificMeasureList != null)
 				return false;
-		} else if (!this.specificMeasure.equals(other.specificMeasure))
+		} else if (!this.specificMeasureList.equals(other.specificMeasureList))
 			return false;
 		if (this.url == null) {
 			if (other.url != null)
