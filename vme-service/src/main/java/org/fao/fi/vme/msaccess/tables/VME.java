@@ -201,6 +201,7 @@ public class VME implements TableDomainMapper {
 		p.setDescriptionPhisical(u.english(this.VME_Description_Physical));
 		p.setGeoform(u.english(this.getVME_Geoform()));
 		p.setYear(this.Year_ID);
+		p.setVme(o);
 
 		List<Profile> l = new ArrayList<Profile>();
 		l.add(p);
@@ -208,6 +209,7 @@ public class VME implements TableDomainMapper {
 
 		List<GeoRef> geoRefList = new ArrayList<GeoRef>();
 		GeoRef geoRef = new GeoRef();
+		// geoRef.setVme(o);
 		geoRef.setGeographicFeatureID(this.VME_Feature_ID);
 		geoRef.setYear(this.Year_ID);
 		geoRefList.add(geoRef);

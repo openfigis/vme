@@ -33,9 +33,9 @@ public class GeoRefSyncTest {
 	@Test
 	public void testSync() {
 		String geographicFeatureID = "VME_X";
-
 		Vme vme = VmeMock.create();
 		GeoRef geoRef = vme.getGeoRefList().get(0);
+		geoRef.setVme(vme);
 		geoRef.setGeographicFeatureID(geographicFeatureID);
 		vmeDao.persist(vme);
 		vmeDao.persist(geoRef);

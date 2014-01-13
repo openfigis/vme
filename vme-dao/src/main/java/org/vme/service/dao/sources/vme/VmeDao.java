@@ -1,5 +1,6 @@
 package org.vme.service.dao.sources.vme;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,7 +29,7 @@ import org.vme.service.dao.impl.AbstractJPADao;
  * 
  * @author Erik van Ingen
  * 
- */
+ */ 
 public class VmeDao extends AbstractJPADao {
 	static final private Logger LOG = LoggerFactory.getLogger(VmeDao.class);
 
@@ -195,16 +196,18 @@ public class VmeDao extends AbstractJPADao {
 		this.doMerge(parent);
 		
 		if(toDelete.getProfileList() != null)
-			for(Profile profile : toDelete.getProfileList())
+			for(Profile profile : new ArrayList<Profile>(toDelete.getProfileList()))
 				this.delete(profile);
 		
 		if(toDelete.getGeoRefList() != null)
-			for(GeoRef geoRef : toDelete.getGeoRefList())
+			for(GeoRef geoRef : new ArrayList<GeoRef>(toDelete.getGeoRefList()))
 				this.delete(geoRef);
 		
 		if(toDelete.getSpecificMeasureList() != null)
-			for(SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList())
+			for(SpecificMeasure specificMeasure : new ArrayList<SpecificMeasure>(toDelete.getSpecificMeasureList()))
 				this.delete(specificMeasure);
+		
+		this.doRemove(toDelete);
 	}
 	
 	public void delete(InformationSource toDelete) {
@@ -340,13 +343,13 @@ public class VmeDao extends AbstractJPADao {
 
 		Vme parent = toDelete.getVme();
 		
-		if (parent.getProfileList() == null)
-			throw new IllegalArgumentException("Profile cannot have a parent Vme with a NULL profile list");
+		if (parent.getGeoRefList() == null)
+			throw new IllegalArgumentException("GeoRef cannot have a parent Vme with a NULL profile list");
 
-		if (parent.getProfileList().isEmpty())
-			throw new IllegalArgumentException("Profile cannot have a parent Vme with an empty profile list");
+		if (parent.getGeoRefList().isEmpty())
+			throw new IllegalArgumentException("GeoRef cannot have a parent Vme with an empty profile list");
 
-		Iterator<Profile> iterator = parent.getProfileList().iterator();
+		Iterator<GeoRef> iterator = parent.getGeoRefList().iterator();
 
 		while(iterator.hasNext())
 			if(iterator.next().getId().equals(toDelete.getId()))

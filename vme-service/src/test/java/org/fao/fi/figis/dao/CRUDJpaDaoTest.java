@@ -6,10 +6,12 @@ package org.fao.fi.figis.dao;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
@@ -23,7 +25,6 @@ import org.fao.fi.vme.msaccess.component.EmbeddedMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.service.dao.JpaDaoFactory;
@@ -33,236 +34,126 @@ import org.vme.service.dao.sources.vme.VmeDao;
 
 /**
  * Place your class / interface description here.
- *
+ * 
  * History:
- *
- * ------------- --------------- -----------------------
- * Date			 Author			 Comment
- * ------------- --------------- -----------------------
- * 20/dic/2013   Fabio     Creation.
- *
+ * 
+ * ------------- --------------- ----------------------- Date Author Comment
+ * ------------- --------------- ----------------------- 20/dic/2013 Fabio
+ * Creation.
+ * 
  * @version 1.0
  * @since 20/dic/2013
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FigisDataBaseProducer.class, VmeDataBaseProducer.class, JpaDaoFactory.class, EmbeddedMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ FigisDataBaseProducer.class, VmeDataBaseProducer.class, JpaDaoFactory.class,
+		EmbeddedMsAccessConnectionProvider.class })
 public class CRUDJpaDaoTest {
-	@Inject private VmeAccessDbImport importer;
-	@Inject private VmeDao vmeDao;
-	
+	@Inject
+	private VmeAccessDbImport importer;
+	@Inject
+	private VmeDao vmeDao;
+
 	private EntityManager em;
-	
+
 	@PostConstruct
 	public void postConstruct() {
 		this.em = vmeDao.getEm();
-		
+
 		importer.importMsAccessData();
 	}
-	
+
 	@Test
 	public void testDeleteVme() {
+		EntityTransaction et = this.vmeDao.getEm().getTransaction();
+
 		Vme vme = this.vmeDao.getEntityById(this.em, Vme.class, 1L);
 		
-		Collection<Profile> profiles = new ArrayList<Profile>();
-		Collection<SpecificMeasure> specificMeasures = new ArrayList<SpecificMeasure>();
-		Collection<GeoRef> georefs = new ArrayList<GeoRef>();
+		et.begin();
 		
-		for(Profile profile : vme.getProfileList()) {
-			profiles.add(profile);
-		}
+		this.vmeDao.delete(vme);
+
+		et.commit();
 		
-		for(SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
-			specificMeasures.add(specificMeasure);
-		}
-		
-		for(GeoRef georef : vme.getGeoRefList()) {
-			georefs.add(georef);
-		}
-		
-		this.vmeDao.remove(vme);
-		
-		Vme deleted = this.vmeDao.getEntityById(this.em, Vme.class, 1L);
-		
-		Assert.assertNull(deleted);
-		
-		Assert.assertFalse(profiles.isEmpty());
-		
-		for(Profile profile : profiles) {
+		for (Profile profile : vme.getProfileList()) {
 			System.out.println("Checking null-ity of (previous) profile with ID " + profile.getId());
 			Assert.assertNull(this.vmeDao.getEntityById(this.em, Profile.class, profile.getId()));
 		}
 
-		Assert.assertFalse(specificMeasures.isEmpty());
-
-		for(SpecificMeasure measure : specificMeasures) {
+		for (SpecificMeasure measure : vme.getSpecificMeasureList()) {
 			System.out.println("Checking null-ity of (previous) specific measure with ID " + measure.getId());
 			Assert.assertNull(this.vmeDao.getEntityById(this.em, SpecificMeasure.class, measure.getId()));
-			
-			if(measure.getInformationSource() != null) {
-				System.out.println("Checking non-nullity of previously linked information source with ID " + measure.getInformationSource().getId());
-				Assert.assertNotNull(this.vmeDao.getEntityById(this.em, InformationSource.class, measure.getInformationSource().getId()));
-			}
 		}
-		
-		Assert.assertFalse(georefs.isEmpty());
-		
-		for(GeoRef georef : georefs) {
+
+		for (GeoRef georef : vme.getGeoRefList()) {
 			System.out.println("Checking null-ity of (previous) geo ref with ID " + georef.getId());
 			Assert.assertNull(this.vmeDao.getEntityById(this.em, GeoRef.class, georef.getId()));
 		}
-	}
-	
-	@Test
-	public void testDeleteGeoRefFromVme() {
-		Vme vme = this.vmeDao.getEntityById(this.em, Vme.class, 1L);
 		
-		Iterator<GeoRef> iterator = vme.getGeoRefList().iterator();
-		GeoRef georef;
 
-		Collection<Long> removed = new ArrayList<Long>();
-		
-		while(iterator.hasNext()) {
-			georef = iterator.next();
-			
-			iterator.remove();
-			this.vmeDao.remove(georef);
-			
-			removed.add(georef.getId());
-		}
-		
-		this.vmeDao.merge(vme);
-		
 		vme = this.vmeDao.getEntityById(this.em, Vme.class, 1L);
-		
-		Assert.assertTrue(vme.getGeoRefList() == null || vme.getGeoRefList().isEmpty() || ( vme.getGeoRefList().size() == 1 && vme.getGeoRefList().get(0) == null ) );
-		
-		for(Long id : removed)
-			Assert.assertNull(this.vmeDao.getEntityById(this.em, GeoRef.class, id));
-	}
-	
-	@Test
-	public void testDeleteGeoRef() {
-		GeoRef geoRef = this.vmeDao.getEntityById(this.em, GeoRef.class, 1L);
-		Vme vme = this.vmeDao.getEntityById(this.em, Vme.class, geoRef.getVme().getId());
-		
-		GeoRef current = null;
-		Iterator<GeoRef> iterator = vme.getGeoRefList() != null ? vme.getGeoRefList().iterator() : null;
-		
-		if(iterator != null) {
-			while(iterator.hasNext()) {
-				current = iterator.next();
-				
-				if(current.getId().equals(geoRef.getId()))
-					iterator.remove();
-			}
-			
-			if(current != null) {
-				this.vmeDao.remove(current);
-			
-				this.vmeDao.merge(vme);
-			}
-		}
 
-		Assert.assertNull(this.vmeDao.getEntityById(this.em, GeoRef.class, 1L));
-		
-		vme = this.vmeDao.getEntityById(this.em, Vme.class, 1L);
-		
-		Assert.assertTrue(vme.getGeoRefList() == null || vme.getGeoRefList().isEmpty() || ( vme.getGeoRefList().size() == 1 && vme.getGeoRefList().get(0) == null ) );
+		Assert.assertNull(vme);
 	}
-	
+
 	@Test
 	public void testDefaultDeleteGeoRef() {
+		EntityTransaction et = this.vmeDao.getEm().getTransaction();
+		
 		GeoRef ref = this.vmeDao.getEntityById(this.em, GeoRef.class, 1L);
+
+		Assert.assertNotNull(ref);
+		
+		et.begin();
+		
+		this.vmeDao.delete(ref);
+		
+		et.commit();
+		
+		Assert.assertNull(this.vmeDao.getEntityById(this.em, GeoRef.class, 1L));
 		
 		Vme vme = this.vmeDao.getEntityById(this.em, Vme.class, ref.getVme().getId());
-		
-		this.vmeDao.deleteGeoRef(ref);
-		
-		ref = this.vmeDao.getEntityById(this.em, GeoRef.class, 1L);
-		
-		Assert.assertNull(ref);
-		
-		vme = this.vmeDao.getEntityById(this.em, Vme.class, vme.getId());
-		
-		for(GeoRef geoRef : vme.getGeoRefList())
-			Assert.assertNotEquals(geoRef.getId(), new Long(1));
+
+		for (GeoRef geoRef : vme.getGeoRefList())
+			Assert.assertNotEquals(geoRef.getId(), ref.getId());
 	}
-	
+
 	@Test
 	public void testDefaultDeleteProfile() {
-		Profile ref = this.vmeDao.getEntityById(this.em, Profile.class, 1L);
+		EntityTransaction et = this.vmeDao.getEm().getTransaction();
 		
-		Assume.assumeTrue(ref.getVme() != null);
+		Profile ref = this.vmeDao.getEntityById(this.em, Profile.class, 1L);
+
+		Assert.assertNotNull(ref);
+		
+		et.begin();
+		
+		this.vmeDao.delete(ref);
+		
+		et.commit();
+
+		Assert.assertNull(this.vmeDao.getEntityById(this.em, Profile.class, 1L));
 		
 		Vme vme = this.vmeDao.getEntityById(this.em, Vme.class, ref.getVme().getId());
-		
-		this.vmeDao.deleteProfile(ref);
-		
-		ref = this.vmeDao.getEntityById(this.em, Profile.class, 1L);
-		
-		Assert.assertNull(ref);
-		
-		vme = this.vmeDao.getEntityById(this.em, Vme.class, vme.getId());
-		
-		for(Profile profile : vme.getProfileList())
-			Assert.assertNotEquals(profile.getId(), new Long(1));
+
+		for (Profile profile : vme.getProfileList())
+			Assert.assertNotEquals(profile.getId(), ref.getId());
 	}
-	
+
 	@Test
-	public void testDeleteInformationSource() {
+	public void testDefaultDeleteInformationSource() {
+		EntityTransaction et = this.vmeDao.getEm().getTransaction();
+		
 		InformationSource informationSource = this.vmeDao.getEntityById(this.vmeDao.getEm(), InformationSource.class, 44L);
-		
+
 		Assert.assertNotNull(informationSource.getRfmo());
-
-		Rfmo parent = informationSource.getRfmo();
-		Iterator<InformationSource> rfmoIterator = parent.getInformationSourceList().iterator();
-				
-		while(rfmoIterator.hasNext()) {
-			if(rfmoIterator.next().getId().equals(informationSource.getId()))
-				rfmoIterator.remove();
-		}
 		
-		this.vmeDao.merge(parent);
+		Rfmo rfmo = this.vmeDao.getEntityById(this.em, Rfmo.class, informationSource.getRfmo().getId());
 		
-		parent = this.vmeDao.getEntityById(this.vmeDao.getEm(), Rfmo.class, parent.getId());
+		List<GeneralMeasure> generalMeasures = informationSource.getGeneralMeasureList();
+		List<SpecificMeasure> specificMeasures = informationSource.getSpecificMeasureList();
 		
-		for(InformationSource sources : parent.getInformationSourceList())
-			Assert.assertNotEquals(informationSource.getId(), sources.getId());
-
-		if(!informationSource.getSpecificMeasureList().isEmpty()) {
-			for(SpecificMeasure specificMeasure : informationSource.getSpecificMeasureList()) {
-				specificMeasure.setInformationSource(null);
-				
-				this.vmeDao.merge(specificMeasure);
-			}
-				
-			for(SpecificMeasure specificMeasure : informationSource.getSpecificMeasureList()) {
-				Assert.assertTrue(this.vmeDao.getEntityById(this.vmeDao.getEm(), SpecificMeasure.class, specificMeasure.getId()).getInformationSource() == null);
-			}
-		}
+		this.vmeDao.delete(informationSource);
 		
-		if(!informationSource.getGeneralMeasureList().isEmpty()) {
-			for(GeneralMeasure generalMeasure : informationSource.getGeneralMeasureList()) {
-				Iterator<InformationSource> generalMeasureIterator = generalMeasure.getInformationSourceList().iterator();
-				
-				while(generalMeasureIterator.hasNext()) {
-					if(generalMeasureIterator.next().getId().equals(informationSource.getId()))
-						generalMeasureIterator.remove();
-				}
-				
-				this.vmeDao.merge(generalMeasure);
-			}
-			
-			for(GeneralMeasure specificMeasure : informationSource.getGeneralMeasureList()) {
-				for(InformationSource sources : specificMeasure.getInformationSourceList()) 
-					Assert.assertNotEquals(informationSource.getId(), sources.getId());
-			}
-		}
-
-		this.vmeDao.remove(informationSource);
 		
-		informationSource = this.vmeDao.getEntityById(this.vmeDao.getEm(), InformationSource.class, informationSource.getId());
-		
-		Assert.assertNull(informationSource);
 	}
 }

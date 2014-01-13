@@ -44,15 +44,22 @@ public class RelationVmeGeoRefTest {
 
 		ObjectCollection oc = new ObjectCollection();
 		oc.setClazz(Vme.class);
+
+		// 2 vme are added to the list, each one with the same GeoRef
 		oc.setObjectList(objectList);
 
+		// objectCollectionList has now only vme's
 		List<ObjectCollection> objectCollectionList = new ArrayList<ObjectCollection>();
 		objectCollectionList.add(oc);
 
+		// 2 Vme are in the list, which should be 1 with 1 GeoRef
 		assertEquals(2, objectList.size());
 		correction.correct(objectCollectionList);
+
+		// 1 Vme to be found
 		assertEquals(1, objectList.size());
 		Vme vme = (Vme) objectList.get(0);
+		// that Vme has 1 GeoRef
 		assertEquals(1, vme.getGeoRefList().size());
 	}
 }
