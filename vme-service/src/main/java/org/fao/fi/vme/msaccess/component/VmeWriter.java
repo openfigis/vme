@@ -26,19 +26,19 @@ public class VmeWriter {
 		vmeDao4Msaccess.persistObjectCollection(objectCollectionList);
 	}
 
-	public void write(List<ObjectCollection> objectCollectionList) {
-		for (ObjectCollection objectCollection : objectCollectionList) {
-			// System.out.println(objectCollection.getClazz().getSimpleName());
-			tableWriter.write(objectCollection);
-		}
-	}
-
-	public void merge(List<ObjectCollection> objectCollectionList) {
-		for (ObjectCollection objectCollection : objectCollectionList) {
-			LOG.debug("========================");
-			LOG.debug(objectCollection.getClazz().getSimpleName());
-			tableWriter.merge(objectCollection);
-		}
-	}
+	// public void write(List<ObjectCollection> objectCollectionList) {
+	// for (ObjectCollection objectCollection : objectCollectionList) {
+	// // System.out.println(objectCollection.getClazz().getSimpleName());
+	// tableWriter.write(objectCollection);
+	// }
+	// }
+	//
+	// public void merge(List<ObjectCollection> objectCollectionList) {
+	// for (ObjectCollection objectCollection : objectCollectionList) {
+	// LOG.debug("========================");
+	// LOG.debug(objectCollection.getClazz().getSimpleName());
+	// tableWriter.merge(objectCollection);
+	// }
+	// }
 
 }

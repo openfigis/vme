@@ -1,10 +1,12 @@
 package org.fao.fi.vme.msaccess;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -28,14 +30,10 @@ public class VmeAccessDbImportTest {
 		i.importMsAccessData();
 	}
 
-	// @Test
+	@Test
 	public void testImportMsAccessDataPlusValidation() {
 		i.importMsAccessData();
-		List<?> objects = vmeDao.loadObjects(Vme.class);
-		System.out.println("TEST: Found " + objects.size() + " Vme objects");
-		for (Object o : objects) {
-			Vme vme = (Vme) o;
-			vme.getRfmo().getGeneralMeasureList();
-		}
+		List<?> objects = vmeDao.loadObjects(Profile.class);
+		assertTrue(objects.size() > 0);
 	}
 }

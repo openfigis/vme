@@ -65,13 +65,8 @@ public class VmeAccessDbImport {
 		// set all the ids to null, because the DB needs to generate the ids
 		idCorrection.correct(objectCollectionList);
 
+		// write the object graph in the DB
 		writer.persistNew(objectCollectionList);
-
-		// // write the domain objects to the DB
-		// writer.write(objectCollectionList);
-		//
-		// // write the domain objects to the DB
-		// writer.merge(objectCollectionList);
 
 	}
 }

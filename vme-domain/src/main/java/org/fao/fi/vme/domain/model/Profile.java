@@ -2,11 +2,9 @@ package org.fao.fi.vme.domain.model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -46,8 +44,7 @@ public class Profile implements ObjectId, Year<Profile> {
 	@RSGConverter(IntegerDataConverter.class)
 	private Integer year;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn
+	@ManyToOne
 	private Vme vme;
 
 	/**

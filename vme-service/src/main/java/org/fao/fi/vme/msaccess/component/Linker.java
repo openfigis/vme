@@ -103,6 +103,7 @@ public class Linker {
 	 */
 	private void linkGeneralMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap,
 			List<ObjectCollection> objectCollectionList) {
+
 		GeneralMeasure gm = (GeneralMeasure) domainObject;
 		Measures_VME_General record = (Measures_VME_General) domainTableMap.get(gm);
 
@@ -115,6 +116,22 @@ public class Linker {
 
 		if (!rfmo.getGeneralMeasureList().contains(gm)) {
 			rfmo.getGeneralMeasureList().add(gm);
+		}
+
+		if (gm.getInformationSourceList() != null && gm.getInformationSourceList().size() > 0) {
+			InformationSource is = gm.getInformationSourceList().get(0);
+			for (ObjectCollection objectCollection : objectCollectionList) {
+				if (objectCollection.getClazz().equals(InformationSource.class)) {
+					List<Object> list = objectCollection.getObjectList();
+					for (Object object : list) {
+						Meetings m = (Meetings) objectCollection.getDomainTableMap().get(object);
+						if (is.getId().intValue() == m.getID()) {
+							gm.getInformationSourceList().remove(is);
+							gm.getInformationSourceList().add((InformationSource) object);
+						}
+					}
+				}
+			}
 		}
 
 	}
@@ -232,7 +249,7 @@ public class Linker {
 			}
 
 		} catch (NullPointerException e) {
-			System.out.println(e.getMessage());
+			throw new VmeException(e);
 		}
 
 	}
