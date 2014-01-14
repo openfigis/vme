@@ -1,6 +1,10 @@
 package org.fao.fi.vme.msaccess.tables;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
@@ -137,23 +141,13 @@ public class Measures_VME_General implements TableDomainMapper {
 		o.setVmeEncounterProtocols(u.english(this.getVME_Encounter()));
 		o.setVmeIndicatorSpecies(u.english(this.getVME_Indicator_Sp()));
 
-		// It should be the column Link_CEM_Source within the
-		// Measures_VME_general table.
-
-		// URL url = null;
-		// if (this.getLink_CEM_Source() != null) {
-		// try {
-		// url = new URL(this.getLink_CEM_Source());
-		// InformationSource is = new InformationSource();
-		// is.setSourceType(2);
-		// is.setUrl(url);
-		// List<InformationSource> isList = new ArrayList<InformationSource>();
-		// isList.add(is);
-		// o.setInformationSourceList(isList);
-		// } catch (MalformedURLException e) {
-		// throw new VmeException(e);
-		// }
-		// }
+		if (this.Source_ID > 0) {
+			InformationSource is = new InformationSource();
+			is.setId(new Long(this.Source_ID));
+			List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
+			informationSourceList.add(is);
+			o.setInformationSourceList(informationSourceList);
+		}
 
 		o.setFishingAreas(this.getRFB_Fishing_Areas());
 		// o.setRfmo(rfmo)

@@ -7,7 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
@@ -51,7 +50,7 @@ public class Rfmo implements ReferenceReport {
 	 * An RFMO has a number of information sources
 	 */
 	// @RSGName("Authority - Information Sources")
-	@ManyToMany
+	@OneToMany(mappedBy = "rfmo", cascade = CascadeType.ALL)
 	private List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
 	/*

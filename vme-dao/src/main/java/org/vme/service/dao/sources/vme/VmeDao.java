@@ -29,7 +29,7 @@ import org.vme.service.dao.impl.AbstractJPADao;
  * 
  * @author Erik van Ingen
  * 
- */ 
+ */
 public class VmeDao extends AbstractJPADao {
 	static final private Logger LOG = LoggerFactory.getLogger(VmeDao.class);
 
@@ -75,6 +75,22 @@ public class VmeDao extends AbstractJPADao {
 		return object;
 	}
 
+	public void persist(List<Object> objectList) {
+		try {
+			EntityTransaction et = em.getTransaction();
+			et.begin();
+			for (Object object : objectList) {
+				em.persist(object);
+			}
+			et.commit();
+			LOG.debug("Object {} has been stored into persistence", objectList);
+		} catch (Exception e) {
+			LOG.error("Unable to store object {} into persistence: {} [ {} ]", objectList,
+					e.getClass().getSimpleName(), e.getMessage());
+			throw new VmeDaoException(e);
+		}
+	}
+
 	public void remove(Object object) {
 		EntityTransaction et = em.getTransaction();
 		try {
@@ -90,7 +106,7 @@ public class VmeDao extends AbstractJPADao {
 			et.rollback();
 		}
 	}
-	
+
 	private void doRemove(Object object) {
 		em.remove(object);
 	}
@@ -128,7 +144,7 @@ public class VmeDao extends AbstractJPADao {
 			return null;
 		}
 	}
-	
+
 	private void doMerge(Object object) {
 		em.merge(object);
 	}
@@ -169,133 +185,134 @@ public class VmeDao extends AbstractJPADao {
 		LOG.debug("Vme {} has been saved into persistence", vme);
 
 		return vme;
+
 	}
 
 	public Long count(Class<?> clazz) {
 		return count(em, clazz);
 	}
-	
+
 	public void delete(Vme toDelete) {
 		if (toDelete == null)
 			throw new IllegalArgumentException("Vme cannot be NULL");
-	
+
 		if (toDelete.getId() == null)
 			throw new IllegalArgumentException("Vme ID cannot be NULL");
-	
+
 		if (toDelete.getRfmo() == null)
 			throw new IllegalArgumentException("Vme cannot have a NULL parent RFMO");
-		
+
 		Rfmo parent = toDelete.getRfmo();
-		
+
 		Iterator<Vme> rfmoIterator = parent.getListOfManagedVmes().iterator();
-		
-		while(rfmoIterator.hasNext())
-			if(rfmoIterator.next().getId().equals(toDelete.getId()))
+
+		while (rfmoIterator.hasNext())
+			if (rfmoIterator.next().getId().equals(toDelete.getId()))
 				rfmoIterator.remove();
-		
+
 		this.doMerge(parent);
-		
-		if(toDelete.getProfileList() != null)
-			for(Profile profile : new ArrayList<Profile>(toDelete.getProfileList()))
+
+		if (toDelete.getProfileList() != null)
+			for (Profile profile : new ArrayList<Profile>(toDelete.getProfileList()))
 				this.delete(profile);
-		
-		if(toDelete.getGeoRefList() != null)
-			for(GeoRef geoRef : new ArrayList<GeoRef>(toDelete.getGeoRefList()))
+
+		if (toDelete.getGeoRefList() != null)
+			for (GeoRef geoRef : new ArrayList<GeoRef>(toDelete.getGeoRefList()))
 				this.delete(geoRef);
-		
-		if(toDelete.getSpecificMeasureList() != null)
-			for(SpecificMeasure specificMeasure : new ArrayList<SpecificMeasure>(toDelete.getSpecificMeasureList()))
+
+		if (toDelete.getSpecificMeasureList() != null)
+			for (SpecificMeasure specificMeasure : new ArrayList<SpecificMeasure>(toDelete.getSpecificMeasureList()))
 				this.delete(specificMeasure);
-		
+
 		this.doRemove(toDelete);
 	}
-	
+
 	public void delete(InformationSource toDelete) {
 		if (toDelete == null)
 			throw new IllegalArgumentException("InformationSource cannot be NULL");
-	
+
 		if (toDelete.getId() == null)
 			throw new IllegalArgumentException("InformationSource ID cannot be NULL");
-	
+
 		if (toDelete.getRfmo() == null)
 			throw new IllegalArgumentException("InformationSource cannot have a NULL parent RFMO");
-		
+
 		Rfmo parent = toDelete.getRfmo();
-		
+
 		Iterator<InformationSource> rfmoIterator = parent.getInformationSourceList().iterator();
-		
-		while(rfmoIterator.hasNext())
-			if(rfmoIterator.next().getId().equals(toDelete.getId()))
+
+		while (rfmoIterator.hasNext())
+			if (rfmoIterator.next().getId().equals(toDelete.getId()))
 				rfmoIterator.remove();
-		
+
 		this.doMerge(parent);
-		
-		for(GeneralMeasure generalMeasure : toDelete.getGeneralMeasureList()) {
+
+		for (GeneralMeasure generalMeasure : toDelete.getGeneralMeasureList()) {
 			Iterator<InformationSource> generalMeasureIterator = generalMeasure.getInformationSourceList().iterator();
-			
-			while(generalMeasureIterator.hasNext())
-				if(generalMeasureIterator.next().getId().equals(toDelete.getId()))
+
+			while (generalMeasureIterator.hasNext())
+				if (generalMeasureIterator.next().getId().equals(toDelete.getId()))
 					generalMeasureIterator.remove();
-			
+
 			this.doMerge(generalMeasure);
 		}
-		
-		for(SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList()) {
+
+		for (SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList()) {
 			specificMeasure.setInformationSource(null);
-			
+
 			this.doMerge(specificMeasure);
 		}
-		
+
 		this.doRemove(toDelete);
 	}
-	
+
 	public void delete(VMEsHistory toDelete) {
 		if (toDelete == null)
 			throw new IllegalArgumentException("VMEsHistory cannot be NULL");
-	
+
 		if (toDelete.getId() == null)
 			throw new IllegalArgumentException("VMEsHistory ID cannot be NULL");
-	
+
 		if (toDelete.getRfmo() == null)
 			throw new IllegalArgumentException("VMEsHistory cannot have a NULL parent RFMO");
-		
+
 		Rfmo parent = toDelete.getRfmo();
-		
+
 		Iterator<VMEsHistory> rfmoIterator = parent.getHasVmesHistory().iterator();
-		
-		while(rfmoIterator.hasNext())
-			if(rfmoIterator.next().getId().equals(toDelete.getId()))
+
+		while (rfmoIterator.hasNext())
+			if (rfmoIterator.next().getId().equals(toDelete.getId()))
 				rfmoIterator.remove();
-		
+
 		this.doMerge(parent);
-		
+
 		this.doRemove(toDelete);
 	}
-	
+
 	public void delete(FisheryAreasHistory toDelete) {
 		if (toDelete == null)
 			throw new IllegalArgumentException("FisheryAreasHistory cannot be NULL");
-	
+
 		if (toDelete.getId() == null)
 			throw new IllegalArgumentException("FisheryAreasHistory ID cannot be NULL");
-	
+
 		if (toDelete.getRfmo() == null)
 			throw new IllegalArgumentException("FisheryAreasHistory cannot have a NULL parent RFMO");
-		
+
 		Rfmo parent = toDelete.getRfmo();
-		
+
 		Iterator<FisheryAreasHistory> rfmoIterator = parent.getHasFisheryAreasHistory().iterator();
-		
-		while(rfmoIterator.hasNext())
-			if(rfmoIterator.next().getId().equals(toDelete.getId()))
+
+		while (rfmoIterator.hasNext())
+			if (rfmoIterator.next().getId().equals(toDelete.getId()))
 				rfmoIterator.remove();
-		
+
 		this.doMerge(parent);
-		
+
 		this.doRemove(toDelete);
 	}
-	
-	//These should be used when deleting a VME...
+
+	// These should be used when deleting a VME...
 	public void delete(Profile toDelete) {
 		if (toDelete == null)
 			throw new IllegalArgumentException("Profile cannot be NULL");
@@ -310,7 +327,7 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("Profile cannot have a Vme reference with a NULL id");
 
 		Vme parent = toDelete.getVme();
-		
+
 		if (parent.getProfileList() == null)
 			throw new IllegalArgumentException("Profile cannot have a parent Vme with a NULL profile list");
 
@@ -319,10 +336,10 @@ public class VmeDao extends AbstractJPADao {
 
 		Iterator<Profile> iterator = parent.getProfileList().iterator();
 
-		while(iterator.hasNext())
-			if(iterator.next().getId().equals(toDelete.getId()))
+		while (iterator.hasNext())
+			if (iterator.next().getId().equals(toDelete.getId()))
 				iterator.remove();
-		
+
 		this.doMerge(parent);
 
 		this.doRemove(toDelete);
@@ -342,7 +359,7 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("GeoRef cannot have a Vme reference with a NULL id");
 
 		Vme parent = toDelete.getVme();
-		
+
 		if (parent.getGeoRefList() == null)
 			throw new IllegalArgumentException("GeoRef cannot have a parent Vme with a NULL profile list");
 
@@ -351,46 +368,46 @@ public class VmeDao extends AbstractJPADao {
 
 		Iterator<GeoRef> iterator = parent.getGeoRefList().iterator();
 
-		while(iterator.hasNext())
-			if(iterator.next().getId().equals(toDelete.getId()))
+		while (iterator.hasNext())
+			if (iterator.next().getId().equals(toDelete.getId()))
 				iterator.remove();
-		
+
 		this.doMerge(parent);
 
 		this.doRemove(toDelete);
 	}
-	
+
 	public void delete(GeneralMeasure toDelete) {
 		if (toDelete == null)
 			throw new IllegalArgumentException("GeneralMeasure cannot be NULL");
-	
+
 		if (toDelete.getId() == null)
 			throw new IllegalArgumentException("GeneralMeasure ID cannot be NULL");
-	
+
 		if (toDelete.getRfmo() == null)
 			throw new IllegalArgumentException("GeneralMeasure cannot have a NULL parent RFMO");
-		
+
 		Iterator<GeneralMeasure> rfmoIterator = toDelete.getRfmo().getGeneralMeasureList().iterator();
-		
-		while(rfmoIterator.hasNext())
-			if(rfmoIterator.next().getId().equals(toDelete.getId()))
+
+		while (rfmoIterator.hasNext())
+			if (rfmoIterator.next().getId().equals(toDelete.getId()))
 				rfmoIterator.remove();
-		
+
 		this.doMerge(toDelete.getRfmo());
 
-		for(InformationSource informationSource : toDelete.getInformationSourceList()) {
+		for (InformationSource informationSource : toDelete.getInformationSourceList()) {
 			Iterator<GeneralMeasure> informationSourceIterator = informationSource.getGeneralMeasureList().iterator();
-			
-			while(informationSourceIterator.hasNext())
-				if(informationSourceIterator.next().getId().equals(toDelete.getId()))
+
+			while (informationSourceIterator.hasNext())
+				if (informationSourceIterator.next().getId().equals(toDelete.getId()))
 					informationSourceIterator.remove();
 
 			this.doMerge(informationSource);
 		}
-		
+
 		this.doRemove(toDelete);
 	}
-	
+
 	public void delete(SpecificMeasure toDelete) {
 		if (toDelete == null)
 			throw new IllegalArgumentException("SpecificMeasure cannot be NULL");
@@ -404,26 +421,27 @@ public class VmeDao extends AbstractJPADao {
 		if (toDelete.getVmeList().isEmpty())
 			throw new IllegalArgumentException("SpecificMeasure cannot have an empty set of Vme references");
 
-		for(Vme vme : toDelete.getVmeList()) {
+		for (Vme vme : toDelete.getVmeList()) {
 			Iterator<SpecificMeasure> vmeIterator = vme.getSpecificMeasureList().iterator();
-			
-			while(vmeIterator.hasNext())
-				if(vmeIterator.next().getId().equals(toDelete.getId()))
+
+			while (vmeIterator.hasNext())
+				if (vmeIterator.next().getId().equals(toDelete.getId()))
 					vmeIterator.remove();
-			
+
 			this.doMerge(vme);
 		}
-		
-		if(toDelete.getInformationSource() != null) {
-			Iterator<SpecificMeasure> informationSourceIterator = toDelete.getInformationSource().getSpecificMeasureList().iterator();
-			
-			while(informationSourceIterator.hasNext())
-				if(informationSourceIterator.next().getId().equals(toDelete.getId()))
+
+		if (toDelete.getInformationSource() != null) {
+			Iterator<SpecificMeasure> informationSourceIterator = toDelete.getInformationSource()
+					.getSpecificMeasureList().iterator();
+
+			while (informationSourceIterator.hasNext())
+				if (informationSourceIterator.next().getId().equals(toDelete.getId()))
 					informationSourceIterator.remove();
-			
+
 			this.doMerge(toDelete.getInformationSource());
 		}
-		
+
 		this.doRemove(toDelete);
 	}
 }

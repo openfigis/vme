@@ -5,10 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -43,10 +46,11 @@ public class InformationSource implements ObjectId, ReferenceReport {
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
 	@Id
+	@Column(name = "IS_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@OneToOne(cascade = CascadeType.REFRESH)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@RSGName("Authority")
 	@RSGWeight(0)
 	@RSGSimpleReference
@@ -61,7 +65,8 @@ public class InformationSource implements ObjectId, ReferenceReport {
 	/**
 	 * InformationSource has 0,1 GeneralMeasure
 	 */
-	@OneToMany
+
+	@ManyToMany(mappedBy = "informationSourceList", cascade = { CascadeType.MERGE })
 	private List<GeneralMeasure> generalMeasureList;
 
 	/**

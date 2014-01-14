@@ -6,7 +6,9 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
+import org.vme.service.dao.VmeDaoException;
 import org.vme.service.dao.config.vme.VmeDB;
 
 public class VmeDao4Msaccess {
@@ -25,15 +27,35 @@ public class VmeDao4Msaccess {
 	 * @param objectCollectionList
 	 */
 	public void persistObjectCollection(List<ObjectCollection> objectCollectionList) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
-		for (ObjectCollection objectCollection : objectCollectionList) {
-			System.out.println(objectCollection.getClazz().getSimpleName());
-			for (Object object : objectCollection.getObjectList()) {
-				em.persist(object);
-			}
-		}
-		et.commit();
-	}
+		try {
 
+			EntityTransaction et = em.getTransaction();
+			et.begin();
+			for (ObjectCollection objectCollection : objectCollectionList) {
+				// System.out.println(objectCollection.getClazz().getSimpleName());
+				for (Object object : objectCollection.getObjectList()) {
+					if (em.contains(object)) {
+						// it can happen that the object already was persisted
+						// because it is a shared object, like
+						// InformationSource.
+						em.merge(object);
+					} else {
+						em.persist(object);
+					}
+
+					if (object instanceof ObjectId) {
+						ObjectId id = (ObjectId) object;
+						if (id.getId().intValue() == 0) {
+							throw new VmeDaoException("object id cannot be 0");
+						}
+					}
+
+				}
+			}
+			et.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new VmeDaoException(e);
+		}
+	}
 }

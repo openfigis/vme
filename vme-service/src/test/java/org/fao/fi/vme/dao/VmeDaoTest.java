@@ -10,7 +10,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.test.VmeMock;
@@ -27,6 +30,71 @@ public class VmeDaoTest {
 
 	@Inject
 	VmeDao dao;
+
+	@Test
+	public void testVmeProfile() {
+		Vme vme = new Vme();
+		Profile profile = new Profile();
+	}
+
+	@Test
+	public void testCircelRelation() {
+		String id = "fhuewiqof";
+		Rfmo rfmo = new Rfmo();
+		rfmo.setId(id);
+
+		InformationSource i = new InformationSource();
+		i.setRfmo(rfmo);
+
+		SpecificMeasure s = new SpecificMeasure();
+		s.setInformationSource(i);
+
+		Vme v = new Vme();
+		v.setRfmo(rfmo);
+
+		List<Vme> vList = new ArrayList<Vme>();
+		vList.add(v);
+		rfmo.setListOfManagedVmes(vList);
+
+		List<SpecificMeasure> sList4Vme = new ArrayList<SpecificMeasure>();
+		sList4Vme.add(s);
+		v.setSpecificMeasureList(sList4Vme);
+
+		List<SpecificMeasure> sList4SpecificMeasure = new ArrayList<SpecificMeasure>();
+		sList4SpecificMeasure.add(s);
+		i.setSpecificMeasureList(sList4SpecificMeasure);
+
+		List<InformationSource> iList4Rfmo = new ArrayList<InformationSource>();
+		iList4Rfmo.add(i);
+		rfmo.setInformationSourceList(iList4Rfmo);
+
+		GeneralMeasure g = new GeneralMeasure();
+		g.setRfmo(rfmo);
+
+		List<InformationSource> iList4GeneralMeasure = new ArrayList<InformationSource>();
+		iList4GeneralMeasure.add(i);
+		g.setInformationSourceList(iList4GeneralMeasure);
+
+		List<GeneralMeasure> gList4Rfmo = new ArrayList<GeneralMeasure>();
+		gList4Rfmo.add(g);
+		rfmo.setGeneralMeasureList(gList4Rfmo);
+
+		List<GeneralMeasure> gList4IformationSource = new ArrayList<GeneralMeasure>();
+		gList4IformationSource.add(g);
+		i.setGeneralMeasureList(gList4IformationSource);
+
+		List<Object> oList = new ArrayList<Object>();
+		oList.add(rfmo);
+		oList.add(v);
+		oList.add(s);
+		oList.add(i);
+		oList.add(g);
+
+		dao.persist(oList);
+		for (Object object : oList) {
+			assertTrue(dao.getEm().contains(object));
+		}
+	}
 
 	@Test
 	public void testMergeRfmo() {

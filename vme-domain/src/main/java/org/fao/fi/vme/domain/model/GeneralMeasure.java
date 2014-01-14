@@ -3,15 +3,17 @@ package org.fao.fi.vme.domain.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.PeriodYear;
@@ -42,6 +44,7 @@ public class GeneralMeasure implements ObjectId, Year<GeneralMeasure>, PeriodYea
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
 	@Id
+	@Column(name = "GM_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
@@ -79,8 +82,10 @@ public class GeneralMeasure implements ObjectId, Year<GeneralMeasure>, PeriodYea
 	 */
 	@RSGName("Information Sources")
 	@RSGWeight(0)
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "INFORMATION_SOURCE_LIST")
+	@ManyToMany(cascade = { CascadeType.REFRESH })
+	@JoinTable(name = "GENERALMEASURE_INFORMATIONSOURCE", joinColumns = //
+	{ @JoinColumn(name = "GENERALMEASURE_ID", referencedColumnName = "GM_ID") },//
+	inverseJoinColumns = { @JoinColumn(name = "INFORMATIONSOURCE_ID", referencedColumnName = "IS_ID") })
 	private List<InformationSource> informationSourceList;
 
 	/**
@@ -209,34 +214,23 @@ public class GeneralMeasure implements ObjectId, Year<GeneralMeasure>, PeriodYea
 		this.validityPeriod = validityPeriod;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((this.explorataryFishingProtocols == null) ? 0 : this.explorataryFishingProtocols.hashCode());
-		result = prime * result + ((this.fishingAreas == null) ? 0 : this.fishingAreas.hashCode());
-		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-		result = prime * result + ((this.informationSourceList == null) ? 0 : this.informationSourceList.hashCode());
-		result = prime * result + ((this.rfmo == null) ? 0 : this.rfmo.hashCode());
-		result = prime * result + ((this.validityPeriod == null) ? 0 : this.validityPeriod.hashCode());
-		result = prime * result + ((this.vmeEncounterProtocols == null) ? 0 : this.vmeEncounterProtocols.hashCode());
-		result = prime * result + ((this.vmeIndicatorSpecies == null) ? 0 : this.vmeIndicatorSpecies.hashCode());
-		result = prime * result + ((this.vmeThreshold == null) ? 0 : this.vmeThreshold.hashCode());
-		result = prime * result + ((this.year == null) ? 0 : this.year.hashCode());
+		result = prime * result + ((explorataryFishingProtocols == null) ? 0 : explorataryFishingProtocols.hashCode());
+		result = prime * result + ((fishingAreas == null) ? 0 : fishingAreas.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((informationSourceList == null) ? 0 : informationSourceList.hashCode());
+		result = prime * result + ((rfmo == null) ? 0 : rfmo.hashCode());
+		result = prime * result + ((validityPeriod == null) ? 0 : validityPeriod.hashCode());
+		result = prime * result + ((vmeEncounterProtocols == null) ? 0 : vmeEncounterProtocols.hashCode());
+		result = prime * result + ((vmeIndicatorSpecies == null) ? 0 : vmeIndicatorSpecies.hashCode());
+		result = prime * result + ((vmeThreshold == null) ? 0 : vmeThreshold.hashCode());
+		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -246,56 +240,57 @@ public class GeneralMeasure implements ObjectId, Year<GeneralMeasure>, PeriodYea
 		if (getClass() != obj.getClass())
 			return false;
 		GeneralMeasure other = (GeneralMeasure) obj;
-		if (this.explorataryFishingProtocols == null) {
+		if (explorataryFishingProtocols == null) {
 			if (other.explorataryFishingProtocols != null)
 				return false;
-		} else if (!this.explorataryFishingProtocols.equals(other.explorataryFishingProtocols))
+		} else if (!explorataryFishingProtocols.equals(other.explorataryFishingProtocols))
 			return false;
-		if (this.fishingAreas == null) {
+		if (fishingAreas == null) {
 			if (other.fishingAreas != null)
 				return false;
-		} else if (!this.fishingAreas.equals(other.fishingAreas))
+		} else if (!fishingAreas.equals(other.fishingAreas))
 			return false;
-		if (this.id == null) {
+		if (id == null) {
 			if (other.id != null)
 				return false;
-		} else if (!this.id.equals(other.id))
+		} else if (!id.equals(other.id))
 			return false;
-		if (this.informationSourceList == null) {
+		if (informationSourceList == null) {
 			if (other.informationSourceList != null)
 				return false;
-		} else if (!this.informationSourceList.equals(other.informationSourceList))
+		} else if (!informationSourceList.equals(other.informationSourceList))
 			return false;
-		if (this.rfmo == null) {
+		if (rfmo == null) {
 			if (other.rfmo != null)
 				return false;
-		} else if (!this.rfmo.equals(other.rfmo))
+		} else if (!rfmo.equals(other.rfmo))
 			return false;
-		if (this.validityPeriod == null) {
+		if (validityPeriod == null) {
 			if (other.validityPeriod != null)
 				return false;
-		} else if (!this.validityPeriod.equals(other.validityPeriod))
+		} else if (!validityPeriod.equals(other.validityPeriod))
 			return false;
-		if (this.vmeEncounterProtocols == null) {
+		if (vmeEncounterProtocols == null) {
 			if (other.vmeEncounterProtocols != null)
 				return false;
-		} else if (!this.vmeEncounterProtocols.equals(other.vmeEncounterProtocols))
+		} else if (!vmeEncounterProtocols.equals(other.vmeEncounterProtocols))
 			return false;
-		if (this.vmeIndicatorSpecies == null) {
+		if (vmeIndicatorSpecies == null) {
 			if (other.vmeIndicatorSpecies != null)
 				return false;
-		} else if (!this.vmeIndicatorSpecies.equals(other.vmeIndicatorSpecies))
+		} else if (!vmeIndicatorSpecies.equals(other.vmeIndicatorSpecies))
 			return false;
-		if (this.vmeThreshold == null) {
+		if (vmeThreshold == null) {
 			if (other.vmeThreshold != null)
 				return false;
-		} else if (!this.vmeThreshold.equals(other.vmeThreshold))
+		} else if (!vmeThreshold.equals(other.vmeThreshold))
 			return false;
-		if (this.year == null) {
+		if (year == null) {
 			if (other.year != null)
 				return false;
-		} else if (!this.year.equals(other.year))
+		} else if (!year.equals(other.year))
 			return false;
 		return true;
 	}
+
 }
