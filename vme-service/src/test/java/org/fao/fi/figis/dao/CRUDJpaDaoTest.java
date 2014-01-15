@@ -3,6 +3,11 @@
  */
 package org.fao.fi.figis.dao;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -15,6 +20,8 @@ import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.fao.fi.vme.msaccess.component.EmbeddedMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -151,35 +158,132 @@ public class CRUDJpaDaoTest {
 				Assert.assertNotEquals(specificMeasure.getId(), ref.getId());
 		}
 	}
+	
+	private Collection<Long> listReferencedInfoSources() {
+		Set<Long> gmReferenced = new HashSet<Long>();
+		Set<Long> smReferenced = new HashSet<Long>();
+		
+		List<GeneralMeasure> gms = this.vmeDao.loadObjectsGeneric(GeneralMeasure.class);
+		
+		System.out.println("Read " + gms.size() + " general measures");
+		
+		for(GeneralMeasure gm : gms) {
+			if(gm.getInformationSourceList() != null && !gm.getInformationSourceList().isEmpty()) {
+				System.out.println("General measure #" + gm.getId() + " refers to " + gm.getInformationSourceList().size() + " information sources");
+				
+				for(InformationSource is : gm.getInformationSourceList()) {
+					System.out.println("General measure #" + gm.getId() + " references Information source #" + is.getId());
+					
+					gmReferenced.add(is.getId());
+				}
+			}
+		}
+		
+		List<SpecificMeasure> sms = this.vmeDao.loadObjectsGeneric(SpecificMeasure.class);
+		
+		System.out.println("Read " + gms.size() + " specific measures");
+		
+		for(SpecificMeasure sm : sms) {
+			if(sm.getInformationSource() != null) {
+				System.out.println("Specfic measure #" + sm.getId() + " refers to Information source #" + sm.getInformationSource().getId());
+				
+				smReferenced.add(sm.getInformationSource().getId());
+			}
+		}
+		
+		gmReferenced.retainAll(smReferenced);
+		
+		return gmReferenced;
+	}
 
 	@Test
 	public void testDefaultDeleteInformationSource() {
-		InformationSource informationSource = this.vmeDao.getEntityById(this.vmeDao.getEm(), InformationSource.class,
-				44L);
-
-		Rfmo rfmo = this.vmeDao.getEntityById(this.em, Rfmo.class, informationSource.getRfmo().getId());
-
-		Assert.assertNotNull(informationSource);
-
-		this.vmeDao.deleteInformationSource(informationSource);
-
-		Assert.assertNull(this.vmeDao.getEntityById(this.vmeDao.getEm(), InformationSource.class,
-				informationSource.getId()));
-
-		for (InformationSource inRfmo : rfmo.getInformationSourceList())
-			Assert.assertNotEquals(inRfmo.getId(), informationSource.getId());
-
-		for (GeneralMeasure gm : informationSource.getGeneralMeasureList()) {
-			gm = this.vmeDao.getEntityById(this.vmeDao.getEm(), GeneralMeasure.class, gm.getId());
-
-			for (InformationSource is : gm.getInformationSourceList())
-				Assert.assertNotEquals(is.getId(), informationSource.getId());
+		for(Long isId : this.listReferencedInfoSources()) {
+			System.out.println("Deleting information source #" + isId);
+			
+			InformationSource informationSource = this.vmeDao.getEntityById(this.vmeDao.getEm(), InformationSource.class, isId);
+	
+			Rfmo rfmo = this.vmeDao.getEntityById(this.em, Rfmo.class, informationSource.getRfmo().getId());
+	
+			Assert.assertNotNull(informationSource);
+	
+			Assert.assertTrue(informationSource.getGeneralMeasureList() != null);
+			Assert.assertFalse(informationSource.getGeneralMeasureList().isEmpty());
+	
+			Assert.assertTrue(informationSource.getSpecificMeasureList() != null);
+			Assert.assertFalse(informationSource.getSpecificMeasureList().isEmpty());
+	
+			this.vmeDao.deleteInformationSource(informationSource);
+	
+			Assert.assertNull(this.vmeDao.getEntityById(this.vmeDao.getEm(), InformationSource.class, informationSource.getId()));
+	
+			for (InformationSource inRfmo : rfmo.getInformationSourceList())
+				Assert.assertNotEquals(inRfmo.getId(), informationSource.getId());
+	
+			for (GeneralMeasure gm : informationSource.getGeneralMeasureList()) {
+				gm = this.vmeDao.getEntityById(this.vmeDao.getEm(), GeneralMeasure.class, gm.getId());
+	
+				for (InformationSource is : gm.getInformationSourceList())
+					Assert.assertNotEquals(is.getId(), informationSource.getId());
+			}
+	
+			for (SpecificMeasure sm : informationSource.getSpecificMeasureList()) {
+				sm = this.vmeDao.getEntityById(this.vmeDao.getEm(), SpecificMeasure.class, sm.getId());
+	
+				Assert.assertNull(sm.getInformationSource());
+			}
 		}
+	}
+	
+	@Test
+	public void testDefaultDeleteFisheryAreas() {
+		List<FisheryAreasHistory> fahs = this.vmeDao.loadObjectsGeneric(FisheryAreasHistory.class);
+		
+		Rfmo parent;
+		EntityTransaction t = this.em.getTransaction();
+		
+		for(FisheryAreasHistory fah : fahs) {
+			parent = fah.getRfmo();
 
-		for (SpecificMeasure sm : informationSource.getSpecificMeasureList()) {
-			sm = this.vmeDao.getEntityById(this.vmeDao.getEm(), SpecificMeasure.class, sm.getId());
-
-			Assert.assertNull(sm.getInformationSource());
+			t.begin();
+			
+			this.vmeDao.delete(fah);
+			
+			t.commit();
+			
+			Assert.assertNull(this.vmeDao.getEntityById(this.vmeDao.getEm(), FisheryAreasHistory.class, fah.getId()));
+			
+			parent = this.vmeDao.getEntityById(this.vmeDao.getEm(), Rfmo.class, parent.getId());
+			
+			for(FisheryAreasHistory cfah : parent.getHasFisheryAreasHistory()) {
+				Assert.assertNotEquals(fah.getId(), cfah.getId());
+			}
+		}
+	}
+	
+	@Test
+	public void testDefaultDeleteVMEsHistory() {
+		List<VMEsHistory> vhs = this.vmeDao.loadObjectsGeneric(VMEsHistory.class);
+		
+		Rfmo parent;
+		EntityTransaction t = this.em.getTransaction();
+		
+		for(VMEsHistory vh : vhs) {
+			parent = vh.getRfmo();
+			
+			t.begin();
+			
+			this.vmeDao.delete(vh);
+			
+			t.commit();
+			
+			Assert.assertNull(this.vmeDao.getEntityById(this.vmeDao.getEm(), VMEsHistory.class, vh.getId()));
+			
+			parent = this.vmeDao.getEntityById(this.vmeDao.getEm(), Rfmo.class, parent.getId());
+			
+			for(VMEsHistory cvh : parent.getHasVmesHistory()) {
+				Assert.assertNotEquals(vh.getId(), cvh.getId());
+			}
 		}
 	}
 }
