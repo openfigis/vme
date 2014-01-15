@@ -62,7 +62,7 @@ public class Vme implements ObjectId, Period<Vme>, Report {
 	@RSGSection
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "VME_SPECIFIC_MEASURE", //
-	joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SPECIFIC_MEASURE_ID"))
+	joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SM_ID"))
 	private List<SpecificMeasure> specificMeasureList;
 
 	@RSGName("VME Profiles")

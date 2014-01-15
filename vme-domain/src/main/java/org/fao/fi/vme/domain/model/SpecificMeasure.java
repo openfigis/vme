@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.PeriodYear;
@@ -51,7 +52,7 @@ public class SpecificMeasure implements ObjectId, PeriodYear, Year<SpecificMeasu
 
 	@RSGName("Source Of Information")
 	@RSGWeight(100)
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private InformationSource informationSource;
 
 	/**

@@ -5,11 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -46,7 +46,6 @@ public class InformationSource implements ObjectId, ReferenceReport {
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
 	@Id
-	@Column(name = "IS_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
@@ -60,6 +59,7 @@ public class InformationSource implements ObjectId, ReferenceReport {
 	 * InformationSource has 0,1 SpecificMeasure
 	 */
 	@OneToMany
+	@JoinTable(name = "IS_SM")
 	private List<SpecificMeasure> specificMeasureList;
 
 	/**
