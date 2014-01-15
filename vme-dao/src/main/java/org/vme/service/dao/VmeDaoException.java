@@ -19,8 +19,8 @@ public class VmeDaoException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = -9180990347485312606L;
 
-	public VmeDaoException(Exception e) {
-		super(e);
+	public VmeDaoException(Throwable t) {
+		super(t);
 	}
 
 	public VmeDaoException(String message) {
