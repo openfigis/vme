@@ -2,12 +2,12 @@ package org.fao.fi.vme.domain.model;
 
 import java.util.Map;
 
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 /**
  * Not applied yet.
@@ -36,7 +36,7 @@ public class MultiLingualString implements ObjectId {
 	 */
 
 	@ElementCollection
-	@Column(columnDefinition = "CLOB")
+	@Lob
 	private Map<Integer, String> stringMap;
 
 	@Override
