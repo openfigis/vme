@@ -227,43 +227,49 @@ public class VmeDao extends AbstractJPADao {
 		this.doRemove(toDelete);
 	}
 
-	public void delete(InformationSource toDelete) {
-		if (toDelete == null)
-			throw new IllegalArgumentException("InformationSource cannot be NULL");
+	public void deleteInformationSource(InformationSource toDelete) {
+		EntityTransaction et = em.getTransaction();
+		et.begin();
 
-		if (toDelete.getId() == null)
-			throw new IllegalArgumentException("InformationSource ID cannot be NULL");
-
-		if (toDelete.getRfmo() == null)
-			throw new IllegalArgumentException("InformationSource cannot have a NULL parent RFMO");
-
-		Rfmo parent = toDelete.getRfmo();
-
-		Iterator<InformationSource> rfmoIterator = parent.getInformationSourceList().iterator();
-
-		while (rfmoIterator.hasNext())
-			if (rfmoIterator.next().getId().equals(toDelete.getId()))
-				rfmoIterator.remove();
-
-		this.doMerge(parent);
+		toDelete.getRfmo().getInformationSourceList().remove(toDelete);
+		em.merge(toDelete.getRfmo());
+		toDelete.setRfmo(null);
 
 		for (GeneralMeasure generalMeasure : toDelete.getGeneralMeasureList()) {
-			Iterator<InformationSource> generalMeasureIterator = generalMeasure.getInformationSourceList().iterator();
-
-			while (generalMeasureIterator.hasNext())
-				if (generalMeasureIterator.next().getId().equals(toDelete.getId()))
-					generalMeasureIterator.remove();
-
+			generalMeasure.getInformationSourceList().remove(toDelete);
 			this.doMerge(generalMeasure);
 		}
 
 		for (SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList()) {
 			specificMeasure.setInformationSource(null);
-
 			this.doMerge(specificMeasure);
 		}
 
-		this.doRemove(toDelete);
+		em.remove(toDelete);
+		et.commit();
+
+	}
+
+	public void delete(InformationSource toDelete) {
+		EntityTransaction et = em.getTransaction();
+		et.begin();
+
+		toDelete.getRfmo().getInformationSourceList().remove(toDelete);
+		em.merge(toDelete.getRfmo());
+		toDelete.setRfmo(null);
+
+		for (GeneralMeasure generalMeasure : toDelete.getGeneralMeasureList()) {
+			generalMeasure.getInformationSourceList().remove(toDelete);
+			this.doMerge(generalMeasure);
+		}
+
+		for (SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList()) {
+			specificMeasure.setInformationSource(null);
+			this.doMerge(specificMeasure);
+		}
+
+		em.remove(toDelete);
+		et.commit();
 	}
 
 	public void delete(VMEsHistory toDelete) {

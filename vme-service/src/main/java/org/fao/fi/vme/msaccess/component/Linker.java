@@ -167,6 +167,12 @@ public class Linker {
 						InformationSource is = (InformationSource) object;
 						if (is.getId() == record.getSource_ID()) {
 							sm.setInformationSource(is);
+							if (is.getSpecificMeasureList() == null) {
+								is.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
+							}
+							if (!is.getSpecificMeasureList().contains(sm)) {
+								is.getSpecificMeasureList().add(sm);
+							}
 						}
 					}
 				}

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -35,5 +37,33 @@ public class VmeAccessDbImportTest {
 		i.importMsAccessData();
 		List<?> objects = vmeDao.loadObjects(Profile.class);
 		assertTrue(objects.size() > 0);
+		checkRelationGmIs();
 	}
+
+	private void checkRelationGmIs() {
+		List<GeneralMeasure> gmList = vmeDao.loadObjectsGeneric(GeneralMeasure.class);
+
+		// we check all generalMeasures
+		for (GeneralMeasure generalMeasure : gmList) {
+			// get the IS list
+			List<InformationSource> foundIsList = generalMeasure.getInformationSourceList();
+			for (InformationSource informationSource : foundIsList) {
+				// this this informationSource refer to the same GM?
+				assertTrue(informationSource.getGeneralMeasureList().contains(generalMeasure));
+			}
+		}
+
+		List<InformationSource> isList = vmeDao.loadObjectsGeneric(InformationSource.class);
+		// we check all InformationSource
+		for (InformationSource informationSource : isList) {
+			// get the IS list
+			List<GeneralMeasure> foundGmList = informationSource.getGeneralMeasureList();
+			for (GeneralMeasure generalMeasure : foundGmList) {
+				// this this GeneralMeasure refer to the same informationSource?
+				assertTrue(generalMeasure.getInformationSourceList().contains(informationSource));
+			}
+		}
+
+	}
+
 }
