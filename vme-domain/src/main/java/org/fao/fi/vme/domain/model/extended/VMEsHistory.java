@@ -59,7 +59,7 @@ public class VMEsHistory implements ObjectId, History, Year<History>, ReferenceR
 	@RSGName("Authority")
 	@RSGSimpleReference
 	@RSGWeight(0)
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "rfmo_id")
 	private Rfmo rfmo;
 
