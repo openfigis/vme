@@ -3,7 +3,6 @@ package org.fao.fi.vme.domain.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -44,7 +43,6 @@ public class GeneralMeasure implements ObjectId, Year<GeneralMeasure>, PeriodYea
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
 	@Id
-	@Column(name = "GM_ID")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
@@ -83,9 +81,8 @@ public class GeneralMeasure implements ObjectId, Year<GeneralMeasure>, PeriodYea
 	@RSGName("Information Sources")
 	@RSGWeight(0)
 	@ManyToMany(cascade = { CascadeType.REFRESH })
-	@JoinTable(name = "GENERALMEASURE_INFORMATIONSOURCE", joinColumns = //
-	{ @JoinColumn(name = "GENERALMEASURE_ID", referencedColumnName = "GM_ID") },//
-	inverseJoinColumns = { @JoinColumn(name = "INFORMATIONSOURCE_ID", referencedColumnName = "IS_ID") })
+	@JoinTable(name = "GM_IS", joinColumns = { @JoinColumn(name = "GENERALMEASURE_ID") },//
+	inverseJoinColumns = { @JoinColumn(name = "INFORMATIONSOURCE_ID") })
 	private List<InformationSource> informationSourceList;
 
 	/**
