@@ -11,6 +11,8 @@ drop table multilingual_string CASCADE CONSTRAINTS;
 drop table multilingualstring_stringmap CASCADE CONSTRAINTS;
 drop table vme_specific_measure CASCADE CONSTRAINTS;
 drop table vmes_history CASCADE CONSTRAINTS;
+drop table gm_is ;
+drop table is_sm ;
 
 
 
