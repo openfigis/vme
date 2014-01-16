@@ -19,44 +19,14 @@ import org.junit.Test;
 
 public class PeriodGroupingTest {
 
-	PeriodGrouping g = new PeriodGrouping();
+	PeriodGrouping grouping = new PeriodGrouping();
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
-
-	/**
-	 * Considering years 2000, 2001 and 2002. If there is data for 2000 and
-	 * 2002, no observation should be generated for 2001, e.g. there should be a
-	 * hole.
-	 * 
-	 */
-
-	@Test
-	public void testTheHoles() {
-
-		int YEARS = 2;
-
-		Vme vme = VmeMock.create();
-
-		Rfmo rfmo = new Rfmo();
-		vme.setRfmo(rfmo);
-
-		GeoRef g2 = new GeoRef();
-		g2.setYear(VmeMock.YEAR + YEARS);
-		g2.setVme(vme);
-
-		vme.getGeoRefList().add(g2);
-
-		assertEquals(YEARS, vme.getGeoRefList().size());
-
-		// List<DisseminationYearSlice> slices = g.collect(vme);
-		// assertEquals(2, slices.get(0).getInformationSourceList().size());
-
-	}
 
 	@Test
 	public void testInformationHistoryCollectingYears() {
 		int nrOfYears = 2;
 		Vme vme = VmeMock.generateVme(nrOfYears);
-		List<DisseminationYearSlice> slices = g.collect(vme);
+		List<DisseminationYearSlice> slices = grouping.collect(vme);
 
 		assertEquals(1, slices.get(0).getInformationSourceList().size());
 		assertEquals(2, slices.get(1).getInformationSourceList().size());
@@ -66,7 +36,7 @@ public class PeriodGroupingTest {
 	public void testCollect() {
 		int nrOfYears = 3;
 		Vme vme = VmeMock.generateVme(nrOfYears);
-		List<DisseminationYearSlice> slices = g.collect(vme);
+		List<DisseminationYearSlice> slices = grouping.collect(vme);
 		for (DisseminationYearSlice disseminationYearSlice : slices) {
 			System.out.println(disseminationYearSlice.getYear());
 		}
@@ -77,7 +47,7 @@ public class PeriodGroupingTest {
 	public void testCollectYears() {
 		Vme vme = VmeMock.create();
 		vme.setRfmo(new Rfmo());
-		List<DisseminationYearSlice> slices = g.collect(vme);
+		List<DisseminationYearSlice> slices = grouping.collect(vme);
 
 		assertEquals(ValidityPeriodMock.YEARS, slices.size());
 
@@ -98,18 +68,9 @@ public class PeriodGroupingTest {
 	 * In the year 2010, we show SpecialMeasures2 or we show SpecialMeasures1?
 	 * We do show now SpecialMeasures2 because the validityPeriod of the most
 	 * recent one covers also 2010
-	 * 
-	 * 
-	 * 
 	 */
 	@Test
 	public void testOverlappingValidityPeriods1() {
-
-		// SpecialMeasures1.year = 2009 SpecialMeasures1.validityPeriod =
-		// 2010-2012
-		// SpecialMeasures2.year = 2010 SpecialMeasures2.validityPeriod =
-		// 2011-2012
-
 		ValidityPeriod vp1 = ValidityPeriodMock.create(2010, 2012);
 		ValidityPeriod vp2 = ValidityPeriodMock.create(2011, 2012);
 
@@ -133,7 +94,7 @@ public class PeriodGroupingTest {
 
 		vme.setSpecificMeasureList(smList);
 
-		List<DisseminationYearSlice> slices = g.collect(vme);
+		List<DisseminationYearSlice> slices = grouping.collect(vme);
 
 		// d=2008: Nothing will be shown
 		// d=2009:Nothing will be shown
@@ -161,7 +122,7 @@ public class PeriodGroupingTest {
 		vme.setRfmo(new Rfmo());
 		vme.getValidityPeriod().setEndYear(9999);
 		int years = Calendar.getInstance().get(Calendar.YEAR) - vme.getValidityPeriod().getBeginYear();
-		assertEquals(++years, g.collect(vme).size());
+		assertEquals(++years, grouping.collect(vme).size());
 
 	}
 
@@ -189,7 +150,7 @@ public class PeriodGroupingTest {
 		vme.setValidityPeriod(vpVme);
 		vme.setSpecificMeasureList(specificMeasureList);
 
-		List<DisseminationYearSlice> slices = g.collect(vme);
+		List<DisseminationYearSlice> slices = grouping.collect(vme);
 		for (DisseminationYearSlice s : slices) {
 			assertNotNull(s.getSpecificMeasures());
 			assertNotNull(s.getVme());
@@ -219,7 +180,7 @@ public class PeriodGroupingTest {
 		vme.setValidityPeriod(vpVme);
 		vme.setGeoRefList(hList);
 
-		List<DisseminationYearSlice> slices = g.collect(vme);
+		List<DisseminationYearSlice> slices = grouping.collect(vme);
 		assertEquals(3, slices.size());
 
 		// 2010

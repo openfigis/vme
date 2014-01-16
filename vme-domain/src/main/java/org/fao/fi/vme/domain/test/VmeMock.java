@@ -25,18 +25,21 @@ public class VmeMock {
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	public static Vme create() {
-
 		Vme vme = new Vme();
 		vme.setValidityPeriod(ValidityPeriodMock.create());
-		// vme.setId(ID);
 		vme.setName(u.english("Hard Corner Bugs "));
 		vme.setGeoArea(u.english("Southern Pacific Ocean"));
 
-		GeoRef g = new GeoRef();
-		g.setYear(YEAR);
-		g.setVme(vme);
 		List<GeoRef> l = new ArrayList<GeoRef>();
-		l.add(g);
+
+		for (int i = ValidityPeriodMock.BEGIN_YEAR; i <= ValidityPeriodMock.END_YEAR; i++) {
+			GeoRef g = new GeoRef();
+			g.setYear(i);
+			g.setGeographicFeatureID(INVENTORY_ID + i);
+			g.setVme(vme);
+			l.add(g);
+		}
+
 		vme.setGeoRefList(l);
 
 		vme.setAreaType("20");
@@ -122,12 +125,14 @@ public class VmeMock {
 			specificMeasure.setInformationSource(isSm);
 			specificMeasureList.add(specificMeasure);
 
-			GeoRef geoRef = new GeoRef();
-			geoRef.setVme(vme);
-			// geoRef.setId(id++);
-			geoRef.setYear(year);
-			geoRef.setGeographicFeatureID(INVENTORY_ID + "_" + YEAR);
-			geoRefList.add(geoRef);
+			for (int k = 0; k < nrOfyears; k++) {
+				GeoRef geoRef = new GeoRef();
+				geoRef.setVme(vme);
+
+				geoRef.setYear(year);
+				geoRef.setGeographicFeatureID(INVENTORY_ID + "_" + YEAR);
+				geoRefList.add(geoRef);
+			}
 
 			GeneralMeasure gm = new GeneralMeasure();
 			gm.setYear(year);

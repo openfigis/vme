@@ -24,6 +24,9 @@ public class RelationVmeGeoRef {
 	public void correct(List<ObjectCollection> objectCollectionList) {
 		for (ObjectCollection objectCollection : objectCollectionList) {
 			if (objectCollection.getClazz().equals(Vme.class)) {
+
+				// report(objectCollection);
+
 				workToDo(objectCollection);
 
 				// set the vme on the GeoRef;
@@ -31,6 +34,8 @@ public class RelationVmeGeoRef {
 
 				// checks
 				postConditionCheck(objectCollection);
+
+				// report(objectCollection);
 
 			}
 		}
@@ -54,6 +59,7 @@ public class RelationVmeGeoRef {
 			Vme vme = (Vme) found;
 			List<GeoRef> l = vme.getGeoRefList();
 			for (GeoRef geoRef : l) {
+
 				if (set.contains(geoRef.getGeographicFeatureID())) {
 					throw new VmeException("Double found : " + geoRef.getGeographicFeatureID());
 				}
@@ -84,6 +90,7 @@ public class RelationVmeGeoRef {
 		Map<String, Vme> vmeMap = new HashMap<String, Vme>();
 		for (Object object : vmeList) {
 			Vme vme = (Vme) object;
+
 			String key = vme.getInventoryIdentifier();
 			if (vmeMap.containsKey(key)) {
 				Vme vmeTarget = vmeMap.get(key);
@@ -98,7 +105,6 @@ public class RelationVmeGeoRef {
 			objectCollection.getObjectList().remove(vme);
 		}
 
-		// remove the double georefs.
 		Map<String, GeoRef> geoRefmap = new HashMap<String, GeoRef>();
 		for (Object object : vmeList) {
 			List<GeoRef> doubleGeoRefs = new ArrayList<GeoRef>();
@@ -118,9 +124,23 @@ public class RelationVmeGeoRef {
 	}
 
 	private void mergeVme(Vme vme, Vme vmeTarget) {
-		if (vme.getGeoRefList() != null && vme.getGeoRefList().size() == 1) {
+		if (vme.getGeoRefList().size() != 1 || vme.getGeoRefList().size() != 1) {
+			throw new VmeException("Vme has always 1 georef at this stage");
+		}
+
+		if (!vme.getGeoRefList().get(0).getGeographicFeatureID()
+				.equals(vmeTarget.getGeoRefList().get(0).getGeographicFeatureID())) {
 			vmeTarget.getGeoRefList().add(vme.getGeoRefList().get(0));
 		}
-	}
 
+		// take the earliest start
+		if (vme.getValidityPeriod().getBeginYear() < vmeTarget.getValidityPeriod().getBeginYear()) {
+			vmeTarget.getValidityPeriod().setBeginYear(vme.getValidityPeriod().getBeginYear());
+		}
+		// take the latest start
+		if (vme.getValidityPeriod().getEndYear() > vmeTarget.getValidityPeriod().getEndYear()) {
+			vmeTarget.getValidityPeriod().setEndYear(vme.getValidityPeriod().getEndYear());
+		}
+
+	}
 }

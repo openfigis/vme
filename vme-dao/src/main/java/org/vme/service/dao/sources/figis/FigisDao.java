@@ -129,7 +129,8 @@ public class FigisDao extends AbstractJPADao {
 			throw new VmeException("FigisDao Exception, detected a non registered RefVme.");
 		}
 
-		em.getTransaction().begin();
+		EntityTransaction t = em.getTransaction();
+		t.begin();
 
 		// logic
 		List<ObservationDomain> oList = vod.getObservationDomainList();
@@ -146,8 +147,7 @@ public class FigisDao extends AbstractJPADao {
 			}
 
 		}
-
-		em.getTransaction().commit();
+		t.commit();
 	}
 
 	/**
@@ -355,7 +355,12 @@ public class FigisDao extends AbstractJPADao {
 
 	public void syncRefWaterArea(String externalId, RefWaterArea refWaterArea) {
 
-		em.getTransaction().begin();
+		if (refWaterArea.getExternalId() == null) {
+			throw new VmeException("The external id of refWaterArea is null, not correct. ");
+		}
+
+		EntityTransaction t = em.getTransaction();
+		t.begin();
 
 		String queryString2 = " select r from RefWaterArea r where r.externalId = :externalId ";
 		Query query = em.createQuery(queryString2);
@@ -370,8 +375,8 @@ public class FigisDao extends AbstractJPADao {
 			throw new VmeException(externalId + " is not unique, data is not consisten!");
 		}
 		if (found != null) {
-			refWaterArea.setId(found.getId());
-			em.merge(refWaterArea);
+			found.setName(refWaterArea.getName());
+			em.merge(found);
 		} else {
 			String queryString1 = " select max(id) from RefWaterArea  where id >= " + START_WATER_AREA_REF
 					+ " and id <= " + END_WATER_AREA_REF;
@@ -385,7 +390,6 @@ public class FigisDao extends AbstractJPADao {
 			}
 			em.persist(refWaterArea);
 		}
-		em.getTransaction().commit();
-
+		t.commit();
 	}
 }

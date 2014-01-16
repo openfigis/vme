@@ -25,7 +25,8 @@ import org.vme.fimes.jaxb.JaxbMarshall;
  * 
  * Stage B has only YearObject objects.
  * 
- * Algorithm steps: (1) Collect all YearObject objects. Generate the Figis objects per year.
+ * Algorithm steps: (1) Collect all YearObject objects. Generate the Figis
+ * objects per year.
  * 
  * 
  * 
@@ -36,14 +37,14 @@ public class ObjectMapping {
 
 	private final FigisDocBuilder figisDocBuilder = new FigisDocBuilder();
 	private final JaxbMarshall marshall = new JaxbMarshall();
-	private final PeriodGrouping groupie2 = new PeriodGrouping();
+	private final PeriodGrouping grouping = new PeriodGrouping();
 	private final SliceDuplicateFilter filter = new SliceDuplicateFilter();
 	private final PrimaryRule primaryRule = new PrimaryRule();
 	private final PrimaryRuleValidator primaryRuleValidator = new PrimaryRuleValidator();
 
 	public VmeObservationDomain mapVme2Figis2(Vme vme) {
 
-		List<DisseminationYearSlice> slices = groupie2.collect(vme);
+		List<DisseminationYearSlice> slices = grouping.collect(vme);
 
 		// filter out the duplicates.
 		filter.filter(slices);
@@ -85,94 +86,8 @@ public class ObjectMapping {
 		vod.setObservationDomainList(odList);
 		primaryRule.apply(vod);
 		primaryRuleValidator.validate(vod);
+
 		return vod;
 	}
-	/**
-	 * @deprecated
-	 * @param vme
-	 * @return
-	 */
-	// public VmeObservationDomain mapVme2Figis(Vme vme) {
-	// // precondition
-	// if (vme.getRfmo() == null) {
-	// throw new VmeException("Detected Vme without Rfmo");
-	// }
-	//
-	// // logic
-	// Map<Integer, List<Year<?>>> map = groupie.collect(vme);// not processed here InformationSource, To be done
-	// Object[] years = map.keySet().toArray();
-	// for (Object object : years) {
-	// System.out.println("---------------" + object + " vme = " + vme.getId() + vme.getInventoryIdentifier());
-	// }
-	//
-	// List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
-	//
-	// // every year results in one observation in English
-	// for (Object year : years) {
-	// ObservationDomain od = new DefaultObservationDomain().defineDefaultObservation();
-	// List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
-	// od.setObservationsPerLanguage(observationsPerLanguage);
-	// od.setReportingYear(year.toString());
-	// odList.add(od);
-	// ObservationXml xml = new DefaultObservationXml().define();
-	// observationsPerLanguage.add(xml);
-	//
-	// FIGISDoc figisDoc = new FIGISDoc();
-	// figisDocBuilder.vme(vme, year, figisDoc);
-	// figisDocBuilder.year(year, figisDoc);
-	// figisDocBuilder.rfmo(vme.getRfmo(), figisDoc);
-	// figisDocBuilder.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
-	//
-	// // now we get all the year related objects for that vme. Do not get confused here! Here we are processing 1
-	// // year and for that year we need to get all the related yearObjects of 1 VME. The observation gets filled
-	// // up with the information for the processed year.
-	// List<Year<?>> l = map.get(year);
-	// for (Year<?> yearObject : l) {
-	//
-	// // see the discussion below this file, it could be that missing parts in the observation need to be
-	// // filled up with information from the previous years.
-	//
-	// if (yearObject instanceof SpecificMeasure) {
-	// figisDocBuilder.specificMeasures((SpecificMeasure) yearObject, figisDoc);
-	// }
-	// /*
-	// * if (yearObject instanceof VmeHistory) { figisDocBuilder.vmeHistory((VmeHistory) yearObject,
-	// * figisDoc); } if (yearObject instanceof RfmoHistory) { figisDocBuilder.rfmoHistory((RfmoHistory)
-	// * yearObject, figisDoc); }
-	// */
-	// if (yearObject instanceof Profile) {
-	// figisDocBuilder.profile((Profile) yearObject, figisDoc);
-	// }
-	// if (yearObject instanceof GeneralMeasure) {
-	// figisDocBuilder.generalMeasures((GeneralMeasure) yearObject, figisDoc);
-	// }
-	// }
-	// xml.setXml(marshall.marshalToString(figisDoc));
-	// }
-	// VmeObservationDomain vod = new VmeObservationDomain();
-	// vod.setObservationDomainList(odList);
-	// return vod;
-	// }
-	/*
-	 * 
-	 * Subject: FIGISDoc from the VME domain model
-	 * 
-	 * Hi Aureliano and Fabio,
-	 * 
-	 * Question. If a VME has some information for a given year, should the FIGIS VME observation XML then ‘copy’ the
-	 * missing information (if available) from the previous years?
-	 * 
-	 * What we do now is that only these elements will be added which are present in the VME domain for that year
-	 * (Option A).
-	 * 
-	 * Example: A VME has only GeneralMeasures for 2010 and SpecificMeasures for 2011. Would the FIGIS XML 2010
-	 * observation contain then only GeneralMeasures and the FIGIS XML 2011 observation only SpecificMeasures (Option
-	 * A)? Or would the FIGIS XML 2011 observation have both GeneralMeasures(2010) and SpecificMeasures(2011) (Option
-	 * B)?
-	 * 
-	 * Option A would only work if in the Tony DB and the VME domain DB the measures are repeated for every year, even
-	 * if they are the same.
-	 * 
-	 * Cheers, Erik
-	 */
+
 }

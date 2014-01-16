@@ -38,6 +38,8 @@ public class SyncBatch2Test {
 	@Test
 	public void testSyncFigisWithVmePrimaryRule() {
 		Vme vme = VmeMock.create();
+		assertEquals(ValidityPeriodMock.YEARS, vme.getGeoRefList().size());
+
 		Rfmo rfmo = new Rfmo();
 		rfmo.setId("RFMO");
 		vmeDao.persist(rfmo);

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.junit.Test;
 
@@ -15,51 +16,61 @@ public class RelationVmeGeoRefTest {
 	RelationVmeGeoRef correction = new RelationVmeGeoRef();
 
 	@Test
-	public void testCorrectVme() {
+	public void testCorrectVmeWithDifferentGeoRef() {
+		String geographicFeatureID1 = "1";
+		String geographicFeatureID2 = "2";
+		List<ObjectCollection> objectCollectionList = create(geographicFeatureID1, geographicFeatureID2);
+		correction.correct(objectCollectionList);
+		// 1 Vme to be found
+		assertEquals(1, objectCollectionList.get(0).getObjectList().size());
+		Vme vme = (Vme) objectCollectionList.get(0).getObjectList().get(0);
+		// that Vme has 2 GeoRef
+		assertEquals(2, vme.getGeoRefList().size());
+	}
 
-		String inventoryIdentifier = "567893423q";
-		String geographicFeatureID = "hfsdkfhsefh";
+	@Test
+	public void testCorrectVmeWithSameGeoRef() {
+		String geographicFeatureID1 = "1";
+		String geographicFeatureID2 = "1";
+		List<ObjectCollection> objectCollectionList = create(geographicFeatureID1, geographicFeatureID2);
+		correction.correct(objectCollectionList);
+		// 1 Vme to be found
+		assertEquals(1, objectCollectionList.get(0).getObjectList().size());
+		Vme vme = (Vme) objectCollectionList.get(0).getObjectList().get(0);
+		// that Vme has 1 GeoRef
+		assertEquals(1, vme.getGeoRefList().size());
+	}
 
-		Vme v1 = new Vme();
-		v1.setInventoryIdentifier(inventoryIdentifier);
-
-		Vme v2 = new Vme();
-		v2.setInventoryIdentifier(inventoryIdentifier);
-		GeoRef g1 = new GeoRef();
-		g1.setGeographicFeatureID(geographicFeatureID);
-		GeoRef g2 = new GeoRef();
-		g2.setGeographicFeatureID(geographicFeatureID);
-
-		List<GeoRef> list1 = new ArrayList<GeoRef>();
-		list1.add(g1);
-		v1.setGeoRefList(list1);
-
-		List<GeoRef> list2 = new ArrayList<GeoRef>();
-		list2.add(g2);
-		v2.setGeoRefList(list2);
-
+	private List<ObjectCollection> create(String geographicFeatureID1, String geographicFeatureID2) {
+		String inventoryIdentifier = "10";
+		String[] ids = { geographicFeatureID1, geographicFeatureID2 };
 		List<Object> objectList = new ArrayList<Object>();
-		objectList.add(v1);
-		objectList.add(v2);
+
+		for (String geog : ids) {
+			Vme v = new Vme();
+			v.setInventoryIdentifier(inventoryIdentifier);
+			v.setValidityPeriod(ValidityPeriodMock.create());
+			GeoRef g1 = new GeoRef();
+			g1.setGeographicFeatureID(geog);
+			g1.setYear(2000);
+
+			List<GeoRef> list1 = new ArrayList<GeoRef>();
+			list1.add(g1);
+			v.setGeoRefList(list1);
+			objectList.add(v);
+
+		}
 
 		ObjectCollection oc = new ObjectCollection();
 		oc.setClazz(Vme.class);
 
-		// 2 vme are added to the list, each one with the same GeoRef
+		// 1 vme are added to the list, with 2 GeoRef
 		oc.setObjectList(objectList);
 
 		// objectCollectionList has now only vme's
 		List<ObjectCollection> objectCollectionList = new ArrayList<ObjectCollection>();
 		objectCollectionList.add(oc);
-
-		// 2 Vme are in the list, which should be 1 with 1 GeoRef
-		assertEquals(2, objectList.size());
-		correction.correct(objectCollectionList);
-
-		// 1 Vme to be found
-		assertEquals(1, objectList.size());
-		Vme vme = (Vme) objectList.get(0);
-		// that Vme has 1 GeoRef
-		assertEquals(1, vme.getGeoRefList().size());
+		return objectCollectionList;
 	}
+
 }
