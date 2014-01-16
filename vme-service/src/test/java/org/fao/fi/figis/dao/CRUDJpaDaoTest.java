@@ -40,15 +40,16 @@ import org.vme.service.dao.sources.vme.VmeDao;
 
 /**
  * Place your class / interface description here.
- * 
+ *
  * History:
- * 
- * ------------- --------------- ----------------------- Date Author Comment
- * ------------- --------------- ----------------------- 20/dic/2013 Fabio
- * Creation.
- * 
+ *
+ * ------------- --------------- -----------------------
+ * Date			 Author			 Comment
+ * ------------- --------------- -----------------------
+ * 16 Jan 2014   Fiorellato     Creation.
+ *
  * @version 1.0
- * @since 20/dic/2013
+ * @since 16 Jan 2014
  */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ FigisDataBaseProducer.class, VmeDataBaseProducer.class, JpaDaoFactory.class, EmbeddedMsAccessConnectionProvider.class })

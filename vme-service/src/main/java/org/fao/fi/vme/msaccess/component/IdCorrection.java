@@ -1,5 +1,6 @@
 package org.fao.fi.vme.msaccess.component;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.fao.fi.vme.domain.model.ObjectId;
@@ -17,13 +18,14 @@ import org.fao.fi.vme.msaccess.model.ObjectCollection;
  */
 public class IdCorrection {
 
+	@SuppressWarnings("unchecked")
 	public void correct(List<ObjectCollection> objectCollectionList) {
 		for (ObjectCollection objectCollection : objectCollectionList) {
 			List<Object> objectList = objectCollection.getObjectList();
 			for (Object object : objectList) {
 				if (object instanceof ObjectId) {
 					// System.out.println(object.getClass().getSimpleName());
-					((ObjectId) object).setId(null);
+					((ObjectId<Serializable>) object).setId(null);
 				}
 			}
 		}
