@@ -1,0 +1,1 @@
+mvn test -Dtest=TemporaryBatchIntegrationTest -P vme-integration
