@@ -696,4 +696,121 @@ public class VmeDao extends AbstractJPADao {
 		
 		return this.doPersistAndFlush(em, specificMeasure);
 	}
+	
+	//Reference reports types creation / update
+	public FisheryAreasHistory update(FisheryAreasHistory fisheryAreasHistory) throws Throwable {
+		if(fisheryAreasHistory == null)
+			throw new IllegalArgumentException("Updated FisheryAreasHistory cannot be NULL");
+				
+		if(fisheryAreasHistory.getId() == null)
+			throw new IllegalArgumentException("Updated FisheryAreasHistory cannot have a NULL id");
+		
+		if(fisheryAreasHistory.getRfmo() == null)
+			throw new IllegalArgumentException("Updated FisheryAreasHistory cannot have a NULL Rfmo reference");
+
+		if(fisheryAreasHistory.getRfmo().getId() == null)
+			throw new IllegalArgumentException("Updated FisheryAreasHistory cannot have a Rfmo reference with a NULL id");
+		
+		return this.doMerge(em, fisheryAreasHistory);
+	}
+	
+	public FisheryAreasHistory create(FisheryAreasHistory fisheryAreasHistory) throws Throwable {
+		if(fisheryAreasHistory == null)
+			throw new IllegalArgumentException("FisheryAreasHistory to create cannot be NULL");
+				
+		if(fisheryAreasHistory.getRfmo() == null)
+			throw new IllegalArgumentException("FisheryAreasHistory to create cannot have a NULL Rfmo reference");
+
+		if(fisheryAreasHistory.getRfmo().getId() == null)
+			throw new IllegalArgumentException("SpecificMeasure to create cannot have a Rfmo reference with a NULL id");
+		
+		return this.doPersistAndFlush(em, fisheryAreasHistory);
+	}
+	
+	public VMEsHistory update(VMEsHistory VMEsHistory) throws Throwable {
+		if(VMEsHistory == null)
+			throw new IllegalArgumentException("Updated VMEsHistory cannot be NULL");
+				
+		if(VMEsHistory.getId() == null)
+			throw new IllegalArgumentException("Updated VMEsHistory cannot have a NULL id");
+		
+		if(VMEsHistory.getRfmo() == null)
+			throw new IllegalArgumentException("Updated VMEsHistory cannot have a NULL Rfmo reference");
+
+		if(VMEsHistory.getRfmo().getId() == null)
+			throw new IllegalArgumentException("Updated VMEsHistory cannot have a Rfmo reference with a NULL id");
+		
+		return this.doMerge(em, VMEsHistory);
+	}
+	
+	public VMEsHistory create(VMEsHistory VMEsHistory) throws Throwable {
+		if(VMEsHistory == null)
+			throw new IllegalArgumentException("VMEsHistory to create cannot be NULL");
+				
+		if(VMEsHistory.getRfmo() == null)
+			throw new IllegalArgumentException("VMEsHistory to create cannot have a NULL Rfmo reference");
+
+		if(VMEsHistory.getRfmo().getId() == null)
+			throw new IllegalArgumentException("VMEsHistory to create cannot have a Rfmo reference with a NULL id");
+		
+		return this.doPersistAndFlush(em, VMEsHistory);
+	}
+	
+	public InformationSource update(InformationSource informationSource) throws Throwable {
+		if(informationSource == null)
+			throw new IllegalArgumentException("Updated InformationSource cannot be NULL");
+				
+		if(informationSource.getId() == null)
+			throw new IllegalArgumentException("Updated InformationSource cannot have a NULL id");
+		
+		if(informationSource.getRfmo() == null)
+			throw new IllegalArgumentException("Updated InformationSource cannot have a NULL Rfmo reference");
+
+		if(informationSource.getRfmo().getId() == null)
+			throw new IllegalArgumentException("Updated InformationSource cannot have a Rfmo reference with a NULL id");
+		
+		return this.doMerge(em, informationSource);
+	}
+	
+	public InformationSource create(InformationSource informationSource) throws Throwable {
+		if(informationSource == null)
+			throw new IllegalArgumentException("InformationSource to create cannot be NULL");
+				
+		if(informationSource.getRfmo() == null)
+			throw new IllegalArgumentException("InformationSource to create cannot have a NULL Rfmo reference");
+
+		if(informationSource.getRfmo().getId() == null)
+			throw new IllegalArgumentException("InformationSource to create cannot have a Rfmo reference with a NULL id");
+		
+		return this.doPersistAndFlush(em, informationSource);
+	}
+	
+	public GeneralMeasure update(GeneralMeasure generalMeasure) throws Throwable {
+		if(generalMeasure == null)
+			throw new IllegalArgumentException("Updated GeneralMeasure cannot be NULL");
+				
+		if(generalMeasure.getId() == null)
+			throw new IllegalArgumentException("Updated GeneralMeasure cannot have a NULL id");
+		
+		if(generalMeasure.getRfmo() == null)
+			throw new IllegalArgumentException("Updated GeneralMeasure cannot have a NULL Rfmo reference");
+
+		if(generalMeasure.getRfmo().getId() == null)
+			throw new IllegalArgumentException("Updated GeneralMeasure cannot have a Rfmo reference with a NULL id");
+		
+		return this.doMerge(em, generalMeasure);
+	}
+	
+	public GeneralMeasure create(GeneralMeasure generalMeasure) throws Throwable {
+		if(generalMeasure == null)
+			throw new IllegalArgumentException("GeneralMeasure to create cannot be NULL");
+				
+		if(generalMeasure.getRfmo() == null)
+			throw new IllegalArgumentException("GeneralMeasure to create cannot have a NULL Rfmo reference");
+
+		if(generalMeasure.getRfmo().getId() == null)
+			throw new IllegalArgumentException("GeneralMeasure to create cannot have a Rfmo reference with a NULL id");
+		
+		return this.doPersistAndFlush(em, generalMeasure);
+	}
 }
