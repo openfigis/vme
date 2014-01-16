@@ -8,9 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -38,7 +35,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.Report;
  */
 @Entity
 @RSGReport(name = "Vulnerable Marine Ecosystem Data")
-public class Vme implements ObjectId, Period<Vme>, Report {
+public class Vme implements ObjectId<Long>, Period<Vme>, Report {
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
@@ -60,9 +57,7 @@ public class Vme implements ObjectId, Period<Vme>, Report {
 	@RSGName("VME Specific Measures")
 	@RSGWeight(3)
 	@RSGSection
-	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "VME_SPECIFIC_MEASURE", //
-	joinColumns = @JoinColumn(name = "VME_ID"), inverseJoinColumns = @JoinColumn(name = "SM_ID"))
+	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
 	private List<SpecificMeasure> specificMeasureList;
 
 	@RSGName("VME Profiles")

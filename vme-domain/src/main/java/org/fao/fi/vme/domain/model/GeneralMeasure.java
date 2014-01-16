@@ -35,7 +35,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
  */
 @RSGReferenceReport(name = "General Measure")
 @Entity(name = "GENERAL_MEASURE")
-public class GeneralMeasure implements ObjectId, Year<GeneralMeasure>, PeriodYear, ReferenceReport {
+public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, PeriodYear, ReferenceReport {
 
 	/** 
 	 * 

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.junit.Test;
 

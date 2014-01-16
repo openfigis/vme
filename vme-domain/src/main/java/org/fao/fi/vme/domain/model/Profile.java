@@ -27,7 +27,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  */
 @RSGReferenced
 @Entity
-public class Profile implements ObjectId, Year<Profile> {
+public class Profile implements ObjectId<Long>, Year<Profile> {
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)

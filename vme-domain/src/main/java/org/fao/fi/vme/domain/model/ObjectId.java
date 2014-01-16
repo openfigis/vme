@@ -1,9 +1,9 @@
 package org.fao.fi.vme.domain.model;
 
-public interface ObjectId {
+import java.io.Serializable;
 
-	public Long getId();
-
-	public void setId(Long id);
-
+public interface ObjectId<ID extends Serializable> {
+	ID getId();
+	
+	void setId(ID id);
 }

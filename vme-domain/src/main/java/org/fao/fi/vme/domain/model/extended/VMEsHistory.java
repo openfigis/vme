@@ -30,19 +30,20 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
 
 /**
  * Place your class / interface description here.
- * 
+ *
  * History:
- * 
- * ------------- --------------- ----------------------- Date Author Comment
- * ------------- --------------- ----------------------- 13 Nov 2013 Fiorellato
- * Creation.
- * 
+ *
+ * ------------- --------------- -----------------------
+ * Date			 Author			 Comment
+ * ------------- --------------- -----------------------
+ * 15 Jan 2014   Fiorellato     Creation.
+ *
  * @version 1.0
  * @since 13 Nov 2013
  */
 @RSGReferenceReport(name = "Regional History of VMEs")
 @Entity(name = "VMES_HISTORY")
-public class VMEsHistory implements ObjectId, History, Year<History>, ReferenceReport {
+public class VMEsHistory implements ObjectId<Long>, History, Year<History>, ReferenceReport {
 
 	/** 
 	 * 

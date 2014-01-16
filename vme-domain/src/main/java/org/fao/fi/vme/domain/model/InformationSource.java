@@ -41,7 +41,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
  */
 @RSGReferenceReport(name = "VME Information Source")
 @Entity(name = "INFORMATION_SOURCE")
-public class InformationSource implements ObjectId, ReferenceReport {
+public class InformationSource implements ObjectId<Long>, ReferenceReport {
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)

@@ -24,7 +24,7 @@ import javax.persistence.Lob;
  * 
  */
 @Entity(name = "MULTILINGUAL_STRING")
-public class MultiLingualString implements ObjectId {
+public class MultiLingualString implements ObjectId<Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

@@ -30,19 +30,20 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
 
 /**
  * Place your class / interface description here.
- * 
+ *
  * History:
- * 
- * ------------- --------------- ----------------------- Date Author Comment
- * ------------- --------------- ----------------------- 13 Dec 2013 Fiorellato
- * Creation.
- * 
+ *
+ * ------------- --------------- -----------------------
+ * Date			 Author			 Comment
+ * ------------- --------------- -----------------------
+ * 15 Jan 2014   Fiorellato     Creation.
+ *
  * @version 1.0
- * @since 13 Dec 2013
+ * @since 13 Nov 2013
  */
 @RSGReferenceReport(name = "Fishing Footprint")
 @Entity(name = "FISHERY_AREAS_HISTORY")
-public class FisheryAreasHistory implements ObjectId, History, Year<History>, ReferenceReport {
+public class FisheryAreasHistory implements ObjectId<Long>, History, Year<History>, ReferenceReport {
 	/** 
 	 * 
 	 */

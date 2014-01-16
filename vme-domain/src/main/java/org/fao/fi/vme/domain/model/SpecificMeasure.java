@@ -1,13 +1,10 @@
 package org.fao.fi.vme.domain.model;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -29,7 +26,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  */
 @RSGReferenced
 @Entity(name = "SPECIFIC_MEASURE")
-public class SpecificMeasure implements ObjectId, PeriodYear, Year<SpecificMeasure> {
+public class SpecificMeasure implements ObjectId<Long>, PeriodYear, Year<SpecificMeasure> {
 
 	/**
 	 *  
@@ -47,8 +44,8 @@ public class SpecificMeasure implements ObjectId, PeriodYear, Year<SpecificMeasu
 	/*
 	 * This is the inverse side of the ManyToMany relationship
 	 */
-	@ManyToMany(mappedBy = "specificMeasureList")
-	private List<Vme> vmeList;
+	@ManyToOne
+	private Vme vme;
 
 	@RSGName("Source Of Information")
 	@RSGWeight(100)
@@ -88,12 +85,12 @@ public class SpecificMeasure implements ObjectId, PeriodYear, Year<SpecificMeasu
 		this.id = id;
 	}
 
-	public List<Vme> getVmeList() {
-		return vmeList;
+	public Vme getVme() {
+		return vme;
 	}
 
-	public void setVmeList(List<Vme> vmeList) {
-		this.vmeList = vmeList;
+	public void setVme(Vme vme) {
+		this.vme = vme;
 	}
 
 	public InformationSource getInformationSource() {
@@ -142,7 +139,7 @@ public class SpecificMeasure implements ObjectId, PeriodYear, Year<SpecificMeasu
 		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 		result = prime * result + ((this.informationSource == null) ? 0 : this.informationSource.hashCode());
 		result = prime * result + ((this.validityPeriod == null) ? 0 : this.validityPeriod.hashCode());
-		result = prime * result + ((this.vmeList == null) ? 0 : this.vmeList.hashCode());
+		result = prime * result + ((this.vme == null) ? 0 : this.vme.hashCode());
 		result = prime * result + ((this.vmeSpecificMeasure == null) ? 0 : this.vmeSpecificMeasure.hashCode());
 		result = prime * result + ((this.year == null) ? 0 : this.year.hashCode());
 		return result;
@@ -177,10 +174,10 @@ public class SpecificMeasure implements ObjectId, PeriodYear, Year<SpecificMeasu
 				return false;
 		} else if (!this.validityPeriod.equals(other.validityPeriod))
 			return false;
-		if (this.vmeList == null) {
-			if (other.vmeList != null)
+		if (this.vme == null) {
+			if (other.vme != null)
 				return false;
-		} else if (!this.vmeList.equals(other.vmeList))
+		} else if (!this.vme.equals(other.vme))
 			return false;
 		if (this.vmeSpecificMeasure == null) {
 			if (other.vmeSpecificMeasure != null)
