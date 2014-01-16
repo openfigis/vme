@@ -36,14 +36,14 @@ public class ObjectMapping {
 
 	private final FigisDocBuilder figisDocBuilder = new FigisDocBuilder();
 	private final JaxbMarshall marshall = new JaxbMarshall();
-	private final PeriodGrouping groupie2 = new PeriodGrouping();
+	private final PeriodGrouping grouping = new PeriodGrouping();
 	private final SliceDuplicateFilter filter = new SliceDuplicateFilter();
 	private final PrimaryRule primaryRule = new PrimaryRule();
 	private final PrimaryRuleValidator primaryRuleValidator = new PrimaryRuleValidator();
 
 	public VmeObservationDomain mapVme2Figis2(Vme vme) {
 
-		List<DisseminationYearSlice> slices = groupie2.collect(vme);
+		List<DisseminationYearSlice> slices = grouping.collect(vme);
 
 		// filter out the duplicates.
 		filter.filter(slices);

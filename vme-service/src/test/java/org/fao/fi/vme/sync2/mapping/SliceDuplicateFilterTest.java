@@ -5,28 +5,71 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.test.GeneralMeasureMock;
 import org.junit.Test;
 
 public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 
+	private static int START_YEAR = 1000;
+
+	@Test
+	public void testWith1YearsWith1YearEmpty() {
+		List<DisseminationYearSlice> slices = createSlices(5);
+
+		// the years in GeoRef are now just content
+		GeoRef g1 = new GeoRef();
+		g1.setYear(2000);
+		GeoRef g2 = new GeoRef();
+		g2.setYear(2000);
+		GeoRef g3 = new GeoRef();
+		g3.setYear(2001);
+		GeoRef g4 = new GeoRef();
+		g4.setYear(2001);
+		GeoRef g5 = new GeoRef();
+		g5.setYear(2001);
+		slices.get(0).setGeoRef(g1);
+		slices.get(1).setGeoRef(g2);
+		slices.get(2).setGeoRef(g3);
+		slices.get(3).setGeoRef(g4);
+		slices.get(4).setGeoRef(g5);
+
+		assertEquals(5, slices.size());
+		filter(slices);
+		assertEquals(2, slices.size());
+		assertEquals(START_YEAR, slices.get(0).getYear());
+		assertEquals(START_YEAR + 2, slices.get(1).getYear());
+
+	}
+
+	private List<DisseminationYearSlice> createSlices(int numberOfYears) {
+		List<DisseminationYearSlice> slices = new ArrayList<DisseminationYearSlice>();
+		int endYear = START_YEAR + numberOfYears;
+		for (int j = START_YEAR; j < endYear; j++) {
+			DisseminationYearSlice s = new DisseminationYearSlice();
+			s.setYear(j);
+			slices.add(s);
+		}
+		return slices;
+	}
+
 	@Test
 	public void testFilter() {
 
-		List<DisseminationYearSlice> slices = createSlices();
+		List<DisseminationYearSlice> slices = create2Slices();
 
 		this.filter(slices);
 		assertEquals(1, slices.size());
 
-		slices = createSlices();
+		slices = create2Slices();
 
 		slices.get(0).setGeneralMeasure(GeneralMeasureMock.create());
 		slices.get(1).setGeneralMeasure(GeneralMeasureMock.create());
 		this.filter(slices);
 		assertEquals(1, slices.size());
 
-		slices = createSlices();
+		slices = create2Slices();
 		slices.get(0).setGeneralMeasure(GeneralMeasureMock.create());
 		slices.get(0).getGeneralMeasure().setFishingAreas("ghjg");
 		this.filter(slices);
@@ -64,7 +107,7 @@ public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 	}
 
 	List<DisseminationYearSlice> createSlicesWithInformationSource() {
-		List<DisseminationYearSlice> slices = createSlices();
+		List<DisseminationYearSlice> slices = create2Slices();
 		InformationSource is1 = new InformationSource();
 		InformationSource is2 = new InformationSource();
 		List<InformationSource> isList1 = new ArrayList<InformationSource>();
@@ -83,7 +126,7 @@ public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 		return slices;
 	}
 
-	List<DisseminationYearSlice> createSlices() {
+	List<DisseminationYearSlice> create2Slices() {
 
 		DisseminationYearSlice s1 = new DisseminationYearSlice();
 		DisseminationYearSlice s2 = new DisseminationYearSlice();

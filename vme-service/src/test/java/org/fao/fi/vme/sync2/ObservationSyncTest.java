@@ -39,6 +39,8 @@ import org.vme.service.dao.sources.vme.VmeDao;
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
 public class ObservationSyncTest extends FigisDaoTestLogic {
 
+	int NUMBER_OF_YEARS = 1;
+
 	@Inject
 	ObservationSync observationSync;
 
@@ -56,7 +58,7 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 	@Before
 	public void generateVme() {
 
-		Vme vme = VmeMock.generateVme(1);
+		Vme vme = VmeMock.generateVme(NUMBER_OF_YEARS);
 		vmeDao.saveVme(vme);
 
 		RefVme refVme = RefVmeMock.create();
@@ -73,18 +75,18 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 		assertNrOfObjects(0);
 		observationSync.sync();
 
-		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
+		assertNrOfObjects(NUMBER_OF_YEARS);
 
 		// // test repeatability
 		observationSync.sync();
 		observationSync.sync();
-		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
+		assertNrOfObjects(NUMBER_OF_YEARS);
 	}
 
 	@Test
 	public void testSyncWithUpdate() {
 		observationSync.sync();
-		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
+		assertNrOfObjects(NUMBER_OF_YEARS);
 
 		assertEquals(1, vmeDao.count(SpecificMeasure.class).intValue());
 
@@ -104,18 +106,18 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 			vmeDao.merge(vme);
 		}
 		observationSync.sync();
-		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
+		assertNrOfObjects(NUMBER_OF_YEARS);
 
 		// test repeatability
 		observationSync.sync();
-		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
+		assertNrOfObjects(NUMBER_OF_YEARS);
 	}
 
 	@Test
 	public void testSyncCD_COLLECTION() {
 		assertNrOfObjects(0);
 		observationSync.sync();
-		assertNrOfObjects(ValidityPeriodMock.getNumberOfYearInclusive());
+		assertNrOfObjects(NUMBER_OF_YEARS);
 		List<?> oss = figisDao.loadObjects(Observation.class);
 		for (Object object : oss) {
 			Observation o = (Observation) object;

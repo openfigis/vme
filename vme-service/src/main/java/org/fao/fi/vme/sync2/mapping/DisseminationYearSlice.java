@@ -17,6 +17,9 @@ import org.fao.fi.vme.domain.model.Vme;
  * This information can come from Period objects or from Year objects.
  * 
  * 
+ * 
+ * 
+ * 
  * @author Erik van Ingen
  * 
  */
@@ -133,81 +136,65 @@ public class DisseminationYearSlice {
 		result = prime * result + ((specificMeasures == null) ? 0 : specificMeasures.hashCode());
 		result = prime * result + ((vme == null) ? 0 : vme.hashCode());
 		result = prime * result + ((vmesHistory == null) ? 0 : vmesHistory.hashCode());
-		result = prime * result + year;
 		return result;
 	}
 
+	/**
+	 * Note that this equals does not take into account the year! This is done
+	 * in order to get the SliceDuplicateFilter to work correctly.
+	 * 
+	 * Problem with History and Vme, they do not implement the hash or equals
+	 * correctly.
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		DisseminationYearSlice other = (DisseminationYearSlice) obj;
 		if (fisheryAreasHistory == null) {
-			if (other.fisheryAreasHistory != null) {
+			if (other.fisheryAreasHistory != null)
 				return false;
-			}
-		} else if (!fisheryAreasHistory.equals(other.fisheryAreasHistory)) {
+		} else if (!fisheryAreasHistory.equals(other.fisheryAreasHistory))
 			return false;
-		}
 		if (generalMeasure == null) {
-			if (other.generalMeasure != null) {
+			if (other.generalMeasure != null)
 				return false;
-			}
-		} else if (!generalMeasure.equals(other.generalMeasure)) {
+		} else if (!generalMeasure.equals(other.generalMeasure))
 			return false;
-		}
 		if (geoRef == null) {
-			if (other.geoRef != null) {
+			if (other.geoRef != null)
 				return false;
-			}
-		} else if (!geoRef.equals(other.geoRef)) {
+		} else if (!geoRef.equals(other.geoRef))
 			return false;
-		}
 		if (informationSourceList == null) {
-			if (other.informationSourceList != null) {
+			if (other.informationSourceList != null)
 				return false;
-			}
-		} else if (!informationSourceList.equals(other.informationSourceList)) {
+		} else if (!informationSourceList.equals(other.informationSourceList))
 			return false;
-		}
 		if (profile == null) {
-			if (other.profile != null) {
+			if (other.profile != null)
 				return false;
-			}
-		} else if (!profile.equals(other.profile)) {
+		} else if (!profile.equals(other.profile))
 			return false;
-		}
 		if (specificMeasures == null) {
-			if (other.specificMeasures != null) {
+			if (other.specificMeasures != null)
 				return false;
-			}
-		} else if (!specificMeasures.equals(other.specificMeasures)) {
+		} else if (!specificMeasures.equals(other.specificMeasures))
 			return false;
-		}
 		if (vme == null) {
-			if (other.vme != null) {
+			if (other.vme != null)
 				return false;
-			}
-		} else if (!vme.equals(other.vme)) {
+		} else if (!vme.equals(other.vme))
 			return false;
-		}
 		if (vmesHistory == null) {
-			if (other.vmesHistory != null) {
+			if (other.vmesHistory != null)
 				return false;
-			}
-		} else if (!vmesHistory.equals(other.vmesHistory)) {
+		} else if (!vmesHistory.equals(other.vmesHistory))
 			return false;
-		}
-		if (year != other.year) {
-			return false;
-		}
 		return true;
 	}
 

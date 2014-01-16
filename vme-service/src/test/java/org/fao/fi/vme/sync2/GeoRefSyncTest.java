@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.RefWaterArea;
-import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -32,17 +31,12 @@ public class GeoRefSyncTest {
 
 	@Test
 	public void testSync() {
-		String geographicFeatureID = "VME_X";
 		Vme vme = VmeMock.create();
-		GeoRef geoRef = vme.getGeoRefList().get(0);
-		geoRef.setVme(vme);
-		geoRef.setGeographicFeatureID(geographicFeatureID);
 		vmeDao.persist(vme);
-		vmeDao.persist(geoRef);
 		int x = figisDao.loadObjects(RefWaterArea.class).size();
 		geoRefSync.sync();
-		assertEquals(++x, figisDao.loadObjects(RefWaterArea.class).size());
+		assertEquals(x + vme.getGeoRefList().size(), figisDao.loadObjects(RefWaterArea.class).size());
 		geoRefSync.sync();
-		assertEquals(x, figisDao.loadObjects(RefWaterArea.class).size());
+		assertEquals(x + vme.getGeoRefList().size(), figisDao.loadObjects(RefWaterArea.class).size());
 	}
 }

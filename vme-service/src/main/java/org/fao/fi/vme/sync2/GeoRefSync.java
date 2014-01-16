@@ -14,7 +14,8 @@ import org.vme.service.dao.sources.vme.VmeDao;
 
 /**
  * 
- * Will the GeoRefs be taken from the geospatial tables? Will the GeoRefs be filled by SyncBatch1?
+ * Will the GeoRefs be taken from the geospatial tables? Will the GeoRefs be
+ * filled by SyncBatch1?
  * 
  * GeoRefSync pushes the water area refs from the vme DB to the figis DB.
  * 
@@ -36,8 +37,7 @@ public class GeoRefSync implements Sync {
 
 	@Override
 	public void sync() {
-		@SuppressWarnings("unchecked")
-		List<GeoRef> objects = (List<GeoRef>) vmeDao.loadObjects(GeoRef.class);
+		List<GeoRef> objects = vmeDao.loadObjectsGeneric(GeoRef.class);
 		for (GeoRef geoRef : objects) {
 			// do the new stuff
 			RefWaterArea object = generateNewRefWaterArea();

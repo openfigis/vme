@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.fao.fi.figis.domain.RefWaterArea;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.test.GeoRefMock;
+import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -44,11 +45,11 @@ public class WaterAreaRefSyncTest {
 		geoRefSync.sync();
 
 		// assume 1 object in source and destination
-		assertNrOfObjects(1);
+		assertNrOfObjects(ValidityPeriodMock.YEARS);
 
 		// test repeatability
 		geoRefSync.sync();
-		assertNrOfObjects(1);
+		assertNrOfObjects(ValidityPeriodMock.YEARS);
 
 		Long id = (long) FigisDao.START_WATER_AREA_REF;
 
