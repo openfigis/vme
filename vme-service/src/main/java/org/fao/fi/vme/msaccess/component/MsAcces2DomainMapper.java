@@ -38,10 +38,6 @@ public class MsAcces2DomainMapper {
 		ObjectCollection c = new ObjectCollection();
 		c.setClazz(map.get(table.getClazz()));
 
-		if (table.getClazz().equals(VME.class)) {
-			System.out.println(" vme?     ");
-		}
-
 		List<Object> objects = new ArrayList<Object>();
 		List<Object> records = table.getObjectList();
 		for (Object tableRecord : records) {

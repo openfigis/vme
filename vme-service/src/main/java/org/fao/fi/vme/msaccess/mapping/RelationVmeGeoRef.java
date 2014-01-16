@@ -41,23 +41,6 @@ public class RelationVmeGeoRef {
 		}
 	}
 
-	// private void report(ObjectCollection objectCollection) {
-	// List<Object> objects = objectCollection.getObjectList();
-	// Set<GeoRef> georefs = new HashSet<GeoRef>();
-	// int i = 0;
-	// for (Object object : objects) {
-	// Vme vme = (Vme) object;
-	// List<GeoRef> l = vme.getGeoRefList();
-	// for (GeoRef geoRef : l) {
-	// georefs.add(geoRef);
-	// i++;
-	// }
-	// }
-	// System.out.println(i + " was the total and the set size is " +
-	// georefs.size());
-	//
-	// }
-
 	private void setVmeOnGeoRef(ObjectCollection objectCollection) {
 		List<Object> object = objectCollection.getObjectList();
 		for (Object found : object) {
@@ -77,10 +60,10 @@ public class RelationVmeGeoRef {
 			List<GeoRef> l = vme.getGeoRefList();
 			for (GeoRef geoRef : l) {
 
-				if (set.contains(geoRef.getGeographicFeatureID() + geoRef.getYear())) {
+				if (set.contains(geoRef.getGeographicFeatureID())) {
 					throw new VmeException("Double found : " + geoRef.getGeographicFeatureID());
 				}
-				set.add(geoRef.getGeographicFeatureID() + geoRef.getYear());
+				set.add(geoRef.getGeographicFeatureID());
 				if (geoRef.getVme() == null) {
 					throw new VmeException("GeoRef without Vme found");
 				}
@@ -122,12 +105,42 @@ public class RelationVmeGeoRef {
 			objectCollection.getObjectList().remove(vme);
 		}
 
+		Map<String, GeoRef> geoRefmap = new HashMap<String, GeoRef>();
+		for (Object object : vmeList) {
+			List<GeoRef> doubleGeoRefs = new ArrayList<GeoRef>();
+			List<GeoRef> list = ((Vme) object).getGeoRefList();
+			for (GeoRef geoRef : list) {
+				if (geoRefmap.containsKey(geoRef.getGeographicFeatureID())) {
+					doubleGeoRefs.add(geoRef);
+				} else {
+					geoRefmap.put(geoRef.getGeographicFeatureID(), geoRef);
+				}
+			}
+			for (GeoRef geoRef : doubleGeoRefs) {
+				((Vme) object).getGeoRefList().remove(geoRef);
+			}
+		}
+
 	}
 
 	private void mergeVme(Vme vme, Vme vmeTarget) {
-		if (vme.getGeoRefList() != null && vme.getGeoRefList().size() == 1) {
+		if (vme.getGeoRefList().size() != 1 || vme.getGeoRefList().size() != 1) {
+			throw new VmeException("Vme has always 1 georef at this stage");
+		}
+
+		if (!vme.getGeoRefList().get(0).getGeographicFeatureID()
+				.equals(vmeTarget.getGeoRefList().get(0).getGeographicFeatureID())) {
 			vmeTarget.getGeoRefList().add(vme.getGeoRefList().get(0));
 		}
-	}
 
+		// take the earliest start
+		if (vme.getValidityPeriod().getBeginYear() < vmeTarget.getValidityPeriod().getBeginYear()) {
+			vmeTarget.getValidityPeriod().setBeginYear(vme.getValidityPeriod().getBeginYear());
+		}
+		// take the latest start
+		if (vme.getValidityPeriod().getEndYear() > vmeTarget.getValidityPeriod().getEndYear()) {
+			vmeTarget.getValidityPeriod().setEndYear(vme.getValidityPeriod().getEndYear());
+		}
+
+	}
 }

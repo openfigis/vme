@@ -68,18 +68,9 @@ public class PeriodGroupingTest {
 	 * In the year 2010, we show SpecialMeasures2 or we show SpecialMeasures1?
 	 * We do show now SpecialMeasures2 because the validityPeriod of the most
 	 * recent one covers also 2010
-	 * 
-	 * 
-	 * 
 	 */
 	@Test
 	public void testOverlappingValidityPeriods1() {
-
-		// SpecialMeasures1.year = 2009 SpecialMeasures1.validityPeriod =
-		// 2010-2012
-		// SpecialMeasures2.year = 2010 SpecialMeasures2.validityPeriod =
-		// 2011-2012
-
 		ValidityPeriod vp1 = ValidityPeriodMock.create(2010, 2012);
 		ValidityPeriod vp2 = ValidityPeriodMock.create(2011, 2012);
 

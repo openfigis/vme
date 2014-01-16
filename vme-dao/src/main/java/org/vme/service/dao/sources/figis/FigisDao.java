@@ -68,7 +68,6 @@ public class FigisDao extends AbstractJPADao {
 		return em;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<RefVme> loadRefVmes() {
 		return (List<RefVme>) this.generateTypedQuery(em, RefVme.class).getResultList();
 	}
@@ -130,7 +129,8 @@ public class FigisDao extends AbstractJPADao {
 			throw new VmeException("FigisDao Exception, detected a non registered RefVme.");
 		}
 
-		em.getTransaction().begin();
+		EntityTransaction t = em.getTransaction();
+		t.begin();
 
 		// logic
 		List<ObservationDomain> oList = vod.getObservationDomainList();
@@ -147,8 +147,7 @@ public class FigisDao extends AbstractJPADao {
 			}
 
 		}
-
-		em.getTransaction().commit();
+		t.commit();
 	}
 
 	/**

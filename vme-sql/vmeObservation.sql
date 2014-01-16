@@ -18,26 +18,15 @@ and cd_water_area <= 8000
 select count(*) from REF_WATER_AREA
 where cd_water_area >= 6000
 and cd_water_area <= 8000
-
+-- 0, correct, they were already loaded, only new ones will be ported. 
+-- total should be 105
 
 
 select count(*) from ref_vme
---98
+--98, is correct
 select count(*) from fs_vme_observation
 --186
-
-
-
-select x.xml from fs_vme_observation oo, fs_observation o, fs_observation_xml x
-where
-o.cd_observation = oo.cd_observation 
-and
-o.cd_observation = x.cd_observation 
-
-
-
-
-
+--should be 197
 
 
 select count(*) from fs_vme_observation oo, fs_observation o, fs_observation_xml x
@@ -45,10 +34,17 @@ where
 o.cd_observation = oo.cd_observation 
 and
 o.cd_observation = x.cd_observation 
--- 376
+-- 186
+-- should be 197
 
 
 select * from fs_vme_observation oo, fs_observation o
 where
 o.cd_observation = oo.cd_observation 
+
+select x.xml from fs_vme_observation oo, fs_observation o, fs_observation_xml x
+where
+o.cd_observation = oo.cd_observation 
+and
+o.cd_observation = x.cd_observation 
 

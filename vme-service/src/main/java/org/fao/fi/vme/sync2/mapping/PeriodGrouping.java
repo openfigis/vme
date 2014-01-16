@@ -20,9 +20,11 @@ import org.fao.fi.vme.domain.model.Vme;
 
 /**
  * 
- * PeriodGrouping is slicing all the information from the VME domain model in a slice per year.
+ * PeriodGrouping is slicing all the information from the VME domain model in a
+ * slice per year.
  * 
- * There are Period objects and Year Objects. It could be better to have only Period Objects.
+ * There are Period objects and Year Objects. It could be better to have only
+ * Period Objects.
  * 
  * 
  * 
@@ -52,6 +54,7 @@ public class PeriodGrouping {
 			slice.setYear(disseminationYear);
 			l.add(slice);
 		}
+
 		return l;
 	}
 
@@ -96,11 +99,12 @@ public class PeriodGrouping {
 	private void defineCurrentAndPastSources(int disseminationYear, DisseminationYearSlice slice,
 			List<InformationSource> informationSourceList) {
 		List<InformationSource> appropriateList = new ArrayList<InformationSource>();
-		
-		if(informationSourceList != null)
+
+		if (informationSourceList != null)
 			for (InformationSource informationSource : informationSourceList) {
-				if (informationSource.getPublicationYear() == null || informationSource.getPublicationYear() <= disseminationYear) {
-					
+				if (informationSource.getPublicationYear() == null
+						|| informationSource.getPublicationYear() <= disseminationYear) {
+
 					appropriateList.add(informationSource);
 				}
 			}
@@ -112,7 +116,8 @@ public class PeriodGrouping {
 		Collections.sort(hList, new YearComparator());
 		Year<?> history = null;
 		for (Year<?> foundHistory : hList) {
-			// take the first you can get. Otherwise the year of the object founds need to be equal or less.
+			// take the first you can get. Otherwise the year of the object
+			// founds need to be equal or less.
 			if (history == null || disseminationYear >= foundHistory.getYear()) {
 				history = foundHistory;
 			}
@@ -131,7 +136,8 @@ public class PeriodGrouping {
 			Collections.sort(smList, new PeriodYearComparator());
 			for (SpecificMeasure specificMeasures : smList) {
 				if (period(year, specificMeasures)) {
-					// this logic would pick the latest SpecificMeasures, which would be correct.
+					// this logic would pick the latest SpecificMeasures, which
+					// would be correct.
 
 					if (specificMeasures.getVmeSpecificMeasure() == null) {
 						throw new VmeException(

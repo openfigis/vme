@@ -94,10 +94,6 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 		List<Vme> vmeList = (List<Vme>) vmeDao.loadObjects(Vme.class);
 		for (Vme vme : vmeList) {
 			SpecificMeasure specificMeasures = new SpecificMeasure();
-
-			// List<Vme> vmeListForThisSM = new ArrayList<Vme>();
-			// vmeListForThisSM.add(vme);
-			// specificMeasures.setVmeList(vmeListForThisSM);
 			specificMeasures.setVmeSpecificMeasure(u.english("go sado masochistic"));
 			specificMeasures.setId(333333333l);
 			specificMeasures.setYear(VmeMock.YEAR + 1);
