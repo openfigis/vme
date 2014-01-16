@@ -4,7 +4,6 @@ import java.io.File;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,14 +15,13 @@ import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
-import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.MultiLingualString;
-import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
-import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
@@ -522,12 +520,17 @@ public class RsgServiceImplVme implements RsgService {
 		Response response = new Response();
 
 		Class<?> entity = this.getEntityByReportType(reportType);
-		
+
+		EntityManager em = this.vmeDao.getEm();
+		EntityTransaction tx = em.getTransaction();
+
 		try {
+			tx.begin();
+
 			Object toDelete = this.vmeDao.getEntityById(this.vmeDao.getEm(), entity, reportId);
 			
 			if(toDelete != null) {
-				this.vmeDao.remove(toDelete);
+				this.vmeDao.delete(toDelete);
 				
 				response.succeeded(entity.getName() + " report #" + reportId + " has been deleted");
 				
@@ -537,10 +540,14 @@ public class RsgServiceImplVme implements RsgService {
 			
 				response.notSucceeded(entity.getName() + " report #" + reportId + " cannot be deleted as it doesn't exist");
 			}
+			
+			tx.commit();
 		} catch (Throwable t) {
 			LOG.error("Unable to delete {} report #{}: {} [ {} ]", entity.getName(), reportId, t.getClass().getSimpleName(), t.getMessage());
 			
 			response.notSucceeded(entity.getName() + " report #" + reportId + " cannot be deleted: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
+			
+			tx.rollback();
 		}	
 		
 		return response.undeterminedIfNotSet();
@@ -557,11 +564,16 @@ public class RsgServiceImplVme implements RsgService {
 
 		Class<?> entity = this.getEntityByReferenceReportType(referenceReportType);
 		
+		EntityManager em = this.vmeDao.getEm();
+		EntityTransaction tx = em.getTransaction();
+
 		try {
+			tx.begin();
+			
 			Object toDelete = this.vmeDao.getEntityById(this.vmeDao.getEm(), entity, refReportId);
 			
 			if(toDelete != null) {
-				this.vmeDao.remove(toDelete);
+				this.vmeDao.delete(toDelete);
 				
 				response.succeeded(entity.getName() + " reference report #" + refReportId + " has been deleted");
 				
@@ -571,10 +583,14 @@ public class RsgServiceImplVme implements RsgService {
 				
 				response.notSucceeded(entity.getName() + " report #" + refReportId + " cannot be deleted as it doesn't exist");
 			}
+			
+			tx.commit();
 		} catch (Throwable t) {
 			LOG.error("Unable to delete {} report #{}: {} [ {} ]", entity.getName(), refReportId, t.getClass().getSimpleName(), t.getMessage());
 			
 			response.notSucceeded(entity.getName() + " report #" + refReportId + " cannot be deleted: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
+
+			tx.rollback();
 		}	
 		
 		return response.undeterminedIfNotSet();
@@ -620,14 +636,17 @@ public class RsgServiceImplVme implements RsgService {
 	 */
 	@Override
 	public Response update(CompiledReport report) {
-		String id = report.getId() == null ? "#NEW#" : "#" + report.getId();
+		boolean isNew = report.getId() == null;
+		
+		String id = isNew ? "#NEW#" : "#" + report.getId();
 		
 		LOG.info("Requesting update of {} report {}", report.getType(), id);
 		
 		Response response = new Response();
 
 		try {
-			Object updated = this.doUpdate(this._evaluator.extract(report));
+			Object toUpdate = this._evaluator.extract(report);
+			Object updated = isNew ? this.doCreate(toUpdate) : this.doUpdate(toUpdate);
 			
 			if(updated != null) {
 				response.succeeded(report.getType() + " report " + id + " has been updated");
@@ -647,189 +666,93 @@ public class RsgServiceImplVme implements RsgService {
 		return response.undeterminedIfNotSet();
 	}
 	
-	private Object doUpdate(Object holder) {
+	private Object doCreate(Object holder) throws Throwable {
 		if(holder == null)
 			throw new IllegalArgumentException("Object to update cannot be NULL");
 		
 		if(holder instanceof Vme) {
-			return this.doUpdateVme((Vme)holder);
+			return this.vmeDao.create((Vme)holder);
 		} else
 			throw new IllegalArgumentException(holder.getClass() + " is not a valid model for a report");
 	}
 	
-	private Vme doUpdateVme(Vme vme) {
-		if(vme.getRfmo() == null || vme.getRfmo().getId() == null)
-			throw new IllegalArgumentException("Rfmo cannot be NULL or have a NULL id");
+	private Object doUpdate(Object holder) throws Throwable {
+		if(holder == null)
+			throw new IllegalArgumentException("Object to update cannot be NULL");
 		
-		vme.setRfmo(this.vmeDao.getEntityById(this.vmeDao.getEm(), Rfmo.class, vme.getRfmo().getId()));
-		
-		List<Profile> profiles = vme.getProfileList();
-
-		if(profiles != null) {
-			if(profiles.isEmpty())
-				vme.setProfileList(null);
-			else
-				for(Profile profile : profiles) {
-					profile.setVme(vme);
-				}
-		}
-		
-		List<GeoRef> geoRefs = vme.getGeoRefList();
-
-//		if(geoRefs != null) {
-//			if(geoRefs.isEmpty())
-//				vme.setGeoRefList(null);
-//			else
-//				for(GeoRef geoRef : geoRefs) {
-//					geoRef.setVme(vme);
-//				}
-//		}
-
-		List<SpecificMeasure> specificMeasures = vme.getSpecificMeasureList();
-		
-		if(specificMeasures != null) {
-			if(specificMeasures.isEmpty())
-				vme.setSpecificMeasureList(null);
-			else
-				for(SpecificMeasure measure : specificMeasures) {
-					measure.setVmeList(Arrays.asList(new Vme[] { vme }));
-					if(measure.getInformationSource() != null)
-						measure.setInformationSource(this.vmeDao.getEntityById(this.vmeDao.getEm(), InformationSource.class, measure.getInformationSource().getId()));
-				}
-		}
-
-		Vme updated;
-		
-		if(vme.getId() == null)
-			updated = (Vme)this.vmeDao.persist(vme);
-		else
-			updated = (Vme)this.vmeDao.merge(vme);
-		
-		return updated;
+		if(holder instanceof Vme) {
+			return this.vmeDao.update((Vme)holder);
+		} else
+			throw new IllegalArgumentException(holder.getClass() + " is not a valid model for a report");
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see org.gcube.application.rsg.service.RsgService#updateRef(org.gcube.application.rsg.support.model.components.impl.CompiledReport)
 	 */
 	@Override
-	public Response updateRef(CompiledReport report) {
-		String id = report.getId() == null ? "#NEW#" : "#" + report.getId();
+	public Response updateRef(CompiledReport referenceReport) {
+		boolean isNew = referenceReport.getId() == null;
 		
-		LOG.info("Requesting update of {} reference report {}", report.getType(), id);
+		String id = isNew ? "#NEW#" : "#" + referenceReport.getId();
+		
+		LOG.info("Requesting update of {} reference report {}", referenceReport.getType(), id);
 		
 		Response response = new Response();
 
 		try {
-			Object updated = this.doUpdateReference(this._evaluator.extract(report));
+			Object toUpdate = this._evaluator.extract(referenceReport);
+			Object updated = isNew ? this.doCreateReference(toUpdate) : this.doUpdateReference(toUpdate);
 			
 			if(updated != null) {
-				response.succeeded(report.getType() + " reference report " + id + " has been updated");
+				response.succeeded(referenceReport.getType() + " reference report " + id + " has been updated");
 				
-				LOG.info("{} reference report {} has been updated", report.getType(), id);
+				LOG.info("{} reference report {} has been updated", referenceReport.getType(), id);
 			} else {
-				response.notSucceeded(report.getType() + " reference report " + id + " cannot be updated");
+				response.notSucceeded(referenceReport.getType() + " reference report " + id + " cannot be updated");
 				
-				LOG.error("{} reference report {} cannot be updated", report.getType(), id);
+				LOG.error("{} reference report {} cannot be updated", referenceReport.getType(), id);				
 			}
 		} catch (Throwable t) {
-			LOG.error("Unable to update {} reference report {}: {} [ {} ]", report.getType(), id, t.getClass().getSimpleName(), t.getMessage());
+			LOG.error("Unable to update {} reference report {}: {} [ {} ]", referenceReport.getType(), id, t.getClass().getSimpleName(), t.getMessage());
 			
-			response.notSucceeded(report.getType() + " reference report " + id + " cannot be updated: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
+			response.notSucceeded(referenceReport.getType() + " reference report " + id + " cannot be updated: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
 		}	
 		
 		return response.undeterminedIfNotSet();
 	}
 	
-	private Object doUpdateReference(Object holder) {
+	private Object doCreateReference(Object holder) throws Throwable {
 		if(holder == null)
-			throw new IllegalArgumentException("Object to update cannot be NULL");
+			throw new IllegalArgumentException("Object to create cannot be NULL");
 		
-		if(holder instanceof GeneralMeasure) 
-			return this.doUpdateGeneralMeasure((GeneralMeasure)holder);
+		if(holder instanceof GeneralMeasure)  
+			return this.vmeDao.create((GeneralMeasure)holder);
 		else if(holder instanceof InformationSource) 
-			return this.doUpdateInformationSource((InformationSource)holder);
+			return this.vmeDao.create((InformationSource)holder);
 		else if(holder instanceof FisheryAreasHistory) 
-			return this.doUpdateFisheryAreasHistory((FisheryAreasHistory)holder);
+			return this.vmeDao.create((FisheryAreasHistory)holder);
 		else if(holder instanceof VMEsHistory) 
-			return this.doUpdateVMEsHistory((VMEsHistory)holder);
+			return this.vmeDao.create((VMEsHistory)holder);
 		else
 			throw new IllegalArgumentException(holder.getClass() + " is not a valid model for a reference report");
 	}
 	
-	private GeneralMeasure doUpdateGeneralMeasure(GeneralMeasure generalMeasure) {
-		if(generalMeasure.getRfmo() == null || generalMeasure.getRfmo().getId() == null)
-			throw new IllegalArgumentException("Rfmo cannot be NULL or have a NULL id");
+	private Object doUpdateReference(Object holder) throws Throwable {
+		if(holder == null)
+			throw new IllegalArgumentException("Object to update cannot be NULL");
 		
-		generalMeasure.setRfmo(this.vmeDao.getEntityById(this.vmeDao.getEm(), Rfmo.class, generalMeasure.getRfmo().getId()));
-		
-		List<InformationSource> informationSources = generalMeasure.getInformationSourceList();
-
-		if(informationSources != null) {
-			if(informationSources.isEmpty())
-				generalMeasure.setInformationSourceList(null);
-			else
-				for(InformationSource source : informationSources) {
-//					source.getGeneralMeasureList().add(generalMeasure);
-					source.setRfmo(generalMeasure.getRfmo());
-				}
-		}
-
-		GeneralMeasure updated;
-		
-		if(generalMeasure.getId() == null)
-			updated = (GeneralMeasure)this.vmeDao.persist(generalMeasure);
+		if(holder instanceof GeneralMeasure) 
+			return this.vmeDao.update((GeneralMeasure)holder);
+		else if(holder instanceof InformationSource) 
+			return this.vmeDao.update((InformationSource)holder);
+		else if(holder instanceof FisheryAreasHistory) 
+			return this.vmeDao.update((FisheryAreasHistory)holder);
+		else if(holder instanceof VMEsHistory)
+			return this.vmeDao.update((VMEsHistory)holder);
 		else
-			updated = (GeneralMeasure)this.vmeDao.merge(generalMeasure);
-		
-		return updated;
+			throw new IllegalArgumentException(holder.getClass() + " is not a valid model for a reference report");
 	}
 	
-	private InformationSource doUpdateInformationSource(InformationSource source) {
-		if(source.getRfmo() == null)
-			throw new IllegalArgumentException("Rfmo is mandatory");
-
-		InformationSource updated;
-		
-		if(source.getId() == null)
-			updated = (InformationSource)this.vmeDao.persist(source);
-		else 
-			updated = (InformationSource)this.vmeDao.merge(source);
-		
-		return updated;
-	}
-	
-	private FisheryAreasHistory doUpdateFisheryAreasHistory(FisheryAreasHistory history) {
-		if(history.getRfmo() == null || history.getRfmo().getId() == null)
-			throw new IllegalArgumentException("Rfmo cannot be NULL or have a NULL id");
-		
-		history.setRfmo(this.vmeDao.getEntityById(this.vmeDao.getEm(), Rfmo.class, history.getRfmo().getId()));
-
-		FisheryAreasHistory updated;
-		
-		if(history.getId() == null)
-			updated = (FisheryAreasHistory)this.vmeDao.persist(history);
-		else 
-			updated = (FisheryAreasHistory)this.vmeDao.merge(history);
-		
-		return updated;
-	}
-	
-	private VMEsHistory doUpdateVMEsHistory(VMEsHistory history) {
-		if(history.getRfmo() == null || history.getRfmo().getId() == null)
-			throw new IllegalArgumentException("Rfmo cannot be NULL or have a NULL id");
-		
-		history.setRfmo(this.vmeDao.getEntityById(this.vmeDao.getEm(), Rfmo.class, history.getRfmo().getId()));
-
-		VMEsHistory updated;
-		
-		if(history.getId() == null)
-			updated = (VMEsHistory)this.vmeDao.persist(history);
-		else 
-			updated = (VMEsHistory)this.vmeDao.merge(history);
-		
-		return updated;
-	}
-
 	/* (non-Javadoc)
 	 * @see org.gcube.application.rsg.service.RsgService#validate(org.gcube.application.rsg.support.model.components.impl.CompiledReport)
 	 */
