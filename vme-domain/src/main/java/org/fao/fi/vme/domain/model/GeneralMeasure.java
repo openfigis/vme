@@ -89,6 +89,9 @@ public class GeneralMeasure implements ObjectId, Year<GeneralMeasure>, PeriodYea
 	 * 
 	 */
 
+	/**
+	 * TODO change into multilingual
+	 */
 	@RSGName("RFB Fishing Areas")
 	@RSGWeight(1)
 	@Lob
