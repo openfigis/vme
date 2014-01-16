@@ -13,10 +13,6 @@ package org.vme.service.dao;
  * 
  */
 public class VmeDaoException extends RuntimeException {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -9180990347485312606L;
 
 	public VmeDaoException(Throwable t) {
@@ -26,5 +22,8 @@ public class VmeDaoException extends RuntimeException {
 	public VmeDaoException(String message) {
 		super(message);
 	}
-
+	
+	public VmeDaoException(String message, Throwable t) {
+		super(message, t);
+	}
 }

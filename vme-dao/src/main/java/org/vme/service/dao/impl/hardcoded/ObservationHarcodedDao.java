@@ -7,7 +7,6 @@ import org.fao.fi.vme.domain.dto.observations.ObservationDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.service.dao.ObservationDAO;
-import org.vme.service.dao.config.figis.FigisDataBaseProducer;
 
 
 public class ObservationHarcodedDao implements ObservationDAO   {

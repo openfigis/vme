@@ -68,7 +68,6 @@ public class FigisDao extends AbstractJPADao {
 		return em;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<RefVme> loadRefVmes() {
 		return (List<RefVme>) this.generateTypedQuery(em, RefVme.class).getResultList();
 	}

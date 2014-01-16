@@ -1,5 +1,6 @@
 package org.vme.service.dao.impl;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,14 +9,22 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import org.fao.fi.vme.domain.model.ObjectId;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.service.dao.Dao;
+import org.vme.service.dao.VmeDaoException;
+import org.vme.service.dao.sources.vme.VmeDao;
 
 public abstract class AbstractJPADao implements Dao {
+	static final protected Logger LOG = LoggerFactory.getLogger(VmeDao.class);
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -113,9 +122,8 @@ public abstract class AbstractJPADao implements Dao {
 		return this.generateTypedQuery(em, clazz).getResultList();
 	}
 
-	protected <E> List<E> loadObjects(EntityManager em, Class<E> clazz) {
-		// Same as selectFrom?
-		return this.generateTypedQuery(em, clazz).getResultList();
+	public <E> List<E> loadObjects(EntityManager em, Class<E> clazz) {
+		return this.selectFrom(em, clazz);
 	}
 
 	protected <E> TypedQuery<E> generateTypedQuery(EntityManager em, Class<E> clazz, String queryString) {
@@ -126,5 +134,119 @@ public abstract class AbstractJPADao implements Dao {
 		String queryString = " select count(o) from  " + clazz.getCanonicalName() + " o ";
 		Query query = em.createQuery(queryString);
 		return (Long) query.getSingleResult();
+	}
+
+	public void detach(EntityManager em, Object object) {
+		EntityTransaction et = em.getTransaction();
+	
+		try {
+			et.begin();
+			em.detach(object);
+			em.flush();
+			et.commit();
+	
+			LOG.debug("Object {} has been removed from persistence", object);
+		} catch (Throwable t) {
+			LOG.error("Unable to remove object {} from persistence: {} [ {} ]", object, t.getClass().getSimpleName(), t.getMessage(), t);
+	
+			et.rollback();
+		}
+	}
+
+	protected <E> E doMerge(EntityManager em, E object) {
+		return em.merge(object);
+	}
+
+	protected <E> E doPersist(EntityManager em, E object) {
+		em.persist(object);
+		
+		return object;
+	}
+
+	protected <E extends ObjectId<? extends Serializable>> E doPersistAndFlush(EntityManager em, E object) {
+		em.persist(object);
+		em.flush();
+		
+		return object;
+	}
+
+	protected void doRemove(EntityManager em, Object object) {
+		em.remove(object);
+	}
+
+	public <E> E merge(EntityManager em, E object) {
+		EntityTransaction et = em.getTransaction();
+		
+		E merged;
+		
+		try {
+			et.begin();
+			merged = this.doMerge(em, object);
+			et.commit();
+			
+			LOG.debug("Object {} has been merged into persistence", object);
+			
+			return merged;
+		} catch (Throwable t) {
+			LOG.error("Unable to merge object {} into persistence: {} [ {} ]", object, t.getClass().getSimpleName(), t.getMessage());
+			
+			et.rollback();
+			
+			return null;
+		}
+	}
+
+	public <E> E persist(EntityManager em, E object) {
+		try {
+			EntityTransaction et = em.getTransaction();
+			et.begin();
+			em.persist(object);
+			em.flush();
+			et.commit();
+			LOG.debug("Object {} has been stored into persistence", object);
+		} catch (Exception e) {
+			LOG.error("Unable to store object {} into persistence: {} [ {} ]", object, e.getClass().getSimpleName(), e.getMessage());
+			throw new VmeDaoException(e);
+		}
+		
+		return object;
+	}
+	
+	public <E> List<E> persist(EntityManager em, List<E> objectList) {
+		try {
+			EntityTransaction et = em.getTransaction();
+			et.begin();
+			
+			for (E object : objectList) {
+				em.persist(object);
+			}
+			
+			et.commit();
+						
+			LOG.debug("Object list {} has been stored into persistence", objectList);
+			
+			return objectList;
+		} catch (Exception e) {
+			LOG.error("Unable to store object list {} into persistence: {} [ {} ]", objectList, e.getClass().getSimpleName(), e.getMessage());
+			
+			throw new VmeDaoException(e);
+		}
+	}
+
+	public void remove(EntityManager em, Object object) {
+		EntityTransaction et = em.getTransaction();
+		
+		try {
+			et.begin();
+			this.doRemove(em, object);
+			em.flush();
+			et.commit();
+			LOG.debug("Object {} has been removed from persistence", object);
+		} catch (Throwable t) {
+			LOG.error("Unable to remove object {} from persistence: {} [ {} ]", object, t.getClass().getSimpleName(),
+					t.getMessage(), t);
+	
+			et.rollback();
+		}
 	}
 }
