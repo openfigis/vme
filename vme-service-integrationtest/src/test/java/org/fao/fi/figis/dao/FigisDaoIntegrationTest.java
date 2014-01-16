@@ -65,6 +65,7 @@ public class FigisDaoIntegrationTest extends FigisDaoTestLogic {
 		if (figisDao.find(VmeObservation.class, id) != null) {
 			figisDao.remove(figisDao.find(VmeObservation.class, id));
 		}
+		@SuppressWarnings("unused")
 		VmeObservation vo = new VmeObservation();
 
 		// TODO

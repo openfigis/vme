@@ -41,7 +41,7 @@ public class VmeAccessDbImportTest {
 	}
 
 	private void checkRelationGmIs() {
-		List<GeneralMeasure> gmList = vmeDao.loadObjectsGeneric(GeneralMeasure.class);
+		List<GeneralMeasure> gmList = vmeDao.loadObjects(GeneralMeasure.class);
 
 		// we check all generalMeasures
 		for (GeneralMeasure generalMeasure : gmList) {
@@ -53,7 +53,7 @@ public class VmeAccessDbImportTest {
 			}
 		}
 
-		List<InformationSource> isList = vmeDao.loadObjectsGeneric(InformationSource.class);
+		List<InformationSource> isList = vmeDao.loadObjects(InformationSource.class);
 		// we check all InformationSource
 		for (InformationSource informationSource : isList) {
 			// get the IS list

@@ -88,7 +88,6 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 
 		assertEquals(1, vmeDao.count(SpecificMeasure.class).intValue());
 
-		@SuppressWarnings("unchecked")
 		List<Vme> vmeList = (List<Vme>) vmeDao.loadObjects(Vme.class);
 		for (Vme vme : vmeList) {
 			SpecificMeasure specificMeasures = new SpecificMeasure();

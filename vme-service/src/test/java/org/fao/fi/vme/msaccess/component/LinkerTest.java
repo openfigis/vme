@@ -78,9 +78,9 @@ public class LinkerTest {
 
 	private void validateSpecificMeasuresObject(Object object) {
 		SpecificMeasure o = (SpecificMeasure) object;
-		assertTrue(o.getVmeList().size() > 0);
+		assertNotNull(o.getVme());
 
-		if (u.getEnglish(o.getVmeList().get(0).getName()).equals("Northeast Flemish Cap 5")) {
+		if (u.getEnglish(o.getVme().getName()).equals("Northeast Flemish Cap 5")) {
 			assertNotNull(o.getInformationSource());
 		}
 

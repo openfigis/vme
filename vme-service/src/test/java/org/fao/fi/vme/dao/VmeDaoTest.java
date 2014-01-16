@@ -33,7 +33,9 @@ public class VmeDaoTest {
 
 	@Test
 	public void testVmeProfile() {
+		@SuppressWarnings("unused")
 		Vme vme = new Vme();
+		@SuppressWarnings("unused")
 		Profile profile = new Profile();
 	}
 
@@ -145,7 +147,7 @@ public class VmeDaoTest {
 	public void testCount() {
 		assertEquals(0, dao.count(Vme.class).intValue());
 
-		dao.merge(VmeMock.create());
+		dao.persist(VmeMock.create());
 		assertEquals(1, dao.count(Vme.class).intValue());
 
 	}

@@ -51,7 +51,6 @@ public class VmeAccessDbImportIntegrationTest {
 		i.importMsAccessData();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void clean() {
 
 		// delete first the relations

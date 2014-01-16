@@ -177,6 +177,7 @@ public class FigisDocBuilderTest {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testGeneralMeasures() {
 		FIGISDoc figisDoc = new FIGISDoc();
@@ -245,6 +246,7 @@ public class FigisDocBuilderTest {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testVme() {
 		FIGISDoc figisDoc = new FIGISDoc();

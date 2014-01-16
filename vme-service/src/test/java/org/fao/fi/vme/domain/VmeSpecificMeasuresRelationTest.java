@@ -1,6 +1,7 @@
 package org.fao.fi.vme.domain;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +35,10 @@ public class VmeSpecificMeasuresRelationTest {
 		SpecificMeasure s = generateSpecificMeasures(vme);
 		vmeDao.merge(vme);
 		assertEquals(2, vme.getSpecificMeasureList().size());
-		assertEquals(1, vme.getSpecificMeasureList().get(0).getVmeList().size());
-		assertEquals(1, vme.getSpecificMeasureList().get(1).getVmeList().size());
-		assertEquals(1, s.getVmeList().size());
+		assertNotNull(vme.getSpecificMeasureList().get(0).getVme());
+		assertNotNull(vme.getSpecificMeasureList().get(1).getVme());
+		assertNotNull(s.getVme());
+		assertEquals(vme.getId(), s.getVme().getId());
 
 	}
 
@@ -48,14 +50,14 @@ public class VmeSpecificMeasuresRelationTest {
 
 	private SpecificMeasure generateSpecificMeasures(Vme vme) {
 		SpecificMeasure s = new SpecificMeasure();
-		List<Vme> slv = new ArrayList<Vme>();
-		slv.add(vme);
-		s.setVmeList(slv);
+		
+		s.setVme(vme);
 		if (vme.getSpecificMeasureList() == null) {
 			List<SpecificMeasure> sl = new ArrayList<SpecificMeasure>();
 			vme.setSpecificMeasureList(sl);
 		}
 		vme.getSpecificMeasureList().add(s);
+		
 		return s;
 	}
 

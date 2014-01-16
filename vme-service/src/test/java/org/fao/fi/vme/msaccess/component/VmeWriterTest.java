@@ -65,12 +65,12 @@ public class VmeWriterTest {
 		profile.setVme(vme);
 
 		// add profile to Vme
+		specificMeasure.setVme(vme);
+		
 		List<SpecificMeasure> specificMeasureList = new ArrayList<SpecificMeasure>();
 		specificMeasureList.add(specificMeasure);
 		vme.setSpecificMeasureList(specificMeasureList);
 		// bidirectional
-		List<Vme> vmeList = new ArrayList<Vme>();
-		specificMeasure.setVmeList(vmeList);
 
 		// add GeoRef to Vme
 		List<GeoRef> geoRefList = new ArrayList<GeoRef>();
