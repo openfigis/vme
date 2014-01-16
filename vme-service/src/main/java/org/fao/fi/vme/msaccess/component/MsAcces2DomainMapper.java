@@ -34,68 +34,13 @@ public class MsAcces2DomainMapper {
 		map.put(RFB_MetaData.class, Rfmo.class);
 	}
 
-	// static public String buildKey(Object value) {
-	// if (value == null)
-	// return null;
-	//
-	// String key = value.getClass().getSimpleName() + "@";
-	//
-	// if (value instanceof Vme)
-	// key += ((Vme) value).getId();
-	// else if (value instanceof Rfmo)
-	// key += ((Rfmo) value).getId();
-	// else if (value instanceof SpecificMeasure)
-	// key += ((SpecificMeasure) value).getId();
-	// else if (value instanceof InformationSource)
-	// key += ((InformationSource) value).getId();
-	// else if (value instanceof GeneralMeasure)
-	// key += ((GeneralMeasure) value).getId();
-	// else if (value instanceof FisheryAreasHistory)
-	// key += ((FisheryAreasHistory) value).getId();
-	// else if (value instanceof VMEsHistory)
-	// key += ((VMEsHistory) value).getId();
-	// else if (value instanceof RFB_VME_Fishing_History)
-	// key += ((RFB_VME_Fishing_History) value).getID();
-	// else if (value instanceof Measures_VME_General)
-	// key += ((Measures_VME_General) value).getID();
-	// else if (value instanceof Measues_VME_Specific)
-	// key += ((Measues_VME_Specific) value).getID();
-	// else if (value instanceof RFB_MetaData)
-	// key += ((RFB_MetaData) value).getID();
-	// else if (value instanceof VME)
-	// key += ((VME) value).getID();
-	// else if (value instanceof Meetings)
-	// key += ((Meetings) value).getID();
-	// else
-	// key += value.hashCode();
-	//
-	// System.out.println(key);
-	// return key;
-	// }
-
-	// static public <E> boolean contains(List<E> list, E value) {
-	// if (list.isEmpty())
-	// return false;
-	//
-	// String key = buildKey(value);
-	// String eKey;
-	// for (E entry : list) {
-	// eKey = buildKey(entry);
-	//
-	// if (areEqual(key, eKey))
-	// return true;
-	// }
-	//
-	// return false;
-	// }
-
-	static private <E> boolean areEqual(E first, E second) {
-		return first == null ? (second == null ? true : false) : first.equals(second);
-	}
-
 	public ObjectCollection map(Table table) {
 		ObjectCollection c = new ObjectCollection();
 		c.setClazz(map.get(table.getClazz()));
+
+		if (table.getClazz().equals(VME.class)) {
+			System.out.println(" vme?     ");
+		}
 
 		List<Object> objects = new ArrayList<Object>();
 		List<Object> records = table.getObjectList();

@@ -14,6 +14,30 @@ public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 
 	private static int START_YEAR = 1000;
 
+	/**
+	 * there is an error in the algorithm, it generates 186 observations,
+	 * instead of 197. I am trying to isolate the problem here.
+	 * 
+	 */
+
+	@Test
+	public void testGeoRefs() {
+		List<DisseminationYearSlice> slices = createSlices(2);
+
+		// the years in GeoRef are now just content
+		GeoRef g1 = new GeoRef();
+		g1.setGeographicFeatureID("1");
+
+		GeoRef g2 = new GeoRef();
+		g2.setGeographicFeatureID("2");
+		slices.get(0).setGeoRef(g1);
+		slices.get(1).setGeoRef(g2);
+		assertEquals(2, slices.size());
+		filter(slices);
+		assertEquals(2, slices.size());
+
+	}
+
 	@Test
 	public void testWith1YearsWith1YearEmpty() {
 		List<DisseminationYearSlice> slices = createSlices(5);

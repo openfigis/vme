@@ -24,6 +24,9 @@ public class RelationVmeGeoRef {
 	public void correct(List<ObjectCollection> objectCollectionList) {
 		for (ObjectCollection objectCollection : objectCollectionList) {
 			if (objectCollection.getClazz().equals(Vme.class)) {
+
+				// report(objectCollection);
+
 				workToDo(objectCollection);
 
 				// set the vme on the GeoRef;
@@ -32,9 +35,28 @@ public class RelationVmeGeoRef {
 				// checks
 				postConditionCheck(objectCollection);
 
+				// report(objectCollection);
+
 			}
 		}
 	}
+
+	// private void report(ObjectCollection objectCollection) {
+	// List<Object> objects = objectCollection.getObjectList();
+	// Set<GeoRef> georefs = new HashSet<GeoRef>();
+	// int i = 0;
+	// for (Object object : objects) {
+	// Vme vme = (Vme) object;
+	// List<GeoRef> l = vme.getGeoRefList();
+	// for (GeoRef geoRef : l) {
+	// georefs.add(geoRef);
+	// i++;
+	// }
+	// }
+	// System.out.println(i + " was the total and the set size is " +
+	// georefs.size());
+	//
+	// }
 
 	private void setVmeOnGeoRef(ObjectCollection objectCollection) {
 		List<Object> object = objectCollection.getObjectList();
@@ -54,10 +76,11 @@ public class RelationVmeGeoRef {
 			Vme vme = (Vme) found;
 			List<GeoRef> l = vme.getGeoRefList();
 			for (GeoRef geoRef : l) {
-				if (set.contains(geoRef.getGeographicFeatureID())) {
+
+				if (set.contains(geoRef.getGeographicFeatureID() + geoRef.getYear())) {
 					throw new VmeException("Double found : " + geoRef.getGeographicFeatureID());
 				}
-				set.add(geoRef.getGeographicFeatureID());
+				set.add(geoRef.getGeographicFeatureID() + geoRef.getYear());
 				if (geoRef.getVme() == null) {
 					throw new VmeException("GeoRef without Vme found");
 				}
@@ -84,6 +107,7 @@ public class RelationVmeGeoRef {
 		Map<String, Vme> vmeMap = new HashMap<String, Vme>();
 		for (Object object : vmeList) {
 			Vme vme = (Vme) object;
+
 			String key = vme.getInventoryIdentifier();
 			if (vmeMap.containsKey(key)) {
 				Vme vmeTarget = vmeMap.get(key);
@@ -96,23 +120,6 @@ public class RelationVmeGeoRef {
 		// remove the doubles vme's
 		for (Vme vme : doubles) {
 			objectCollection.getObjectList().remove(vme);
-		}
-
-		// remove the double georefs.
-		Map<String, GeoRef> geoRefmap = new HashMap<String, GeoRef>();
-		for (Object object : vmeList) {
-			List<GeoRef> doubleGeoRefs = new ArrayList<GeoRef>();
-			List<GeoRef> list = ((Vme) object).getGeoRefList();
-			for (GeoRef geoRef : list) {
-				if (geoRefmap.containsKey(geoRef.getGeographicFeatureID())) {
-					doubleGeoRefs.add(geoRef);
-				} else {
-					geoRefmap.put(geoRef.getGeographicFeatureID(), geoRef);
-				}
-			}
-			for (GeoRef geoRef : doubleGeoRefs) {
-				((Vme) object).getGeoRefList().remove(geoRef);
-			}
 		}
 
 	}

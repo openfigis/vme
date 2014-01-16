@@ -1,5 +1,6 @@
 package org.fao.fi.vme.msaccess;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -7,8 +8,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Profile;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -38,6 +41,12 @@ public class VmeAccessDbImportTest {
 		List<?> objects = vmeDao.loadObjects(Profile.class);
 		assertTrue(objects.size() > 0);
 		checkRelationGmIs();
+		checkNumberOfGeoRefs();
+	}
+
+	private void checkNumberOfGeoRefs() {
+		assertEquals(98, vmeDao.count(Vme.class).intValue());
+		assertEquals(197, vmeDao.count(GeoRef.class).intValue());
 	}
 
 	private void checkRelationGmIs() {
