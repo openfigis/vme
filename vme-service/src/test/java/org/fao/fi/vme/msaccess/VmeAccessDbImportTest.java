@@ -30,7 +30,7 @@ public class VmeAccessDbImportTest {
 	@Inject
 	VmeDao vmeDao;
 
-	@Test
+	// @Test
 	public void testImportMsAccessData() {
 		i.importMsAccessData();
 	}
