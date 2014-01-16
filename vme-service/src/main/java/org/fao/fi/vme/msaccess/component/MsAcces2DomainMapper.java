@@ -89,10 +89,6 @@ public class MsAcces2DomainMapper {
 	// return false;
 	// }
 
-	static private <E> boolean areEqual(E first, E second) {
-		return first == null ? (second == null ? true : false) : first.equals(second);
-	}
-
 	public ObjectCollection map(Table table) {
 		ObjectCollection c = new ObjectCollection();
 		c.setClazz(map.get(table.getClazz()));

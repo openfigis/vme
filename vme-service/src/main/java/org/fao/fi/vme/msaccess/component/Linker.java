@@ -144,12 +144,8 @@ public class Linker {
 	 * @param domainTableMap
 	 * @param objectCollectionList
 	 */
-	private void linkSpecificMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap,
-			List<ObjectCollection> objectCollectionList) {
+	private void linkSpecificMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap, List<ObjectCollection> objectCollectionList) {
 		SpecificMeasure sm = (SpecificMeasure) domainObject;
-		if (sm.getVmeList() == null) {
-			sm.setVmeList(new ArrayList<Vme>());
-		}
 
 		Measues_VME_Specific record = (Measues_VME_Specific) domainTableMap.get(sm);
 
@@ -185,6 +181,7 @@ public class Linker {
 					if (vme.getSpecificMeasureList() == null) {
 						vme.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
 					}
+					
 					VME vmeRecord = (VME) domainTableMap.get(vme);
 
 					if (vmeRecord == null || vmeRecord.getVME_ID() == null) {
@@ -193,10 +190,8 @@ public class Linker {
 					}
 
 					if (record.getVME_ID().equals(vmeRecord.getVME_ID())) {
-						if (!sm.getVmeList().contains(vme)) {
-							// add only when not already in the list
-							sm.getVmeList().add(vme);
-						}
+						sm.setVme(vme);
+
 						if (!vme.getSpecificMeasureList().contains(sm)) {
 							// add only when not already in the list
 							vme.getSpecificMeasureList().add(sm);

@@ -136,8 +136,8 @@ public class PeriodGrouping {
 					if (specificMeasures.getVmeSpecificMeasure() == null) {
 						throw new VmeException(
 								"Error during generating slices. At this point, the specific measure object needs to have a value for VME "
-										+ specificMeasures.getVmeList().get(0).getInventoryIdentifier() + " "
-										+ specificMeasures.getVmeList().get(0).getId());
+										+ specificMeasures.getVme().getInventoryIdentifier() + " "
+										+ specificMeasures.getVme().getId());
 
 					}
 

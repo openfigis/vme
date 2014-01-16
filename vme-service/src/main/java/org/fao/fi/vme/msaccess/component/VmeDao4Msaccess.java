@@ -1,5 +1,6 @@
 package org.fao.fi.vme.msaccess.component;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -44,10 +45,20 @@ public class VmeDao4Msaccess {
 					}
 
 					if (object instanceof ObjectId) {
-						ObjectId id = (ObjectId) object;
-						if (id.getId().intValue() == 0) {
-							throw new VmeDaoException("object id cannot be 0");
-						}
+						@SuppressWarnings("unchecked")
+						ObjectId<Serializable> objectId = (ObjectId<Serializable>) object;
+
+						Serializable id = objectId.getId();
+						
+						if(id == null)
+							throw new VmeDaoException("object id cannot be NULL");
+						
+						if(Number.class.isAssignableFrom(id.getClass()))
+							if(((Number)id).intValue() == 0) {
+								throw new VmeDaoException("Numeric object id cannot be 0");
+						} else if(String.class.isAssignableFrom(id.getClass()))
+							if("".equals(((String)id).trim()))
+								throw new VmeDaoException("String object id cannot be blank");
 					}
 
 				}

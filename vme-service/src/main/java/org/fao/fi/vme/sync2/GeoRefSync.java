@@ -36,7 +36,6 @@ public class GeoRefSync implements Sync {
 
 	@Override
 	public void sync() {
-		@SuppressWarnings("unchecked")
 		List<GeoRef> objects = (List<GeoRef>) vmeDao.loadObjects(GeoRef.class);
 		for (GeoRef geoRef : objects) {
 			// do the new stuff

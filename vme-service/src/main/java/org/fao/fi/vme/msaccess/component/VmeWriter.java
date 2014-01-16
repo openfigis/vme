@@ -5,8 +5,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Writes the data to the vme DB.
@@ -15,7 +13,6 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class VmeWriter {
-	final static private Logger LOG = LoggerFactory.getLogger(VmeWriter.class);
 	@Inject
 	TableWriter tableWriter;
 
