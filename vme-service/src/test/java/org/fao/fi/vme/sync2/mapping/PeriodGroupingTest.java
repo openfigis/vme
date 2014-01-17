@@ -167,7 +167,10 @@ public class PeriodGroupingTest {
 
 		GeoRef h1 = new GeoRef();
 		h1.setYear(startYear);
+		h1.setGeographicFeatureID("1");
+
 		GeoRef h2 = new GeoRef();
+		h2.setGeographicFeatureID("2");
 		h2.setYear(endYear);
 
 		List<GeoRef> hList = new ArrayList<GeoRef>();
@@ -194,6 +197,51 @@ public class PeriodGroupingTest {
 		// 2012
 		assertEquals(h2, slices.get(2).getGeoRef());
 		assertEquals(endYear, slices.get(2).getYear());
+
+	}
+
+	@Test
+	public void testCollectHistory2() {
+		Integer startYear = 2010;
+		Integer endYear = 2012;
+
+		Integer polygonObservationYear = 2009;
+
+		GeoRef h1 = new GeoRef();
+		h1.setYear(polygonObservationYear);
+		h1.setGeographicFeatureID("1");
+
+		GeoRef h2 = new GeoRef();
+		h2.setGeographicFeatureID("2");
+		h2.setYear(endYear);
+
+		List<GeoRef> hList = new ArrayList<GeoRef>();
+		hList.add(h1);
+		hList.add(h2);
+
+		Vme vme = VmeMock.create();
+		vme.setRfmo(new Rfmo());
+		ValidityPeriod vpVme = ValidityPeriodMock.create(startYear, endYear);
+		vme.setValidityPeriod(vpVme);
+		vme.setGeoRefList(hList);
+
+		List<DisseminationYearSlice> slices = grouping.collect(vme);
+		assertEquals(3, slices.size());
+
+		// 2010
+		assertEquals(polygonObservationYear, slices.get(0).getGeoRef().getYear());
+		assertEquals(h1, slices.get(0).getGeoRef());
+		assertEquals(startYear.intValue(), slices.get(0).getYear());
+
+		// 2011
+		assertEquals(polygonObservationYear, slices.get(1).getGeoRef().getYear());
+		assertEquals(h1, slices.get(1).getGeoRef());
+		assertEquals(2011, slices.get(1).getYear());
+
+		// 2012
+		assertEquals(endYear, slices.get(2).getGeoRef().getYear());
+		assertEquals(h2, slices.get(2).getGeoRef());
+		assertEquals(endYear.intValue(), slices.get(2).getYear());
 
 	}
 

@@ -7,12 +7,20 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.GeneralMeasureMock;
+import org.fao.fi.vme.domain.test.ValidityPeriodMock;
+import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.junit.Test;
 
 public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 
 	private static int START_YEAR = 1000;
+	PeriodGrouping grouping = new PeriodGrouping();
+	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	/**
 	 * there is an error in the algorithm, it generates 186 observations,
@@ -65,6 +73,42 @@ public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 		assertEquals(START_YEAR, slices.get(0).getYear());
 		assertEquals(START_YEAR + 2, slices.get(1).getYear());
 
+	}
+
+	@Test
+	public void testCollectHistory() {
+		Integer startYear = 2010;
+		Integer endYear = 2012;
+
+		Integer polygonObservationYear = 2009;
+
+		GeoRef h1 = new GeoRef();
+		h1.setYear(polygonObservationYear);
+		h1.setGeographicFeatureID("1");
+
+		GeoRef h2 = new GeoRef();
+		h2.setGeographicFeatureID("2");
+		h2.setYear(endYear);
+
+		List<GeoRef> hList = new ArrayList<GeoRef>();
+		hList.add(h1);
+		hList.add(h2);
+
+		Vme vme = VmeMock.create();
+		vme.setRfmo(new Rfmo());
+		ValidityPeriod vpVme = ValidityPeriodMock.create(startYear, endYear);
+		vme.setValidityPeriod(vpVme);
+		vme.setGeoRefList(hList);
+
+		List<DisseminationYearSlice> slices = grouping.collect(vme);
+		assertEquals(3, slices.size());
+
+		filter(slices);
+		assertEquals(2, slices.size());
+		assertEquals(startYear.intValue(), slices.get(0).getYear());
+		assertEquals(h1, slices.get(0).getGeoRef());
+		assertEquals(h2, slices.get(1).getGeoRef());
+		assertEquals(endYear.intValue(), slices.get(1).getYear());
 	}
 
 	private List<DisseminationYearSlice> createSlices(int numberOfYears) {

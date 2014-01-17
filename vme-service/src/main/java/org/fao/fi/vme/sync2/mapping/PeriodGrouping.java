@@ -26,7 +26,8 @@ import org.fao.fi.vme.domain.model.Vme;
  * There are Period objects and Year Objects. It could be better to have only
  * Period Objects.
  * 
- * 
+ * PeriodGrouping makes for every possible year a slice. The Slice filter will
+ * than decide which ones to filer out.
  * 
  * 
  * @author Erik van Ingen
@@ -54,6 +55,8 @@ public class PeriodGrouping {
 			slice.setYear(disseminationYear);
 			l.add(slice);
 		}
+
+		System.out.println("Number of slices: " + l.size());
 
 		return l;
 	}

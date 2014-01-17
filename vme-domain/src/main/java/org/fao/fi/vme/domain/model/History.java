@@ -13,4 +13,6 @@ public interface History {
 
 	void setHistory(MultiLingualString history);
 
+	public boolean equals(Object obj);
+
 }
