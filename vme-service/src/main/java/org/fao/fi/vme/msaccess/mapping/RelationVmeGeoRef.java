@@ -11,15 +11,19 @@ import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This relation is in the vme table itself, therefore it can not be established
  * in the table itself.
  * 
- * @author vaningen
+ * @author Erik van Ingen
  * 
  */
 public class RelationVmeGeoRef {
+
+	final static private Logger LOG = LoggerFactory.getLogger(RelationVmeGeoRef.class);
 
 	public void correct(List<ObjectCollection> objectCollectionList) {
 		for (ObjectCollection objectCollection : objectCollectionList) {
@@ -60,10 +64,10 @@ public class RelationVmeGeoRef {
 			List<GeoRef> l = vme.getGeoRefList();
 			for (GeoRef geoRef : l) {
 
-				if (set.contains(geoRef.getGeographicFeatureID())) {
+				if (set.contains(geoRef.getGeographicFeatureID() + geoRef.getYear())) {
 					throw new VmeException("Double found : " + geoRef.getGeographicFeatureID());
 				}
-				set.add(geoRef.getGeographicFeatureID());
+				set.add(geoRef.getGeographicFeatureID() + geoRef.getYear());
 				if (geoRef.getVme() == null) {
 					throw new VmeException("GeoRef without Vme found");
 				}
@@ -105,15 +109,20 @@ public class RelationVmeGeoRef {
 			objectCollection.getObjectList().remove(vme);
 		}
 
-		Map<String, GeoRef> geoRefmap = new HashMap<String, GeoRef>();
+		// remove the doubles
+
 		for (Object object : vmeList) {
 			List<GeoRef> doubleGeoRefs = new ArrayList<GeoRef>();
 			List<GeoRef> list = ((Vme) object).getGeoRefList();
+			Map<String, GeoRef> geoRefmap = new HashMap<String, GeoRef>();
 			for (GeoRef geoRef : list) {
-				if (geoRefmap.containsKey(geoRef.getGeographicFeatureID())) {
+				if (geoRefmap.containsKey(geoRef.getGeographicFeatureID() + geoRef.getYear())) {
+					// this case should not happen in the Acces DB.
+					LOG.error("double georefs should not appear in the Acces DB, featureId = "
+							+ geoRef.getGeographicFeatureID());
 					doubleGeoRefs.add(geoRef);
 				} else {
-					geoRefmap.put(geoRef.getGeographicFeatureID(), geoRef);
+					geoRefmap.put(geoRef.getGeographicFeatureID() + geoRef.getYear(), geoRef);
 				}
 			}
 			for (GeoRef geoRef : doubleGeoRefs) {
@@ -128,10 +137,7 @@ public class RelationVmeGeoRef {
 			throw new VmeException("Vme has always 1 georef at this stage");
 		}
 
-		if (!vme.getGeoRefList().get(0).getGeographicFeatureID()
-				.equals(vmeTarget.getGeoRefList().get(0).getGeographicFeatureID())) {
-			vmeTarget.getGeoRefList().add(vme.getGeoRefList().get(0));
-		}
+		vmeTarget.getGeoRefList().add(vme.getGeoRefList().get(0));
 
 		// take the earliest start
 		if (vme.getValidityPeriod().getBeginYear() < vmeTarget.getValidityPeriod().getBeginYear()) {
