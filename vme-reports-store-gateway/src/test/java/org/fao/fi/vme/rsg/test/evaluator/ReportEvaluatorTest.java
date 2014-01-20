@@ -7,6 +7,8 @@ import static org.gcube.application.rsg.support.model.utils.CompiledReportUtils.
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.domain.model.Profile;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
@@ -91,6 +93,76 @@ public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 		this.doSimpleTest(VmeMocker.getMock3());
 	}
 	
+	@Test
+	public void testCleanupEmptyList() throws Throwable {
+		Vme mocked = VmeMocker.getMock3();
+		
+		mocked.getProfileList().clear();
+		
+		CompiledReport report = this.doSimpleTest(mocked);
+		
+		Vme extracted = this._reportEvaluator.extract(report);
+		
+		Assert.assertTrue(extracted.getProfileList() == null);
+	}
+	
+	@Test
+	public void testCleanupListWithNullElement() throws Throwable {
+		Vme mocked = VmeMocker.getMock3();
+		
+		mocked.getProfileList().set(0, null);
+		
+		CompiledReport report = this.doSimpleTest(mocked);
+		
+		Vme extracted = this._reportEvaluator.extract(report);
+		
+		Assert.assertTrue(extracted.getProfileList() == null);
+	}
+
+	@Test
+	public void testCleanupListWithEmptyElement() throws Throwable {
+		Vme mocked = VmeMocker.getMock3();
+		
+		Profile current = mocked.getProfileList().get(0);
+		current.setDescriptionBiological(null);
+		current.setDescriptionImpact(null);
+		current.setDescriptionPhisical(null);
+		current.setGeoform(null);
+		current.setYear(null);
+		
+		CompiledReport report = this.doSimpleTest(mocked);
+		
+		Vme extracted = this._reportEvaluator.extract(report);
+		
+		Assert.assertTrue(extracted.getProfileList() == null);
+	}
+	
+	@Test
+	public void testCleanupListWithEmptyElement2() throws Throwable {
+		Vme mocked = VmeMocker.getMock3();
+				
+		SpecificMeasure current = mocked.getSpecificMeasureList().get(0);
+		current.setVmeSpecificMeasure(null);
+		current.setYear(null);
+		current.getValidityPeriod().setBeginYear(null);
+		current.getValidityPeriod().setEndYear(null);
+		current.getInformationSource().setId(null);
+		current.getInformationSource().setCitation(null);
+		current.getInformationSource().setCommittee(null);
+		current.getInformationSource().setMeetingEndDate(null);
+		current.getInformationSource().setMeetingStartDate(null);
+		current.getInformationSource().setPublicationYear(null);
+		current.getInformationSource().setReportSummary(null);
+		current.getInformationSource().setRfmo(null);
+		current.getInformationSource().setUrl(null);
+		
+		CompiledReport report = this.doSimpleTest(mocked);
+		
+		Vme extracted = this._reportEvaluator.extract(report);
+		
+		Assert.assertTrue(extracted.getSpecificMeasureList().size() == 2);
+	}
+
 	private CompiledReport doSimpleTest(Vme vme) throws Throwable {
 		CompiledReport evaluated = this._reportEvaluator.evaluate(this._reportCompiler.compile(Vme.class), vme);
 		

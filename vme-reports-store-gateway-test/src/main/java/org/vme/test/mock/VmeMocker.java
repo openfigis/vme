@@ -56,8 +56,8 @@ public class VmeMocker extends AbstractMocker {
 		addProfile(vme, ProfileMocker.getMock1());
 		addProfile(vme, ProfileMocker.getMock2());
 		
-		vme.setCriteria("20");
-		vme.setAreaType("10");
+		vme.setCriteria("Functional significance of the habitat");
+		vme.setAreaType("VME");
 		
 		return vme;
 	}
@@ -77,8 +77,8 @@ public class VmeMocker extends AbstractMocker {
 		addProfile(vme, ProfileMocker.getMock2());
 		addProfile(vme, ProfileMocker.getMock1());
 		
-		vme.setCriteria("30");
-		vme.setAreaType("20");
+		vme.setCriteria("Fragility");
+		vme.setAreaType("Risk area");
 		
 		return vme;
 	}
@@ -98,8 +98,8 @@ public class VmeMocker extends AbstractMocker {
 		
 		addProfile(vme, ProfileMocker.getMock2());
 		
-		vme.setCriteria("10");
-		vme.setAreaType("10");
+		vme.setCriteria("Uniqueness or rarity");
+		vme.setAreaType("VME");
 		
 		return vme;
 	}
