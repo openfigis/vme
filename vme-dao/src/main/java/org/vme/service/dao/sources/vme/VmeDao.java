@@ -611,9 +611,7 @@ public class VmeDao extends AbstractJPADao {
 			for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
 				specificMeasure.setVme(vme);
 			}
-		
-//		em.clear();
-		
+	
 		return this.doPersistAndFlush(em, vme);
 	}
 	
