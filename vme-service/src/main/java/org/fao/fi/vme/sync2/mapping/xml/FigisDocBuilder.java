@@ -654,50 +654,56 @@ public class FigisDocBuilder {
 		Sources sources = f.createSources();
 
 		for (InformationSource infoSource : infoSourceList) {
+			// Algorithm for "InformationSource" UML table: with regards of the
+			// meetings tab, provide all and only records with "sourcetype=3"
+			// and according to the selected year
+			if (infoSource.getSourceType() == 3) {
 
-			BiblioEntry biblioEntry = f.createBiblioEntry();
+				BiblioEntry biblioEntry = f.createBiblioEntry();
 
-			Type type = dcf.createType();
-			type.setType(Integer.toString(infoSource.getSourceType()));
-			type.setContent(codelist.getDescription(infoSource.getSourceType()));
+				Type type = dcf.createType();
+				type.setType(Integer.toString(infoSource.getSourceType()));
+				type.setContent(codelist.getDescription(infoSource.getSourceType()));
 
-			biblioEntry.getContent().add(type);
+				biblioEntry.getContent().add(type);
 
-			BibliographicCitation citation = new BibliographicCitation();
-			citation.setContent(u.getEnglish(infoSource.getCitation()));
-			biblioEntry.getContent().add(citation);
+				BibliographicCitation citation = new BibliographicCitation();
+				citation.setContent(u.getEnglish(infoSource.getCitation()));
+				biblioEntry.getContent().add(citation);
 
-			CreatorCorporate cc = new CreatorCorporate();
-			cc.setContent(u.getEnglish(infoSource.getCommittee()));
-			biblioEntry.getContent().add(cc);
+				CreatorCorporate cc = new CreatorCorporate();
+				cc.setContent(u.getEnglish(infoSource.getCommittee()));
+				biblioEntry.getContent().add(cc);
 
-			// Created
-			// publicationYear
-			// fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
-			if (infoSource.getPublicationYear() != null && infoSource.getPublicationYear() > 0) {
-				Created created = new Created();
-				created.setContent(Integer.toString(infoSource.getPublicationYear()));
-				biblioEntry.getContent().add(created);
+				// Created
+				// publicationYear
+				// fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
+				if (infoSource.getPublicationYear() != null && infoSource.getPublicationYear() > 0) {
+					Created created = new Created();
+					created.setContent(Integer.toString(infoSource.getPublicationYear()));
+					biblioEntry.getContent().add(created);
+				}
+
+				// meetingStartDate - meetingEndDate
+				// fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date
+				if (infoSource.getMeetingStartDate() != null) {
+					Date createDate = dcf.createDate();
+					createDate.setContent(df.format(infoSource.getMeetingStartDate(), infoSource.getMeetingEndDate()));
+					biblioEntry.getContent().add(createDate);
+				}
+
+				Identifier identifier = new Identifier();
+				identifier.setType("URI");
+				identifier.setContent(infoSource.getUrl().toString());
+				biblioEntry.getContent().add(identifier);
+
+				Abstrakt bibAbstract = new Abstrakt();
+				bibAbstract.setContent(u.getEnglish(infoSource.getReportSummary()));
+				biblioEntry.getContent().add(bibAbstract);
+
+				sources.getTextsAndImagesAndTables().add(biblioEntry);
+
 			}
-
-			// meetingStartDate - meetingEndDate
-			// fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date
-			if (infoSource.getMeetingStartDate() != null) {
-				Date createDate = dcf.createDate();
-				createDate.setContent(df.format(infoSource.getMeetingStartDate(), infoSource.getMeetingEndDate()));
-				biblioEntry.getContent().add(createDate);
-			}
-
-			Identifier identifier = new Identifier();
-			identifier.setType("URI");
-			identifier.setContent(infoSource.getUrl().toString());
-			biblioEntry.getContent().add(identifier);
-
-			Abstrakt bibAbstract = new Abstrakt();
-			bibAbstract.setContent(u.getEnglish(infoSource.getReportSummary()));
-			biblioEntry.getContent().add(bibAbstract);
-
-			sources.getTextsAndImagesAndTables().add(biblioEntry);
 		}
 
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(sources);

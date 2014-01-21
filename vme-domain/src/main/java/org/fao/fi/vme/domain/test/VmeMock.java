@@ -85,6 +85,7 @@ public class VmeMock {
 			int year = startYear + i;
 			InformationSource is = InformationSourceMock.create();
 			is.setPublicationYear(year);
+			is.setSourceType(3);
 			// is.setId(id++);
 			informationSourceList.add(is);
 
