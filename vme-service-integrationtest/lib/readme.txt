@@ -19,7 +19,7 @@ ojdbc14.jar
 Update:
 --ojdbc-6.jar		2,714,189  bytes
 --ojdbc6 (1).jar	3,389,454  bytes
---I just did dowload the Oracle 12g driver, it is also called ojdbc6.jar and renamed by the browser to ojdbc6 (1).jar. The size of these jars are not the same.
+--I just did download the Oracle 12g driver, it is also called ojdbc6.jar and renamed by the browser to ojdbc6 (1).jar. The size of these jars are not the same.
 --Official documentation:
 --Oracle Database 12c Release 1 JDBC Driver Download
 --ojdbc6.jar (3,389,454 bytes) - For use with JDK 6; It contains the JDBC driver classes
