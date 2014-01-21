@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.fao.fi.vme.domain.model.ObjectId;
@@ -55,8 +54,7 @@ public abstract class AbstractJPADao implements Dao {
 		return (Collection<E>) this.generateFilteringTypedQuery(em, entity, criteria).getResultList();
 	}
 
-	protected <E> TypedQuery<E> generateFilteringTypedQuery(EntityManager em, Class<E> entity,
-			Map<String, Object> criteria) {
+	protected <E> TypedQuery<E> generateFilteringTypedQuery(EntityManager em, Class<E> entity, Map<String, Object> criteria) {
 		StringBuilder q = new StringBuilder("select E from ");
 		q.append(entity.getName()).append(" as E ");
 
@@ -76,13 +74,11 @@ public abstract class AbstractJPADao implements Dao {
 			try {
 				field = entity.getDeclaredField(key);
 			} catch (Throwable t) {
-				throw new RuntimeException("Unexpected " + t.getClass().getSimpleName() + " caught: " + t.getMessage(),
-						t);
+				throw new RuntimeException("Unexpected " + t.getClass().getSimpleName() + " caught: " + t.getMessage(), t);
 			}
 
 			if (field == null) {
-				throw new IllegalArgumentException("Unknown field / parameter '" + key + "' for "
-						+ entity.getSimpleName());
+				throw new IllegalArgumentException("Unknown field / parameter '" + key + "' for " + entity.getSimpleName());
 			}
 		}
 
@@ -100,8 +96,7 @@ public abstract class AbstractJPADao implements Dao {
 					value = parameter.getValue();
 
 					if (value != null && value instanceof String && field.isAnnotationPresent(RSGConverter.class)) {
-						value = field.getAnnotation(RSGConverter.class).value().newInstance()
-								.fromString((String) value);
+						value = field.getAnnotation(RSGConverter.class).value().newInstance().fromString((String) value);
 					}
 
 					tq.setParameter(parameter.getKey(), value);
@@ -131,24 +126,22 @@ public abstract class AbstractJPADao implements Dao {
 	}
 
 	protected Long count(EntityManager em, Class<?> clazz) {
-		String queryString = " select count(o) from  " + clazz.getCanonicalName() + " o ";
-		Query query = em.createQuery(queryString);
-		return (Long) query.getSingleResult();
+		return (Long) em.createQuery(" select count(o) from  " + clazz.getCanonicalName() + " o ").getSingleResult();
 	}
 
 	public void detach(EntityManager em, Object object) {
 		EntityTransaction et = em.getTransaction();
-	
+
 		try {
 			et.begin();
 			em.detach(object);
 			em.flush();
 			et.commit();
-	
+
 			LOG.debug("Object {} has been removed from persistence", object);
 		} catch (Throwable t) {
 			LOG.error("Unable to remove object {} from persistence: {} [ {} ]", object, t.getClass().getSimpleName(), t.getMessage(), t);
-	
+
 			et.rollback();
 		}
 	}
@@ -159,14 +152,14 @@ public abstract class AbstractJPADao implements Dao {
 
 	protected <E> E doPersist(EntityManager em, E object) {
 		em.persist(object);
-		
+
 		return object;
 	}
 
 	protected <E extends ObjectId<? extends Serializable>> E doPersistAndFlush(EntityManager em, E object) {
 		em.persist(object);
 		em.flush();
-		
+
 		return object;
 	}
 
@@ -176,22 +169,22 @@ public abstract class AbstractJPADao implements Dao {
 
 	public <E> E merge(EntityManager em, E object) {
 		EntityTransaction et = em.getTransaction();
-		
+
 		E merged;
-		
+
 		try {
 			et.begin();
 			merged = this.doMerge(em, object);
 			et.commit();
-			
+
 			LOG.debug("Object {} has been merged into persistence", object);
-			
+
 			return merged;
 		} catch (Throwable t) {
 			LOG.error("Unable to merge object {} into persistence: {} [ {} ]", object, t.getClass().getSimpleName(), t.getMessage());
-			
+
 			et.rollback();
-			
+
 			return null;
 		}
 	}
@@ -208,34 +201,34 @@ public abstract class AbstractJPADao implements Dao {
 			LOG.error("Unable to store object {} into persistence: {} [ {} ]", object, e.getClass().getSimpleName(), e.getMessage());
 			throw new VmeDaoException(e);
 		}
-		
+
 		return object;
 	}
-	
+
 	public <E> List<E> persist(EntityManager em, List<E> objectList) {
 		try {
 			EntityTransaction et = em.getTransaction();
 			et.begin();
-			
+
 			for (E object : objectList) {
 				em.persist(object);
 			}
-			
+
 			et.commit();
-						
+
 			LOG.debug("Object list {} has been stored into persistence", objectList);
-			
+
 			return objectList;
 		} catch (Exception e) {
 			LOG.error("Unable to store object list {} into persistence: {} [ {} ]", objectList, e.getClass().getSimpleName(), e.getMessage());
-			
+
 			throw new VmeDaoException(e);
 		}
 	}
 
 	public void remove(EntityManager em, Object object) {
 		EntityTransaction et = em.getTransaction();
-		
+
 		try {
 			et.begin();
 			this.doRemove(em, object);
@@ -243,10 +236,9 @@ public abstract class AbstractJPADao implements Dao {
 			et.commit();
 			LOG.debug("Object {} has been removed from persistence", object);
 		} catch (Throwable t) {
-			LOG.error("Unable to remove object {} from persistence: {} [ {} ]", object, t.getClass().getSimpleName(),
-					t.getMessage(), t);
-	
+			LOG.error("Unable to remove object {} from persistence: {} [ {} ]", object, t.getClass().getSimpleName(), t.getMessage(), t);
 			et.rollback();
+			throw new VmeDaoException(t);
 		}
 	}
 }

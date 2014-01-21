@@ -61,11 +61,11 @@ public class Rfmo implements ReferenceReport {
 	 * necessarily be a robust solution.
 	 */
 	// @RSGName("Fishery Areas History")
-	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<FisheryAreasHistory> hasFisheryAreasHistory;
 
 	// @RSGName("VMEs History")
-	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<VMEsHistory> hasVmesHistory;
 
 	public String getId() {

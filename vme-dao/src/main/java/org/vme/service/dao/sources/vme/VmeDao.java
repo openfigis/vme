@@ -1,5 +1,6 @@
 package org.vme.service.dao.sources.vme;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -47,6 +48,22 @@ public class VmeDao extends AbstractJPADao {
 
 	public Vme findVme(Long id) {
 		return em.find(Vme.class, id);
+	}
+	
+	public EntityTransaction begin() {
+		return this.em.getTransaction();
+	}
+	
+	public void commit(EntityTransaction tx) {
+		tx.commit();
+		
+		this.em.clear();
+	}
+
+	public void rollback(EntityTransaction tx) {
+		tx.rollback();
+		
+		this.em.clear();
 	}
 
 	public Vme saveVme(Vme vme) {
@@ -143,8 +160,14 @@ public class VmeDao extends AbstractJPADao {
 			if(deleteMethod != null) {
 				try {
 					deleteMethod.invoke(this, toDelete);
-				} catch (Throwable t) {
-					throw new VmeDaoException("Unable to invoke the 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + t.getMessage(), t);
+				} catch (IllegalArgumentException IAe) {
+					throw new VmeDaoException("Unable to invoke the 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + IAe.getMessage(), IAe);
+				} catch (IllegalAccessException IAe) {
+					throw new VmeDaoException("Unable to invoke the 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + IAe.getMessage(), IAe);
+				} catch (InvocationTargetException ITe) {
+					throw new VmeDaoException("Unable to invoke the 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + ITe.getMessage(), ITe);
+				} catch(Throwable t) {
+					throw new VmeDaoException(t.getMessage(), t);
 				}
 			}
 		}
@@ -489,7 +512,7 @@ public class VmeDao extends AbstractJPADao {
 
 		if(vme.getRfmo().getId() == null)
 			throw new IllegalArgumentException("Updated Vme cannot have a Rfmo with a NULL id");
-		
+			
 		//Link the information source (by ID) to the specific measure
 		if(vme.getSpecificMeasureList() != null)
 			for(SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
@@ -558,7 +581,6 @@ public class VmeDao extends AbstractJPADao {
 		
 		return updated;
 	}
-
 	
 	public Vme create(Vme vme) throws Throwable {
 		if(vme == null)
@@ -589,6 +611,8 @@ public class VmeDao extends AbstractJPADao {
 			for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
 				specificMeasure.setVme(vme);
 			}
+		
+//		em.clear();
 		
 		return this.doPersistAndFlush(em, vme);
 	}
