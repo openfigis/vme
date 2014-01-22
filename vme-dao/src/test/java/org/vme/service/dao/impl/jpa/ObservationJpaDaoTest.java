@@ -1,9 +1,15 @@
 package org.vme.service.dao.impl.jpa;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.fao.fi.vme.domain.dto.observations.ObservationDto;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -23,6 +29,8 @@ public class ObservationJpaDaoTest {
 	@Inject
 	private VmeDao vmeDao;
 
+	MultiLingualStringUtil u = new MultiLingualStringUtil();
+
 	/**
 	 * This test is successful if without a publication year the logic works
 	 * without NPEs
@@ -31,11 +39,12 @@ public class ObservationJpaDaoTest {
 	 */
 	@Test
 	public void testSearchObservations() throws Exception {
-		Vme vme = VmeMock.generateVme(1);
-		vme.getSpecificMeasureList().get(0).getInformationSource().setPublicationYear(null);
-		vmeDao.saveVme(vme);
 		String text = "lola";
-		dao.searchObservations(0, 0, 0, VmeMock.YEAR, text);
+		Vme vme = VmeMock.generateVme(1);
+		vme.getSpecificMeasureList().get(0).setVmeSpecificMeasure((u.english(text)));
+		vmeDao.saveVme(vme);
+		List<ObservationDto> list = dao.searchObservations(0, 0, 0, VmeMock.YEAR, text);
+		assertEquals(1, list.size());
 	}
 
 	@Test
