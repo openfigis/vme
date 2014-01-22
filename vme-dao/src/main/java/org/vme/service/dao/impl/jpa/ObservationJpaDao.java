@@ -30,6 +30,11 @@ import org.vme.service.dao.config.vme.VmeDB;
 import org.vme.service.dao.impl.hardcoded.ObservationHarcodedDao;
 import org.vme.service.dao.sources.figis.FigisDao;
 
+/**
+ * 
+ * @author Fabrizio Sibeni
+ * 
+ */
 public class ObservationJpaDao implements ObservationDAO {
 	static final private Logger LOG = LoggerFactory.getLogger(ObservationHarcodedDao.class);
 
@@ -164,27 +169,27 @@ public class ObservationJpaDao implements ObservationDAO {
 		}
 		if (requested_year > 0) {
 			for (Vme vme : result) {
-				boolean is_good = false;
+				boolean toBeRemoved = false;
 				List<GeoRef> georef = vme.getGeoRefList();
 				for (GeoRef profile : georef) {
 					if (profile.getYear() == requested_year) {
-						is_good = true;
+						toBeRemoved = true;
 						break;
 					}
 				}
-				if (!is_good) {
+				if (!toBeRemoved) {
 					ValidityPeriod validityPeriod = vme.getValidityPeriod();
 					if (validityPeriod.getBeginYear() <= requested_year
 							&& validityPeriod.getEndYear() >= requested_year) {
-						is_good = true;
+						toBeRemoved = true;
 					}
 				}
 
-				if (is_good && (text != null && !text.equals(""))) {
-					is_good = containRelevantText(vme, text);
+				if (toBeRemoved && (text != null && !text.equals(""))) {
+					toBeRemoved = containRelevantText(vme, text);
 				}
 
-				if (!is_good) {
+				if (!toBeRemoved) {
 					res.add(vme);
 				}
 			}
