@@ -25,8 +25,8 @@ and cd_water_area <= 8000
 select count(*) from ref_vme
 --98, is correct
 select count(*) from fs_vme_observation
---186
---should be 197
+--208
+--should be 208 or 209
 
 
 select count(*) from fs_vme_observation oo, fs_observation o, fs_observation_xml x
@@ -34,8 +34,8 @@ where
 o.cd_observation = oo.cd_observation 
 and
 o.cd_observation = x.cd_observation 
--- 186
--- should be 197
+-- 208
+-- should be 208 or 209
 
 
 select * from fs_vme_observation oo, fs_observation o
