@@ -72,7 +72,7 @@ public class PeriodGrouping {
 			for (Year<?> foundHistory : yearList) {
 				// take the first you can get. Otherwise the year of the object
 				// founds need to be equal or less.
-				if (history == null || disseminationYear >= foundHistory.getYear()) {
+				if (disseminationYear >= foundHistory.getYear()) {
 					history = foundHistory;
 				}
 			}
@@ -82,5 +82,4 @@ public class PeriodGrouping {
 		return t;
 
 	}
-
 }

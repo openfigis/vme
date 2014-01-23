@@ -70,6 +70,8 @@ public class VmeMock {
 
 	public static Vme generateVme(int nrOfyears) {
 		int startYear = YEAR;
+		int endYear = YEAR + nrOfyears - 1;
+
 		long id = 0;
 
 		Vme vme = new Vme();
@@ -166,8 +168,8 @@ public class VmeMock {
 		vme.setSpecificMeasureList(specificMeasureList);
 		vme.setGeoRefList(geoRefList);
 		ValidityPeriod vp = new ValidityPeriod();
-		vp.setBeginYear(YEAR);
-		vp.setEndYear(YEAR + nrOfyears);
+		vp.setBeginYear(startYear);
+		vp.setEndYear(endYear);
 		vme.setValidityPeriod(vp);
 		vme.setAreaType("Established VME");
 		vme.setCriteria("Uniqueness or rarity");

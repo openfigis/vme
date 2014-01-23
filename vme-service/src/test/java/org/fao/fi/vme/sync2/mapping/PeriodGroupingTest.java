@@ -32,4 +32,20 @@ public class PeriodGroupingTest {
 		}
 
 	}
+
+	@Test
+	public void testCollectEndYear() {
+		int numberOfYears = 2;
+		Vme vme = VmeMock.generateVme(numberOfYears);
+		int endYear = 1971;
+
+		vme.getSpecificMeasureList().get(0).getValidityPeriod().setEndYear(endYear);
+		int endYearSecond = vme.getSpecificMeasureList().get(1).getValidityPeriod().getEndYear();
+
+		List<DisseminationYearSlice> list = grouping.collect(vme);
+		assertEquals(numberOfYears, list.size());
+		assertEquals(endYear, list.get(0).getSpecificMeasure().getValidityPeriod().getEndYear().intValue());
+		assertEquals(endYearSecond, list.get(1).getSpecificMeasure().getValidityPeriod().getEndYear().intValue());
+
+	}
 }
