@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import org.fao.fi.vme.domain.interfaces.PeriodYear;
 import org.fao.fi.vme.domain.interfaces.Year;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenced;
@@ -26,7 +25,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  */
 @RSGReferenced
 @Entity(name = "SPECIFIC_MEASURE")
-public class SpecificMeasure implements ObjectId<Long>, PeriodYear, Year<SpecificMeasure> {
+public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure> {
 
 	/**
 	 *  

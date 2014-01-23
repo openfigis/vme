@@ -15,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import org.fao.fi.vme.domain.interfaces.PeriodYear;
 import org.fao.fi.vme.domain.interfaces.Year;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
@@ -35,7 +34,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
  */
 @RSGReferenceReport(name = "General Measure")
 @Entity(name = "GENERAL_MEASURE")
-public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, PeriodYear, ReferenceReport {
+public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, ReferenceReport {
 
 	/** 
 	 * 

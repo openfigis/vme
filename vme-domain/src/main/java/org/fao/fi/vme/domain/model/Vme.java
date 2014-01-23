@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.fao.fi.vme.domain.interfaces.Period;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
@@ -35,7 +34,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.Report;
  */
 @Entity
 @RSGReport(name = "Vulnerable Marine Ecosystem Data")
-public class Vme implements ObjectId<Long>, Period<Vme>, Report {
+public class Vme implements ObjectId<Long>, Report {
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
@@ -171,12 +170,10 @@ public class Vme implements ObjectId<Long>, Period<Vme>, Report {
 		this.geoRefList = geoRefList;
 	}
 
-	@Override
 	public ValidityPeriod getValidityPeriod() {
 		return validityPeriod;
 	}
 
-	@Override
 	public void setValidityPeriod(ValidityPeriod validityPeriod) {
 		this.validityPeriod = validityPeriod;
 	}
