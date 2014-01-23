@@ -9,6 +9,7 @@ import org.fao.fi.vme.msaccess.component.HistoryHolderCorrection;
 import org.fao.fi.vme.msaccess.component.IdCorrection;
 import org.fao.fi.vme.msaccess.component.Linker;
 import org.fao.fi.vme.msaccess.component.MsAcces2DomainMapper;
+import org.fao.fi.vme.msaccess.component.ProfileCorrection;
 import org.fao.fi.vme.msaccess.component.VmeReader;
 import org.fao.fi.vme.msaccess.component.VmeWriter;
 import org.fao.fi.vme.msaccess.mapping.RelationVmeGeoRef;
@@ -36,6 +37,7 @@ public class VmeAccessDbImport {
 	private final IdCorrection idCorrection = new IdCorrection();
 
 	private final HistoryHolderCorrection historyHolderCorrection = new HistoryHolderCorrection();
+	private final ProfileCorrection profileCorrection = new ProfileCorrection();
 
 	private RelationVmeGeoRef relationVmeGeoRef = new RelationVmeGeoRef();
 
@@ -61,6 +63,8 @@ public class VmeAccessDbImport {
 		linker.link(objectCollectionList, tables);
 
 		historyHolderCorrection.correct(objectCollectionList);
+
+		profileCorrection.correct(objectCollectionList);
 
 		// set all the ids to null, because the DB needs to generate the ids
 		idCorrection.correct(objectCollectionList);
