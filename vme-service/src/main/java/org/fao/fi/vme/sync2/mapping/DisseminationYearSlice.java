@@ -35,7 +35,7 @@ public class DisseminationYearSlice {
 	private GeneralMeasure generalMeasure;
 
 	// period object
-	private SpecificMeasure specificMeasures;
+	private SpecificMeasure specificMeasure;
 
 	// year object
 	private Profile profile;
@@ -84,12 +84,12 @@ public class DisseminationYearSlice {
 		this.generalMeasure = generalMeasure;
 	}
 
-	public SpecificMeasure getSpecificMeasures() {
-		return specificMeasures;
+	public SpecificMeasure getSpecificMeasure() {
+		return specificMeasure;
 	}
 
-	public void setSpecificMeasures(SpecificMeasure specificMeasures) {
-		this.specificMeasures = specificMeasures;
+	public void setSpecificMeasure(SpecificMeasure specificMeasure) {
+		this.specificMeasure = specificMeasure;
 	}
 
 	public Profile getProfile() {
@@ -133,7 +133,7 @@ public class DisseminationYearSlice {
 		result = prime * result + ((geoRef == null) ? 0 : geoRef.hashCode());
 		result = prime * result + ((informationSourceList == null) ? 0 : informationSourceList.hashCode());
 		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
-		result = prime * result + ((specificMeasures == null) ? 0 : specificMeasures.hashCode());
+		result = prime * result + ((specificMeasure == null) ? 0 : specificMeasure.hashCode());
 		result = prime * result + ((vme == null) ? 0 : vme.hashCode());
 		result = prime * result + ((vmesHistory == null) ? 0 : vmesHistory.hashCode());
 		return result;
@@ -180,10 +180,10 @@ public class DisseminationYearSlice {
 				return false;
 		} else if (!profile.equals(other.profile))
 			return false;
-		if (specificMeasures == null) {
-			if (other.specificMeasures != null)
+		if (specificMeasure == null) {
+			if (other.specificMeasure != null)
 				return false;
-		} else if (!specificMeasures.equals(other.specificMeasures))
+		} else if (!specificMeasure.equals(other.specificMeasure))
 			return false;
 		if (vme == null) {
 			if (other.vme != null)

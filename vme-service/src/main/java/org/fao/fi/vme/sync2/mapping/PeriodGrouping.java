@@ -5,17 +5,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.interfaces.Period;
 import org.fao.fi.vme.domain.interfaces.Year;
-import org.fao.fi.vme.domain.logic.PeriodYearComparator;
 import org.fao.fi.vme.domain.logic.YearComparator;
-import org.fao.fi.vme.domain.model.GeneralMeasure;
-import org.fao.fi.vme.domain.model.GeoRef;
-import org.fao.fi.vme.domain.model.History;
-import org.fao.fi.vme.domain.model.InformationSource;
-import org.fao.fi.vme.domain.model.Profile;
-import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 
 /**
@@ -31,6 +22,7 @@ import org.fao.fi.vme.domain.model.Vme;
  * 
  * 
  * @author Erik van Ingen
+ * @param <T>
  * 
  */
 public class PeriodGrouping {
@@ -49,8 +41,17 @@ public class PeriodGrouping {
 		}
 		for (int disseminationYear = beginYear; disseminationYear <= endYear; disseminationYear++) {
 			DisseminationYearSlice slice = new DisseminationYearSlice();
-			doValidityPeriodStuff(vme, disseminationYear, slice);
-			doYearStuff(vme, disseminationYear, slice);
+
+			slice.setSpecificMeasure(findYearObject(vme.getSpecificMeasureList(), disseminationYear, slice));
+			slice.setGeneralMeasure(findYearObject(vme.getRfmo().getGeneralMeasureList(), disseminationYear, slice));
+			slice.setFisheryAreasHistory(findYearObject(vme.getRfmo().getHasFisheryAreasHistory(), disseminationYear,
+					slice));
+			slice.setVmesHistory(findYearObject(vme.getRfmo().getHasVmesHistory(), disseminationYear, slice));
+			slice.setGeoRef(findYearObject(vme.getGeoRefList(), disseminationYear, slice));
+			slice.setProfile(findYearObject(vme.getProfileList(), disseminationYear, slice));
+
+			slice.setVme(vme);
+			slice.setInformationSourceList(vme.getRfmo().getInformationSourceList());
 
 			slice.setYear(disseminationYear);
 			l.add(slice);
@@ -61,113 +62,25 @@ public class PeriodGrouping {
 		return l;
 	}
 
-	private void doYearStuff(Vme vme, int disseminationYear, DisseminationYearSlice slice) {
+	private <T> T findYearObject(List<T> list, int disseminationYear, DisseminationYearSlice slice) {
+		@SuppressWarnings("unchecked")
+		List<Year<?>> yearList = (List<Year<?>>) list;
 
-		// fishing area history
-		List<? extends Year<History>> fishingHistoryList = vme.getRfmo().getHasFisheryAreasHistory();
-		if (fishingHistoryList != null) {
-			Year<?> fishingHistory = findRelavantYear(fishingHistoryList, disseminationYear);
-			slice.setFisheryAreasHistory((History) fishingHistory);
-		}
-
-		// vme history
-		List<? extends Year<History>> hasVmesHistoryList = vme.getRfmo().getHasVmesHistory();
-		if (hasVmesHistoryList != null) {
-			Year<?> hasVmesHistory = findRelavantYear(hasVmesHistoryList, disseminationYear);
-			slice.setVmesHistory((History) hasVmesHistory);
-		}
-
-		// GeoRef
-		List<GeoRef> geoRefList = vme.getGeoRefList();
-		if (geoRefList != null) {
-			Year<?> geoRef = findRelavantYear(geoRefList, disseminationYear);
-			slice.setGeoRef((GeoRef) geoRef);
-		}
-
-		// Profile.
-		List<Profile> profileList = vme.getProfileList();
-		if (profileList != null && profileList.size() > 0) {
-			Year<?> profile = findRelavantYear(profileList, disseminationYear);
-			slice.setProfile((Profile) profile);
-		}
-
-		// InformationSource.
-		List<InformationSource> informationSourceList = vme.getRfmo().getInformationSourceList();
-		if (informationSourceList != null) {
-			defineCurrentAndPastSources(disseminationYear, slice, informationSourceList);
-		}
-
-	}
-
-	private void defineCurrentAndPastSources(int disseminationYear, DisseminationYearSlice slice,
-			List<InformationSource> informationSourceList) {
-		List<InformationSource> appropriateList = new ArrayList<InformationSource>();
-
-		if (informationSourceList != null)
-			for (InformationSource informationSource : informationSourceList) {
-				if (informationSource.getPublicationYear() == null
-						|| informationSource.getPublicationYear() <= disseminationYear) {
-
-					appropriateList.add(informationSource);
-				}
-			}
-		slice.setInformationSourceList(appropriateList);
-	}
-
-	private Year<?> findRelavantYear(List<? extends Year<?>> hList, int disseminationYear) {
-
-		Collections.sort(hList, new YearComparator());
 		Year<?> history = null;
-		for (Year<?> foundHistory : hList) {
-			// take the first you can get. Otherwise the year of the object
-			// founds need to be equal or less.
-			if (history == null || disseminationYear >= foundHistory.getYear()) {
-				history = foundHistory;
-			}
-		}
-		return history;
-	}
-
-	private void doValidityPeriodStuff(Vme vme, int year, DisseminationYearSlice slice) {
-		if (period(year, vme)) {
-			slice.setVme(vme);
-		}
-
-		List<SpecificMeasure> smList = vme.getSpecificMeasureList();
-		if (smList != null) {
-
-			Collections.sort(smList, new PeriodYearComparator());
-			for (SpecificMeasure specificMeasures : smList) {
-				if (period(year, specificMeasures)) {
-					// this logic would pick the latest SpecificMeasures, which
-					// would be correct.
-
-					if (specificMeasures.getVmeSpecificMeasure() == null) {
-						throw new VmeException(
-								"Error during generating slices. At this point, the specific measure object needs to have a value for VME "
-										+ specificMeasures.getVme().getInventoryIdentifier() + " "
-										+ specificMeasures.getVme().getId());
-
-					}
-
-					slice.setSpecificMeasures(specificMeasures);
+		if (yearList != null) {
+			Collections.sort(yearList, new YearComparator());
+			for (Year<?> foundHistory : yearList) {
+				// take the first you can get. Otherwise the year of the object
+				// founds need to be equal or less.
+				if (history == null || disseminationYear >= foundHistory.getYear()) {
+					history = foundHistory;
 				}
 			}
 		}
+		@SuppressWarnings("unchecked")
+		T t = (T) history;
+		return t;
 
-		List<GeneralMeasure> gmList = vme.getRfmo().getGeneralMeasureList();
-		if (gmList != null) {
-			Collections.sort(gmList, new PeriodYearComparator());
-			for (GeneralMeasure generalMeasures : gmList) {
-				if (period(year, generalMeasures)) {
-					slice.setGeneralMeasure(generalMeasures);
-				}
-			}
-		}
-	}
-
-	private boolean period(int disseminationYear, Period<?> period) {
-		return period.getValidityPeriod().getBeginYear() <= disseminationYear;
 	}
 
 }
