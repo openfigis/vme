@@ -17,6 +17,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.fao.fi.vme.msaccess.mapping.RelationVmeGeoRef;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -35,11 +36,11 @@ public class LinkerTest {
 	private final MsAcces2DomainMapper m = new MsAcces2DomainMapper();
 	private final Linker linker = new Linker();
 	private final MultiLingualStringUtil u = new MultiLingualStringUtil();
+	private RelationVmeGeoRef relationVmeGeoRef = new RelationVmeGeoRef();
 
 	@Test
 	public void testLink() {
 
-		// read from MSAccess
 		List<Table> tables = reader.readObjects();
 
 		// convert the table objects to domain objects
@@ -47,6 +48,9 @@ public class LinkerTest {
 		for (Table table : tables) {
 			objectCollectionList.add(m.map(table));
 		}
+
+		// correct the relation Vme - GeoRef
+		relationVmeGeoRef.correct(objectCollectionList);
 
 		// connect/link the domain objects, also using the original information
 		// from the table objects
