@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.GeoRef;
+import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.slf4j.Logger;
@@ -30,11 +31,10 @@ public class RelationVmeGeoRef {
 			if (objectCollection.getClazz().equals(Vme.class)) {
 
 				// report(objectCollection);
-
-				workToDo(objectCollection);
+				work(objectCollection);
 
 				// set the vme on the GeoRef;
-				setVmeOnGeoRef(objectCollection);
+				setVme(objectCollection);
 
 				// checks
 				postConditionCheck(objectCollection);
@@ -45,13 +45,19 @@ public class RelationVmeGeoRef {
 		}
 	}
 
-	private void setVmeOnGeoRef(ObjectCollection objectCollection) {
+	private void setVme(ObjectCollection objectCollection) {
 		List<Object> object = objectCollection.getObjectList();
 		for (Object found : object) {
 			Vme vme = (Vme) found;
 			List<GeoRef> l = vme.getGeoRefList();
 			for (GeoRef geoRef : l) {
 				geoRef.setVme(vme);
+			}
+			List<Profile> pl = vme.getProfileList();
+			if (pl != null) {
+				for (Profile profile : pl) {
+					profile.setVme(vme);
+				}
 			}
 		}
 	}
@@ -88,7 +94,7 @@ public class RelationVmeGeoRef {
 	 * 
 	 * @param objectCollection
 	 */
-	private void workToDo(ObjectCollection objectCollection) {
+	private void work(ObjectCollection objectCollection) {
 		List<Object> vmeList = objectCollection.getObjectList();
 		List<Vme> doubles = new ArrayList<Vme>();
 		Map<String, Vme> vmeMap = new HashMap<String, Vme>();
@@ -138,6 +144,9 @@ public class RelationVmeGeoRef {
 		}
 
 		vmeTarget.getGeoRefList().add(vme.getGeoRefList().get(0));
+		if (vme.getProfileList() != null) {
+			vmeTarget.getProfileList().add(vme.getProfileList().get(0));
+		}
 
 		// take the earliest start
 		if (vme.getValidityPeriod().getBeginYear() < vmeTarget.getValidityPeriod().getBeginYear()) {
