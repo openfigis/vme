@@ -572,7 +572,7 @@ public class RsgServiceImplVme implements RsgService {
 		} catch (Throwable t) {
 			LOG.error("Unable to delete {} report #{}: {} [ {} ]", entity.getName(), reportId, t.getClass().getSimpleName(), t.getMessage());
 
-			response.notSucceeded(entity.getName() + " report #" + reportId + " cannot be deleted: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
+			response.notSucceeded(t.getMessage()); //entity.getName() + " report #" + reportId + " cannot be deleted: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
 
 			response = this.handleRollback(response, tx);
 		}
@@ -615,7 +615,7 @@ public class RsgServiceImplVme implements RsgService {
 		} catch (Throwable t) {
 			LOG.error("Unable to delete {} report #{}: {} [ {} ]", entity.getName(), refReportId, t.getClass().getSimpleName(), t.getMessage());
 
-			response.notSucceeded(entity.getName() + " report #" + refReportId + " cannot be deleted: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
+			response.notSucceeded(t.getMessage());//entity.getName() + " report #" + refReportId + " cannot be deleted: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
 
 			response = this.handleRollback(response, tx);
 		}
@@ -707,7 +707,7 @@ public class RsgServiceImplVme implements RsgService {
 		} catch (Throwable t) {
 			LOG.error("Unable to update {} report {}: {} [ {} ]", report.getType(), id, t.getClass().getSimpleName(), t.getMessage());
 
-			response.notSucceeded(report.getType() + " report " + id + " cannot be updated: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
+			response.notSucceeded(t.getMessage()); //report.getType() + " report " + id + " cannot be updated: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
 
 			response = this.handleRollback(response, tx);
 		}
@@ -781,7 +781,7 @@ public class RsgServiceImplVme implements RsgService {
 		} catch (Throwable t) {
 			LOG.error("Unable to update {} reference report {}: {} [ {} ]", referenceReport.getType(), id, t.getClass().getSimpleName(), t.getMessage());
 
-			response.notSucceeded(referenceReport.getType() + " reference report " + id + " cannot be updated: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
+			response.notSucceeded(t.getMessage()); //referenceReport.getType() + " reference report " + id + " cannot be updated: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
 			
 			response = this.handleRollback(response, tx);
 		}
