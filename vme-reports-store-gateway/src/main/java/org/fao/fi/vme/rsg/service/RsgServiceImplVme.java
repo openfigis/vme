@@ -34,9 +34,12 @@ import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
 import org.gcube.application.rsg.service.dto.ReportType;
 import org.gcube.application.rsg.service.dto.response.Response;
+import org.gcube.application.rsg.service.dto.response.ResponseEntry;
+import org.gcube.application.rsg.service.dto.response.ResponseEntryCode;
 import org.gcube.application.rsg.service.util.RsgServiceUtil;
 import org.gcube.application.rsg.support.builder.ReportBuilder;
 import org.gcube.application.rsg.support.builder.annotations.Builder;
+import org.gcube.application.rsg.support.builder.exceptions.ReportBuilderException;
 import org.gcube.application.rsg.support.compiler.ReportCompiler;
 import org.gcube.application.rsg.support.compiler.annotations.Compiler;
 import org.gcube.application.rsg.support.compiler.annotations.Evaluator;
@@ -86,15 +89,6 @@ public class RsgServiceImplVme implements RsgService {
 	@Inject VmeAccessDbImport importer;
 	@Inject VmeDao vmeDao;
 
-	final private static String getReportDumpPath() {
-		String path = Utils.coalesce(System.getProperty("rsg.reports.dump.path"), System.getProperty("java.io.tmpdir"));
-
-		if(path != null && !path.endsWith(File.separator))
-			path += File.separator;
-
-		return path;
-	}
-
 	@PostConstruct
 	private void postConstruct() {
 		this._compiler.registerPrimitiveType(MultiLingualString.class);
@@ -112,6 +106,70 @@ public class RsgServiceImplVme implements RsgService {
 		//Using an in-memory database requires that data are 
 		//transferred from the original M$ Access DB into H2...
 		this.importer.importMsAccessData();
+	}
+	
+	final private String getReportDumpPath() {
+		String path = Utils.coalesce(System.getProperty("rsg.reports.dump.path"), System.getProperty("java.io.tmpdir"));
+
+		if(path != null && !path.endsWith(File.separator))
+			path += File.separator;
+
+		return path;
+	}
+	
+	@SuppressWarnings("unused")
+	final private void dumpModel(CompiledReport report) throws ReportBuilderException {
+		String type = report.getType();
+		String reportId = report.getId();
+		
+		if(reportId == null)
+			reportId = "new" + System.currentTimeMillis();
+		
+		ReportType reportType = new ReportType(type.substring(type.lastIndexOf(".")));
+		
+		Model model = this._builder.buildReport(report);
+	
+		File folder = new File(this.getReportDumpPath() + reportType.getTypeIdentifier());
+	
+		folder.mkdir();
+	
+		folder = new File(folder.getAbsolutePath() + File.separator + reportType.getTypeIdentifier().toUpperCase() + "_" + reportId);
+	
+		folder.mkdir();
+	
+		File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_" + reportId + ".d4st");
+	
+		new ModelReader(model);
+	
+		PersistenceManager.writeModel(model, file);
+		PersistenceManager.readModel(file.getAbsolutePath());
+	}
+	
+	final private Response handleRollback(Response current, EntityTransaction tx) {
+		try {
+			LOG.info("Rolling back transaction...");
+			
+			if(current != null) {
+				if(current.getResponseMessageList() != null && !current.getResponseMessageList().isEmpty()) {
+					LOG.info("Current response info:");
+					for(ResponseEntry entry : current.getResponseMessageList()) {
+						LOG.info("{} : {}", entry.getResponseCode(), entry.getResponseMessage());
+					}
+				} else {
+					LOG.warn("No previous response info!");
+				}
+			}
+			
+			tx.rollback();
+		} catch(Throwable t) {
+			String message = "Unable to rollback transaction: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]";
+			
+			LOG.error(message);
+			
+			current.addEntry(new ResponseEntry(ResponseEntryCode.NOT_SUCCEEDED, message));
+		}
+		
+		return current;
 	}
 
 	private Class<?> getTemplateOfType(Class<? extends Annotation> marker, ReportType reportType) {
@@ -134,7 +192,7 @@ public class RsgServiceImplVme implements RsgService {
 
 		for(Object report : this._reports)
 			u.add(report.getClass().getSimpleName());
-//
+
 //		for(Object report : this._refReports)
 //			u.add(report.getClass().getSimpleName());
 
@@ -357,22 +415,7 @@ public class RsgServiceImplVme implements RsgService {
 			template.setLastEditedBy("[ NOT SET ]");
 			template.setLastEditingDate(new Date());
 
-//			Model model = this._builder.buildReport(template);
-//
-//			File folder = new File(getReportDumpPath() + reportType.getTypeIdentifier());
-//
-//			folder.mkdir();
-//
-//			folder = new File(folder.getAbsolutePath() + "\\" + reportType.getTypeIdentifier().toUpperCase() + "_template");
-//
-//			folder.mkdir();
-//
-//			File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_template.d4st");
-//
-//			new ModelReader(model);
-//
-//			PersistenceManager.writeModel(model, file);
-//			PersistenceManager.readModel(file.getAbsolutePath());
+//			this.dumpModel(template);
 
 			return template;
 		} catch (Throwable t) {
@@ -417,22 +460,7 @@ public class RsgServiceImplVme implements RsgService {
 			report.setLastEditedBy("[ NOT SET ]");
 			report.setLastEditingDate(new Date());
 
-			Model model = this._builder.buildReport(report);
-
-			File folder = new File(getReportDumpPath() + reportType.getTypeIdentifier());
-
-			folder.mkdir();
-
-			folder = new File(folder.getAbsolutePath() + "\\" + reportType.getTypeIdentifier().toUpperCase() + "_" + reportId);
-
-			folder.mkdir();
-
-			File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_" + reportId + ".d4st");
-
-			new ModelReader(model);
-
-			PersistenceManager.writeModel(model, file);
-			PersistenceManager.readModel(file.getAbsolutePath());
+//			this.dumpModel(report);
 
 			return report;
 		} catch (Throwable t) {
@@ -485,22 +513,7 @@ public class RsgServiceImplVme implements RsgService {
 			report.setLastEditedBy("[ NOT SET ]");
 			report.setLastEditingDate(new Date());
 
-			Model model = this._builder.buildReferenceReport(report);
-
-			File folder = new File(getReportDumpPath() + refReportType.getTypeIdentifier());
-
-			folder.mkdir();
-
-			folder = new File(folder.getAbsolutePath() + "\\" + refReportType.getTypeIdentifier().toUpperCase() + "_" + refReportId);
-
-			folder.mkdir();
-
-			File file = new File(folder, refReportType.getTypeIdentifier().toUpperCase() + "_" + refReportId + ".d4st");
-
-			new ModelReader(model);
-
-			PersistenceManager.writeModel(model, file);
-			PersistenceManager.readModel(file.getAbsolutePath());
+//			this.dumpModel(report);
 
 			return report;
 		} catch (Throwable t) {
@@ -561,7 +574,7 @@ public class RsgServiceImplVme implements RsgService {
 
 			response.notSucceeded(entity.getName() + " report #" + reportId + " cannot be deleted: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
 
-			tx.rollback();
+			response = this.handleRollback(response, tx);
 		}
 
 		return response.undeterminedIfNotSet();
@@ -604,7 +617,7 @@ public class RsgServiceImplVme implements RsgService {
 
 			response.notSucceeded(entity.getName() + " report #" + refReportId + " cannot be deleted: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
 
-			tx.rollback();
+			response = this.handleRollback(response, tx);
 		}
 
 		return response.undeterminedIfNotSet();
@@ -696,7 +709,7 @@ public class RsgServiceImplVme implements RsgService {
 
 			response.notSucceeded(report.getType() + " report " + id + " cannot be updated: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
 
-			tx.rollback();
+			response = this.handleRollback(response, tx);
 		}
 
 		return response.undeterminedIfNotSet();
@@ -769,8 +782,8 @@ public class RsgServiceImplVme implements RsgService {
 			LOG.error("Unable to update {} reference report {}: {} [ {} ]", referenceReport.getType(), id, t.getClass().getSimpleName(), t.getMessage());
 
 			response.notSucceeded(referenceReport.getType() + " reference report " + id + " cannot be updated: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
-
-			tx.rollback();
+			
+			response = this.handleRollback(response, tx);
 		}
 
 		return response.undeterminedIfNotSet();
