@@ -37,6 +37,46 @@ public class ProfileCorrectionTest {
 
 	}
 
+	@Test
+	public void testCorrectWith2Nulls() {
+
+		String bio = "1";
+
+		List<ObjectCollection> ocList = prepareobjectCollectionList(bio, bio, "2", null);
+		// this is a list with 1 vme, and 2 georefs, we add a georef with nulls,
+		// only the georef is the same as nr1
+
+		Profile p3 = new Profile();
+		p3.setYear(2008);
+		p3.setDescriptionBiological(u.english(bio));
+
+		((Vme) ocList.get(0).getObjectList().get(0)).getProfileList().add(p3);
+
+		p.correct(ocList);
+		assertEquals(1, ((Vme) ocList.get(0).getObjectList().get(0)).getProfileList().size());
+	}
+
+	@Test
+	public void testWithWrongOrder() {
+		String bio = "1";
+		List<ObjectCollection> ocList = prepareobjectCollectionList(bio, null, null, null);
+
+		((Vme) ocList.get(0).getObjectList().get(0)).getProfileList().get(0).setYear(2001);
+		((Vme) ocList.get(0).getObjectList().get(0)).getProfileList().get(1).setYear(2000);
+
+		p.correct(ocList);
+		assertEquals(2, ((Vme) ocList.get(0).getObjectList().get(0)).getProfileList().size());
+	}
+
+	@Test
+	public void testWith1Attribute() {
+		String bio = "1";
+		List<ObjectCollection> ocList = prepareobjectCollectionList(bio, bio, bio + bio, null);
+
+		p.correct(ocList);
+		assertEquals(1, ((Vme) ocList.get(0).getObjectList().get(0)).getProfileList().size());
+	}
+
 	private List<ObjectCollection> prepareobjectCollectionList(String bio1, String bio2, String fys1, String fys2) {
 		Profile p1 = new Profile();
 		p1.setYear(2000);
@@ -45,7 +85,7 @@ public class ProfileCorrectionTest {
 		p1.setDescriptionPhisical(checkNull(fys1));
 
 		Profile p2 = new Profile();
-		p1.setYear(2001);
+		p2.setYear(2001);
 		p2.setDescriptionBiological(checkNull(bio2));
 		p2.setDescriptionPhisical(checkNull(fys2));
 		List<Profile> pList = new ArrayList<Profile>();

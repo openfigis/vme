@@ -5,7 +5,8 @@ import javax.enterprise.inject.Alternative;
 @Alternative
 public class FilesystemMsAccessConnectionProvider extends MsAccessConnectionProvider {
 	// public static String dbLocation =
-	// "../vme-service-integrationtest/src/test/resources/NAFO_ONLY_VME_DB_production.accdb";
+	// "../vme-service-integrationtest/src/test/resources/NAFO_CASE.accdb";
+
 	public static String dbLocation = "../vme-service-integrationtest/src/test/resources/VME_DB_production.accdb";
 
 	public FilesystemMsAccessConnectionProvider() {

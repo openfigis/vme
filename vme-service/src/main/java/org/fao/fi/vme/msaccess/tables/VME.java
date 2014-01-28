@@ -11,6 +11,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.mapping.ValidityPeriodRule;
+import org.fao.fi.vme.sync2.mapping.xml.EnglishTextUtil;
 
 public class VME implements TableDomainMapper {
 	int ID;
@@ -174,6 +175,7 @@ public class VME implements TableDomainMapper {
 		Vme o = new Vme();
 
 		MultiLingualStringUtil u = new MultiLingualStringUtil();
+		EnglishTextUtil etu = new EnglishTextUtil();
 
 		o.setName(u.english(this.getVME_ID()));
 
@@ -196,10 +198,10 @@ public class VME implements TableDomainMapper {
 		o.setValidityPeriod(vp);
 
 		Profile p = new Profile();
-		p.setDescriptionBiological(u.english(this.VME_Description_Biology));
-		p.setDescriptionImpact(u.english(this.VME_Description_Impact));
-		p.setDescriptionPhisical(u.english(this.VME_Description_Physical));
-		p.setGeoform(u.english(this.getVME_Geoform()));
+		p.setDescriptionBiological(etu.english(this.VME_Description_Biology));
+		p.setDescriptionImpact(etu.english(this.VME_Description_Impact));
+		p.setDescriptionPhisical(etu.english(this.VME_Description_Physical));
+		p.setGeoform(etu.english(this.getVME_Geoform()));
 		p.setYear(this.Year_ID);
 		p.setVme(o);
 
