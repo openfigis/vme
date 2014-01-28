@@ -20,4 +20,19 @@ public class EnglishTextUtil {
 		}
 		return text;
 	}
+
+	/**
+	 * Only when there is text, otherwise returns null
+	 * 
+	 * @param englishText
+	 * @return
+	 */
+	public MultiLingualString english(String englishText) {
+		MultiLingualString mls = null;
+		if (!StringUtils.isBlank(englishText)) {
+			mls = u.english(englishText);
+		}
+		return mls;
+	}
+
 }

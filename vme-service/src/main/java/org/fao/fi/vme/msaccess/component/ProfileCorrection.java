@@ -1,8 +1,10 @@
 package org.fao.fi.vme.msaccess.component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.fao.fi.vme.domain.logic.YearComparator;
 import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Vme;
@@ -23,18 +25,25 @@ public class ProfileCorrection {
 	}
 
 	private void cleanList(List<Profile> profileList) {
+		Collections.sort(profileList, new YearComparator());
+
 		List<Profile> doubles = new ArrayList<Profile>();
+		Profile b = null;
 		for (int i = 0; i < profileList.size(); i++) {
 			Profile c = profileList.get(i);
 			int before = i - 1;
 			if (before >= 0) {
-				Profile b = profileList.get(before);
+				if (b == null) {
+					b = profileList.get(before);
+				}
 				if (dubbel(b.getDescriptionBiological(), c.getDescriptionBiological())
 						&& dubbel(b.getDescriptionImpact(), c.getDescriptionImpact())
 						&& dubbel(b.getDescriptionPhisical(), c.getDescriptionPhisical())
 						&& dubbel(b.getGeoform(), c.getGeoform())) {
 					doubles.add(c);
-
+				} else {
+					// found a new one with new relevant data
+					b = c;
 				}
 			}
 		}

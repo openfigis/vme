@@ -1,10 +1,14 @@
 package org.fao.fi.vme.sync0;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.vme.domain.model.GeoRef;
+import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -29,6 +33,8 @@ public class TemporaryBatchIntegrationTest {
 	@Inject
 	FigisDao figisDao;
 
+	MultiLingualStringUtil u = new MultiLingualStringUtil();
+
 	@Test
 	public void testRun() {
 		temporaryBatch.run();
@@ -37,8 +43,18 @@ public class TemporaryBatchIntegrationTest {
 		// assertEquals(197, vmeDao.count(GeoRef.class).intValue());
 		// assertEquals(208, figisDao.count(VmeObservation.class).intValue(),
 		// 1);
-		System.out.println("vme=" + vmeDao.count(Vme.class) + " GeoRef=" + vmeDao.count(GeoRef.class) + " Observation="
-				+ figisDao.count(Observation.class));
+		System.out.println("vme=" + vmeDao.count(Vme.class) + " GeoRef=" + vmeDao.count(GeoRef.class) + " Profile="
+				+ vmeDao.count(Profile.class) + " Observation=" + figisDao.count(Observation.class));
+
+		List<Profile> l = vmeDao.selectFrom(vmeDao.getEm(), Profile.class);
+
+		for (Profile p : l) {
+			System.out.println("year=" + p.getYear());
+			System.out.println("getDescriptionBiological=" + u.getEnglish(p.getDescriptionBiological()));
+			System.out.println("getDescriptionImpact=" + u.getEnglish(p.getDescriptionImpact()));
+			System.out.println("getDescriptionPhisical=" + u.getEnglish(p.getDescriptionPhisical()));
+			System.out.println("getGeoform=" + u.getEnglish(p.getGeoform()));
+		}
 
 		/*
 		 * ID RFB_ID VME_ID VME_Inventory_Identifier VME_Feature_ID
