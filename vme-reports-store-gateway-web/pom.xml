@@ -18,19 +18,19 @@
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-interface-dto</artifactId>
-			<version>[0.0.3-SNAPSHOT]</version>
+			<version>[0.0.4-SNAPSHOT]</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>
 				reports-store-gateway-support-compiler
 			</artifactId>
-			<version>[0.0.3-SNAPSHOT]</version>
+			<version>[0.0.4-SNAPSHOT]</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-web-base</artifactId>
-			<version>[0.0.3-SNAPSHOT]</version>
+			<version>[0.0.4-SNAPSHOT]</version>
 		</dependency>
 		<dependency>
 			<groupId>org.vme</groupId>

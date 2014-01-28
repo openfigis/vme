@@ -409,7 +409,7 @@ public class VmeDao extends AbstractJPADao {
 		this.doRemove(em, toDelete);
 	}
 	
-	public Vme oldupdate(Vme vme) throws Throwable {
+	public Vme oldupdate(Vme vme) {
 		if(vme == null)
 			throw new IllegalArgumentException("Updated Vme cannot be NULL");
 		
@@ -542,6 +542,9 @@ public class VmeDao extends AbstractJPADao {
 		//Get the current Vme status (before the update)
 		Vme existing = this.getEntityById(this.em, Vme.class, vme.getId());
 		
+		if(existing == null)
+			throw new IllegalArgumentException("Unable to update Vme with id #" + vme.getId() + " as it doesn't exist");
+		
 		//Build the list of IDs for GeoRef / Profile / SpecificMeasure for the Vme in its current status.
 		Set<Long> currentGeoRefs = new HashSet<Long>();
 		if(existing.getGeoRefList() != null)
@@ -615,7 +618,7 @@ public class VmeDao extends AbstractJPADao {
 		return this.doPersistAndFlush(em, vme);
 	}
 	
-	public GeoRef update(GeoRef geoRef) throws Throwable {
+	public GeoRef update(GeoRef geoRef) {
 		if(geoRef == null)
 			throw new IllegalArgumentException("Updated GeoRef cannot be NULL");
 		
@@ -635,7 +638,7 @@ public class VmeDao extends AbstractJPADao {
 		return this.doMerge(em, current);
 	}
 	
-	public GeoRef create(GeoRef geoRef) throws Throwable {
+	public GeoRef create(GeoRef geoRef) {
 		if(geoRef == null)
 			throw new IllegalArgumentException("Updated GeoRef cannot be NULL");
 		
@@ -648,7 +651,7 @@ public class VmeDao extends AbstractJPADao {
 		return this.doPersistAndFlush(em, geoRef);
 	}
 	
-	public Profile update(Profile profile) throws Throwable {
+	public Profile update(Profile profile) {
 		if(profile == null)
 			throw new IllegalArgumentException("Updated Profile cannot be NULL");
 		
@@ -671,7 +674,7 @@ public class VmeDao extends AbstractJPADao {
 		return this.doMerge(em, current);
 	}
 	
-	public Profile create(Profile profile) throws Throwable {
+	public Profile create(Profile profile) {
 		if(profile == null)
 			throw new IllegalArgumentException("Updated Profile cannot be NULL");
 		
@@ -706,7 +709,7 @@ public class VmeDao extends AbstractJPADao {
 		return this.doMerge(em, specificMeasure);
 	}
 	
-	public SpecificMeasure create(SpecificMeasure specificMeasure) throws Throwable {
+	public SpecificMeasure create(SpecificMeasure specificMeasure) {
 		if(specificMeasure == null)
 			throw new IllegalArgumentException("SpecificMeasure to create cannot be NULL");
 				
