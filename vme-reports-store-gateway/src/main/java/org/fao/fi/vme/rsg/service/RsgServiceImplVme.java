@@ -50,6 +50,7 @@ import org.gcube.application.rsg.support.compiler.bridge.utilities.ScanningUtils
 import org.gcube.application.rsg.support.compiler.bridge.utilities.Utils;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
+import org.gcube.application.rsg.support.model.utils.CompiledReportUtils;
 import org.gcube.portlets.d4sreporting.common.shared.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -182,19 +183,21 @@ public class RsgServiceImplVme implements RsgService {
 		List<ReportEntry> results = new ArrayList<ReportEntry>();
 
 		ReportEntry entry;
+		Rfmo owner;
 		for(Vme vme : vmes) {
+			owner = vme.getRfmo();
 			entry = new ReportEntry();
 			entry.setNameValueList(new ArrayList<NameValue>());
 
 			entry.setId(vme.getId());
 			entry.setReportType(new ReportType("Vme"));
-			entry.setOwned(true);
-			entry.setOwner(vme.getRfmo().getId());
+			entry.setOwned(owner != null);
+			entry.setOwner(owner == null ? "[ NOT SET]" : owner.getId());
 
 			entry.setIdentifier(MLSu.getEnglish(vme.getName()));
 
 			entry.getNameValueList().add(new NameValue("InventoryIdentifier", vme.getInventoryIdentifier()));
-			entry.getNameValueList().add(new NameValue("Rfmo", vme.getRfmo().getId()));
+			entry.getNameValueList().add(new NameValue("Rfmo", owner == null ? "[ NOT SET]" : owner.getId()));
 			entry.getNameValueList().add(new NameValue("Name", MLSu.getEnglish(vme.getName())));
 
 			results.add(entry);
@@ -232,15 +235,17 @@ public class RsgServiceImplVme implements RsgService {
 		List<ReportEntry> results = new ArrayList<ReportEntry>();
 
 		ReportEntry entry;
+		Rfmo owner;
 		for(InformationSource informationSource : informationSources) {
+			owner = informationSource.getRfmo();
 			entry = new ReportEntry();
 			entry.setNameValueList(new ArrayList<NameValue>());
 
 			entry.setId(informationSource.getId());
 			entry.setReportType(new ReportType("InformationSource"));
-			entry.setOwned(true);
-			entry.setOwner(informationSource.getRfmo().getId());
-			entry.setIdentifier(entry.getOwner() + " - " + ( informationSource.getPublicationYear() == null ? "<YEAR UNKNOWN>" : informationSource.getPublicationYear().toString() ) + " - " + MLSu.getEnglish(informationSource.getCitation()));
+			entry.setOwned(owner != null);
+			entry.setOwner(owner == null ? "[ NOT SET]" : owner.getId());
+			entry.setIdentifier(entry.getOwner() + " - " + ( informationSource.getPublicationYear() == null ? "[ YEAR UNKNOWN ]" : informationSource.getPublicationYear().toString() ) + " - " + MLSu.getEnglish(informationSource.getCitation()));
 
 			entry.getNameValueList().add(new NameValue("Committee", MLSu.getEnglish(informationSource.getCommittee())));
 			entry.getNameValueList().add(new NameValue("Citation", MLSu.getEnglish(informationSource.getCitation())));
@@ -257,17 +262,20 @@ public class RsgServiceImplVme implements RsgService {
 		List<ReportEntry> results = new ArrayList<ReportEntry>();
 
 		ReportEntry entry;
+		Rfmo owner;
 		for(GeneralMeasure generalMeasure : generalMeasures) {
+			owner = generalMeasure.getRfmo();
+			
 			entry = new ReportEntry();
 			entry.setNameValueList(new ArrayList<NameValue>());
 
 			entry.setId(generalMeasure.getId());
 			entry.setReportType(new ReportType("GeneralMeasure"));
-			entry.setOwned(true);
-			entry.setOwner(generalMeasure.getRfmo().getId());
+			entry.setOwned(owner != null);
+			entry.setOwner(owner == null ? "[ NOT SET]" : owner.getId());
 			entry.setIdentifier(entry.getOwner() + " - " + generalMeasure.getYear());
 
-			entry.getNameValueList().add(new NameValue("Rfmo", generalMeasure.getRfmo().getId()));
+			entry.getNameValueList().add(new NameValue("Rfmo", owner == null ? "[ NOT SET]" : owner.getId()));
 			entry.getNameValueList().add(new NameValue("Year", generalMeasure.getYear() == null ? null : generalMeasure.getYear().toString()));
 			entry.getNameValueList().add(new NameValue("Validity start", generalMeasure.getValidityPeriod() == null || generalMeasure.getValidityPeriod().getBeginYear() == null ? null : generalMeasure.getValidityPeriod().getBeginYear().toString()));
 			entry.getNameValueList().add(new NameValue("Validity end", generalMeasure.getValidityPeriod() == null || generalMeasure.getValidityPeriod().getEndYear() == null ? null : generalMeasure.getValidityPeriod().getEndYear().toString()));
@@ -284,14 +292,17 @@ public class RsgServiceImplVme implements RsgService {
 		List<ReportEntry> results = new ArrayList<ReportEntry>();
 
 		ReportEntry entry;
+		Rfmo owner;
 		for(FisheryAreasHistory fisheryAreaHistory : fisheryAreasHistory) {
+			owner = fisheryAreaHistory.getRfmo();
+			
 			entry = new ReportEntry();
 			entry.setNameValueList(new ArrayList<NameValue>());
 
 			entry.setId(fisheryAreaHistory.getId());
 			entry.setReportType(new ReportType("FisheryAreasHistory"));
-			entry.setOwned(true);
-			entry.setOwner(fisheryAreaHistory.getRfmo().getId());
+			entry.setOwned(owner != null);
+			entry.setOwner(owner == null ? "[ NOT SET]" : owner.getId());
 			entry.setIdentifier(entry.getOwner() + " - " + fisheryAreaHistory.getYear());
 
 			entry.getNameValueList().add(new NameValue("Year", fisheryAreaHistory.getYear() == null ? null : fisheryAreaHistory.getYear().toString()));
@@ -309,14 +320,17 @@ public class RsgServiceImplVme implements RsgService {
 		List<ReportEntry> results = new ArrayList<ReportEntry>();
 
 		ReportEntry entry;
+		Rfmo owner;
 		for(VMEsHistory vmeHistory : vmesHistory) {
+			owner = vmeHistory.getRfmo();
+			
 			entry = new ReportEntry();
 			entry.setNameValueList(new ArrayList<NameValue>());
 
 			entry.setId(vmeHistory.getId());
 			entry.setReportType(new ReportType("VMEsHistory"));
-			entry.setOwned(true);
-			entry.setOwner(vmeHistory.getRfmo().getId()); //FisheryAreasHistory has no owner attribute, currently
+			entry.setOwned(owner != null);
+			entry.setOwner(owner == null ? "[ NOT SET]" : owner.getId());
 			entry.setIdentifier(entry.getOwner() + " - " + vmeHistory.getYear());
 
 			entry.getNameValueList().add(new NameValue("Year", vmeHistory.getYear() == null ? null : vmeHistory.getYear().toString()));
@@ -338,27 +352,27 @@ public class RsgServiceImplVme implements RsgService {
 		try {
 			CompiledReport template = this._compiler.compile(identifiedReport);
 
-			template.setCreatedBy("<MISSING>");
+			template.setCreatedBy("[ NOT SET ]");
 			template.setCreationDate(new Date());
-			template.setLastEditedBy("<MISSING>");
+			template.setLastEditedBy("[ NOT SET ]");
 			template.setLastEditingDate(new Date());
 
-			Model model = this._builder.buildReport(template);
-
-			File folder = new File(getReportDumpPath() + reportType.getTypeIdentifier());
-
-			folder.mkdir();
-
-			folder = new File(folder.getAbsolutePath() + "\\" + reportType.getTypeIdentifier().toUpperCase() + "_template");
-
-			folder.mkdir();
-
-			File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_template.d4st");
-
-			new ModelReader(model);
-
-			PersistenceManager.writeModel(model, file);
-			PersistenceManager.readModel(file.getAbsolutePath());
+//			Model model = this._builder.buildReport(template);
+//
+//			File folder = new File(getReportDumpPath() + reportType.getTypeIdentifier());
+//
+//			folder.mkdir();
+//
+//			folder = new File(folder.getAbsolutePath() + "\\" + reportType.getTypeIdentifier().toUpperCase() + "_template");
+//
+//			folder.mkdir();
+//
+//			File file = new File(folder, reportType.getTypeIdentifier().toUpperCase() + "_template.d4st");
+//
+//			new ModelReader(model);
+//
+//			PersistenceManager.writeModel(model, file);
+//			PersistenceManager.readModel(file.getAbsolutePath());
 
 			return template;
 		} catch (Throwable t) {
@@ -398,9 +412,9 @@ public class RsgServiceImplVme implements RsgService {
 
 		try {
 			CompiledReport report = this._evaluator.evaluate(this._compiler.compile(identifiedReport), identified);
-			report.setCreatedBy("<MISSING>");
+			report.setCreatedBy("[ NOT SET ]");
 			report.setCreationDate(new Date());
-			report.setLastEditedBy("<MISSING>");
+			report.setLastEditedBy("[ NOT SET ]");
 			report.setLastEditingDate(new Date());
 
 			Model model = this._builder.buildReport(report);
@@ -466,9 +480,9 @@ public class RsgServiceImplVme implements RsgService {
 			report.setIsAReference(true);
 
 			report = this._evaluator.evaluate(report, identified);
-			report.setCreatedBy("Foobaz");
+			report.setCreatedBy("[ NOT SET ]");
 			report.setCreationDate(new Date());
-			report.setLastEditedBy("Foobar");
+			report.setLastEditedBy("[ NOT SET ]");
 			report.setLastEditingDate(new Date());
 
 			Model model = this._builder.buildReferenceReport(report);
@@ -643,6 +657,14 @@ public class RsgServiceImplVme implements RsgService {
 		String id = isNew ? "#NEW#" : "#" + report.getId();
 
 		LOG.info("Requesting update of {} report {}", report.getType(), id);
+		
+		LOG.info("Report details:");
+		
+		try {
+			LOG.info(CompiledReportUtils.toXML(report));
+		} catch(Throwable t) {
+			LOG.warn("Unable to dump report to its XML format", t);
+		}
 
 		Response response = new Response();
 
@@ -652,6 +674,8 @@ public class RsgServiceImplVme implements RsgService {
 		try {
 			tx.begin();
 
+			report.setEvaluated(true);
+			
 			Object toUpdate = this._evaluator.extract(report);
 						
 			Object updated = isNew ? this.doCreate(toUpdate) : this.doUpdate(toUpdate);
@@ -709,6 +733,14 @@ public class RsgServiceImplVme implements RsgService {
 
 		LOG.info("Requesting update of {} reference report {}", referenceReport.getType(), id);
 
+		LOG.info("Reference report details:");
+		
+		try {
+			LOG.info(CompiledReportUtils.toXML(referenceReport));
+		} catch(Throwable t) {
+			LOG.warn("Unable to dump reference report to its XML format", t);
+		}
+		
 		Response response = new Response();
 
 		EntityManager em = this.vmeDao.getEm();
@@ -716,6 +748,8 @@ public class RsgServiceImplVme implements RsgService {
 
 		try {
 			tx.begin();
+
+			referenceReport.setEvaluated(true);
 
 			Object toUpdate = this._evaluator.extract(referenceReport);
 			Object updated = isNew ? this.doCreateReference(toUpdate) : this.doUpdateReference(toUpdate);

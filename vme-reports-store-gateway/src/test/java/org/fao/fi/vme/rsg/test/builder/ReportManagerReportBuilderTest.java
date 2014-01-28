@@ -21,6 +21,7 @@ import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.fao.fi.vme.msaccess.component.EmbeddedMsAccessConnectionProvider;
 import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
 import org.gcube.application.reporting.persistence.PersistenceManager;
+import org.gcube.application.reporting.reader.ModelReader;
 import org.gcube.application.rsg.support.BindingConstants;
 import org.gcube.application.rsg.support.builder.ReportBuilder;
 import org.gcube.application.rsg.support.builder.annotations.Builder;
@@ -96,7 +97,7 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 
 	@Inject @Builder private ReportBuilder<Model> _reportBuilder;
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;
-	
+
 	@Test
 	public void testReadVmeReport() throws Throwable {
 		Model model = PersistenceManager.readModel("./compiled/reports/VME_1.d4st");
@@ -112,15 +113,19 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		this._importer.importMsAccessData();
 		
 		CompiledReport report, template = this._reportCompiler.compile(Vme.class);
-		report = this._reportEvaluator.evaluate(template, this._vmeDao.getEntityById(this._vmeDao.getEm(), Vme.class, new Long(1)));
+		report = this._reportEvaluator.evaluate(template, this._vmeDao.getEntityById(this._vmeDao.getEm(), Vme.class, new Long(2)));
 
 		Model model = this._reportBuilder.buildReport(report);
 		
-		this.dumpModel(model);
+//		this.dumpModel(model);
+		
+//		System.out.println("Scanning model instance with id: " + model.getUniqueID() + ", name: " + model.getTemplateName());
+		
+		System.out.println(new ModelReader(model).toString());
 		
 //		System.out.println(new XStream().toXML(model));
 		
-		template.setEvaluated(true);
+//		template.setEvaluated(true);
 		
 		String modelType = null;
 		
@@ -135,14 +140,16 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		
 		template = this._reportCompiler.compile(Class.forName(modelType));
 		
+		template.setEvaluated(true);
+		
 		CompiledReport extracted = this._reportBuilder.extract(template, model);
 		
-//		System.out.println(new XStream().toXML(modeler.getReportInstance()));
 		System.out.println(CompiledReportUtils.toXML(extracted));
 		
 		Vme vme = this._reportEvaluator.extract(extracted);
 		
-		System.out.println(vme);
+		Assert.assertNotNull(vme);
+		Assert.assertNotNull(vme.getId());
 	}
 	
 	@Test
@@ -288,6 +295,7 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		return tempDir;
 	}
 	
+	@SuppressWarnings("unused")
 	private void dumpModel(Model toDump) {
 		int sectionNumber = 0;
 		for(BasicSection section : toDump.getSections()) {
