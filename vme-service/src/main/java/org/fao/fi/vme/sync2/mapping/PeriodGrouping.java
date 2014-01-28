@@ -40,6 +40,7 @@ public class PeriodGrouping {
 			endYear = Calendar.getInstance().get(Calendar.YEAR);
 		}
 		for (int disseminationYear = beginYear; disseminationYear <= endYear; disseminationYear++) {
+
 			DisseminationYearSlice slice = new DisseminationYearSlice();
 
 			slice.setSpecificMeasure(findYearObject(vme.getSpecificMeasureList(), disseminationYear, slice));
@@ -57,7 +58,7 @@ public class PeriodGrouping {
 			l.add(slice);
 		}
 
-		System.out.println("Number of slices: " + l.size());
+		// System.out.println("Number of slices: " + l.size());
 
 		return l;
 	}

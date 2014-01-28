@@ -74,7 +74,7 @@ public class ObjectMapping {
 
 			if (xmlString.contains(RelatedFisheries.class.getSimpleName()) || xmlString.contains("<fi:Text xsi:nil=")
 					|| xmlString.contains("<fi:Impacts/>") || xmlString.contains("<fi:GeoForm/>")) {
-				System.out.println(xmlString);
+				// System.out.println(xmlString);
 				throw new VmeException(
 						"Vme XML contains RelatedFisheries, <fi:Text xsi:nil=, <fi:GeoForm/> or <fi:Impacts/> is not correct.");
 

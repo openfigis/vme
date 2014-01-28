@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.Observation;
+import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Vme;
@@ -54,6 +55,13 @@ public class TemporaryBatchIntegrationTest {
 			System.out.println("getDescriptionImpact=" + u.getEnglish(p.getDescriptionImpact()));
 			System.out.println("getDescriptionPhisical=" + u.getEnglish(p.getDescriptionPhisical()));
 			System.out.println("getGeoform=" + u.getEnglish(p.getGeoform()));
+		}
+
+		List<ObservationXml> x = figisDao.selectFrom(figisDao.getEm(), ObservationXml.class);
+		for (ObservationXml xml : x) {
+			if (xml.getXml().contains("<fi:ReportingYear>2012</fi:ReportingYear>")) {
+				System.out.println(xml.getXml());
+			}
 		}
 
 		/*
