@@ -4,11 +4,13 @@
 package org.fao.fi.vme.rsg.test.builder;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
@@ -35,6 +37,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.Integer
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.StringDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter;
+import org.gcube.application.rsg.support.compiler.exceptions.ReportEvaluationException;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
@@ -98,6 +101,46 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 	@Inject @Builder private ReportBuilder<Model> _reportBuilder;
 	@Inject @Evaluator private ReportEvaluator _reportEvaluator;
 
+	@PostConstruct
+	public void postConstruct() {
+		this._importer.importMsAccessData();
+	}
+	
+	private String readFile(String file) throws Throwable {
+		byte[] buffer = new byte[8192];
+		int len = -1;
+		
+		FileInputStream fis = new FileInputStream(file);
+		
+		StringBuilder result = new StringBuilder();
+		
+		while((len = fis.read(buffer)) != -1) {
+			result.append(new String(buffer, 0, len, "UTF-8"));
+		}
+		
+		fis.close();
+		
+		return result.toString();
+	}
+	
+	@Test
+	public void testReadGMFromXML() throws Throwable {
+		String xml = this.readFile("./compiled/xml/GM_1_upd.xml");
+		
+		CompiledReport report = CompiledReportUtils.fromXML(xml);
+		CompiledReport template = this._reportCompiler.compile(GeneralMeasure.class);
+		
+		Model model = this._reportBuilder.buildReport(report);
+		
+		System.out.println(new ModelReader(model).toString());
+		
+		GeneralMeasure gm = this._reportEvaluator.extract(this._reportEvaluator.evaluate(report, template));
+		
+		System.out.println(gm.getInformationSourceList().size());
+		
+		PersistenceManager.writeModel(model, new File("./compiled/models/gm/foo.d4st"));
+	}
+	
 	@Test
 	public void testReadVmeReport() throws Throwable {
 		Model model = PersistenceManager.readModel("./compiled/reports/VME_1.d4st");
@@ -109,9 +152,60 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 	}
 	
 	@Test
-	public void testBuildAndExtractVmeReport() throws Throwable {
-		this._importer.importMsAccessData();
+	public void testReadAndExtractInformationSourcesReport() throws Throwable {
+		Model model = PersistenceManager.readModel("./compiled/reports/NEW_IS.d4st");
+		CompiledReport report = this._reportCompiler.compile(InformationSource.class);
+
+		CompiledReport extracted = this._reportBuilder.extract(report, model);
+		extracted.setEvaluated(true);
 		
+		InformationSource data = this._reportEvaluator.extract(extracted); 
+		
+		System.out.println(CompiledReportUtils.toXML(extracted));
+		System.out.println(data);
+	}
+	
+	@Test
+	public void testReadAndExtractBadInformationSourcesReport() throws Throwable {
+		Model model = PersistenceManager.readModel("./compiled/reports/NEW_IS_ERROR.d4st");
+		CompiledReport report = this._reportCompiler.compile(InformationSource.class);
+
+		CompiledReport extracted = this._reportBuilder.extract(report, model);
+		extracted.setEvaluated(true);
+		
+		try {
+			this._reportEvaluator.extract(extracted);
+			
+			Assert.fail();
+		} catch(ReportEvaluationException REe) {
+			Assert.assertTrue(REe.getMessage().contains("java.text.ParseException"));
+		}
+	}
+	
+	@SuppressWarnings("unused")
+	@Test
+	public void testReadGeneralMeasureRefReport() throws Throwable {
+		CompiledReport template = this._reportCompiler.compile(GeneralMeasure.class);
+		Model templateModel = this._reportBuilder.buildReport(template); 
+		GeneralMeasure instance = this._vmeDao.getEntityById(this._vmeDao.getEm(), GeneralMeasure.class, 1L);
+		
+		CompiledReport evaluated = this._reportEvaluator.evaluate(template, instance);
+		
+		GeneralMeasure reInstance = this._reportEvaluator.extract(evaluated);
+		
+		Model evaluatedModel = this._reportBuilder.buildReport(evaluated);
+		
+		System.out.println(new ModelReader(evaluatedModel));
+		template.setEvaluated(true);
+		
+		CompiledReport extracted = this._reportBuilder.extract(template, evaluatedModel);
+		GeneralMeasure rebuilt = this._reportEvaluator.extract(extracted);
+		
+		System.out.println(rebuilt);//CompiledReportUtils.toXML(extracted));
+	}
+	
+	@Test
+	public void testBuildAndExtractVmeReport() throws Throwable {
 		CompiledReport report, template = this._reportCompiler.compile(Vme.class);
 		report = this._reportEvaluator.evaluate(template, this._vmeDao.getEntityById(this._vmeDao.getEm(), Vme.class, new Long(2)));
 

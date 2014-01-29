@@ -283,11 +283,13 @@ public class CRUDJpaDaoTest {
 
 	@Test
 	public void testDefaultDeleteInformationSource() {
+		EntityTransaction t = this.em.getTransaction();
+		
 		for(Long isId : this.listReferencedInfoSources()) {
 			System.out.println("Deleting information source #" + isId);
 			
 			InformationSource informationSource = this.vmeDao.getEntityById(this.vmeDao.getEm(), InformationSource.class, isId);
-	
+			
 			Rfmo rfmo = this.vmeDao.getEntityById(this.em, Rfmo.class, informationSource.getRfmo().getId());
 	
 			Assert.assertNotNull(informationSource);
@@ -298,8 +300,12 @@ public class CRUDJpaDaoTest {
 			Assert.assertTrue(informationSource.getSpecificMeasureList() != null);
 			Assert.assertFalse(informationSource.getSpecificMeasureList().isEmpty());
 	
+			t.begin();
+			
 			this.vmeDao.delete(informationSource);
 	
+			t.commit();
+			
 			Assert.assertNull(this.vmeDao.getEntityById(this.vmeDao.getEm(), InformationSource.class, informationSource.getId()));
 	
 			for (InformationSource inRfmo : rfmo.getInformationSourceList())
