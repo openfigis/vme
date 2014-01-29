@@ -107,6 +107,7 @@ public class Meetings implements TableDomainMapper {
 		is.setId(new Long(this.ID));
 		is.setReportSummary(u.english(this.getReport_Summary()));
 		is.setPublicationYear(this.Year_ID);
+		is.setSourceType(Source_Type);
 
 		try {
 			URL url = new URL(this.getLink_Source());
