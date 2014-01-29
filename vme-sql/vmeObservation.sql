@@ -42,9 +42,14 @@ select * from fs_vme_observation oo, fs_observation o
 where
 o.cd_observation = oo.cd_observation 
 
+
 select x.xml from fs_vme_observation oo, fs_observation o, fs_observation_xml x
 where
 o.cd_observation = oo.cd_observation 
 and
 o.cd_observation = x.cd_observation 
+and x.xml like '2012'
+
+
+
 

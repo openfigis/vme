@@ -39,6 +39,7 @@ import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.InformationSource;
@@ -678,10 +679,13 @@ public class FigisDocBuilder {
 				// Created
 				// publicationYear
 				// fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
+
 				if (infoSource.getPublicationYear() != null && infoSource.getPublicationYear() > 0) {
 					Created created = new Created();
 					created.setContent(Integer.toString(infoSource.getPublicationYear()));
 					biblioEntry.getContent().add(created);
+				} else {
+					throw new VmeException("infoSource without valid publicationYear");
 				}
 
 				// meetingStartDate - meetingEndDate

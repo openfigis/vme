@@ -50,6 +50,9 @@ public class Linker {
 		if (domainObject instanceof Vme) {
 			linkVmeObject(domainObject, domainTableMap, objectCollectionList);
 		}
+		Rfmo rfmo = new Rfmo();
+		rfmo.getInformationSourceList();
+
 		// if (domainObject instanceof Rfmo) {
 		// linkRfmoObject(domainObject, objectCollectionList, tables);
 		// }
@@ -145,7 +148,8 @@ public class Linker {
 	 * @param domainTableMap
 	 * @param objectCollectionList
 	 */
-	private void linkSpecificMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap, List<ObjectCollection> objectCollectionList) {
+	private void linkSpecificMeasuresObject(Object domainObject, Map<Object, Object> domainTableMap,
+			List<ObjectCollection> objectCollectionList) {
 		SpecificMeasure sm = (SpecificMeasure) domainObject;
 
 		Measues_VME_Specific record = (Measues_VME_Specific) domainTableMap.get(sm);
@@ -182,7 +186,7 @@ public class Linker {
 					if (vme.getSpecificMeasureList() == null) {
 						vme.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
 					}
-					
+
 					VME vmeRecord = (VME) domainTableMap.get(vme);
 
 					if (vmeRecord == null || vmeRecord.getVME_ID() == null) {
