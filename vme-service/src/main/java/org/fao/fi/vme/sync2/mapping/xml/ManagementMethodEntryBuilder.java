@@ -114,22 +114,21 @@ public class ManagementMethodEntryBuilder {
 	 * @param entry
 	 */
 
-	public void addMeasureToEntry2(GeneralMeasure generalMeasure, ManagementMethodEntry entry) {
-		if (generalMeasure != null) {
+	public void addMeasureToEntry2(GeneralMeasure gm, ManagementMethodEntry entry) {
+		if (gm != null) {
 			// 2. ExploratoryFishingProtocol
 			Measure measure2 = f.createMeasure();
 			MeasureType measureType2 = f.createMeasureType();
 			measureType2.setValue(EXPLORATORY_FISHING_PROTOCOL);
 			Text measureText2 = f.createText();
-			measureText2.getContent().add(u.getEnglish(generalMeasure.getExplorataryFishingProtocol()));
+			measureText2.getContent().add(u.getEnglish(gm.getExplorataryFishingProtocol()));
 
 			measure2.getTextsAndImagesAndTables().add(measureType2);
 
 			measure2.getTextsAndImagesAndTables().add(measureText2);
 
-			new AddWhenContentRule<Object>().check(u.getEnglish(generalMeasure.getExplorataryFishingProtocol()))
+			new AddWhenContentRule<Object>().check(u.getEnglish(gm.getExplorataryFishingProtocol()))
 					.beforeAdding(measure2).to(entry.getTextsAndImagesAndTables());
-
 		}
 
 	}

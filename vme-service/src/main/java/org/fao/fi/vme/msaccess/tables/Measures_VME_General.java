@@ -140,6 +140,9 @@ public class Measures_VME_General implements TableDomainMapper {
 		o.setId(new Long(this.getID()));
 		o.setVmeEncounterProtocol(u.english(this.getVME_Encounter()));
 		o.setVmeIndicatorSpecies(u.english(this.getVME_Indicator_Sp()));
+		o.setExplorataryFishingProtocol(u.english(this.getRFB_Exploratory_Fishing_Protocol()));
+		o.setFishingArea(u.english(this.getRFB_Fishing_Areas()));
+		o.setVmeThreshold(u.english(this.getVME_Threshold()));
 
 		if (this.Source_ID > 0) {
 			InformationSource is = new InformationSource();
@@ -148,12 +151,6 @@ public class Measures_VME_General implements TableDomainMapper {
 			informationSourceList.add(is);
 			o.setInformationSourceList(informationSourceList);
 		}
-
-		// o.setFishingAreas(this.getRFB_Fishing_Areas());
-		o.setFishingArea(u.english(this.getRFB_Fishing_Areas()));
-
-		// o.setRfmo(rfmo)
-		o.setVmeThreshold(u.english(this.getVME_Threshold()));
 
 		ValidityPeriodRule r = new ValidityPeriodRule(this.VME_GeneralMeasure_Validity_Start,
 				VME_GeneralMeasure_Validity_End);
