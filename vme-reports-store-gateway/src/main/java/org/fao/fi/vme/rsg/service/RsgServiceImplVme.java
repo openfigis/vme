@@ -616,8 +616,8 @@ public class RsgServiceImplVme implements RsgService {
 		} catch (Throwable t) {
 			LOG.error("Unable to delete {} report #{}: {} [ {} ]", entity.getName(), refReportId, t.getClass().getSimpleName(), t.getMessage());
 
-			response.notSucceeded(t.getMessage());//entity.getName() + " report #" + refReportId + " cannot be deleted: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
-
+			response.notSucceeded(t.getMessage());
+			
 			response = this.handleRollback(response, tx);
 		}
 

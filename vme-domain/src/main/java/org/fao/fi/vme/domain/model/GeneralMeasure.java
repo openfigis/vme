@@ -87,6 +87,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	 * 
 	 */
 	@RSGName("RFB Fishing Areas")
+	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString fishingArea;

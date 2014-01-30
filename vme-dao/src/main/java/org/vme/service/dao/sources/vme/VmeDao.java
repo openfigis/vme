@@ -192,7 +192,7 @@ public class VmeDao extends AbstractJPADao {
 				rfmoIterator.remove();
 
 		this.doMerge(em, parent);
-
+		
 		if (toDelete.getProfileList() != null)
 			for (Profile profile : new ArrayList<Profile>(toDelete.getProfileList()))
 				this.delete(profile);
@@ -229,23 +229,25 @@ public class VmeDao extends AbstractJPADao {
 		this.doMerge(em, parent);
 		
 		Iterator<InformationSource> gmIterator; 
-		for(GeneralMeasure generalMeasure : toDelete.getGeneralMeasureList()) {
-			gmIterator = generalMeasure.getInformationSourceList().iterator();
-			
-			while(gmIterator.hasNext())
-				if(gmIterator.next().getId().equals(toDelete.getId()))
-					gmIterator.remove();
+		if(toDelete.getGeneralMeasureList() != null)
+			for(GeneralMeasure generalMeasure : toDelete.getGeneralMeasureList()) {
+				gmIterator = generalMeasure.getInformationSourceList().iterator();
+				
+				while(gmIterator.hasNext())
+					if(gmIterator.next().getId().equals(toDelete.getId()))
+						gmIterator.remove();
+	
+				this.doMerge(em, generalMeasure);
+			} 
 
-			this.doMerge(em, generalMeasure);
-		}
-
-		for(SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList()) {
-			if(specificMeasure.getInformationSource() != null)
-				if(specificMeasure.getInformationSource().getId().equals(toDelete.getId()))
-					specificMeasure.setInformationSource(null);
-			
-			this.doMerge(em, specificMeasure);
-		}
+		if(toDelete.getSpecificMeasureList() != null)
+			for(SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList()) {
+				if(specificMeasure.getInformationSource() != null)
+					if(specificMeasure.getInformationSource().getId().equals(toDelete.getId()))
+						specificMeasure.setInformationSource(null);
+				
+				this.doMerge(em, specificMeasure);
+			}
 
 		this.doRemove(em, toDelete);
 	}
@@ -269,7 +271,7 @@ public class VmeDao extends AbstractJPADao {
 				rfmoIterator.remove();
 
 		this.doMerge(em, parent);
-
+	
 		this.doRemove(em, toDelete);
 	}
 
@@ -292,7 +294,7 @@ public class VmeDao extends AbstractJPADao {
 				rfmoIterator.remove();
 
 		this.doMerge(em, parent);
-
+		
 		this.doRemove(em, toDelete);
 	}
 
@@ -307,7 +309,7 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("Profile cannot have a NULL Vme reference");
 
 		if (toDelete.getVme().getId() == null)
-			throw new IllegalArgumentException("Profile cannot have a Vme reference with a NULL id");
+			throw new IllegalArgumentException("Profile cannot have a Vme reference with a NULL identifier");
 
 		Vme parent = toDelete.getVme();
 
@@ -339,7 +341,7 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("GeoRef cannot have a NULL Vme reference");
 
 		if (toDelete.getVme().getId() == null)
-			throw new IllegalArgumentException("GeoRef cannot have a Vme reference with a NULL id");
+			throw new IllegalArgumentException("GeoRef cannot have a Vme reference with a NULL identifier");
 
 		Vme parent = toDelete.getVme();
 
@@ -370,22 +372,26 @@ public class VmeDao extends AbstractJPADao {
 		if (toDelete.getRfmo() == null)
 			throw new IllegalArgumentException("GeneralMeasure cannot have a NULL parent RFMO");
 
-		Iterator<GeneralMeasure> rfmoIterator = toDelete.getRfmo().getGeneralMeasureList().iterator();
+		Rfmo parent = toDelete.getRfmo();
+		
+		Iterator<GeneralMeasure> rfmoIterator = parent.getGeneralMeasureList().iterator();
 
 		while (rfmoIterator.hasNext())
 			if (rfmoIterator.next().getId().equals(toDelete.getId()))
 				rfmoIterator.remove();
 
-		this.doMerge(em, toDelete.getRfmo());
-
-		for (InformationSource informationSource : toDelete.getInformationSourceList()) {
-			Iterator<GeneralMeasure> informationSourceIterator = informationSource.getGeneralMeasureList().iterator();
-
-			while (informationSourceIterator.hasNext())
-				if (informationSourceIterator.next().getId().equals(toDelete.getId()))
-					informationSourceIterator.remove();
-
-			this.doMerge(em, informationSource);
+		this.doMerge(em, parent);
+		
+		if(toDelete.getInformationSourceList() != null) {
+			for(InformationSource informationSource : toDelete.getInformationSourceList()) {
+				Iterator<GeneralMeasure> informationSourceIterator = informationSource.getGeneralMeasureList().iterator();
+	
+				while (informationSourceIterator.hasNext())
+					if (informationSourceIterator.next().getId().equals(toDelete.getId()))
+						informationSourceIterator.remove();
+	
+				this.doMerge(em, informationSource);
+			}
 		}
 
 		this.doRemove(em, toDelete);
@@ -402,7 +408,7 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("SpecificMeasure cannot have a NULL Vme reference");
 
 		if (toDelete.getVme().getId() == null)
-			throw new IllegalArgumentException("SpecificMeasure cannot have an Vme reference with a NULL id");
+			throw new IllegalArgumentException("SpecificMeasure cannot have an Vme reference with a NULL identifier");
 
 		Vme vme = toDelete.getVme();
 		
@@ -429,109 +435,18 @@ public class VmeDao extends AbstractJPADao {
 		this.doRemove(em, toDelete);
 	}
 	
-	public Vme oldupdate(Vme vme) {
-		if(vme == null)
-			throw new IllegalArgumentException("Updated Vme cannot be NULL");
-		
-		if(vme.getId() == null)
-			throw new IllegalArgumentException("Updated Vme cannot have a NULL id");
-
-		if(vme.getRfmo() == null)
-			throw new IllegalArgumentException("Updated Vme cannot have a NULL Rfmo");
-
-		if(vme.getRfmo().getId() == null)
-			throw new IllegalArgumentException("Updated Vme cannot have a Rfmo with a NULL id");
-
-		Vme current = this.getEntityById(this.em, Vme.class, vme.getId());
-
-		Rfmo rfmo = this.getEntityById(this.em, Rfmo.class, vme.getRfmo().getId());
-		Rfmo currentRfmo = current.getRfmo();
-		
-		vme.setRfmo(rfmo);
-
-		//Vme has changed RFMO (should happen rarely...)
-		if(!currentRfmo.getId().equals(rfmo.getId())) {
-			//Unlink updated Vme from its previous Rfmo...
-			Iterator<Vme> vmeIterator = currentRfmo.getListOfManagedVmes().iterator();
-			
-			while(vmeIterator.hasNext())
-				if(vmeIterator.next().getId().equals(vme.getId()))
-					vmeIterator.remove();
-			
-			this.doMerge(em, currentRfmo);
-
-			//Unlink updated vme from previous Rfmo...
-			vmeIterator = rfmo.getListOfManagedVmes().iterator();
-			
-			while(vmeIterator.hasNext())
-				if(vmeIterator.next().getId().equals(vme.getId()))
-					vmeIterator.remove();
-			
-			rfmo.getListOfManagedVmes().add(vme);
-			
-			this.doMerge(em, rfmo);
-		}
-		
-		if(vme.getGeoRefList() != null)
-			for(GeoRef geoRef : vme.getGeoRefList()) {
-				geoRef.setVme(vme);
-				
-				if(geoRef.getId() == null)
-					geoRef.setId(this.create(geoRef).getId());
-				else
-					geoRef.setId(this.update(geoRef).getId());
-			}
-		
-		if(vme.getProfileList() != null)
-			for(Profile profile : vme.getProfileList()) {
-				profile.setVme(vme);
-				
-				if(profile.getId() == null)
-					profile.setId(this.create(profile).getId());
-				else
-					profile.setId(this.update(profile).getId());
-			}
-		
-		SpecificMeasure currentSM;
-		
-		List<SpecificMeasure> specificMeasures = new ArrayList<SpecificMeasure>();
-
-		if(vme.getSpecificMeasureList() != null)
-			for(SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
-				specificMeasure.setVme(vme);
-	
-				if(specificMeasure.getId() == null) {
-					specificMeasure.setId(this.create(specificMeasure).getId());
-					
-					specificMeasures.add(specificMeasure);
-				} else {
-					currentSM = this.getEntityById(this.em, SpecificMeasure.class, specificMeasure.getId());
-	
-					currentSM.setValidityPeriod(specificMeasure.getValidityPeriod());
-					currentSM.setYear(specificMeasure.getYear());
-					currentSM.setVmeSpecificMeasure(specificMeasure.getVmeSpecificMeasure());
-					
-					specificMeasures.add(currentSM);
-				}
-			}
-		
-		vme.setSpecificMeasureList(specificMeasures);
-		
-		return this.doMerge(em, vme);
-	}
-	
 	public Vme update(Vme vme) throws Throwable {
 		if(vme == null)
 			throw new IllegalArgumentException("Updated Vme cannot be NULL");
 		
 		if(vme.getId() == null)
-			throw new IllegalArgumentException("Updated Vme cannot have a NULL id");
+			throw new IllegalArgumentException("Updated Vme cannot have a NULL identifier");
 
 		if(vme.getRfmo() == null)
 			throw new IllegalArgumentException("Updated Vme cannot have a NULL Rfmo");
 
 		if(vme.getRfmo().getId() == null)
-			throw new IllegalArgumentException("Updated Vme cannot have a Rfmo with a NULL id");
+			throw new IllegalArgumentException("Updated Vme cannot have a Rfmo with a NULL identifier");
 			
 		//Link the information source (by ID) to the specific measure
 		if(vme.getSpecificMeasureList() != null)
@@ -607,7 +522,7 @@ public class VmeDao extends AbstractJPADao {
 	
 	public Vme create(Vme vme) throws Throwable {
 		if(vme == null)
-			throw new IllegalArgumentException("Updated Vme cannot be NULL");
+			throw new IllegalArgumentException("The updated Vme cannot be NULL");
 				
 		//Link the information source (by ID) to the specific measure
 		if(vme.getSpecificMeasureList() != null)
@@ -619,19 +534,19 @@ public class VmeDao extends AbstractJPADao {
 		
 		//Link the GeoRefs to the Vme
 		if(vme.getGeoRefList() != null)
-			for (GeoRef geoRef : vme.getGeoRefList()) {
+			for(GeoRef geoRef : vme.getGeoRefList()) {
 				geoRef.setVme(vme);
 			}
 		
 		//Link the Profiles to the Vme
 		if(vme.getProfileList() != null)
-			for (Profile profile : vme.getProfileList()) {
+			for(Profile profile : vme.getProfileList()) {
 				profile.setVme(vme);
 			}
 
 		//Link the SpecificMeasures to the Vme
 		if(vme.getSpecificMeasureList() != null)
-			for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
+			for(SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
 				specificMeasure.setVme(vme);
 			}
 	
@@ -640,16 +555,16 @@ public class VmeDao extends AbstractJPADao {
 	
 	public GeoRef update(GeoRef geoRef) {
 		if(geoRef == null)
-			throw new IllegalArgumentException("Updated GeoRef cannot be NULL");
+			throw new IllegalArgumentException("The updated VME Map Reference cannot be NULL");
 		
 		if(geoRef.getId() == null)
-			throw new IllegalArgumentException("Updated GeoRef cannot have a NULL id");
+			throw new IllegalArgumentException("The updated VME Map Reference cannot have a NULL identifier");
 		
 		if(geoRef.getVme() == null)
-			throw new IllegalArgumentException("Updated GeoRef cannot have a NULL Vme");
+			throw new IllegalArgumentException("The updated VME Map Reference cannot have a NULL Vme");
 		
 		if(geoRef.getVme().getId() == null)
-			throw new IllegalArgumentException("Updated GeoRef cannot have a NULL Vme id");
+			throw new IllegalArgumentException("The updated VME Map Reference cannot have a NULL Vme identifier");
 		
 		GeoRef current = this.getEntityById(this.em, GeoRef.class, geoRef.getId());
 		current.setGeographicFeatureID(geoRef.getGeographicFeatureID());
@@ -660,29 +575,29 @@ public class VmeDao extends AbstractJPADao {
 	
 	public GeoRef create(GeoRef geoRef) {
 		if(geoRef == null)
-			throw new IllegalArgumentException("Updated GeoRef cannot be NULL");
+			throw new IllegalArgumentException("The VME Map Reference to create cannot be NULL");
 		
 		if(geoRef.getVme() == null)
-			throw new IllegalArgumentException("Updated GeoRef cannot have a NULL Vme");
+			throw new IllegalArgumentException("The VME Map Reference to create cannot have a NULL Vme");
 		
 		if(geoRef.getVme().getId() == null)
-			throw new IllegalArgumentException("Updated GeoRef cannot have a NULL Vme id");
+			throw new IllegalArgumentException("The VME Map Reference to create cannot have a NULL Vme identifier");
 		
 		return this.doPersistAndFlush(em, geoRef);
 	}
 	
 	public Profile update(Profile profile) {
 		if(profile == null)
-			throw new IllegalArgumentException("Updated Profile cannot be NULL");
+			throw new IllegalArgumentException("The updated VME Profile cannot be NULL");
 		
 		if(profile.getId() == null)
-			throw new IllegalArgumentException("Updated Profile cannot have a NULL id");
+			throw new IllegalArgumentException("The updated VME Profile cannot have a NULL identifier");
 		
 		if(profile.getVme() == null)
-			throw new IllegalArgumentException("Updated Profile cannot have a NULL Vme");
+			throw new IllegalArgumentException("The updated VME Profile cannot have a NULL Vme");
 		
 		if(profile.getVme().getId() == null)
-			throw new IllegalArgumentException("Updated Profile cannot have a NULL Vme id");
+			throw new IllegalArgumentException("The updated VME Profile cannot have a NULL Vme identifier");
 		
 		Profile current = this.getEntityById(this.em, Profile.class, profile.getId());
 		current.setDescriptionBiological(profile.getDescriptionBiological());
@@ -696,48 +611,49 @@ public class VmeDao extends AbstractJPADao {
 	
 	public Profile create(Profile profile) {
 		if(profile == null)
-			throw new IllegalArgumentException("Updated Profile cannot be NULL");
+			throw new IllegalArgumentException("The VME Profile to create cannot be NULL");
 		
 		if(profile.getVme() == null)
-			throw new IllegalArgumentException("Updated Profile cannot have a NULL Vme");
+			throw new IllegalArgumentException("The VME Profile to create cannot have a NULL Vme");
 		
 		if(profile.getVme().getId() == null)
-			throw new IllegalArgumentException("Updated Profile cannot have a NULL Vme id");
+			throw new IllegalArgumentException("The VME Profile to create cannot have a NULL Vme identifier");
 		
 		return this.doPersistAndFlush(em, profile);
 	}
 	
 	public SpecificMeasure update(SpecificMeasure specificMeasure) throws Throwable {
 		if(specificMeasure == null)
-			throw new IllegalArgumentException("Updated SpecificMeasure cannot be NULL");
+			throw new IllegalArgumentException("The updated VME Specific Measure cannot be NULL");
 		
 		if(specificMeasure.getId() == null)
-			throw new IllegalArgumentException("Updated SpecificMeasure cannot have a NULL id");
+			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a NULL identifier");
 		
 		if(specificMeasure.getVme() == null)
-			throw new IllegalArgumentException("Updated SpecificMeasure cannot have a NULL Vme reference");
+			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a NULL Vme reference");
 
 		if(specificMeasure.getVme().getId() == null)
-			throw new IllegalArgumentException("Updated SpecificMeasure cannot have a Vme reference with a NULL id");
+			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a Vme reference with a NULL identifier");
 		
 		SpecificMeasure current = this.getEntityById(this.em, SpecificMeasure.class, specificMeasure.getId());
 		current.setValidityPeriod(specificMeasure.getValidityPeriod());
 		current.setVmeSpecificMeasure(specificMeasure.getVmeSpecificMeasure());
-		current.setInformationSource(specificMeasure.getInformationSource());
 		current.setYear(specificMeasure.getYear());
+		
+		current.setInformationSource(specificMeasure.getInformationSource());
 		
 		return this.doMerge(em, specificMeasure);
 	}
 	
 	public SpecificMeasure create(SpecificMeasure specificMeasure) {
 		if(specificMeasure == null)
-			throw new IllegalArgumentException("SpecificMeasure to create cannot be NULL");
+			throw new IllegalArgumentException("The VME Specific Measure to create cannot be NULL");
 				
 		if(specificMeasure.getVme() == null)
-			throw new IllegalArgumentException("SpecificMeasure to create cannot have a NULL Vme reference");
+			throw new IllegalArgumentException("The VME Specific Measure to create cannot have a NULL Vme reference");
 
 		if(specificMeasure.getVme().getId() == null)
-			throw new IllegalArgumentException("SpecificMeasure to create cannot have a Vme reference with a NULL id");
+			throw new IllegalArgumentException("The VME Specific Measure to create cannot have a Vme reference with a NULL identifier");
 		
 		return this.doPersistAndFlush(em, specificMeasure);
 	}
@@ -745,116 +661,152 @@ public class VmeDao extends AbstractJPADao {
 	//Reference reports types creation / update
 	public FisheryAreasHistory update(FisheryAreasHistory fisheryAreasHistory) throws Throwable {
 		if(fisheryAreasHistory == null)
-			throw new IllegalArgumentException("Updated FisheryAreasHistory cannot be NULL");
+			throw new IllegalArgumentException("The updated Fishing Footprint cannot be NULL");
 				
 		if(fisheryAreasHistory.getId() == null)
-			throw new IllegalArgumentException("Updated FisheryAreasHistory cannot have a NULL id");
+			throw new IllegalArgumentException("The updated Fishing Footprint cannot have a NULL identifier");
 		
 		if(fisheryAreasHistory.getRfmo() == null)
-			throw new IllegalArgumentException("Updated FisheryAreasHistory cannot have a NULL Rfmo reference");
+			throw new IllegalArgumentException("The updated Fishing Footprint cannot have a NULL Authority");
 
 		if(fisheryAreasHistory.getRfmo().getId() == null)
-			throw new IllegalArgumentException("Updated FisheryAreasHistory cannot have a Rfmo reference with a NULL id");
+			throw new IllegalArgumentException("The updated Fishing Footprint cannot have an Authority with a NULL identifier");
 		
 		return this.doMerge(em, fisheryAreasHistory);
 	}
 	
 	public FisheryAreasHistory create(FisheryAreasHistory fisheryAreasHistory) throws Throwable {
 		if(fisheryAreasHistory == null)
-			throw new IllegalArgumentException("FisheryAreasHistory to create cannot be NULL");
+			throw new IllegalArgumentException("The Fishing Footprint to create cannot be NULL");
 				
 		if(fisheryAreasHistory.getRfmo() == null)
-			throw new IllegalArgumentException("FisheryAreasHistory to create cannot have a NULL Rfmo reference");
+			throw new IllegalArgumentException("The Fishing Footprint to create cannot have a NULL Authority");
 
 		if(fisheryAreasHistory.getRfmo().getId() == null)
-			throw new IllegalArgumentException("SpecificMeasure to create cannot have a Rfmo reference with a NULL id");
+			throw new IllegalArgumentException("The Fishing Footprint to create cannot have an Authority with a NULL identifier");
 		
 		return this.doPersistAndFlush(em, fisheryAreasHistory);
 	}
 	
 	public VMEsHistory update(VMEsHistory VMEsHistory) throws Throwable {
 		if(VMEsHistory == null)
-			throw new IllegalArgumentException("Updated VMEsHistory cannot be NULL");
+			throw new IllegalArgumentException("The updated Regional History of VME cannot be NULL");
 				
 		if(VMEsHistory.getId() == null)
-			throw new IllegalArgumentException("Updated VMEsHistory cannot have a NULL id");
+			throw new IllegalArgumentException("The updated Regional History of VME cannot have a NULL identifier");
 		
 		if(VMEsHistory.getRfmo() == null)
-			throw new IllegalArgumentException("Updated VMEsHistory cannot have a NULL Rfmo reference");
+			throw new IllegalArgumentException("The updated Regional History of VME cannot have a NULL Authority");
 
 		if(VMEsHistory.getRfmo().getId() == null)
-			throw new IllegalArgumentException("Updated VMEsHistory cannot have a Rfmo reference with a NULL id");
+			throw new IllegalArgumentException("The updated Regional History of VME cannot have an Authority with a NULL identifier");
 		
 		return this.doMerge(em, VMEsHistory);
 	}
 	
 	public VMEsHistory create(VMEsHistory VMEsHistory) throws Throwable {
 		if(VMEsHistory == null)
-			throw new IllegalArgumentException("VMEsHistory to create cannot be NULL");
+			throw new IllegalArgumentException("The Regional History of VME to create cannot be NULL");
 				
 		if(VMEsHistory.getRfmo() == null)
-			throw new IllegalArgumentException("VMEsHistory to create cannot have a NULL Rfmo reference");
+			throw new IllegalArgumentException("The Regional History of VME to create cannot have a NULL Authority");
 
 		if(VMEsHistory.getRfmo().getId() == null)
-			throw new IllegalArgumentException("VMEsHistory to create cannot have a Rfmo reference with a NULL id");
+			throw new IllegalArgumentException("The Regional History of VME to create cannot have an Authority with a NULL identifier");
 		
 		return this.doPersistAndFlush(em, VMEsHistory);
 	}
 	
 	public InformationSource update(InformationSource informationSource) throws Throwable {
 		if(informationSource == null)
-			throw new IllegalArgumentException("Updated InformationSource cannot be NULL");
+			throw new IllegalArgumentException("The updated Information Source cannot be NULL");
 				
 		if(informationSource.getId() == null)
-			throw new IllegalArgumentException("Updated InformationSource cannot have a NULL id");
+			throw new IllegalArgumentException("The updated Information Source cannot have a NULL identifier");
 		
 		if(informationSource.getRfmo() == null)
-			throw new IllegalArgumentException("Updated InformationSource cannot have a NULL Rfmo reference");
+			throw new IllegalArgumentException("The updated Information Source cannot have a NULL Authority");
 
 		if(informationSource.getRfmo().getId() == null)
-			throw new IllegalArgumentException("Updated InformationSource cannot have a Rfmo reference with a NULL id");
+			throw new IllegalArgumentException("The updated Information Source cannot have an Authority with a NULL identifier");
 		
-		return this.doMerge(em, informationSource);
+		InformationSource current = this.getEntityById(this.em, InformationSource.class, informationSource.getId());
+		current.setCitation(informationSource.getCitation());
+		current.setCommittee(informationSource.getCommittee());
+		current.setMeetingEndDate(informationSource.getMeetingEndDate());
+		current.setMeetingStartDate(informationSource.getMeetingStartDate());
+		current.setPublicationYear(informationSource.getPublicationYear());
+		current.setReportSummary(informationSource.getReportSummary());
+		current.setUrl(informationSource.getUrl());
+		
+		current.setRfmo(informationSource.getRfmo());
+		
+		return this.doMerge(em, current);
 	}
 	
 	public InformationSource create(InformationSource informationSource) throws Throwable {
 		if(informationSource == null)
-			throw new IllegalArgumentException("InformationSource to create cannot be NULL");
+			throw new IllegalArgumentException("The Information Source to create cannot be NULL");
 				
 		if(informationSource.getRfmo() == null)
-			throw new IllegalArgumentException("InformationSource to create cannot have a NULL Rfmo reference");
+			throw new IllegalArgumentException("The Information Source to create cannot have a NULL Authority");
 
 		if(informationSource.getRfmo().getId() == null)
-			throw new IllegalArgumentException("InformationSource to create cannot have a Rfmo reference with a NULL id");
+			throw new IllegalArgumentException("The Information Source to create cannot have an Authority with a NULL identifier");
 		
 		return this.doPersistAndFlush(em, informationSource);
 	}
 	
 	public GeneralMeasure update(GeneralMeasure generalMeasure) throws Throwable {
 		if(generalMeasure == null)
-			throw new IllegalArgumentException("Updated GeneralMeasure cannot be NULL");
+			throw new IllegalArgumentException("The updated VME General Measure cannot be NULL");
 				
 		if(generalMeasure.getId() == null)
-			throw new IllegalArgumentException("Updated GeneralMeasure cannot have a NULL id");
+			throw new IllegalArgumentException("The updated VME General Measure cannot have a NULL identifier");
 		
 		if(generalMeasure.getRfmo() == null)
-			throw new IllegalArgumentException("Updated GeneralMeasure cannot have a NULL Rfmo reference");
+			throw new IllegalArgumentException("The updated VME General Measure cannot have a NULL Authority");
 
 		if(generalMeasure.getRfmo().getId() == null)
-			throw new IllegalArgumentException("Updated GeneralMeasure cannot have a Rfmo reference with a NULL id");
+			throw new IllegalArgumentException("The updated GeneralMeasure cannot have an Authority with a NULL identifier");
 		
-		return this.doMerge(em, generalMeasure);
+		GeneralMeasure current = this.getEntityById(this.em, GeneralMeasure.class, generalMeasure.getId());
+		current.setExplorataryFishingProtocol(generalMeasure.getExplorataryFishingProtocol());
+		current.setFishingArea(generalMeasure.getFishingArea());
+		current.setValidityPeriod(generalMeasure.getValidityPeriod());
+		current.setVmeEncounterProtocol(generalMeasure.getVmeEncounterProtocol());
+		current.setVmeIndicatorSpecies(generalMeasure.getVmeIndicatorSpecies());
+		current.setVmeThreshold(generalMeasure.getVmeThreshold());
+		current.setYear(generalMeasure.getYear());
+
+		current.setRfmo(generalMeasure.getRfmo());
+		
+		if(generalMeasure.getInformationSourceList() != null) {
+			current.getInformationSourceList().clear();
+
+			InformationSource existing;
+			for(InformationSource informationSource : generalMeasure.getInformationSourceList()) {
+				existing = this.getEntityById(this.em, InformationSource.class, informationSource.getId());
+				
+				current.getInformationSourceList().add(existing);
+				
+				this.doMerge(em, existing);
+			}
+			
+		}
+		
+		return this.doMerge(em, current);
 	}
 	
 	public GeneralMeasure create(GeneralMeasure generalMeasure) throws Throwable {
 		if(generalMeasure == null)
-			throw new IllegalArgumentException("GeneralMeasure to create cannot be NULL");
+			throw new IllegalArgumentException("The VME General Measure to create cannot be NULL");
 				
 		if(generalMeasure.getRfmo() == null)
-			throw new IllegalArgumentException("GeneralMeasure to create cannot have a NULL Rfmo reference");
+			throw new IllegalArgumentException("The VME General Measure to create cannot have a NULL Authority");
 
 		if(generalMeasure.getRfmo().getId() == null)
-			throw new IllegalArgumentException("GeneralMeasure to create cannot have a Rfmo reference with a NULL id");
+			throw new IllegalArgumentException("The VME General Measure to create cannot have an Authority with a NULL identifier");
 		
 		return this.doPersistAndFlush(em, generalMeasure);
 	}

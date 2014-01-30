@@ -13,6 +13,12 @@
 			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
 		</layout>
 	</appender>
+	<appender name="hibernateSQL" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/hibernateSQL.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
+		</layout>
+	</appender>
 	<appender name="gcube" class="org.apache.log4j.RollingFileAppender">
 		<param name="File" value="${catalina.base}/logs/gcube.out" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -37,36 +43,54 @@
 			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
 		</layout>
 	</appender>
+	
 	<category name="org.jboss.weld" additivity="false">
 		<priority value="warn" />
 		<appender-ref ref="console"/>
 		<appender-ref ref="weld"/>
 	</category>
+	
 	<category name="org.hibernate" additivity="false">
-		<priority value="warn" />
-		<appender-ref ref="console"/>
+		<priority value="debug" />
 		<appender-ref ref="hibernate"/>	
 	</category>
+	
+	<category name="org.hibernate.engine.jdbc.spi.SqlStatementLogger" additivity="false">
+		<priority value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="hibernateSQL"/>
+	</category>
+	
 	<category name="org.gcube.application.reporting" additivity="false">
 		<priority value="debug" />
 		<appender-ref ref="console"/>
 		<appender-ref ref="gcube"/>	
 	</category>
+	
 	<category name="org.gcube.portlets.d4sreporting" additivity="false">
 		<priority value="debug" />
 		<appender-ref ref="console"/>
 		<appender-ref ref="gcube"/>	
 	</category>
+
 	<category name="org.gcube.application.rsg" additivity="false">
 		<priority value="debug" />
 		<appender-ref ref="console"/>
 		<appender-ref ref="rsg"/>	
 	</category>
+
 	<category name="org.vme" additivity="false">
 		<priority value="info" />
 		<appender-ref ref="console"/>
 		<appender-ref ref="vme"/>	
 	</category>
+
+	<category name="org.gcube.application.rsg.support" additivity="false">
+		<priority value="info" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="vme"/>
+	</category>
+
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />

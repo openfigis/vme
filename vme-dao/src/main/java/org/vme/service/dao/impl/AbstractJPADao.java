@@ -166,6 +166,11 @@ public abstract class AbstractJPADao implements Dao {
 	protected void doRemove(EntityManager em, Object object) {
 		em.remove(object);
 	}
+	
+	protected void zdoRefresh(EntityManager em, Object object) {
+		//em.refresh(object);
+		em.flush();
+	}
 
 	public <E> E merge(EntityManager em, E object) {
 		EntityTransaction et = em.getTransaction();

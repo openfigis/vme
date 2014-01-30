@@ -99,8 +99,7 @@ public class VMEsHistory implements ObjectId<Long>, History, Year<History>, Refe
 	}
 
 	/**
-	 * @param rfmo
-	 *            the 'rfmo' value to set
+	 * @param rfmo the 'rfmo' value to set
 	 */
 	public void setRfmo(Rfmo rfmo) {
 		this.rfmo = rfmo;
