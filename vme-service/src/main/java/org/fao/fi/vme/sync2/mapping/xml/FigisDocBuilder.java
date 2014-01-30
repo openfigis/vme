@@ -15,6 +15,7 @@ import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.FisheryArea;
 import org.fao.fi.figis.devcon.ForeignID;
+import org.fao.fi.figis.devcon.GeneralBiology;
 import org.fao.fi.figis.devcon.GeoForm;
 import org.fao.fi.figis.devcon.GeoReference;
 import org.fao.fi.figis.devcon.HabitatBio;
@@ -315,7 +316,6 @@ public class FigisDocBuilder {
 	public void profile(Profile profile, FIGISDoc figisDoc) {
 		// Habitat-Biological profile
 		if (profile != null) {
-			HabitatBio habitatBio = f.createHabitatBio();
 
 			// • VMEIdent
 			// • HabitatBio
@@ -326,10 +326,13 @@ public class FigisDocBuilder {
 			// • AddInfo
 			// • Sources
 			// • RelatedResources
-			;
+
+			GeneralBiology gb = f.createGeneralBiology();
 			Text text1 = ut.getEnglishText(profile.getDescriptionBiological());
-			new AddWhenContentRule<Object>().check(u.getEnglish(profile.getDescriptionBiological()))
-					.beforeAdding(text1).to(habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs());
+			gb.getTextsAndImagesAndTables().add(text1);
+			HabitatBio habitatBio = f.createHabitatBio();
+			new AddWhenContentRule<Object>().check(u.getEnglish(profile.getDescriptionBiological())).beforeAdding(gb)
+					.to(habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs());
 
 			// Physical profile
 			// terribe workaround because if there is no Text, profileEnglish
