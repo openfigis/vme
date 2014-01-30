@@ -21,7 +21,8 @@ import org.purl.dc.terms.BibliographicCitation;
 
 /**
  * 
- * Building up the ManagementMethodEntry, using the vme yearobjects from the vme domain.
+ * Building up the ManagementMethodEntry, using the vme yearobjects from the vme
+ * domain.
  * 
  * 
  * @author Erik van Ingen
@@ -58,9 +59,9 @@ public class ManagementMethodEntryBuilder {
 			measureType1.setValue(FISHING_AREAS);
 			Text measureText1 = f.createText();
 
-			new AddWhenContentRule<Object>().check(gm.getFishingAreas()).beforeAdding(measure1)
+			new AddWhenContentRule<Object>().check(u.getEnglish(gm.getFishingArea())).beforeAdding(measure1)
 					.to(measureText1.getContent());
-			new AddWhenContentRule<Object>().check(gm.getFishingAreas()).beforeAdding(measureType1)
+			new AddWhenContentRule<Object>().check(u.getEnglish(gm.getFishingArea())).beforeAdding(measureType1)
 					.beforeAdding(measureText1).to(measure1.getTextsAndImagesAndTables());
 		}
 
@@ -78,24 +79,33 @@ public class ManagementMethodEntryBuilder {
 	 * 
 	 * ------<fi:MeasureType Value="Exploratory_fishing_protocol"/>
 	 * 
-	 * ------<fi:Text><![CDATA[Exploratory fishing covers all bottom fishing activities (a) outside of the existing
-	 * bottom fishing area and (b) to fisheries within the existing bottom fishing area that show significant change.
-	 * (Art 15.8). Exploratory fisheries must be conducted according to an exploratory fisheries protocol (Art 18; Annex
-	 * 1E.I-IV) and are subject to review FC and SC. Exploritory fisheries will be allowed only if there are adequate
-	 * mitigation measures to prevent SAI to VMEs (Art 19). ]]></fi:Text>
+	 * ------<fi:Text><![CDATA[Exploratory fishing covers all bottom fishing
+	 * activities (a) outside of the existing bottom fishing area and (b) to
+	 * fisheries within the existing bottom fishing area that show significant
+	 * change. (Art 15.8). Exploratory fisheries must be conducted according to
+	 * an exploratory fisheries protocol (Art 18; Annex 1E.I-IV) and are subject
+	 * to review FC and SC. Exploritory fisheries will be allowed only if there
+	 * are adequate mitigation measures to prevent SAI to VMEs (Art 19).
+	 * ]]></fi:Text>
 	 * 
 	 * ----</fi:Measure>
 	 * 
 	 * 
 	 * 
 	 * 
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
-	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:
+	 * ManagementMethodEntry@Focus= "Vulnerable Marine Ecosystems"/dc:Title[VME
+	 * general measures]
 	 * 
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
-	 * "Vulnerable Marine Ecosystems"/fi:Measure/MeasureType@Value="VME_encounter_protocols"
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:
+	 * ManagementMethodEntry@Focus=
+	 * "Vulnerable Marine Ecosystems"/fi:Measure/MeasureType
 	 * 
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * @Value="VME_encounter_protocols"
+	 * 
+	 *                                  fi:FIGISDoc/fi:VME/fi:Management/fi:
+	 *                                  ManagementMethods/fi:
+	 *                                  ManagementMethodEntry/fi:Measure/fi:Text
 	 * 
 	 * @param generalMeasure
 	 * @param entry
@@ -108,13 +118,13 @@ public class ManagementMethodEntryBuilder {
 			MeasureType measureType2 = f.createMeasureType();
 			measureType2.setValue(EXPLORATORY_FISHING_PROTOCOL);
 			Text measureText2 = f.createText();
-			measureText2.getContent().add(u.getEnglish(generalMeasure.getExplorataryFishingProtocols()));
+			measureText2.getContent().add(u.getEnglish(generalMeasure.getExplorataryFishingProtocol()));
 
 			measure2.getTextsAndImagesAndTables().add(measureType2);
 
 			measure2.getTextsAndImagesAndTables().add(measureText2);
 
-			new AddWhenContentRule<Object>().check(u.getEnglish(generalMeasure.getExplorataryFishingProtocols()))
+			new AddWhenContentRule<Object>().check(u.getEnglish(generalMeasure.getExplorataryFishingProtocol()))
 					.beforeAdding(measure2).to(entry.getTextsAndImagesAndTables());
 
 		}
@@ -128,12 +138,12 @@ public class ManagementMethodEntryBuilder {
 			MeasureType measureType3 = f.createMeasureType();
 			measureType3.setValue(VME_ENCOUNTER_PROTOCOLS);
 			Text measureText3 = f.createText();
-			measureText3.getContent().add(u.getEnglish(yearObject.getVmeEncounterProtocols()));
+			measureText3.getContent().add(u.getEnglish(yearObject.getVmeEncounterProtocol()));
 
 			measure3.getTextsAndImagesAndTables().add(measureType3);
 			measure3.getTextsAndImagesAndTables().add(measureText3);
 
-			new AddWhenContentRule<Object>().check(u.getEnglish(yearObject.getVmeEncounterProtocols()))
+			new AddWhenContentRule<Object>().check(u.getEnglish(yearObject.getVmeEncounterProtocol()))
 					.beforeAdding(measure3).to(entry.getTextsAndImagesAndTables());
 
 		}

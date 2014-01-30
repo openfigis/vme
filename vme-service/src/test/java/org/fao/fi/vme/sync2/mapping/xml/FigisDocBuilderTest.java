@@ -204,12 +204,13 @@ public class FigisDocBuilderTest {
 			if (obj instanceof Measure) {
 				MeasureType mType = (MeasureType) ((Measure) obj).getTextsAndImagesAndTables().get(0);
 				if (mType.getValue().equals("Fishing_Areas")) {
-					assertEquals(generalMeasure.getFishingAreas(), ((Measure) obj).getTextsAndImagesAndTables().get(1));
+					assertEquals(u.getEnglish(generalMeasure.getFishingArea()), ((Measure) obj)
+							.getTextsAndImagesAndTables().get(1));
 				} else if (mType.getValue().equals("Exploratory_fishing_protocol")) {
-					assertEquals(u.getEnglish(generalMeasure.getExplorataryFishingProtocols()), ((Text) ((Measure) obj)
+					assertEquals(u.getEnglish(generalMeasure.getExplorataryFishingProtocol()), ((Text) ((Measure) obj)
 							.getTextsAndImagesAndTables().get(1)).getContent().get(0));
 				} else if (mType.getValue().equals("VME_encounter_protocols")) {
-					assertEquals(u.getEnglish(generalMeasure.getVmeEncounterProtocols()), ((Text) ((Measure) obj)
+					assertEquals(u.getEnglish(generalMeasure.getVmeEncounterProtocol()), ((Text) ((Measure) obj)
 							.getTextsAndImagesAndTables().get(1)).getContent().get(0));
 				} else if (mType.getValue().equals("VME_threshold")) {
 					assertEquals(u.getEnglish(generalMeasure.getVmeThreshold()), ((Text) ((Measure) obj)

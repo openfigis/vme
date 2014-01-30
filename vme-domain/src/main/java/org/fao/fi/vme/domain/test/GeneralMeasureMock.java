@@ -10,9 +10,9 @@ public class GeneralMeasureMock {
 	public static GeneralMeasure create() {
 		GeneralMeasure gm = new GeneralMeasure();
 		MultiLingualStringUtil u = new MultiLingualStringUtil();
-		gm.setExplorataryFishingProtocols(u.english(longString));
-		gm.setFishingAreas(longString);
-		gm.setVmeEncounterProtocols(u.english(longString));
+		gm.setExplorataryFishingProtocol(u.english(longString));
+		gm.setFishingArea(u.english(longString));
+		gm.setVmeEncounterProtocol(u.english(longString));
 		gm.setVmeIndicatorSpecies(u.english(longString));
 		gm.setVmeThreshold(u.english(longString));
 		gm.setYear(4567);

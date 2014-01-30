@@ -139,7 +139,7 @@ public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 
 		slices = create2Slices();
 		slices.get(0).setGeneralMeasure(GeneralMeasureMock.create());
-		slices.get(0).getGeneralMeasure().setFishingAreas("ghjg");
+		slices.get(0).getGeneralMeasure().setFishingArea(u.english("ghjg"));
 		this.filter(slices);
 		assertEquals(2, slices.size());
 

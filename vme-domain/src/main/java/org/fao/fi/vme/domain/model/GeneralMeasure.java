@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -87,20 +86,16 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	/**
 	 * 
 	 */
-
-	/**
-	 * TODO change into multilingual
-	 */
 	@RSGName("RFB Fishing Areas")
 	@RSGWeight(1)
-	@Lob
-	private String fishingAreas;
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString fishingArea;
 
 	/**
 	 * 
 	 */
 	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString explorataryFishingProtocols;
+	private MultiLingualString explorataryFishingProtocol;
 
 	/**
 	 * 
@@ -109,7 +104,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString vmeEncounterProtocols;
+	private MultiLingualString vmeEncounterProtocol;
 
 	/**
 	 * 
@@ -165,28 +160,28 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 		this.year = year;
 	}
 
-	public String getFishingAreas() {
-		return fishingAreas;
+	public MultiLingualString getFishingArea() {
+		return fishingArea;
 	}
 
-	public void setFishingAreas(String fishingAreas) {
-		this.fishingAreas = fishingAreas;
+	public void setFishingArea(MultiLingualString fishingArea) {
+		this.fishingArea = fishingArea;
 	}
 
-	public MultiLingualString getExplorataryFishingProtocols() {
-		return explorataryFishingProtocols;
+	public MultiLingualString getExplorataryFishingProtocol() {
+		return explorataryFishingProtocol;
 	}
 
-	public void setExplorataryFishingProtocols(MultiLingualString explorataryFishingProtocols) {
-		this.explorataryFishingProtocols = explorataryFishingProtocols;
+	public void setExplorataryFishingProtocol(MultiLingualString explorataryFishingProtocol) {
+		this.explorataryFishingProtocol = explorataryFishingProtocol;
 	}
 
-	public MultiLingualString getVmeEncounterProtocols() {
-		return vmeEncounterProtocols;
+	public MultiLingualString getVmeEncounterProtocol() {
+		return vmeEncounterProtocol;
 	}
 
-	public void setVmeEncounterProtocols(MultiLingualString vmeEncounterProtocols) {
-		this.vmeEncounterProtocols = vmeEncounterProtocols;
+	public void setVmeEncounterProtocol(MultiLingualString vmeEncounterProtocol) {
+		this.vmeEncounterProtocol = vmeEncounterProtocol;
 	}
 
 	public MultiLingualString getVmeIndicatorSpecies() {
@@ -217,13 +212,13 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((explorataryFishingProtocols == null) ? 0 : explorataryFishingProtocols.hashCode());
-		result = prime * result + ((fishingAreas == null) ? 0 : fishingAreas.hashCode());
+		result = prime * result + ((explorataryFishingProtocol == null) ? 0 : explorataryFishingProtocol.hashCode());
+		result = prime * result + ((fishingArea == null) ? 0 : fishingArea.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((informationSourceList == null) ? 0 : informationSourceList.hashCode());
 		result = prime * result + ((rfmo == null) ? 0 : rfmo.hashCode());
 		result = prime * result + ((validityPeriod == null) ? 0 : validityPeriod.hashCode());
-		result = prime * result + ((vmeEncounterProtocols == null) ? 0 : vmeEncounterProtocols.hashCode());
+		result = prime * result + ((vmeEncounterProtocol == null) ? 0 : vmeEncounterProtocol.hashCode());
 		result = prime * result + ((vmeIndicatorSpecies == null) ? 0 : vmeIndicatorSpecies.hashCode());
 		result = prime * result + ((vmeThreshold == null) ? 0 : vmeThreshold.hashCode());
 		result = prime * result + ((year == null) ? 0 : year.hashCode());
@@ -239,15 +234,15 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 		if (getClass() != obj.getClass())
 			return false;
 		GeneralMeasure other = (GeneralMeasure) obj;
-		if (explorataryFishingProtocols == null) {
-			if (other.explorataryFishingProtocols != null)
+		if (explorataryFishingProtocol == null) {
+			if (other.explorataryFishingProtocol != null)
 				return false;
-		} else if (!explorataryFishingProtocols.equals(other.explorataryFishingProtocols))
+		} else if (!explorataryFishingProtocol.equals(other.explorataryFishingProtocol))
 			return false;
-		if (fishingAreas == null) {
-			if (other.fishingAreas != null)
+		if (fishingArea == null) {
+			if (other.fishingArea != null)
 				return false;
-		} else if (!fishingAreas.equals(other.fishingAreas))
+		} else if (!fishingArea.equals(other.fishingArea))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -269,10 +264,10 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 				return false;
 		} else if (!validityPeriod.equals(other.validityPeriod))
 			return false;
-		if (vmeEncounterProtocols == null) {
-			if (other.vmeEncounterProtocols != null)
+		if (vmeEncounterProtocol == null) {
+			if (other.vmeEncounterProtocol != null)
 				return false;
-		} else if (!vmeEncounterProtocols.equals(other.vmeEncounterProtocols))
+		} else if (!vmeEncounterProtocol.equals(other.vmeEncounterProtocol))
 			return false;
 		if (vmeIndicatorSpecies == null) {
 			if (other.vmeIndicatorSpecies != null)

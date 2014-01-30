@@ -141,9 +141,9 @@ public class VmeMock {
 			GeneralMeasure gm = new GeneralMeasure();
 			gm.setYear(year);
 			// gm.setId(id++);
-			gm.setFishingAreas("a [FishingArea] general measure");
-			gm.setExplorataryFishingProtocols(u.english("an [ExploratoryFishingProtocol] general measure"));
-			gm.setVmeEncounterProtocols(u.english("a [VmeEncounterProtocols] general measure"));
+			gm.setFishingArea(u.english("a [FishingArea] general measure"));
+			gm.setExplorataryFishingProtocol(u.english("an [ExploratoryFishingProtocol] general measure"));
+			gm.setVmeEncounterProtocol(u.english("a [VmeEncounterProtocols] general measure"));
 			gm.setVmeThreshold(u.english("a [VmeThreshold] general measure"));
 			gm.setVmeIndicatorSpecies(u.english("a [VmeIndicatorSpecies] general measure"));
 			gm.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));

@@ -128,7 +128,7 @@ public class VmeDaoTest {
 		Vme vmeFound = dao.findVme(vme.getId());
 		assertTrue(vmeFound.getRfmo().getGeneralMeasureList().size() > 0);
 		for (GeneralMeasure gm : vmeFound.getRfmo().getGeneralMeasureList()) {
-			assertNotNull(gm.getFishingAreas());
+			assertNotNull(gm.getFishingArea());
 		}
 
 	}

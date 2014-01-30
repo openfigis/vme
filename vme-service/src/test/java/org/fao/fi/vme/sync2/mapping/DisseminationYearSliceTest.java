@@ -8,9 +8,12 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.test.GeneralMeasureMock;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.junit.Test;
 
 public class DisseminationYearSliceTest {
+
+	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	@Test
 	public void testEqualsObject() {
@@ -21,7 +24,7 @@ public class DisseminationYearSliceTest {
 		s2.setGeneralMeasure(GeneralMeasureMock.create());
 		assertTrue(s1.equals(s2));
 
-		s1.getGeneralMeasure().setFishingAreas("ghjg");
+		s1.getGeneralMeasure().setFishingArea(u.english("ghjg"));
 		assertFalse(s1.equals(s2));
 
 		s1.setGeneralMeasure(GeneralMeasureMock.create());

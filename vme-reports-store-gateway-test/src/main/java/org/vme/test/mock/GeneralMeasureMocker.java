@@ -33,7 +33,7 @@ public class GeneralMeasureMocker extends AbstractMocker {
 		GeneralMeasure mock = new GeneralMeasure();
 		mock.setId(1L);
 		mock.setValidityPeriod(ValidityPeriodMocker.mockInterval1());
-		mock.setVmeEncounterProtocols(MLSu.english("Tertium non datur"));
+		mock.setVmeEncounterProtocol(MLSu.english("Tertium non datur"));
 		mock.setVmeIndicatorSpecies(MLSu.english("In girum imus nocte"));
 		mock.setVmeThreshold(MLSu.english("Et consumimur igni"));
 		
@@ -49,7 +49,7 @@ public class GeneralMeasureMocker extends AbstractMocker {
 		GeneralMeasure mock = new GeneralMeasure();
 		mock.setId(2L);
 		mock.setValidityPeriod(ValidityPeriodMocker.mockInterval2());
-		mock.setVmeEncounterProtocols(MLSu.english("Nunc est bibendum"));
+		mock.setVmeEncounterProtocol(MLSu.english("Nunc est bibendum"));
 		mock.setVmeIndicatorSpecies(MLSu.english("Nunc pede libero"));
 		mock.setVmeThreshold(MLSu.english("Tella pulsanda est"));
 		

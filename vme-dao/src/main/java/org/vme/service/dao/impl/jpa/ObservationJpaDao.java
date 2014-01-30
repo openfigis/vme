@@ -234,16 +234,21 @@ public class ObservationJpaDao implements ObservationDAO {
 		}
 
 		for (GeneralMeasure generalMeasure : vme.getRfmo().getGeneralMeasureList()) {
-			if (StringUtils.containsIgnoreCase(generalMeasure.getFishingAreas(), text))
-				return true;
-			if (generalMeasure.getExplorataryFishingProtocols() != null) {
-				for (String element : generalMeasure.getExplorataryFishingProtocols().getStringMap().values()) {
+			if (generalMeasure.getFishingArea() != null) {
+				for (String element : generalMeasure.getFishingArea().getStringMap().values()) {
 					if (StringUtils.containsIgnoreCase(element, text))
 						return true;
 				}
 			}
-			if (generalMeasure.getVmeEncounterProtocols() != null) {
-				for (String element : generalMeasure.getVmeEncounterProtocols().getStringMap().values()) {
+
+			if (generalMeasure.getExplorataryFishingProtocol() != null) {
+				for (String element : generalMeasure.getExplorataryFishingProtocol().getStringMap().values()) {
+					if (StringUtils.containsIgnoreCase(element, text))
+						return true;
+				}
+			}
+			if (generalMeasure.getVmeEncounterProtocol() != null) {
+				for (String element : generalMeasure.getVmeEncounterProtocol().getStringMap().values()) {
 					if (StringUtils.containsIgnoreCase(element, text))
 						return true;
 				}
