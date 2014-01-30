@@ -15,6 +15,11 @@ import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ReferencesRequest;
 import org.vme.web.service.io.ServiceResponse;
 
+/**
+ * 
+ * @author Fabrizio Sibeni
+ * 
+ */
 public class ServiceInvoker {
 
 	public static ServiceResponse<?> invoke(ObservationDAO service, ObservationsRequest request) throws Exception {
