@@ -63,6 +63,10 @@ public class ManagementMethodEntryBuilder {
 					.to(measureText1.getContent());
 			new AddWhenContentRule<Object>().check(u.getEnglish(gm.getFishingArea())).beforeAdding(measureType1)
 					.beforeAdding(measureText1).to(measure1.getTextsAndImagesAndTables());
+
+			new AddWhenContentRule<Object>().check(u.getEnglish(gm.getFishingArea())).beforeAdding(measure1)
+					.to(entry.getTextsAndImagesAndTables());
+
 		}
 
 	}
