@@ -58,15 +58,14 @@ public class ManagementMethodEntryBuilder {
 			MeasureType measureType1 = f.createMeasureType();
 			measureType1.setValue(FISHING_AREAS);
 			Text measureText1 = f.createText();
+			measureText1.getContent().add(u.getEnglish(gm.getFishingArea()));
 
-			new AddWhenContentRule<Object>().check(u.getEnglish(gm.getFishingArea())).beforeAdding(measure1)
-					.to(measureText1.getContent());
-			new AddWhenContentRule<Object>().check(u.getEnglish(gm.getFishingArea())).beforeAdding(measureType1)
-					.beforeAdding(measureText1).to(measure1.getTextsAndImagesAndTables());
+			measure1.getTextsAndImagesAndTables().add(measureType1);
+
+			measure1.getTextsAndImagesAndTables().add(measureText1);
 
 			new AddWhenContentRule<Object>().check(u.getEnglish(gm.getFishingArea())).beforeAdding(measure1)
 					.to(entry.getTextsAndImagesAndTables());
-
 		}
 
 	}
