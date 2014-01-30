@@ -49,7 +49,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@RSGName("Authority")
 	@RSGWeight(0)
 	@RSGSimpleReference

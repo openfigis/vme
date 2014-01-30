@@ -1,0 +1,303 @@
+<ns2:report binding="#" evaluated="false" id="1" isAReference="false" simple="false" type="org.fao.fi.vme.domain.model.GeneralMeasure" xmlns:ns2="http://impl.components.model.support.rsg.application.gcube.org">
+	<components>
+		<component name="General Measure" weight="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:titleComponent">
+			<value>General Measure</value>
+		</component>
+		<component level="1" name="Authority" weight="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:headingComponent">
+			<value>Authority</value>
+		</component>
+		<component binding="rfmo" bindingContext="#" id="NAFO" isAReference="true" name="Authority" simple="true" type="org.fao.fi.vme.domain.model.Rfmo" weight="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:nestedComponent">
+			<components/>
+		</component>
+		<component binding="informationSourceList" bindingContext="#" isAReference="true" name="Information Sources" simple="false" type="org.fao.fi.vme.domain.model.InformationSource" weight="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:sequenceComponent">
+			<components>
+				<component level="2" name="Authority" weight="0" xsi:type="ns2:headingComponent">
+					<value>Authority</value>
+				</component>
+				<component binding="rfmo" bindingContext="#.informationSourceList" isAReference="true" name="Authority" simple="true" type="org.fao.fi.vme.domain.model.Rfmo" weight="0" xsi:type="ns2:nestedComponent">
+					<components/>
+				</component>
+				<component level="2" name="Citation" weight="0" xsi:type="ns2:headingComponent">
+					<value>Citation</value>
+				</component>
+				<component binding="citation" bindingContext="#.informationSourceList" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Citation" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="0" xsi:type="ns2:inputComponent">
+					<value xsi:nil="true"/>
+				</component>
+				<component level="2" name="Publication Year" weight="1" xsi:type="ns2:headingComponent">
+					<value>Publication Year</value>
+				</component>
+				<component binding="publicationYear" bindingContext="#.informationSourceList" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter" name="Publication Year" readOnly="false" type="java.lang.Integer" weight="1" xsi:type="ns2:inputComponent">
+					<value xsi:nil="true"/>
+				</component>
+				<component name="Use the YYYY/MM/DD format" weight="1" xsi:type="ns2:instructionsComponent">
+					<value>Use the YYYY/MM/DD format</value>
+				</component>
+				<component level="2" name="Meeting Start Date" weight="1" xsi:type="ns2:headingComponent">
+					<value>Meeting Start Date</value>
+				</component>
+				<component binding="meetingStartDate" bindingContext="#.informationSourceList" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter" name="Meeting Start Date" readOnly="false" type="java.util.Date" weight="1" xsi:type="ns2:inputComponent">
+					<value xsi:nil="true"/>
+				</component>
+				<component name="Use the YYYY/MM/DD format" weight="1" xsi:type="ns2:instructionsComponent">
+					<value>Use the YYYY/MM/DD format</value>
+				</component>
+				<component level="2" name="Meeting End Date" weight="1" xsi:type="ns2:headingComponent">
+					<value>Meeting End Date</value>
+				</component>
+				<component binding="meetingEndDate" bindingContext="#.informationSourceList" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter" name="Meeting End Date" readOnly="false" type="java.util.Date" weight="1" xsi:type="ns2:inputComponent">
+					<value xsi:nil="true"/>
+				</component>
+				<component level="2" name="Committee" weight="1" xsi:type="ns2:headingComponent">
+					<value>Committee</value>
+				</component>
+				<component binding="committee" bindingContext="#.informationSourceList" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Committee" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="1" xsi:type="ns2:inputComponent">
+					<value xsi:nil="true"/>
+				</component>
+				<component level="2" name="Report Summary" weight="1" xsi:type="ns2:headingComponent">
+					<value>Report Summary</value>
+				</component>
+				<component binding="reportSummary" bindingContext="#.informationSourceList" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Report Summary" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="1" xsi:type="ns2:inputComponent">
+					<value xsi:nil="true"/>
+				</component>
+				<component level="2" name="URL" weight="1" xsi:type="ns2:headingComponent">
+					<value>URL</value>
+				</component>
+				<component binding="url" bindingContext="#.informationSourceList" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter" name="URL" readOnly="false" type="java.net.URL" weight="1" xsi:type="ns2:inputComponent">
+					<value xsi:nil="true"/>
+				</component>
+			</components>
+			<entries>
+				<entry binding="informationSourceList[0]" bindingContext="#" id="5" type="org.fao.fi.vme.domain.model.InformationSource">
+					<components>
+						<component level="2" name="Authority" weight="0" xsi:type="ns2:headingComponent">
+							<value>Authority</value>
+						</component>
+						<component binding="rfmo" bindingContext="#" isAReference="true" name="Authority" simple="true" type="org.fao.fi.vme.domain.model.Rfmo" weight="0" xsi:type="ns2:nestedComponent">
+							<components/>
+						</component>
+						<component level="2" name="Citation" weight="0" xsi:type="ns2:headingComponent">
+							<value>Citation</value>
+						</component>
+						<component binding="citation" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Citation" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="0" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="Publication Year" weight="1" xsi:type="ns2:headingComponent">
+							<value>Publication Year</value>
+						</component>
+						<component binding="publicationYear" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter" name="Publication Year" readOnly="false" type="java.lang.Integer" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component name="Use the YYYY/MM/DD format" weight="1" xsi:type="ns2:instructionsComponent">
+							<value>Use the YYYY/MM/DD format</value>
+						</component>
+						<component level="2" name="Meeting Start Date" weight="1" xsi:type="ns2:headingComponent">
+							<value>Meeting Start Date</value>
+						</component>
+						<component binding="meetingStartDate" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter" name="Meeting Start Date" readOnly="false" type="java.util.Date" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component name="Use the YYYY/MM/DD format" weight="1" xsi:type="ns2:instructionsComponent">
+							<value>Use the YYYY/MM/DD format</value>
+						</component>
+						<component level="2" name="Meeting End Date" weight="1" xsi:type="ns2:headingComponent">
+							<value>Meeting End Date</value>
+						</component>
+						<component binding="meetingEndDate" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter" name="Meeting End Date" readOnly="false" type="java.util.Date" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="Committee" weight="1" xsi:type="ns2:headingComponent">
+							<value>Committee</value>
+						</component>
+						<component binding="committee" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Committee" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="Report Summary" weight="1" xsi:type="ns2:headingComponent">
+							<value>Report Summary</value>
+						</component>
+						<component binding="reportSummary" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Report Summary" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="URL" weight="1" xsi:type="ns2:headingComponent">
+							<value>URL</value>
+						</component>
+						<component binding="url" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter" name="URL" readOnly="false" type="java.net.URL" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+					</components>
+				</entry>
+				<entry binding="informationSourceList[1]" bindingContext="#" id="1" type="org.fao.fi.vme.domain.model.InformationSource">
+					<components>
+						<component level="2" name="Authority" weight="0" xsi:type="ns2:headingComponent">
+							<value>Authority</value>
+						</component>
+						<component binding="rfmo" bindingContext="#" isAReference="true" name="Authority" simple="true" type="org.fao.fi.vme.domain.model.Rfmo" weight="0" xsi:type="ns2:nestedComponent">
+							<components/>
+						</component>
+						<component level="2" name="Citation" weight="0" xsi:type="ns2:headingComponent">
+							<value>Citation</value>
+						</component>
+						<component binding="citation" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Citation" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="0" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="Publication Year" weight="1" xsi:type="ns2:headingComponent">
+							<value>Publication Year</value>
+						</component>
+						<component binding="publicationYear" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter" name="Publication Year" readOnly="false" type="java.lang.Integer" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component name="Use the YYYY/MM/DD format" weight="1" xsi:type="ns2:instructionsComponent">
+							<value>Use the YYYY/MM/DD format</value>
+						</component>
+						<component level="2" name="Meeting Start Date" weight="1" xsi:type="ns2:headingComponent">
+							<value>Meeting Start Date</value>
+						</component>
+						<component binding="meetingStartDate" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter" name="Meeting Start Date" readOnly="false" type="java.util.Date" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component name="Use the YYYY/MM/DD format" weight="1" xsi:type="ns2:instructionsComponent">
+							<value>Use the YYYY/MM/DD format</value>
+						</component>
+						<component level="2" name="Meeting End Date" weight="1" xsi:type="ns2:headingComponent">
+							<value>Meeting End Date</value>
+						</component>
+						<component binding="meetingEndDate" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter" name="Meeting End Date" readOnly="false" type="java.util.Date" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="Committee" weight="1" xsi:type="ns2:headingComponent">
+							<value>Committee</value>
+						</component>
+						<component binding="committee" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Committee" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="Report Summary" weight="1" xsi:type="ns2:headingComponent">
+							<value>Report Summary</value>
+						</component>
+						<component binding="reportSummary" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Report Summary" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="URL" weight="1" xsi:type="ns2:headingComponent">
+							<value>URL</value>
+						</component>
+						<component binding="url" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter" name="URL" readOnly="false" type="java.net.URL" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+					</components>
+				</entry>
+				<entry binding="informationSourceList[2]" bindingContext="#" id="25" type="org.fao.fi.vme.domain.model.InformationSource">
+					<components>
+						<component level="2" name="Authority" weight="0" xsi:type="ns2:headingComponent">
+							<value>Authority</value>
+						</component>
+						<component binding="rfmo" bindingContext="#" isAReference="true" name="Authority" simple="true" type="org.fao.fi.vme.domain.model.Rfmo" weight="0" xsi:type="ns2:nestedComponent">
+							<components/>
+						</component>
+						<component level="2" name="Citation" weight="0" xsi:type="ns2:headingComponent">
+							<value>Citation</value>
+						</component>
+						<component binding="citation" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Citation" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="0" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="Publication Year" weight="1" xsi:type="ns2:headingComponent">
+							<value>Publication Year</value>
+						</component>
+						<component binding="publicationYear" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter" name="Publication Year" readOnly="false" type="java.lang.Integer" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component name="Use the YYYY/MM/DD format" weight="1" xsi:type="ns2:instructionsComponent">
+							<value>Use the YYYY/MM/DD format</value>
+						</component>
+						<component level="2" name="Meeting Start Date" weight="1" xsi:type="ns2:headingComponent">
+							<value>Meeting Start Date</value>
+						</component>
+						<component binding="meetingStartDate" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter" name="Meeting Start Date" readOnly="false" type="java.util.Date" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component name="Use the YYYY/MM/DD format" weight="1" xsi:type="ns2:instructionsComponent">
+							<value>Use the YYYY/MM/DD format</value>
+						</component>
+						<component level="2" name="Meeting End Date" weight="1" xsi:type="ns2:headingComponent">
+							<value>Meeting End Date</value>
+						</component>
+						<component binding="meetingEndDate" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter" name="Meeting End Date" readOnly="false" type="java.util.Date" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="Committee" weight="1" xsi:type="ns2:headingComponent">
+							<value>Committee</value>
+						</component>
+						<component binding="committee" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Committee" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="Report Summary" weight="1" xsi:type="ns2:headingComponent">
+							<value>Report Summary</value>
+						</component>
+						<component binding="reportSummary" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="Report Summary" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+						<component level="2" name="URL" weight="1" xsi:type="ns2:headingComponent">
+							<value>URL</value>
+						</component>
+						<component binding="url" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter" name="URL" readOnly="false" type="java.net.URL" weight="1" xsi:type="ns2:inputComponent">
+							<value xsi:nil="true"/>
+						</component>
+					</components>
+				</entry>
+			</entries>
+		</component>
+		<component level="1" name="Year" weight="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:headingComponent">
+			<value>Year</value>
+		</component>
+		<component binding="year" bindingContext="#" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter" name="Year" readOnly="false" type="java.lang.Integer" weight="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:inputComponent">
+			<value>2012</value>
+		</component>
+		<component level="1" name="RFB Fishing Areas" weight="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:headingComponent">
+			<value>RFB Fishing Areas</value>
+		</component>
+		<component binding="fishingAreas" bindingContext="#" name="RFB Fishing Areas" readOnly="false" type="java.lang.String" weight="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:inputComponent">
+			<value>The comprehensive map of existing bottom fishing areas (as delineated by the coordinates shown in Table 1 and illustrated in Figure 4) shall be revised regularly to incorporate any new relevant information. Contracting Parties may, in the future, consider the possibility of refining the comprehensive map on the basis of haul by haul information, if available. (Art.17)</value>
+		</component>
+		<component level="1" name="VME Encounter" weight="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:headingComponent">
+			<value>VME Encounter</value>
+		</component>
+		<component binding="vmeEncounterProtocols" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="VME Encounter" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:inputComponent">
+			<value>In existing bottom fishing areas, encounters with VME indicator species above a threshold value are reported to the Executive Secretary and trigger a 2 nmile move on rule. In new fishing areas, such encounters also result in temporary closures of 2 nmile radius and require a more detailed report by the on-board observer. (Art 20.1-2)</value>
+		</component>
+		<component level="1" name="VME Indicator Species" weight="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:headingComponent">
+			<value>VME Indicator Species</value>
+		</component>
+		<component binding="vmeIndicatorSpecies" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="VME Indicator Species" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:inputComponent">
+			<value>Live corals and sponges (Art 20.3)</value>
+		</component>
+		<component level="1" name="VME Threshold" weight="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:headingComponent">
+			<value>VME Threshold</value>
+		</component>
+		<component binding="vmeThreshold" bindingContext="#" converter="org.fao.fi.vme.domain.support.MultiLingualStringConverter" name="VME Threshold" readOnly="false" type="org.fao.fi.vme.domain.model.MultiLingualString" weight="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:inputComponent">
+			<value>The threshold catch to trigger move on rules in existing bottom fishing areas was a catch per set of 60 kg live corals or 600 kg sponges. In new bottom fishing areas this was a catch of 60 kg live corals and/or 400 kg sponges. (Art 20.3)</value>
+		</component>
+		<component level="1" name="Validity Period" weight="2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:headingComponent">
+			<value>Validity Period</value>
+		</component>
+		<component binding="validityPeriod" bindingContext="#" isAReference="false" name="Validity Period" simple="false" type="org.fao.fi.vme.domain.model.ValidityPeriod" weight="2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ns2:nestedComponent">
+			<components>
+				<component level="2" name="Validity Period - Start" weight="0" xsi:type="ns2:headingComponent">
+					<value>Validity Period - Start</value>
+				</component>
+				<component binding="beginYear" bindingContext="#.validityPeriod" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter" name="Validity Period - Start" readOnly="false" type="java.lang.Integer" weight="0" xsi:type="ns2:inputComponent">
+					<value>2012</value>
+				</component>
+				<component name="End date, leave empty if not applicable" weight="0" xsi:type="ns2:instructionsComponent">
+					<value>End date, leave empty if not applicable</value>
+				</component>
+				<component level="2" name="Validity Period - End" weight="0" xsi:type="ns2:headingComponent">
+					<value>Validity Period - End</value>
+				</component>
+				<component binding="endYear" bindingContext="#.validityPeriod" converter="org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter" name="Validity Period - End" readOnly="false" type="java.lang.Integer" weight="0" xsi:type="ns2:inputComponent">
+					<value>9998</value>
+				</component>
+			</components>
+		</component>
+	</components>
+	<createdBy>[ NOT SET ]</createdBy>
+	<creationDate>2014-01-29T12:57:21.538+01:00</creationDate>
+	<lastEditedBy>[ NOT SET ]</lastEditedBy>
+	<lastEditingDate>2014-01-29T12:57:21.538+01:00</lastEditingDate>
+</ns2:report>

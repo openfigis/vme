@@ -51,6 +51,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.Report;
 import org.gcube.application.rsg.support.compiler.bridge.utilities.ScanningUtils;
 import org.gcube.application.rsg.support.compiler.bridge.utilities.Utils;
+import org.gcube.application.rsg.support.compiler.exceptions.ReportEvaluationException;
 import org.gcube.application.rsg.support.evaluator.ReportEvaluator;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
 import org.gcube.application.rsg.support.model.utils.CompiledReportUtils;
@@ -829,8 +830,23 @@ public class RsgServiceImplVme implements RsgService {
 		String id = report.getId() == null ? "#NEW#" : "#" + report.getId();
 
 		LOG.info("Requesting validation of {} report {}", report.getType(), id);
-
-		return new Response().valid("Report validation performed OK for " + report.getType() + " " + report.getId());
+		
+		Response response = new Response();
+		
+		try {
+			report.setEvaluated(true);
+			
+			Object extracted = this._evaluator.extract(report);
+			
+			if(extracted == null)
+				response.invalid("Report evaluation yield a NULL result");
+			else
+				response.valid("Report has been validated successfully");
+		} catch (ReportEvaluationException REe) {
+			response.invalid("Report is invalid: " + REe.getMessage());
+		}
+		
+		return response.undeterminedIfNotSet();
 	}
 
 	/* (non-Javadoc)
@@ -841,7 +857,22 @@ public class RsgServiceImplVme implements RsgService {
 		String id = report.getId() == null ? "#NEW#" : "#" + report.getId();
 
 		LOG.info("Requesting validation of {} reference report {}", report.getType(), id);
-
-		return new Response().valid("Reference report validation performed OK for " + report.getType() + " " + report.getId());
+		
+		Response response = new Response();
+		
+		try {
+			report.setEvaluated(true);
+			
+			Object extracted = this._evaluator.extract(report);
+			
+			if(extracted == null)
+				response.invalid("Reference report evaluation yield a NULL result");
+			else
+				response.valid("Reference report has been validated successfully");
+		} catch (ReportEvaluationException REe) {
+			response.invalid("Reference report is invalid: " + REe.getMessage());
+		}
+		
+		return response.undeterminedIfNotSet();
 	}
 }

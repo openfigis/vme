@@ -209,25 +209,45 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public void delete(InformationSource toDelete) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+		if(toDelete == null)
+			throw new IllegalArgumentException("VMEsHistory cannot be NULL");
 
-		toDelete.getRfmo().getInformationSourceList().remove(toDelete);
-		em.merge(toDelete.getRfmo());
-		toDelete.setRfmo(null);
+		if(toDelete.getId() == null)
+			throw new IllegalArgumentException("VMEsHistory id cannot be NULL");
 
-		for (GeneralMeasure generalMeasure : toDelete.getGeneralMeasureList()) {
-			generalMeasure.getInformationSourceList().remove(toDelete);
+		if(toDelete.getRfmo() == null)
+			throw new IllegalArgumentException("VMEsHistory cannot have a NULL parent RFMO");
+		
+		Rfmo parent = toDelete.getRfmo();
+		
+		Iterator<InformationSource> rfmoIterator = parent.getInformationSourceList().iterator();
+		
+		while(rfmoIterator.hasNext())
+			if(rfmoIterator.next().getId().equals(toDelete.getId()))
+				rfmoIterator.remove();
+		
+		this.doMerge(em, parent);
+		
+		Iterator<InformationSource> gmIterator; 
+		for(GeneralMeasure generalMeasure : toDelete.getGeneralMeasureList()) {
+			gmIterator = generalMeasure.getInformationSourceList().iterator();
+			
+			while(gmIterator.hasNext())
+				if(gmIterator.next().getId().equals(toDelete.getId()))
+					gmIterator.remove();
+
 			this.doMerge(em, generalMeasure);
 		}
 
-		for (SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList()) {
-			specificMeasure.setInformationSource(null);
+		for(SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList()) {
+			if(specificMeasure.getInformationSource() != null)
+				if(specificMeasure.getInformationSource().getId().equals(toDelete.getId()))
+					specificMeasure.setInformationSource(null);
+			
 			this.doMerge(em, specificMeasure);
 		}
 
-		em.remove(toDelete);
-		et.commit();
+		this.doRemove(em, toDelete);
 	}
 
 	public void delete(VMEsHistory toDelete) {
@@ -580,7 +600,7 @@ public class VmeDao extends AbstractJPADao {
 		//If any GeoRef / Profile / Specific Measure is missing, it must be deleted in order not to leave 'orphan' children.
 		for(Long id : currentGeoRefs) this.doRemove(em, this.getEntityById(this.em, GeoRef.class, id));
 		for(Long id : currentProfiles) this.doRemove(em, this.getEntityById(this.em, Profile.class, id));
-		for(Long id : currentSpecificMeasures) this.doRemove(em, this.getEntityById(this.em, SpecificMeasure.class, id));
+		for(Long id : currentSpecificMeasures) this.delete(this.getEntityById(em, SpecificMeasure.class, id));//this.doRemove(em, this.getEntityById(this.em, SpecificMeasure.class, id));
 		
 		return updated;
 	}

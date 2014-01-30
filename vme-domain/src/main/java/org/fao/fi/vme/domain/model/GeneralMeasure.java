@@ -78,7 +78,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	 */
 	@RSGName("Information Sources")
 	@RSGWeight(0)
-	@ManyToMany(cascade = { CascadeType.REFRESH })
+	@ManyToMany
 	@JoinTable(name = "GM_IS", joinColumns = { @JoinColumn(name = "GM_ID") },//
 	inverseJoinColumns = { @JoinColumn(name = "IS_ID") })
 	private List<InformationSource> informationSourceList;
