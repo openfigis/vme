@@ -24,12 +24,13 @@ import org.fao.fi.vme.msaccess.tables.VME;
 public class VmeReader {
 
 	private final TableReader tableReader = new TableReader();
-	
-	@Inject private MsAccessConnectionProvider connectionProvider;
+
+	@Inject
+	private MsAccessConnectionProvider connectionProvider;
 
 	public VmeReader() {
 	}
-	
+
 	@PostConstruct
 	private void postConstruct() {
 		tableReader.setConnection(connectionProvider.getConnection());
@@ -44,6 +45,7 @@ public class VmeReader {
 
 		for (Class<?> clazz : tables) {
 
+			System.out.println(clazz);
 			Table table = tableReader.read(clazz);
 
 			tableList.add(table);

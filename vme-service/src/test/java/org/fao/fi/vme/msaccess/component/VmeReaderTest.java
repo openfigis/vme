@@ -32,8 +32,8 @@ public class VmeReaderTest {
 
 	public static Map<Class<?>, Integer> numberOfRecords = new HashMap<Class<?>, Integer>();
 	static {
-		numberOfRecords.put(VME.class, 197);
-		numberOfRecords.put(RFB_MetaData.class, 5);
+		numberOfRecords.put(VME.class, 198);
+		numberOfRecords.put(RFB_MetaData.class, 6);
 		numberOfRecords.put(Measues_VME_Specific.class, 151);
 	}
 

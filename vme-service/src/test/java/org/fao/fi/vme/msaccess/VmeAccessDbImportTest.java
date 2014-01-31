@@ -41,8 +41,8 @@ public class VmeAccessDbImportTest {
 		List<?> objects = vmeDao.loadObjects(Profile.class);
 		assertTrue(objects.size() > 0);
 		checkRelationGmIs();
-		assertEquals(98, vmeDao.count(Vme.class).intValue());
-		assertEquals(197, vmeDao.count(GeoRef.class).intValue());
+		assertEquals(99, vmeDao.count(Vme.class).intValue());
+		assertEquals(198, vmeDao.count(GeoRef.class).intValue());
 	}
 
 	private void checkRelationGmIs() {
