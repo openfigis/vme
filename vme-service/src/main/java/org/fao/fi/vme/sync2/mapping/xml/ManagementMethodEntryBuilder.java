@@ -15,9 +15,8 @@ import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.purl.dc.elements._1.Identifier;
+import org.fao.fi.vme.sync2.mapping.BiblioEntryFromInformationSource;
 import org.purl.dc.elements._1.Title;
-import org.purl.dc.terms.BibliographicCitation;
 
 /**
  * 
@@ -38,6 +37,7 @@ public class ManagementMethodEntryBuilder {
 	public final static String VME_INDICATORSPECIES = "VME_indicatorspecies";
 	public final static String URI = "URI";
 	public final static String TIME = "Time";
+	BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
 
 	private ObjectFactory f = new ObjectFactory();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
@@ -197,21 +197,9 @@ public class ManagementMethodEntryBuilder {
 			AddWhenContentRule<Object> rule = new AddWhenContentRule<Object>();
 
 			for (InformationSource infoSource : yearObject.getInformationSourceList()) {
-				BiblioEntry biblioEntry = f.createBiblioEntry();
-
-				Identifier identifier = new Identifier();
-				identifier.setType(URI);
-				identifier.setContent(infoSource.getUrl().toString());
-				rule.check(infoSource.getUrl());
-
-				BibliographicCitation citation = new BibliographicCitation();
-				citation.setContent(u.getEnglish(infoSource.getCitation()));
-				rule.check(infoSource.getCitation());
-
-				biblioEntry.getContent().add(identifier);
-				biblioEntry.getContent().add(citation);
-				sources.getTextsAndImagesAndTables().add(biblioEntry);
-
+				BiblioEntry biblioEntry = bu.transform(infoSource);
+				new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
+						.to(sources.getTextsAndImagesAndTables());
 			}
 			rule.beforeAdding(sources).to(entry.getTextsAndImagesAndTables());
 

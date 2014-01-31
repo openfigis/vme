@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.lang.StringUtils;
 import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.CollectionRef;
 import org.fao.fi.figis.devcon.CorporateCoverPage;
@@ -40,7 +39,6 @@ import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
-import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.InformationSource;
@@ -49,15 +47,10 @@ import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.fao.fi.vme.sync2.mapping.BiblioEntryFromInformationSource;
 import org.fao.fi.vme.sync2.mapping.RfmoHistory;
 import org.fao.fi.vme.sync2.mapping.VmeHistory;
-import org.purl.agmes._1.CreatorCorporate;
-import org.purl.dc.elements._1.Date;
-import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.elements._1.Title;
-import org.purl.dc.elements._1.Type;
-import org.purl.dc.terms.Abstrakt;
-import org.purl.dc.terms.BibliographicCitation;
 import org.purl.dc.terms.Created;
 
 /**
@@ -94,6 +87,7 @@ public class FigisDocBuilder {
 	private DateFormatter df = new DateFormatter();
 	private CurrentDate currentDate = new CurrentDate();
 	private InformationSourceCodelist codelist = new InformationSourceCodelist();
+	private BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
 
 	public static final String VULNERABLE_MARINE_ECOSYSTEMS = "Vulnerable Marine Ecosystems";
 
@@ -191,24 +185,12 @@ public class FigisDocBuilder {
 
 			// sources
 			Sources sources = f.createSources();
-			BiblioEntry biblioEntry = f.createBiblioEntry();
 
-			AddWhenContentRule<Object> rule = new AddWhenContentRule<Object>();
+			// make a biblioEntry out of the InformationSource.
+			BiblioEntry biblioEntry = bu.transform(specificMeasure.getInformationSource());
 
 			if (specificMeasure.getInformationSource() != null) {
-				BibliographicCitation citation = new BibliographicCitation();
-				citation.setContent(u.getEnglish(specificMeasure.getInformationSource().getCitation()));
-				biblioEntry.getContent().add(citation);
-				rule.check(u.getEnglish(specificMeasure.getInformationSource().getCitation()));
 
-				if (specificMeasure.getInformationSource().getUrl() != null
-						&& !StringUtils.isBlank(specificMeasure.getInformationSource().getUrl().getPath())) {
-					Identifier identifier = new Identifier();
-					identifier.setType("URI");
-					identifier.setContent(specificMeasure.getInformationSource().getUrl().toString());
-					new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource().getUrl())
-							.beforeAdding(identifier).to(biblioEntry.getContent());
-				}
 				// add source to the measure (Sources are added to the
 				// SpecificMeasure, not to the entry)
 				new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())
@@ -326,6 +308,10 @@ public class FigisDocBuilder {
 			// • AddInfo
 			// • Sources
 			// • RelatedResources
+
+			if (profile.getDescriptionBiological() != null) {
+				System.out.println("");
+			}
 
 			GeneralBiology gb = f.createGeneralBiology();
 			Text text1 = ut.getEnglishText(profile.getDescriptionBiological());
@@ -663,50 +649,7 @@ public class FigisDocBuilder {
 			// and according to the selected year
 			if (infoSource.getSourceType() == 3) {
 
-				BiblioEntry biblioEntry = f.createBiblioEntry();
-
-				Type type = dcf.createType();
-				type.setType(Integer.toString(infoSource.getSourceType()));
-				type.setContent(codelist.getDescription(infoSource.getSourceType()));
-
-				biblioEntry.getContent().add(type);
-
-				BibliographicCitation citation = new BibliographicCitation();
-				citation.setContent(u.getEnglish(infoSource.getCitation()));
-				biblioEntry.getContent().add(citation);
-
-				CreatorCorporate cc = new CreatorCorporate();
-				cc.setContent(u.getEnglish(infoSource.getCommittee()));
-				biblioEntry.getContent().add(cc);
-
-				// Created
-				// publicationYear
-				// fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
-
-				if (infoSource.getPublicationYear() != null && infoSource.getPublicationYear() > 0) {
-					Created created = new Created();
-					created.setContent(Integer.toString(infoSource.getPublicationYear()));
-					biblioEntry.getContent().add(created);
-				} else {
-					throw new VmeException("infoSource without valid publicationYear");
-				}
-
-				// meetingStartDate - meetingEndDate
-				// fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date
-				if (infoSource.getMeetingStartDate() != null) {
-					Date createDate = dcf.createDate();
-					createDate.setContent(df.format(infoSource.getMeetingStartDate(), infoSource.getMeetingEndDate()));
-					biblioEntry.getContent().add(createDate);
-				}
-
-				Identifier identifier = new Identifier();
-				identifier.setType("URI");
-				identifier.setContent(infoSource.getUrl().toString());
-				biblioEntry.getContent().add(identifier);
-
-				Abstrakt bibAbstract = new Abstrakt();
-				bibAbstract.setContent(u.getEnglish(infoSource.getReportSummary()));
-				biblioEntry.getContent().add(bibAbstract);
+				BiblioEntry biblioEntry = bu.transform(infoSource);
 
 				sources.getTextsAndImagesAndTables().add(biblioEntry);
 

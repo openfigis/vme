@@ -171,12 +171,20 @@ public class ObservationJpaDao implements ObservationDAO {
 			for (Vme vme : result) {
 				boolean toBeRemoved = false;
 				List<GeoRef> georef = vme.getGeoRefList();
+
+				// Intervention Erik van Ingen 30 Jan 2014. If the year
+				// of the profile matches the requested year, it will be
+				// removed? Probably it is the other way around:
+				boolean matchingGeoRefyear = false;
 				for (GeoRef profile : georef) {
 					if (profile.getYear() == requested_year) {
-						toBeRemoved = true;
-						break;
+						matchingGeoRefyear = true;
 					}
 				}
+				if (!matchingGeoRefyear) {
+					toBeRemoved = true;
+				}
+
 				if (!toBeRemoved) {
 					ValidityPeriod validityPeriod = vme.getValidityPeriod();
 					if (validityPeriod.getBeginYear() <= requested_year
