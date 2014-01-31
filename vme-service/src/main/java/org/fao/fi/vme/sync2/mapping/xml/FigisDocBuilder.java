@@ -635,24 +635,23 @@ public class FigisDocBuilder {
 	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date *
 	 * 
 	 * @param infoSourceList
+	 * @param i
 	 * @param figisDoc
 	 */
-	public void informationSource(List<InformationSource> infoSourceList, FIGISDoc figisDoc) {
+	public void informationSource(List<InformationSource> infoSourceList, int disseminationYear, FIGISDoc figisDoc) {
 		Sources sources = f.createSources();
 
 		for (InformationSource infoSource : infoSourceList) {
 			// Algorithm for "InformationSource" UML table: with regards of the
 			// meetings tab, provide all and only records with "sourcetype=3"
 			// and according to the selected year
-			if (infoSource.getSourceType() == 3) {
-
+			if (infoSource.getPublicationYear() <= disseminationYear) {
 				BiblioEntry biblioEntry = bu.transform(infoSource);
-
-				sources.getTextsAndImagesAndTables().add(biblioEntry);
-
+				new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
+						.to(sources.getTextsAndImagesAndTables());
 			}
-		}
 
+		}
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(sources);
 	}
 

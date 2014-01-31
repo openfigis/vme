@@ -11,7 +11,8 @@ public class InformationSourceMock {
 
 	public static InformationSource create() {
 		InformationSource is = new InformationSource();
-		is.setSourceType(2);
+		is.setSourceType(3);
+		is.setPublicationYear(2000);
 		is.setCitation(u.english("RFMO Conservation and Enforcement Measure  (Doc No. ####)"));
 		is.setMeetingEndDate(Calendar.getInstance().getTime());
 		try {

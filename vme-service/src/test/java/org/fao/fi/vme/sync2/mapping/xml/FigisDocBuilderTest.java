@@ -304,7 +304,7 @@ public class FigisDocBuilderTest {
 		figisDoc.setVME(new VME());
 
 		List<InformationSource> infoSourceList = vme.getRfmo().getInformationSourceList();
-		b.informationSource(infoSourceList, figisDoc);
+		b.informationSource(infoSourceList, 2013, figisDoc);
 
 		Sources sources = (Sources) figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
 		assertNotNull(sources);
@@ -342,7 +342,7 @@ public class FigisDocBuilderTest {
 
 		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc);
 		b.generalMeasures(vme.getRfmo().getGeneralMeasureList().get(0), figisDoc);
-		b.informationSource(vme.getRfmo().getInformationSourceList(), figisDoc);
+		b.informationSource(vme.getRfmo().getInformationSourceList(), 2000, figisDoc);
 
 		String s = m.marshalToString(figisDoc);
 
