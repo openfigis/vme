@@ -80,13 +80,10 @@ import org.purl.dc.terms.Created;
 public class FigisDocBuilder {
 
 	private ObjectFactory f = new ObjectFactory();
-	private org.purl.dc.elements._1.ObjectFactory dcf = new org.purl.dc.elements._1.ObjectFactory();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 	private EnglishTextUtil ut = new EnglishTextUtil();
 	private ManagementMethodEntryBuilder mmeBuilder = new ManagementMethodEntryBuilder();
-	private DateFormatter df = new DateFormatter();
 	private CurrentDate currentDate = new CurrentDate();
-	private InformationSourceCodelist codelist = new InformationSourceCodelist();
 	private BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
 
 	public static final String VULNERABLE_MARINE_ECOSYSTEMS = "Vulnerable Marine Ecosystems";
