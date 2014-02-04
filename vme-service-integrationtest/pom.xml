@@ -15,11 +15,11 @@
 			</activation>
 			<properties>
 				<!-- Change this to switch to another (non-in-memory) DB during tests -->
-				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
-				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:db1;INIT=create schema IF NOT EXISTS VME</javax.persistence.jdbc.url.vme>
-				<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
-				<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>
-				<hibernate.dialect.vme>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme>
+				<javax.persistence.jdbc.driver.vme>com.mysql.jdbc.Driver</javax.persistence.jdbc.driver.vme>
+				<javax.persistence.jdbc.url.vme>jdbc:mysql://localhost:3306/vme</javax.persistence.jdbc.url.vme>
+				<javax.persistence.jdbc.user.vme>vme</javax.persistence.jdbc.user.vme>
+				<javax.persistence.jdbc.password.vme>vme</javax.persistence.jdbc.password.vme>
+				<hibernate.dialect.vme>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect.vme>
 				<hibernate.hbm2ddl.auto.vme>create-drop</hibernate.hbm2ddl.auto.vme>
 				<!--validate | update | create | create-drop -->
 
@@ -48,6 +48,11 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.27</version>
 		</dependency>
 	</dependencies>
 

@@ -478,7 +478,7 @@ public class VmeDao extends AbstractJPADao {
 		//Build the list of IDs for GeoRef / Profile / SpecificMeasure for the Vme in its current status.
 		Set<Long> geoRefsToDelete = new HashSet<Long>();
 		if(currentVME.getGeoRefList() != null)
-			for(GeoRef geoRef : currentVME.getGeoRefList())
+			for(GeoRef geoRef : currentVME.getGeoRefList()) 
 				geoRefsToDelete.add(geoRef.getId());
 
 		Set<Long> profilesToDelete = new HashSet<Long>();
