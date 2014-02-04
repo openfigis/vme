@@ -706,7 +706,7 @@ public class RsgServiceImplVme implements RsgService {
 
 			tx.commit();
 		} catch (Throwable t) {
-			LOG.error("Unable to update {} report {}: {} [ {} ]", report.getType(), id, t.getClass().getSimpleName(), t.getMessage());
+			LOG.error("Unable to update {} report {}: {} [ {} ]", report.getType(), id, t.getClass().getSimpleName(), t.getMessage(), t);
 
 			response.notSucceeded(t.getMessage()); //report.getType() + " report " + id + " cannot be updated: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
 
@@ -718,7 +718,7 @@ public class RsgServiceImplVme implements RsgService {
 
 	private Object doCreate(Object holder) throws Throwable {
 		if(holder == null)
-			throw new IllegalArgumentException("Object to update cannot be NULL");
+			throw new IllegalArgumentException("Cannot create an NULL or empty report");
 
 		if(holder instanceof Vme) {
 			return this.vmeDao.create((Vme)holder);
@@ -728,7 +728,7 @@ public class RsgServiceImplVme implements RsgService {
 
 	private Object doUpdate(Object holder) throws Throwable {
 		if(holder == null)
-			throw new IllegalArgumentException("Object to update cannot be NULL");
+			throw new IllegalArgumentException("Cannot update an NULL or empty report");
 
 		if(holder instanceof Vme) {
 			return this.vmeDao.update((Vme)holder);
@@ -780,7 +780,7 @@ public class RsgServiceImplVme implements RsgService {
 
 			tx.commit();
 		} catch (Throwable t) {
-			LOG.error("Unable to update {} reference report {}: {} [ {} ]", referenceReport.getType(), id, t.getClass().getSimpleName(), t.getMessage());
+			LOG.error("Unable to update {} reference report {}: {} [ {} ]", referenceReport.getType(), id, t.getClass().getSimpleName(), t.getMessage(), t);
 
 			response.notSucceeded(t.getMessage()); //referenceReport.getType() + " reference report " + id + " cannot be updated: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]");
 			
@@ -792,7 +792,7 @@ public class RsgServiceImplVme implements RsgService {
 
 	private Object doCreateReference(Object holder) throws Throwable {
 		if(holder == null)
-			throw new IllegalArgumentException("Object to create cannot be NULL");
+			throw new IllegalArgumentException("Cannot create an NULL or empty reference report");
 
 		if(holder instanceof GeneralMeasure)  
 			return this.vmeDao.create((GeneralMeasure)holder);
@@ -808,7 +808,7 @@ public class RsgServiceImplVme implements RsgService {
 
 	private Object doUpdateReference(Object holder) throws Throwable {
 		if(holder == null)
-			throw new IllegalArgumentException("Object to update cannot be NULL");
+			throw new IllegalArgumentException("Cannot update a NULL or empty reference report");
 
 		if(holder instanceof GeneralMeasure) 
 			return this.vmeDao.update((GeneralMeasure)holder);

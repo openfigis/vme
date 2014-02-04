@@ -58,7 +58,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 	/**
 	 * InformationSource has 0,1 SpecificMeasure
 	 */
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = "IS_SM")
 	private List<SpecificMeasure> specificMeasureList;
 
@@ -66,7 +66,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 	 * InformationSource has 0,1 GeneralMeasure
 	 */
 
-	@ManyToMany(mappedBy = "informationSourceList", cascade = { CascadeType.MERGE })
+	@ManyToMany(mappedBy = "informationSourceList", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private List<GeneralMeasure> generalMeasureList;
 
 	/**

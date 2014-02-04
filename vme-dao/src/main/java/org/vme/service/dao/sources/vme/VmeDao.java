@@ -1,6 +1,5 @@
 package org.vme.service.dao.sources.vme;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -143,7 +142,7 @@ public class VmeDao extends AbstractJPADao {
 
 	public void delete(Object toDelete) {
 		if (toDelete == null)
-			throw new IllegalArgumentException("Object to delete cannot be NULL");
+			throw new IllegalArgumentException("Cannot delete an NULL or empty data");
 
 		Class<?> entity = toDelete.getClass();
 		
@@ -154,20 +153,22 @@ public class VmeDao extends AbstractJPADao {
 			try {
 				deleteMethod = this.getClass().getDeclaredMethod("delete", entity);
 			} catch (Throwable t) {
-				throw new IllegalArgumentException("Unable to find a proper 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + t.getMessage(), t);
+				String message = "Unable to find a proper 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + t.getMessage();
+				
+				LOG.error(message, t);
+				
+				throw new IllegalArgumentException(message, t);
 			}
 			
 			if(deleteMethod != null) {
 				try {
 					deleteMethod.invoke(this, toDelete);
-				} catch (IllegalArgumentException IAe) {
-					throw new VmeDaoException("Unable to invoke the 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + IAe.getMessage(), IAe);
-				} catch (IllegalAccessException IAe) {
-					throw new VmeDaoException("Unable to invoke the 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + IAe.getMessage(), IAe);
-				} catch (InvocationTargetException ITe) {
-					throw new VmeDaoException("Unable to invoke the 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + ITe.getMessage(), ITe);
-				} catch(Throwable t) {
-					throw new VmeDaoException(t.getMessage(), t);
+				} catch (Throwable t) {
+					String message = "Unable to invoke the 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + t.getMessage();
+
+					LOG.error(message, t);
+					
+					throw new VmeDaoException(message, t);
 				}
 			}
 		}
@@ -210,23 +211,29 @@ public class VmeDao extends AbstractJPADao {
 
 	public void delete(InformationSource toDelete) {
 		if(toDelete == null)
-			throw new IllegalArgumentException("VMEsHistory cannot be NULL");
+			throw new IllegalArgumentException("Information Source cannot be NULL");
 
 		if(toDelete.getId() == null)
-			throw new IllegalArgumentException("VMEsHistory id cannot be NULL");
+			throw new IllegalArgumentException("Information Source id cannot be NULL");
 
 		if(toDelete.getRfmo() == null)
-			throw new IllegalArgumentException("VMEsHistory cannot have a NULL parent RFMO");
+			throw new IllegalArgumentException("Information Sources cannot have a NULL parent RFMO");
 		
 		Rfmo parent = toDelete.getRfmo();
 		
-		Iterator<InformationSource> rfmoIterator = parent.getInformationSourceList().iterator();
-		
-		while(rfmoIterator.hasNext())
-			if(rfmoIterator.next().getId().equals(toDelete.getId()))
-				rfmoIterator.remove();
-		
-		this.doMerge(em, parent);
+		if(parent.getInformationSourceList() != null) {
+			Iterator<InformationSource> rfmoIterator = parent.getInformationSourceList().iterator();
+			
+			while(rfmoIterator.hasNext())
+				if(rfmoIterator.next().getId().equals(toDelete.getId()))
+					rfmoIterator.remove();
+			
+			toDelete.setRfmo(null);
+			
+			this.doMerge(em, parent);
+		} else {
+			LOG.warn("Got a request to delete Information Source #{} belonging to {} but the parent Rfmo domain object seems not to have any Information Source listed...", toDelete.getId(), parent == null ? "NULL" : parent.getId());
+		}
 		
 		Iterator<InformationSource> gmIterator; 
 		if(toDelete.getGeneralMeasureList() != null)
@@ -240,15 +247,25 @@ public class VmeDao extends AbstractJPADao {
 				this.doMerge(em, generalMeasure);
 			} 
 
-		if(toDelete.getSpecificMeasureList() != null)
-			for(SpecificMeasure specificMeasure : toDelete.getSpecificMeasureList()) {
-				if(specificMeasure.getInformationSource() != null)
-					if(specificMeasure.getInformationSource().getId().equals(toDelete.getId()))
-						specificMeasure.setInformationSource(null);
+		Iterator<SpecificMeasure> smIterator;
+		SpecificMeasure smCurrent;
+		if(toDelete.getSpecificMeasureList() != null) {
+			smIterator = toDelete.getSpecificMeasureList().iterator();
+		
+			while(smIterator.hasNext()) {
+				smCurrent = smIterator.next();
 				
-				this.doMerge(em, specificMeasure);
+				if(smCurrent != null)
+					if(smCurrent.getInformationSource().getId().equals(toDelete.getId()))
+						smCurrent.setInformationSource(null);
+				
+				this.doMerge(em, smCurrent);
+				
+				smIterator.remove();
 			}
+		}
 
+		this.doMerge(em, toDelete);
 		this.doRemove(em, toDelete);
 	}
 
@@ -374,13 +391,17 @@ public class VmeDao extends AbstractJPADao {
 
 		Rfmo parent = toDelete.getRfmo();
 		
-		Iterator<GeneralMeasure> rfmoIterator = parent.getGeneralMeasureList().iterator();
-
-		while (rfmoIterator.hasNext())
-			if (rfmoIterator.next().getId().equals(toDelete.getId()))
-				rfmoIterator.remove();
-
-		this.doMerge(em, parent);
+		if(parent.getGeneralMeasureList() != null) {
+			Iterator<GeneralMeasure> rfmoIterator = parent.getGeneralMeasureList().iterator();
+	
+			while (rfmoIterator.hasNext())
+				if (rfmoIterator.next().getId().equals(toDelete.getId()))
+					rfmoIterator.remove();
+	
+			this.doMerge(em, parent);
+		} else {
+			LOG.warn("Got a request to delete General Measure #{} belonging to {} but the parent Rfmo domain object seems not to have any General Measure listed...", toDelete.getId(), parent == null ? "NULL" : parent.getId());
+		}
 		
 		if(toDelete.getInformationSourceList() != null) {
 			for(InformationSource informationSource : toDelete.getInformationSourceList()) {
@@ -435,89 +456,93 @@ public class VmeDao extends AbstractJPADao {
 		this.doRemove(em, toDelete);
 	}
 	
-	public Vme update(Vme vme) throws Throwable {
-		if(vme == null)
+	public Vme update(Vme updatedVME) throws Throwable {
+		if(updatedVME == null)
 			throw new IllegalArgumentException("Updated Vme cannot be NULL");
 		
-		if(vme.getId() == null)
+		if(updatedVME.getId() == null)
 			throw new IllegalArgumentException("Updated Vme cannot have a NULL identifier");
 
-		if(vme.getRfmo() == null)
+		if(updatedVME.getRfmo() == null)
 			throw new IllegalArgumentException("Updated Vme cannot have a NULL Rfmo");
 
-		if(vme.getRfmo().getId() == null)
+		if(updatedVME.getRfmo().getId() == null)
 			throw new IllegalArgumentException("Updated Vme cannot have a Rfmo with a NULL identifier");
-			
-		//Link the information source (by ID) to the specific measure
-		if(vme.getSpecificMeasureList() != null)
-			for(SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
-				if(specificMeasure.getInformationSource() != null) {
-					specificMeasure.setInformationSource(this.getEntityById(this.em, InformationSource.class, specificMeasure.getInformationSource().getId()));
-				}
-			}
 
-		//Link the GeoRefs to the Vme
-		if(vme.getGeoRefList() != null)
-			for (GeoRef geoRef : vme.getGeoRefList()) {
-				geoRef.setVme(vme);
+		//Get the current Vme status (before the update)
+		Vme currentVME = this.getEntityById(this.em, Vme.class, updatedVME.getId());
+		
+		if(currentVME == null)
+			throw new IllegalArgumentException("Unable to update Vme with id #" + updatedVME.getId() + " as it doesn't exist");
+
+		//Build the list of IDs for GeoRef / Profile / SpecificMeasure for the Vme in its current status.
+		Set<Long> geoRefsToDelete = new HashSet<Long>();
+		if(currentVME.getGeoRefList() != null)
+			for(GeoRef geoRef : currentVME.getGeoRefList())
+				geoRefsToDelete.add(geoRef.getId());
+
+		Set<Long> profilesToDelete = new HashSet<Long>();
+		if(currentVME.getProfileList() != null)
+			for(Profile profile : currentVME.getProfileList())
+				profilesToDelete.add(profile.getId());
+
+		Set<Long> specificMeasuresToDelete = new HashSet<Long>();
+		if(currentVME.getSpecificMeasureList() != null)
+			for(SpecificMeasure specificMeasure : currentVME.getSpecificMeasureList())
+				specificMeasuresToDelete.add(specificMeasure.getId());
+
+		//Check which geoRef / profile / specificMeasure must be deleted...
+		
+		if(updatedVME.getGeoRefList() != null) {
+			for(GeoRef geoRef : updatedVME.getGeoRefList())
+				geoRefsToDelete.remove(geoRef.getId());
+		}
+		
+		if(updatedVME.getProfileList() != null)
+			for(Profile profile : updatedVME.getProfileList())
+				profilesToDelete.remove(profile.getId());
+		
+		if(updatedVME.getSpecificMeasureList() != null)
+			for(SpecificMeasure specificMeasure : updatedVME.getSpecificMeasureList())
+				specificMeasuresToDelete.remove(specificMeasure.getId());
+
+		//If any GeoRef / Profile / Specific Measure is missing, it must be deleted in order not to leave 'orphan' children.
+		for(Long id : geoRefsToDelete) this.doRemove(em, this.getEntityById(this.em, GeoRef.class, id));
+		for(Long id : profilesToDelete) this.doRemove(em, this.getEntityById(this.em, Profile.class, id));
+		for(Long id : specificMeasuresToDelete) this.doRemove(em, this.getEntityById(this.em, SpecificMeasure.class, id)); //this.delete(this.getEntityById(em, SpecificMeasure.class, id));//
+		
+		//Link the Current GeoRefs to the Vme
+		if(updatedVME.getGeoRefList() != null)
+			for (GeoRef geoRef : updatedVME.getGeoRefList()) {
+				geoRef.setVme(updatedVME);
 			}
 
 		//Link the Profiles to the Vme
-		if(vme.getProfileList() != null)
-			for (Profile profile : vme.getProfileList()) {
-				profile.setVme(vme);
+		if(updatedVME.getProfileList() != null)
+			for (Profile profile : updatedVME.getProfileList()) {
+				profile.setVme(updatedVME);
 			}
 		
 		//Link the SpecificMeasures to the Vme
-		if(vme.getSpecificMeasureList() != null)
-			for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
-				specificMeasure.setVme(vme);
+		List<SpecificMeasure> updatedSMs = new ArrayList<SpecificMeasure>();
+		
+		if(updatedVME.getSpecificMeasureList() != null)
+			for(SpecificMeasure specificMeasure : updatedVME.getSpecificMeasureList()) {
+				specificMeasure.setVme(updatedVME);
+						
+				if(specificMeasure.getId() != null) {
+					updatedSMs.add(this.update(specificMeasure));
+				} else {
+					updatedSMs.add(this.create(specificMeasure));
+				}
 			}
 		
-		//Get the current Vme status (before the update)
-		Vme existing = this.getEntityById(this.em, Vme.class, vme.getId());
-		
-		if(existing == null)
-			throw new IllegalArgumentException("Unable to update Vme with id #" + vme.getId() + " as it doesn't exist");
-		
-		//Build the list of IDs for GeoRef / Profile / SpecificMeasure for the Vme in its current status.
-		Set<Long> currentGeoRefs = new HashSet<Long>();
-		if(existing.getGeoRefList() != null)
-			for(GeoRef geoRef : existing.getGeoRefList())
-				currentGeoRefs.add(geoRef.getId());
-
-		Set<Long> currentProfiles = new HashSet<Long>();
-		if(existing.getProfileList() != null)
-			for(Profile profile : existing.getProfileList())
-				currentProfiles.add(profile.getId());
-
-		Set<Long> currentSpecificMeasures = new HashSet<Long>();
-		if(existing.getSpecificMeasureList() != null)
-			for(SpecificMeasure specificMeasure : existing.getSpecificMeasureList())
-				currentSpecificMeasures.add(specificMeasure.getId());
+		updatedVME.setSpecificMeasureList(updatedSMs);
 
 		//Update the Vme: this will unlink GeoRefs / Profiles / SpecificMeasures but not remove them.
-		Vme updated = this.doMerge(em, vme);
-
-		//Check if any GeoRef / Profile / Specific Measure is missing between the updated VME and its current (previous) status.
-		if(updated.getGeoRefList() != null)
-			for(GeoRef geoRef : updated.getGeoRefList())
-				currentGeoRefs.remove(geoRef.getId());
-
-		if(updated.getProfileList() != null)
-			for(Profile profile : updated.getProfileList())
-				currentProfiles.remove(profile.getId());
-
-		if(updated.getSpecificMeasureList() != null)
-			for(SpecificMeasure specificMeasure : updated.getSpecificMeasureList())
-				currentSpecificMeasures.remove(specificMeasure.getId());
-
-		//If any GeoRef / Profile / Specific Measure is missing, it must be deleted in order not to leave 'orphan' children.
-		for(Long id : currentGeoRefs) this.doRemove(em, this.getEntityById(this.em, GeoRef.class, id));
-		for(Long id : currentProfiles) this.doRemove(em, this.getEntityById(this.em, Profile.class, id));
-		for(Long id : currentSpecificMeasures) this.delete(this.getEntityById(em, SpecificMeasure.class, id));//this.doRemove(em, this.getEntityById(this.em, SpecificMeasure.class, id));
+		Vme mergedVME = this.doMerge(em, updatedVME);
 		
-		return updated;
+		return mergedVME;
 	}
 	
 	public Vme create(Vme vme) throws Throwable {
@@ -525,10 +550,20 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The updated Vme cannot be NULL");
 				
 		//Link the information source (by ID) to the specific measure
+		InformationSource current;
 		if(vme.getSpecificMeasureList() != null)
 			for(SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
 				if(specificMeasure.getInformationSource() != null) {
-					specificMeasure.setInformationSource(this.getEntityById(this.em, InformationSource.class, specificMeasure.getInformationSource().getId()));
+					current = this.getEntityById(this.em, InformationSource.class, specificMeasure.getInformationSource().getId());
+					specificMeasure.setInformationSource(current);
+					
+					if(current.getSpecificMeasureList() == null)
+						current.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
+					
+					current.getSpecificMeasureList().add(specificMeasure);
+					
+					this.doMerge(em, current);
+					this.doMerge(em, specificMeasure);
 				}
 			}
 		
@@ -550,7 +585,11 @@ public class VmeDao extends AbstractJPADao {
 				specificMeasure.setVme(vme);
 			}
 	
-		return this.doPersistAndFlush(em, vme);
+		vme = this.doPersistAndFlush(em, vme);
+		
+		em.refresh(vme);
+
+		return vme;
 	}
 	
 	public GeoRef update(GeoRef geoRef) {
@@ -622,27 +661,49 @@ public class VmeDao extends AbstractJPADao {
 		return this.doPersistAndFlush(em, profile);
 	}
 	
-	public SpecificMeasure update(SpecificMeasure specificMeasure) throws Throwable {
-		if(specificMeasure == null)
+	public SpecificMeasure update(SpecificMeasure updatedSM) throws Throwable {
+		if(updatedSM == null)
 			throw new IllegalArgumentException("The updated VME Specific Measure cannot be NULL");
 		
-		if(specificMeasure.getId() == null)
+		if(updatedSM.getId() == null)
 			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a NULL identifier");
 		
-		if(specificMeasure.getVme() == null)
+		if(updatedSM.getVme() == null)
 			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a NULL Vme reference");
 
-		if(specificMeasure.getVme().getId() == null)
+		if(updatedSM.getVme().getId() == null)
 			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a Vme reference with a NULL identifier");
+
+		InformationSource updatedIS = updatedSM.getInformationSource();
 		
-		SpecificMeasure current = this.getEntityById(this.em, SpecificMeasure.class, specificMeasure.getId());
-		current.setValidityPeriod(specificMeasure.getValidityPeriod());
-		current.setVmeSpecificMeasure(specificMeasure.getVmeSpecificMeasure());
-		current.setYear(specificMeasure.getYear());
+		SpecificMeasure currentSM = this.getEntityById(this.em, SpecificMeasure.class, updatedSM.getId());
+		InformationSource currentIS = null;
 		
-		current.setInformationSource(specificMeasure.getInformationSource());
+		if(currentSM.getInformationSource() != null) {
+			currentIS = this.getEntityById(this.em, InformationSource.class, currentSM.getInformationSource().getId());
+		}
 		
-		return this.doMerge(em, specificMeasure);
+		if(currentIS != null) {
+			currentIS.getSpecificMeasureList().remove(currentSM);
+			currentSM.setInformationSource(null);
+			
+			em.merge(currentIS);
+		}
+
+		currentSM.setValidityPeriod(updatedSM.getValidityPeriod());
+		currentSM.setVmeSpecificMeasure(updatedSM.getVmeSpecificMeasure());
+		currentSM.setYear(updatedSM.getYear());
+		
+		if(updatedIS != null) {
+			InformationSource informationSource = this.getEntityById(em, InformationSource.class, updatedIS.getId());
+			informationSource.getSpecificMeasureList().add(currentSM);
+			
+			currentSM.setInformationSource(informationSource);
+			
+			em.merge(informationSource);
+		}
+		
+		return this.doMerge(em, currentSM);
 	}
 	
 	public SpecificMeasure create(SpecificMeasure specificMeasure) {
@@ -654,6 +715,13 @@ public class VmeDao extends AbstractJPADao {
 
 		if(specificMeasure.getVme().getId() == null)
 			throw new IllegalArgumentException("The VME Specific Measure to create cannot have a Vme reference with a NULL identifier");
+		
+		if(specificMeasure.getInformationSource() != null) {
+			InformationSource existing = this.getEntityById(this.em, InformationSource.class, specificMeasure.getInformationSource().getId());
+			
+			specificMeasure.setInformationSource(existing);
+			existing.getSpecificMeasureList().add(specificMeasure);
+		}
 		
 		return this.doPersistAndFlush(em, specificMeasure);
 	}
@@ -672,6 +740,11 @@ public class VmeDao extends AbstractJPADao {
 		if(fisheryAreasHistory.getRfmo().getId() == null)
 			throw new IllegalArgumentException("The updated Fishing Footprint cannot have an Authority with a NULL identifier");
 		
+		Rfmo parent = this.getEntityById(em, Rfmo.class, fisheryAreasHistory.getRfmo().getId());
+		parent.getHasFisheryAreasHistory().add(fisheryAreasHistory);
+		
+		this.doMerge(em, parent);
+		
 		return this.doMerge(em, fisheryAreasHistory);
 	}
 	
@@ -684,6 +757,11 @@ public class VmeDao extends AbstractJPADao {
 
 		if(fisheryAreasHistory.getRfmo().getId() == null)
 			throw new IllegalArgumentException("The Fishing Footprint to create cannot have an Authority with a NULL identifier");
+		
+		Rfmo parent = this.getEntityById(em, Rfmo.class, fisheryAreasHistory.getRfmo().getId());
+		parent.getHasFisheryAreasHistory().add(fisheryAreasHistory);
+		
+		this.doMerge(em, parent);
 		
 		return this.doPersistAndFlush(em, fisheryAreasHistory);
 	}
@@ -701,6 +779,11 @@ public class VmeDao extends AbstractJPADao {
 		if(VMEsHistory.getRfmo().getId() == null)
 			throw new IllegalArgumentException("The updated Regional History of VME cannot have an Authority with a NULL identifier");
 		
+		Rfmo parent = this.getEntityById(em, Rfmo.class, VMEsHistory.getRfmo().getId());
+		parent.getHasVmesHistory().add(VMEsHistory);
+		
+		this.doMerge(em, parent);
+		
 		return this.doMerge(em, VMEsHistory);
 	}
 	
@@ -713,6 +796,11 @@ public class VmeDao extends AbstractJPADao {
 
 		if(VMEsHistory.getRfmo().getId() == null)
 			throw new IllegalArgumentException("The Regional History of VME to create cannot have an Authority with a NULL identifier");
+		
+		Rfmo parent = this.getEntityById(em, Rfmo.class, VMEsHistory.getRfmo().getId());
+		parent.getHasVmesHistory().add(VMEsHistory);
+		
+		this.doMerge(em, parent);
 		
 		return this.doPersistAndFlush(em, VMEsHistory);
 	}
@@ -780,22 +868,45 @@ public class VmeDao extends AbstractJPADao {
 		current.setYear(generalMeasure.getYear());
 
 		current.setRfmo(generalMeasure.getRfmo());
-		
-		if(generalMeasure.getInformationSourceList() != null) {
-			current.getInformationSourceList().clear();
 
+		//Clear the currently set InformationSources for the GM (if any)
+		if(current.getInformationSourceList() != null) {
+			Iterator<InformationSource> isIterator = current.getInformationSourceList().iterator();
+			
+			InformationSource currentIs;
+			while(isIterator.hasNext()) {
+				currentIs = isIterator.next();
+				
+				currentIs.getGeneralMeasureList().remove(current);
+				
+				em.merge(currentIs);
+				
+				isIterator.remove();
+				
+				em.merge(current);
+			}
+		}
+
+		//Assign the InformationSources for the GM (if any)
+		if(generalMeasure.getInformationSourceList() != null) {
 			InformationSource existing;
 			for(InformationSource informationSource : generalMeasure.getInformationSourceList()) {
 				existing = this.getEntityById(this.em, InformationSource.class, informationSource.getId());
-				
+					
 				current.getInformationSourceList().add(existing);
-				
+					
 				this.doMerge(em, existing);
 			}
-			
 		}
 		
-		return this.doMerge(em, current);
+		current = this.doMerge(em, current);
+		
+		//This is needed in order to let changes in the IS list be persisted correctly 
+		em.flush();
+		
+		em.refresh(current);
+		
+		return current;
 	}
 	
 	public GeneralMeasure create(GeneralMeasure generalMeasure) throws Throwable {
@@ -808,6 +919,10 @@ public class VmeDao extends AbstractJPADao {
 		if(generalMeasure.getRfmo().getId() == null)
 			throw new IllegalArgumentException("The VME General Measure to create cannot have an Authority with a NULL identifier");
 		
-		return this.doPersistAndFlush(em, generalMeasure);
+		generalMeasure = this.doPersistAndFlush(em, generalMeasure);
+		
+		em.refresh(generalMeasure);
+		
+		return generalMeasure;
 	}
 }

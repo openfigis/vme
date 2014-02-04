@@ -81,7 +81,7 @@
 			</activation>
 			<properties>
 
-				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
+				<javax.persistence.jdbc.driver.vme>org.sh2.Driver</javax.persistence.jdbc.driver.vme>
 				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:vme</javax.persistence.jdbc.url.vme>
 				<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
 				<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>

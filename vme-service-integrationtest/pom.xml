@@ -14,6 +14,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
+				<!-- Change this to switch to another (non-in-memory) DB during tests -->
 				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
 				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:db1;INIT=create schema IF NOT EXISTS VME</javax.persistence.jdbc.url.vme>
 				<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
