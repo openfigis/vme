@@ -555,6 +555,10 @@ public class VmeDao extends AbstractJPADao {
 			for(SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
 				if(specificMeasure.getInformationSource() != null) {
 					current = this.getEntityById(this.em, InformationSource.class, specificMeasure.getInformationSource().getId());
+					
+					if(current == null)
+						throw new IllegalArgumentException("Unable to identify referenced Information Source with ID #" + specificMeasure.getInformationSource().getId());
+					
 					specificMeasure.setInformationSource(current);
 					
 					if(current.getSpecificMeasureList() == null)
@@ -562,8 +566,10 @@ public class VmeDao extends AbstractJPADao {
 					
 					current.getSpecificMeasureList().add(specificMeasure);
 					
-					this.doMerge(em, current);
-					this.doMerge(em, specificMeasure);
+//					this.doMerge(em, current);
+					
+					if(specificMeasure.getId() == null)
+						this.doPersistAndFlush(em, specificMeasure);
 				}
 			}
 		
