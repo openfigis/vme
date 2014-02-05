@@ -176,13 +176,13 @@ public class VmeDao extends AbstractJPADao {
 
 	public void delete(Vme toDelete) {
 		if (toDelete == null)
-			throw new IllegalArgumentException("Vme cannot be NULL");
+			throw new IllegalArgumentException("The Vme to delete cannot be NULL");
 
 		if (toDelete.getId() == null)
-			throw new IllegalArgumentException("Vme id cannot be NULL");
+			throw new IllegalArgumentException("The Vme to delete cannot have a NULL identifier");
 
 		if (toDelete.getRfmo() == null)
-			throw new IllegalArgumentException("Vme cannot have a NULL parent RFMO");
+			throw new IllegalArgumentException("The Vme to delete cannot have a NULL parent authority");
 
 		Rfmo parent = toDelete.getRfmo();
 
@@ -211,13 +211,13 @@ public class VmeDao extends AbstractJPADao {
 
 	public void delete(InformationSource toDelete) {
 		if(toDelete == null)
-			throw new IllegalArgumentException("Information Source cannot be NULL");
+			throw new IllegalArgumentException("The Information Source to delete cannot be NULL");
 
 		if(toDelete.getId() == null)
-			throw new IllegalArgumentException("Information Source id cannot be NULL");
+			throw new IllegalArgumentException("The Information Source to delete cannot have a NULL identifier");
 
 		if(toDelete.getRfmo() == null)
-			throw new IllegalArgumentException("Information Sources cannot have a NULL parent RFMO");
+			throw new IllegalArgumentException("The Information Source to delete cannot have a NULL parent authority");
 		
 		Rfmo parent = toDelete.getRfmo();
 		
@@ -464,7 +464,7 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("Updated Vme cannot have a NULL identifier");
 
 		if(updatedVME.getRfmo() == null)
-			throw new IllegalArgumentException("Updated Vme cannot have a NULL Rfmo");
+			throw new IllegalArgumentException("Updated Vme cannot have a NULL authority");
 
 		if(updatedVME.getRfmo().getId() == null)
 			throw new IllegalArgumentException("Updated Vme cannot have a Rfmo with a NULL identifier");
@@ -747,9 +747,10 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The updated Fishing Footprint cannot have an Authority with a NULL identifier");
 		
 		Rfmo parent = this.getEntityById(em, Rfmo.class, fisheryAreasHistory.getRfmo().getId());
-		parent.getHasFisheryAreasHistory().add(fisheryAreasHistory);
+//		parent.getHasFisheryAreasHistory().add(fisheryAreasHistory);
+		fisheryAreasHistory.setRfmo(parent);
 		
-		this.doMerge(em, parent);
+//		this.doMerge(em, parent);
 		
 		return this.doMerge(em, fisheryAreasHistory);
 	}
@@ -765,9 +766,10 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The Fishing Footprint to create cannot have an Authority with a NULL identifier");
 		
 		Rfmo parent = this.getEntityById(em, Rfmo.class, fisheryAreasHistory.getRfmo().getId());
-		parent.getHasFisheryAreasHistory().add(fisheryAreasHistory);
+//		parent.getHasFisheryAreasHistory().add(fisheryAreasHistory);
+		fisheryAreasHistory.setRfmo(parent);
 		
-		this.doMerge(em, parent);
+//		this.doMerge(em, parent);
 		
 		return this.doPersistAndFlush(em, fisheryAreasHistory);
 	}
@@ -786,9 +788,10 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The updated Regional History of VME cannot have an Authority with a NULL identifier");
 		
 		Rfmo parent = this.getEntityById(em, Rfmo.class, VMEsHistory.getRfmo().getId());
-		parent.getHasVmesHistory().add(VMEsHistory);
+//		parent.getHasVmesHistory().add(VMEsHistory);
+		VMEsHistory.setRfmo(parent);
 		
-		this.doMerge(em, parent);
+//		this.doMerge(em, parent);
 		
 		return this.doMerge(em, VMEsHistory);
 	}
@@ -804,9 +807,10 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The Regional History of VME to create cannot have an Authority with a NULL identifier");
 		
 		Rfmo parent = this.getEntityById(em, Rfmo.class, VMEsHistory.getRfmo().getId());
-		parent.getHasVmesHistory().add(VMEsHistory);
+//		parent.getHasVmesHistory().add(VMEsHistory);
+		VMEsHistory.setRfmo(parent);
 		
-		this.doMerge(em, parent);
+//		this.doMerge(em, parent);
 		
 		return this.doPersistAndFlush(em, VMEsHistory);
 	}
@@ -833,7 +837,7 @@ public class VmeDao extends AbstractJPADao {
 		current.setReportSummary(informationSource.getReportSummary());
 		current.setUrl(informationSource.getUrl());
 		
-		current.setRfmo(informationSource.getRfmo());
+		current.setRfmo(this.getEntityById(em, Rfmo.class, informationSource.getRfmo().getId()));
 		
 		return this.doMerge(em, current);
 	}
@@ -873,37 +877,89 @@ public class VmeDao extends AbstractJPADao {
 		current.setVmeThreshold(generalMeasure.getVmeThreshold());
 		current.setYear(generalMeasure.getYear());
 
-		current.setRfmo(generalMeasure.getRfmo());
+		current.setRfmo(this.getEntityById(em, Rfmo.class, generalMeasure.getRfmo().getId()));
 
-		//Clear the currently set InformationSources for the GM (if any)
+		Set<Long> ISToUnlink = new HashSet<Long>();
+		
 		if(current.getInformationSourceList() != null) {
+			for(InformationSource is : current.getInformationSourceList())
+				ISToUnlink.add(is.getId());
+		}		
+		
+		if(generalMeasure.getInformationSourceList() != null) {
+			for(InformationSource is : generalMeasure.getInformationSourceList())
+				ISToUnlink.remove(is.getId());
+		}
+		
+		if(!ISToUnlink.isEmpty()) {
 			Iterator<InformationSource> isIterator = current.getInformationSourceList().iterator();
 			
-			InformationSource currentIs;
+			InformationSource toRemove;
 			while(isIterator.hasNext()) {
-				currentIs = isIterator.next();
-				
-				currentIs.getGeneralMeasureList().remove(current);
-				
-				em.merge(currentIs);
-				
-				isIterator.remove();
-				
-				em.merge(current);
+				toRemove = isIterator.next();
+				if(ISToUnlink.contains(toRemove.getId())) {
+					isIterator.remove();
+					
+					toRemove.getGeneralMeasureList().remove(current);
+					
+					this.doMerge(em, toRemove);
+				}
 			}
 		}
-
-		//Assign the InformationSources for the GM (if any)
+		
 		if(generalMeasure.getInformationSourceList() != null) {
-			InformationSource existing;
-			for(InformationSource informationSource : generalMeasure.getInformationSourceList()) {
-				existing = this.getEntityById(this.em, InformationSource.class, informationSource.getId());
+			InformationSource toAdd;
+			List<InformationSource> currentIS = current.getInformationSourceList();
+			
+			if(currentIS == null) {
+				currentIS = new ArrayList<InformationSource>();
+				
+				current.setInformationSourceList(currentIS);
+			}
+			
+			for(InformationSource is : generalMeasure.getInformationSourceList()) {
+				toAdd = this.getEntityById(em, InformationSource.class, is.getId());
+				
+				if(!currentIS.contains(toAdd)) {
+					if(toAdd.getGeneralMeasureList() == null)
+						toAdd.setGeneralMeasureList(new ArrayList<GeneralMeasure>());
 					
-				current.getInformationSourceList().add(existing);
+					toAdd.getGeneralMeasureList().add(current);
 					
-				this.doMerge(em, existing);
+					currentIS.add(toAdd);
+				}
 			}
 		}
+		
+//		//Clear the currently set InformationSources for the GM (if any)
+//		if(current.getInformationSourceList() != null) {
+//			Iterator<InformationSource> isIterator = current.getInformationSourceList().iterator();
+//			
+//			InformationSource currentIs;
+//			while(isIterator.hasNext()) {
+//				currentIs = isIterator.next();
+//				
+//				currentIs.getGeneralMeasureList().remove(current);
+//				
+//				em.merge(currentIs);
+//				
+//				isIterator.remove();
+//				
+//				em.merge(current);
+//			}
+//		}
+//
+//		//Assign the InformationSources for the GM (if any)
+//		if(generalMeasure.getInformationSourceList() != null) {
+//			InformationSource existing;
+//			for(InformationSource informationSource : generalMeasure.getInformationSourceList()) {
+//				existing = this.getEntityById(this.em, InformationSource.class, informationSource.getId());
+//					
+//				current.getInformationSourceList().add(existing);
+//					
+//				this.doMerge(em, existing);
+//			}
+//		}
 		
 		current = this.doMerge(em, current);
 		
