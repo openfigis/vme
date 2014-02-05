@@ -40,6 +40,7 @@ import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.junit.Before;
@@ -105,6 +106,9 @@ public class FigisDocBuilderTest {
 		figisDoc.setVME(new VME());
 
 		SpecificMeasure specificMeasure = vme.getSpecificMeasureList().get(0);
+		InformationSource i = InformationSourceMock.create();
+		specificMeasure.setInformationSource(i);
+
 		b.specificMeasures(specificMeasure, figisDoc);
 		Management management = (Management) figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
 		assertNotNull(management);
@@ -115,12 +119,18 @@ public class FigisDocBuilderTest {
 		ManagementMethodEntry entry = (ManagementMethodEntry) manMethods.getManagementMethodEntriesAndTextsAndImages()
 				.get(0);
 		assertNotNull(entry);
+
 		assertEquals(FigisDocBuilder.VULNERABLE_MARINE_ECOSYSTEMS, entry.getFocus());
 		assertEquals(FigisDocBuilder.VME_SPECIFIC_MEASURES, entry.getTitle().getContent());
 
 		Measure measure = (Measure) entry.getTextsAndImagesAndTables().get(0);
 		assertNotNull(measure);
 		assertTrue(measure.getTextsAndImagesAndTables().size() > 1);
+
+		Sources sources = (Sources) measure.getTextsAndImagesAndTables().get(3);
+		BiblioEntry biblioEntry = (BiblioEntry) sources.getTextsAndImagesAndTables().get(0);
+		BibliographicCitation c = (BibliographicCitation) biblioEntry.getContent().get(0);
+		assertEquals(InformationSourceMock.CIT, c.getContent());
 
 	}
 

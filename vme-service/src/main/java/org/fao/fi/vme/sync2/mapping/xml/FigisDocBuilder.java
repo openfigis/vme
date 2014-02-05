@@ -188,6 +188,11 @@ public class FigisDocBuilder {
 
 			if (specificMeasure.getInformationSource() != null) {
 
+				// add biblioEntry to sources
+				new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())
+						.check(specificMeasure.getInformationSource()).beforeAdding(biblioEntry)
+						.to(sources.getTextsAndImagesAndTables());
+
 				// add source to the measure (Sources are added to the
 				// SpecificMeasure, not to the entry)
 				new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())
@@ -196,11 +201,6 @@ public class FigisDocBuilder {
 						.to(measure.getTextsAndImagesAndTables());
 
 			}
-
-			// add biblioEntry to sources
-			new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())
-					.check(specificMeasure.getInformationSource()).beforeAdding(biblioEntry)
-					.to(sources.getTextsAndImagesAndTables());
 
 			// add measure to entry
 			new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())

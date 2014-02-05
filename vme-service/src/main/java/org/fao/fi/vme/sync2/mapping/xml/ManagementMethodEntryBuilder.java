@@ -194,14 +194,14 @@ public class ManagementMethodEntryBuilder {
 		if (yearObject != null) {
 			Sources sources = f.createSources();
 
-			AddWhenContentRule<Object> rule = new AddWhenContentRule<Object>();
-
 			for (InformationSource infoSource : yearObject.getInformationSourceList()) {
 				BiblioEntry biblioEntry = bu.transform(infoSource);
 				new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
 						.to(sources.getTextsAndImagesAndTables());
 			}
-			rule.beforeAdding(sources).to(entry.getTextsAndImagesAndTables());
+			if (sources.getTextsAndImagesAndTables().size() > 0) {
+				entry.getTextsAndImagesAndTables().add(sources);
+			}
 
 		}
 
