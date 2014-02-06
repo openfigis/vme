@@ -1,5 +1,7 @@
 package org.fao.fi.vme.sync2.mapping.xml;
 
+import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.JAXBElement;
@@ -295,7 +297,9 @@ public class FigisDocBuilder {
 
 			JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(descriptionPhisical);
 			GeoForm geoform = f.createGeoForm();
-			geoform.getContent().add(geoformJAXBElement);
+			new AddWhenContentRule<Serializable>().check(profile.getDescriptionPhisical())
+					.beforeAdding(geoformJAXBElement).to(geoform.getContent());
+			// geoform.getContent().add(geoformJAXBElement);
 
 			String profileEnglish = u.getEnglish(profile.getGeoform());
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value =
@@ -607,6 +611,8 @@ public class FigisDocBuilder {
 	 */
 	public void informationSource(List<InformationSource> infoSourceList, int disseminationYear, FIGISDoc figisDoc) {
 		Sources sources = f.createSources();
+
+		Collections.sort(infoSourceList, new InformationSourceComparator());
 
 		for (InformationSource infoSource : infoSourceList) {
 			// Algorithm for "InformationSource" UML table: with regards of the

@@ -22,11 +22,16 @@ and cd_water_area <= 8000
 -- total should be 105
 
 
+select * from ref_vme
+select count(inventory_id) from ref_vme
+select count(name_e) from ref_vme
 select count(*) from ref_vme
+select count(*) from ref_vme
+
 --99, is correct
 select count(*) from fs_vme_observation
 --209
---should be 208 or 209
+
 
 
 select count(*) from fs_vme_observation oo, fs_observation o, fs_observation_xml x
@@ -34,21 +39,21 @@ where
 o.cd_observation = oo.cd_observation 
 and
 o.cd_observation = x.cd_observation 
--- 208
--- should be 208 or 209
+-- 209
+
 
 
 select * from fs_vme_observation oo, fs_observation o
 where
 o.cd_observation = oo.cd_observation 
 
-
-select x.xml from fs_vme_observation oo, fs_observation o, fs_observation_xml x
+select count (*) from fs_vme_observation oo, fs_observation o, fs_observation_xml x
+select x.* from fs_vme_observation oo, fs_observation o, fs_observation_xml x
 where
 o.cd_observation = oo.cd_observation 
 and
 o.cd_observation = x.cd_observation 
-and x.xml like '2012'
+and x.xml like '%VME_NAFO_13%'
 
 
 
