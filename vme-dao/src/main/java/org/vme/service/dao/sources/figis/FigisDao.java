@@ -167,10 +167,10 @@ public class FigisDao extends AbstractJPADao {
 			o = new Observation(od);
 			em.persist(o);
 		}
-
 		o.setCollection(od.getCollection());
 		o.setObservationsPerLanguage(od.getObservationsPerLanguage());
 		o.setOrder(od.getOrder());
+		o.setPrimary(od.isPrimary());
 
 		List<ObservationXml> xmlList = od.getObservationsPerLanguage();
 		for (ObservationXml xml : xmlList) {

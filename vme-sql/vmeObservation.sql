@@ -26,11 +26,10 @@ select * from ref_vme
 select count(inventory_id) from ref_vme
 select count(name_e) from ref_vme
 select count(*) from ref_vme
-select count(*) from ref_vme
 
 --99, is correct
 select count(*) from fs_vme_observation
---209
+--211
 
 
 
@@ -39,7 +38,7 @@ where
 o.cd_observation = oo.cd_observation 
 and
 o.cd_observation = x.cd_observation 
--- 209
+-- 211
 
 
 
@@ -53,7 +52,7 @@ where
 o.cd_observation = oo.cd_observation 
 and
 o.cd_observation = x.cd_observation 
-and x.xml like '%VME_NAFO_13%'
+and x.xml like '%<fi:Text> </fi:Text>%'
 
 
 
