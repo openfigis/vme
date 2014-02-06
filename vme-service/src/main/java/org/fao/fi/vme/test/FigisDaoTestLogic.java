@@ -18,20 +18,22 @@ import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
 import org.fao.fi.figis.domain.test.RefVmeMock;
-import org.fao.fi.vme.sync2.mapping.DefaultObservationDomain;
 import org.junit.Test;
+import org.vme.service.dao.sources.figis.DefaultObservationDomain;
 import org.vme.service.dao.sources.figis.FigisDao;
+import org.vme.service.dao.sources.figis.PrimaryRule;
 
 public abstract class FigisDaoTestLogic {
 
-	public static String REPORTING_YEAR = "2014";
+	public static int REPORTING_YEAR = 2014;
+	PrimaryRule r = new PrimaryRule();
 
 	@Inject
 	protected FigisDao dao;
 
 	/**
-	 * This test is done in unit test context and integration test context. In integration test context the @Before and @After
-	 * do the cleaning work.
+	 * This test is done in unit test context and integration test context. In
+	 * integration test context the @Before and @After do the cleaning work.
 	 */
 	@Test
 	public void testSyncVmeObservationDomain() {
@@ -40,7 +42,7 @@ public abstract class FigisDaoTestLogic {
 			dao.persist(refVme);
 		}
 		int count[] = count();
-		VmeObservationDomain vod = createVmeObservationDomain();
+		VmeObservationDomain vod = createVmeObservationDomain(1);
 		assertEquals(1, vod.getObservationDomainList().size());
 
 		vod.setRefVme(refVme);
@@ -55,16 +57,20 @@ public abstract class FigisDaoTestLogic {
 
 		add1Observation2Vod(vod);
 
-		assertFalse(vod.getObservationDomainList().get(0).isPrimary());
+		PrimaryRule rule = new PrimaryRule();
+		rule.apply(vod);
+		System.out.println(vod.getObservationDomainList().size());
 		dao.syncVmeObservationDomain(vod);
+		assertFalse(vod.getObservationDomainList().get(0).isPrimary());
+		assertTrue(vod.getObservationDomainList().get(1).isPrimary());
 		assertEquals(2, vod.getObservationDomainList().size());
 		checkCount(count, 2);
 
 	}
 
 	/**
-	 * This test is done in unit test context and integration test context. In integration test context the @Before and @After
-	 * do the cleaning work.
+	 * This test is done in unit test context and integration test context. In
+	 * integration test context the @Before and @After do the cleaning work.
 	 */
 	@Test
 	public void testSyncVmeObservationDomainUpdate() {
@@ -73,7 +79,7 @@ public abstract class FigisDaoTestLogic {
 			dao.persist(refVme);
 		}
 		int count[] = count();
-		VmeObservationDomain vod = createVmeObservationDomain();
+		VmeObservationDomain vod = createVmeObservationDomain(1);
 
 		vod.setRefVme(refVme);
 		checkCount(count, 0);
@@ -109,18 +115,20 @@ public abstract class FigisDaoTestLogic {
 		return r;
 	}
 
-	protected VmeObservationDomain createVmeObservationDomain() {
+	protected VmeObservationDomain createVmeObservationDomain(int number) {
 		VmeObservationDomain vod = new VmeObservationDomain();
-
 		List<ObservationDomain> odList = new ArrayList<ObservationDomain>();
 		vod.setObservationDomainList(odList);
-		ObservationDomain o = new DefaultObservationDomain().defineDefaultObservation();
-		o.setReportingYear(REPORTING_YEAR);
-		ObservationXml xml = ObservationXmlMock.create();
+		for (int i = 0; i < number; i++) {
+			ObservationDomain o = new DefaultObservationDomain().defineDefaultObservation();
+			o.setReportingYear(Integer.toString(REPORTING_YEAR + i));
+			ObservationXml xml = ObservationXmlMock.create();
 
-		o.setObservationsPerLanguage(new ArrayList<ObservationXml>());
-		o.getObservationsPerLanguage().add(xml);
-		vod.getObservationDomainList().add(o);
+			o.setObservationsPerLanguage(new ArrayList<ObservationXml>());
+			o.getObservationsPerLanguage().add(xml);
+			vod.getObservationDomainList().add(o);
+		}
+		r.apply(vod);
 		return vod;
 	}
 
@@ -153,13 +161,14 @@ public abstract class FigisDaoTestLogic {
 	}
 
 	protected void clean() {
-		VmeObservationDomain vod = createVmeObservationDomain();
+		VmeObservationDomain vod = createVmeObservationDomain(1);
 		vod.setRefVme(RefVmeMock.create());
 		add1Observation2Vod(vod);
 		List<ObservationDomain> oList = vod.getObservationDomainList();
 		for (ObservationDomain od : oList) {
 			// find VmeObservation
-			VmeObservation vo = dao.findVmeObservationByVme(vod.getRefVme().getId(), od.getReportingYear());
+			VmeObservation vo = dao.findVmeObservationByVme(vod.getRefVme().getId(),
+					Integer.parseInt(od.getReportingYear()));
 			if (vo != null) {
 				Observation o = (Observation) dao.find(Observation.class, vo.getId().getObservationId());
 				DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();

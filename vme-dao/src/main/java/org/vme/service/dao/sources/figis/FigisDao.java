@@ -42,6 +42,7 @@ public class FigisDao extends AbstractJPADao {
 	// private final static Logger logger =
 	// LoggerFactory.getLogger(FigisDao.class);
 	private DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
+	private PrimaryRuleValidator v = new PrimaryRuleValidator();
 
 	/**
 	 * Hi Fabrizio,
@@ -72,7 +73,7 @@ public class FigisDao extends AbstractJPADao {
 		return (List<RefVme>) this.generateTypedQuery(em, RefVme.class).getResultList();
 	}
 
-	public List<?> loadObjects(Class<?> clazz) {
+	public <E> List<E> loadObjects(Class<E> clazz) {
 		return this.generateTypedQuery(em, clazz).getResultList();
 	}
 
@@ -118,7 +119,12 @@ public class FigisDao extends AbstractJPADao {
 	}
 
 	/**
-	 * persists the VmeObservationDomain, assuming the RefVme is pre existing
+	 * Persists the VmeObservationDomain, assuming the RefVme is pre existing
+	 * 
+	 * TODO There is a problem here. In case a obs for a certain year was
+	 * created in a previous run but not needs to be created anymore, it needs
+	 * to be deleted.
+	 * 
 	 * 
 	 * @param vod
 	 */
@@ -128,6 +134,7 @@ public class FigisDao extends AbstractJPADao {
 		if (vod.getRefVme().getId() == null) {
 			throw new VmeException("FigisDao Exception, detected a non registered RefVme.");
 		}
+		v.validate(vod);
 
 		EntityTransaction t = em.getTransaction();
 		t.begin();
@@ -137,7 +144,8 @@ public class FigisDao extends AbstractJPADao {
 		for (ObservationDomain od : oList) {
 
 			// find VmeObservation
-			VmeObservation vo = findVmeObservationByVme(vod.getRefVme().getId(), od.getReportingYear());
+			VmeObservation vo = findVmeObservationByVme(vod.getRefVme().getId(),
+					Integer.parseInt(od.getReportingYear()));
 			if (vo == null) {
 				// create VmeObservation plus the derived objects.
 				persistObservationDomain(od, vod.getRefVme().getId());
@@ -240,15 +248,16 @@ public class FigisDao extends AbstractJPADao {
 	 * @param id
 	 * @return
 	 */
-	public VmeObservation findVmeObservationByVme(Long vmeId, String reportingYear) {
+	public VmeObservation findVmeObservationByVme(Long vmeId, int reportingYear) {
 		Query query = em
 				.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear = :reportingYear");
 		query.setParameter("vmeId", vmeId);
-		query.setParameter("reportingYear", reportingYear);
+		query.setParameter("reportingYear", Integer.toString(reportingYear));
 		VmeObservation vo = null;
 		try {
 			vo = (VmeObservation) query.getSingleResult();
 		} catch (NoResultException e) {
+			System.out.println();
 			// is valid, a new object needs to be created.
 		}
 		return vo;

@@ -13,6 +13,9 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.sync2.mapping.xml.DefaultObservationXml;
 import org.fao.fi.vme.sync2.mapping.xml.FigisDocBuilder;
 import org.vme.fimes.jaxb.JaxbMarshall;
+import org.vme.service.dao.sources.figis.DefaultObservationDomain;
+import org.vme.service.dao.sources.figis.PrimaryRule;
+import org.vme.service.dao.sources.figis.PrimaryRuleValidator;
 
 /**
  * Stage A: domain objects without the year dimension: Vme and Rfmo.

@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.List;
+
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.RefVme;
@@ -25,18 +27,63 @@ import org.vme.service.dao.config.figis.FigisDataBaseProducer;
 public class FigisDaoTest extends FigisDaoTestLogic {
 
 	@Test
+	public void testSyncVmeObservationDomain() {
+		RefVme refVme = RefVmeMock.create();
+		if (dao.find(RefVme.class, refVme.getId()) == null) {
+			dao.persist(refVme);
+		}
+		int count[] = count();
+		checkCount(count, 0);
+		VmeObservationDomain vod = createVmeObservationDomain(1);
+		vod.setRefVme(refVme);
+
+		dao.syncVmeObservationDomain(vod);
+		checkCount(count, 1);
+
+		int obses = 6;
+
+		vod = createVmeObservationDomain(obses);
+		vod.setRefVme(refVme);
+		dao.syncVmeObservationDomain(vod);
+
+		checkCount(count, obses);
+
+		List<Observation> l = dao.loadObjects(Observation.class);
+		int primaries = 0;
+		for (Observation observation : l) {
+			if (observation.isPrimary()) {
+				primaries++;
+			}
+		}
+		assertEquals(1, primaries);
+
+	}
+
+	@Test
 	public void testFindVmeObservationByVme() {
 		RefVme refVme = RefVmeMock.create();
 		if (dao.find(RefVme.class, refVme.getId()) == null) {
 			dao.persist(refVme);
 		}
-		VmeObservationDomain vod = createVmeObservationDomain();
+		VmeObservationDomain vod = createVmeObservationDomain(1);
 		vod.setRefVme(refVme);
 		dao.syncVmeObservationDomain(vod);
 
+		System.out.println(vod.getRefVme().getId());
+
+		List<VmeObservation> l = dao.loadObjects(VmeObservation.class);
+		for (VmeObservation vmeObservation : l) {
+			System.out.println("getVmeId");
+			System.out.println(vmeObservation.getId().getVmeId());
+			System.out.println("getObservationId");
+			System.out.println(vmeObservation.getId().getObservationId());
+			System.out.println("year");
+			System.out.println(vmeObservation.getId().getReportingYear());
+		}
+
 		VmeObservation vo = dao.findVmeObservationByVme(vod.getRefVme().getId(), FigisDaoTestLogic.REPORTING_YEAR);
 		assertEquals(vo.getId().getVmeId(), refVme.getId());
-		assertEquals(vo.getId().getReportingYear(), FigisDaoTestLogic.REPORTING_YEAR);
+		assertEquals(vo.getId().getReportingYear(), Integer.toString(FigisDaoTestLogic.REPORTING_YEAR));
 
 	}
 
@@ -47,7 +94,7 @@ public class FigisDaoTest extends FigisDaoTestLogic {
 			dao.persist(refVme);
 		}
 		int count[] = count();
-		VmeObservationDomain vod = createVmeObservationDomain();
+		VmeObservationDomain vod = createVmeObservationDomain(1);
 		assertEquals(1, vod.getObservationDomainList().size());
 		vod.setRefVme(refVme);
 		checkCount(count, 0);
@@ -142,7 +189,7 @@ public class FigisDaoTest extends FigisDaoTestLogic {
 		}
 
 		delegateCheckOnNumberOfObjectsInModel(0);
-		VmeObservationDomain vod = createVmeObservationDomain();
+		VmeObservationDomain vod = createVmeObservationDomain(1);
 		vod.setRefVme(refVme);
 		dao.syncVmeObservationDomain(vod);
 		delegateCheckOnNumberOfObjectsInModel(1);

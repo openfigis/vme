@@ -1,4 +1,4 @@
-package org.fao.fi.vme.sync2.mapping;
+package org.vme.service.dao.sources.figis;
 
 import org.fao.fi.figis.domain.VmeObservationDomain;
 
@@ -13,8 +13,8 @@ public class PrimaryRule {
 
 	public void apply(VmeObservationDomain vod) {
 		int indexLatesElement = vod.getObservationDomainList().size() - 1;
-		if (indexLatesElement >= 0) {
-			vod.getObservationDomainList().get(indexLatesElement).setPrimary(true);
+		for (int i = 0; i < vod.getObservationDomainList().size(); i++) {
+			vod.getObservationDomainList().get(i).setPrimary(i == indexLatesElement);
 		}
 	}
 }

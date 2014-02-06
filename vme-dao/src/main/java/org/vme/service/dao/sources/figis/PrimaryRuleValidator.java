@@ -1,4 +1,4 @@
-package org.fao.fi.vme.sync2.mapping;
+package org.vme.service.dao.sources.figis;
 
 import java.util.List;
 

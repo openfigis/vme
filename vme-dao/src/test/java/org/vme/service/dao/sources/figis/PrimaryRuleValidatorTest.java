@@ -1,4 +1,4 @@
-package org.fao.fi.vme.sync2.mapping;
+package org.vme.service.dao.sources.figis;
 
 import static org.junit.Assert.fail;
 
@@ -8,6 +8,7 @@ import java.util.List;
 import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.junit.Test;
+import org.vme.service.dao.sources.figis.PrimaryRuleValidator;
 
 public class PrimaryRuleValidatorTest {
 

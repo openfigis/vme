@@ -1,4 +1,4 @@
-package org.fao.fi.vme.sync2.mapping;
+package org.vme.service.dao.sources.figis;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,8 +19,10 @@ public class PrimaryRuleTest {
 
 		ObservationDomain od1 = new DefaultObservationDomain().defineDefaultObservation();
 		od1.setReportingYear("2010");
+		od1.setPrimary(true);
 		ObservationDomain od2 = new DefaultObservationDomain().defineDefaultObservation();
-		od1.setReportingYear("2011");
+		od2.setReportingYear("2011");
+		od2.setPrimary(true);
 
 		List<ObservationDomain> observationList = new ArrayList<ObservationDomain>();
 		observationList.add(od1);
