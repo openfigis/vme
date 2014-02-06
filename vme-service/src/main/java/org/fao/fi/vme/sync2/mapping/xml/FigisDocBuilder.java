@@ -48,8 +48,6 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync2.mapping.BiblioEntryFromInformationSource;
-import org.fao.fi.vme.sync2.mapping.RfmoHistory;
-import org.fao.fi.vme.sync2.mapping.VmeHistory;
 import org.purl.dc.elements._1.Title;
 import org.purl.dc.terms.Created;
 
@@ -134,7 +132,7 @@ public class FigisDocBuilder {
 	 * @param specificMeasure
 	 * @param figisDoc
 	 */
-	public void specificMeasures(SpecificMeasure specificMeasure, FIGISDoc figisDoc) {
+	public void specificMeasures(SpecificMeasure specificMeasure, FIGISDoc figisDoc, int disseminationYear) {
 
 		// ManagementMethodEntry
 		if (specificMeasure != null) {
@@ -184,7 +182,7 @@ public class FigisDocBuilder {
 			Sources sources = f.createSources();
 
 			// make a biblioEntry out of the InformationSource.
-			BiblioEntry biblioEntry = bu.transform(specificMeasure.getInformationSource());
+			BiblioEntry biblioEntry = bu.transform(specificMeasure.getInformationSource(), disseminationYear);
 
 			if (specificMeasure.getInformationSource() != null) {
 
@@ -246,37 +244,6 @@ public class FigisDocBuilder {
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(management);
 		}
 		return management;
-	}
-
-	/**
-	 * Adds a VME history to the FIGISDoc
-	 * 
-	 * VME_history fi:FIGISDoc/fi:VME/fi:History/fi:Text
-	 * 
-	 * @param yearObject
-	 * @param figisDoc
-	 */
-	public void vmeHistory(VmeHistory yearObject, FIGISDoc figisDoc) {
-		// TODO
-
-		/*
-		 * org.fao.fi.figis.devcon.History hist = f.createHistory(); Text
-		 * historyText = f.createText();
-		 * historyText.getContent().add(u.getEnglish(history.getHistory()));
-		 * hist.getTextsAndImagesAndTables().add(historyText);
-		 * figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(hist);
-		 */
-	}
-
-	/**
-	 * Adds a Fishery history to the FIGISDoc
-	 * 
-	 * @param yearObject
-	 * @param figisDoc
-	 */
-	public void rfmoHistory(RfmoHistory yearObject, FIGISDoc figisDoc) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -431,7 +398,7 @@ public class FigisDocBuilder {
 	 * @param generalMeasure
 	 * @param figisDoc
 	 */
-	public void generalMeasures(GeneralMeasure generalMeasure, FIGISDoc figisDoc) {
+	public void generalMeasures(GeneralMeasure generalMeasure, FIGISDoc figisDoc, int disseminationYear) {
 
 		// entry
 		ManagementMethodEntry entry = f.createManagementMethodEntry();
@@ -456,7 +423,7 @@ public class FigisDocBuilder {
 		mmeBuilder.addMeasureToEntry5(generalMeasure, entry);
 
 		// this one is associated to the method, not to any entry
-		mmeBuilder.addSources(generalMeasure, entry);
+		mmeBuilder.addSources(generalMeasure, entry, disseminationYear);
 
 		// this one is asociated to the method, not to any entry
 		mmeBuilder.addRange(generalMeasure, entry);
@@ -645,11 +612,9 @@ public class FigisDocBuilder {
 			// Algorithm for "InformationSource" UML table: with regards of the
 			// meetings tab, provide all and only records with "sourcetype=3"
 			// and according to the selected year
-			if (infoSource.getPublicationYear() <= disseminationYear) {
-				BiblioEntry biblioEntry = bu.transform(infoSource);
-				new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
-						.to(sources.getTextsAndImagesAndTables());
-			}
+			BiblioEntry biblioEntry = bu.transform(infoSource, disseminationYear);
+			new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
+					.to(sources.getTextsAndImagesAndTables());
 
 		}
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(sources);

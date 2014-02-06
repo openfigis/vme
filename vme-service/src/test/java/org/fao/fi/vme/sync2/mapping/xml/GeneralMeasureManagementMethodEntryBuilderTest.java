@@ -27,7 +27,7 @@ public class GeneralMeasureManagementMethodEntryBuilderTest {
 		ManagementMethodEntry m = new ManagementMethodEntry();
 
 		assertEquals(0, m.getTextsAndImagesAndTables().size());
-		b.addSources(g, m);
+		b.addSources(g, m, InformationSourceMock.YEAR);
 		assertEquals(1, m.getTextsAndImagesAndTables().size());
 	}
 }

@@ -26,9 +26,10 @@ public class BiblioEntryFromInformationSource {
 	private InformationSourceCodelist codelist = new InformationSourceCodelist();
 	private DateFormatter df = new DateFormatter();
 
-	public BiblioEntry transform(InformationSource is) {
+	public BiblioEntry transform(InformationSource is, int disseminationYear) {
 		BiblioEntry be = null;
-		if (is != null && is.getSourceType() == 3) {
+
+		if (is != null && is.getSourceType() == 3 && is.getPublicationYear() <= disseminationYear) {
 			be = f.createBiblioEntry();
 			BibliographicCitation citation = new BibliographicCitation();
 			citation.setContent(u.getEnglish(is.getCitation()));

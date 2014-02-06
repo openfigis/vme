@@ -189,13 +189,13 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 
 	}
 
-	public void addSources(GeneralMeasure yearObject, ManagementMethodEntry entry) {
+	public void addSources(GeneralMeasure yearObject, ManagementMethodEntry entry, int disseminationYear) {
 		// ManagementMethodEntry Sources
 		if (yearObject != null) {
 			Sources sources = f.createSources();
 
 			for (InformationSource infoSource : yearObject.getInformationSourceList()) {
-				BiblioEntry biblioEntry = bu.transform(infoSource);
+				BiblioEntry biblioEntry = bu.transform(infoSource, disseminationYear);
 				new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
 						.to(sources.getTextsAndImagesAndTables());
 			}
