@@ -101,9 +101,13 @@ public class Meetings implements TableDomainMapper {
 		MultiLingualStringUtil u = new MultiLingualStringUtil();
 		is.setCommittee(u.english(this.Committee));
 
-		MeetingDateParser p = new MeetingDateParser(this.Meeting_Date);
-		is.setMeetingStartDate(p.getStart());
-		is.setMeetingEndDate(p.getEnd());
+		System.out.println(this.Meeting_Date);
+
+		if (this.Meeting_Date != null) {
+			MeetingDateParser p = new MeetingDateParser(this.Meeting_Date);
+			is.setMeetingStartDate(p.getStart());
+			is.setMeetingEndDate(p.getEnd());
+		}
 		is.setId(new Long(this.ID));
 		is.setReportSummary(u.english(this.getReport_Summary()));
 		is.setPublicationYear(this.Year_ID);

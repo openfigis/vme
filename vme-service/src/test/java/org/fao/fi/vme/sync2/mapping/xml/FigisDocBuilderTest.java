@@ -314,12 +314,14 @@ public class FigisDocBuilderTest {
 		figisDoc.setVME(new VME());
 
 		List<InformationSource> infoSourceList = vme.getRfmo().getInformationSourceList();
-		b.informationSource(infoSourceList, 2013, figisDoc);
+		b.informationSource(infoSourceList, VmeMock.YEAR, figisDoc);
 
 		Sources sources = (Sources) figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
 		assertNotNull(sources);
 
-		for (int i = 0; i < infoSourceList.size(); i++) {
+		assertTrue(infoSourceList.size() > 0);
+
+		for (int i = 0; i < sources.getTextsAndImagesAndTables().size(); i++) {
 
 			BiblioEntry biblioEntry = (BiblioEntry) sources.getTextsAndImagesAndTables().get(i);
 			assertNotNull(biblioEntry);
