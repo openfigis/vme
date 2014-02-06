@@ -13,7 +13,7 @@ public class BiblioEntryFromInformationSourceTest {
 	@Test
 	public void testTransform() {
 
-		BiblioEntry be = b.transform(InformationSourceMock.create(), InformationSourceMock.YEAR);
+		BiblioEntry be = b.transform(InformationSourceMock.create());
 		assertNotNull(be);
 	}
 }

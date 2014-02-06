@@ -132,7 +132,7 @@ public class FigisDocBuilder {
 	 * @param specificMeasure
 	 * @param figisDoc
 	 */
-	public void specificMeasures(SpecificMeasure specificMeasure, FIGISDoc figisDoc, int disseminationYear) {
+	public void specificMeasures(SpecificMeasure specificMeasure, FIGISDoc figisDoc) {
 
 		// ManagementMethodEntry
 		if (specificMeasure != null) {
@@ -182,7 +182,7 @@ public class FigisDocBuilder {
 			Sources sources = f.createSources();
 
 			// make a biblioEntry out of the InformationSource.
-			BiblioEntry biblioEntry = bu.transform(specificMeasure.getInformationSource(), disseminationYear);
+			BiblioEntry biblioEntry = bu.transform(specificMeasure.getInformationSource());
 
 			if (specificMeasure.getInformationSource() != null) {
 
@@ -423,7 +423,7 @@ public class FigisDocBuilder {
 		mmeBuilder.addMeasureToEntry5(generalMeasure, entry);
 
 		// this one is associated to the method, not to any entry
-		mmeBuilder.addSources(generalMeasure, entry, disseminationYear);
+		mmeBuilder.addSources(generalMeasure, entry);
 
 		// this one is asociated to the method, not to any entry
 		mmeBuilder.addRange(generalMeasure, entry);
@@ -612,9 +612,13 @@ public class FigisDocBuilder {
 			// Algorithm for "InformationSource" UML table: with regards of the
 			// meetings tab, provide all and only records with "sourcetype=3"
 			// and according to the selected year
-			BiblioEntry biblioEntry = bu.transform(infoSource, disseminationYear);
-			new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
-					.to(sources.getTextsAndImagesAndTables());
+			int oneBefore = disseminationYear - 1;
+			if (infoSource.getSourceType() == 3
+					&& (infoSource.getPublicationYear() == disseminationYear || infoSource.getPublicationYear() == oneBefore)) {
+				BiblioEntry biblioEntry = bu.transform(infoSource);
+				new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
+						.to(sources.getTextsAndImagesAndTables());
+			}
 
 		}
 		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(sources);

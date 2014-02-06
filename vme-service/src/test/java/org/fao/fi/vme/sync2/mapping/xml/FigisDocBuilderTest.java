@@ -109,7 +109,7 @@ public class FigisDocBuilderTest {
 		InformationSource i = InformationSourceMock.create();
 		specificMeasure.setInformationSource(i);
 
-		b.specificMeasures(specificMeasure, figisDoc, VmeMock.YEAR);
+		b.specificMeasures(specificMeasure, figisDoc);
 		Management management = (Management) figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
 		assertNotNull(management);
 
@@ -350,7 +350,7 @@ public class FigisDocBuilderTest {
 		b.vme(vme, VmeMock.YEAR, figisDoc);
 		b.profile(vme.getProfileList().get(0), figisDoc);
 
-		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc, VmeMock.YEAR);
+		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc);
 		b.generalMeasures(vme.getRfmo().getGeneralMeasureList().get(0), figisDoc, VmeMock.YEAR);
 		b.informationSource(vme.getRfmo().getInformationSourceList(), 2000, figisDoc);
 

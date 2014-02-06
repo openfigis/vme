@@ -8,6 +8,7 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class InformationSourceMock {
 	public static final String CIT = "RFMO Conservation and Enforcement Measure  (Doc No. ####)";
+	public static final int YEAR = 2000;
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	public static InformationSource create() {
