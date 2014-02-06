@@ -23,9 +23,9 @@ and cd_water_area <= 8000
 
 
 select count(*) from ref_vme
---98, is correct
+--99, is correct
 select count(*) from fs_vme_observation
---208
+--209
 --should be 208 or 209
 
 
