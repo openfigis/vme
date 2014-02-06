@@ -12,9 +12,9 @@ import org.fao.fi.vme.domain.test.GeneralMeasureMock;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.junit.Test;
 
-public class ManagementMethodEntryBuilderTest {
+public class GeneralMeasureManagementMethodEntryBuilderTest {
 
-	ManagementMethodEntryBuilder b = new ManagementMethodEntryBuilder();
+	GeneralMeasureManagementMethodEntryBuilder b = new GeneralMeasureManagementMethodEntryBuilder();
 
 	@Test
 	public void testAddSources() {

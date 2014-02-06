@@ -27,7 +27,7 @@ import org.purl.dc.elements._1.Title;
  * @author Erik van Ingen
  * 
  */
-public class ManagementMethodEntryBuilder {
+public class GeneralMeasureManagementMethodEntryBuilder {
 
 	public final static String TITLE_GM = "VME general measures";
 	public final static String FISHING_AREAS = "Fishing_areas";

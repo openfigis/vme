@@ -82,7 +82,7 @@ public class FigisDocBuilder {
 	private ObjectFactory f = new ObjectFactory();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 	private EnglishTextUtil ut = new EnglishTextUtil();
-	private ManagementMethodEntryBuilder mmeBuilder = new ManagementMethodEntryBuilder();
+	private GeneralMeasureManagementMethodEntryBuilder mmeBuilder = new GeneralMeasureManagementMethodEntryBuilder();
 	private CurrentDate currentDate = new CurrentDate();
 	private BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
 
