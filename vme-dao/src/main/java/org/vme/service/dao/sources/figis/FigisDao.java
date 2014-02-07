@@ -1,7 +1,9 @@
 package org.vme.service.dao.sources.figis;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -141,6 +143,7 @@ public class FigisDao extends AbstractJPADao {
 
 		// logic
 		List<ObservationDomain> oList = vod.getObservationDomainList();
+
 		for (ObservationDomain od : oList) {
 
 			// find VmeObservation
@@ -155,7 +158,30 @@ public class FigisDao extends AbstractJPADao {
 			}
 
 		}
+		cleanOutdated(vod);
 		t.commit();
+	}
+
+	private void cleanOutdated(VmeObservationDomain vod) {
+		Set<String> years = new HashSet<String>();
+		// find the valid years
+		for (ObservationDomain o : vod.getObservationDomainList()) {
+			years.add(o.getReportingYear());
+		}
+		// get all years
+		List<VmeObservation> l = findVmeObservationByVme(vod.getRefVme().getId());
+		for (VmeObservation vmeObservation : l) {
+			if (!years.contains(vmeObservation.getId().getReportingYear())) {
+				// if the year is out dated, remove it
+				em.remove(vmeObservation);
+				Observation o = em.find(Observation.class, vmeObservation.getId().getObservationId());
+				List<ObservationXml> xs = o.getObservationsPerLanguage();
+				for (ObservationXml observationXml : xs) {
+					em.remove(observationXml);
+				}
+				em.remove(o);
+			}
+		}
 	}
 
 	/**
@@ -257,7 +283,6 @@ public class FigisDao extends AbstractJPADao {
 		try {
 			vo = (VmeObservation) query.getSingleResult();
 		} catch (NoResultException e) {
-			System.out.println();
 			// is valid, a new object needs to be created.
 		}
 		return vo;

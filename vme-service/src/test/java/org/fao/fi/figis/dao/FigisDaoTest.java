@@ -26,6 +26,45 @@ import org.vme.service.dao.config.figis.FigisDataBaseProducer;
 @ActivatedAlternatives({ FigisDataBaseProducer.class })
 public class FigisDaoTest extends FigisDaoTestLogic {
 
+	/**
+	 * Changing the year should result in the deletion of the old year and the
+	 * creation of the new year.
+	 */
+	@Test
+	public void testSyncVmeObservationDomainWithDifferentYears() {
+		RefVme refVme = RefVmeMock.create();
+		if (dao.find(RefVme.class, refVme.getId()) == null) {
+			dao.persist(refVme);
+		}
+		int count[] = count();
+		checkCount(count, 0);
+		VmeObservationDomain vod = createVmeObservationDomain(1);
+		vod.setRefVme(refVme);
+		dao.syncVmeObservationDomain(vod);
+		checkCount(count, 1);
+		checkPrimaries();
+
+		vod = createVmeObservationDomain(1);
+		vod.setRefVme(refVme);
+		vod.getObservationDomainList().get(0).setReportingYear(Integer.toString(FigisDaoTestLogic.REPORTING_YEAR + 1));
+		dao.syncVmeObservationDomain(vod);
+		checkCount(count, 1);
+		checkPrimaries();
+
+	}
+
+	private void checkPrimaries() {
+		List<Observation> l = dao.loadObjects(Observation.class);
+		int primaries = 0;
+		for (Observation observation : l) {
+			if (observation.isPrimary()) {
+				primaries++;
+			}
+		}
+		assertEquals(1, primaries);
+
+	}
+
 	@Test
 	public void testSyncVmeObservationDomain() {
 		RefVme refVme = RefVmeMock.create();
@@ -47,15 +86,7 @@ public class FigisDaoTest extends FigisDaoTestLogic {
 		dao.syncVmeObservationDomain(vod);
 
 		checkCount(count, obses);
-
-		List<Observation> l = dao.loadObjects(Observation.class);
-		int primaries = 0;
-		for (Observation observation : l) {
-			if (observation.isPrimary()) {
-				primaries++;
-			}
-		}
-		assertEquals(1, primaries);
+		checkPrimaries();
 
 	}
 
