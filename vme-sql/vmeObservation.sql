@@ -32,7 +32,10 @@ select count(*) from ref_vme
 
 
 
+select * from fs_vme_observation
 select count(*) from fs_vme_observation
+select count(cd_observation) from fs_vme_observation
+select count(cd_vme) from fs_vme_observation
 --210
 
 
