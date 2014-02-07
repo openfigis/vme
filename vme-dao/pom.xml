@@ -11,17 +11,12 @@
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>figis-domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.vme</groupId>
-			<artifactId>vme-configuration</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
@@ -29,6 +24,11 @@
 				reports-store-gateway-support-compiler-bridge
 			</artifactId>
 			<version>[0.0.4-SNAPSHOT]</version>
+		</dependency>
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-configuration</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

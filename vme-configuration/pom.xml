@@ -10,10 +10,10 @@
 
 	<profiles>
 		<profile>
-			<id>env-dev</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			<id>env-dev</id>
 			<properties>
 				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
 				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:db1;INIT=create schema IF NOT EXISTS VME</javax.persistence.jdbc.url.vme>
@@ -24,12 +24,55 @@
 				<!--validate | update | create | create-drop -->
 
 				<javax.persistence.jdbc.driver.figis>org.h2.Driver</javax.persistence.jdbc.driver.figis>
-				<javax.persistence.jdbc.url.figis>jdbc:h2:mem:db2;INIT=create schema IF NOT EXISTS FIGIS\;create schema IF NOT EXISTS FIGIS_UPDATE</javax.persistence.jdbc.url.figis>
+				<javax.persistence.jdbc.url.figis>jdbc:h2:mem:db2;INIT=create schema IF NOT EXISTS FIGIS\;create schema IF NOT EXISTS
+					FIGIS_UPDATE</javax.persistence.jdbc.url.figis>
 				<javax.persistence.jdbc.user.figis>sa</javax.persistence.jdbc.user.figis>
 				<javax.persistence.jdbc.password.figis></javax.persistence.jdbc.password.figis>
 				<hibernate.dialect.figis>org.hibernate.dialect.H2Dialect</hibernate.dialect.figis>
 				<hibernate.hbm2ddl.auto.figis>create-drop</hibernate.hbm2ddl.auto.figis>
 			</properties>
+		</profile>
+		<profile>
+			<id>vme-devel</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-jar-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<classifier>devel</classifier>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>vme-integration</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-jar-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<configuration>
+									<classifier>integration</classifier>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 	<build>
@@ -41,11 +84,4 @@
 		</resources>
 	</build>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.vme</groupId>
-			<artifactId>vme-domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
 </project>

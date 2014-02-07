@@ -8,20 +8,16 @@
 	</parent>
 	<artifactId>vme-service</artifactId>
 	<dependencies>
-		<dependency>
-			<groupId>org.vme</groupId>
-			<artifactId>vme-configuration</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>fimes-vme-jaxb</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-dao</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.fluttercode.datafactory</groupId>
@@ -38,6 +34,10 @@
 			<groupId>org.jglue.cdi-unit</groupId>
 			<artifactId>cdi-unit</artifactId>
 			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-configuration</artifactId>
 		</dependency>
 	</dependencies>
 </project>

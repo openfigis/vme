@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-service</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>tomcat</groupId>
@@ -55,6 +55,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
+		
 	</dependencies>
 
 	<build>
@@ -71,4 +72,43 @@
 		</plugins>
 	</build>
 
+
+	<profiles>
+		<profile>
+			<id>vme-devel</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.vme</groupId>
+					<artifactId>vme-configuration</artifactId>
+					<version>${project.version}</version>
+					<classifier>devel</classifier>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>vme-integration</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.vme</groupId>
+					<artifactId>vme-configuration</artifactId>
+					<version>${project.version}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>vme-production</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.vme</groupId>
+					<artifactId>vme-configuration</artifactId>
+					<version>${project.version}</version>
+					<classifier>production</classifier>
+					<scope>runtime</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	
+	</profiles>
 </project>
