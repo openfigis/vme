@@ -47,8 +47,6 @@
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-configuration</artifactId>
-			<classifier>integration</classifier>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
