@@ -2,7 +2,8 @@ package org.fao.fi.vme.msaccess.mapping;
 
 /**
  * Rules for the validity period are described here :
- * http://km.fao.org/FIGISwiki/index.php/VME_UML#Rules_for_the_validity_period and implemented in this class.
+ * http://km.fao.org/FIGISwiki/index.php/VME_UML#Rules_for_the_validity_period
+ * and implemented in this class.
  * 
  * @author Erik van Ingen
  * 

@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Codelist for InformationSources. To be taken from a master data repository in the future.
+ * Codelist for InformationSources. To be taken from a master data repository in
+ * the future.
  * 
  * 
  * 

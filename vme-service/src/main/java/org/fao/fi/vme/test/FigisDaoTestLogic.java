@@ -59,7 +59,6 @@ public abstract class FigisDaoTestLogic {
 
 		PrimaryRule rule = new PrimaryRule();
 		rule.apply(vod);
-		System.out.println(vod.getObservationDomainList().size());
 		dao.syncVmeObservationDomain(vod);
 		assertFalse(vod.getObservationDomainList().get(0).isPrimary());
 		assertTrue(vod.getObservationDomainList().get(1).isPrimary());

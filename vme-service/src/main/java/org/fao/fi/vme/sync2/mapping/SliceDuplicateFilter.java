@@ -16,12 +16,6 @@ public class SliceDuplicateFilter {
 	public void filter(List<DisseminationYearSlice> slices) {
 		for (int i = 0; i < slices.size(); i++) {
 
-			// DisseminationYearSlice s = slices.get(i);
-			// System.out.println("sliceYear" + s.getYear());
-			// System.out.println("getGeoRefgetYear" + s.getGeoRef().getYear());
-			// System.out.println("getGeoRefgetGeographicFeatureID" +
-			// s.getGeoRef().getGeographicFeatureID());
-
 			int previousElement = i - 1;
 			if (previousElement >= 0) {
 				if (slices.get(previousElement).equals(slices.get(i))) {

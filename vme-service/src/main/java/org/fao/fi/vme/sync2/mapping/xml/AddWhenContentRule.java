@@ -20,7 +20,8 @@ public class AddWhenContentRule<E> {
 	private List<E> elementList = new ArrayList<E>();
 
 	/**
-	 * if one of the content objects has a value, all elements will be added to the list.
+	 * if one of the content objects has a value, all elements will be added to
+	 * the list.
 	 * 
 	 * @param content
 	 * @return

@@ -36,7 +36,7 @@ public class Linker {
 		for (ObjectCollection o : objectCollectionList) {
 			Map<Object, Object> domainTableMap = o.getDomainTableMap();
 			List<Object> objectList = o.getObjectList();
-			// System.out.println(objectList.size() + " " + o.getClazz());
+
 			for (Object object : objectList) {
 				linkObject(object, domainTableMap, objectCollectionList, tables);
 			}

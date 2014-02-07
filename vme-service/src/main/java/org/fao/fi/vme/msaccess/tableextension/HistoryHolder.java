@@ -4,8 +4,9 @@ import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 
 /**
- * The pattern is that every table in MS-Acces can be mapped to one domain object. This case is an exception where the
- * Access table RFB_VME_Fishing_History is mapped to 2 tables.
+ * The pattern is that every table in MS-Acces can be mapped to one domain
+ * object. This case is an exception where the Access table
+ * RFB_VME_Fishing_History is mapped to 2 tables.
  * 
  * 
  * @author Erik van Ingen

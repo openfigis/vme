@@ -7,7 +7,8 @@ import org.fao.fi.figis.domain.rule.Figis;
 
 /**
  * 
- * When creating the observation, this class is used with certain default values.
+ * When creating the observation, this class is used with certain default
+ * values.
  * 
  * 
  * @author Erik van Ingen

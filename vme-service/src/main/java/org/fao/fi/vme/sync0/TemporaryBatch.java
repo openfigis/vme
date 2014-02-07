@@ -6,10 +6,11 @@ import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.fao.fi.vme.sync2.SyncBatch2;
 
 /**
- * This batch is useful until decided that the MsAccess DB is not necessary anymore.
+ * This batch is useful until decided that the MsAccess DB is not necessary
+ * anymore.
  * 
- * This batch imports the data from MsAccess into the Oracle Vme Database (VmeAccessDbImport), then pushes this data
- * into the Figis database.
+ * This batch imports the data from MsAccess into the Oracle Vme Database
+ * (VmeAccessDbImport), then pushes this data into the Figis database.
  * 
  * 
  * *

@@ -14,7 +14,8 @@ import org.vme.service.dao.sources.vme.VmeDao;
 
 /**
  * 
- * Will the GeoRefs be taken from the geospatial tables? Will the GeoRefs be filled by SyncBatch1?
+ * Will the GeoRefs be taken from the geospatial tables? Will the GeoRefs be
+ * filled by SyncBatch1?
  * 
  * GeoRefSync pushes the water area refs from the vme DB to the figis DB.
  * 

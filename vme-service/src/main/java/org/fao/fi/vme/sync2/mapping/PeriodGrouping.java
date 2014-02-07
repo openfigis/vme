@@ -58,8 +58,6 @@ public class PeriodGrouping {
 			l.add(slice);
 		}
 
-		// System.out.println("Number of slices: " + l.size());
-
 		return l;
 	}
 

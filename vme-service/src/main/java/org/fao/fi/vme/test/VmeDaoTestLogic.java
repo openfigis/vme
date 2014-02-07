@@ -1,6 +1,5 @@
 package org.fao.fi.vme.test;
 
-
 public class VmeDaoTestLogic {
 
 	// public void saveVme(Vme vme, VmeDao vmeDao) {

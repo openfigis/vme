@@ -25,7 +25,7 @@ public class VmeWriter {
 
 	// public void write(List<ObjectCollection> objectCollectionList) {
 	// for (ObjectCollection objectCollection : objectCollectionList) {
-	// // System.out.println(objectCollection.getClazz().getSimpleName());
+
 	// tableWriter.write(objectCollection);
 	// }
 	// }

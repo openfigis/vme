@@ -24,7 +24,6 @@ public class IdCorrection {
 			List<Object> objectList = objectCollection.getObjectList();
 			for (Object object : objectList) {
 				if (object instanceof ObjectId) {
-					// System.out.println(object.getClass().getSimpleName());
 					((ObjectId<Serializable>) object).setId(null);
 				}
 			}

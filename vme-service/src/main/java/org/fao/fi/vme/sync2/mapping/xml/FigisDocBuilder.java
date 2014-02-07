@@ -275,10 +275,6 @@ public class FigisDocBuilder {
 			// • Sources
 			// • RelatedResources
 
-			if (profile.getDescriptionBiological() != null) {
-				System.out.println("");
-			}
-
 			GeneralBiology gb = f.createGeneralBiology();
 			Text text1 = ut.getEnglishText(profile.getDescriptionBiological());
 			gb.getTextsAndImagesAndTables().add(text1);

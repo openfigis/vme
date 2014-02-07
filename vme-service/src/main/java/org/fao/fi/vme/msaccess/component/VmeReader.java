@@ -44,12 +44,8 @@ public class VmeReader {
 		List<Table> tableList = new ArrayList<Table>();
 
 		for (Class<?> clazz : tables) {
-
-			System.out.println(clazz);
 			Table table = tableReader.read(clazz);
-
 			tableList.add(table);
-
 		}
 		return tableList;
 	}

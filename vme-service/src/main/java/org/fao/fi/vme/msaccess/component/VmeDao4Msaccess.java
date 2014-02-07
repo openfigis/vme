@@ -33,7 +33,7 @@ public class VmeDao4Msaccess {
 			EntityTransaction et = em.getTransaction();
 			et.begin();
 			for (ObjectCollection objectCollection : objectCollectionList) {
-				// System.out.println(objectCollection.getClazz().getSimpleName());
+
 				for (Object object : objectCollection.getObjectList()) {
 					if (em.contains(object)) {
 						// it can happen that the object already was persisted
@@ -49,16 +49,16 @@ public class VmeDao4Msaccess {
 						ObjectId<Serializable> objectId = (ObjectId<Serializable>) object;
 
 						Serializable id = objectId.getId();
-						
-						if(id == null)
+
+						if (id == null)
 							throw new VmeDaoException("object id cannot be NULL");
-						
-						if(Number.class.isAssignableFrom(id.getClass()))
-							if(((Number)id).intValue() == 0) {
+
+						if (Number.class.isAssignableFrom(id.getClass()))
+							if (((Number) id).intValue() == 0) {
 								throw new VmeDaoException("Numeric object id cannot be 0");
-						} else if(String.class.isAssignableFrom(id.getClass()))
-							if("".equals(((String)id).trim()))
-								throw new VmeDaoException("String object id cannot be blank");
+							} else if (String.class.isAssignableFrom(id.getClass()))
+								if ("".equals(((String) id).trim()))
+									throw new VmeDaoException("String object id cannot be blank");
 					}
 
 				}
