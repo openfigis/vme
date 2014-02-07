@@ -8,8 +8,6 @@
 	<packaging>pom</packaging>
 
 
-
-
 	<properties>
 		<version>0.0.1-SNAPSHOT</version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -65,17 +63,11 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.3.1.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>ojdbc</groupId>
 			<artifactId>ojdbc</artifactId>
 			<version>61</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>2.2.9</version>
 		</dependency>
 		<dependency>
 			<groupId>ucanaccess</groupId>
@@ -142,6 +134,11 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>4.3.1.Final</version>
+			</dependency>
+			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>1.7.5</version>
@@ -174,8 +171,4 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-
-
-
 </project>
