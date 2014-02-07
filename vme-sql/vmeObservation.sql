@@ -33,7 +33,7 @@ select count(*) from ref_vme
 
 
 select count(*) from fs_vme_observation
---211
+--210
 
 
 
@@ -42,7 +42,7 @@ where
 o.cd_observation = oo.cd_observation 
 and
 o.cd_observation = x.cd_observation 
--- 211
+-- 210
 
 
 

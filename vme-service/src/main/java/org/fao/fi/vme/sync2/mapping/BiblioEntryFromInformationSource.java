@@ -72,11 +72,6 @@ public class BiblioEntryFromInformationSource {
 				be.getContent().add(createDate);
 			}
 
-			Identifier identifier = new Identifier();
-			identifier.setType("URI");
-			identifier.setContent(is.getUrl().toString());
-			be.getContent().add(identifier);
-
 			Abstrakt bibAbstract = new Abstrakt();
 			bibAbstract.setContent(u.getEnglish(is.getReportSummary()));
 			be.getContent().add(bibAbstract);

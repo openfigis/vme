@@ -318,7 +318,9 @@ public class FigisDocBuilder {
 																					// of
 																					// HabitatBio
 			// profile
-			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(habitatBio);
+
+			new AddWhenContentRule<Object>().check(profile.getDescriptionPhisical()).beforeAdding(habitatBio)
+					.to(figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts());
 
 			// Impacts profile
 			Impacts impacts = f.createImpacts();
