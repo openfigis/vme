@@ -34,7 +34,6 @@
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-service</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>tomcat</groupId>

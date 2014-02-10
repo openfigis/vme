@@ -5,7 +5,7 @@
 	<groupId>org.gcube.application.rsg</groupId>
 	<artifactId>vme-reports-store-gateway-builder</artifactId>
 	<packaging>pom</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${project.version}</version>
 
 	<description>
         This is just to run the vme-reports-store-gateway separatedly from vme-web 
