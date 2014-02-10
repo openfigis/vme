@@ -21,20 +21,6 @@ public class VmeReferenceDao extends AbstractJPADao {
 	@VmeDB
 	private EntityManager em;
 
-	/**
-	 * @return the 'em' value
-	 */
-	final public EntityManager getEm() {
-		return this.em;
-	}
-
-	public void persist(Object object) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
-		em.persist(object);
-		et.commit();
-	}
-
 	public void syncStoreObject(Object object, Object primaryKey) {
 		EntityTransaction et = em.getTransaction();
 		et.begin();
