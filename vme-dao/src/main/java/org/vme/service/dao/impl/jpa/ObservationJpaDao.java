@@ -81,7 +81,7 @@ public class ObservationJpaDao implements ObservationDAO {
 		return res;
 	}
 
-	public List<ObservationDto> getObservationByInevntoryIdentifier(String inv_id, int year) {
+	public List<ObservationDto> getObservationByInventoryIdentifier(String inv_id, int year) {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}

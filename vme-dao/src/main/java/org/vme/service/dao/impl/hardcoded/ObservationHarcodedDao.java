@@ -105,7 +105,7 @@ public class ObservationHarcodedDao implements ObservationDAO   {
 		return res;
 	}	
 
-	public List<ObservationDto> getObservationByInevntoryIdentifier(String inv_id, int year)  {
+	public List<ObservationDto> getObservationByInventoryIdentifier(String inv_id, int year)  {
 		LinkedList<ObservationDto> res = new LinkedList<ObservationDto>();
 		ObservationDto dto = new ObservationDto();
 		dto.setEnvelope("envelope");

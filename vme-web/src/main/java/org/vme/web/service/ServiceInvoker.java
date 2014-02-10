@@ -27,7 +27,7 @@ public class ServiceInvoker {
 		if (request.getId() > 0) {
 			result.addElements(service.getObservationById(request.getId(), request.getYear()));
 		} else if (request.hasInventoryIdentifier()) {
-			result.addElements(service.getObservationByInevntoryIdentifier(request.getInventoryIdentifier(),
+			result.addElements(service.getObservationByInventoryIdentifier(request.getInventoryIdentifier(),
 					request.getYear()));
 		} else if (request.hasGeographicFeatureId()) {
 			result.addElements(service.getObservationByGeographicFeatureId(request.getGeographicFeatureId(),

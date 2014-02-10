@@ -34,10 +34,8 @@ public class VmeSearchWs {
 
 	}
 
-	// @Path("/search")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	// @Produces(MediaType.TEXT_HTML)
 	public Response find(@QueryParam("text") String text, @QueryParam("authority") String id_authority,
 			@QueryParam("vme_type") String id_vme_type, @QueryParam("vme_criteria") String id_vme_criteria,
 			@QueryParam("year") String year) throws Exception {
@@ -71,9 +69,9 @@ public class VmeSearchWs {
 	@SuppressWarnings("unused")
 	private String produceHtmlReport(ObservationsRequest dto) {
 		return "<html> " + "<title>" + "Hello Jersey" + "</title>" + "<body><h1>" + "Hello Jersey" + "</body></h1>"
-				+ dto.getUuid() + "</br>" + "ObjectId Authority....:" + dto.getAuthority() + "</br>" + "ObjectId areatype.....:"
-				+ dto.getType() + "</br>" + "ObjectId criteria.....:" + dto.getCriteria() + "</br>" + "Year............:"
-				+ dto.getYear() + "</br>" + "</html> ";
+				+ dto.getUuid() + "</br>" + "ObjectId Authority....:" + dto.getAuthority() + "</br>"
+				+ "ObjectId areatype.....:" + dto.getType() + "</br>" + "ObjectId criteria.....:" + dto.getCriteria()
+				+ "</br>" + "Year............:" + dto.getYear() + "</br>" + "</html> ";
 	}
 
 }
