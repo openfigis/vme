@@ -2,7 +2,7 @@ package org.fao.fi.vme.figis;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.sync2.SyncBatch2;
+import org.fao.fi.vme.batch.sync2.SyncBatch2;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;

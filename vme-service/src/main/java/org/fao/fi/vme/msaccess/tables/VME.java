@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fao.fi.vme.VmeException;
+import org.fao.fi.vme.batch.sync2.mapping.xml.EnglishTextUtil;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.ValidityPeriod;
@@ -11,7 +12,6 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.mapping.ValidityPeriodRule;
-import org.fao.fi.vme.sync2.mapping.xml.EnglishTextUtil;
 
 public class VME implements TableDomainMapper {
 	int ID;

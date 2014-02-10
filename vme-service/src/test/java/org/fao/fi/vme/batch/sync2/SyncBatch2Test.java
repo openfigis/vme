@@ -1,5 +1,6 @@
-package org.fao.fi.vme.figis;
+package org.fao.fi.vme.batch.sync2;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -8,16 +9,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.Observation;
-import org.fao.fi.figis.domain.ObservationXml;
-import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.batch.sync2.SyncBatch2;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.service.dao.config.figis.FigisDataBaseProducer;
@@ -27,7 +25,7 @@ import org.vme.service.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
-public class SyncBatch2IntegrationTest2 {
+public class SyncBatch2Test {
 
 	@Inject
 	private SyncBatch2 syncBatch2;
@@ -38,38 +36,11 @@ public class SyncBatch2IntegrationTest2 {
 	@Inject
 	private FigisDao figisDao;
 
-	@After
-	public void after() {
-		clean(Vme.class);
-		clean(Rfmo.class);
-		cleanFigis(ObservationXml.class);
-		// cleanFigis(Observation.class);
-		cleanFigis(VmeObservation.class);
-	}
-
-	@Before
-	public void before() {
-		clean(Vme.class);
-		clean(Rfmo.class);
-	}
-
-	private void clean(Class<?> class1) {
-		List<?> oList = vmeDao.loadObjects(class1);
-		for (Object object : oList) {
-			vmeDao.remove(object);
-		}
-	}
-
-	private void cleanFigis(Class<?> class1) {
-		List<?> oList = figisDao.loadObjects(class1);
-		for (Object object : oList) {
-			figisDao.remove(object);
-		}
-	}
-
 	@Test
 	public void testSyncFigisWithVmePrimaryRule() {
 		Vme vme = VmeMock.create();
+		assertEquals(ValidityPeriodMock.YEARS, vme.getGeoRefList().size());
+
 		Rfmo rfmo = new Rfmo();
 		rfmo.setId("RFMO");
 		vmeDao.persist(rfmo);
@@ -79,16 +50,15 @@ public class SyncBatch2IntegrationTest2 {
 
 		syncBatch2.syncFigisWithVme();
 
-		List<VmeObservation> voList = figisDao.findVmeObservationByVme(vme.getId());
-
-		List<VmeObservation> nonPrimary = voList.subList(0, voList.size() - 2);
-		for (VmeObservation vo : nonPrimary) {
-			Observation o = (Observation) figisDao.find(Observation.class, vo.getId().getObservationId());
+		List<?> oList = figisDao.loadObjects(Observation.class);
+		List<?> nonPrimary = oList.subList(0, oList.size() - 2);
+		for (Object object : nonPrimary) {
+			Observation o = (Observation) object;
 			assertFalse(o.isPrimary());
 		}
-		VmeObservation vo = (VmeObservation) voList.get(voList.size() - 1);
-		Observation o = (Observation) figisDao.find(Observation.class, vo.getId().getObservationId());
+		Observation o = (Observation) oList.get(oList.size() - 1);
 		assertTrue(o.isPrimary());
+		assertEquals(ValidityPeriodMock.YEARS, oList.size());
 
 	}
 }
