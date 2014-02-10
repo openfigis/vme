@@ -49,7 +49,7 @@ public class ObservationJpaDaoTest {
 
 		vme.getSpecificMeasureList().get(0).setVmeSpecificMeasure((u.english(text)));
 		vmeDao.saveVme(vme);
-		List<VmeDto> list = dao.searchObservations(0, 0, 0, VmeMock.YEAR, text);
+		List<VmeDto> list = dao.searchVme(0, 0, 0, VmeMock.YEAR, text);
 
 		assertEquals(1, list.size());
 	}

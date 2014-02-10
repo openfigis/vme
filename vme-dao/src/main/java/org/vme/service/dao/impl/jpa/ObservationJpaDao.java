@@ -55,7 +55,7 @@ public class ObservationJpaDao implements VmeSearchDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<VmeDto> searchObservations(long authority_id, long type_id, long criteria_id, int year,
+	public List<VmeDto> searchVme(long authority_id, long type_id, long criteria_id, int year,
 			String text) throws Exception {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
@@ -68,7 +68,7 @@ public class ObservationJpaDao implements VmeSearchDao {
 		return res;
 	}
 
-	public List<VmeDto> getObservationById(long id, int year) {
+	public List<VmeDto> getVmeById(long id, int year) {
 		String text_query;
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
@@ -81,7 +81,7 @@ public class ObservationJpaDao implements VmeSearchDao {
 		return res;
 	}
 
-	public List<VmeDto> getObservationByInventoryIdentifier(String inv_id, int year) {
+	public List<VmeDto> getVmeByInventoryIdentifier(String inv_id, int year) {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}
@@ -93,7 +93,7 @@ public class ObservationJpaDao implements VmeSearchDao {
 		return res;
 	}
 
-	public List<VmeDto> getObservationByGeographicFeatureId(String geo_id, int year) {
+	public List<VmeDto> getVmeByGeographicFeatureId(String geo_id, int year) {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}

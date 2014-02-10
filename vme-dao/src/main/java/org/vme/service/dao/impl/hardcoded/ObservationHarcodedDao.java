@@ -19,7 +19,7 @@ public class ObservationHarcodedDao implements VmeSearchDao   {
 
 
 
-	public List<VmeDto> searchObservations(long authority_id, long type_id, long criteria_id, int year, String text) throws Exception  {
+	public List<VmeDto> searchVme(long authority_id, long type_id, long criteria_id, int year, String text) throws Exception  {
 		LinkedList<VmeDto> res = new LinkedList<VmeDto>();
 		String authority;
 		String vme_type;
@@ -86,7 +86,7 @@ public class ObservationHarcodedDao implements VmeSearchDao   {
 
 
 
-	public List<VmeDto> getObservationById(long id, int year)  {
+	public List<VmeDto> getVmeById(long id, int year)  {
 		LinkedList<VmeDto> res = new LinkedList<VmeDto>();
 		VmeDto dto = new VmeDto();
 		dto.setEnvelope("envelope");
@@ -105,7 +105,7 @@ public class ObservationHarcodedDao implements VmeSearchDao   {
 		return res;
 	}	
 
-	public List<VmeDto> getObservationByInventoryIdentifier(String inv_id, int year)  {
+	public List<VmeDto> getVmeByInventoryIdentifier(String inv_id, int year)  {
 		LinkedList<VmeDto> res = new LinkedList<VmeDto>();
 		VmeDto dto = new VmeDto();
 		dto.setEnvelope("envelope");
@@ -124,7 +124,7 @@ public class ObservationHarcodedDao implements VmeSearchDao   {
 		return res;	
 	}
 
-	public List<VmeDto> getObservationByGeographicFeatureId(String geo_id, int year)  {
+	public List<VmeDto> getVmeByGeographicFeatureId(String geo_id, int year)  {
 		LinkedList<VmeDto> res = new LinkedList<VmeDto>();
 		VmeDto dto = new VmeDto();
 		dto.setEnvelope("envelope");

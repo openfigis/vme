@@ -25,15 +25,15 @@ public class ServiceInvoker {
 	public static ServiceResponse<?> invoke(VmeSearchDao service, ObservationsRequest request) throws Exception {
 		ServiceResponse<?> result = new ServiceResponse<VmeDto>(request);
 		if (request.getId() > 0) {
-			result.addElements(service.getObservationById(request.getId(), request.getYear()));
+			result.addElements(service.getVmeById(request.getId(), request.getYear()));
 		} else if (request.hasInventoryIdentifier()) {
-			result.addElements(service.getObservationByInventoryIdentifier(request.getInventoryIdentifier(),
+			result.addElements(service.getVmeByInventoryIdentifier(request.getInventoryIdentifier(),
 					request.getYear()));
 		} else if (request.hasGeographicFeatureId()) {
-			result.addElements(service.getObservationByGeographicFeatureId(request.getGeographicFeatureId(),
+			result.addElements(service.getVmeByGeographicFeatureId(request.getGeographicFeatureId(),
 					request.getYear()));
 		} else {
-			result.addElements(service.searchObservations(request.getAuthority(), request.getType(),
+			result.addElements(service.searchVme(request.getAuthority(), request.getType(),
 					request.getCriteria(), request.getYear(), request.getText()));
 		}
 		return result;
