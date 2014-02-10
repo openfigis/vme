@@ -243,6 +243,11 @@
 				<artifactId>vme-configuration</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.vme</groupId>
+				<artifactId>vme-service</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 </project>
