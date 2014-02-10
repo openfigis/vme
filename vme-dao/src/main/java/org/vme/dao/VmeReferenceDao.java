@@ -28,7 +28,14 @@ public class VmeReferenceDao extends AbstractJPADao {
 		return this.em;
 	}
 
-	void syncStoreObject(Object object, Object primaryKey) {
+	public void persist(Object object) {
+		EntityTransaction et = em.getTransaction();
+		et.begin();
+		em.persist(object);
+		et.commit();
+	}
+
+	public void syncStoreObject(Object object, Object primaryKey) {
 		EntityTransaction et = em.getTransaction();
 		et.begin();
 		if (em.find(object.getClass(), primaryKey) == null) {
