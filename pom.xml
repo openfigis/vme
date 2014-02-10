@@ -65,9 +65,7 @@
 		<dependency>
 			<groupId>javax.inject</groupId>
 			<artifactId>javax.inject</artifactId>
-			<version>1</version>
 		</dependency>
-		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId> <version>1.7.2</version> </dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -93,7 +91,6 @@
 		<dependency>
 			<groupId>org.jglue.cdi-unit</groupId>
 			<artifactId>cdi-unit</artifactId>
-			<version>2.2.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -153,7 +150,7 @@
 			</build>
 		</profile>
 		<profile>
-		<!-- this will be overridden in the vme-service-integrationtest/pom.xml itself with <skipTests>false</skipTests> -->
+			<!-- this will be overridden in the vme-service-integrationtest/pom.xml itself with <skipTests>false</skipTests> -->
 			<id>vme-integration</id>
 			<build>
 				<plugins>
@@ -181,7 +178,7 @@
 				</plugins>
 			</build>
 		</profile>
-	<profile>
+		<profile>
 			<id>vme-production</id>
 			<build>
 				<plugins>
@@ -246,6 +243,27 @@
 			<dependency>
 				<groupId>org.vme</groupId>
 				<artifactId>vme-service</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.vme</groupId>
+				<artifactId>vme-dao</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jglue.cdi-unit</groupId>
+				<artifactId>cdi-unit</artifactId>
+				<version>2.2.1</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.vme</groupId>
+				<artifactId>vme-fimes-jaxb</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 		</dependencies>

@@ -525,18 +525,19 @@ public class CRUDJpaDaoTest {
 
 		tx.commit();
 
-//		em.clear();
-//		
-//		Long profileId = ref.getProfileList().get(0).getId();
-//		
-//		ref.getProfileList().remove(0);
-//		
-//		ref = this.vmeDao.update(ref);
-//		
-//		Profile isDeleted = this.vmeDao.getEntityById(em, Profile.class, profileId);
-//		
-//		Assert.assertNull(isDeleted);
-		
+		// em.clear();
+		//
+		// Long profileId = ref.getProfileList().get(0).getId();
+		//
+		// ref.getProfileList().remove(0);
+		//
+		// ref = this.vmeDao.update(ref);
+		//
+		// Profile isDeleted = this.vmeDao.getEntityById(em, Profile.class,
+		// profileId);
+		//
+		// Assert.assertNull(isDeleted);
+
 		ref = this.vmeDao.getEntityById(this.em, Vme.class, ref.getId());
 
 		Vme toUpdate = new Vme();
@@ -584,7 +585,8 @@ public class CRUDJpaDaoTest {
 			toUpdate.getProfileList().add(newProfile);
 		}
 
-		Long deletedProfile = toUpdate.getProfileList().remove(0).getId();
+		// Long deletedProfile = toUpdate.getProfileList().remove(0).getId();
+		toUpdate.getProfileList().remove(0).getId();
 
 		newProfile = new Profile();
 		newProfile.setYear(1492);
@@ -602,14 +604,17 @@ public class CRUDJpaDaoTest {
 			newSpecificMeasure.setId(specificMeasure.getId());
 			newSpecificMeasure.setYear(specificMeasure.getYear());
 			newSpecificMeasure.setValidityPeriod(specificMeasure.getValidityPeriod());
-			newSpecificMeasure.setVmeSpecificMeasure(MLSu.english(MLSu.getEnglish(specificMeasure.getVmeSpecificMeasure())));
+			newSpecificMeasure.setVmeSpecificMeasure(MLSu.english(MLSu.getEnglish(specificMeasure
+					.getVmeSpecificMeasure())));
 			newSpecificMeasure.setInformationSource(new InformationSource());
 			newSpecificMeasure.getInformationSource().setId(specificMeasure.getInformationSource().getId());
 
 			toUpdate.getSpecificMeasureList().add(newSpecificMeasure);
 		}
 
-		Long deletedSpecificMeasure = toUpdate.getSpecificMeasureList().remove(1).getId();
+		// Long deletedSpecificMeasure =
+		// toUpdate.getSpecificMeasureList().remove(1).getId();
+		toUpdate.getSpecificMeasureList().remove(1).getId();
 
 		toUpdate.setName(MLSu.english("U_" + MLSu.getEnglish(ref.getName())));
 		toUpdate.setGeoArea(MLSu.english("U_" + MLSu.getEnglish(ref.getGeoArea())));
@@ -632,9 +637,11 @@ public class CRUDJpaDaoTest {
 		Assert.assertEquals(1, updated.getSpecificMeasureList().size());
 		Assert.assertEquals(3, updated.getGeoRefList().size());
 
-		//Temporarily removed...
-//		Assert.assertNull(this.vmeDao.getEntityById(this.em, Profile.class, deletedProfile));
-//		Assert.assertNull(this.vmeDao.getEntityById(this.em, SpecificMeasure.class, deletedSpecificMeasure));
+		// Temporarily removed...
+		// Assert.assertNull(this.vmeDao.getEntityById(this.em, Profile.class,
+		// deletedProfile));
+		// Assert.assertNull(this.vmeDao.getEntityById(this.em,
+		// SpecificMeasure.class, deletedSpecificMeasure));
 
 		Rfmo previousRfmo = this.vmeDao.getEntityById(this.em, Rfmo.class, previousRfmoId);
 		Rfmo newRfmo = this.vmeDao.getEntityById(this.em, Rfmo.class, newRfmoId);

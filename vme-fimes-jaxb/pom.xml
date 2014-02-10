@@ -6,7 +6,7 @@
 		<artifactId>vme</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>fimes-vme-jaxb</artifactId>
+	<artifactId>vme-fimes-jaxb</artifactId>
 	<build>
 		<plugins>
 			<plugin>
