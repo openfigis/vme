@@ -59,7 +59,7 @@ public class JpaDaoFactory implements DAOFactory {
 	 * @see org.vme.service.dao.DAOFactory#getObservationDAO()
 	 */
 	@Override
-	public ObservationDAO getObservationDAO() {
+	public VmeSearchDao getObservationDAO() {
 		return observationDAO;
 	}
 

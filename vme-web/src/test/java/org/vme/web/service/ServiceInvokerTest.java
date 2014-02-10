@@ -15,7 +15,7 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.service.dao.JpaDaoFactory;
-import org.vme.service.dao.ObservationDAO;
+import org.vme.service.dao.VmeSearchDao;
 import org.vme.service.dao.config.figis.FigisDataBaseProducer;
 import org.vme.service.dao.config.vme.VmeDataBaseProducer;
 import org.vme.service.dao.sources.vme.VmeDao;
@@ -27,7 +27,7 @@ import org.vme.web.service.io.ServiceResponse;
 public class ServiceInvokerTest {
 
 	@Inject
-	ObservationDAO service;
+	VmeSearchDao service;
 
 	@Inject
 	private VmeDao vmeDao;

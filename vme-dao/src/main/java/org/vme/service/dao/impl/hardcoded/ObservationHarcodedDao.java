@@ -3,13 +3,13 @@ package org.vme.service.dao.impl.hardcoded;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.fao.fi.vme.domain.dto.observations.ObservationDto;
+import org.fao.fi.vme.domain.dto.VmeDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vme.service.dao.ObservationDAO;
+import org.vme.service.dao.VmeSearchDao;
 
 
-public class ObservationHarcodedDao implements ObservationDAO   {
+public class ObservationHarcodedDao implements VmeSearchDao   {
 	static final private Logger LOG = LoggerFactory.getLogger(ObservationHarcodedDao.class);
 
 	public ObservationHarcodedDao() {
@@ -19,8 +19,8 @@ public class ObservationHarcodedDao implements ObservationDAO   {
 
 
 
-	public List<ObservationDto> searchObservations(long authority_id, long type_id, long criteria_id, int year, String text) throws Exception  {
-		LinkedList<ObservationDto> res = new LinkedList<ObservationDto>();
+	public List<VmeDto> searchObservations(long authority_id, long type_id, long criteria_id, int year, String text) throws Exception  {
+		LinkedList<VmeDto> res = new LinkedList<VmeDto>();
 		String authority;
 		String vme_type;
 		int start_cycle;
@@ -66,7 +66,7 @@ public class ObservationHarcodedDao implements ObservationDAO   {
 		}
 
 		for (int i = start_cycle; i < end_cycle; i++) {
-			ObservationDto dto = new ObservationDto();
+			VmeDto dto = new VmeDto();
 			dto.setEnvelope("envelope_" + i);
 			dto.setFactsheetUrl("fishery/vme/10/en");
 			dto.setGeoArea("Geographical reference test n. " + i);
@@ -86,9 +86,9 @@ public class ObservationHarcodedDao implements ObservationDAO   {
 
 
 
-	public List<ObservationDto> getObservationById(long id, int year)  {
-		LinkedList<ObservationDto> res = new LinkedList<ObservationDto>();
-		ObservationDto dto = new ObservationDto();
+	public List<VmeDto> getObservationById(long id, int year)  {
+		LinkedList<VmeDto> res = new LinkedList<VmeDto>();
+		VmeDto dto = new VmeDto();
 		dto.setEnvelope("envelope");
 		dto.setFactsheetUrl("fishery/vme/10/en");
 		dto.setGeoArea("Geographic reference");
@@ -105,9 +105,9 @@ public class ObservationHarcodedDao implements ObservationDAO   {
 		return res;
 	}	
 
-	public List<ObservationDto> getObservationByInventoryIdentifier(String inv_id, int year)  {
-		LinkedList<ObservationDto> res = new LinkedList<ObservationDto>();
-		ObservationDto dto = new ObservationDto();
+	public List<VmeDto> getObservationByInventoryIdentifier(String inv_id, int year)  {
+		LinkedList<VmeDto> res = new LinkedList<VmeDto>();
+		VmeDto dto = new VmeDto();
 		dto.setEnvelope("envelope");
 		dto.setFactsheetUrl("fishery/vme/10/en");
 		dto.setGeoArea("Geographic reference");
@@ -124,9 +124,9 @@ public class ObservationHarcodedDao implements ObservationDAO   {
 		return res;	
 	}
 
-	public List<ObservationDto> getObservationByGeographicFeatureId(String geo_id, int year)  {
-		LinkedList<ObservationDto> res = new LinkedList<ObservationDto>();
-		ObservationDto dto = new ObservationDto();
+	public List<VmeDto> getObservationByGeographicFeatureId(String geo_id, int year)  {
+		LinkedList<VmeDto> res = new LinkedList<VmeDto>();
+		VmeDto dto = new VmeDto();
 		dto.setEnvelope("envelope");
 		dto.setFactsheetUrl("fishery/vme/10/en");
 		dto.setGeoArea("Geographic reference");

@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.domain.dto.observations.ObservationDto;
+import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
@@ -49,7 +49,7 @@ public class ObservationJpaDaoTest {
 
 		vme.getSpecificMeasureList().get(0).setVmeSpecificMeasure((u.english(text)));
 		vmeDao.saveVme(vme);
-		List<ObservationDto> list = dao.searchObservations(0, 0, 0, VmeMock.YEAR, text);
+		List<VmeDto> list = dao.searchObservations(0, 0, 0, VmeMock.YEAR, text);
 
 		assertEquals(1, list.size());
 	}

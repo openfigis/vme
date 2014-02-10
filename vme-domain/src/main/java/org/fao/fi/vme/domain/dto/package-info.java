@@ -8,4 +8,4 @@
  */
 
 
-package org.fao.fi.vme.domain.dto.observations;
+package org.fao.fi.vme.domain.dto;

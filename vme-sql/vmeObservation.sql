@@ -54,7 +54,7 @@ where
 o.cd_observation = oo.cd_observation 
 
 select count (*) from fs_vme_observation oo, fs_observation o, fs_observation_xml x
-select oo.reporting_year, o.* from fs_vme_observation oo, fs_observation o, fs_observation_xml x
+select x.xml from fs_vme_observation oo, fs_observation o, fs_observation_xml x
 where
 o.cd_observation = oo.cd_observation 
 and

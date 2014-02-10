@@ -1,7 +1,7 @@
-package org.fao.fi.vme.domain.dto.observations;
+package org.fao.fi.vme.domain.dto;
 
 
-public class ObservationDto {
+public class VmeDto {
 
 
 	private long  vmeId;	

@@ -10,7 +10,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang.StringUtils;
 import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.vme.domain.dto.observations.ObservationDto;
+import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
@@ -24,7 +24,7 @@ import org.fao.fi.vme.domain.model.VmeType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vme.service.dao.ObservationDAO;
+import org.vme.service.dao.VmeSearchDao;
 import org.vme.service.dao.ReferenceServiceException;
 import org.vme.service.dao.config.vme.VmeDB;
 import org.vme.service.dao.impl.hardcoded.ObservationHarcodedDao;
@@ -35,7 +35,7 @@ import org.vme.service.dao.sources.figis.FigisDao;
  * @author Fabrizio Sibeni
  * 
  */
-public class ObservationJpaDao implements ObservationDAO {
+public class ObservationJpaDao implements VmeSearchDao {
 	static final private Logger LOG = LoggerFactory.getLogger(ObservationHarcodedDao.class);
 
 	@VmeDB
@@ -55,7 +55,7 @@ public class ObservationJpaDao implements ObservationDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<ObservationDto> searchObservations(long authority_id, long type_id, long criteria_id, int year,
+	public List<VmeDto> searchObservations(long authority_id, long type_id, long criteria_id, int year,
 			String text) throws Exception {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
@@ -64,11 +64,11 @@ public class ObservationJpaDao implements ObservationDAO {
 				year));
 		List<Vme> result = (List<Vme>) query.getResultList();
 		List<Vme> toRemove = postPurgeResult(year, text, result);
-		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, toRemove);
+		List<VmeDto> res = convertPersistenceResult(year, (List<Vme>) result, toRemove);
 		return res;
 	}
 
-	public List<ObservationDto> getObservationById(long id, int year) {
+	public List<VmeDto> getObservationById(long id, int year) {
 		String text_query;
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
@@ -77,11 +77,11 @@ public class ObservationJpaDao implements ObservationDAO {
 		Query query = entityManager.createQuery(text_query);
 		List<?> result = query.getResultList();
 		@SuppressWarnings("unchecked")
-		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
+		List<VmeDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
 		return res;
 	}
 
-	public List<ObservationDto> getObservationByInventoryIdentifier(String inv_id, int year) {
+	public List<VmeDto> getObservationByInventoryIdentifier(String inv_id, int year) {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}
@@ -89,11 +89,11 @@ public class ObservationJpaDao implements ObservationDAO {
 		Query query = entityManager.createQuery(text_query);
 		List<?> result = query.getResultList();
 		@SuppressWarnings("unchecked")
-		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
+		List<VmeDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
 		return res;
 	}
 
-	public List<ObservationDto> getObservationByGeographicFeatureId(String geo_id, int year) {
+	public List<VmeDto> getObservationByGeographicFeatureId(String geo_id, int year) {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}
@@ -102,7 +102,7 @@ public class ObservationJpaDao implements ObservationDAO {
 		Query query = entityManager.createQuery(text_query);
 		List<?> result = query.getResultList();
 		@SuppressWarnings("unchecked")
-		List<ObservationDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
+		List<VmeDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
 		return res;
 	}
 
@@ -350,8 +350,8 @@ public class ObservationJpaDao implements ObservationDAO {
 		return false;
 	}
 
-	private List<ObservationDto> convertPersistenceResult(int year, List<Vme> result, List<Vme> toRemove) {
-		List<ObservationDto> res = new LinkedList<ObservationDto>();
+	private List<VmeDto> convertPersistenceResult(int year, List<Vme> result, List<Vme> toRemove) {
+		List<VmeDto> res = new LinkedList<VmeDto>();
 		for (Vme vme : result) {
 			if (toRemove == null || (toRemove != null && !toRemove.contains(vme))) {
 				res.add(getVmeSearchDto(vme, year));
@@ -360,8 +360,8 @@ public class ObservationJpaDao implements ObservationDAO {
 		return res;
 	}
 
-	private ObservationDto getVmeSearchDto(Vme vme, int year) {
-		ObservationDto res = new ObservationDto();
+	private VmeDto getVmeSearchDto(Vme vme, int year) {
+		VmeDto res = new VmeDto();
 		res.setVmeId(vme.getId());
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
 		res.setLocalName(u.getEnglish(vme.getName()));

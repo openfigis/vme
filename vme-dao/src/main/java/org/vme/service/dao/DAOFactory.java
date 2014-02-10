@@ -23,7 +23,7 @@ public interface DAOFactory {
 	public ReferenceDAO getReferenceDAO();
 	
 
-	public ObservationDAO getObservationDAO();
+	public VmeSearchDao getObservationDAO();
 
 //	@Produces @ConceptProvider ReferenceConceptProvider<Long> getReferenceConceptProvider();
 }
