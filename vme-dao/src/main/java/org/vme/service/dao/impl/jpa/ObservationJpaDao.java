@@ -187,8 +187,7 @@ public class ObservationJpaDao implements ObservationDAO {
 
 				if (!toBeRemoved) {
 					ValidityPeriod validityPeriod = vme.getValidityPeriod();
-					if (validityPeriod.getBeginYear() <= requested_year
-							&& validityPeriod.getEndYear() >= requested_year) {
+					if (requested_year < validityPeriod.getBeginYear() && requested_year > validityPeriod.getEndYear()) {
 						toBeRemoved = true;
 					}
 				}
@@ -197,7 +196,7 @@ public class ObservationJpaDao implements ObservationDAO {
 					toBeRemoved = containRelevantText(vme, text);
 				}
 
-				if (!toBeRemoved) {
+				if (toBeRemoved) {
 					res.add(vme);
 				}
 			}

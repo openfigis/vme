@@ -1,10 +1,13 @@
 package org.vme.service.dao.impl.jpa;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.dto.observations.ObservationDto;
+import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -39,12 +42,16 @@ public class ObservationJpaDaoTest {
 	public void testSearchObservations() throws Exception {
 		String text = "lola";
 		Vme vme = VmeMock.generateVme(1);
+
+		Authority a = new Authority();
+		a.setAcronym(vme.getRfmo().getId());
+		vmeDao.persist(a);
+
 		vme.getSpecificMeasureList().get(0).setVmeSpecificMeasure((u.english(text)));
 		vmeDao.saveVme(vme);
 		List<ObservationDto> list = dao.searchObservations(0, 0, 0, VmeMock.YEAR, text);
 
-		// TODO
-		// assertEquals(1, list.size());
+		assertEquals(1, list.size());
 	}
 
 	@Test
