@@ -11,6 +11,10 @@ import org.fao.fi.vme.domain.model.VmeType;
 import org.vme.dao.VmeReferenceDao;
 
 /**
+ * Batch will which load or update the reference data
+ * 
+ * 
+ * 
  * @author Erik van Ingen
  * 
  */
