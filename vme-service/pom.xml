@@ -27,5 +27,9 @@
 			<groupId>org.vme</groupId>
 			<artifactId>vme-configuration</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
 	</dependencies>
 </project>
