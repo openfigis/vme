@@ -8,8 +8,8 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.batch.sync2.mapping.ObjectMapping;
 import org.fao.fi.vme.domain.model.Vme;
-import org.vme.service.dao.sources.figis.FigisDao;
-import org.vme.service.dao.sources.vme.VmeDao;
+import org.vme.dao.sources.figis.FigisDao;
+import org.vme.dao.sources.vme.VmeDao;
 
 /**
  * 

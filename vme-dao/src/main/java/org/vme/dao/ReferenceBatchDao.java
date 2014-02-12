@@ -4,8 +4,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import org.vme.service.dao.config.vme.VmeDB;
-import org.vme.service.dao.impl.AbstractJPADao;
+import org.vme.dao.config.vme.VmeDB;
+import org.vme.dao.impl.AbstractJPADao;
 
 /**
  * ReferenceData DAO in order to deal with VME reference data

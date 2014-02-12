@@ -12,8 +12,8 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.service.dao.config.vme.VmeDB;
-import org.vme.service.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeDB;
+import org.vme.dao.config.vme.VmeDataBaseProducer;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class })

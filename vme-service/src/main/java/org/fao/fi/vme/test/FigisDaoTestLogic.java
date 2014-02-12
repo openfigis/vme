@@ -19,9 +19,9 @@ import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
 import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.junit.Test;
-import org.vme.service.dao.sources.figis.DefaultObservationDomain;
-import org.vme.service.dao.sources.figis.FigisDao;
-import org.vme.service.dao.sources.figis.PrimaryRule;
+import org.vme.dao.sources.figis.DefaultObservationDomain;
+import org.vme.dao.sources.figis.FigisDao;
+import org.vme.dao.sources.figis.PrimaryRule;
 
 public abstract class FigisDaoTestLogic {
 

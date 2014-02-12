@@ -9,8 +9,8 @@ import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.vme.service.dao.sources.figis.FigisDao;
-import org.vme.service.dao.sources.vme.VmeDao;
+import org.vme.dao.sources.figis.FigisDao;
+import org.vme.dao.sources.vme.VmeDao;
 
 /**
  * 

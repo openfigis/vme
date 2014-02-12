@@ -8,7 +8,7 @@ import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;
-import org.vme.service.dao.sources.vme.VmeDao;
+import org.vme.dao.sources.vme.VmeDao;
 
 /**
  * Writes a series of objects of the same class to the vme DB.

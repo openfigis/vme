@@ -20,7 +20,7 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.service.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.figis.FigisDataBaseProducer;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ FigisDataBaseProducer.class })

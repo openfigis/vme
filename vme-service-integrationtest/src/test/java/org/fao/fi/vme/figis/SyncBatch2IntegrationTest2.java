@@ -20,10 +20,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.service.dao.config.figis.FigisDataBaseProducer;
-import org.vme.service.dao.config.vme.VmeDataBaseProducer;
-import org.vme.service.dao.sources.figis.FigisDao;
-import org.vme.service.dao.sources.vme.VmeDao;
+import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.sources.figis.FigisDao;
+import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })

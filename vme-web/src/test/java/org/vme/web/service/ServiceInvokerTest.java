@@ -15,11 +15,11 @@ import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.service.dao.VmeSearchDao;
-import org.vme.service.dao.config.figis.FigisDataBaseProducer;
-import org.vme.service.dao.config.vme.VmeDataBaseProducer;
-import org.vme.service.dao.impl.jpa.VmeSearchDaoImpl;
-import org.vme.service.dao.sources.vme.VmeDao;
+import org.vme.dao.VmeSearchDao;
+import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
+import org.vme.dao.sources.vme.VmeDao;
 import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ServiceResponse;
 

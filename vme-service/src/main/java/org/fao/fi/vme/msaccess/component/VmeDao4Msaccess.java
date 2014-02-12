@@ -9,8 +9,8 @@ import javax.persistence.EntityTransaction;
 
 import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
-import org.vme.service.dao.VmeDaoException;
-import org.vme.service.dao.config.vme.VmeDB;
+import org.vme.dao.VmeDaoException;
+import org.vme.dao.config.vme.VmeDB;
 
 public class VmeDao4Msaccess {
 
