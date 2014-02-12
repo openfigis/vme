@@ -55,6 +55,11 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-configuration</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -103,7 +108,7 @@
 					<groupId>org.vme</groupId>
 					<artifactId>vme-configuration</artifactId>
 					<version>${project.version}</version>
-					<classifier>production</classifier>
+					<classifier>prod</classifier>
 					<scope>runtime</scope>
 				</dependency>
 			</dependencies>

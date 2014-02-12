@@ -19,9 +19,6 @@
         <dependent-module archiveName="vme-domain-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-domain/vme-domain">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="vme-configuration-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-configuration/vme-configuration">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="vme-web"/>
         <property name="java-output-path" value="/vme-web/target/classes"/>
     </wb-module>
