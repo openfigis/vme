@@ -56,10 +56,8 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.service.dao.HardCodedDaoFactory;
-import org.vme.service.dao.config.vme.VmeDataBaseProducer;
-import org.vme.service.dao.impl.hardcoded.ReferenceHardcodedDao;
-import org.vme.service.dao.sources.vme.VmeDao;
+import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.sources.vme.VmeDao;
 import org.vme.test.mock.VmeMocker;
 
 import com.thoughtworks.xstream.XStream;
@@ -78,15 +76,12 @@ import com.thoughtworks.xstream.XStream;
  * @since 24/nov/2013
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ HardCodedDaoFactory.class, 
-						 AnnotationBasedReportCompiler.class,
+@ActivatedAlternatives({ AnnotationBasedReportCompiler.class,
 						 ReportManagerReportBuilder.class,
 						 JEXLReportEvaluator.class,
-						 VmeDataBaseProducer.class, 
-						 HardCodedDaoFactory.class, 
+						 VmeDataBaseProducer.class,
 						 EmbeddedMsAccessConnectionProvider.class })
-@AdditionalClasses({ ReferenceHardcodedDao.class,
-					 AbstractDataConverter.class,
+@AdditionalClasses({ AbstractDataConverter.class,
 					 DateDataConverter.class,
 					 DoubleDataConverter.class,
 					 FloatDataConverter.class,

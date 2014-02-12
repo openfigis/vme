@@ -16,15 +16,13 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.runner.RunWith;
-import org.vme.service.dao.HardCodedDaoFactory;
-import org.vme.service.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseProducer;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class, 
 						 JEXLReportEvaluator.class,
 						 ReportManagerReportBuilder.class,
 						 VmeDataBaseProducer.class,
-						 HardCodedDaoFactory.class,
 						 RsgServiceImplVme.class,
 						 EmbeddedMsAccessConnectionProvider.class })
 @AdditionalClasses({ Vme.class, Rfmo.class, GeneralMeasure.class, InformationSource.class, FisheryAreasHistory.class, VMEsHistory.class })

@@ -27,7 +27,6 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.service.dao.HardCodedDaoFactory;
 
 /**
  * Place your class / interface description here.
@@ -44,8 +43,7 @@ import org.vme.service.dao.HardCodedDaoFactory;
  */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class,
-						 JEXLReportEvaluator.class,
-						 HardCodedDaoFactory.class })
+						 JEXLReportEvaluator.class })
 @AdditionalClasses({ AbstractDataConverter.class,
 					 DateDataConverter.class,
 					 DoubleDataConverter.class,

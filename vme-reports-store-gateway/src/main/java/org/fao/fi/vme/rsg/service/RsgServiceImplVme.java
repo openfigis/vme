@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.MultiLingualString;
@@ -58,7 +59,7 @@ import org.gcube.application.rsg.support.model.utils.CompiledReportUtils;
 import org.gcube.portlets.d4sreporting.common.shared.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vme.service.dao.sources.vme.VmeDao;
+import org.vme.dao.sources.vme.VmeDao;
 
 /**
  * Place your class / interface description here.
@@ -90,6 +91,8 @@ public class RsgServiceImplVme implements RsgService {
 	@Inject VmeAccessDbImport importer;
 	@Inject VmeDao vmeDao;
 
+	@Inject private ReferenceDataHardcodedBatch _referenceBatch;
+	
 	@PostConstruct
 	private void postConstruct() {
 		this._compiler.registerPrimitiveType(MultiLingualString.class);
@@ -107,6 +110,8 @@ public class RsgServiceImplVme implements RsgService {
 		//Using an in-memory database requires that data are 
 		//transferred from the original M$ Access DB into H2...
 		this.importer.importMsAccessData();
+		
+		this._referenceBatch.run();
 	}
 	
 	final private String getReportDumpPath() {

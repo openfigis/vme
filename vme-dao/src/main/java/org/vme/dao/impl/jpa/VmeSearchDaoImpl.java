@@ -22,6 +22,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.ReferenceServiceException;
@@ -41,7 +42,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	@Inject
 	private EntityManager entityManager;
 
-	@Inject
+	@Inject @ConceptProvider
 	private ReferenceDaoImpl referenceDAO;
 
 	@Inject
