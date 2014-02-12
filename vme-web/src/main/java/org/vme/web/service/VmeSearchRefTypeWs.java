@@ -14,7 +14,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
-import org.vme.service.dao.DAOFactory;
 import org.vme.service.dao.ReferenceDAO;
 import org.vme.web.service.io.ReferencesRequest;
 import org.vme.web.service.io.ServiceResponse;
@@ -27,9 +26,6 @@ import org.vme.web.service.io.ServiceResponse;
 @Path("/references/{concept}/{lang}/")
 @Singleton
 public class VmeSearchRefTypeWs {
-
-	@Inject
-	private DAOFactory factory;
 
 	@Inject
 	private ReferenceDataHardcodedBatch batch;

@@ -22,18 +22,6 @@ public class VmeSearchWs {
 	@Inject
 	private DAOFactory factory;
 
-	/*
-	 * @Inject public VmeSearchWs(VmeSearchService serv, DbBootstrapper
-	 * bootstrapper) { service = serv; try { bootstrapper.bootDb(); } catch
-	 * (Exception e) { // TODO Auto-generated catch block e.printStackTrace(); }
-	 * }
-	 */
-
-	@Inject
-	public VmeSearchWs() {
-
-	}
-
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response find(@QueryParam("text") String text, @QueryParam("authority") String id_authority,
