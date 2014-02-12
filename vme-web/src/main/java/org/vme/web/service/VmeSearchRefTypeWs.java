@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 
 import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
 import org.vme.service.dao.DAOFactory;
+import org.vme.service.dao.ReferenceDAO;
 import org.vme.web.service.io.ReferencesRequest;
 import org.vme.web.service.io.ServiceResponse;
 
@@ -33,6 +34,9 @@ public class VmeSearchRefTypeWs {
 	@Inject
 	private ReferenceDataHardcodedBatch batch;
 
+	@Inject
+	private ReferenceDAO referenceDAO;
+
 	@PostConstruct
 	public void postConstructBatch() {
 		batch.run();
@@ -45,7 +49,7 @@ public class VmeSearchRefTypeWs {
 		try {
 			ReferencesRequest refRequest = new ReferencesRequest(UUID.randomUUID());
 			refRequest.setConcept(concept);
-			ServiceResponse<?> result = ServiceInvoker.invoke(factory.getReferenceDAO(), refRequest);
+			ServiceResponse<?> result = ServiceInvoker.invoke(referenceDAO, refRequest);
 			return Response.status(200).entity(result).build();
 		} catch (Throwable t) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);

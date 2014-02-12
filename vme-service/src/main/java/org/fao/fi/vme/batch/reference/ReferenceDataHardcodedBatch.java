@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
-import org.vme.dao.VmeReferenceDao;
+import org.vme.dao.ReferenceBatchDao;
 
 /**
  * Batch will which load or update the reference data
@@ -21,7 +21,7 @@ import org.vme.dao.VmeReferenceDao;
 public class ReferenceDataHardcodedBatch {
 
 	@Inject
-	private VmeReferenceDao dao;
+	private ReferenceBatchDao dao;
 
 	public void run() {
 		createAuthorities();

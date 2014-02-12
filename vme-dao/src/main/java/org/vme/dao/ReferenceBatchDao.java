@@ -15,7 +15,7 @@ import org.vme.service.dao.impl.AbstractJPADao;
  * @author Erik van Ingen
  * 
  */
-public class VmeReferenceDao extends AbstractJPADao {
+public class ReferenceBatchDao extends AbstractJPADao {
 
 	@Inject
 	@VmeDB

@@ -15,10 +15,10 @@ import org.vme.service.dao.config.vme.VmeDataBaseProducer;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives(VmeDataBaseProducer.class)
-public class VmeReferenceDaoTest {
+public class ReferenceBatchDaoTest {
 
 	@Inject
-	VmeReferenceDao dao;
+	ReferenceBatchDao dao;
 
 	@Inject
 	@VmeDB

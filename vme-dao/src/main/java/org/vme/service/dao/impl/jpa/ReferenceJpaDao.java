@@ -3,7 +3,9 @@
  */
 package org.vme.service.dao.impl.jpa;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,28 +14,39 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
 import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.AcronymAwareReferenceConcept;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConcept;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.vme.service.dao.ReferenceDAO;
 import org.vme.service.dao.ReferenceServiceException;
 import org.vme.service.dao.config.vme.VmeDB;
-import org.vme.service.dao.impl.AbstractReferenceDAO;
 
 /**
  * @author Fabrizio Sibeni
  * 
  */
-public class ReferenceJpaDao extends AbstractReferenceDAO {
-	
+public class ReferenceJpaDao implements ReferenceDAO {
+	final static protected Logger LOG = LoggerFactory.getLogger(ReferenceJpaDao.class);
+
 	@VmeDB
 	@Inject
-	private EntityManager entityManager;
-	
+	private EntityManager em;
+
 	private Map<Integer, ReferenceYear> repYear;
 
 	public ReferenceJpaDao() {
+		this.concepts = new ArrayList<Class<? extends ReferenceConcept>>();
+
+		this.concepts.add(Authority.class);
+		this.concepts.add(VmeCriteria.class);
+		this.concepts.add(VmeType.class);
+		this.concepts.add(ReferenceYear.class);
 		repYear = this.createYears();
 	}
 
@@ -71,13 +84,13 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 	@Override
 	public <R extends ReferenceConcept> List<R> getAllReferences(Class<R> concept) throws ReferenceServiceException {
 		if (concept.equals(Authority.class)) {
-			return (List<R>)getAllAuthorities();
+			return (List<R>) getAllAuthorities();
 		} else if (concept.equals(VmeCriteria.class)) {
-			return (List<R>)getAllVmeCriterias();
+			return (List<R>) getAllVmeCriterias();
 		} else if (concept.equals(VmeType.class)) {
-			return (List<R>)getAllVmeTypes();
+			return (List<R>) getAllVmeTypes();
 		} else if (concept.equals(ReferenceYear.class)) {
-			return (List<R>)getAllYears();
+			return (List<R>) getAllYears();
 		} else {
 			throw new ReferenceServiceException("Undefined reference concept");
 		}
@@ -85,41 +98,33 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 	}
 
 	public Authority getAuthority(Long key) {
-		List<?> res = entityManager
-				.createQuery("from Authority where id = " + key)
-				.getResultList();
+		List<?> res = em.createQuery("from Authority where id = " + key).getResultList();
 		return res.size() > 0 ? (Authority) res.get(0) : null;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Authority> getAllAuthorities() {
-		return entityManager.createQuery("from Authority")
-				.getResultList();
+		return em.createQuery("from Authority").getResultList();
 	}
 
 	public VmeCriteria getVmeCriteria(Long key) {
-		List<?> res = entityManager
-				.createQuery("from VmeCriteria where id = " + key)
-				.getResultList();
+		List<?> res = em.createQuery("from VmeCriteria where id = " + key).getResultList();
 		return res.size() > 0 ? (VmeCriteria) res.get(0) : null;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<VmeCriteria> getAllVmeCriterias() {
-		return entityManager.createQuery("from VmeCriteria")
-				.getResultList();
+		return em.createQuery("from VmeCriteria").getResultList();
 	}
 
 	public VmeType getVmeType(Long key) {
-		List<?> res = entityManager
-				.createQuery("from VmeType where id = " + key).getResultList();
+		List<?> res = em.createQuery("from VmeType where id = " + key).getResultList();
 		return res.size() > 0 ? (VmeType) res.get(0) : null;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<VmeType> getAllVmeTypes() {
-		return entityManager.createQuery("from VmeType")
-				.getResultList();
+		return em.createQuery("from VmeType").getResultList();
 	}
 
 	public ReferenceYear getYear(Long key) {
@@ -137,5 +142,85 @@ public class ReferenceJpaDao extends AbstractReferenceDAO {
 			yearsMap.put(year, new ReferenceYear(year));
 
 		return yearsMap;
+	}
+
+	protected List<Class<? extends ReferenceConcept>> concepts;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.vme.service.reference.ReferenceService#getConcepts()
+	 */
+	@Override
+	final public List<Class<? extends ReferenceConcept>> getConcepts() throws ReferenceServiceException {
+		return this.concepts;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.vme.service.reference.ReferenceService#getConcept(java.lang.String)
+	 */
+	@Override
+	final public Class<? extends ReferenceConcept> getConcept(String acronym) throws ReferenceServiceException {
+		for (Class<? extends ReferenceConcept> concept : concepts) {
+			try {
+				String name = concept.getSimpleName();
+
+				if (concept.isAnnotationPresent(ReferenceConceptName.class))
+					name = concept.getAnnotation(ReferenceConceptName.class).value();
+
+				if (acronym.equalsIgnoreCase(name))
+					return concept;
+			} catch (Exception e) {
+				LOG.warn("Internal error", e);
+
+				throw new ReferenceServiceException("Internal error");
+			}
+		}
+
+		throw new ReferenceServiceException("Undefined reference ReferenceConcept");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.vme.service.reference.ReferenceService#getReferencebyAcronym(java
+	 * .lang.Class, java.lang.String)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	final public AcronymAwareReferenceConcept getReferenceByAcronym(
+			Class<? extends AcronymAwareReferenceConcept> concept, String acronym) throws ReferenceServiceException {
+		try {
+			Collection<AcronymAwareReferenceConcept> allReferenceObjects = (Collection<AcronymAwareReferenceConcept>) getAllReferences(concept);
+
+			for (ReferenceConcept reference : allReferenceObjects) {
+				if (reference instanceof AcronymAwareReferenceConcept) {
+					if (acronym.equals(((AcronymAwareReferenceConcept) reference).getAcronym()))
+						return (AcronymAwareReferenceConcept) reference;
+				}
+			}
+
+			return null;
+		} catch (Throwable t) {
+			throw new ReferenceServiceException(t);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.gcube.application.rsg.support.compiler.bridge.interfaces.reference
+	 * .ReferenceConceptProvider#getReferenceByID(java.lang.Class,
+	 * java.io.Serializable)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	final public <R extends ReferenceConcept> R getReferenceByID(Class<R> concept, Long id) throws Throwable {
+		return (R) this.getReference(concept, id);
 	}
 }
