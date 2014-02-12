@@ -11,7 +11,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.service.dao.DAOFactory;
+import org.vme.service.dao.VmeSearchDao;
 import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ServiceResponse;
 
@@ -20,24 +20,10 @@ import org.vme.web.service.io.ServiceResponse;
 public class VmeGetWs {
 
 	@Inject
-	private DAOFactory factory;
+	private VmeSearchDao vmeSearchDao;
 
-	/*
-	 * @Inject public VmeGetWs(VmeSearchService serv, DbBootstrapper
-	 * bootstrapper) { service = serv; try { bootstrapper.bootDb(); } catch
-	 * (Exception e) { // TODO Auto-generated catch block e.printStackTrace(); }
-	 * 
-	 * }
-	 */
-
-	public VmeGetWs() {
-		// factory = serv;
-	}
-
-	// @Path("/search")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	// @Produces(MediaType.TEXT_HTML)
 	public Response find(@QueryParam("id") String id, @QueryParam("year") String year,
 			@QueryParam("inventoryIdentifier") String inventoryIdentifier,
 			@QueryParam("geographicFeatureId") String geographicFeatureId) throws Exception {
@@ -67,16 +53,16 @@ public class VmeGetWs {
 		} else {
 			request.setGeographicFeatureId(null);
 		}
-		ServiceResponse<?> result = ServiceInvoker.invoke(factory.getObservationDAO(), request);
+		ServiceResponse<?> result = ServiceInvoker.invoke(vmeSearchDao, request);
 		return Response.status(200).entity(result).build();
 	}
 
 	@SuppressWarnings("unused")
 	private String produceHtmlReport(ObservationsRequest dto) {
 		return "<html> " + "<title>" + "Hello Jersey" + "</title>" + "<body><h1>" + "Hello Jersey" + "</body></h1>"
-				+ dto.getUuid() + "</br>" + "ObjectId Authority....:" + dto.getAuthority() + "</br>" + "ObjectId areatype.....:"
-				+ dto.getType() + "</br>" + "ObjectId criteria.....:" + dto.getCriteria() + "</br>" + "Year............:"
-				+ dto.getYear() + "</br>" + "</html> ";
+				+ dto.getUuid() + "</br>" + "ObjectId Authority....:" + dto.getAuthority() + "</br>"
+				+ "ObjectId areatype.....:" + dto.getType() + "</br>" + "ObjectId criteria.....:" + dto.getCriteria()
+				+ "</br>" + "Year............:" + dto.getYear() + "</br>" + "</html> ";
 	}
 
 }

@@ -11,19 +11,21 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.service.dao.JpaDaoFactory;
 import org.vme.service.dao.VmeSearchDao;
 import org.vme.service.dao.config.figis.FigisDataBaseProducer;
 import org.vme.service.dao.config.vme.VmeDataBaseProducer;
+import org.vme.service.dao.impl.jpa.VmeSearchDaoImpl;
 import org.vme.service.dao.sources.vme.VmeDao;
 import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ServiceResponse;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FigisDataBaseProducer.class, VmeDataBaseProducer.class, JpaDaoFactory.class })
+@AdditionalClasses(VmeSearchDaoImpl.class)
+@ActivatedAlternatives({ FigisDataBaseProducer.class, VmeDataBaseProducer.class })
 public class ServiceInvokerTest {
 
 	@Inject

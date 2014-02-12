@@ -11,7 +11,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.service.dao.DAOFactory;
+import org.vme.service.dao.VmeSearchDao;
 import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ServiceResponse;
 
@@ -20,7 +20,7 @@ import org.vme.web.service.io.ServiceResponse;
 public class VmeSearchWs {
 
 	@Inject
-	private DAOFactory factory;
+	private VmeSearchDao vmeSearchDao;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -50,7 +50,7 @@ public class VmeSearchWs {
 		} else {
 			request.setYear(0);
 		}
-		ServiceResponse<?> result = ServiceInvoker.invoke(factory.getObservationDAO(), request);
+		ServiceResponse<?> result = ServiceInvoker.invoke(vmeSearchDao, request);
 		return Response.status(200).entity(result).build();
 	}
 

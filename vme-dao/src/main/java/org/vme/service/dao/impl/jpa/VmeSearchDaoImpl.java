@@ -24,10 +24,9 @@ import org.fao.fi.vme.domain.model.VmeType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vme.service.dao.VmeSearchDao;
 import org.vme.service.dao.ReferenceServiceException;
+import org.vme.service.dao.VmeSearchDao;
 import org.vme.service.dao.config.vme.VmeDB;
-import org.vme.service.dao.impl.hardcoded.ObservationHarcodedDao;
 import org.vme.service.dao.sources.figis.FigisDao;
 
 /**
@@ -35,8 +34,8 @@ import org.vme.service.dao.sources.figis.FigisDao;
  * @author Fabrizio Sibeni
  * 
  */
-public class ObservationJpaDao implements VmeSearchDao {
-	static final private Logger LOG = LoggerFactory.getLogger(ObservationHarcodedDao.class);
+public class VmeSearchDaoImpl implements VmeSearchDao {
+	static final private Logger LOG = LoggerFactory.getLogger(VmeSearchDaoImpl.class);
 
 	@VmeDB
 	@Inject
@@ -50,13 +49,13 @@ public class ObservationJpaDao implements VmeSearchDao {
 
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 
-	public ObservationJpaDao() {
+	public VmeSearchDaoImpl() {
 		LOG.info("VME search engine 1.0");
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<VmeDto> searchVme(long authority_id, long type_id, long criteria_id, int year,
-			String text) throws Exception {
+	public List<VmeDto> searchVme(long authority_id, long type_id, long criteria_id, int year, String text)
+			throws Exception {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}
