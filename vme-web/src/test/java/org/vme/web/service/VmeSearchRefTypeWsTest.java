@@ -11,10 +11,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses(VmeSearchDaoImpl.class)
+@AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
 @ActivatedAlternatives({ FigisDataBaseProducer.class, VmeDataBaseProducer.class })
 public class VmeSearchRefTypeWsTest {
 

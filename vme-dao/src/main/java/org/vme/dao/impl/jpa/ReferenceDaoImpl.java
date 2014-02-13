@@ -19,7 +19,6 @@ import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.AcronymAwareReferenceConcept;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConcept;
 import org.slf4j.Logger;
@@ -32,7 +31,7 @@ import org.vme.dao.config.vme.VmeDB;
  * @author Fabrizio Sibeni
  * 
  */
-@ConceptProvider
+// @ConceptProvider
 public class ReferenceDaoImpl implements ReferenceDAO {
 	final static protected Logger LOG = LoggerFactory.getLogger(ReferenceDaoImpl.class);
 
