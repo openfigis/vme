@@ -25,7 +25,7 @@ public class FigisDataBaseProducer {
 
 	static int i = 0;
 
-	private static EntityManagerFactory factory;
+	// private static EntityManagerFactory factory;
 
 	@Produces
 	// Marks create() as a producer methods using its return type to determine
@@ -35,11 +35,12 @@ public class FigisDataBaseProducer {
 	// one EntityManagerFactory we mark it as
 	// application-scoped
 	public EntityManagerFactory create() {
-		if (factory == null) {
-			LOG.debug("=======Persistence.createEntityManagerFactory(figis-persistence)===");
-			factory = Persistence.createEntityManagerFactory("figis-persistence"); // 3
-		}
-		return factory;
+		// if (factory == null) {
+		LOG.debug("=======Persistence.createEntityManagerFactory(figis-persistence)===");
+		// factory =
+		// Persistence.createEntityManagerFactory("figis-persistence"); // 3
+		// }
+		return Persistence.createEntityManagerFactory("figis-persistence");
 	}
 
 	@Produces

@@ -64,7 +64,6 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		Query query = entityManager.createQuery(createHibernateSearchTextualQuery(authority_id, type_id, criteria_id,
 				year));
 		List<Vme> result = (List<Vme>) query.getResultList();
-		System.out.println(result.get(0).getProfileList().size());
 		List<Vme> toRemove = postPurgeResult(year, text, result);
 		List<VmeDto> res = convertPersistenceResult(year, (List<Vme>) result, toRemove);
 		return res;
