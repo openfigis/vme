@@ -1,6 +1,7 @@
 package org.vme.dao.impl.jpa;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ import org.vme.dao.sources.vme.VmeDao;
 public class VmeSearchDaoImplTest {
 
 	@Inject
-	VmeSearchDao dao;
+	private VmeSearchDao dao;
 
 	@Inject
 	private VmeDao vmeDao;
@@ -47,11 +48,38 @@ public class VmeSearchDaoImplTest {
 
 		Authority a = new Authority();
 		a.setAcronym(vme.getRfmo().getId());
+		assertTrue(vme.getProfileList().size() > 0);
+		vmeDao.persist(a);
+
+		vme.getProfileList().get(0).setDescriptionBiological(null);
+		vmeDao.saveVme(vme);
+
+		System.out.println(vme.getId());
+
+		assertTrue(vmeDao.findVme(vme.getId()).getProfileList().size() > 0);
+
+		List<VmeDto> list = dao.searchVme(0, 0, 0, VmeMock.YEAR, text);
+		vme.getSpecificMeasureList().get(0).setVmeSpecificMeasure((u.english(text)));
+
+		list = dao.searchVme(0, 0, 0, VmeMock.YEAR, text);
+		assertEquals(1, list.size());
+	}
+
+	@Test
+	public void testSearchVmeYear() throws Exception {
+		int year = 2012;
+		String text = "lola";
+		Vme vme = VmeMock.generateVme(1);
+		vme.getValidityPeriod().setBeginYear(year);
+		vme.getValidityPeriod().setEndYear(year);
+
+		Authority a = new Authority();
+		a.setAcronym(vme.getRfmo().getId());
 		vmeDao.persist(a);
 
 		vme.getSpecificMeasureList().get(0).setVmeSpecificMeasure((u.english(text)));
 		vmeDao.saveVme(vme);
-		List<VmeDto> list = dao.searchVme(0, 0, 0, VmeMock.YEAR, text);
+		List<VmeDto> list = dao.searchVme(0, 0, 0, year + 1, text);
 
 		assertEquals(1, list.size());
 	}
@@ -67,16 +95,40 @@ public class VmeSearchDaoImplTest {
 	@Test
 	public void testSearchVmeAuthority() throws Exception {
 		long authority_id = 20010l;
-
-		Authority a = new Authority();
-		a.setId((int) authority_id);
-		vmeDao.persist(a);
-
-		// authority_id 20010 type_id 10 criteria_id 0 year 2012 text null
 		long type_id = 10l;
 		long criteria_id = 0l;
 		int year = 2012;
 		String text = null;
+		List<VmeDto> list = dao.searchVme(authority_id, type_id, criteria_id, year, text);
+		assertEquals(0, list.size());
+
+	}
+
+	@Test
+	public void testSearchVmeNullText() throws Exception {
+
+		long authority_id = 0l;
+		long type_id = 0l;
+		long criteria_id = 0l;
+		int year = 0;
+		String text = null;
+		List<VmeDto> list = dao.searchVme(authority_id, type_id, criteria_id, year, text);
+		assertEquals(0, list.size());
+
+	}
+
+	/**
+	 * 
+	 * authority_id 0 type_id 0 criteria_id 0 year 2014 text "lophelia"
+	 */
+	@Test
+	public void testSearchVmeOnlyText() throws Exception {
+
+		long authority_id = 0l;
+		long type_id = 0l;
+		long criteria_id = 0l;
+		int year = 0;
+		String text = "lophelia";
 		List<VmeDto> list = dao.searchVme(authority_id, type_id, criteria_id, year, text);
 		assertEquals(0, list.size());
 

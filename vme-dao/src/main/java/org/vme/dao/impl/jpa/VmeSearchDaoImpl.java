@@ -64,6 +64,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		Query query = entityManager.createQuery(createHibernateSearchTextualQuery(authority_id, type_id, criteria_id,
 				year));
 		List<Vme> result = (List<Vme>) query.getResultList();
+		System.out.println(result.get(0).getProfileList().size());
 		List<Vme> toRemove = postPurgeResult(year, text, result);
 		List<VmeDto> res = convertPersistenceResult(year, (List<Vme>) result, toRemove);
 		return res;
@@ -110,14 +111,13 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	private String createHibernateSearchTextualQuery(long authority_id, long type_id, long criteria_id, int year)
 			throws Exception {
 		StringBuffer txtQuery = new StringBuffer(200);
-		String conjunction;
+		String conjunction = " where";
+
 		txtQuery.append("Select vme from Vme vme");
-		if (authority_id > 0 || type_id > 0 || criteria_id > 0) {
-			txtQuery.append(" where");
-			conjunction = "";
-		} else {
-			return txtQuery.toString();
-		}
+		// if (authority_id > 0 || type_id > 0 || criteria_id > 0) {
+		// txtQuery.append(" where");
+		// conjunction = "";
+		// }
 
 		if (authority_id > 0) {
 			Authority vmeAuthority = (Authority) entityManager.find(Authority.class, (int) authority_id);
@@ -155,10 +155,11 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			}
 		}
 
-		txtQuery.append(" AND vme.validityPeriod.beginYear <= ");
+		txtQuery.append(conjunction);
+		txtQuery.append(" vme.validityPeriod.beginYear <= ");
 		txtQuery.append(year);
-		txtQuery.append(" AND vme.validityPeriod.endYear >= ");
-		txtQuery.append(year);
+		// txtQuery.append(" AND vme.validityPeriod.endYear >= ");
+		// txtQuery.append(year);
 
 		String res = txtQuery.toString();
 		LOG.debug("FAB: {}", res);
@@ -166,16 +167,25 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	}
 
 	private List<Vme> postPurgeResult(int year, String text, List<Vme> result) {
-		int requested_year = year;
 		List<Vme> res = new LinkedList<Vme>();
 		// Patch placed to solve VME-10 JIRA issue.
 		for (Vme vme : result) {
+			// this adds all the SIODFA vmes to the list to be removed.
 			if (vme.getRfmo().getId().trim().equals("SIODFA")) {
 				res.add(vme);
 			}
 		}
-		if (requested_year > 0) {
+		if (year > 0) {
 			for (Vme vme : result) {
+
+				if (vme.getRfmo().getId().equals("SEAFO")) {
+					System.out.println(vme.getRfmo().getId());
+				}
+				if (vme.getId().equals(1109)) {
+					System.out.println(vme.getRfmo().getId());
+				}
+				System.out.println(vme.getRfmo().getId());
+
 				boolean toBeRemoved = false;
 				List<GeoRef> georef = vme.getGeoRefList();
 
@@ -184,7 +194,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 				// removed? Probably it is the other way around:
 				boolean matchingGeoRefyear = false;
 				for (GeoRef profile : georef) {
-					if (profile.getYear() == requested_year) {
+					if (year >= profile.getYear()) {
 						matchingGeoRefyear = true;
 					}
 				}
@@ -194,14 +204,16 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 
 				if (!toBeRemoved) {
 					ValidityPeriod validityPeriod = vme.getValidityPeriod();
-					if (requested_year < validityPeriod.getBeginYear() && requested_year > validityPeriod.getEndYear()) {
+					if (year < validityPeriod.getBeginYear()) {
 						toBeRemoved = true;
 					}
 				}
 
-				if (toBeRemoved && (text != null && !text.equals(""))) {
-					toBeRemoved = containRelevantText(vme, text);
+				if (!toBeRemoved && text != null && !text.equals("")) {
+					toBeRemoved = !containRelevantText(vme, text);
 				}
+
+				// System.out.println(vme.getRfmo().getId());
 
 				if (toBeRemoved) {
 					res.add(vme);
@@ -212,6 +224,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	}
 
 	private boolean containRelevantText(Vme vme, String text) {
+
 		if (StringUtils.containsIgnoreCase(vme.getAreaType(), text))
 			return true;
 		if (StringUtils.containsIgnoreCase(vme.getCriteria(), text))
@@ -232,18 +245,25 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			if (StringUtils.containsIgnoreCase(element, text))
 				return true;
 		}
+
 		for (Profile profile : vme.getProfileList()) {
-			for (String element : profile.getDescriptionBiological().getStringMap().values()) {
-				if (StringUtils.containsIgnoreCase(element, text))
-					return true;
+			if (profile.getDescriptionBiological() != null) {
+				for (String element : profile.getDescriptionBiological().getStringMap().values()) {
+					if (StringUtils.containsIgnoreCase(element, text))
+						return true;
+				}
 			}
-			for (String element : profile.getDescriptionImpact().getStringMap().values()) {
-				if (StringUtils.containsIgnoreCase(element, text))
-					return true;
+			if (profile.getDescriptionImpact() != null) {
+				for (String element : profile.getDescriptionImpact().getStringMap().values()) {
+					if (StringUtils.containsIgnoreCase(element, text))
+						return true;
+				}
 			}
-			for (String element : profile.getDescriptionPhisical().getStringMap().values()) {
-				if (StringUtils.containsIgnoreCase(element, text))
-					return true;
+			if (profile.getDescriptionPhisical() != null) {
+				for (String element : profile.getDescriptionPhisical().getStringMap().values()) {
+					if (StringUtils.containsIgnoreCase(element, text))
+						return true;
+				}
 			}
 		}
 

@@ -22,34 +22,30 @@ import org.slf4j.LoggerFactory;
 @Alternative
 public class FigisDataBaseProducer {
 	static final private Logger LOG = LoggerFactory.getLogger(FigisDataBaseProducer.class);
-	
+
 	static int i = 0;
 
-	// private static EntityManagerFactory factory;
+	private static EntityManagerFactory factory;
 
 	@Produces
-	// Marks create() as a producer methods using its return type to determine what type of beans it can produce.
+	// Marks create() as a producer methods using its return type to determine
+	// what type of beans it can produce.
 	@ApplicationScoped
-	// The scope of the produced bean, in our case since we want to have only one EntityManagerFactory we mark it as
+	// The scope of the produced bean, in our case since we want to have only
+	// one EntityManagerFactory we mark it as
 	// application-scoped
 	public EntityManagerFactory create() {
-		return Persistence.createEntityManagerFactory("figis-persistence"); // 3
+		if (factory == null) {
+			LOG.debug("=======Persistence.createEntityManagerFactory(figis-persistence)===");
+			factory = Persistence.createEntityManagerFactory("figis-persistence"); // 3
+		}
+		return factory;
 	}
 
 	@Produces
 	@FigisDB
 	public EntityManager produceEntityManager() {
-		LOG.debug("=====================================================");
-		LOG.debug("=====================================================");
-		LOG.debug("=====================================================");
-		LOG.debug("=====================================================");
-		LOG.debug("=====================================================");
-		LOG.debug("=====================================================");
-		LOG.debug("=====================================================");
-		LOG.debug("=====================================================");
-		LOG.debug("=====================================================");
-		LOG.debug("=====================================================called this number of times" + ++i);
-
+		LOG.debug("======= create().createEntityManager()===");
 		return create().createEntityManager();
 	}
 

@@ -17,25 +17,30 @@ import javax.persistence.Persistence;
 @Alternative
 public class VmeDataBaseProducer {
 
-	// private static EntityManagerFactory factory;
+	private static EntityManagerFactory factory;
+	private static EntityManager entityManager;
 
 	@Produces
-	// Marks create() as a producer methods using its return type to determine what type of beans it can produce.
+	// Marks create() as a producer methods using its return type to determine
+	// what type of beans it can produce.
 	@ApplicationScoped
-	// The scope of the produced bean, in our case since we want to have only one EntityManagerFactory we mark it as
+	// The scope of the produced bean, in our case since we want to have only
+	// one EntityManagerFactory we mark it as
 	// application-scoped
 	public EntityManagerFactory create() {
-		// if (factory == null) {
-		// factory = Persistence.createEntityManagerFactory("vme-persistence");
-		// }
-		// return factory;
-		return Persistence.createEntityManagerFactory("vme-persistence");
+		if (factory == null) {
+			factory = Persistence.createEntityManagerFactory("vme-persistence");
+		}
+		return factory;
 	}
 
 	@Produces
 	@VmeDB
 	public EntityManager produceEntityManager() {
-		return create().createEntityManager();
+		if (entityManager == null) {
+			entityManager = create().createEntityManager();
+		}
+		return entityManager;
 	}
 
 }
