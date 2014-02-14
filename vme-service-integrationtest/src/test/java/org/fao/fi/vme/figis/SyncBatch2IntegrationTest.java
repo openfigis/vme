@@ -27,8 +27,6 @@ import org.vme.dao.sources.vme.VmeDao;
 @ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
 public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 
-	private static int INSERTED = 1;
-
 	@Inject
 	SyncBatch2 syncBatch2;
 
