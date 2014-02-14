@@ -35,6 +35,7 @@ import org.vme.dao.sources.figis.FigisDao;
  * @author Fabrizio Sibeni
  * 
  */
+
 public class VmeSearchDaoImpl implements VmeSearchDao {
 	static final private Logger LOG = LoggerFactory.getLogger(VmeSearchDaoImpl.class);
 
