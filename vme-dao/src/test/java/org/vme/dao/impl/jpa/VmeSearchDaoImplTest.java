@@ -24,7 +24,7 @@ import org.vme.dao.sources.vme.VmeDao;
 @RunWith(CdiRunner.class)
 @AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
 @ActivatedAlternatives({ FigisDataBaseProducer.class, VmeDataBaseProducer.class })
-public class ObservationJpaDaoTest {
+public class VmeSearchDaoImplTest {
 
 	@Inject
 	VmeSearchDao dao;
@@ -41,7 +41,7 @@ public class ObservationJpaDaoTest {
 	 * @throws Exception
 	 */
 	@Test
-	public void testSearchObservations() throws Exception {
+	public void testSearchVme() throws Exception {
 		String text = "lola";
 		Vme vme = VmeMock.generateVme(1);
 
@@ -54,6 +54,32 @@ public class ObservationJpaDaoTest {
 		List<VmeDto> list = dao.searchVme(0, 0, 0, VmeMock.YEAR, text);
 
 		assertEquals(1, list.size());
+	}
+
+	/**
+	 * Solving Authority problem
+	 * 
+	 * 
+	 * 
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testSearchVmeAuthority() throws Exception {
+		long authority_id = 20010l;
+
+		Authority a = new Authority();
+		a.setId((int) authority_id);
+		vmeDao.persist(a);
+
+		// authority_id 20010 type_id 10 criteria_id 0 year 2012 text null
+		long type_id = 10l;
+		long criteria_id = 0l;
+		int year = 2012;
+		String text = null;
+		List<VmeDto> list = dao.searchVme(authority_id, type_id, criteria_id, year, text);
+		assertEquals(0, list.size());
+
 	}
 
 	@Test

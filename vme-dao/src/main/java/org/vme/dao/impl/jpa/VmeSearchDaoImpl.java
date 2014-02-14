@@ -120,33 +120,39 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		}
 
 		if (authority_id > 0) {
-			Authority vmeAuthority = (Authority) entityManager.getReference(Authority.class, (int) authority_id);
-			String authority = vmeAuthority.getAcronym();
-			txtQuery.append(conjunction);
-			txtQuery.append(" vme.rfmo.id = '");
-			txtQuery.append(authority);
-			txtQuery.append("'");
-			conjunction = " AND";
+			Authority vmeAuthority = (Authority) entityManager.find(Authority.class, (int) authority_id);
+			if (vmeAuthority != null) {
+				String authority = vmeAuthority.getAcronym();
+				txtQuery.append(conjunction);
+				txtQuery.append(" vme.rfmo.id = '");
+				txtQuery.append(authority);
+				txtQuery.append("'");
+				conjunction = " AND";
+			}
 		}
 
 		if (criteria_id > 0) {
-			VmeCriteria vmeCriteria = (VmeCriteria) entityManager.getReference(VmeCriteria.class, (int) criteria_id);
-			String criteria = vmeCriteria.getName();
-			txtQuery.append(conjunction);
-			txtQuery.append(" vme.criteria = '");
-			txtQuery.append(criteria);
-			txtQuery.append("'");
-			conjunction = " AND";
+			VmeCriteria vmeCriteria = (VmeCriteria) entityManager.find(VmeCriteria.class, (int) criteria_id);
+			if (vmeCriteria != null) {
+				String criteria = vmeCriteria.getName();
+				txtQuery.append(conjunction);
+				txtQuery.append(" vme.criteria = '");
+				txtQuery.append(criteria);
+				txtQuery.append("'");
+				conjunction = " AND";
+			}
 		}
 
 		if (type_id > 0) {
-			VmeType vmeType = (VmeType) entityManager.getReference(VmeType.class, (int) type_id);
-			String areaType = vmeType.getName();
-			txtQuery.append(conjunction);
-			txtQuery.append("  vme.areaType = '");
-			txtQuery.append(areaType);
-			txtQuery.append("'");
-			conjunction = " AND";
+			VmeType vmeType = (VmeType) entityManager.find(VmeType.class, (int) type_id);
+			if (vmeType != null) {
+				String areaType = vmeType.getName();
+				txtQuery.append(conjunction);
+				txtQuery.append("  vme.areaType = '");
+				txtQuery.append(areaType);
+				txtQuery.append("'");
+				conjunction = " AND";
+			}
 		}
 
 		txtQuery.append(" AND vme.validityPeriod.beginYear <= ");
