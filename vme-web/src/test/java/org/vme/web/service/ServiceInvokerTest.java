@@ -18,13 +18,14 @@ import org.junit.runner.RunWith;
 import org.vme.dao.VmeSearchDao;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ServiceResponse;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses(VmeSearchDaoImpl.class)
+@AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
 @ActivatedAlternatives({ FigisDataBaseProducer.class, VmeDataBaseProducer.class })
 public class ServiceInvokerTest {
 
