@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import org.fao.fi.vme.domain.model.ObjectId;
@@ -32,12 +31,16 @@ public abstract class AbstractJPADao implements Dao {
 	public <E> E getEntityById(EntityManager em, Class<E> entity, Object id) {
 		Map<String, Object> idCriteria = new HashMap<String, Object>();
 		idCriteria.put("id", id);
+		// try {
+		// return (E) this.generateFilteringTypedQuery(em, entity,
+		// idCriteria).getSingleResult();
+		// } catch (NoResultException NRe) {
+		// return null;
+		// }
+		// Sonar laments about the above (Exception handlers should provide some
+		// context and preserve the original exception ), therefore:
+		return (E) this.generateFilteringTypedQuery(em, entity, idCriteria).getSingleResult();
 
-		try {
-			return (E) this.generateFilteringTypedQuery(em, entity, idCriteria).getSingleResult();
-		} catch (NoResultException NRe) {
-			return null;
-		}
 	}
 
 	@Override
