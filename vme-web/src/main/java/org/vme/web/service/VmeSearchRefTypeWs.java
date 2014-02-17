@@ -45,9 +45,10 @@ public class VmeSearchRefTypeWs {
 		try {
 			ReferencesRequest refRequest = new ReferencesRequest(UUID.randomUUID());
 			refRequest.setConcept(concept);
-			ServiceResponse<?> result = ServiceInvoker.invoke(referenceDAO, refRequest);
+			ServiceResponse<?> result;
+			result = ServiceInvoker.invoke(referenceDAO, refRequest);
 			return Response.status(200).entity(result).build();
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
 
