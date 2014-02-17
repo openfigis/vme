@@ -27,19 +27,17 @@ public class ServiceInvoker {
 		if (request.getId() > 0) {
 			result.addElements(service.getVmeById(request.getId(), request.getYear()));
 		} else if (request.hasInventoryIdentifier()) {
-			result.addElements(service.getVmeByInventoryIdentifier(request.getInventoryIdentifier(),
-					request.getYear()));
+			result.addElements(service.getVmeByInventoryIdentifier(request.getInventoryIdentifier(), request.getYear()));
 		} else if (request.hasGeographicFeatureId()) {
-			result.addElements(service.getVmeByGeographicFeatureId(request.getGeographicFeatureId(),
-					request.getYear()));
+			result.addElements(service.getVmeByGeographicFeatureId(request.getGeographicFeatureId(), request.getYear()));
 		} else {
-			result.addElements(service.searchVme(request.getAuthority(), request.getType(),
-					request.getCriteria(), request.getYear(), request.getText()));
+			result.addElements(service.searchVme(request.getAuthority(), request.getType(), request.getCriteria(),
+					request.getYear(), request.getText()));
 		}
 		return result;
 	}
 
-	public static ServiceResponse<?> invoke(ReferenceDAO service, ReferencesRequest request) throws Throwable {
+	public static ServiceResponse<?> invoke(ReferenceDAO service, ReferencesRequest request) throws Exception {
 		Class<? extends ReferenceConcept> conceptClass = service.getConcept(request.getConcept());
 		ServiceResponse<?> result = null;
 		if (conceptClass.equals(Authority.class)) {

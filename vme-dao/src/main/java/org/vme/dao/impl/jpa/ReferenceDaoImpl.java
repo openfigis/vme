@@ -206,7 +206,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 			}
 
 			return null;
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			throw new ReferenceServiceException(t);
 		}
 	}
@@ -221,7 +221,8 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	final public <R extends ReferenceConcept> R getReferenceByID(Class<R> concept, Long id) throws Throwable {
+	final public <R extends ReferenceConcept> R getReferenceByID(Class<R> concept, Long id)
+			throws ReferenceServiceException {
 		return (R) this.getReference(concept, id);
 	}
 }
