@@ -2,10 +2,6 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-	<!-- The vme project has 3 duplicates of this same file in these locations: -->
-	<!--/vme-configuration/src/main/resources/META-INF/persistence.xml -->
-	<!--/vme-service-integrationtest/src/test/resources/META-INF/persistence.xml -->
-	<!--/vme-web/src/test/resources/META-INF/persistence.xml -->
 
 
 
@@ -37,6 +33,13 @@
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.ejb.entitymanager_factory_name" value="vme_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="VME" />
+
+			<property name="hibernate.c3p0.max_size" value="100" />
+			<property name="hibernate.c3p0.min_size" value="0" />
+			<property name="hibernate.c3p0.acquire_increment" value="1" />
+			<property name="hibernate.c3p0.idle_test_period" value="300" />
+			<property name="hibernate.c3p0.max_statements" value="0" />
+			<property name="hibernate.c3p0.timeout" value="100" />
 		</properties>
 
 	</persistence-unit>
@@ -66,6 +69,15 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="FIGIS" />
+
+
+			<property name="hibernate.c3p0.max_size" value="100" />
+			<property name="hibernate.c3p0.min_size" value="0" />
+			<property name="hibernate.c3p0.acquire_increment" value="1" />
+			<property name="hibernate.c3p0.idle_test_period" value="300" />
+			<property name="hibernate.c3p0.max_statements" value="0" />
+			<property name="hibernate.c3p0.timeout" value="100" />
+
 
 		</properties>
 
