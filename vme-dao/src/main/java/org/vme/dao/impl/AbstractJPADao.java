@@ -39,7 +39,11 @@ public abstract class AbstractJPADao implements Dao {
 		// }
 		// Sonar laments about the above (Exception handlers should provide some
 		// context and preserve the original exception ), therefore:
-		return (E) this.generateFilteringTypedQuery(em, entity, idCriteria).getSingleResult();
+		E result = null;
+		if (this.generateFilteringTypedQuery(em, entity, idCriteria).getResultList().size() == 1) {
+			result = this.generateFilteringTypedQuery(em, entity, idCriteria).getSingleResult();
+		}
+		return result;
 
 	}
 

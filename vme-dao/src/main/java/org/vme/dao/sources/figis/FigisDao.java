@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 
@@ -280,10 +279,8 @@ public class FigisDao extends AbstractJPADao {
 		query.setParameter("vmeId", vmeId);
 		query.setParameter("reportingYear", Integer.toString(reportingYear));
 		VmeObservation vo = null;
-		try {
+		if (query.getResultList().size() == 1) {
 			vo = (VmeObservation) query.getSingleResult();
-		} catch (NoResultException e) {
-			// is valid, a new object needs to be created.
 		}
 		return vo;
 	}
@@ -300,13 +297,9 @@ public class FigisDao extends AbstractJPADao {
 		query.setParameter("vmeId", vmeId);
 		query.setParameter("year", year);
 		VmeObservation vo = null;
-		try {
-			List<?> list = query.getResultList();
-			if (list.size() > 0) {
-				vo = (VmeObservation) list.get(0);
-			}
-		} catch (NoResultException e) {
-			// is valid, a new object needs to be created.
+		List<?> list = query.getResultList();
+		if (list.size() > 0) {
+			vo = (VmeObservation) list.get(0);
 		}
 		return vo;
 	}
@@ -327,11 +320,7 @@ public class FigisDao extends AbstractJPADao {
 		Query query = em.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId ");
 		query.setParameter("vmeId", vmeId);
 		List<VmeObservation> r = null;
-		try {
-			r = query.getResultList();
-		} catch (NoResultException e) {
-			// is valid, a new object needs to be created.
-		}
+		r = query.getResultList();
 
 		return r;
 	}
@@ -401,9 +390,9 @@ public class FigisDao extends AbstractJPADao {
 		query.setParameter("externalId", externalId);
 		RefWaterArea found = null;
 		try {
-			found = (RefWaterArea) query.getSingleResult();
-		} catch (NoResultException e) {
-			// is valid, a new object needs to be created.
+			if (query.getResultList().size() == 1) {
+				found = (RefWaterArea) query.getSingleResult();
+			}
 		} catch (NonUniqueResultException e) {
 			// elements are not unique!
 			throw new VmeException(externalId + " is not unique, data is not consisten!");
