@@ -345,7 +345,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 		if (this.url == null) {
 			if (other.url != null)
 				return false;
-		} else if (!this.url.equals(other.url))
+		} else if (!this.url.toString().equals(other.url.toString()))
 			return false;
 		return true;
 	}
