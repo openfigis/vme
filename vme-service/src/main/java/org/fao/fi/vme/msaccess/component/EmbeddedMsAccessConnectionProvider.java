@@ -86,14 +86,14 @@ public class EmbeddedMsAccessConnectionProvider extends MsAccessConnectionProvid
 			return temp.getAbsolutePath();
 		} catch (FileNotFoundException FNFe) {
 			throw new RuntimeException(FNFe);
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			throw new RuntimeException("Unable to copy embedded VME access file " + DEFAULT_MS_ACCESS_DB_RESOURCE
 					+ " to temp file: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]", t);
 		} finally {
 			if (is != null) {
 				try {
 					is.close();
-				} catch (Throwable tt) {
+				} catch (Exception tt) {
 					LOG.warn("Unable to close input stream", tt);
 				}
 			}
@@ -101,7 +101,7 @@ public class EmbeddedMsAccessConnectionProvider extends MsAccessConnectionProvid
 			if (fos != null) {
 				try {
 					fos.close();
-				} catch (Throwable tt) {
+				} catch (Exception tt) {
 					LOG.warn("Unable to close file output stream", tt);
 				}
 			}
