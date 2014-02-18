@@ -22,6 +22,7 @@ public class VmeMock {
 	// public final static Long VME_ID = 2000l;
 	public final static int YEAR = 2000;
 	public final static String INVENTORY_ID = "VME_RFMO_1";
+	public final static String INVENTORY_ID_YEAR = INVENTORY_ID + "_" + YEAR;
 
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
@@ -134,7 +135,7 @@ public class VmeMock {
 				geoRef.setVme(vme);
 
 				geoRef.setYear(year);
-				geoRef.setGeographicFeatureID(INVENTORY_ID + "_" + YEAR);
+				geoRef.setGeographicFeatureID(INVENTORY_ID_YEAR);
 				geoRefList.add(geoRef);
 			}
 

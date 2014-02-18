@@ -73,7 +73,7 @@ public class VmeDao extends AbstractJPADao {
 		// try {
 		et.begin();
 
-		if (vme.getRfmo() != null) {
+		if (vme.getRfmo() != null && vme.getRfmo().getGeneralMeasureList() != null) {
 			for (GeneralMeasure o : vme.getRfmo().getGeneralMeasureList()) {
 				em.persist(o);
 			}

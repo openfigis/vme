@@ -1,6 +1,4 @@
 drop table information_source CASCADE CONSTRAINTS;
-drop table vme_geo_ref CASCADE CONSTRAINTS;
-drop table geo_ref CASCADE CONSTRAINTS;
 drop table specific_measure CASCADE CONSTRAINTS;
 drop table general_measure CASCADE CONSTRAINTS;
 drop table profile CASCADE CONSTRAINTS;
@@ -13,6 +11,11 @@ drop table vme_specific_measure CASCADE CONSTRAINTS;
 drop table vmes_history CASCADE CONSTRAINTS;
 drop table gm_is ;
 drop table is_sm ;
+drop table authority;
+drop table vme_criteria;
+drop table vme_type;
+
+
 
 
 
