@@ -61,7 +61,7 @@ public class VmeSearchRefTypeWs {
 		try {
 			batch.run();
 			return Response.status(200).entity("ReferenceDataHardcodedBatch run successfully").build();
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);
 		}
 	}
