@@ -40,10 +40,16 @@ import org.vme.dao.sources.figis.FigisDao;
 public class VmeSearchDaoImpl implements VmeSearchDao {
 	static final private Logger LOG = LoggerFactory.getLogger(VmeSearchDaoImpl.class);
 
-	@Inject	@VmeDB private EntityManager entityManager;
-	@Inject @ConceptProvider private ReferenceDAO referenceDAO;
+	@Inject
+	@VmeDB
+	private EntityManager entityManager;
 
-	@Inject private FigisDao figisDao;
+	@Inject
+	@ConceptProvider
+	private ReferenceDAO referenceDAO;
+
+	@Inject
+	private FigisDao figisDao;
 
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 
@@ -103,7 +109,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		@SuppressWarnings("unchecked")
 		List<Vme> result = entityManager.createQuery(text_query).getResultList();
 
-		List<VmeDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
+		List<VmeDto> res = convertPersistenceResult(year, result, null);
 		return res;
 	}
 
@@ -420,7 +426,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginYear());
 		res.setValidityPeriodTo(vme.getValidityPeriod().getEndYear());
 		res.setVmeType(vme.getAreaType());
-		res.setYear(year);
+		res.setYear(vme.getGeoRefList().get(0).getYear());
 		res.setGeographicFeatureId(vme.getGeoRefList().size() > 0 ? vme.getGeoRefList().get(0).getGeographicFeatureID()
 				: "");
 		return res;
