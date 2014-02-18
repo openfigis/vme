@@ -50,5 +50,9 @@
 			<version>1.4.5</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-configuration</artifactId>
+		</dependency>
 	</dependencies>
 </project>

@@ -22,6 +22,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.ReferenceDAO;
@@ -39,16 +40,10 @@ import org.vme.dao.sources.figis.FigisDao;
 public class VmeSearchDaoImpl implements VmeSearchDao {
 	static final private Logger LOG = LoggerFactory.getLogger(VmeSearchDaoImpl.class);
 
-	@VmeDB
-	@Inject
-	private EntityManager entityManager;
+	@Inject	@VmeDB private EntityManager entityManager;
+	@Inject @ConceptProvider private ReferenceDAO referenceDAO;
 
-	// @ConceptProvider
-	@Inject
-	private ReferenceDAO referenceDAO;
-
-	@Inject
-	private FigisDao figisDao;
+	@Inject private FigisDao figisDao;
 
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 

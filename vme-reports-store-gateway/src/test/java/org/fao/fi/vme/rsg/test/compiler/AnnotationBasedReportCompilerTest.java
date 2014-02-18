@@ -27,6 +27,8 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 /**
  * Place your class / interface description here.
@@ -43,7 +45,8 @@ import org.junit.runner.RunWith;
  */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class,
-						 JEXLReportEvaluator.class })
+						 JEXLReportEvaluator.class,
+						 VmeDataBaseProducer.class })
 @AdditionalClasses({ AbstractDataConverter.class,
 					 DateDataConverter.class,
 					 DoubleDataConverter.class,
@@ -51,7 +54,8 @@ import org.junit.runner.RunWith;
 					 IntegerDataConverter.class,
 					 LongDataConverter.class,
 					 StringDataConverter.class,
-					 URLDataConverter.class })
+					 URLDataConverter.class,
+					 ReferenceDaoImpl.class })
 public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependentTest {
 	@Test
 	public void testCompileReport() throws Throwable {

@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.vme.dao.ReferenceDAO;
 import org.vme.web.service.io.ReferencesRequest;
 import org.vme.web.service.io.ServiceResponse;
@@ -30,7 +31,7 @@ public class VmeSearchRefTypeWs {
 	@Inject
 	private ReferenceDataHardcodedBatch batch;
 
-	@Inject
+	@Inject @ConceptProvider
 	private ReferenceDAO referenceDAO;
 
 	@PostConstruct

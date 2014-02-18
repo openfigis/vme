@@ -57,6 +57,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 import org.vme.test.mock.VmeMocker;
 
@@ -88,7 +89,8 @@ import com.thoughtworks.xstream.XStream;
 					 IntegerDataConverter.class,
 					 LongDataConverter.class,
 					 StringDataConverter.class,
-					 URLDataConverter.class })
+					 URLDataConverter.class,
+					 ReferenceDaoImpl.class })
 public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTest {
 	@Inject private VmeAccessDbImport _importer;
 	@Inject private VmeDao _vmeDao;
