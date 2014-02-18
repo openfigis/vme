@@ -403,6 +403,11 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		String authority_acronym = vme.getRfmo().getId();
 		try {
 			Authority authority = (Authority) referenceDAO.getReferenceByAcronym(Authority.class, authority_acronym);
+
+			if (authority == null) {
+				System.out.println();
+			}
+
 			res.setOwner(authority.getName());
 		} catch (ReferenceServiceException e) {
 			res.setOwner(authority_acronym);

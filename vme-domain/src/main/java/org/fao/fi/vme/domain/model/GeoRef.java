@@ -21,7 +21,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  * 
  */
 @RSGReferenced
-@Entity(name = "GEOREF")
+@Entity
 public class GeoRef implements ObjectId<Long>, Year<GeoRef> {
 
 	@RSGIdentifier
