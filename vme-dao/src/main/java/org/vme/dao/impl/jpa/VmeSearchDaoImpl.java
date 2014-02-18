@@ -99,11 +99,15 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}
-		String text_query = "SELECT vme from Vme vme, GEO_REF gfl WHERE vme = gfl.vme and gfl IN (SELECT gfl from GEO_REF WHERE gfl.geographicFeatureID = '"
-				+ geo_id + "')";
-		Query query = entityManager.createQuery(text_query);
-		List<?> result = query.getResultList();
+		// String text_query =
+		// "SELECT vme from Vme vme, GEO_REF gfl WHERE vme = gfl.vme and gfl IN (SELECT gfl from GEO_REF WHERE gfl.geographicFeatureID = '"
+		// + geo_id + "')";
+		String text_query = "select OBJECT(v) from Vme v join v.geoRefList g where g.geographicFeatureID =  '" + geo_id
+				+ "')";
+
 		@SuppressWarnings("unchecked")
+		List<Vme> result = entityManager.createQuery(text_query).getResultList();
+
 		List<VmeDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
 		return res;
 	}
@@ -380,8 +384,11 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	private List<VmeDto> convertPersistenceResult(int year, List<Vme> result, List<Vme> toRemove) {
 		List<VmeDto> res = new LinkedList<VmeDto>();
 		for (Vme vme : result) {
-			if (toRemove == null || (toRemove != null && !toRemove.contains(vme))) {
-				res.add(getVmeSearchDto(vme, year));
+			VmeDto dto = getVmeSearchDto(vme, year);
+			if (toRemove == null || toRemove != null && !toRemove.contains(vme)) {
+				if (!res.contains(dto)) {
+					res.add(dto);
+				}
 			}
 		}
 		return res;

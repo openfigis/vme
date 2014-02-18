@@ -1,5 +1,6 @@
 package org.vme.dao.config.vme;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
@@ -14,14 +15,14 @@ import javax.persistence.Persistence;
  * 
  */
 @Alternative
-public class VmeDataBaseProducer {
+public class VmeDataBaseProducerApplicationScope {
 
 	// private static EntityManagerFactory factory;
 
 	@Produces
 	// Marks create() as a producer methods using its return type to determine
 	// what type of beans it can produce.
-	// @ApplicationScoped
+	@ApplicationScoped
 	// The scope of the produced bean, in our case since we want to have only
 	// one EntityManagerFactory we mark it as
 	// application-scoped
@@ -31,7 +32,7 @@ public class VmeDataBaseProducer {
 
 	@Produces
 	@VmeDB
-	// @ApplicationScoped
+	@ApplicationScoped
 	public EntityManager produceEntityManager() {
 		return create().createEntityManager();
 	}

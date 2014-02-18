@@ -1,10 +1,8 @@
 package org.fao.fi.vme.domain.dto;
 
-
 public class VmeDto {
 
-
-	private long  vmeId;	
+	private long vmeId;
 	private String localName;
 	private String inventoryIdentifier;
 	private String factsheetUrl;
@@ -16,8 +14,6 @@ public class VmeDto {
 	private String envelope;
 	private int validityPeriodFrom;
 	private int validityPeriodTo;
-
-
 
 	public String getLocalName() {
 		return localName;
@@ -35,7 +31,8 @@ public class VmeDto {
 	}
 
 	/**
-	 * @param factsheetUrl the factsheetUrl to set
+	 * @param factsheetUrl
+	 *            the factsheetUrl to set
 	 */
 	public void setFactsheetUrl(String factsheetUrl) {
 		this.factsheetUrl = factsheetUrl;
@@ -49,15 +46,13 @@ public class VmeDto {
 	}
 
 	/**
-	 * @param vmeId the vmeId to set
+	 * @param vmeId
+	 *            the vmeId to set
 	 */
 	public void setVmeId(long vmeId) {
 		this.vmeId = vmeId;
 	}
 
-	
-	
-	
 	/**
 	 * @return the inventoryIdentifier
 	 */
@@ -66,7 +61,8 @@ public class VmeDto {
 	}
 
 	/**
-	 * @param inventoryIdentifier the inventoryIdentifier to set
+	 * @param inventoryIdentifier
+	 *            the inventoryIdentifier to set
 	 */
 	public void setInventoryIdentifier(String inventoryIdentifier) {
 		this.inventoryIdentifier = inventoryIdentifier;
@@ -80,7 +76,8 @@ public class VmeDto {
 	}
 
 	/**
-	 * @param geographicLayerId the geographicLayerId to set
+	 * @param geographicLayerId
+	 *            the geographicLayerId to set
 	 */
 	public void setGeographicFeatureId(String geographicFeatureId) {
 		this.geographicFeatureId = geographicFeatureId;
@@ -94,7 +91,8 @@ public class VmeDto {
 	}
 
 	/**
-	 * @param geoArea the geoArea to set
+	 * @param geoArea
+	 *            the geoArea to set
 	 */
 	public void setGeoArea(String geoArea) {
 		this.geoArea = geoArea;
@@ -108,7 +106,8 @@ public class VmeDto {
 	}
 
 	/**
-	 * @param owner the owner to set
+	 * @param owner
+	 *            the owner to set
 	 */
 	public void setOwner(String owner) {
 		this.owner = owner;
@@ -122,7 +121,8 @@ public class VmeDto {
 	}
 
 	/**
-	 * @param vmeType the vmeType to set
+	 * @param vmeType
+	 *            the vmeType to set
 	 */
 	public void setVmeType(String vmeType) {
 		this.vmeType = vmeType;
@@ -136,7 +136,8 @@ public class VmeDto {
 	}
 
 	/**
-	 * @param year the year to set
+	 * @param year
+	 *            the year to set
 	 */
 	public void setYear(int year) {
 		this.year = year;
@@ -150,40 +151,120 @@ public class VmeDto {
 	}
 
 	/**
-	 * @param envelope the envelope to set
+	 * @param envelope
+	 *            the envelope to set
 	 */
 	public void setEnvelope(String envelope) {
 		this.envelope = envelope;
 	}
 
 	/**
-	 * @return the validityPeriodFrom 
+	 * @return the validityPeriodFrom
 	 */
 	public int getValidityPeriodFrom() {
 		return validityPeriodFrom;
 	}
 
 	/**
-	 * @param validityPeriod the validityPeriodFrom to set
+	 * @param validityPeriod
+	 *            the validityPeriodFrom to set
 	 */
 	public void setValidityPeriodFrom(int validityPeriodFrom) {
 		this.validityPeriodFrom = validityPeriodFrom;
 	}
 
-	
 	/**
-	 * @return the validityPeriodTo 
+	 * @return the validityPeriodTo
 	 */
 	public int getValidityPeriodTo() {
 		return validityPeriodTo;
 	}
 
 	/**
-	 * @param validityPeriod the validityPeriodTo to set
+	 * @param validityPeriod
+	 *            the validityPeriodTo to set
 	 */
 	public void setValidityPeriodTo(int validityPeriodTo) {
 		this.validityPeriodTo = validityPeriodTo;
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((envelope == null) ? 0 : envelope.hashCode());
+		result = prime * result + ((factsheetUrl == null) ? 0 : factsheetUrl.hashCode());
+		result = prime * result + ((geoArea == null) ? 0 : geoArea.hashCode());
+		result = prime * result + ((geographicFeatureId == null) ? 0 : geographicFeatureId.hashCode());
+		result = prime * result + ((inventoryIdentifier == null) ? 0 : inventoryIdentifier.hashCode());
+		result = prime * result + ((localName == null) ? 0 : localName.hashCode());
+		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
+		result = prime * result + validityPeriodFrom;
+		result = prime * result + validityPeriodTo;
+		result = prime * result + (int) (vmeId ^ (vmeId >>> 32));
+		result = prime * result + ((vmeType == null) ? 0 : vmeType.hashCode());
+		result = prime * result + year;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		VmeDto other = (VmeDto) obj;
+		if (envelope == null) {
+			if (other.envelope != null)
+				return false;
+		} else if (!envelope.equals(other.envelope))
+			return false;
+		if (factsheetUrl == null) {
+			if (other.factsheetUrl != null)
+				return false;
+		} else if (!factsheetUrl.equals(other.factsheetUrl))
+			return false;
+		if (geoArea == null) {
+			if (other.geoArea != null)
+				return false;
+		} else if (!geoArea.equals(other.geoArea))
+			return false;
+		if (geographicFeatureId == null) {
+			if (other.geographicFeatureId != null)
+				return false;
+		} else if (!geographicFeatureId.equals(other.geographicFeatureId))
+			return false;
+		if (inventoryIdentifier == null) {
+			if (other.inventoryIdentifier != null)
+				return false;
+		} else if (!inventoryIdentifier.equals(other.inventoryIdentifier))
+			return false;
+		if (localName == null) {
+			if (other.localName != null)
+				return false;
+		} else if (!localName.equals(other.localName))
+			return false;
+		if (owner == null) {
+			if (other.owner != null)
+				return false;
+		} else if (!owner.equals(other.owner))
+			return false;
+		if (validityPeriodFrom != other.validityPeriodFrom)
+			return false;
+		if (validityPeriodTo != other.validityPeriodTo)
+			return false;
+		if (vmeId != other.vmeId)
+			return false;
+		if (vmeType == null) {
+			if (other.vmeType != null)
+				return false;
+		} else if (!vmeType.equals(other.vmeType))
+			return false;
+		if (year != other.year)
+			return false;
+		return true;
+	}
+
 }
