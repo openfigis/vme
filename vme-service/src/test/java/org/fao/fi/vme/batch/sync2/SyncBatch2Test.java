@@ -9,7 +9,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.Observation;
-import org.fao.fi.vme.batch.sync2.SyncBatch2;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
@@ -18,13 +17,15 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.figis.FigisDataBaseConfigurationTest;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseConfigurationTest;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
+@ActivatedAlternatives({ VmeDataBaseConfigurationTest.class, VmeDataBaseProducer.class, FigisDataBaseProducer.class, FigisDataBaseConfigurationTest.class })
 public class SyncBatch2Test {
 
 	@Inject

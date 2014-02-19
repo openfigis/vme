@@ -13,10 +13,11 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDB;
+import org.vme.dao.config.vme.VmeDataBaseConfigurationTest;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseProducer.class })
+@ActivatedAlternatives({ VmeDataBaseConfigurationTest.class, VmeDataBaseProducer.class })
 public class JPATest {
 
 	@Inject

@@ -19,6 +19,9 @@
         <dependent-module archiveName="vme-domain-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-domain/vme-domain">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="reports-store-gateway-support-compiler-bridge-0.0.4-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/reports-store-gateway-support-compiler-bridge/reports-store-gateway-support-compiler-bridge">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="vme-configuration-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-configuration/vme-configuration">
             <dependency-type>uses</dependency-type>
         </dependent-module>

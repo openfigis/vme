@@ -20,11 +20,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.figis.FigisDataBaseConfiguration;
+import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ VmeDataBaseConfiguration.class, VmeDataBaseProducer.class, FigisDataBaseProducer.class, FigisDataBaseConfiguration.class, FilesystemMsAccessConnectionProvider.class })
 public class VmeAccessDbImportIntegrationTest {
 
 	@Inject

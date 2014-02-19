@@ -23,14 +23,19 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.VmeSearchDao;
+import org.vme.dao.config.figis.FigisDataBaseConfigurationTest;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
 import org.vme.dao.config.vme.VmeDB;
+import org.vme.dao.config.vme.VmeDataBaseConfigurationTest;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
-@ActivatedAlternatives({ FigisDataBaseProducer.class, VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives({ FigisDataBaseConfigurationTest.class, 
+						 FigisDataBaseProducer.class, 
+						 VmeDataBaseConfigurationTest.class, 
+						 VmeDataBaseProducerApplicationScope.class })
 public class VmeSearchDaoImplTest {
 
 	@VmeDB

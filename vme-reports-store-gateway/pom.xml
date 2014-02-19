@@ -21,7 +21,6 @@
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-service</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.vme</groupId>
@@ -55,4 +54,8 @@
 			<artifactId>vme-configuration</artifactId>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+		</plugins>
+	</build>
 </project>

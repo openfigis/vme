@@ -43,7 +43,7 @@
 			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
 		</layout>
 	</appender>
-	
+
 	<category name="org.jboss.weld" additivity="false">
 		<priority value="warn" />
 		<appender-ref ref="console"/>

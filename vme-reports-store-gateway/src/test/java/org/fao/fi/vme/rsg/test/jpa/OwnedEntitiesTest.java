@@ -18,6 +18,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.vme.VmeDataBaseConfigurationTest;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.sources.vme.VmeDao;
 
@@ -35,7 +36,7 @@ import org.vme.dao.sources.vme.VmeDao;
  * @since 11 Dec 2013
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseProducer.class, EmbeddedMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ VmeDataBaseConfigurationTest.class, VmeDataBaseProducer.class, EmbeddedMsAccessConnectionProvider.class })
 public class OwnedEntitiesTest {
 	@Inject VmeAccessDbImport _importer;
 	@Inject VmeDao _vmeDao;

@@ -24,10 +24,11 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.vme.VmeDataBaseConfigurationTest;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ VmeDataBaseConfigurationTest.class, VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
 public class LinkerTest {
 
 	@Inject

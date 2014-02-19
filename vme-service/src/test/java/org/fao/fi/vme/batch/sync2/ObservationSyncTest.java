@@ -14,7 +14,6 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.figis.domain.test.RefVmeMock;
-import org.fao.fi.vme.batch.sync2.ObservationSync;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
@@ -26,7 +25,9 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.figis.FigisDataBaseConfigurationTest;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseConfigurationTest;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
@@ -37,7 +38,7 @@ import org.vme.dao.sources.vme.VmeDao;
  * 
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class })
+@ActivatedAlternatives({ VmeDataBaseConfigurationTest.class, VmeDataBaseProducer.class, FigisDataBaseProducer.class, FigisDataBaseConfigurationTest.class })
 public class ObservationSyncTest extends FigisDaoTestLogic {
 
 	int NUMBER_OF_YEARS = 1;

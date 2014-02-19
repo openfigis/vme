@@ -1,39 +1,45 @@
+/**
+ * (c) 2014 FAO / UN (project: vme-dao)
+ */
 package org.vme.dao.config.vme;
 
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.vme.dao.config.AbstractDataBaseProducer;
+import org.vme.dao.config.DataBaseConfiguration;
+
 /**
- * 
- * Produces a link to the vme DB.
- * 
- * @author Erik van Ingen
- * 
+ * Place your class / interface description here.
+ *
+ * History:
+ *
+ * ------------- --------------- -----------------------
+ * Date			 Author			 Comment
+ * ------------- --------------- -----------------------
+ * 19 Feb 2014   Fiorellato     Creation.
+ *
+ * @version 1.0
+ * @since 19 Feb 2014
  */
 @Alternative
-public class VmeDataBaseProducer {
-
-	// private static EntityManagerFactory factory;
-
-	@Produces
-	// Marks create() as a producer methods using its return type to determine
-	// what type of beans it can produce.
-	// @ApplicationScoped
-	// The scope of the produced bean, in our case since we want to have only
-	// one EntityManagerFactory we mark it as
-	// application-scoped
-	public EntityManagerFactory create() {
-		return Persistence.createEntityManagerFactory("vme-persistence");
-	}
-
+public class VmeDataBaseProducer extends AbstractDataBaseProducer {
+	@Inject @VmeDB protected DataBaseConfiguration _config;
+	
 	@Produces
 	@VmeDB
-	// @ApplicationScoped
 	public EntityManager produceEntityManager() {
 		return create().createEntityManager();
 	}
-
+	
+	// Marks create() as a producer methods using its return type to determine
+	// what type of beans it can produce.
+	@Produces 
+	public EntityManagerFactory create() {
+		return Persistence.createEntityManagerFactory(this._config.getPersistenceUnitName());
+	}
 }

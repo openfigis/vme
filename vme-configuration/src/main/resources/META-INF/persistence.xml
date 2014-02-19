@@ -2,9 +2,6 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-
-
-
 	<persistence-unit name="vme-persistence">
 		<class>org.fao.fi.vme.domain.model.Authority</class>
 		<class>org.fao.fi.vme.domain.model.GeneralMeasure</class>
@@ -21,13 +18,14 @@
 		<class>org.fao.fi.vme.domain.model.VmeType</class>
 		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
 
-
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.vme}" />
 			<property name="javax.persistence.jdbc.url" value="${javax.persistence.jdbc.url.vme}" />
 			<property name="javax.persistence.jdbc.user" value="${javax.persistence.jdbc.user.vme}" />
 			<property name="javax.persistence.jdbc.password" value="${javax.persistence.jdbc.password.vme}" />
+			
 			<property name="show_sql" value="true" />
+			
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.vme}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.vme}" />
 			<property name="hibernate.show_sql" value="false" />
@@ -41,11 +39,48 @@
 			<property name="hibernate.c3p0.max_statements" value="0" />
 			<property name="hibernate.c3p0.timeout" value="100" />
 		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="vme-persistence-test">
+		<class>org.fao.fi.vme.domain.model.Authority</class>
+		<class>org.fao.fi.vme.domain.model.GeneralMeasure</class>
+		<class>org.fao.fi.vme.domain.model.GeoRef</class>
+		<class>org.fao.fi.vme.domain.model.History</class>
+		<class>org.fao.fi.vme.domain.model.extended.FisheryAreasHistory</class>
+		<class>org.fao.fi.vme.domain.model.extended.VMEsHistory</class>
+		<class>org.fao.fi.vme.domain.model.InformationSource</class>
+		<class>org.fao.fi.vme.domain.model.MultiLingualString</class>
+		<class>org.fao.fi.vme.domain.model.Profile</class>
+		<class>org.fao.fi.vme.domain.model.Rfmo</class>
+		<class>org.fao.fi.vme.domain.model.SpecificMeasure</class>
+		<class>org.fao.fi.vme.domain.model.Vme</class>
+		<class>org.fao.fi.vme.domain.model.VmeType</class>
+		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
 
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.vme.test}" />
+			<property name="javax.persistence.jdbc.url" value="${javax.persistence.jdbc.url.vme.test}" />
+			<property name="javax.persistence.jdbc.user" value="${javax.persistence.jdbc.user.vme.test}" />
+			<property name="javax.persistence.jdbc.password" value="${javax.persistence.jdbc.password.vme.test}" />
+			
+			<property name="show_sql" value="true" />
+			
+			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.vme.test}" />
+			<property name="hibernate.dialect" value="${hibernate.dialect.vme.test}" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.ejb.entitymanager_factory_name" value="vme_entitymanager_factory_name" />
+			<property name="hibernate.default_schema" value="VME" />
+
+			<property name="hibernate.c3p0.max_size" value="100" />
+			<property name="hibernate.c3p0.min_size" value="0" />
+			<property name="hibernate.c3p0.acquire_increment" value="1" />
+			<property name="hibernate.c3p0.idle_test_period" value="300" />
+			<property name="hibernate.c3p0.max_statements" value="0" />
+			<property name="hibernate.c3p0.timeout" value="100" />
+		</properties>
 	</persistence-unit>
 
 	<persistence-unit name="figis-persistence">
-
 		<!-- reference tables -->
 		<class>org.fao.fi.figis.domain.RefVme</class>
 		<class>org.fao.fi.figis.domain.RefWaterArea</class>
@@ -54,7 +89,6 @@
 		<class>org.fao.fi.figis.domain.VmeObservation</class>
 		<class>org.fao.fi.figis.domain.Observation</class>
 		<class>org.fao.fi.figis.domain.ObservationXml</class>
-
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.figis}" />
@@ -70,6 +104,38 @@
 			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="FIGIS" />
 
+			<property name="hibernate.c3p0.max_size" value="100" />
+			<property name="hibernate.c3p0.min_size" value="0" />
+			<property name="hibernate.c3p0.acquire_increment" value="1" />
+			<property name="hibernate.c3p0.idle_test_period" value="300" />
+			<property name="hibernate.c3p0.max_statements" value="0" />
+			<property name="hibernate.c3p0.timeout" value="100" />
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="figis-persistence-test">
+		<!-- reference tables -->
+		<class>org.fao.fi.figis.domain.RefVme</class>
+		<class>org.fao.fi.figis.domain.RefWaterArea</class>
+
+		<!-- factsheet tables -->
+		<class>org.fao.fi.figis.domain.VmeObservation</class>
+		<class>org.fao.fi.figis.domain.Observation</class>
+		<class>org.fao.fi.figis.domain.ObservationXml</class>
+
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.figis.test}" />
+			<property name="javax.persistence.jdbc.url" value="${javax.persistence.jdbc.url.figis.test}" />
+			<property name="javax.persistence.jdbc.user" value="${javax.persistence.jdbc.user.figis.test}" />
+			<property name="javax.persistence.jdbc.password" value="${javax.persistence.jdbc.password.figis.test}" />
+
+			<property name="show_sql" value="true" />
+
+			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.figis.test}" />
+			<property name="hibernate.dialect" value="${hibernate.dialect.figis.test}" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
+			<property name="hibernate.default_schema" value="FIGIS" />
 
 			<property name="hibernate.c3p0.max_size" value="100" />
 			<property name="hibernate.c3p0.min_size" value="0" />
@@ -77,16 +143,6 @@
 			<property name="hibernate.c3p0.idle_test_period" value="300" />
 			<property name="hibernate.c3p0.max_statements" value="0" />
 			<property name="hibernate.c3p0.timeout" value="100" />
-
-
 		</properties>
-
 	</persistence-unit>
-
-
-
-
-
-
 </persistence>
-

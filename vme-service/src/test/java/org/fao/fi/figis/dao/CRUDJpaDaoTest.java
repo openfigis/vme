@@ -33,7 +33,8 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.figis.FigisDataBaseConfigurationTest;
+import org.vme.dao.config.vme.VmeDataBaseConfigurationTest;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.sources.vme.VmeDao;
 
@@ -50,8 +51,7 @@ import org.vme.dao.sources.vme.VmeDao;
  * @since 16 Jan 2014
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FigisDataBaseProducer.class, VmeDataBaseProducer.class,
-		FilesystemMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ FigisDataBaseConfigurationTest.class, VmeDataBaseConfigurationTest.class, VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
 public class CRUDJpaDaoTest {
 	@Inject
 	private VmeAccessDbImport importer;

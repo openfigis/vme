@@ -6,7 +6,6 @@ import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
-import org.fao.fi.vme.batch.sync0.TemporaryBatch;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Vme;
@@ -16,14 +15,15 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.figis.FigisDataBaseConfiguration;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseProducer.class, FigisDataBaseProducer.class,
-		FilesystemMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ VmeDataBaseConfiguration.class, VmeDataBaseProducer.class, FigisDataBaseProducer.class, FigisDataBaseConfiguration.class, FilesystemMsAccessConnectionProvider.class })
 public class TemporaryBatchIntegrationTest {
 
 	@Inject

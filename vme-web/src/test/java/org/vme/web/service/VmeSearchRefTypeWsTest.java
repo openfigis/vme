@@ -9,14 +9,16 @@ import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.figis.FigisDataBaseConfigurationTest;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseConfigurationTest;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
 
 @RunWith(CdiRunner.class)
 @AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
-@ActivatedAlternatives({ FigisDataBaseProducer.class, VmeDataBaseProducer.class })
+@ActivatedAlternatives({ FigisDataBaseConfigurationTest.class, FigisDataBaseProducer.class, VmeDataBaseConfigurationTest.class, VmeDataBaseProducer.class })
 public class VmeSearchRefTypeWsTest {
 
 	@Inject
