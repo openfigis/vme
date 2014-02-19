@@ -7,53 +7,52 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>vme-configuration</artifactId>
-	
+
 	<!-- Common properties for in-memory (H2) test databases -->
 	<properties>
-		<javax.persistence.jdbc.driver.vme.test>org.h2.Driver</javax.persistence.jdbc.driver.vme.test>
-		<javax.persistence.jdbc.url.vme.test>jdbc:h2:mem:db1;INIT=create schema IF NOT EXISTS VME</javax.persistence.jdbc.url.vme.test>
-		<javax.persistence.jdbc.user.vme.test>sa</javax.persistence.jdbc.user.vme.test>
-		<javax.persistence.jdbc.password.vme.test></javax.persistence.jdbc.password.vme.test>
-		<hibernate.dialect.vme.test>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme.test>
-		<hibernate.hbm2ddl.auto.vme.test>create-drop</hibernate.hbm2ddl.auto.vme.test>
+		<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
+		<javax.persistence.jdbc.url.vme>jdbc:h2:mem:db1;INIT=create schema IF NOT EXISTS VME</javax.persistence.jdbc.url.vme>
+		<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
+		<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>
+		<hibernate.dialect.vme>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme>
+		<hibernate.hbm2ddl.auto.vme>create-drop</hibernate.hbm2ddl.auto.vme>
 		<!--validate | update | create | create-drop -->
 
-		<javax.persistence.jdbc.driver.figis.test>org.h2.Driver</javax.persistence.jdbc.driver.figis.test>
-		<javax.persistence.jdbc.url.figis.test>jdbc:h2:mem:db2;INIT=create schema IF NOT EXISTS FIGIS\;create schema IF NOT EXISTS FIGIS_UPDATE</javax.persistence.jdbc.url.figis.test>
-		<javax.persistence.jdbc.user.figis.test>sa</javax.persistence.jdbc.user.figis.test>
-		<javax.persistence.jdbc.password.figis.test></javax.persistence.jdbc.password.figis.test>
-		<hibernate.dialect.figis.test>org.hibernate.dialect.H2Dialect</hibernate.dialect.figis.test>
-		<hibernate.hbm2ddl.auto.figis.test>create-drop</hibernate.hbm2ddl.auto.figis.test>
+		<javax.persistence.jdbc.driver.figis>org.h2.Driver</javax.persistence.jdbc.driver.figis>
+		<javax.persistence.jdbc.url.figis>jdbc:h2:mem:db2;INIT=create schema IF NOT EXISTS FIGIS\;create schema IF NOT EXISTS
+			FIGIS_UPDATE</javax.persistence.jdbc.url.figis>
+		<javax.persistence.jdbc.user.figis>sa</javax.persistence.jdbc.user.figis>
+		<javax.persistence.jdbc.password.figis></javax.persistence.jdbc.password.figis>
+		<hibernate.dialect.figis>org.hibernate.dialect.H2Dialect</hibernate.dialect.figis>
+		<hibernate.hbm2ddl.auto.figis>create-drop</hibernate.hbm2ddl.auto.figis>
 	</properties>
-	
+
 	<profiles>
 		<profile>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<id>env-dev</id>
+			<properties>
+				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
+				<javax.persistence.jdbc.url.vme>jdbc:h2:mem:db1;INIT=create schema IF NOT EXISTS VME</javax.persistence.jdbc.url.vme>
+				<javax.persistence.jdbc.user.vme>sa</javax.persistence.jdbc.user.vme>
+				<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>
+				<hibernate.dialect.vme>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme>
+				<hibernate.hbm2ddl.auto.vme>create-drop</hibernate.hbm2ddl.auto.vme>
+				<!--validate | update | create | create-drop -->
+
+				<javax.persistence.jdbc.driver.figis>org.h2.Driver</javax.persistence.jdbc.driver.figis>
+				<javax.persistence.jdbc.url.figis>jdbc:h2:mem:db2;INIT=create schema IF NOT EXISTS FIGIS\;create schema IF NOT EXISTS
+					FIGIS_UPDATE</javax.persistence.jdbc.url.figis>
+				<javax.persistence.jdbc.user.figis>sa</javax.persistence.jdbc.user.figis>
+				<javax.persistence.jdbc.password.figis></javax.persistence.jdbc.password.figis>
+				<hibernate.dialect.figis>org.hibernate.dialect.H2Dialect</hibernate.dialect.figis>
+				<hibernate.hbm2ddl.auto.figis>create-drop</hibernate.hbm2ddl.auto.figis>
+			</properties>
 		</profile>
-		<profile>
-			<id>vme-devel</id>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-jar-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>package</phase>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-								<configuration>
-									<classifier>devel</classifier>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+
+
 		<profile>
 			<id>vme-integration</id>
 			<build>
