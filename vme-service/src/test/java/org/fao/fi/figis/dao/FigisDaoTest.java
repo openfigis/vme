@@ -20,11 +20,11 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.figis.FigisDataBaseConfigurationTest;
+import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FigisDataBaseConfigurationTest.class, FigisDataBaseProducer.class })
+@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class })
 public class FigisDaoTest extends FigisDaoTestLogic {
 
 	/**

@@ -16,6 +16,6 @@ package org.vme.dao.config;
  * @version 1.0
  * @since 19 Feb 2014
  */
-public interface DataBaseConfiguration {
+public interface PersistenceUnitConfiguration {
 	String getPersistenceUnitName();
 }

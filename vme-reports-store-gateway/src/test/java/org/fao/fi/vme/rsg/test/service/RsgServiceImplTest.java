@@ -16,7 +16,7 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.vme.VmeDataBaseConfigurationTest;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
@@ -24,7 +24,7 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class, 
 						 JEXLReportEvaluator.class,
 						 ReportManagerReportBuilder.class,
-						 VmeDataBaseConfigurationTest.class, 
+						 VmeTestPersistenceUnitConfiguration.class, 
 						 VmeDataBaseProducer.class,
 						 RsgServiceImplVme.class,
 						 EmbeddedMsAccessConnectionProvider.class })

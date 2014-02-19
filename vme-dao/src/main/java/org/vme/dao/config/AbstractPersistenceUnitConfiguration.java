@@ -19,8 +19,8 @@ import org.slf4j.LoggerFactory;
  * @version 1.0
  * @since 19 Feb 2014
  */
-abstract public class AbstractDataBaseConfiguration implements DataBaseConfiguration {
-	static protected Logger LOG = LoggerFactory.getLogger(AbstractDataBaseConfiguration.class);
+abstract public class AbstractPersistenceUnitConfiguration implements PersistenceUnitConfiguration {
+	static protected Logger LOG = LoggerFactory.getLogger(AbstractPersistenceUnitConfiguration.class);
 	
 	final public String getPersistenceUnitName() {
 		String persistanceUnitName = this.doGetPersistenceUnitName();

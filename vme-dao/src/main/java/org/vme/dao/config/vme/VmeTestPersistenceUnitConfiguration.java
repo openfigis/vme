@@ -2,7 +2,7 @@ package org.vme.dao.config.vme;
 
 import javax.enterprise.inject.Alternative;
 
-import org.vme.dao.config.AbstractDataBaseConfiguration;
+import org.vme.dao.config.AbstractPersistenceUnitConfiguration;
 
 /**
  * 
@@ -12,7 +12,7 @@ import org.vme.dao.config.AbstractDataBaseConfiguration;
  * 
  */
 @Alternative @VmeDB
-public class VmeDataBaseConfigurationTest extends AbstractDataBaseConfiguration {
+public class VmeTestPersistenceUnitConfiguration extends AbstractPersistenceUnitConfiguration {
 	/* (non-Javadoc)
 	 * @see org.vme.dao.config.AbstractDataBaseConfiguration#doGetPersistanceUnitName()
 	 */

@@ -12,7 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.vme.dao.config.AbstractDataBaseProducer;
-import org.vme.dao.config.DataBaseConfiguration;
+import org.vme.dao.config.PersistenceUnitConfiguration;
 
 /**
  * Place your class / interface description here.
@@ -29,7 +29,7 @@ import org.vme.dao.config.DataBaseConfiguration;
  */
 @Alternative
 public class FigisDataBaseProducer extends AbstractDataBaseProducer {
-	@Inject @FigisDB protected DataBaseConfiguration _config;
+	@Inject @FigisDB protected PersistenceUnitConfiguration _config;
 	
 	@Produces
 	@FigisDB

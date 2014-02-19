@@ -15,15 +15,15 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.figis.FigisDataBaseConfiguration;
+import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
-import org.vme.dao.config.vme.VmeDataBaseConfiguration;
+import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseConfiguration.class, VmeDataBaseProducer.class, FigisDataBaseProducer.class, FigisDataBaseConfiguration.class, FilesystemMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ VmePersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FigisDataBaseProducer.class, FigisPersistenceUnitConfiguration.class, FilesystemMsAccessConnectionProvider.class })
 public class TemporaryBatchIntegrationTest {
 
 	@Inject

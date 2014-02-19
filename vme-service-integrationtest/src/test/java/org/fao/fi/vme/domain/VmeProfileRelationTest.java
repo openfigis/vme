@@ -14,12 +14,12 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.vme.VmeDataBaseConfiguration;
+import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeDataBaseConfiguration.class, VmeDataBaseProducer.class })
+@ActivatedAlternatives({ VmePersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
 public class VmeProfileRelationTest {
 
 	@Inject
