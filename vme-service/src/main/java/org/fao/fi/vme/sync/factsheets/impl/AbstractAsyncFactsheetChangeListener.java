@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
@@ -193,7 +194,7 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 	}
 	
 	final protected void createFactsheets(final Long[] vmeIDs) {
-		LOG.info("Creating factsheets for {} VMEs with ID {}", vmeIDs.length, vmeIDs);
+		LOG.info("Asynchronously creating factsheets for {} VMEs with ID {}", vmeIDs.length, this.serializeIDs(vmeIDs));
 		
 		this._executorQueue.submit(new Callable<Void>() {
 			@Override
@@ -206,7 +207,7 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 	}
 	
 	final protected void updateFactsheets(final Long[] vmeIDs) {
-		LOG.info("Updating factsheets for {} VMEs with ID {}", vmeIDs.length, vmeIDs);
+		LOG.info("Asynchronously updating factsheets for {} VMEs with ID {}", vmeIDs.length, this.serializeIDs(vmeIDs));
 		
 		this._executorQueue.submit(new Callable<Void>() {
 			@Override
@@ -219,7 +220,7 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 	}
 	
 	final protected void deleteFactsheets(final Long[] vmeIDs) {
-		LOG.info("Deleting factsheets for {} VMEs with ID {}", vmeIDs.length, vmeIDs);
+		LOG.info("Asynchronously deleting factsheets for {} VMEs with ID {}", vmeIDs.length, this.serializeIDs(vmeIDs));
 		
 		this._executorQueue.submit(new Callable<Void>() {
 			@Override
@@ -230,11 +231,7 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 			}
 		});
 	}
-	
-	abstract protected void doCreateFactsheets(Long[] factsheetIDs) throws Exception;
-	abstract protected void doUpdateFactsheets(Long[] factsheetIDs) throws Exception;
-	abstract protected void doDeleteFactsheets(Long[] factsheetIDs) throws Exception;
-	
+		
 	final protected Long[] findVMEIDs(Vme... vmes) {
 		Collection<Long> IDs = new HashSet<Long>();
 		
@@ -264,8 +261,7 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 	
 	final protected Long[] findVMEIDs(Rfmo... RFMOs) {
 		Collection<Long> IDs = new HashSet<Long>();
-		
-		
+				
 		for(Rfmo authority : RFMOs) {
 			if(authority != null && authority.getListOfManagedVmes() != null)
 				for(Vme vme : authority.getListOfManagedVmes()) {
@@ -273,6 +269,8 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 						IDs.add(vme.getId());
 				}
 		}
+		
+		LOG.info("IDs for VMEs belonging to {} are: {}", this.serializeIDs(RFMOs), this.serializeIDs(IDs.toArray(new Object[IDs.size()])));
 		
 		return IDs.toArray(new Long[IDs.size()]);
 	}
@@ -285,6 +283,8 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 				RFMOs.add(gm.getRfmo());
 		}
 		
+		LOG.info("RFMOs owning GeneralMeasures {} are: {}", this.serializeIDs(generalMeasures), this.serializeIDs(RFMOs.toArray(new Rfmo[RFMOs.size()])));
+		
 		return RFMOs.toArray(new Rfmo[RFMOs.size()]);
 	}
 	
@@ -295,6 +295,8 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 			if(is != null && is.getRfmo() != null)
 				RFMOs.add(is.getRfmo());
 		}
+		
+		LOG.info("RFMOs owning InformationSources {} are: {}", this.serializeIDs(informationSources), this.serializeIDs(RFMOs.toArray(new Rfmo[RFMOs.size()])));
 		
 		return RFMOs.toArray(new Rfmo[RFMOs.size()]);
 	}
@@ -307,6 +309,8 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 				RFMOs.add(ff.getRfmo());
 		}
 		
+		LOG.info("RFMOs owning FishingFootprints {} are: {}", this.serializeIDs(fishingFootprints), this.serializeIDs(RFMOs.toArray(new Rfmo[RFMOs.size()])));
+		
 		return RFMOs.toArray(new Rfmo[RFMOs.size()]);
 	}
 	
@@ -318,6 +322,46 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 				RFMOs.add(rh.getRfmo());
 		}
 		
+		LOG.info("RFMOs owning RegionalHistories {} are: {}", this.serializeIDs(regionalHistories), this.serializeIDs(RFMOs.toArray(new Rfmo[RFMOs.size()])));
+		
 		return RFMOs.toArray(new Rfmo[RFMOs.size()]);
 	}
+	
+	final private String serializeIDs(Object[] IDs) {
+		StringBuilder result = new StringBuilder("[ ");
+		
+		for(Object in : IDs) {
+			result.append(in).append(", ");
+		}
+		
+		result.append("]");
+		
+		return result.toString().replaceAll("\\, \\]$", " ]");
+	}
+	
+	final private String serializeIDs(ObjectId<?>[] objects) {
+		Collection<Object> IDs = new HashSet<Object>();
+		
+		for(ObjectId<?> in : objects)
+			if(in != null && in.getId() != null)
+				IDs.add(in.getId());
+		
+		return this.serializeIDs(IDs.toArray(new Object[IDs.size()]));
+	}
+	
+	final private String serializeIDs(Rfmo[] rfmos) {
+		Collection<Object> IDs = new HashSet<Object>();
+		
+		for(Rfmo in : rfmos)
+			if(in != null && in.getId() != null)
+				IDs.add(in.getId());
+		
+		return this.serializeIDs(IDs.toArray(new Object[IDs.size()]));
+	}
+	
+	//TO BE IMPLEMENTED BY EXTENDING CLASSES
+	
+	abstract protected void doCreateFactsheets(Long[] factsheetIDs) throws Exception;
+	abstract protected void doUpdateFactsheets(Long[] factsheetIDs) throws Exception;
+	abstract protected void doDeleteFactsheets(Long[] factsheetIDs) throws Exception;
 }
