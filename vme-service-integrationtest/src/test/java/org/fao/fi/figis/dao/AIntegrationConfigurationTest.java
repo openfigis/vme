@@ -25,7 +25,8 @@ public class AIntegrationConfigurationTest {
 			System.out.println(text);
 
 			// make sure that the devel DB is never used for integration testing
-			assertFalse(text.contains("figis>jdbc:oracle:thin:@LDVDBWO1:1521:WDV01"));
+			assertFalse("devel DB should not be used for integration testing",
+					text.contains("figis>jdbc:oracle:thin:@LDVDBWO1:1521:WDV01"));
 
 			// make sure that either the integration DB or only H2 is used.
 			Pattern p = Pattern.compile("jdbc:h2:mem:db2;INIT=create schema IF NOT EXISTS FIGIS");
@@ -35,7 +36,8 @@ public class AIntegrationConfigurationTest {
 				count += 1;
 			}
 
-			assertTrue(count == 2 || text.contains("figis>jdbc:oracle:thin:@ldvdbs01:1521:FIDEV1"));
+			assertTrue("no 2 H2 or no integration DB found",
+					count == 2 || text.contains("jdbc:oracle:thin:@ldvdbs01:1521:FIDEV1"));
 
 		} catch (IOException e) {
 			fail();
