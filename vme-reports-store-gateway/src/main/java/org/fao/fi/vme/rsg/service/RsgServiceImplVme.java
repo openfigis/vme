@@ -26,6 +26,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.fao.fi.vme.sync.factsheets.FactsheetChangeListener;
 import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.reporting.reader.ModelReader;
 import org.gcube.application.rsg.service.RsgService;
@@ -87,6 +88,8 @@ public class RsgServiceImplVme implements RsgService {
 	@Inject @Any private Instance<ReferenceReport> _refReports;
 
 	@Inject VmeDao vmeDao;
+	
+	@Inject FactsheetChangeListener _fsChangeListener;
 	
 	@PostConstruct
 	private void postConstruct() {
@@ -553,6 +556,8 @@ public class RsgServiceImplVme implements RsgService {
 
 			if(toDelete != null) {
 				this.vmeDao.delete(toDelete);
+				
+				this._fsChangeListener.VMEDeleted((Vme)toDelete);
 
 				response.succeeded(entity.getName() + " report #" + reportId + " has been deleted");
 
@@ -596,6 +601,15 @@ public class RsgServiceImplVme implements RsgService {
 
 			if(toDelete != null) {
 				this.vmeDao.delete(toDelete);
+				
+				if(toDelete instanceof GeneralMeasure)
+					this._fsChangeListener.generalMeasureDeleted((GeneralMeasure)toDelete);
+				else if(toDelete instanceof InformationSource)
+					this._fsChangeListener.informationSourceDeleted((InformationSource)toDelete);
+				else if(toDelete instanceof FisheryAreasHistory)
+					this._fsChangeListener.fishingFootprintDeleted((FisheryAreasHistory)toDelete);
+				else if(toDelete instanceof VMEsHistory)
+					this._fsChangeListener.regionalHistoryDeleted((VMEsHistory)toDelete);
 
 				response.succeeded(entity.getName() + " reference report #" + refReportId + " has been deleted");
 
@@ -715,7 +729,11 @@ public class RsgServiceImplVme implements RsgService {
 			throw new IllegalArgumentException("Cannot create an NULL or empty report");
 
 		if(holder instanceof Vme) {
-			return this.vmeDao.create((Vme)holder);
+			Vme toReturn = this.vmeDao.create((Vme)holder);
+			
+			this._fsChangeListener.VMEAdded(toReturn);
+			
+			return toReturn;
 		} else
 			throw new IllegalArgumentException(holder.getClass() + " is not a valid model for a report");
 	}
@@ -725,7 +743,11 @@ public class RsgServiceImplVme implements RsgService {
 			throw new IllegalArgumentException("Cannot update an NULL or empty report");
 
 		if(holder instanceof Vme) {
-			return this.vmeDao.update((Vme)holder);
+			Vme toReturn = this.vmeDao.update((Vme)holder);
+			
+			this._fsChangeListener.VMEChanged(toReturn);
+			
+			return toReturn;
 		} else
 			throw new IllegalArgumentException(holder.getClass() + " is not a valid model for a report");
 	}
@@ -788,15 +810,31 @@ public class RsgServiceImplVme implements RsgService {
 		if(holder == null)
 			throw new IllegalArgumentException("Cannot create an NULL or empty reference report");
 
-		if(holder instanceof GeneralMeasure)  
-			return this.vmeDao.create((GeneralMeasure)holder);
-		else if(holder instanceof InformationSource) 
-			return this.vmeDao.create((InformationSource)holder);
-		else if(holder instanceof FisheryAreasHistory) 
-			return this.vmeDao.create((FisheryAreasHistory)holder);
-		else if(holder instanceof VMEsHistory) 
-			return this.vmeDao.create((VMEsHistory)holder);
-		else
+		if(holder instanceof GeneralMeasure) {
+			GeneralMeasure toReturn = this.vmeDao.create((GeneralMeasure)holder);
+			
+			this._fsChangeListener.generalMeasureAdded(toReturn);
+			
+			return toReturn;
+		} else if(holder instanceof InformationSource) { 
+			InformationSource toReturn = this.vmeDao.create((InformationSource)holder);
+			
+			this._fsChangeListener.informationSourceAdded(toReturn);
+			
+			return toReturn;
+		} else if(holder instanceof FisheryAreasHistory) { 
+			FisheryAreasHistory toReturn = this.vmeDao.create((FisheryAreasHistory)holder);
+			
+			this._fsChangeListener.fishingFootprintAdded(toReturn);
+			
+			return toReturn;
+		} else if(holder instanceof VMEsHistory) { 
+			VMEsHistory toReturn = this.vmeDao.create((VMEsHistory)holder);
+			
+			this._fsChangeListener.regionalHistoryAdded(toReturn);
+			
+			return toReturn;
+		} else
 			throw new IllegalArgumentException(holder.getClass() + " is not a valid model for a reference report");
 	}
 
@@ -804,15 +842,31 @@ public class RsgServiceImplVme implements RsgService {
 		if(holder == null)
 			throw new IllegalArgumentException("Cannot update a NULL or empty reference report");
 
-		if(holder instanceof GeneralMeasure) 
-			return this.vmeDao.update((GeneralMeasure)holder);
-		else if(holder instanceof InformationSource) 
-			return this.vmeDao.update((InformationSource)holder);
-		else if(holder instanceof FisheryAreasHistory) 
-			return this.vmeDao.update((FisheryAreasHistory)holder);
-		else if(holder instanceof VMEsHistory)
-			return this.vmeDao.update((VMEsHistory)holder);
-		else
+		if(holder instanceof GeneralMeasure) {
+			GeneralMeasure toReturn = this.vmeDao.update((GeneralMeasure)holder);
+			
+			this._fsChangeListener.generalMeasureChanged(toReturn);
+			
+			return toReturn;
+		} else if(holder instanceof InformationSource) { 
+			InformationSource toReturn = this.vmeDao.update((InformationSource)holder);
+			
+			this._fsChangeListener.informationSourceChanged(toReturn);
+			
+			return toReturn;
+		} else if(holder instanceof FisheryAreasHistory) { 
+			FisheryAreasHistory toReturn = this.vmeDao.update((FisheryAreasHistory)holder);
+			
+			this._fsChangeListener.fishingFootprintChanged(toReturn);
+			
+			return toReturn;
+		} else if(holder instanceof VMEsHistory) { 
+			VMEsHistory toReturn = this.vmeDao.update((VMEsHistory)holder);
+			
+			this._fsChangeListener.regionalHistoryChanged(toReturn);
+			
+			return toReturn;
+		} else
 			throw new IllegalArgumentException(holder.getClass() + " is not a valid model for a reference report");
 	}
 
