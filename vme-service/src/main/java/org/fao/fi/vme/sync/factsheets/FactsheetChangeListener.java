@@ -42,5 +42,4 @@ public interface FactsheetChangeListener {
 	void regionalHistoryChanged(VMEsHistory... changed) throws Exception;
 	void regionalHistoryAdded(VMEsHistory... added) throws Exception;
 	void regionalHistoryDeleted(VMEsHistory... deleted) throws Exception;
-	
 }
