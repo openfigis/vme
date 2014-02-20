@@ -25,7 +25,7 @@ public class DummyFactsheetChangeListener extends AbstractAsyncFactsheetChangeLi
 	 */
 	@Override
 	protected void doCreateFactsheets(Long[] factsheetIDs) throws Exception {
-		LOG.info("Creating factsheets for {} VMEs with ID {}", factsheetIDs.length, factsheetIDs);
+		LOG.info("Creating factsheets for {} VMEs with ID {}", factsheetIDs.length, this.serializeIDs(factsheetIDs));
 	}
 
 	/* (non-Javadoc)
@@ -33,7 +33,7 @@ public class DummyFactsheetChangeListener extends AbstractAsyncFactsheetChangeLi
 	 */
 	@Override
 	protected void doUpdateFactsheets(Long[] factsheetIDs) throws Exception {
-		LOG.info("Updating factsheets for {} VMEs with ID {}", factsheetIDs.length, factsheetIDs);		
+		LOG.info("Updating factsheets for {} VMEs with ID {}", factsheetIDs.length, this.serializeIDs(factsheetIDs));
 	}
 
 	/* (non-Javadoc)
@@ -41,6 +41,6 @@ public class DummyFactsheetChangeListener extends AbstractAsyncFactsheetChangeLi
 	 */
 	@Override
 	protected void doDeleteFactsheets(Long[] factsheetIDs) throws Exception {
-		LOG.info("Deleting factsheets for {} VMEs with ID {}", factsheetIDs.length, factsheetIDs);
+		LOG.info("Deleting factsheets for {} VMEs with ID {}", factsheetIDs.length, this.serializeIDs(factsheetIDs));
 	}
 }

@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.MultiLingualString;
@@ -26,6 +27,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.fao.fi.vme.sync.factsheets.FactsheetChangeListener;
 import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.reporting.reader.ModelReader;
@@ -598,9 +600,16 @@ public class RsgServiceImplVme implements RsgService {
 			tx.begin();
 
 			Object toDelete = this.vmeDao.getEntityById(this.vmeDao.getEm(), entity, refReportId);
-
+			Rfmo parent = null;
+					
 			if(toDelete != null) {
+				parent = this.extractRfmo(toDelete);
+				
 				this.vmeDao.delete(toDelete);
+				
+				//This is necessary, as deleting the reference will set its Rfmo to NULL and thus it won't be
+				//possible to notify factsheet changes to VME belonging to the same RFMO owning the just deleted entity 
+				toDelete = this.forceRfmo(toDelete, parent);
 				
 				if(toDelete instanceof GeneralMeasure)
 					this._fsChangeListener.generalMeasureDeleted((GeneralMeasure)toDelete);
@@ -922,5 +931,37 @@ public class RsgServiceImplVme implements RsgService {
 		}
 		
 		return response.undeterminedIfNotSet();
+	}
+	
+	private Rfmo extractRfmo(Object source) {
+		Rfmo parent = null;
+		
+		if(source != null) {
+			if(source instanceof GeneralMeasure)
+				parent = ((GeneralMeasure)source).getRfmo();
+			else if(source instanceof InformationSource)
+				parent = ((InformationSource)source).getRfmo();
+			else if(source instanceof FisheryAreasHistory)
+				parent = ((FisheryAreasHistory)source).getRfmo();
+			else if(source instanceof VMEsHistory)
+				parent = ((VMEsHistory)source).getRfmo();
+		}
+		
+		return parent;
+	}
+	
+	private <S> S forceRfmo(S source, Rfmo toForce) {
+		if(source != null) {
+			if(source instanceof GeneralMeasure)
+				((GeneralMeasure)source).setRfmo(toForce);
+			else if(source instanceof InformationSource)
+				((InformationSource)source).setRfmo(toForce);
+			else if(source instanceof FisheryAreasHistory)
+				((FisheryAreasHistory)source).setRfmo(toForce);
+			else if(source instanceof VMEsHistory)
+				((VMEsHistory)source).setRfmo(toForce);
+		}
+		
+		return source;
 	}
 }

@@ -201,6 +201,8 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 			public Void call() throws Exception {
 				$this.doCreateFactsheets(vmeIDs);
 			
+				LOG.info("Asynchronously created factsheets for {} VMEs with ID {}", vmeIDs.length, $this.serializeIDs(vmeIDs));
+				
 				return null;
 			}
 		});
@@ -214,6 +216,8 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 			public Void call() throws Exception {
 				$this.doUpdateFactsheets(vmeIDs);
 			
+				LOG.info("Asynchronously updated factsheets for {} VMEs with ID {}", vmeIDs.length, $this.serializeIDs(vmeIDs));
+				
 				return null;
 			}
 		});
@@ -227,6 +231,8 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 			public Void call() throws Exception {
 				$this.doDeleteFactsheets(vmeIDs);
 			
+				LOG.info("Asynchronously deleted factsheets for {} VMEs with ID {}", vmeIDs.length, $this.serializeIDs(vmeIDs));
+				
 				return null;
 			}
 		});
@@ -327,7 +333,7 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 		return RFMOs.toArray(new Rfmo[RFMOs.size()]);
 	}
 	
-	final private String serializeIDs(Object[] IDs) {
+	final protected String serializeIDs(Object[] IDs) {
 		StringBuilder result = new StringBuilder("[ ");
 		
 		for(Object in : IDs) {
@@ -339,7 +345,7 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 		return result.toString().replaceAll("\\, \\]$", " ]");
 	}
 	
-	final private String serializeIDs(ObjectId<?>[] objects) {
+	final protected String serializeIDs(ObjectId<?>[] objects) {
 		Collection<Object> IDs = new HashSet<Object>();
 		
 		for(ObjectId<?> in : objects)
@@ -349,7 +355,7 @@ abstract public class AbstractAsyncFactsheetChangeListener implements FactsheetC
 		return this.serializeIDs(IDs.toArray(new Object[IDs.size()]));
 	}
 	
-	final private String serializeIDs(Rfmo[] rfmos) {
+	final protected String serializeIDs(Rfmo[] rfmos) {
 		Collection<Object> IDs = new HashSet<Object>();
 		
 		for(Rfmo in : rfmos)
