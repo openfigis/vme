@@ -18,7 +18,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.MultiLingualString;
@@ -27,8 +26,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.fao.fi.vme.msaccess.VmeAccessDbImport;
-import org.fao.fi.vme.sync.factsheets.FactsheetChangeListener;
+import org.fao.fi.vme.sync.factsheets.listeners.FactsheetChangeListener;
 import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.reporting.reader.ModelReader;
 import org.gcube.application.rsg.service.RsgService;
@@ -89,6 +87,9 @@ public class RsgServiceImplVme implements RsgService {
 	@Inject @Any private Instance<Report> _reports;
 	@Inject @Any private Instance<ReferenceReport> _refReports;
 
+//	@Inject private VmeAccessDbImport importer;
+//	@Inject private ReferenceDataHardcodedBatch _referenceBatch;
+
 	@Inject VmeDao vmeDao;
 	
 	@Inject FactsheetChangeListener _fsChangeListener;
@@ -106,6 +107,12 @@ public class RsgServiceImplVme implements RsgService {
 		for(Object refReport : this._refReports) {
 			LOG.info("{}", refReport.getClass().getName());
 		}
+		
+		//Using an in-memory database requires that data are 
+		//transferred from the original M$ Access DB into H2...
+//		this.importer.importMsAccessData();
+//		
+//		this._referenceBatch.run();
 	}
 	
 	final private String getReportDumpPath() {

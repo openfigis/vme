@@ -37,6 +37,12 @@
 			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
 		</layout>
 	</appender>	
+	<appender name="factsheets" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/factsheets.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
+		</layout>
+	</appender>
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout"> 
@@ -91,6 +97,12 @@
 		<appender-ref ref="vme"/>
 	</category>
 
+	<category name="org.fao.fi.vme.sync.factsheets" additivity="false">
+		<priority value="info" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="factsheets"/>
+	</category>
+	
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />
