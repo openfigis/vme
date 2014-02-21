@@ -1,7 +1,7 @@
 /**
  * (c) 2014 FAO / UN (project: vme-service)
  */
-package org.fao.fi.vme.sync.factsheets.impl;
+package org.fao.fi.vme.sync.factsheets.listeners.impl;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorCompletionService;

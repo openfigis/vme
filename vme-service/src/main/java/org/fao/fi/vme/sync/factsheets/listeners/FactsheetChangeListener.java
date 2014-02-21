@@ -1,7 +1,7 @@
 /**
  * (c) 2014 FAO / UN (project: vme-service)
  */
-package org.fao.fi.vme.sync.factsheets;
+package org.fao.fi.vme.sync.factsheets.listeners;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;

@@ -16,7 +16,9 @@ import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.fao.fi.vme.sync.factsheets.FactsheetChangeListener;
+import org.fao.fi.vme.sync.factsheets.listeners.FactsheetChangeListener;
+import org.fao.fi.vme.sync.factsheets.listeners.impl.SyncFactsheetChangeListener;
+import org.fao.fi.vme.sync.factsheets.updaters.impl.FigisFactsheetUpdater;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Ignore;
@@ -30,7 +32,7 @@ import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ SyncFactsheetChangeListener.class, FactsheetUpdaterImpl.class, VmeDataBaseProducer.class,
+@ActivatedAlternatives({ SyncFactsheetChangeListener.class, FigisFactsheetUpdater.class, VmeDataBaseProducer.class,
 		VmeTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
 		FigisTestPersistenceUnitConfiguration.class })
 public class FactsheetChangeListenerImplTest {

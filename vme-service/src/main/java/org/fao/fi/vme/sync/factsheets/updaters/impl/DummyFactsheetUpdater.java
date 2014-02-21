@@ -1,11 +1,11 @@
 /**
  * (c) 2014 FAO / UN (project: vme-service)
  */
-package org.fao.fi.vme.sync.factsheets.impl;
+package org.fao.fi.vme.sync.factsheets.updaters.impl;
 
 import javax.enterprise.inject.Alternative;
 
-import org.fao.fi.vme.sync.factsheets.FactsheetUpdater;
+import org.fao.fi.vme.sync.factsheets.updaters.FactsheetUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,8 +23,8 @@ import org.slf4j.LoggerFactory;
  * @since 21 Feb 2014
  */
 @Alternative
-public class DummyFactsheetUpdaterImpl implements FactsheetUpdater {
-	static final private Logger LOG = LoggerFactory.getLogger(DummyFactsheetUpdaterImpl.class);
+public class DummyFactsheetUpdater implements FactsheetUpdater {
+	static final private Logger LOG = LoggerFactory.getLogger(DummyFactsheetUpdater.class);
 
 	/* (non-Javadoc)
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetUpdater#createFactsheets(java.lang.Long[])

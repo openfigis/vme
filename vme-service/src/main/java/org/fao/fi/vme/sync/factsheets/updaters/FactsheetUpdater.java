@@ -1,7 +1,7 @@
 /**
  * (c) 2014 FAO / UN (project: vme-service)
  */
-package org.fao.fi.vme.sync.factsheets;
+package org.fao.fi.vme.sync.factsheets.updaters;
 
 
 /**

@@ -1,7 +1,7 @@
 /**
  * (c) 2014 FAO / UN (project: vme-service)
  */
-package org.fao.fi.vme.sync.factsheets.impl;
+package org.fao.fi.vme.sync.factsheets.listeners.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,8 +17,8 @@ import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
-import org.fao.fi.vme.sync.factsheets.FactsheetChangeListener;
-import org.fao.fi.vme.sync.factsheets.FactsheetUpdater;
+import org.fao.fi.vme.sync.factsheets.listeners.FactsheetChangeListener;
+import org.fao.fi.vme.sync.factsheets.updaters.FactsheetUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
