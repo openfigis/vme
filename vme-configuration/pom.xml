@@ -41,6 +41,9 @@
 				<javax.persistence.jdbc.password.vme></javax.persistence.jdbc.password.vme>
 				<hibernate.dialect.vme>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme>
 				<hibernate.hbm2ddl.auto.vme>create-drop</hibernate.hbm2ddl.auto.vme>
+				<hibernate.default.schema.vme>vme</hibernate.default.schema.vme>
+				
+				
 				<!--validate | update | create | create-drop -->
 
 				<javax.persistence.jdbc.driver.figis>org.h2.Driver</javax.persistence.jdbc.driver.figis>
