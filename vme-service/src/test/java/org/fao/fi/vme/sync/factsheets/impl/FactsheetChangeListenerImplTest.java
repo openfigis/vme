@@ -30,7 +30,7 @@ import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FactsheetAsyncChangeListenerImpl.class, VmeDataBaseProducer.class,
+@ActivatedAlternatives({ SyncFactsheetChangeListener.class, FactsheetUpdaterImpl.class, VmeDataBaseProducer.class,
 		VmeTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
 		FigisTestPersistenceUnitConfiguration.class })
 public class FactsheetChangeListenerImplTest {

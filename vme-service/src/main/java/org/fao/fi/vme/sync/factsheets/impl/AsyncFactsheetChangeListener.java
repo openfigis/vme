@@ -7,6 +7,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
 
+import javax.enterprise.inject.Alternative;
+
 /**
  * Place your class / interface description here.
  *
@@ -20,12 +22,16 @@ import java.util.concurrent.Executors;
  * @version 1.0
  * @since 20 Feb 2014
  */
-abstract public class AbstractAsyncFactsheetChangeListener extends AbstractSyncFactsheetChangeListener {
-	static final private int MAX_THREADS_IN_POOL = 64;
+@Alternative
+public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
+	//static final private int MAX_THREADS_IN_POOL = 64;
 
-	final private ExecutorCompletionService<Void> _executorQueue = new ExecutorCompletionService<Void>(Executors.newFixedThreadPool(MAX_THREADS_IN_POOL));
+	//final private ExecutorCompletionService<Void> _executorQueue = new ExecutorCompletionService<Void>(Executors.newFixedThreadPool(MAX_THREADS_IN_POOL));
+
+	//Can't use multiple parallel threads because of transaction issues on the shared VmeDAO... Improve?
+	final private ExecutorCompletionService<Void> _executorQueue = new ExecutorCompletionService<Void>(Executors.newSingleThreadExecutor());
 	
-	final protected AbstractAsyncFactsheetChangeListener $this = this;
+	final protected AsyncFactsheetChangeListener $this = this;
 	
 	final protected void createFactsheets(final Long[] vmeIDs) {
 		if(vmeIDs == null || vmeIDs.length == 0) {
@@ -38,9 +44,13 @@ abstract public class AbstractAsyncFactsheetChangeListener extends AbstractSyncF
 					this._executorQueue.submit(new Callable<Void>() {
 						@Override
 						public Void call() throws Exception {
-							$this.doCreateFactsheets(id);
-						
-							LOG.info("Asynchronously created factsheet for VME with ID {}", id);
+							try {
+								$this._updater.createFactsheets(id);
+							
+								LOG.info("Asynchronously created factsheet for VME with ID {}", id);
+							} catch (Throwable t) {
+								LOG.error("Unable to asynchronously create factsheet for VME with ID {}", id, t);
+							}
 							
 							return null;
 						}
@@ -63,9 +73,13 @@ abstract public class AbstractAsyncFactsheetChangeListener extends AbstractSyncF
 					this._executorQueue.submit(new Callable<Void>() {
 						@Override
 						public Void call() throws Exception {
-							$this.doUpdateFactsheets(id);
-						
-							LOG.info("Asynchronously updated factsheet for VME with ID {}", id);
+							try {
+								$this._updater.updateFactsheets(id);
+							
+								LOG.info("Asynchronously updated factsheet for VME with ID {}", id);
+							} catch(Throwable t) {
+								LOG.error("Unable to asynchronously update factsheet for VME with ID {}", id, t);
+							}
 							
 							return null;
 						}
@@ -88,9 +102,13 @@ abstract public class AbstractAsyncFactsheetChangeListener extends AbstractSyncF
 					this._executorQueue.submit(new Callable<Void>() {
 						@Override
 						public Void call() throws Exception {
-							$this.doDeleteFactsheets(id);
-						
-							LOG.info("Asynchronously deleted factsheet for VME with ID {}", id);
+							try {
+								$this._updater.deleteFactsheets(id);
+							
+								LOG.info("Asynchronously deleted factsheet for VME with ID {}", id);
+							} catch(Throwable t) {
+								LOG.error("Unable to asynchronously delete factsheet for VME with ID {}", id, t);
+							}
 							
 							return null;
 						}

@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
+import javax.enterprise.inject.Alternative;
+import javax.inject.Inject;
+
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.ObjectId;
@@ -15,6 +18,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.sync.factsheets.FactsheetChangeListener;
+import org.fao.fi.vme.sync.factsheets.FactsheetUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,10 +33,14 @@ import org.slf4j.LoggerFactory;
  * 20 Feb 2014   Fiorellato     Creation.
  *
  * @version 1.0
- * @since 20 Feb 2014
+ * @since 
+ * 20 Feb 2014
  */
-abstract public class AbstractSyncFactsheetChangeListener implements FactsheetChangeListener {
-	static final protected Logger LOG = LoggerFactory.getLogger(AbstractSyncFactsheetChangeListener.class);
+@Alternative
+public class SyncFactsheetChangeListener implements FactsheetChangeListener {
+	static final protected Logger LOG = LoggerFactory.getLogger(SyncFactsheetChangeListener.class);
+	
+	protected @Inject FactsheetUpdater _updater;
 	
 	/* (non-Javadoc)
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#VMEChanged(org.fao.fi.vme.domain.model.Vme[])
@@ -99,9 +107,11 @@ abstract public class AbstractSyncFactsheetChangeListener implements FactsheetCh
 	 */
 	@Override
 	final public void informationSourceChanged(final InformationSource... changed) throws Exception {
-		LOG.info("Notified of changes to {} elements of type InformationSource", ( changed == null ? "NULL" : changed.length));
+		LOG.info("Notifiying listeners of changes to {} elements of type InformationSource", ( changed == null ? "NULL" : changed.length));
 
 		this.updateFactsheets(this.findVMEIDs(changed));
+
+		LOG.info("Notified of changes to {} elements of type InformationSource", ( changed == null ? "NULL" : changed.length));
 	}
 
 	/* (non-Javadoc)
@@ -193,7 +203,7 @@ abstract public class AbstractSyncFactsheetChangeListener implements FactsheetCh
 			for(final Long id : vmeIDs) {
 				if(id != null) {
 					try {
-						this.doCreateFactsheets(id);
+						this._updater.createFactsheets(id);
 						
 						LOG.info("Synchronously created factsheet for VME with ID {}", id);
 					} catch(Throwable t) {
@@ -215,7 +225,7 @@ abstract public class AbstractSyncFactsheetChangeListener implements FactsheetCh
 			for(final Long id : vmeIDs) {
 				if(id != null) {
 					try {
-						this.doUpdateFactsheets(id);
+						this._updater.updateFactsheets(id);
 						
 						LOG.info("Synchronously updated factsheet for VME with ID {}", id);
 					} catch(Throwable t) {
@@ -237,7 +247,7 @@ abstract public class AbstractSyncFactsheetChangeListener implements FactsheetCh
 			for(final Long id : vmeIDs) {
 				if(id != null) {
 					try {
-						this.doDeleteFactsheets(id);
+						this._updater.deleteFactsheets(id);
 						
 						LOG.info("Synchronously deleted factsheet for VME with ID {}", id);
 					} catch(Throwable t) {
@@ -376,10 +386,4 @@ abstract public class AbstractSyncFactsheetChangeListener implements FactsheetCh
 		
 		return this.serializeIDs(IDs.toArray(new Object[IDs.size()]));
 	}
-	
-	//TO BE IMPLEMENTED BY EXTENDING CLASSES
-	
-	abstract protected void doCreateFactsheets(Long... vmeIDs) throws Exception;
-	abstract protected void doUpdateFactsheets(Long... vmeIDs) throws Exception;
-	abstract protected void doDeleteFactsheets(Long... vmeIDs) throws Exception;
 }
