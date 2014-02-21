@@ -8,6 +8,7 @@ import org.fao.fi.figis.domain.RefWaterArea;
 import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.GeoRef;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
@@ -39,14 +40,29 @@ public class GeoRefSync implements Sync {
 	public void sync() {
 		List<GeoRef> objects = (List<GeoRef>) vmeDao.loadObjects(GeoRef.class);
 		for (GeoRef geoRef : objects) {
-			// do the new stuff
-			RefWaterArea object = generateNewRefWaterArea();
 
-			// map it
-			map(geoRef, object);
+			syncGeoRef(geoRef);
 
-			// and sync it
-			figisDao.syncRefWaterArea(geoRef.getGeographicFeatureID(), object);
+		}
+	}
+
+	private void syncGeoRef(GeoRef geoRef) {
+		// do the new stuff
+		RefWaterArea object = generateNewRefWaterArea();
+
+		// map it
+		map(geoRef, object);
+
+		// and sync it
+		figisDao.syncRefWaterArea(geoRef.getGeographicFeatureID(), object);
+
+	}
+
+	@Override
+	public void sync(Vme vme) {
+		List<GeoRef> objects = vme.getGeoRefList();
+		for (GeoRef geoRef : objects) {
+			syncGeoRef(geoRef);
 		}
 	}
 
@@ -63,4 +79,5 @@ public class GeoRefSync implements Sync {
 		}
 		object.setName(u.getEnglish(geoRef.getVme().getName()));
 	}
+
 }

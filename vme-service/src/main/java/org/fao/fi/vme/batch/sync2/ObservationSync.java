@@ -41,12 +41,18 @@ public class ObservationSync implements Sync {
 			// data has not yet been committed? Solving
 			// this problem costed me about 3 hours...
 			// vmeDao.getEm().refresh(vme);
+			sync(vme);
 
-			VmeObservationDomain vod = om.mapVme2Figis2(vme);
-
-			RefVme refVme = (RefVme) figisDao.find(RefVme.class, vme.getId());
-			vod.setRefVme(refVme);
-			figisDao.syncVmeObservationDomain(vod);
 		}
+	}
+
+	@Override
+	public void sync(Vme vme) {
+		VmeObservationDomain vod = om.mapVme2Figis2(vme);
+
+		RefVme refVme = (RefVme) figisDao.find(RefVme.class, vme.getId());
+		vod.setRefVme(refVme);
+		figisDao.syncVmeObservationDomain(vod);
+
 	}
 }

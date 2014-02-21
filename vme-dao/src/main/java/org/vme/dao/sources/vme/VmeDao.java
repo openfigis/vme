@@ -706,7 +706,7 @@ public class VmeDao extends AbstractJPADao {
 			currentIS = this.getEntityById(this.em, InformationSource.class, currentSM.getInformationSource().getId());
 		}
 
-		if (currentIS != null) {
+		if (currentIS != null && currentIS.getSpecificMeasureList() != null) {
 			currentIS.getSpecificMeasureList().remove(currentSM);
 			currentSM.setInformationSource(null);
 
@@ -719,6 +719,11 @@ public class VmeDao extends AbstractJPADao {
 
 		if (updatedIS != null) {
 			InformationSource informationSource = this.getEntityById(em, InformationSource.class, updatedIS.getId());
+
+			if (informationSource.getSpecificMeasureList() == null) {
+				informationSource.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
+			}
+
 			informationSource.getSpecificMeasureList().add(currentSM);
 
 			currentSM.setInformationSource(informationSource);

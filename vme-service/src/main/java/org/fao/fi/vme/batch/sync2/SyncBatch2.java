@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.domain.model.Vme;
+
 /**
  * Syncs the FIGIS Factsheet XML, Figis observation, Figis reference tables with
  * the information from the VME domain model.
@@ -34,10 +36,20 @@ public class SyncBatch2 {
 	@Inject
 	ObservationSync observationSync;
 
+	/**
+	 * Sync all vmes with the factsheets and referencedata
+	 */
 	public void syncFigisWithVme() {
 		List<Sync> syncList = composeList();
 		for (Sync syncer : syncList) {
 			syncer.sync();
+		}
+	}
+
+	public void syncFigisWithVme(Vme vme) {
+		List<Sync> syncList = composeList();
+		for (Sync syncer : syncList) {
+			syncer.sync(vme);
 		}
 	}
 
