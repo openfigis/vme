@@ -8,6 +8,8 @@ import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.msaccess.component.EmbeddedMsAccessConnectionProvider;
 import org.fao.fi.vme.rsg.service.RsgServiceImplVme;
+import org.fao.fi.vme.sync.factsheets.listeners.impl.SyncFactsheetChangeListener;
+import org.fao.fi.vme.sync.factsheets.updaters.impl.DummyFactsheetUpdater;
 import org.gcube.application.rsg.support.builder.impl.ReportManagerReportBuilder;
 import org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler;
 import org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator;
@@ -26,8 +28,10 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 						 ReportManagerReportBuilder.class,
 						 VmeTestPersistenceUnitConfiguration.class, 
 						 VmeDataBaseProducer.class,
+						 EmbeddedMsAccessConnectionProvider.class,
 						 RsgServiceImplVme.class,
-						 EmbeddedMsAccessConnectionProvider.class })
+						 SyncFactsheetChangeListener.class, 
+						 DummyFactsheetUpdater.class })
 @AdditionalClasses({ Vme.class, 
 					 Rfmo.class, 
 					 GeneralMeasure.class, 
