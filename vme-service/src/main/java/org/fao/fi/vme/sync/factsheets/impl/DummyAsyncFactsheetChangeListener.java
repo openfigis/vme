@@ -19,12 +19,12 @@ import javax.enterprise.inject.Alternative;
  * @since 20 Feb 2014
  */
 @Alternative
-public class DummyFactsheetChangeListener extends AbstractAsyncFactsheetChangeListener {
+public class DummyAsyncFactsheetChangeListener extends AbstractAsyncFactsheetChangeListener {
 	/* (non-Javadoc)
 	 * @see org.fao.fi.vme.sync.factsheets.impl.AbstractAsyncFactsheetChangeListener#doCreateFactsheets(java.lang.Long[])
 	 */
 	@Override
-	protected void doCreateFactsheets(Long[] factsheetIDs) throws Exception {
+	protected void doCreateFactsheets(Long... factsheetIDs) throws Exception {
 		LOG.info("Creating factsheets for {} VMEs with ID {}", factsheetIDs.length, this.serializeIDs(factsheetIDs));
 	}
 
@@ -32,7 +32,7 @@ public class DummyFactsheetChangeListener extends AbstractAsyncFactsheetChangeLi
 	 * @see org.fao.fi.vme.sync.factsheets.impl.AbstractAsyncFactsheetChangeListener#doUpdateFactsheets(java.lang.Long[])
 	 */
 	@Override
-	protected void doUpdateFactsheets(Long[] factsheetIDs) throws Exception {
+	protected void doUpdateFactsheets(Long... factsheetIDs) throws Exception {
 		LOG.info("Updating factsheets for {} VMEs with ID {}", factsheetIDs.length, this.serializeIDs(factsheetIDs));
 	}
 
@@ -40,7 +40,7 @@ public class DummyFactsheetChangeListener extends AbstractAsyncFactsheetChangeLi
 	 * @see org.fao.fi.vme.sync.factsheets.impl.AbstractAsyncFactsheetChangeListener#doDeleteFactsheets(java.lang.Long[])
 	 */
 	@Override
-	protected void doDeleteFactsheets(Long[] factsheetIDs) throws Exception {
+	protected void doDeleteFactsheets(Long... factsheetIDs) throws Exception {
 		LOG.info("Deleting factsheets for {} VMEs with ID {}", factsheetIDs.length, this.serializeIDs(factsheetIDs));
 	}
 }

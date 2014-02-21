@@ -2,7 +2,7 @@
 <beans xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
 	<alternatives>
-		<class>org.fao.fi.vme.sync.factsheets.impl.DummyFactsheetChangeListener</class>
+		<class>org.fao.fi.vme.sync.factsheets.impl.DummyAsyncFactsheetChangeListener</class>
 		<class>org.gcube.application.rsg.support.evaluator.impl.JEXLReportEvaluator</class>
 		<class>org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler</class>
 		<class>org.gcube.application.rsg.support.builder.impl.ReportManagerReportBuilder</class>
