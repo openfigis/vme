@@ -18,6 +18,12 @@ package org.fao.fi.vme.sync.factsheets.updaters;
  * @since 20 Feb 2014
  */
 public interface FactsheetUpdater {
+	void refreshVme(Long vmeID) throws Exception;
+	void refreshGeneralMeasure(Long gmID) throws Exception;
+	void refreshInformationSource(Long isID) throws Exception;
+	void refreshFishingFootprint(Long ffID) throws Exception;
+	void refreshRegionalHistory(Long rhID) throws Exception;
+	
 	void createFactsheets(Long... vmeIDs) throws Exception;
 	void updateFactsheets(Long... vmeIDs) throws Exception;
 	void deleteFactsheets(Long... vmeIDs) throws Exception;

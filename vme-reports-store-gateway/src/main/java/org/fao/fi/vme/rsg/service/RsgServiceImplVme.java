@@ -565,7 +565,9 @@ public class RsgServiceImplVme implements RsgService {
 
 			if(toDelete != null) {
 				this.vmeDao.delete(toDelete);
-				
+
+				tx.commit();
+
 				this._fsChangeListener.VMEDeleted((Vme)toDelete);
 
 				response.succeeded(entity.getName() + " report #" + reportId + " has been deleted");
@@ -576,8 +578,6 @@ public class RsgServiceImplVme implements RsgService {
 
 				response.notSucceeded(entity.getName() + " report #" + reportId + " cannot be deleted as it doesn't exist");
 			}
-
-			tx.commit();
 		} catch (Throwable t) {
 			LOG.error("Unable to delete {} report #{}: {} [ {} ]", entity.getName(), reportId, t.getClass().getSimpleName(), t.getMessage());
 
@@ -614,6 +614,8 @@ public class RsgServiceImplVme implements RsgService {
 				
 				this.vmeDao.delete(toDelete);
 				
+				tx.commit();
+				
 				//This is necessary, as deleting the reference will set its Rfmo to NULL and thus it won't be
 				//possible to notify factsheet changes to VME belonging to the same RFMO owning the just deleted entity 
 				toDelete = this.forceRfmo(toDelete, parent);
@@ -626,7 +628,7 @@ public class RsgServiceImplVme implements RsgService {
 					this._fsChangeListener.fishingFootprintDeleted((FisheryAreasHistory)toDelete);
 				else if(toDelete instanceof VMEsHistory)
 					this._fsChangeListener.regionalHistoryDeleted((VMEsHistory)toDelete);
-
+				
 				response.succeeded(entity.getName() + " reference report #" + refReportId + " has been deleted");
 
 				LOG.info("{} reference report #{} has been deleted", entity.getName(), refReportId);
@@ -635,8 +637,6 @@ public class RsgServiceImplVme implements RsgService {
 
 				response.notSucceeded(entity.getName() + " report #" + refReportId + " cannot be deleted as it doesn't exist");
 			}
-
-			tx.commit();
 		} catch (Throwable t) {
 			LOG.error("Unable to delete {} report #{}: {} [ {} ]", entity.getName(), refReportId, t.getClass().getSimpleName(), t.getMessage());
 
@@ -709,14 +709,16 @@ public class RsgServiceImplVme implements RsgService {
 		EntityManager em = this.vmeDao.getEm();
 		EntityTransaction tx = em.getTransaction();
 
+		Object toUpdate, updated = null;
+		
 		try {
 			tx.begin();
 
 			report.setEvaluated(true);
 			
-			Object toUpdate = this._evaluator.extract(report);
+			toUpdate = this._evaluator.extract(report);
 						
-			Object updated = isNew ? this.doCreate(toUpdate) : this.doUpdate(toUpdate);
+			updated = isNew ? this.doCreate(toUpdate) : this.doUpdate(toUpdate);
 
 			if(updated != null) {
 				response.succeeded(report.getType() + " report " + id + " has been updated");
@@ -729,6 +731,11 @@ public class RsgServiceImplVme implements RsgService {
 			}
 
 			tx.commit();
+
+			if(isNew)
+				this._fsChangeListener.VMEAdded((Vme)updated);
+			else
+				this._fsChangeListener.VMEChanged((Vme)updated);
 		} catch (Throwable t) {
 			LOG.error("Unable to update {} report {}: {} [ {} ]", report.getType(), id, t.getClass().getSimpleName(), t.getMessage(), t);
 
@@ -747,8 +754,6 @@ public class RsgServiceImplVme implements RsgService {
 		if(holder instanceof Vme) {
 			Vme toReturn = this.vmeDao.create((Vme)holder);
 			
-			this._fsChangeListener.VMEAdded(toReturn);
-			
 			return toReturn;
 		} else
 			throw new IllegalArgumentException(holder.getClass() + " is not a valid model for a report");
@@ -760,8 +765,6 @@ public class RsgServiceImplVme implements RsgService {
 
 		if(holder instanceof Vme) {
 			Vme toReturn = this.vmeDao.update((Vme)holder);
-			
-			this._fsChangeListener.VMEChanged(toReturn);
 			
 			return toReturn;
 		} else
@@ -792,13 +795,15 @@ public class RsgServiceImplVme implements RsgService {
 		EntityManager em = this.vmeDao.getEm();
 		EntityTransaction tx = em.getTransaction();
 
+		Object toUpdate, updated = null;
+		
 		try {
 			tx.begin();
 
 			referenceReport.setEvaluated(true);
 
-			Object toUpdate = this._evaluator.extract(referenceReport);
-			Object updated = isNew ? this.doCreateReference(toUpdate) : this.doUpdateReference(toUpdate);
+			toUpdate = this._evaluator.extract(referenceReport);
+			updated = isNew ? this.doCreateReference(toUpdate) : this.doUpdateReference(toUpdate);
 
 			if(updated != null) {
 				response.succeeded(referenceReport.getType() + " reference report " + id + " has been updated");
@@ -811,6 +816,34 @@ public class RsgServiceImplVme implements RsgService {
 			}
 
 			tx.commit();
+			
+			if(updated instanceof InformationSource) {
+				if(isNew) 
+					this._fsChangeListener.informationSourceAdded((InformationSource)updated);
+				else
+					this._fsChangeListener.informationSourceChanged((InformationSource)updated);
+			}
+			
+			if(updated instanceof GeneralMeasure) {
+				if(isNew) 
+					this._fsChangeListener.generalMeasureAdded((GeneralMeasure)updated);
+				else
+					this._fsChangeListener.generalMeasureChanged((GeneralMeasure)updated);
+			}
+			
+			if(updated instanceof FisheryAreasHistory) {
+				if(isNew) 
+					this._fsChangeListener.fishingFootprintAdded((FisheryAreasHistory)updated);
+				else
+					this._fsChangeListener.fishingFootprintChanged((FisheryAreasHistory)updated);
+			}
+			
+			if(updated instanceof VMEsHistory) {
+				if(isNew) 
+					this._fsChangeListener.regionalHistoryAdded((VMEsHistory)updated);
+				else
+					this._fsChangeListener.regionalHistoryChanged((VMEsHistory)updated);
+			}
 		} catch (Throwable t) {
 			LOG.error("Unable to update {} reference report {}: {} [ {} ]", referenceReport.getType(), id, t.getClass().getSimpleName(), t.getMessage(), t);
 
@@ -827,29 +860,13 @@ public class RsgServiceImplVme implements RsgService {
 			throw new IllegalArgumentException("Cannot create an NULL or empty reference report");
 
 		if(holder instanceof GeneralMeasure) {
-			GeneralMeasure toReturn = this.vmeDao.create((GeneralMeasure)holder);
-			
-			this._fsChangeListener.generalMeasureAdded(toReturn);
-			
-			return toReturn;
+			return this.vmeDao.create((GeneralMeasure)holder);
 		} else if(holder instanceof InformationSource) { 
-			InformationSource toReturn = this.vmeDao.create((InformationSource)holder);
-			
-			this._fsChangeListener.informationSourceAdded(toReturn);
-			
-			return toReturn;
+			return this.vmeDao.create((InformationSource)holder);
 		} else if(holder instanceof FisheryAreasHistory) { 
-			FisheryAreasHistory toReturn = this.vmeDao.create((FisheryAreasHistory)holder);
-			
-			this._fsChangeListener.fishingFootprintAdded(toReturn);
-			
-			return toReturn;
+			return this.vmeDao.create((FisheryAreasHistory)holder);
 		} else if(holder instanceof VMEsHistory) { 
-			VMEsHistory toReturn = this.vmeDao.create((VMEsHistory)holder);
-			
-			this._fsChangeListener.regionalHistoryAdded(toReturn);
-			
-			return toReturn;
+			return this.vmeDao.create((VMEsHistory)holder);
 		} else
 			throw new IllegalArgumentException(holder.getClass() + " is not a valid model for a reference report");
 	}
@@ -859,29 +876,13 @@ public class RsgServiceImplVme implements RsgService {
 			throw new IllegalArgumentException("Cannot update a NULL or empty reference report");
 
 		if(holder instanceof GeneralMeasure) {
-			GeneralMeasure toReturn = this.vmeDao.update((GeneralMeasure)holder);
-			
-			this._fsChangeListener.generalMeasureChanged(toReturn);
-			
-			return toReturn;
+			return this.vmeDao.update((GeneralMeasure)holder);
 		} else if(holder instanceof InformationSource) { 
-			InformationSource toReturn = this.vmeDao.update((InformationSource)holder);
-			
-			this._fsChangeListener.informationSourceChanged(toReturn);
-			
-			return toReturn;
+			return this.vmeDao.update((InformationSource)holder);
 		} else if(holder instanceof FisheryAreasHistory) { 
-			FisheryAreasHistory toReturn = this.vmeDao.update((FisheryAreasHistory)holder);
-			
-			this._fsChangeListener.fishingFootprintChanged(toReturn);
-			
-			return toReturn;
+			return this.vmeDao.update((FisheryAreasHistory)holder);
 		} else if(holder instanceof VMEsHistory) { 
-			VMEsHistory toReturn = this.vmeDao.update((VMEsHistory)holder);
-			
-			this._fsChangeListener.regionalHistoryChanged(toReturn);
-			
-			return toReturn;
+			return this.vmeDao.update((VMEsHistory)holder);
 		} else
 			throw new IllegalArgumentException(holder.getClass() + " is not a valid model for a reference report");
 	}

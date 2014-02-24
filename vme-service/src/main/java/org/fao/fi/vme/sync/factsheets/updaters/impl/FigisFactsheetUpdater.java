@@ -8,10 +8,6 @@ import javax.inject.Inject;
 
 import org.fao.fi.vme.batch.sync2.SyncBatch2;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.sync.factsheets.updaters.FactsheetUpdater;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.vme.dao.sources.vme.VmeDao;
 
 /**
  * Place your class / interface description here.
@@ -27,12 +23,7 @@ import org.vme.dao.sources.vme.VmeDao;
  * @since 21 Feb 2014
  */
 @Alternative
-public class FigisFactsheetUpdater implements FactsheetUpdater {
-	static final private Logger LOG = LoggerFactory.getLogger(FigisFactsheetUpdater.class);
-	
-	@Inject
-	VmeDao vmeDao;
-
+public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 	@Inject
 	SyncBatch2 syncBatch2;
 
@@ -42,6 +33,17 @@ public class FigisFactsheetUpdater implements FactsheetUpdater {
 	@Override
 	public void createFactsheets(Long... vmeIDs) throws Exception {
 		LOG.info("Creating factsheets for {} VMEs with ID {}", vmeIDs.length, vmeIDs);
+		
+		for (Long vmeId : vmeIDs) {
+			Vme vme = vmeDao.findVme(vmeId);
+			
+			//This is necessary to reflect the persisted changes into the session...
+			vmeDao.getEm().refresh(vme);
+			
+			syncBatch2.syncFigisWithVme(vme);
+			
+			this.updateCache(vmeId);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -49,11 +51,18 @@ public class FigisFactsheetUpdater implements FactsheetUpdater {
 	 */
 	@Override
 	public void updateFactsheets(Long... vmeIDs) throws Exception {
+		LOG.info("Updating factsheets for {} VMEs with ID {}", vmeIDs.length, vmeIDs);
+		
 		for (Long vmeId : vmeIDs) {
 			Vme vme = vmeDao.findVme(vmeId);
+			
+			//This is necessary to reflect the persisted changes into the session...
+			vmeDao.getEm().refresh(vme);
+			
 			syncBatch2.syncFigisWithVme(vme);
+			
+			this.updateCache(vmeId);
 		}
-		LOG.info("Updating factsheets for {} VMEs with ID {}", vmeIDs.length, vmeIDs);
 	}
 
 	/* (non-Javadoc)

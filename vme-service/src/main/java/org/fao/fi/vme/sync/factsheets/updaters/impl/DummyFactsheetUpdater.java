@@ -5,10 +5,6 @@ package org.fao.fi.vme.sync.factsheets.updaters.impl;
 
 import javax.enterprise.inject.Alternative;
 
-import org.fao.fi.vme.sync.factsheets.updaters.FactsheetUpdater;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Place your class / interface description here.
  *
@@ -23,8 +19,7 @@ import org.slf4j.LoggerFactory;
  * @since 21 Feb 2014
  */
 @Alternative
-public class DummyFactsheetUpdater implements FactsheetUpdater {
-	static final private Logger LOG = LoggerFactory.getLogger(DummyFactsheetUpdater.class);
+public class DummyFactsheetUpdater extends AbstractFactsheetUpdater {
 
 	/* (non-Javadoc)
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetUpdater#createFactsheets(java.lang.Long[])

@@ -54,19 +54,19 @@ public class Vme implements ObjectId<Long>, Report {
 	 * This is the owning side of the manyToMany relationship
 	 */
 	@RSGName("VME Specific Measures")
-	@RSGWeight(3)
+	@RSGWeight(4)
 	@RSGSection
 	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
 	private List<SpecificMeasure> specificMeasureList;
 
 	@RSGName("VME Profiles")
-	@RSGWeight(2)
+	@RSGWeight(3)
 	@RSGSection
 	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
 	private List<Profile> profileList;
 
 	@RSGName("VME Map Reference")
-	@RSGWeight(4)
+	@RSGWeight(5)
 	@RSGSection
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<GeoRef> geoRefList;
@@ -90,23 +90,18 @@ public class Vme implements ObjectId<Long>, Report {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString name;
 
-	/**
-	 *
-	 */
-	private String geoform;
+	@RSGName("Geographic reference")
+	@RSGConverter(MultiLingualStringConverter.class)
+	@RSGWeight(1)
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString geoArea;
 
 	@RSGName("Area Type")
 	@RSGMandatory
 	@RSGOneAmong(concept = VmeType.class, label = ConceptData.NAME, value = ConceptData.NAME)
 	@RSGConverter(StringDataConverter.class)
-	@RSGWeight(1)
+	@RSGWeight(2)
 	private String areaType;
-
-	/**
-	 *
-	 */
-	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString geoarea;
 
 	/**
 	 *
@@ -115,9 +110,12 @@ public class Vme implements ObjectId<Long>, Report {
 	@RSGMandatory
 	@RSGOneAmong(concept = VmeCriteria.class, label = ConceptData.NAME, value = ConceptData.NAME)
 	@RSGConverter(StringDataConverter.class)
-	@RSGWeight(1)
+	@RSGWeight(2)
 	private String criteria;
-
+	
+	@RSGName("Inventory identifier")
+	@RSGConverter(StringDataConverter.class)
+	@RSGMandatory
 	private String inventoryIdentifier;
 
 	@Override
@@ -178,13 +176,6 @@ public class Vme implements ObjectId<Long>, Report {
 		this.validityPeriod = validityPeriod;
 	}
 
-	public String getGeoform() {
-		return geoform;
-	}
-
-	public void setGeoform(String geoform) {
-		this.geoform = geoform;
-	}
 
 	public String getAreaType() {
 		return areaType;
@@ -206,15 +197,15 @@ public class Vme implements ObjectId<Long>, Report {
 	 * @return the geoarea
 	 */
 	public MultiLingualString getGeoArea() {
-		return geoarea;
+		return geoArea;
 	}
 
 	/**
-	 * @param geoarea
+	 * @param geoArea
 	 *            the geoarea to set
 	 */
-	public void setGeoArea(MultiLingualString geoarea) {
-		this.geoarea = geoarea;
+	public void setGeoArea(MultiLingualString geoArea) {
+		this.geoArea = geoArea;
 	}
 
 	public List<SpecificMeasure> getSpecificMeasureList() {
@@ -287,15 +278,10 @@ public class Vme implements ObjectId<Long>, Report {
 				return false;
 		} else if (!this.geoRefList.equals(other.geoRefList))
 			return false;
-		if (this.geoarea == null) {
-			if (other.geoarea != null)
+		if (this.geoArea == null) {
+			if (other.geoArea != null)
 				return false;
-		} else if (!this.geoarea.equals(other.geoarea))
-			return false;
-		if (this.geoform == null) {
-			if (other.geoform != null)
-				return false;
-		} else if (!this.geoform.equals(other.geoform))
+		} else if (!this.geoArea.equals(other.geoArea))
 			return false;
 		if (this.id == null) {
 			if (other.id != null)

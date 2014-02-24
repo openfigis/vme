@@ -310,6 +310,8 @@ public class VmeDao extends AbstractJPADao {
 		while (rfmoIterator.hasNext())
 			if (rfmoIterator.next().getId().equals(toDelete.getId()))
 				rfmoIterator.remove();
+		
+		toDelete.setRfmo(null);
 
 		this.doMerge(em, parent);
 
@@ -478,8 +480,10 @@ public class VmeDao extends AbstractJPADao {
 		Vme currentVME = this.getEntityById(this.em, Vme.class, updatedVME.getId());
 
 		if (currentVME == null)
-			throw new IllegalArgumentException("Unable to update Vme with id #" + updatedVME.getId()
-					+ " as it doesn't exist");
+			throw new IllegalArgumentException("Unable to update Vme with id #" + updatedVME.getId() + " as it doesn't exist");
+		
+//		updatedVME.setInventoryIdentifier(currentVME.getInventoryIdentifier());
+//		updatedVME.setGeoArea(currentVME.getGeoArea());
 
 		// Build the list of IDs for GeoRef / Profile / SpecificMeasure for the
 		// Vme in its current status.
@@ -515,14 +519,27 @@ public class VmeDao extends AbstractJPADao {
 
 		// If any GeoRef / Profile / Specific Measure is missing, it must be
 		// deleted in order not to leave 'orphan' children.
-		for (Long id : geoRefsToDelete)
-			this.doRemove(em, this.getEntityById(this.em, GeoRef.class, id));
-		for (Long id : profilesToDelete)
-			this.doRemove(em, this.getEntityById(this.em, Profile.class, id));
-		for (Long id : specificMeasuresToDelete)
-			this.doRemove(em, this.getEntityById(this.em, SpecificMeasure.class, id)); // this.delete(this.getEntityById(em,
-																						// SpecificMeasure.class,
-																						// id));//
+		for (Long id : geoRefsToDelete) {
+			GeoRef g = this.getEntityById(this.em, GeoRef.class, id);
+			
+			g.setVme(null);
+			
+			this.doRemove(em, g);
+		} 
+		for (Long id : profilesToDelete) {
+			Profile p = this.getEntityById(this.em, Profile.class, id);
+			
+			p.setVme(null);
+			
+			this.doRemove(em, p);
+		} 
+		for (Long id : specificMeasuresToDelete) {
+			SpecificMeasure s = this.getEntityById(this.em, SpecificMeasure.class, id); 
+			
+			s.setVme(null);
+			
+			this.doRemove(em, s);
+		}
 
 		// Link the Current GeoRefs to the Vme
 		if (updatedVME.getGeoRefList() != null)

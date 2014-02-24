@@ -389,7 +389,7 @@ public class CRUDJpaDaoTest {
 		vme.setCriteria("Fragility");
 		vme.setName(MLSu.english("Foobazzi mountain"));
 		vme.setGeoArea(MLSu.english("GeoArea"));
-		vme.setGeoform("GeoForm");
+//		vme.setGeoform("GeoForm");
 		vme.setInventoryIdentifier("InventoryIdentifier");
 
 		ValidityPeriod validityPeriod = new ValidityPeriod();
@@ -617,7 +617,7 @@ public class CRUDJpaDaoTest {
 
 		toUpdate.setName(MLSu.english("U_" + MLSu.getEnglish(ref.getName())));
 		toUpdate.setGeoArea(MLSu.english("U_" + MLSu.getEnglish(ref.getGeoArea())));
-		toUpdate.setGeoform("U_" + ref.getGeoform());
+//		toUpdate.setGeoform("U_" + ref.getGeoform());
 		toUpdate.setInventoryIdentifier("U_" + ref.getInventoryIdentifier());
 		toUpdate.setAreaType(ref.getAreaType());
 		toUpdate.setCriteria(null);

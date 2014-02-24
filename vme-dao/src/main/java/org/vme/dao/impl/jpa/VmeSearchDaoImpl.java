@@ -238,8 +238,8 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			if (StringUtils.containsIgnoreCase(element, text))
 				return true;
 		}
-		if (StringUtils.containsIgnoreCase(vme.getGeoform(), text))
-			return true;
+//		if (StringUtils.containsIgnoreCase(vme.getGeoform(), text))
+//			return true;
 		for (GeoRef geoRef : vme.getGeoRefList()) {
 			if (StringUtils.containsIgnoreCase(geoRef.getGeographicFeatureID(), text))
 				return true;

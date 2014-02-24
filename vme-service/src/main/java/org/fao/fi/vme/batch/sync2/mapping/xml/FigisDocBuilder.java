@@ -45,6 +45,7 @@ import org.fao.fi.vme.batch.sync2.mapping.BiblioEntryFromInformationSource;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
@@ -484,7 +485,7 @@ public class FigisDocBuilder {
 
 		// Title
 		Title title = new Title();
-		title.setContent(vmeDomain.getName().getStringMap().get(Lang.EN));
+		title.setContent(this.safeGetMultilingualString(vmeDomain.getName()));
 
 		// ForeignID
 		ForeignID vmeForeignID = new ForeignID();
@@ -504,7 +505,7 @@ public class FigisDocBuilder {
 		spatialScale.setValue("Regional");
 
 		Title spatialScaleTitle = new Title();
-		spatialScaleTitle.setContent(vmeDomain.getGeoArea().getStringMap().get(Lang.EN));
+		spatialScaleTitle.setContent(this.safeGetMultilingualString(vmeDomain.getGeoArea()));
 
 		GeoReference geoReference = f.createGeoReference();
 		geoReference.setSpatialScale(spatialScale);
@@ -514,16 +515,23 @@ public class FigisDocBuilder {
 		WaterAreaRef waterAreaRef = new WaterAreaRef();
 		ForeignID areaForeignID = new ForeignID();
 		areaForeignID.setCodeSystem("vme");
-		areaForeignID.setCode(vmeDomain.getGeoRefList().get(0).getGeographicFeatureID());
-		waterAreaRef.getFigisIDsAndForeignIDs().add(areaForeignID);
+		
+		if(vmeDomain.getGeoRefList() != null && !vmeDomain.getGeoRefList().isEmpty()) {
+			areaForeignID.setCode(vmeDomain.getGeoRefList().get(0).getGeographicFeatureID());
+			waterAreaRef.getFigisIDsAndForeignIDs().add(areaForeignID);
+		}
 
 		// Validity period - Range
 		Min min = f.createMin();
-		min.setContent(vmeDomain.getValidityPeriod().getBeginYear().toString());
+		
+		Integer beginYear = vmeDomain.getValidityPeriod().getBeginYear(); 
+		min.setContent(beginYear == null ? null : beginYear.toString());
 		JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
 
 		Max max = f.createMax();
-		max.setContent(vmeDomain.getValidityPeriod().getEndYear().toString());
+		
+		Integer endYear = vmeDomain.getValidityPeriod().getEndYear();
+		max.setContent(endYear == null ? null : endYear.toString());
 		JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
 
 		Range range = f.createRange();
@@ -733,5 +741,16 @@ public class FigisDocBuilder {
 			history.getTextsAndImagesAndTables().add(text);
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(history);
 		}
+	}
+	
+	protected String safeGetMultilingualString(MultiLingualString mls) {
+		return this.safeGetMultilingualString(mls, Lang.EN);
+	}
+	
+	protected String safeGetMultilingualString(MultiLingualString mls, Integer lang) {
+		if(mls != null)
+			return mls.getStringMap().get(lang);
+		
+		return null;
 	}
 }
