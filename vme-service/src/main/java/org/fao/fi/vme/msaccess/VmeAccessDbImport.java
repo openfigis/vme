@@ -31,7 +31,7 @@ public class VmeAccessDbImport {
 	@Inject
 	private VmeReader reader;
 
-	private final MsAcces2DomainMapper m = new MsAcces2DomainMapper();
+	@Inject private MsAcces2DomainMapper m;
 	private final Linker linker = new Linker();
 
 	private final IdCorrection idCorrection = new IdCorrection();

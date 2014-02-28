@@ -28,14 +28,17 @@ import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
+import org.fao.fi.vme.msaccess.component.MsAcces2DomainMapper;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 
 /**
@@ -51,7 +54,8 @@ import org.vme.dao.sources.vme.VmeDao;
  * @since 16 Jan 2014
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class})
+@AdditionalClasses({ MsAcces2DomainMapper.class, ReferenceDaoImpl.class, VmeAccessDbImport.class })
 public class CRUDJpaDaoTest {
 	@Inject
 	private VmeAccessDbImport importer;

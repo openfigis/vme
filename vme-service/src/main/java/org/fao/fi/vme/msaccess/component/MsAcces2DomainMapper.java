@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.msaccess.mapping.ReferenceDependentTableDomainMapper;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
@@ -20,9 +23,12 @@ import org.fao.fi.vme.msaccess.tables.Meetings;
 import org.fao.fi.vme.msaccess.tables.RFB_MetaData;
 import org.fao.fi.vme.msaccess.tables.RFB_VME_Fishing_History;
 import org.fao.fi.vme.msaccess.tables.VME;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 public class MsAcces2DomainMapper {
-
+	@Inject @ConceptProvider private ReferenceDaoImpl _conceptProvider;
+	
 	static Map<Class<?>, Class<?>> map = new HashMap<Class<?>, Class<?>>();
 
 	static {
@@ -44,7 +50,7 @@ public class MsAcces2DomainMapper {
 			TableDomainMapper m = (TableDomainMapper) tableRecord;
 
 			// map from table to domain
-			Object domainObject = m.map();
+			Object domainObject = m instanceof ReferenceDependentTableDomainMapper ? ((ReferenceDependentTableDomainMapper)m).map(this._conceptProvider) : m.map();
 
 			// adding the link 'for the record' in order to enable the Linker to
 			// do his work.

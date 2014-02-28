@@ -24,6 +24,7 @@ import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.fao.fi.vme.msaccess.tables.RFB_VME_Fishing_History;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +34,7 @@ import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
+@AdditionalClasses({ MsAcces2DomainMapper.class })
 public class TableWriterTest {
 
 	@Inject
@@ -41,7 +43,7 @@ public class TableWriterTest {
 	@Inject
 	TableWriter tableWriter;
 
-	MsAcces2DomainMapper mapper = new MsAcces2DomainMapper();
+	@Inject MsAcces2DomainMapper mapper;
 
 	@Inject
 	VmeDao vmeDao;

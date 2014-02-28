@@ -21,6 +21,7 @@ import org.fao.fi.vme.msaccess.mapping.RelationVmeGeoRef;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,12 +30,13 @@ import org.vme.dao.config.vme.VmeDataBaseProducer;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
+@AdditionalClasses({ MsAcces2DomainMapper.class })
 public class LinkerTest {
 
 	@Inject
 	private VmeReader reader;
 
-	private final MsAcces2DomainMapper m = new MsAcces2DomainMapper();
+	@Inject private MsAcces2DomainMapper m;
 	private final Linker linker = new Linker();
 	private final MultiLingualStringUtil u = new MultiLingualStringUtil();
 	private RelationVmeGeoRef relationVmeGeoRef = new RelationVmeGeoRef();

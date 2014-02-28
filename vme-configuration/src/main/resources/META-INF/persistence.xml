@@ -82,21 +82,6 @@
 			<property name="hibernate.ejb.entitymanager_factory_name" value="vme_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="VME" />
 			
-			<!-- Shared among all possible (custom) connection providers -->
-			<property name="hibernate.connection.pool_size" value="10"/>
-
-			<!-- BoneCP custom properties -->
-			<!-- 
-			<property name="hibernate.bonecp.statisticsEnabled" value="true"/>
-			<property name="hibernate.bonecp.partitionCount" value="1"/>
-			-->
-			
-			<!-- Commons DBCP custom properties -->
-			<property name="hibernate.dbcp.initialSize" value="8"/>
-			<property name="hibernate.dbcp.maxIdle" value="20"/>
-			<property name="hibernate.dbcp.minIdle" value="0"/>
-						
-			<property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider"/>
 		</properties>
 	</persistence-unit>
 
@@ -166,21 +151,6 @@
 			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="FIGIS" />
 
-			<!-- Shared among all possible (custom) connection providers -->
-			<property name="hibernate.connection.pool_size" value="10"/>
-
-			<!-- BoneCP custom properties -->
-			<!-- 
-			<property name="hibernate.bonecp.statisticsEnabled" value="true"/>
-			<property name="hibernate.bonecp.partitionCount" value="1"/>
-			-->
-			
-			<!-- Commons DBCP custom properties -->
-			<property name="hibernate.dbcp.initialSize" value="8"/>
-			<property name="hibernate.dbcp.maxIdle" value="20"/>
-			<property name="hibernate.dbcp.minIdle" value="0"/>
-						
-			<property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider"/>
 		</properties>
 	</persistence-unit>
 </persistence>

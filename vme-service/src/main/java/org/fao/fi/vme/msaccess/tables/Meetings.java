@@ -3,21 +3,23 @@ package org.fao.fi.vme.msaccess.tables;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.inject.Inject;
+import javax.annotation.PostConstruct;
 
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.formatter.MeetingDateParser;
-import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
+import org.fao.fi.vme.msaccess.mapping.ReferenceDependentTableDomainMapper;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
 
-public class Meetings implements TableDomainMapper {
+public class Meetings implements ReferenceDependentTableDomainMapper {
 	final static private Long DEFAULT_INFORMATION_SOURCE_TYPE_ID = 2L; //Meeting documents
 	
-	@Inject @ConceptProvider protected ReferenceConceptProvider<Long> _conceptProvider;
+	@PostConstruct 
+	public void foobaz() {
+		System.out.println("HEREIAM!");
+	}
 	
 	private int ID;
 	private String RFB_ID;
@@ -101,14 +103,19 @@ public class Meetings implements TableDomainMapper {
 		Source_Type = source_Type;
 	}
 
+	
+	
+	/* (non-Javadoc)
+	 * @see org.fao.fi.vme.msaccess.mapping.TableDomainMapper#map(org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider)
+	 */
 	@Override
-	public Object map() {
+	public Object map(ReferenceConceptProvider<Long> provider) {
 		InformationSource is = new InformationSource();
 
 		InformationSourceType defaultInformationSourceType = null;
 		
 		try {
-			defaultInformationSourceType = (InformationSourceType)this._conceptProvider.getReferenceByID(InformationSourceType.class, DEFAULT_INFORMATION_SOURCE_TYPE_ID);
+			defaultInformationSourceType = (InformationSourceType)provider.getReferenceByID(InformationSourceType.class, DEFAULT_INFORMATION_SOURCE_TYPE_ID);
 		} catch(Throwable t) {
 			throw new RuntimeException("Unable to retrieve default information source type", t);
 		}
@@ -128,7 +135,7 @@ public class Meetings implements TableDomainMapper {
 		is.setPublicationYear(this.Year_ID);
 		
 		try {
-			is.setSourceType((InformationSourceType)this._conceptProvider.getReferenceByID(InformationSourceType.class, new Long(Source_Type)));
+			is.setSourceType((InformationSourceType)provider.getReferenceByID(InformationSourceType.class, new Long(Source_Type)));
 		} catch(Throwable t) {
 			throw new RuntimeException("Unable build information source type", t);
 		}
@@ -142,5 +149,10 @@ public class Meetings implements TableDomainMapper {
 
 		is.setCitation(u.english(this.getCitation()));
 		return is;
+	}
+
+	@Override
+	public Object map() {
+		throw new RuntimeException("Unimplemented");
 	}
 }
