@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Calendar;
 
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class InformationSourceMock {
@@ -13,7 +14,7 @@ public class InformationSourceMock {
 
 	public static InformationSource create() {
 		InformationSource is = new InformationSource();
-		is.setSourceType(3);
+		is.setSourceType(new InformationSourceType(2L, "Meeting documents", InformationSourceType.IS_A_MEETING_DOCUMENT));
 		is.setPublicationYear(2000);
 		is.setCitation(u.english(CIT));
 		is.setMeetingEndDate(Calendar.getInstance().getTime());

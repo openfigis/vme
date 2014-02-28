@@ -6,6 +6,7 @@ package org.fao.fi.vme.batch.reference;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.Authority;
+import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
 import org.vme.dao.ReferenceBatchDao;
@@ -27,35 +28,44 @@ public class ReferenceDataHardcodedBatch {
 		createAuthorities();
 		createVmeCriterias();
 		createVmeTypes();
+		createInformationSourceTypes();
 		// createYears();
 	}
 
 	private void createAuthorities() {
-		dao.syncStoreObject(new Authority(20010, "CCAMLR",
-				"Commission for the Conservation of Antarctic Marine Living Resources"), 20010);
-		dao.syncStoreObject(new Authority(22080, "GFCM", "General Fishery Commission for the Mediterranean sea"), 22080);
-		dao.syncStoreObject(new Authority(20220, "NAFO", "Northwest Atlantic Fisheries Organization"), 20220);
-		dao.syncStoreObject(new Authority(21580, "NEAFC", "North East Atlantic Fisheries Commission"), 21580);
-		dao.syncStoreObject(new Authority(22140, "SEAFO", "South East Atlantic Fisheries Organisation"), 22140);
-		dao.syncStoreObject(new Authority(24564, "NPFC", "North Pacific Fisheries Commission"), 24564);
+		dao.syncStoreObject(new Authority(20010L, "CCAMLR", "Commission for the Conservation of Antarctic Marine Living Resources"), 20010L);
+		dao.syncStoreObject(new Authority(22080L, "GFCM", "General Fishery Commission for the Mediterranean sea"), 22080L);
+		dao.syncStoreObject(new Authority(20220L, "NAFO", "Northwest Atlantic Fisheries Organization"), 20220L);
+		dao.syncStoreObject(new Authority(21580L, "NEAFC", "North East Atlantic Fisheries Commission"), 21580L);
+		dao.syncStoreObject(new Authority(22140L, "SEAFO", "South East Atlantic Fisheries Organisation"), 22140L);
+		dao.syncStoreObject(new Authority(24564L, "NPFC", "North Pacific Fisheries Commission"), 24564L);
 
 		// repAuthority.put((long)90010, new
 		// Authority(22140,"SIODFA","Southern Indian Ocean Deepsea Fishers' Association"),);
 	}
 
 	private void createVmeCriterias() {
-		dao.syncStoreObject(new VmeCriteria(10, "Uniqueness or rarity"), 10);
-		dao.syncStoreObject(new VmeCriteria(20, "Functional significance of the habitat"), 20);
-		dao.syncStoreObject(new VmeCriteria(30, "Fragility"), 30);
-		dao.syncStoreObject(new VmeCriteria(40, "Life-history traits"), 40);
-		dao.syncStoreObject(new VmeCriteria(50, "Structural complexity"), 50);
-		dao.syncStoreObject(new VmeCriteria(60, "Unspecified"), 60);
+		dao.syncStoreObject(new VmeCriteria(10L, "Uniqueness or rarity"), 10L);
+		dao.syncStoreObject(new VmeCriteria(20L, "Functional significance of the habitat"), 20L);
+		dao.syncStoreObject(new VmeCriteria(30L, "Fragility"), 30L);
+		dao.syncStoreObject(new VmeCriteria(40L, "Life-history traits"), 40L);
+		dao.syncStoreObject(new VmeCriteria(50L, "Structural complexity"), 50L);
+		dao.syncStoreObject(new VmeCriteria(60L, "Unspecified"), 60L);
 	}
 
 	private void createVmeTypes() {
-		dao.syncStoreObject(new VmeType(10, "VME"), 10);
-		dao.syncStoreObject(new VmeType(20, "Risk area"), 20);
-		dao.syncStoreObject(new VmeType(30, "Other types of closed/restricted area"), 30);
+		dao.syncStoreObject(new VmeType(10L, "VME"), 10L);
+		dao.syncStoreObject(new VmeType(20L, "Risk area"), 20L);
+		dao.syncStoreObject(new VmeType(30L, "Other types of closed/restricted area"), 30L);
+	}
+	
+	private void createInformationSourceTypes() {
+		dao.syncStoreObject(new InformationSourceType(1L, "Book", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT), 1L);
+		dao.syncStoreObject(new InformationSourceType(2L, "Meeting documents", InformationSourceType.IS_A_MEETING_DOCUMENT ), 2L);
+		dao.syncStoreObject(new InformationSourceType(3L, "Journal", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT), 3L);
+		dao.syncStoreObject(new InformationSourceType(4L, "Project", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT), 4L);
+		dao.syncStoreObject(new InformationSourceType(6L, "CD-ROM/DVD", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT), 6L);
+		dao.syncStoreObject(new InformationSourceType(99L, "Other", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT), 99L);
 	}
 
 	// private void createYears() {

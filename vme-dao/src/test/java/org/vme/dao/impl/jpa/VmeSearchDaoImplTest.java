@@ -87,7 +87,7 @@ public class VmeSearchDaoImplTest {
 		vmeDao.saveVme(vme);
 
 		Authority a = new Authority();
-		a.setId(100);
+		a.setId(100L);
 		a.setAcronym(r.getId());
 		vmeDao.persist(a);
 

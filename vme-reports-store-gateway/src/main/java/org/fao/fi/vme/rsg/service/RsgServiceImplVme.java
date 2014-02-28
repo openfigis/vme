@@ -167,7 +167,10 @@ public class RsgServiceImplVme implements RsgService {
 				}
 			}
 			
-			tx.rollback();
+			if(tx.isActive())
+				tx.rollback();
+			else
+				LOG.warn("No active transaction: unable to rollback");
 		} catch(Throwable t) {
 			String message = "Unable to rollback transaction: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]";
 			
@@ -604,12 +607,12 @@ public class RsgServiceImplVme implements RsgService {
 		EntityTransaction tx = em.getTransaction();
 
 		try {
-			tx.begin();
-
 			Object toDelete = this.vmeDao.getEntityById(this.vmeDao.getEm(), entity, refReportId);
 			Rfmo parent = null;
 					
 			if(toDelete != null) {
+				tx.begin();
+
 				parent = this.extractRfmo(toDelete);
 				
 				this.vmeDao.delete(toDelete);
@@ -618,16 +621,15 @@ public class RsgServiceImplVme implements RsgService {
 				
 				//This is necessary, as deleting the reference will set its Rfmo to NULL and thus it won't be
 				//possible to notify factsheet changes to VME belonging to the same RFMO owning the just deleted entity 
-				toDelete = this.forceRfmo(toDelete, parent);
 				
 				if(toDelete instanceof GeneralMeasure)
-					this._fsChangeListener.generalMeasureDeleted((GeneralMeasure)toDelete);
+					this._fsChangeListener.generalMeasureDeleted(parent, (GeneralMeasure)toDelete);
 				else if(toDelete instanceof InformationSource)
-					this._fsChangeListener.informationSourceDeleted((InformationSource)toDelete);
+					this._fsChangeListener.informationSourceDeleted(parent, (InformationSource)toDelete);
 				else if(toDelete instanceof FisheryAreasHistory)
-					this._fsChangeListener.fishingFootprintDeleted((FisheryAreasHistory)toDelete);
+					this._fsChangeListener.fishingFootprintDeleted(parent, (FisheryAreasHistory)toDelete);
 				else if(toDelete instanceof VMEsHistory)
-					this._fsChangeListener.regionalHistoryDeleted((VMEsHistory)toDelete);
+					this._fsChangeListener.regionalHistoryDeleted(parent, (VMEsHistory)toDelete);
 				
 				response.succeeded(entity.getName() + " reference report #" + refReportId + " has been deleted");
 
@@ -638,7 +640,7 @@ public class RsgServiceImplVme implements RsgService {
 				response.notSucceeded(entity.getName() + " report #" + refReportId + " cannot be deleted as it doesn't exist");
 			}
 		} catch (Throwable t) {
-			LOG.error("Unable to delete {} report #{}: {} [ {} ]", entity.getName(), refReportId, t.getClass().getSimpleName(), t.getMessage());
+			LOG.error("Unable to delete {} report #{}: {} [ {} ]", entity.getName(), refReportId, t.getClass().getSimpleName(), t.getMessage(), t);
 
 			response.notSucceeded(t.getMessage());
 			
@@ -732,10 +734,14 @@ public class RsgServiceImplVme implements RsgService {
 
 			tx.commit();
 
-			if(isNew)
-				this._fsChangeListener.VMEAdded((Vme)updated);
-			else
-				this._fsChangeListener.VMEChanged((Vme)updated);
+			try {
+				if(isNew)
+					this._fsChangeListener.VMEAdded((Vme)updated);
+				else
+					this._fsChangeListener.VMEChanged((Vme)updated);
+			} catch (Throwable t) {
+				LOG.warn("Unable to update factsheet for {} report {}: {} [ {} ]", report.getType(), id, t.getClass().getSimpleName(), t.getMessage(), t);
+			}
 		} catch (Throwable t) {
 			LOG.error("Unable to update {} report {}: {} [ {} ]", report.getType(), id, t.getClass().getSimpleName(), t.getMessage(), t);
 

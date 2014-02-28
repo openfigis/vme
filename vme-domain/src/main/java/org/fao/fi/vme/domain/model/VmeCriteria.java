@@ -25,7 +25,7 @@ public class VmeCriteria implements NamedReferenceConcept {
 	 */
 	@RSGIdentifier
 	@Id
-	private int id;
+	private Long id;
 	
 	/** 
 	 * Name of the vme criteria
@@ -43,7 +43,7 @@ public class VmeCriteria implements NamedReferenceConcept {
 
 	
 	
-	public VmeCriteria(int id, String name) {
+	public VmeCriteria(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -54,14 +54,14 @@ public class VmeCriteria implements NamedReferenceConcept {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -79,6 +79,8 @@ public class VmeCriteria implements NamedReferenceConcept {
 		this.name = name;
 	}
 
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -86,10 +88,12 @@ public class VmeCriteria implements NamedReferenceConcept {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + this.id;
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 		result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
+
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -103,7 +107,10 @@ public class VmeCriteria implements NamedReferenceConcept {
 		if (getClass() != obj.getClass())
 			return false;
 		VmeCriteria other = (VmeCriteria) obj;
-		if (this.id != other.id)
+		if (this.id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!this.id.equals(other.id))
 			return false;
 		if (this.name == null) {
 			if (other.name != null)

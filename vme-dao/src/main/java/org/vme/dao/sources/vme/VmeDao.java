@@ -154,8 +154,7 @@ public class VmeDao extends AbstractJPADao {
 			try {
 				deleteMethod = this.getClass().getDeclaredMethod("delete", entity);
 			} catch (Exception t) {
-				String message = "Unable to find a proper 'delete' method for " + toDelete.getClass().getSimpleName()
-						+ ": " + t.getMessage();
+				String message = "Unable to find a proper 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + t.getMessage();
 				LOG.error(message, t);
 				throw new IllegalArgumentException(message, t);
 			}
@@ -164,8 +163,7 @@ public class VmeDao extends AbstractJPADao {
 				try {
 					deleteMethod.invoke(this, toDelete);
 				} catch (Exception t) {
-					String message = "Unable to invoke the 'delete' method for " + toDelete.getClass().getSimpleName()
-							+ ": " + t.getMessage();
+					String message = "Unable to invoke the 'delete' method for " + toDelete.getClass().getSimpleName() + ": " + t.getMessage();
 					LOG.error(message, t);
 					throw new VmeDaoException(message, t);
 				}
@@ -231,9 +229,7 @@ public class VmeDao extends AbstractJPADao {
 
 			this.doMerge(em, parent);
 		} else {
-			LOG.warn(
-					"Got a request to delete Information Source #{} belonging to {} but the parent Rfmo domain object seems not to have any Information Source listed...",
-					toDelete.getId(), parent == null ? "NULL" : parent.getId());
+			LOG.warn("Got a request to delete Information Source #{} belonging to {} but the parent Rfmo domain object seems not to have any Information Source listed...", toDelete.getId(), parent == null ? "NULL" : parent.getId());
 		}
 
 		Iterator<InformationSource> gmIterator;
@@ -266,7 +262,6 @@ public class VmeDao extends AbstractJPADao {
 			}
 		}
 
-		this.doMerge(em, toDelete);
 		this.doRemove(em, toDelete);
 	}
 
@@ -403,9 +398,7 @@ public class VmeDao extends AbstractJPADao {
 
 			this.doMerge(em, parent);
 		} else {
-			LOG.warn(
-					"Got a request to delete General Measure #{} belonging to {} but the parent Rfmo domain object seems not to have any General Measure listed...",
-					toDelete.getId(), parent == null ? "NULL" : parent.getId());
+			LOG.warn("Got a request to delete General Measure #{} belonging to {} but the parent Rfmo domain object seems not to have any General Measure listed...", toDelete.getId(), parent == null ? "NULL" : parent.getId());
 		}
 
 		if (toDelete.getInformationSourceList() != null) {
@@ -522,21 +515,21 @@ public class VmeDao extends AbstractJPADao {
 		for (Long id : geoRefsToDelete) {
 			GeoRef g = this.getEntityById(this.em, GeoRef.class, id);
 			
-			g.setVme(null);
+//			g.setVme(null);
 			
 			this.doRemove(em, g);
 		} 
 		for (Long id : profilesToDelete) {
 			Profile p = this.getEntityById(this.em, Profile.class, id);
 			
-			p.setVme(null);
+//			p.setVme(null);
 			
 			this.doRemove(em, p);
 		} 
 		for (Long id : specificMeasuresToDelete) {
 			SpecificMeasure s = this.getEntityById(this.em, SpecificMeasure.class, id); 
 			
-			s.setVme(null);
+//			s.setVme(null);
 			
 			this.doRemove(em, s);
 		}
@@ -660,7 +653,7 @@ public class VmeDao extends AbstractJPADao {
 
 		if (geoRef.getVme().getId() == null)
 			throw new IllegalArgumentException("The VME Map Reference to create cannot have a NULL Vme identifier");
-
+		
 		return this.doPersistAndFlush(em, geoRef);
 	}
 
@@ -711,8 +704,7 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a NULL Vme reference");
 
 		if (updatedSM.getVme().getId() == null)
-			throw new IllegalArgumentException(
-					"The updated VME Specific Measure cannot have a Vme reference with a NULL identifier");
+			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a Vme reference with a NULL identifier");
 
 		InformationSource updatedIS = updatedSM.getInformationSource();
 
@@ -759,8 +751,7 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The VME Specific Measure to create cannot have a NULL Vme reference");
 
 		if (specificMeasure.getVme().getId() == null)
-			throw new IllegalArgumentException(
-					"The VME Specific Measure to create cannot have a Vme reference with a NULL identifier");
+			throw new IllegalArgumentException("The VME Specific Measure to create cannot have a Vme reference with a NULL identifier");
 
 		if (specificMeasure.getInformationSource() != null) {
 			InformationSource existing = this.getEntityById(this.em, InformationSource.class, specificMeasure
@@ -785,8 +776,7 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The updated Fishing Footprint cannot have a NULL Authority");
 
 		if (fisheryAreasHistory.getRfmo().getId() == null)
-			throw new IllegalArgumentException(
-					"The updated Fishing Footprint cannot have an Authority with a NULL identifier");
+			throw new IllegalArgumentException("The updated Fishing Footprint cannot have an Authority with a NULL identifier");
 
 		Rfmo parent = this.getEntityById(em, Rfmo.class, fisheryAreasHistory.getRfmo().getId());
 		// parent.getHasFisheryAreasHistory().add(fisheryAreasHistory);
@@ -875,6 +865,7 @@ public class VmeDao extends AbstractJPADao {
 					"The updated Information Source cannot have an Authority with a NULL identifier");
 
 		InformationSource current = this.getEntityById(this.em, InformationSource.class, informationSource.getId());
+		current.setSourceType(informationSource.getSourceType());
 		current.setCitation(informationSource.getCitation());
 		current.setCommittee(informationSource.getCommittee());
 		current.setMeetingEndDate(informationSource.getMeetingEndDate());
@@ -896,9 +887,16 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The Information Source to create cannot have a NULL Authority");
 
 		if (informationSource.getRfmo().getId() == null)
-			throw new IllegalArgumentException(
-					"The Information Source to create cannot have an Authority with a NULL identifier");
+			throw new IllegalArgumentException("The Information Source to create cannot have an Authority with a NULL identifier");
 
+		Rfmo parent = this.getEntityById(em, Rfmo.class, informationSource.getRfmo().getId());
+		informationSource.setRfmo(parent);
+		
+//		if(parent.getInformationSourceList() == null)
+//			parent.setInformationSourceList(new ArrayList<InformationSource>());
+//		
+//		parent.getInformationSourceList().add(informationSource);
+		
 		return this.doPersistAndFlush(em, informationSource);
 	}
 
@@ -913,8 +911,7 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The updated VME General Measure cannot have a NULL Authority");
 
 		if (generalMeasure.getRfmo().getId() == null)
-			throw new IllegalArgumentException(
-					"The updated GeneralMeasure cannot have an Authority with a NULL identifier");
+			throw new IllegalArgumentException("The updated GeneralMeasure cannot have an Authority with a NULL identifier");
 
 		GeneralMeasure current = this.getEntityById(this.em, GeneralMeasure.class, generalMeasure.getId());
 		current.setExplorataryFishingProtocol(generalMeasure.getExplorataryFishingProtocol());
@@ -1031,9 +1028,16 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The VME General Measure to create cannot have a NULL Authority");
 
 		if (generalMeasure.getRfmo().getId() == null)
-			throw new IllegalArgumentException(
-					"The VME General Measure to create cannot have an Authority with a NULL identifier");
+			throw new IllegalArgumentException("The VME General Measure to create cannot have an Authority with a NULL identifier");
 
+		Rfmo parent = this.getEntityById(em, Rfmo.class, generalMeasure.getRfmo().getId());
+		generalMeasure.setRfmo(parent);
+		
+//		if(parent.getGeneralMeasureList() == null)
+//			parent.setGeneralMeasureList(new ArrayList<GeneralMeasure>());
+//		
+//		parent.getGeneralMeasureList().add(generalMeasure);
+		
 		generalMeasure = this.doPersistAndFlush(em, generalMeasure);
 
 		em.refresh(generalMeasure);

@@ -125,7 +125,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		// }
 
 		if (authority_id > 0) {
-			Authority vmeAuthority = (Authority) entityManager.find(Authority.class, (int) authority_id);
+			Authority vmeAuthority = (Authority) entityManager.find(Authority.class, authority_id);
 			if (vmeAuthority != null) {
 				String authority = vmeAuthority.getAcronym();
 				txtQuery.append(conjunction);
@@ -137,7 +137,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		}
 
 		if (criteria_id > 0) {
-			VmeCriteria vmeCriteria = (VmeCriteria) entityManager.find(VmeCriteria.class, (int) criteria_id);
+			VmeCriteria vmeCriteria = (VmeCriteria) entityManager.find(VmeCriteria.class,  criteria_id);
 			if (vmeCriteria != null) {
 				String criteria = vmeCriteria.getName();
 				txtQuery.append(conjunction);
@@ -149,7 +149,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		}
 
 		if (type_id > 0) {
-			VmeType vmeType = (VmeType) entityManager.find(VmeType.class, (int) type_id);
+			VmeType vmeType = (VmeType) entityManager.find(VmeType.class,  type_id);
 			if (vmeType != null) {
 				String areaType = vmeType.getName();
 				txtQuery.append(conjunction);

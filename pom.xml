@@ -12,9 +12,28 @@
 		<version>${project.version}</version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+
+<!-- VME Oracle 12C fiqa -->
+				<javax.persistence.jdbc.driver.vme>oracle.jdbc.driver.OracleDriver</javax.persistence.jdbc.driver.vme>
+				<javax.persistence.jdbc.url.vme>jdbc:oracle:thin:@hqldvoracle01:1532:FISQ</javax.persistence.jdbc.url.vme>
+				<javax.persistence.jdbc.user.vme>vme</javax.persistence.jdbc.user.vme>
+				<javax.persistence.jdbc.password.vme>zxje3cam68e3</javax.persistence.jdbc.password.vme>
+				<hibernate.dialect.vme>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect.vme>
+				<hibernate.default.schema.vme>vme</hibernate.default.schema.vme>
+				<hibernate.hbm2ddl.auto.vme>validate</hibernate.hbm2ddl.auto.vme>
+				<!--validate | update | create | create-drop -->
+
+
+				<!-- FIGIS Oracle fiqa -->
+				<javax.persistence.jdbc.driver.figis>oracle.jdbc.driver.OracleDriver</javax.persistence.jdbc.driver.figis>
+				<javax.persistence.jdbc.url.figis>jdbc:oracle:thin:@ltsdbwo1.fao.org:3301:wts01</javax.persistence.jdbc.url.figis>
+				<javax.persistence.jdbc.user.figis>figis_update</javax.persistence.jdbc.user.figis>
+				<javax.persistence.jdbc.password.figis>fi1s</javax.persistence.jdbc.password.figis>
+				<hibernate.dialect.figis>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect.figis>
+				<hibernate.hbm2ddl.auto.figis>validate</hibernate.hbm2ddl.auto.figis>
+
 	</properties>
-
-
 
 	<repositories>
 		<repository>

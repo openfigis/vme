@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +18,10 @@ public class AIntegrationConfigurationTest {
 
 	@Test
 	public void testVmeConfig() {
+		URL res = this.getClass().getClassLoader().getResource("META-INF/persistence.xml");
+		
+		System.out.println(res.toExternalForm());
+		
 		InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("META-INF/persistence.xml");
 
 		try {

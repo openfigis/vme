@@ -108,10 +108,10 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#generalMeasureDeleted(org.fao.fi.vme.domain.model.GeneralMeasure[])
 	 */
 	@Override
-	final public void generalMeasureDeleted(final GeneralMeasure... deleted) throws Exception {
+	final public void generalMeasureDeleted(Rfmo owner, final GeneralMeasure... deleted) throws Exception {
 		LOG.info("Notified of deletions of {} elements of type GeneralMeasure", ( deleted == null ? "NULL" : deleted.length));
 		
-		this.updateFactsheets(this.findVMEIDs(deleted));
+		this.updateFactsheets(this.findVMEIDs(owner));
 	}
 
 	/* (non-Javadoc)
@@ -146,10 +146,10 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#informationSourceDeleted(org.fao.fi.vme.domain.model.InformationSource[])
 	 */
 	@Override
-	final public void informationSourceDeleted(final InformationSource... deleted) throws Exception {
+	final public void informationSourceDeleted(Rfmo owner, final InformationSource... deleted) throws Exception {
 		LOG.info("Notified of deletions of {} elements of type InformationSource", ( deleted == null ? "NULL" : deleted.length));
 		
-		this.updateFactsheets(this.findVMEIDs(deleted));
+		this.updateFactsheets(this.findVMEIDs(owner));
 	}
 
 	/* (non-Javadoc)
@@ -172,8 +172,8 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final public void fishingFootprintAdded(final FisheryAreasHistory... added) throws Exception {
 		LOG.info("Notified of additions of {} elements of type FisheryAreasHistory", ( added == null ? "NULL" : added.length));
 		
-		for(FisheryAreasHistory in : added)
-			this._updater.refreshFishingFootprint(in.getId());
+//		for(FisheryAreasHistory in : added)
+//			this._updater.refreshFishingFootprint(in.getId());
 
 		this.updateFactsheets(this.findVMEIDs(added));
 	}
@@ -182,10 +182,17 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#fishingFootprintDeleted(org.fao.fi.vme.domain.model.extended.FisheryAreasHistory[])
 	 */
 	@Override
-	final public void fishingFootprintDeleted(final FisheryAreasHistory... deleted) throws Exception {
+	final public void fishingFootprintDeleted(Rfmo owner, final FisheryAreasHistory... deleted) throws Exception {
 		LOG.info("Notified of deletions of {} elements of type FisheryAreasHistory", ( deleted == null ? "NULL" : deleted.length));
 		
-		this.updateFactsheets(this.findVMEIDs(deleted));
+//		Long[] ids = this.findVMEIDs(owner);
+		
+//		for(FisheryAreasHistory in : deleted) {
+//			this._updater.refreshRfmo(owner.getId());
+//			this._updater.refreshFishingFootprint(in.getId());
+//		}
+		
+		this.updateFactsheets(this.findVMEIDs(owner));
 	}
 
 	/* (non-Javadoc)
@@ -218,10 +225,10 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#regionalHistoryDeleted(org.fao.fi.vme.domain.model.extended.VMEsHistory[])
 	 */
 	@Override
-	final public void regionalHistoryDeleted(final VMEsHistory... deleted) throws Exception {
+	final public void regionalHistoryDeleted(Rfmo owner, final VMEsHistory... deleted) throws Exception {
 		LOG.info("Notified of deletions of {} elements of type VMEsHistory", ( deleted == null ? "NULL" : deleted.length));	
-
-		this.updateFactsheets(this.findVMEIDs(deleted));
+		
+		this.updateFactsheets(this.findVMEIDs(owner));
 	}
 	
 	protected void createFactsheets(final Long[] vmeIDs) {

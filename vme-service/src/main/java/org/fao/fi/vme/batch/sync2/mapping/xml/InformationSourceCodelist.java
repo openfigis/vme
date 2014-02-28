@@ -12,27 +12,27 @@ import java.util.Map;
  * @author Erik van Ingen
  * 
  */
+@Deprecated //FFiorellato: Useless?
 public class InformationSourceCodelist {
 
-	private static String value0 = "Book";
-	private static String value1 = "Journal";
-	private static String value2 = "Project";
-	private static String value3 = "Meeting documents";
-	private static String value4 = "CD-ROM/DVD";
-	private static String value5 = "Other";
+	private static String value1 = "Book";
+	private static String value2 = "Meeting documents";
+	private static String value3 = "Journal";
+	private static String value4 = "Project";
+	private static String value6 = "CD-ROM/DVD";
+	private static String value99 = "Other";
 
-	private static final Map<Integer, String> map = new HashMap<Integer, String>();
+	private static final Map<Long, String> map = new HashMap<Long, String>();
 	static {
-		map.put(new Integer(0), value0);
-		map.put(new Integer(1), value1);
-		map.put(new Integer(2), value2);
-		map.put(new Integer(3), value3);
-		map.put(new Integer(4), value4);
-		map.put(new Integer(5), value5);
+		map.put(new Long(1), value1);
+		map.put(new Long(2), value2);
+		map.put(new Long(3), value3);
+		map.put(new Long(4), value4);
+		map.put(new Long(6), value6);
+		map.put(new Long(99), value99);
 	}
 
-	public String getDescription(Integer informationSourceType) {
+	public String getDescription(Long informationSourceType) {
 		return map.get(informationSourceType);
 	}
-
 }

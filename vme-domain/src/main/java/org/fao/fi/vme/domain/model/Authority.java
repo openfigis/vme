@@ -19,7 +19,7 @@ public class Authority implements NamedReferenceConcept, AcronymAwareReferenceCo
 	 * Identifier of the domain entity.
 	 */
 	@Id
-	private int id;
+	private Long id;
 
 	/**
 	 * Acronym of the authority
@@ -40,7 +40,7 @@ public class Authority implements NamedReferenceConcept, AcronymAwareReferenceCo
 		// TODO Auto-generated constructor stub
 	}
 
-	public Authority(int id, String acronym, String name) {
+	public Authority(Long id, String acronym, String name) {
 		super();
 		this.id = id;
 		this.acronym = acronym;
@@ -50,7 +50,7 @@ public class Authority implements NamedReferenceConcept, AcronymAwareReferenceCo
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -58,7 +58,7 @@ public class Authority implements NamedReferenceConcept, AcronymAwareReferenceCo
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

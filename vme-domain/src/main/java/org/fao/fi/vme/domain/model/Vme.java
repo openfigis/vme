@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
+import org.fao.fi.vme.domain.util.YearComparator;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
@@ -33,7 +34,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.Report;
  * 
  */
 @Entity
-@RSGReport(name = "Vulnerable Marine Ecosystem Data")
+@RSGReport(name = "Vulnerable Marine Ecosystem")
 public class Vme implements ObjectId<Long>, Report {
 
 	@RSGIdentifier
@@ -153,19 +154,19 @@ public class Vme implements ObjectId<Long>, Report {
 	}
 
 	public List<Profile> getProfileList() {
-		return profileList;
+		return YearComparator.sort(profileList);
 	}
 
 	public void setProfileList(List<Profile> profileList) {
-		this.profileList = profileList;
+		this.profileList = YearComparator.sort(profileList);
 	}
 
 	public List<GeoRef> getGeoRefList() {
-		return geoRefList;
+		return YearComparator.sort(geoRefList);
 	}
 
 	public void setGeoRefList(List<GeoRef> geoRefList) {
-		this.geoRefList = geoRefList;
+		this.geoRefList = YearComparator.sort(geoRefList);
 	}
 
 	public ValidityPeriod getValidityPeriod() {
@@ -209,11 +210,11 @@ public class Vme implements ObjectId<Long>, Report {
 	}
 
 	public List<SpecificMeasure> getSpecificMeasureList() {
-		return specificMeasureList;
+		return YearComparator.sort(specificMeasureList);
 	}
 
 	public void setSpecificMeasureList(List<SpecificMeasure> specificMeasureList) {
-		this.specificMeasureList = specificMeasureList;
+		this.specificMeasureList = YearComparator.sort(specificMeasureList);
 	}
 
 	// /* (non-Javadoc)

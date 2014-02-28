@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,14 +18,18 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.fao.fi.vme.domain.model.support.CustomInformationSourceTypeDataConverter;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGInstructions;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGOneAmong;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGSimpleReference;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
@@ -77,34 +82,34 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 
 	@RSGName("Publication Year")
 	@RSGConverter(IntegerDataConverter.class)
-	@RSGWeight(1)
+	@RSGWeight(2)
 	private Integer publicationYear;
 
 	@RSGName("Meeting Start Date")
 	@RSGInstructions("Use the YYYY/MM/DD format")
 	@RSGConverter(DateDataConverter.class)
-	@RSGWeight(1)
+	@RSGWeight(2)
 	@Temporal(TemporalType.DATE)
 	private Date meetingStartDate;
 
 	@RSGName("Meeting End Date")
 	@RSGInstructions("Use the YYYY/MM/DD format")
 	@RSGConverter(DateDataConverter.class)
-	@RSGWeight(1)
+	@RSGWeight(2)
 	@Temporal(TemporalType.DATE)
 	private Date meetingEndDate;
 
 	/** */
 	@RSGName("Committee")
 	@RSGConverter(MultiLingualStringConverter.class)
-	@RSGWeight(1)
+	@RSGWeight(2)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString committee;
 
 	/** */
 	@RSGName("Report Summary")
 	@RSGConverter(MultiLingualStringConverter.class)
-	@RSGWeight(1)
+	@RSGWeight(2)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString reportSummary;
 
@@ -113,17 +118,8 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 	 */
 	@RSGName("URL")
 	@RSGConverter(URLDataConverter.class)
-	@RSGWeight(1)
+	@RSGWeight(2)
 	private URL url;
-
-	/**
-	 * The title
-	 */
-	@RSGName("Citation")
-	@RSGConverter(MultiLingualStringConverter.class)
-	@RSGWeight(0)
-	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString citation;
 
 	/**
 	 * This field maybe used to indicate what type of source this is. One type
@@ -140,8 +136,23 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 	 * <option value="6">CD-ROM/DVD</option> <option VALUE="-1">Other </option>
 	 * 
 	 */
-	private Integer sourceType;
+	@RSGName("Source Type")
+	@RSGMandatory
+	@RSGOneAmong(concept = InformationSourceType.class, label = ConceptData.NAME, value = ConceptData.ID)
+	@RSGConverter(CustomInformationSourceTypeDataConverter.class)
+	@RSGWeight(1)
+	@ManyToOne(fetch = FetchType.EAGER)
+	private InformationSourceType sourceType;
 
+	/**
+	 * The title
+	 */
+	@RSGName("Citation")
+	@RSGConverter(MultiLingualStringConverter.class)
+	@RSGWeight(1)
+	@OneToOne(cascade = { CascadeType.ALL })
+	private MultiLingualString citation;
+	
 	@Override
 	public Long getId() {
 		return id;
@@ -224,12 +235,18 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 	public void setCitation(MultiLingualString citation) {
 		this.citation = citation;
 	}
-
-	public Integer getSourceType() {
-		return sourceType;
+	
+	/**
+	 * @return the 'sourceType' value
+	 */
+	public InformationSourceType getSourceType() {
+		return this.sourceType;
 	}
 
-	public void setSourceType(int sourceType) {
+	/**
+	 * @param sourceType the 'sourceType' value to set
+	 */
+	public void setSourceType(InformationSourceType sourceType) {
 		this.sourceType = sourceType;
 	}
 
@@ -240,38 +257,6 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 	public void setPublicationYear(Integer publicationYear) {
 		this.publicationYear = publicationYear;
 	}
-
-	// /* (non-Javadoc)
-	// * @see java.lang.Object#hashCode()
-	// */
-	// @Override
-	// public int hashCode() {
-	// final int prime = 31;
-	// int result = 1;
-	// result = prime * result + ((this.citation == null) ? 0 :
-	// this.citation.hashCode());
-	// result = prime * result + ((this.committee == null) ? 0 :
-	// this.committee.hashCode());
-	// result = prime * result + ((this.generalMeasure == null) ? 0 :
-	// this.generalMeasure.hashCode());
-	// result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-	// result = prime * result + ((this.meetingEndDate == null) ? 0 :
-	// this.meetingEndDate.hashCode());
-	// result = prime * result + ((this.meetingStartDate == null) ? 0 :
-	// this.meetingStartDate.hashCode());
-	// result = prime * result + ((this.publicationYear == null) ? 0 :
-	// this.publicationYear.hashCode());
-	// result = prime * result + ((this.reportSummary == null) ? 0 :
-	// this.reportSummary.hashCode());
-	// result = prime * result + ((this.rfmoList == null) ? 0 :
-	// this.rfmoList.hashCode());
-	// result = prime * result + ((this.sourceType == null) ? 0 :
-	// this.sourceType.hashCode());
-	// result = prime * result + ((this.specificMeasure == null) ? 0 :
-	// this.specificMeasure.hashCode());
-	// result = prime * result + ((this.url == null) ? 0 : this.url.hashCode());
-	// return result;
-	// }
 
 	/*
 	 * (non-Javadoc)
@@ -291,6 +276,11 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 			if (other.citation != null)
 				return false;
 		} else if (!this.citation.equals(other.citation))
+			return false;
+		if (this.sourceType == null) {
+			if (other.sourceType != null)
+				return false;
+		} else if (!this.sourceType.equals(other.sourceType))
 			return false;
 		if (this.committee == null) {
 			if (other.committee != null)
@@ -349,5 +339,4 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 			return false;
 		return true;
 	}
-
 }

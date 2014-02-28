@@ -25,7 +25,7 @@ public class VmeType implements NamedReferenceConcept {
 	 */
 	@RSGIdentifier
 	@Id
-	private int id;
+	private Long id;
 
 	/**
 	 * Name of the vme type
@@ -34,7 +34,7 @@ public class VmeType implements NamedReferenceConcept {
 
 	public VmeType() {} 
 	
-	public VmeType(int id, String name) {
+	public VmeType(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -43,14 +43,14 @@ public class VmeType implements NamedReferenceConcept {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -75,7 +75,7 @@ public class VmeType implements NamedReferenceConcept {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + this.id;
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 		result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
 	}
@@ -92,7 +92,10 @@ public class VmeType implements NamedReferenceConcept {
 		if (getClass() != obj.getClass())
 			return false;
 		VmeType other = (VmeType) obj;
-		if (this.id != other.id)
+		if (this.id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!this.id.equals(other.id))
 			return false;
 		if (this.name == null) {
 			if (other.name != null)

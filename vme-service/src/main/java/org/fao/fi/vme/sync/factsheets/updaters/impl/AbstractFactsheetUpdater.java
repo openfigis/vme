@@ -7,9 +7,11 @@ import java.io.InputStream;
 import java.net.URL;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
@@ -42,7 +44,9 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 	 */
 	@Override
 	public void refreshVme(Long vmeID) throws Exception {
-		this.vmeDao.getEm().refresh(this.vmeDao.getEntityById(this.vmeDao.getEm(), Vme.class, vmeID));
+		this.vmeDao.getEm().clear();
+		
+		this.vmeDao.getEntityById(this.vmeDao.getEm(), Vme.class, vmeID);
 	}
 	
 	/* (non-Javadoc)
@@ -50,7 +54,15 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 	 */
 	@Override
 	public void refreshGeneralMeasure(Long gmID) throws Exception {
-		this.vmeDao.getEm().refresh(this.vmeDao.getEntityById(this.vmeDao.getEm(), GeneralMeasure.class, gmID));
+		EntityManager em = this.vmeDao.getEm();
+		
+		GeneralMeasure toRefresh = this.vmeDao.getEntityById(em, GeneralMeasure.class, gmID);
+		Rfmo parent = toRefresh.getRfmo();
+		
+		if(parent != null)
+			em.refresh(parent);
+		
+		em.refresh(toRefresh);
 	}
 	
 	/* (non-Javadoc)
@@ -58,7 +70,15 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 	 */
 	@Override
 	public void refreshInformationSource(Long isID) throws Exception {
-		this.vmeDao.getEm().refresh(this.vmeDao.getEntityById(this.vmeDao.getEm(), InformationSource.class, isID));
+		EntityManager em = this.vmeDao.getEm();
+		
+		InformationSource toRefresh = this.vmeDao.getEntityById(em, InformationSource.class, isID);
+		Rfmo parent = toRefresh.getRfmo();
+		
+		if(parent != null)
+			em.refresh(parent);
+		
+		em.refresh(toRefresh);
 	}
 	
 	/* (non-Javadoc)
@@ -66,7 +86,15 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 	 */
 	@Override
 	public void refreshFishingFootprint(Long ffID) throws Exception {
-		this.vmeDao.getEm().refresh(this.vmeDao.getEntityById(this.vmeDao.getEm(), FisheryAreasHistory.class, ffID));		
+		EntityManager em = this.vmeDao.getEm();
+		
+		FisheryAreasHistory toRefresh = this.vmeDao.getEntityById(em, FisheryAreasHistory.class, ffID);
+		Rfmo parent = toRefresh.getRfmo();
+		
+		if(parent != null)
+			em.refresh(parent);
+		
+		em.refresh(toRefresh);
 	}
 	
 	/* (non-Javadoc)
@@ -74,9 +102,29 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 	 */
 	@Override
 	public void refreshRegionalHistory(Long rhID) throws Exception {
-		this.vmeDao.getEm().refresh(this.vmeDao.getEntityById(this.vmeDao.getEm(), VMEsHistory.class, rhID));
+		EntityManager em = this.vmeDao.getEm();
+		
+		VMEsHistory toRefresh = this.vmeDao.getEntityById(em, VMEsHistory.class, rhID);
+		Rfmo parent = toRefresh.getRfmo();
+		
+		if(parent != null)
+			em.refresh(parent);
+		
+		em.refresh(toRefresh);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.fao.fi.vme.sync.factsheets.updaters.FactsheetUpdater#refreshRfmo(java.lang.String)
+	 */
+	@Override
+	public void refreshRfmo(String rfmoID) throws Exception {
+		this.vmeDao.getEm().clear();
+		
+		this.vmeDao.getEntityById(this.vmeDao.getEm(), Rfmo.class, rfmoID);
+		
+//		this.vmeDao.getEm().refresh(this.vmeDao.getEntityById(this.vmeDao.getEm(), Rfmo.class, rfmoID));
+	}
+
 	protected void updateCache(Long vmeID) throws Exception {
 		if(vmeID != null) {
 			InputStream is = null;

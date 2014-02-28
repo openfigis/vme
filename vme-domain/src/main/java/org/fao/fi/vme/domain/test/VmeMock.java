@@ -7,6 +7,7 @@ import java.util.List;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
@@ -89,7 +90,7 @@ public class VmeMock {
 			int year = startYear + i;
 			InformationSource is = InformationSourceMock.create();
 			is.setPublicationYear(year);
-			is.setSourceType(3);
+			is.setSourceType(new InformationSourceType(2L, "Meeting documents", InformationSourceType.IS_A_MEETING_DOCUMENT));
 			// is.setId(id++);
 			informationSourceList.add(is);
 

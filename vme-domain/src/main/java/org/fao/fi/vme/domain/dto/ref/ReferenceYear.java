@@ -15,12 +15,12 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Re
  */
 @Entity
 @ReferenceConceptName("years")
-public class ReferenceYear implements ReferenceConcept {
+public class ReferenceYear implements ReferenceConcept, Comparable<ReferenceYear> {
 	/**
 	 * Identifier of the domain entity.
 	 */
 	@Id
-	private int id;
+	private Long id;
 
 	/**
 	 * Language of reference
@@ -44,7 +44,7 @@ public class ReferenceYear implements ReferenceConcept {
 	public ReferenceYear() {
 	}
 
-	public ReferenceYear(int id) {
+	public ReferenceYear(Long id) {
 		super();
 		this.id = id;
 	}
@@ -52,20 +52,27 @@ public class ReferenceYear implements ReferenceConcept {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
 	
 	public String getName(){
-		return Integer.toString(id);
+		return Long.toString(id);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(ReferenceYear another) {
+		return another.getId().compareTo(this.getId());
+	}
 }

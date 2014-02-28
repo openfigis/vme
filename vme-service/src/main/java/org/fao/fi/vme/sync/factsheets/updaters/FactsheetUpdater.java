@@ -18,6 +18,7 @@ package org.fao.fi.vme.sync.factsheets.updaters;
  * @since 20 Feb 2014
  */
 public interface FactsheetUpdater {
+	void refreshRfmo(String rfmoID) throws Exception;
 	void refreshVme(Long vmeID) throws Exception;
 	void refreshGeneralMeasure(Long gmID) throws Exception;
 	void refreshInformationSource(Long isID) throws Exception;

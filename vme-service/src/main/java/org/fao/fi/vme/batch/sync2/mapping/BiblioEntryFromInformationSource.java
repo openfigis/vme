@@ -6,7 +6,6 @@ import org.fao.fi.figis.devcon.ObjectFactory;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.batch.sync2.mapping.xml.AddWhenContentRule;
 import org.fao.fi.vme.batch.sync2.mapping.xml.DateFormatter;
-import org.fao.fi.vme.batch.sync2.mapping.xml.InformationSourceCodelist;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.purl.agmes._1.CreatorCorporate;
@@ -23,7 +22,8 @@ public class BiblioEntryFromInformationSource {
 	private AddWhenContentRule<Object> rule = new AddWhenContentRule<Object>();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 	private org.purl.dc.elements._1.ObjectFactory dcf = new org.purl.dc.elements._1.ObjectFactory();
-	private InformationSourceCodelist codelist = new InformationSourceCodelist();
+//	private InformationSourceCodelist codelist = new InformationSourceCodelist();
+	
 	private DateFormatter df = new DateFormatter();
 
 	public BiblioEntry transform(InformationSource is) {
@@ -44,8 +44,8 @@ public class BiblioEntryFromInformationSource {
 			}
 
 			Type type = dcf.createType();
-			type.setType(Integer.toString(is.getSourceType()));
-			type.setContent(codelist.getDescription(is.getSourceType()));
+			type.setType(is.getSourceType() == null ? null : String.valueOf(is.getSourceType().getId()));
+			type.setContent(is.getSourceType() == null ? null : is.getSourceType().getName());
 
 			be.getContent().add(type);
 

@@ -6,8 +6,8 @@ package org.vme.dao.impl.jpa;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +17,7 @@ import javax.persistence.EntityManager;
 import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
 import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
+import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
@@ -40,7 +41,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 	@Inject
 	private EntityManager em;
 
-	private Map<Integer, ReferenceYear> repYear;
+	private Map<Long, ReferenceYear> repYear;
 
 	public ReferenceDaoImpl() {
 		this.concepts = new ArrayList<Class<? extends ReferenceConcept>>();
@@ -49,6 +50,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		this.concepts.add(VmeCriteria.class);
 		this.concepts.add(VmeType.class);
 		this.concepts.add(ReferenceYear.class);
+		this.concepts.add(InformationSourceType.class);
 		repYear = this.createYears();
 	}
 
@@ -68,6 +70,8 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 			return getVmeCriteria(id);
 		} else if (concept.equals(VmeType.class)) {
 			return getVmeType(id);
+		} else if (concept.equals(InformationSourceType.class)) {
+			return this.getInformationSourceType(id);
 		} else if (concept.equals(ReferenceYear.class)) {
 			return getYear(id);
 		} else {
@@ -91,6 +95,8 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 			return (List<R>) getAllVmeCriterias();
 		} else if (concept.equals(VmeType.class)) {
 			return (List<R>) getAllVmeTypes();
+		} else if (concept.equals(InformationSourceType.class)) {
+			return (List<R>) getAllInformationSourceTypes();
 		} else if (concept.equals(ReferenceYear.class)) {
 			return (List<R>) getAllYears();
 		} else {
@@ -123,24 +129,38 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		List<?> res = em.createQuery("from VmeType where id = " + key).getResultList();
 		return res.size() > 0 ? (VmeType) res.get(0) : null;
 	}
-
+		
 	@SuppressWarnings("unchecked")
 	public List<VmeType> getAllVmeTypes() {
 		return em.createQuery("from VmeType").getResultList();
 	}
 
+	public InformationSourceType getInformationSourceType(Long key) {
+		List<?> res = em.createQuery("from InformationSourceType where id = " + key).getResultList();
+		return res.size() > 0 ? (InformationSourceType) res.get(0) : null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<InformationSourceType> getAllInformationSourceTypes() {
+		return em.createQuery("from InformationSourceType order by id asc").getResultList();
+	}
+	
 	public ReferenceYear getYear(Long key) {
 		return repYear.get(key);
 	}
 
 	public List<ReferenceYear> getAllYears() {
-		return new LinkedList<ReferenceYear>(repYear.values());
+		List<ReferenceYear> years = new ArrayList<ReferenceYear>(repYear.values());
+		
+		Collections.sort(years);
+		
+		return years;
 	}
 
-	private Map<Integer, ReferenceYear> createYears() {
-		Map<Integer, ReferenceYear> yearsMap = new LinkedHashMap<Integer, ReferenceYear>();
+	private Map<Long, ReferenceYear> createYears() {
+		Map<Long, ReferenceYear> yearsMap = new LinkedHashMap<Long, ReferenceYear>();
 
-		for (int year = Calendar.getInstance().get(Calendar.YEAR); year >= 2006; year--)
+		for (long year = Calendar.getInstance().get(Calendar.YEAR); year >= 2006; year--)
 			yearsMap.put(year, new ReferenceYear(year));
 
 		return yearsMap;

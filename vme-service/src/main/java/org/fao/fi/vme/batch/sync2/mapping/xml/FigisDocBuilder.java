@@ -90,7 +90,7 @@ public class FigisDocBuilder {
 	public static final String VULNERABLE_MARINE_ECOSYSTEMS = "Vulnerable Marine Ecosystems";
 
 	public static final String VME_SPECIFIC_MEASURES = "VME-specific measures";
-
+	
 	/**
 	 * Adds specificMeasures to a FIGISDoc
 	 * 
@@ -303,7 +303,9 @@ public class FigisDocBuilder {
 			// Seamounts or Canyons) or
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@FreeValue (for other
 			// values)
-			if (profileEnglish == "Seamounts" || profileEnglish == "Canyons") {
+			
+			//FFiorellato: fixed following conditions. Previously they were using '==' and a variable LHS that would produce NPE when the LHS was null
+			if ("Seamounts".equals(profileEnglish) || "Canyons".equals(profileEnglish)) {
 				geoform.setValue(profileEnglish);
 			} else {
 				geoform.setFreeValue(profileEnglish);
@@ -624,12 +626,13 @@ public class FigisDocBuilder {
 			// Algorithm for "InformationSource" UML table: with regards of the
 			// meetings tab, provide all and only records with "sourcetype=3"
 			// and according to the selected year
-			int oneBefore = disseminationYear - 1;
-			if (infoSource.getSourceType() == 3
-					&& (infoSource.getPublicationYear() == disseminationYear || infoSource.getPublicationYear() == oneBefore)) {
+			Integer oneBefore = new Integer(disseminationYear - 1);
+			
+			//FFiorellato: fixed following conditions. Previously they were using '==' and a variable LHS that would produce NPE when the LHS was null
+			if(infoSource != null && infoSource.getSourceType() != null && infoSource.getSourceType().isAMeetingDocument() && (new Integer(disseminationYear).equals(infoSource.getPublicationYear()) || oneBefore.equals(infoSource.getPublicationYear()))) {
 				BiblioEntry biblioEntry = bu.transform(infoSource);
-				new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
-						.to(sources.getTextsAndImagesAndTables());
+				
+				new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry).to(sources.getTextsAndImagesAndTables());
 			}
 
 		}
