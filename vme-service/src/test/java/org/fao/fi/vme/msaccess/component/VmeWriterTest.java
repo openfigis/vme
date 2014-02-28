@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
@@ -17,6 +18,7 @@ import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -47,11 +49,20 @@ public class VmeWriterTest {
 	@Test
 	public void testPersist() {
 		Authority authority = new Authority();
+		authority.setId(666L);
+		authority.setAcronym("FOO");
+		authority.setName("FOO");
+		authority.setDescription("Fishery Oceans Organization");
+		
 		GeneralMeasure generalMeasure = new GeneralMeasure();
 		GeoRef geoRef = new GeoRef();
 		FisheryAreasHistory fisheryAreasHistory = new FisheryAreasHistory();
 		VMEsHistory vmesHistory = new VMEsHistory();
 		InformationSource informationSource = new InformationSource();
+		informationSource.setSourceType(InformationSourceMock.createInformationSourceType());
+		
+		this.vmeWriter.persistNew(informationSource.getSourceType());
+		
 		Profile profile = new Profile();
 		Rfmo rfmo = new Rfmo();
 		rfmo.setId("10");
@@ -145,6 +156,10 @@ public class VmeWriterTest {
 		List<Object> objectList = new ArrayList<Object>();
 		oc.setObjectList(objectList);
 		oc.getObjectList().add(o);
+		
+		if(o instanceof InformationSource) {
+			((InformationSource)o).setSourceType(InformationSourceMock.createInformationSourceType());
+		}
 		return oc;
 	}
 
