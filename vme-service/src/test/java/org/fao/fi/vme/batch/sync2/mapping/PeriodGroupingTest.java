@@ -46,8 +46,8 @@ public class PeriodGroupingTest {
 
 		List<DisseminationYearSlice> list = grouping.collect(vme);
 		assertEquals(numberOfYears, list.size());
-		assertEquals(endYear, list.get(0).getSpecificMeasure().getValidityPeriod().getEndYear().intValue());
-		assertEquals(endYearSecond, list.get(1).getSpecificMeasure().getValidityPeriod().getEndYear().intValue());
+		assertEquals(endYearSecond, list.get(0).getSpecificMeasure().getValidityPeriod().getEndYear().intValue());
+		assertEquals(endYear, list.get(1).getSpecificMeasure().getValidityPeriod().getEndYear().intValue());
 
 	}
 }

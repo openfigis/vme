@@ -14,8 +14,10 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.figis.domain.test.RefVmeMock;
+import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -59,7 +61,10 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 
 	@Before
 	public void generateVme() {
-
+		InformationSourceType defaultIST = InformationSourceMock.createInformationSourceType();
+		
+		vmeDao.persist(defaultIST);
+		
 		Vme vme = VmeMock.generateVme(NUMBER_OF_YEARS);
 		vmeDao.saveVme(vme);
 

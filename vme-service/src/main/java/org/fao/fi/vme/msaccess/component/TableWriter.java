@@ -3,9 +3,12 @@ package org.fao.fi.vme.msaccess.component;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityTransaction;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.InformationSourceType;
+import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;
 import org.vme.dao.sources.vme.VmeDao;
@@ -24,7 +27,9 @@ public class TableWriter {
 	private final IdGen4InformationSource idGen = new IdGen4InformationSource();
 
 	public void persistNew(ObjectCollection objectCollection) {
-
+		EntityTransaction tx = vmeDao.getEm().getTransaction();
+		
+		tx.begin();
 		for (Object object : objectCollection.getObjectList()) {
 			boolean regular = true;
 
@@ -37,10 +42,10 @@ public class TableWriter {
 				regular = false;
 			}
 			if (regular) {
-				vmeDao.persist(object);
+				vmeDao.persistNoTx(object);
 			}
 		}
-
+		tx.commit();
 	}
 
 	public void persist(ObjectCollection objectCollection) {
@@ -83,8 +88,8 @@ public class TableWriter {
 	}
 
 	private void handleException4HistoryHolder(HistoryHolder h) {
-		vmeDao.persist(h.getFisheryAreasHistory());
-		vmeDao.persist(h.getVmesHistory());
+		vmeDao.persistNoTx(h.getFisheryAreasHistory());
+		vmeDao.persistNoTx(h.getVmesHistory());
 	}
 
 	/**
@@ -95,14 +100,17 @@ public class TableWriter {
 	 * @param object
 	 */
 	private void handleException4GeneralMeasures(GeneralMeasure object) {
+		InformationSourceType defaultIST = InformationSourceMock.createInformationSourceType();
+		vmeDao.persistNoTx(defaultIST);
+		
 		if (object.getInformationSourceList() != null) {
 			List<InformationSource> list = object.getInformationSourceList();
 			for (InformationSource informationSource : list) {
 				informationSource.setId(idGen.nextId());
-				vmeDao.persist(informationSource);
+				vmeDao.persistNoTx(informationSource);
 			}
 		}
-		vmeDao.persist(object);
+		vmeDao.persistNoTx(object);
 	}
 
 	public void merge(ObjectCollection objectCollection) {

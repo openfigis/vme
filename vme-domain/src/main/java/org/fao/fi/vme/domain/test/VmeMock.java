@@ -90,7 +90,7 @@ public class VmeMock {
 			int year = startYear + i;
 			InformationSource is = InformationSourceMock.create();
 			is.setPublicationYear(year);
-			is.setSourceType(new InformationSourceType(2L, "Meeting documents", InformationSourceType.IS_A_MEETING_DOCUMENT));
+			is.setSourceType(InformationSourceMock.createInformationSourceType());
 			// is.setId(id++);
 			informationSourceList.add(is);
 

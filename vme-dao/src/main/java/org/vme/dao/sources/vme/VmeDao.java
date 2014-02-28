@@ -130,6 +130,10 @@ public class VmeDao extends AbstractJPADao {
 		return super.persist(em, object);
 	}
 
+	public <E> E persistNoTx(E object) {
+		return super.persistNoTx(em, object);
+	}
+	
 	public <E> List<E> persist(List<E> object) {
 		return super.persist(em, object);
 	}

@@ -12,8 +12,10 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.RefWaterArea;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.batch.sync2.SyncBatch2;
+import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync.factsheets.listeners.FactsheetChangeListener;
@@ -58,18 +60,29 @@ public class FactsheetChangeListenerImplTest {
 
 	@Test
 	public void testDoUpdateFactsheets() throws Throwable {
+		EntityTransaction tx = vmeDao.getEm().getTransaction();
+		
+		InformationSourceType defaultInformationSourceType = InformationSourceMock.createInformationSourceType();
+		
+		tx.begin();
+		vmeDao.getEm().persist(defaultInformationSourceType);
+		tx.commit();
+		
 		String before = "before";
 		Vme vme = VmeMock.generateVme(1);
 		Rfmo rfmo = new Rfmo();
 		rfmo.setId("fjdskjfds");
 		vme.setName(u.english(before));
+		
+		
+		
 		vmeDao.saveVme(vme);
 		syncBatch2.syncFigisWithVme();
 		assertTrue(figisDao.loadObjects(ObservationXml.class).get(0).getXml().contains(before));
 		delegateCount();
 		String after = "after";
 		vme.setName(u.english(after));
-		EntityTransaction tx = vmeDao.getEm().getTransaction();
+		
 		tx.begin();
 		vmeDao.update(vme);
 		tx.commit();

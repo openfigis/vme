@@ -21,6 +21,20 @@ public class VmeDao4Msaccess {
 	@VmeDB
 	private EntityManager em;
 
+	public void persistObject(Object object) {
+		EntityTransaction et = em.getTransaction();
+		
+		try {
+			et.begin();
+			em.persist(object);
+			et.commit();
+		} catch(Throwable t) {
+			et.rollback();
+			
+			throw new RuntimeException(t);
+		}
+	}
+	
 	/**
 	 * This is a specific method for loading the data from MsAccess. The whole
 	 * object graph is prepared and then saved at once.

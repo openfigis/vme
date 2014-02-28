@@ -16,6 +16,7 @@ import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -122,6 +123,7 @@ public class VmeDaoTest {
 
 	@Test
 	public void testSave() {
+		dao.persist(InformationSourceMock.createInformationSourceType());
 		int nrOfyears = 1;
 		Vme vme = VmeMock.generateVme(nrOfyears);
 		dao.saveVme(vme);

@@ -61,8 +61,8 @@ public class ProfileCorrectionTest {
 		String bio = "1";
 		List<ObjectCollection> ocList = prepareobjectCollectionList(bio, null, null, null);
 
-		((Vme) ocList.get(0).getObjectList().get(0)).getProfileList().get(0).setYear(2001);
-		((Vme) ocList.get(0).getObjectList().get(0)).getProfileList().get(1).setYear(2000);
+		((Vme) ocList.get(0).getObjectList().get(0)).getProfileList().get(1).setYear(2001);
+		((Vme) ocList.get(0).getObjectList().get(0)).getProfileList().get(0).setYear(2000);
 
 		p.correct(ocList);
 		assertEquals(2, ((Vme) ocList.get(0).getObjectList().get(0)).getProfileList().size());

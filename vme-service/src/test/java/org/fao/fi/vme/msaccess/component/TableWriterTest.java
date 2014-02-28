@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +30,8 @@ import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
@@ -49,24 +51,31 @@ public class TableWriterTest {
 	VmeDao vmeDao;
 
 	@Test
-	public void testPersistNew() throws InstantiationException, IllegalAccessException {
+	public void testPersistNew() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
-		Class<?> classes[] = { Authority.class, GeneralMeasure.class, GeoRef.class, FisheryAreasHistory.class,
+		Class<?> classes[] = { /*Authority.class,*/ GeneralMeasure.class, GeoRef.class, FisheryAreasHistory.class,
 				VMEsHistory.class, InformationSource.class, MultiLingualString.class, Profile.class,
-				SpecificMeasure.class, Vme.class, VmeCriteria.class };
+				SpecificMeasure.class, Vme.class /*, VmeCriteria.class*/ };
 		for (Class<?> clazz : classes) {
 			delegateTestPersistNew(clazz);
 		}
 
 	}
 
-	private void delegateTestPersistNew(Class<?> clazz) throws InstantiationException, IllegalAccessException {
+	private void delegateTestPersistNew(Class<?> clazz) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 		ObjectCollection oc = new ObjectCollection();
 		oc.setClazz(clazz);
 		List<Object> objectList = new ArrayList<Object>();
 		oc.setObjectList(objectList);
-		oc.getObjectList().add(clazz.newInstance());
-		tableWriter.persistNew(oc);
+		
+		Object o = clazz.newInstance();
+		oc.getObjectList().add(o);
+		
+		try {
+			tableWriter.persistNew(oc);
+		} catch(Throwable t) {
+			throw new RuntimeException("Can't persist object collection " + oc, t);
+		}
 
 	}
 
