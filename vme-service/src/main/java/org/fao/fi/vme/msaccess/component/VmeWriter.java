@@ -22,6 +22,10 @@ public class VmeWriter {
 	public void persistNew(List<ObjectCollection> objectCollectionList) {
 		vmeDao4Msaccess.persistObjectCollection(objectCollectionList);
 	}
+	
+	public void persistNew(Object object) {
+		vmeDao4Msaccess.persistObject(object);
+	}
 
 	// public void write(List<ObjectCollection> objectCollectionList) {
 	// for (ObjectCollection objectCollection : objectCollectionList) {
