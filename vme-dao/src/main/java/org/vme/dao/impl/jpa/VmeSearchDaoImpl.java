@@ -406,10 +406,9 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			Authority authority = (Authority) referenceDAO.getReferenceByAcronym(Authority.class, authority_acronym);
 
 			if (authority == null) {
-				System.out.println();
-			}
-
-			res.setOwner(authority.getName());
+				System.out.println("NULL auth");
+			} else
+				res.setOwner(authority.getName());
 		} catch (ReferenceServiceException e) {
 			res.setOwner(authority_acronym);
 			e.printStackTrace();
