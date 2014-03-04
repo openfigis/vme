@@ -112,7 +112,21 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Authority> getAllAuthorities() {
-		return em.createQuery("from Authority").getResultList();
+
+		List<Authority> list = em.createQuery("from Authority").getResultList();
+
+		// hack Erik van Ingen Remove NPFC from the list as long as there is no
+		// security
+		Authority found = null;
+		for (Authority authority : list) {
+			if (authority.getAcronym().equals("NPFC")) {
+				found = authority;
+			}
+		}
+		if (found != null) {
+			list.remove(found);
+		}
+		return list;
 	}
 
 	public VmeCriteria getVmeCriteria(Long key) {
@@ -129,7 +143,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		List<?> res = em.createQuery("from VmeType where id = " + key).getResultList();
 		return res.size() > 0 ? (VmeType) res.get(0) : null;
 	}
-		
+
 	@SuppressWarnings("unchecked")
 	public List<VmeType> getAllVmeTypes() {
 		return em.createQuery("from VmeType").getResultList();
@@ -139,21 +153,21 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		List<?> res = em.createQuery("from InformationSourceType where id = " + key).getResultList();
 		return res.size() > 0 ? (InformationSourceType) res.get(0) : null;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<InformationSourceType> getAllInformationSourceTypes() {
 		return em.createQuery("from InformationSourceType order by id asc").getResultList();
 	}
-	
+
 	public ReferenceYear getYear(Long key) {
 		return repYear.get(key);
 	}
 
 	public List<ReferenceYear> getAllYears() {
 		List<ReferenceYear> years = new ArrayList<ReferenceYear>(repYear.values());
-		
+
 		Collections.sort(years);
-		
+
 		return years;
 	}
 
