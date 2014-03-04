@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.fao.fi.vme.batch.sync2.SyncBatch2;
+import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
@@ -18,15 +19,16 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
-import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
+import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmePersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FigisDataBaseProducer.class, FigisPersistenceUnitConfiguration.class })
+@ActivatedAlternatives({ VmePersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FigisDataBaseProducer.class,
+		FigisPersistenceUnitConfiguration.class })
 public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 
 	@Inject
@@ -48,22 +50,6 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 		clean();
 	}
 
-	// @Before
-	// public void testBefore() {
-	//
-	// // Bizarre problem, see also FigisDaoIntegrationTest.testDeleteRefVme
-	// RefVme r = (RefVme) figisDao.find(RefVme.class, VmeMock.VME_ID);
-	// if (r != null) {
-	// figisDao.getEm().refresh(r);
-	// figisDao.remove(r);
-	// }
-	//
-	// VmeDaoTestLogic l = new VmeDaoTestLogic();
-	// l.mockAndSaveVme(vmeDao, 1);
-	// RefVme refVme = RefVmeMock.create();
-	// refVme.setId(VmeMock.VME_ID);
-	// }
-
 	@Test
 	public void testSyncFigisWithVme() {
 
@@ -73,6 +59,13 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 		}
 
 		Vme vme = VmeMock.generateVme(1);
+
+		// solving problems with non prepared reference data
+		List<InformationSource> list = vme.getRfmo().getInformationSourceList();
+		for (InformationSource informationSource : list) {
+			vmeDao.persist(informationSource.getSourceType());
+		}
+
 		vmeDao.saveVme(vme);
 
 		RefVme refVme = RefVmeMock.create();
