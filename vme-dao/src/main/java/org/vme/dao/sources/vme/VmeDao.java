@@ -519,21 +519,21 @@ public class VmeDao extends AbstractJPADao {
 		for (Long id : geoRefsToDelete) {
 			GeoRef g = this.getEntityById(this.em, GeoRef.class, id);
 			
-//			g.setVme(null);
+			g.setVme(null);
 			
 			this.doRemove(em, g);
 		} 
 		for (Long id : profilesToDelete) {
 			Profile p = this.getEntityById(this.em, Profile.class, id);
 			
-//			p.setVme(null);
+			p.setVme(null);
 			
 			this.doRemove(em, p);
 		} 
 		for (Long id : specificMeasuresToDelete) {
 			SpecificMeasure s = this.getEntityById(this.em, SpecificMeasure.class, id); 
 			
-//			s.setVme(null);
+			s.setVme(null);
 			
 			this.doRemove(em, s);
 		}
