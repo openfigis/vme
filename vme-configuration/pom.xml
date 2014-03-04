@@ -30,6 +30,9 @@
 	<profiles>
 		<profile>
 			<!-- These properties are defined in order to be able to run the integration tests also with H2 with the env-dev profile -->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<id>env-dev</id>
 			<properties>
 				<javax.persistence.jdbc.driver.vme>org.h2.Driver</javax.persistence.jdbc.driver.vme>
