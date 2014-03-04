@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
 import org.fao.fi.vme.msaccess.component.HistoryHolderCorrection;
 import org.fao.fi.vme.msaccess.component.IdCorrection;
 import org.fao.fi.vme.msaccess.component.Linker;
@@ -31,7 +32,12 @@ public class VmeAccessDbImport {
 	@Inject
 	private VmeReader reader;
 
-	@Inject private MsAcces2DomainMapper m;
+	@Inject
+	private MsAcces2DomainMapper m;
+
+	@Inject
+	ReferenceDataHardcodedBatch rData;
+
 	private final Linker linker = new Linker();
 
 	private final IdCorrection idCorrection = new IdCorrection();
@@ -46,6 +52,11 @@ public class VmeAccessDbImport {
 	 * likely to be Oracle but could also be Postgres.
 	 */
 	public void importMsAccessData() {
+
+		// load first the DB with referenceData in order to provide the
+		// referenceDataProviders with data.
+		rData.run();
+
 		// read from MSAccess
 		List<Table> tables = reader.readObjects();
 
