@@ -90,7 +90,7 @@ public class FigisDocBuilder {
 	public static final String VULNERABLE_MARINE_ECOSYSTEMS = "Vulnerable Marine Ecosystems";
 
 	public static final String VME_SPECIFIC_MEASURES = "VME-specific measures";
-	
+
 	/**
 	 * Adds specificMeasures to a FIGISDoc
 	 * 
@@ -303,8 +303,10 @@ public class FigisDocBuilder {
 			// Seamounts or Canyons) or
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@FreeValue (for other
 			// values)
-			
-			//FFiorellato: fixed following conditions. Previously they were using '==' and a variable LHS that would produce NPE when the LHS was null
+
+			// FFiorellato: fixed following conditions. Previously they were
+			// using '==' and a variable LHS that would produce NPE when the LHS
+			// was null
 			if ("Seamounts".equals(profileEnglish) || "Canyons".equals(profileEnglish)) {
 				geoform.setValue(profileEnglish);
 			} else {
@@ -317,8 +319,9 @@ public class FigisDocBuilder {
 																					// of
 																					// HabitatBio
 			// profile
-
-			new AddWhenContentRule<Object>().check(profile.getDescriptionPhisical()).beforeAdding(habitatBio)
+			new AddWhenContentRule<Object>().check(profile.getDescriptionPhisical())
+					.check(profile.getDescriptionImpact()).check(profile.getDescriptionBiological())
+					.check(profile.getGeoform()).beforeAdding(habitatBio)
 					.to(figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts());
 
 			// Impacts profile
@@ -517,21 +520,21 @@ public class FigisDocBuilder {
 		WaterAreaRef waterAreaRef = new WaterAreaRef();
 		ForeignID areaForeignID = new ForeignID();
 		areaForeignID.setCodeSystem("vme");
-		
-		if(vmeDomain.getGeoRefList() != null && !vmeDomain.getGeoRefList().isEmpty()) {
+
+		if (vmeDomain.getGeoRefList() != null && !vmeDomain.getGeoRefList().isEmpty()) {
 			areaForeignID.setCode(vmeDomain.getGeoRefList().get(0).getGeographicFeatureID());
 			waterAreaRef.getFigisIDsAndForeignIDs().add(areaForeignID);
 		}
 
 		// Validity period - Range
 		Min min = f.createMin();
-		
-		Integer beginYear = vmeDomain.getValidityPeriod().getBeginYear(); 
+
+		Integer beginYear = vmeDomain.getValidityPeriod().getBeginYear();
 		min.setContent(beginYear == null ? null : beginYear.toString());
 		JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
 
 		Max max = f.createMax();
-		
+
 		Integer endYear = vmeDomain.getValidityPeriod().getEndYear();
 		max.setContent(endYear == null ? null : endYear.toString());
 		JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
@@ -627,12 +630,19 @@ public class FigisDocBuilder {
 			// meetings tab, provide all and only records with "sourcetype=3"
 			// and according to the selected year
 			Integer oneBefore = new Integer(disseminationYear - 1);
-			
-			//FFiorellato: fixed following conditions. Previously they were using '==' and a variable LHS that would produce NPE when the LHS was null
-			if(infoSource != null && infoSource.getSourceType() != null && infoSource.getSourceType().isAMeetingDocument() && (new Integer(disseminationYear).equals(infoSource.getPublicationYear()) || oneBefore.equals(infoSource.getPublicationYear()))) {
+
+			// FFiorellato: fixed following conditions. Previously they were
+			// using '==' and a variable LHS that would produce NPE when the LHS
+			// was null
+			if (infoSource != null
+					&& infoSource.getSourceType() != null
+					&& infoSource.getSourceType().isAMeetingDocument()
+					&& (new Integer(disseminationYear).equals(infoSource.getPublicationYear()) || oneBefore
+							.equals(infoSource.getPublicationYear()))) {
 				BiblioEntry biblioEntry = bu.transform(infoSource);
-				
-				new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry).to(sources.getTextsAndImagesAndTables());
+
+				new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
+						.to(sources.getTextsAndImagesAndTables());
 			}
 
 		}
@@ -745,15 +755,15 @@ public class FigisDocBuilder {
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(history);
 		}
 	}
-	
+
 	protected String safeGetMultilingualString(MultiLingualString mls) {
 		return this.safeGetMultilingualString(mls, Lang.EN);
 	}
-	
+
 	protected String safeGetMultilingualString(MultiLingualString mls, Integer lang) {
-		if(mls != null)
+		if (mls != null)
 			return mls.getStringMap().get(lang);
-		
+
 		return null;
 	}
 }
