@@ -6,30 +6,18 @@ drop table vme CASCADE CONSTRAINTS;
 drop table rfmo CASCADE CONSTRAINTS;
 drop table fishery_areas_history CASCADE CONSTRAINTS;
 drop table multilingual_string CASCADE CONSTRAINTS;
-drop table multilingualstring_stringmap CASCADE CONSTRAINTS;
-drop table vme_specific_measure CASCADE CONSTRAINTS;
+--drop table vme_specific_measure CASCADE CONSTRAINTS;
 drop table vmes_history CASCADE CONSTRAINTS;
 drop table gm_is ;
 drop table is_sm ;
 drop table authority;
 drop table vme_criteria;
+drop table georef CASCADE CONSTRAINTS;
+drop table vme_georef;
+drop table information_source_type;
+drop table multilingualstring_stringmap;
 drop table vme_type;
 
-
-
-
-
-
-
-
---SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'GENERAL_MEASURES';
-
---delete  USER_CONSTRAINTS
---where r_owner = 'VME_ADMIN'
-
-
---SELECT table_name FROM USER_CONSTRAINTS
---where r_owner = 'VME_ADMIN'
 
 
 

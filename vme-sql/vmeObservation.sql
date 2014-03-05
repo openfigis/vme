@@ -59,7 +59,7 @@ where
 o.cd_observation = oo.cd_observation 
 and
 o.cd_observation = x.cd_observation 
-and oo.cd_vme = 1344
+
 
 select * from fs_vme_observation
 
