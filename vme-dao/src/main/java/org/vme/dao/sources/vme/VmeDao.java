@@ -803,10 +803,16 @@ public class VmeDao extends AbstractJPADao {
 					"The Fishing Footprint to create cannot have an Authority with a NULL identifier");
 
 		Rfmo parent = this.getEntityById(em, Rfmo.class, fisheryAreasHistory.getRfmo().getId());
-		// parent.getHasFisheryAreasHistory().add(fisheryAreasHistory);
+		
 		fisheryAreasHistory.setRfmo(parent);
+		
+		if(parent.getHasFisheryAreasHistory() == null)
+			parent.setHasFisheryAreasHistory(new ArrayList<FisheryAreasHistory>());
+		
+		parent.getHasFisheryAreasHistory().add(fisheryAreasHistory);
 
-		// this.doMerge(em, parent);
+		//It seems that merging the parent will cause TWO fishery areas history to be stored in the DB... Commenting this out
+//		this.doMerge(em, parent);
 
 		return this.doPersistAndFlush(em, fisheryAreasHistory);
 	}
@@ -826,6 +832,7 @@ public class VmeDao extends AbstractJPADao {
 					"The updated Regional History of VME cannot have an Authority with a NULL identifier");
 
 		Rfmo parent = this.getEntityById(em, Rfmo.class, VMEsHistory.getRfmo().getId());
+		
 		// parent.getHasVmesHistory().add(VMEsHistory);
 		VMEsHistory.setRfmo(parent);
 
@@ -846,10 +853,16 @@ public class VmeDao extends AbstractJPADao {
 					"The Regional History of VME to create cannot have an Authority with a NULL identifier");
 
 		Rfmo parent = this.getEntityById(em, Rfmo.class, VMEsHistory.getRfmo().getId());
-		// parent.getHasVmesHistory().add(VMEsHistory);
+		
 		VMEsHistory.setRfmo(parent);
 
-		// this.doMerge(em, parent);
+		if(parent.getHasVmesHistory() == null)
+			parent.setHasVmesHistory(new ArrayList<VMEsHistory>());
+
+		parent.getHasVmesHistory().add(VMEsHistory);
+
+		//It seems that merging the parent will cause TWO fishery areas history to be stored in the DB... Commenting this out
+//		this.doMerge(em, parent);
 
 		return this.doPersistAndFlush(em, VMEsHistory);
 	}
