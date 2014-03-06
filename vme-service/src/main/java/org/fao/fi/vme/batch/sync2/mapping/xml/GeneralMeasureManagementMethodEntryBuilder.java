@@ -191,7 +191,7 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 
 	public void addSources(GeneralMeasure yearObject, ManagementMethodEntry entry) {
 		// ManagementMethodEntry Sources
-		if (yearObject != null) {
+		if (yearObject != null && yearObject.getInformationSourceList() != null) {
 			Sources sources = f.createSources();
 
 			for (InformationSource infoSource : yearObject.getInformationSourceList()) {
@@ -202,7 +202,6 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			if (sources.getTextsAndImagesAndTables().size() > 0) {
 				entry.getTextsAndImagesAndTables().add(sources);
 			}
-
 		}
 
 	}
