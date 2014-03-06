@@ -91,6 +91,7 @@
 					<groupId>org.vme</groupId>
 					<artifactId>vme-configuration</artifactId>
 					<version>${project.version}</version>
+					<classifier>integration</classifier>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -101,6 +102,7 @@
 					<groupId>org.vme</groupId>
 					<artifactId>vme-configuration</artifactId>
 					<version>${project.version}</version>
+					<classifier>integration</classifier>
 				</dependency>
 			</dependencies>
 		</profile>
