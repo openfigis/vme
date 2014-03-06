@@ -9,6 +9,13 @@ public class SliceDuplicateFilter {
 	 * same element is more than 1 position distant from its equal, it will not
 	 * be filtered.
 	 * 
+	 * This algorithm is based on the equals method, which also takes into
+	 * account the ids and the year. The slicer finds for every year the
+	 * corresponding objects. If it would happen that a subsequent year a slice
+	 * would use the same objects, this filter would filter these slices out.
+	 * 
+	 * 
+	 * 
 	 * 
 	 * 
 	 * @param slices
