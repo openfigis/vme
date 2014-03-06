@@ -14,13 +14,14 @@ import org.fao.fi.vme.msaccess.mapping.ReferenceDependentTableDomainMapper;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
 
 public class Meetings implements ReferenceDependentTableDomainMapper {
-	final static private Long DEFAULT_INFORMATION_SOURCE_TYPE_ID = 2L; //Meeting documents
-	
-	@PostConstruct 
+	final static private Long DEFAULT_INFORMATION_SOURCE_TYPE_ID = 2L; // Meeting
+																		// documents
+
+	@PostConstruct
 	public void foobaz() {
 		System.out.println("HEREIAM!");
 	}
-	
+
 	private int ID;
 	private String RFB_ID;
 	private int Year_ID;
@@ -103,23 +104,28 @@ public class Meetings implements ReferenceDependentTableDomainMapper {
 		Source_Type = source_Type;
 	}
 
-	
-	
-	/* (non-Javadoc)
-	 * @see org.fao.fi.vme.msaccess.mapping.TableDomainMapper#map(org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.fao.fi.vme.msaccess.mapping.TableDomainMapper#map(org.gcube.application
+	 * .
+	 * rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider
+	 * )
 	 */
 	@Override
 	public Object map(ReferenceConceptProvider<Long> provider) {
 		InformationSource is = new InformationSource();
 
 		InformationSourceType defaultInformationSourceType = null;
-		
+
 		try {
-			defaultInformationSourceType = (InformationSourceType)provider.getReferenceByID(InformationSourceType.class, DEFAULT_INFORMATION_SOURCE_TYPE_ID);
-		} catch(Throwable t) {
+			defaultInformationSourceType = (InformationSourceType) provider.getReferenceByID(
+					InformationSourceType.class, DEFAULT_INFORMATION_SOURCE_TYPE_ID);
+		} catch (Throwable t) {
 			throw new RuntimeException("Unable to retrieve default information source type", t);
 		}
-				
+
 		is.setSourceType(defaultInformationSourceType);
 		MultiLingualStringUtil u = new MultiLingualStringUtil();
 		is.setCommittee(u.english(this.Committee));
@@ -129,14 +135,15 @@ public class Meetings implements ReferenceDependentTableDomainMapper {
 			is.setMeetingStartDate(p.getStart());
 			is.setMeetingEndDate(p.getEnd());
 		}
-		
+
 		is.setId(new Long(this.ID));
 		is.setReportSummary(u.english(this.getReport_Summary()));
 		is.setPublicationYear(this.Year_ID);
-		
+
 		try {
-			is.setSourceType((InformationSourceType)provider.getReferenceByID(InformationSourceType.class, new Long(Source_Type)));
-		} catch(Throwable t) {
+			is.setSourceType((InformationSourceType) provider.getReferenceByID(InformationSourceType.class, new Long(
+					Source_Type)));
+		} catch (Throwable t) {
 			throw new RuntimeException("Unable build information source type", t);
 		}
 
@@ -148,6 +155,11 @@ public class Meetings implements ReferenceDependentTableDomainMapper {
 		}
 
 		is.setCitation(u.english(this.getCitation()));
+
+		if (is.getSourceType() == null || is.getSourceType().getId() == 0) {
+			throw new VmeException("Unable to retrieve default information source type" + this.Source_Type);
+		}
+
 		return is;
 	}
 

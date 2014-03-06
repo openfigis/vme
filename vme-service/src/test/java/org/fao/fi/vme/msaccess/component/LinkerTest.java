@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
@@ -25,24 +26,31 @@ import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class,
+		FilesystemMsAccessConnectionProvider.class })
 @AdditionalClasses({ MsAcces2DomainMapper.class })
 public class LinkerTest {
 
 	@Inject
 	private VmeReader reader;
 
-	@Inject private MsAcces2DomainMapper m;
+	@Inject
+	private MsAcces2DomainMapper m;
 	private final Linker linker = new Linker();
 	private final MultiLingualStringUtil u = new MultiLingualStringUtil();
 	private RelationVmeGeoRef relationVmeGeoRef = new RelationVmeGeoRef();
 
+	@Inject
+	ReferenceDataHardcodedBatch rData;
+
 	@Test
 	public void testLink() {
+
+		rData.run();
 
 		List<Table> tables = reader.readObjects();
 

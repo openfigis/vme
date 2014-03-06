@@ -8,7 +8,7 @@ delete fs_observation
 where cd_observation in 
 (select cd_observation from fs_vme_observation);
 
-delete ref_vme
+delete ref_vme;
 
 delete REF_WATER_AREA
 where cd_water_area >= 6000
@@ -54,14 +54,24 @@ where
 o.cd_observation = oo.cd_observation 
 
 select count (*) from fs_vme_observation oo, fs_observation o, fs_observation_xml x
+
 select x.xml from fs_vme_observation oo, fs_observation o, fs_observation_xml x
 where
 o.cd_observation = oo.cd_observation 
 and
 o.cd_observation = x.cd_observation 
+and x.xml like '%VME_NAFO_8%'
+and
+x.xml like '%<fi:ReportingYear>2012</fi:ReportingYear>%'
+
+
+
+
+
 
 
 select * from fs_vme_observation
+
 
 
 

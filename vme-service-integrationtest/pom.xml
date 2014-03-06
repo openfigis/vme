@@ -90,8 +90,8 @@
 				<dependency>
 					<groupId>org.vme</groupId>
 					<artifactId>vme-configuration</artifactId>
-					<classifier>integration</classifier>
 					<version>${project.version}</version>
+					<classifier>integration</classifier>
 				</dependency>
 			</dependencies>
 		</profile>
@@ -101,8 +101,8 @@
 				<dependency>
 					<groupId>org.vme</groupId>
 					<artifactId>vme-configuration</artifactId>
-					<classifier>integration</classifier>
 					<version>${project.version}</version>
+					<classifier>integration</classifier>
 				</dependency>
 			</dependencies>
 		</profile>

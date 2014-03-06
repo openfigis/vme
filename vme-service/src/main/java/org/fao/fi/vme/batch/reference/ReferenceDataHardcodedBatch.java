@@ -33,8 +33,10 @@ public class ReferenceDataHardcodedBatch {
 	}
 
 	private void createAuthorities() {
-		dao.syncStoreObject(new Authority(20010L, "CCAMLR", "Commission for the Conservation of Antarctic Marine Living Resources"), 20010L);
-		dao.syncStoreObject(new Authority(22080L, "GFCM", "General Fishery Commission for the Mediterranean sea"), 22080L);
+		dao.syncStoreObject(new Authority(20010L, "CCAMLR",
+				"Commission for the Conservation of Antarctic Marine Living Resources"), 20010L);
+		dao.syncStoreObject(new Authority(22080L, "GFCM", "General Fishery Commission for the Mediterranean sea"),
+				22080L);
 		dao.syncStoreObject(new Authority(20220L, "NAFO", "Northwest Atlantic Fisheries Organization"), 20220L);
 		dao.syncStoreObject(new Authority(21580L, "NEAFC", "North East Atlantic Fisheries Commission"), 21580L);
 		dao.syncStoreObject(new Authority(22140L, "SEAFO", "South East Atlantic Fisheries Organisation"), 22140L);
@@ -58,14 +60,19 @@ public class ReferenceDataHardcodedBatch {
 		dao.syncStoreObject(new VmeType(20L, "Risk area"), 20L);
 		dao.syncStoreObject(new VmeType(30L, "Other types of closed/restricted area"), 30L);
 	}
-	
+
 	private void createInformationSourceTypes() {
 		dao.syncStoreObject(new InformationSourceType(1L, "Book", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT), 1L);
-		dao.syncStoreObject(new InformationSourceType(2L, "Meeting documents", InformationSourceType.IS_A_MEETING_DOCUMENT ), 2L);
-		dao.syncStoreObject(new InformationSourceType(3L, "Journal", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT), 3L);
-		dao.syncStoreObject(new InformationSourceType(4L, "Project", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT), 4L);
-		dao.syncStoreObject(new InformationSourceType(6L, "CD-ROM/DVD", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT), 6L);
-		dao.syncStoreObject(new InformationSourceType(99L, "Other", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT), 99L);
+		dao.syncStoreObject(new InformationSourceType(2L, "Meeting documents",
+				InformationSourceType.IS_A_MEETING_DOCUMENT), 2L);
+		dao.syncStoreObject(new InformationSourceType(3L, "Journal", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT),
+				3L);
+		dao.syncStoreObject(new InformationSourceType(4L, "Project", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT),
+				4L);
+		dao.syncStoreObject(
+				new InformationSourceType(6L, "CD-ROM/DVD", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT), 6L);
+		dao.syncStoreObject(new InformationSourceType(99L, "Other", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT),
+				99L);
 	}
 
 	// private void createYears() {
