@@ -9,8 +9,6 @@ import java.util.List;
 import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.junit.Test;
-import org.vme.dao.sources.figis.DefaultObservationDomain;
-import org.vme.dao.sources.figis.PrimaryRule;
 
 public class PrimaryRuleTest {
 

@@ -40,6 +40,15 @@ public class VmeRefSync implements Sync {
 		}
 	}
 
+	private void deleteOld() {
+		List<Vme> object = vmeDao.loadObjects(Vme.class);
+		for (Vme vme : object) {
+
+			figisDao.remove(object);
+		}
+
+	}
+
 	public void sync(Vme vme) {
 		RefVme object = (RefVme) figisDao.find(RefVme.class, vme.getId());
 
