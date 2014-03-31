@@ -1,6 +1,8 @@
 package org.fao.fi.vme.batch.sync2;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -38,15 +40,24 @@ public class VmeRefSync implements Sync {
 			sync(vme);
 
 		}
+		deleteOld();
 	}
 
+	/**
+	 * Delete all those references which do not appear in the VME DB
+	 */
 	private void deleteOld() {
 		List<Vme> object = vmeDao.loadObjects(Vme.class);
+		Set<Long> ids = new HashSet<Long>();
 		for (Vme vme : object) {
-
-			figisDao.remove(object);
+			ids.add(vme.getId());
 		}
-
+		List<RefVme> refVmeList = figisDao.loadObjects(RefVme.class);
+		for (RefVme refVme : refVmeList) {
+			if (!ids.contains(refVme.getId())) {
+				figisDao.remove(refVme);
+			}
+		}
 	}
 
 	public void sync(Vme vme) {
@@ -68,6 +79,7 @@ public class VmeRefSync implements Sync {
 			map(vme, object);
 			figisDao.merge(object);
 		}
+		deleteOld();
 	}
 
 	private RefVme generateNewRefVme() {
