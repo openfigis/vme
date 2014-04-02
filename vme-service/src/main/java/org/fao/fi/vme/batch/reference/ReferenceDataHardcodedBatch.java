@@ -34,7 +34,7 @@ public class ReferenceDataHardcodedBatch {
 
 	private void createAuthorities() {
 		dao.syncStoreObject(new Authority(20010L, "CCAMLR", "Commission for the Conservation of Antarctic Marine Living Resources"), 20010L);
-		dao.syncStoreObject(new Authority(22080L, "GFCM", "General Fishery Commission for the Mediterranean sea"), 24561L);
+		dao.syncStoreObject(new Authority(24561L, "GFCM", "General Fishery Commission for the Mediterranean sea"), 24561L);
 		dao.syncStoreObject(new Authority(20220L, "NAFO", "Northwest Atlantic Fisheries Organization"), 20220L);
 		dao.syncStoreObject(new Authority(21580L, "NEAFC", "North East Atlantic Fisheries Commission"), 21580L);
 		dao.syncStoreObject(new Authority(22140L, "SEAFO", "South East Atlantic Fisheries Organisation"), 22140L);
