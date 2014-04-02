@@ -425,9 +425,15 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginYear());
 		res.setValidityPeriodTo(vme.getValidityPeriod().getEndYear());
 		res.setVmeType(vme.getAreaType());
-		res.setYear(vme.getGeoRefList().get(0).getYear());
-		res.setGeographicFeatureId(vme.getGeoRefList().size() > 0 ? vme.getGeoRefList().get(0).getGeographicFeatureID()
-				: "");
+		
+		if(!vme.getGeoRefList().isEmpty()) {
+			GeoRef first = vme.getGeoRefList().get(0);
+			
+			res.setYear(first.getYear());
+			res.setGeographicFeatureId(first.getGeographicFeatureID());
+		} else {
+			res.setGeographicFeatureId("");
+		}
 		return res;
 	}
 
