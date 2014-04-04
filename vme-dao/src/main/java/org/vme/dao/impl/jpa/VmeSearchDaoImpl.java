@@ -63,6 +63,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}
+
 		Query query = entityManager.createQuery(createHibernateSearchTextualQuery(authority_id, type_id, criteria_id,
 				year));
 		List<Vme> result = (List<Vme>) query.getResultList();
@@ -137,7 +138,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		}
 
 		if (criteria_id > 0) {
-			VmeCriteria vmeCriteria = (VmeCriteria) entityManager.find(VmeCriteria.class,  criteria_id);
+			VmeCriteria vmeCriteria = (VmeCriteria) entityManager.find(VmeCriteria.class, criteria_id);
 			if (vmeCriteria != null) {
 				String criteria = vmeCriteria.getName();
 				txtQuery.append(conjunction);
@@ -149,7 +150,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		}
 
 		if (type_id > 0) {
-			VmeType vmeType = (VmeType) entityManager.find(VmeType.class,  type_id);
+			VmeType vmeType = (VmeType) entityManager.find(VmeType.class, type_id);
 			if (vmeType != null) {
 				String areaType = vmeType.getName();
 				txtQuery.append(conjunction);
@@ -167,6 +168,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		// txtQuery.append(year);
 
 		String res = txtQuery.toString();
+
 		LOG.debug("FAB: {}", res);
 		return res;
 	}
@@ -176,20 +178,12 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		// Patch placed to solve VME-10 JIRA issue.
 		for (Vme vme : result) {
 			// this adds all the SIODFA vmes to the list to be removed.
-			if (vme.getRfmo().getId().trim().equals("SIODFA")) {
+			if (vme.getRfmo() != null && vme.getRfmo().getId().trim().equals("SIODFA")) {
 				res.add(vme);
 			}
 		}
 		if (year > 0) {
 			for (Vme vme : result) {
-
-				if (vme.getRfmo().getId().equals("SEAFO")) {
-					System.out.println(vme.getRfmo().getId());
-				}
-				if (vme.getId().equals(1109)) {
-					System.out.println(vme.getRfmo().getId());
-				}
-				System.out.println(vme.getRfmo().getId());
 
 				boolean toBeRemoved = false;
 				List<GeoRef> georef = vme.getGeoRefList();
@@ -218,8 +212,6 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 					toBeRemoved = !containRelevantText(vme, text);
 				}
 
-				// System.out.println(vme.getRfmo().getId());
-
 				if (toBeRemoved) {
 					res.add(vme);
 				}
@@ -238,8 +230,8 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			if (StringUtils.containsIgnoreCase(element, text))
 				return true;
 		}
-//		if (StringUtils.containsIgnoreCase(vme.getGeoform(), text))
-//			return true;
+		// if (StringUtils.containsIgnoreCase(vme.getGeoform(), text))
+		// return true;
 		for (GeoRef geoRef : vme.getGeoRefList()) {
 			if (StringUtils.containsIgnoreCase(geoRef.getGeographicFeatureID(), text))
 				return true;
@@ -251,133 +243,143 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 				return true;
 		}
 
-		for (Profile profile : vme.getProfileList()) {
-			if (profile.getDescriptionBiological() != null) {
-				for (String element : profile.getDescriptionBiological().getStringMap().values()) {
-					if (StringUtils.containsIgnoreCase(element, text))
-						return true;
-				}
-			}
-			if (profile.getDescriptionImpact() != null) {
-				for (String element : profile.getDescriptionImpact().getStringMap().values()) {
-					if (StringUtils.containsIgnoreCase(element, text))
-						return true;
-				}
-			}
-			if (profile.getDescriptionPhisical() != null) {
-				for (String element : profile.getDescriptionPhisical().getStringMap().values()) {
-					if (StringUtils.containsIgnoreCase(element, text))
-						return true;
-				}
-			}
-		}
-
-		for (GeneralMeasure generalMeasure : vme.getRfmo().getGeneralMeasureList()) {
-			if (generalMeasure.getFishingArea() != null) {
-				for (String element : generalMeasure.getFishingArea().getStringMap().values()) {
-					if (StringUtils.containsIgnoreCase(element, text))
-						return true;
-				}
-			}
-
-			if (generalMeasure.getExplorataryFishingProtocol() != null) {
-				for (String element : generalMeasure.getExplorataryFishingProtocol().getStringMap().values()) {
-					if (StringUtils.containsIgnoreCase(element, text))
-						return true;
-				}
-			}
-			if (generalMeasure.getVmeEncounterProtocol() != null) {
-				for (String element : generalMeasure.getVmeEncounterProtocol().getStringMap().values()) {
-					if (StringUtils.containsIgnoreCase(element, text))
-						return true;
-				}
-			}
-			if (generalMeasure.getVmeIndicatorSpecies() != null) {
-				for (String element : generalMeasure.getVmeIndicatorSpecies().getStringMap().values()) {
-					if (StringUtils.containsIgnoreCase(element, text))
-						return true;
-				}
-			}
-
-			if (generalMeasure.getVmeThreshold() != null) {
-				for (String element : generalMeasure.getVmeThreshold().getStringMap().values()) {
-					if (StringUtils.containsIgnoreCase(element, text))
-						return true;
-				}
-			}
-
-			if (generalMeasure.getInformationSourceList() != null) {
-				for (InformationSource informationSource : generalMeasure.getInformationSourceList()) {
-
-					if (informationSource.getCitation() != null) {
-						for (String element : informationSource.getCitation().getStringMap().values()) {
-							if (StringUtils.containsIgnoreCase(element, text))
-								return true;
-						}
-					}
-					if (informationSource.getCommittee() != null) {
-						for (String element : informationSource.getCommittee().getStringMap().values()) {
-							if (StringUtils.containsIgnoreCase(element, text))
-								return true;
-						}
-					}
-
-					if (informationSource.getReportSummary() != null) {
-						for (String element : informationSource.getReportSummary().getStringMap().values()) {
-							if (StringUtils.containsIgnoreCase(element, text))
-								return true;
-						}
-					}
-					if (StringUtils.containsIgnoreCase(Integer.toString(informationSource.getPublicationYear()), text))
-						return true;
-					if (StringUtils.containsIgnoreCase(informationSource.getUrl() != null ? informationSource.getUrl()
-							.toExternalForm() : "", text))
-						return true;
-				}
-			}
-
-		}
-
-		for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
-			if (specificMeasure.getVmeSpecificMeasure() != null) {
-				for (String element : specificMeasure.getVmeSpecificMeasure().getStringMap().values()) {
-					if (StringUtils.containsIgnoreCase(element, text))
-						return true;
-				}
-			}
-			if (specificMeasure.getInformationSource() != null) {
-				if (specificMeasure.getInformationSource().getCitation() != null) {
-					for (String element : specificMeasure.getInformationSource().getCitation().getStringMap().values()) {
+		if (vme.getProfileList() != null) {
+			for (Profile profile : vme.getProfileList()) {
+				if (profile.getDescriptionBiological() != null) {
+					for (String element : profile.getDescriptionBiological().getStringMap().values()) {
 						if (StringUtils.containsIgnoreCase(element, text))
 							return true;
 					}
 				}
-				if (specificMeasure.getInformationSource().getPublicationYear() != null
-						&& StringUtils.containsIgnoreCase(
-								Integer.toString(specificMeasure.getInformationSource().getPublicationYear()), text)) {
-					return true;
+				if (profile.getDescriptionImpact() != null) {
+					for (String element : profile.getDescriptionImpact().getStringMap().values()) {
+						if (StringUtils.containsIgnoreCase(element, text))
+							return true;
+					}
 				}
-				if (StringUtils.containsIgnoreCase(
-						specificMeasure.getInformationSource().getUrl() != null ? specificMeasure
-								.getInformationSource().getUrl().toExternalForm() : "", text))
-					return true;
+				if (profile.getDescriptionPhisical() != null) {
+					for (String element : profile.getDescriptionPhisical().getStringMap().values()) {
+						if (StringUtils.containsIgnoreCase(element, text))
+							return true;
+					}
+				}
 			}
-			if (specificMeasure.getInformationSource() != null
-					&& specificMeasure.getInformationSource().getCommittee() != null) {
-				for (String element : specificMeasure.getInformationSource().getCommittee().getStringMap().values()) {
-					if (StringUtils.containsIgnoreCase(element, text))
+		}
+
+		if (vme.getRfmo() != null) {
+			for (GeneralMeasure generalMeasure : vme.getRfmo().getGeneralMeasureList()) {
+				if (generalMeasure.getFishingArea() != null) {
+					for (String element : generalMeasure.getFishingArea().getStringMap().values()) {
+						if (StringUtils.containsIgnoreCase(element, text))
+							return true;
+					}
+				}
+
+				if (generalMeasure.getExplorataryFishingProtocol() != null) {
+					for (String element : generalMeasure.getExplorataryFishingProtocol().getStringMap().values()) {
+						if (StringUtils.containsIgnoreCase(element, text))
+							return true;
+					}
+				}
+				if (generalMeasure.getVmeEncounterProtocol() != null) {
+					for (String element : generalMeasure.getVmeEncounterProtocol().getStringMap().values()) {
+						if (StringUtils.containsIgnoreCase(element, text))
+							return true;
+					}
+				}
+				if (generalMeasure.getVmeIndicatorSpecies() != null) {
+					for (String element : generalMeasure.getVmeIndicatorSpecies().getStringMap().values()) {
+						if (StringUtils.containsIgnoreCase(element, text))
+							return true;
+					}
+				}
+
+				if (generalMeasure.getVmeThreshold() != null) {
+					for (String element : generalMeasure.getVmeThreshold().getStringMap().values()) {
+						if (StringUtils.containsIgnoreCase(element, text))
+							return true;
+					}
+				}
+
+				if (generalMeasure.getInformationSourceList() != null) {
+					for (InformationSource informationSource : generalMeasure.getInformationSourceList()) {
+
+						if (informationSource.getCitation() != null) {
+							for (String element : informationSource.getCitation().getStringMap().values()) {
+								if (StringUtils.containsIgnoreCase(element, text))
+									return true;
+							}
+						}
+						if (informationSource.getCommittee() != null) {
+							for (String element : informationSource.getCommittee().getStringMap().values()) {
+								if (StringUtils.containsIgnoreCase(element, text))
+									return true;
+							}
+						}
+
+						if (informationSource.getReportSummary() != null) {
+							for (String element : informationSource.getReportSummary().getStringMap().values()) {
+								if (StringUtils.containsIgnoreCase(element, text))
+									return true;
+							}
+						}
+						if (StringUtils.containsIgnoreCase(Integer.toString(informationSource.getPublicationYear()),
+								text))
+							return true;
+						if (StringUtils.containsIgnoreCase(informationSource.getUrl() != null ? informationSource
+								.getUrl().toExternalForm() : "", text))
+							return true;
+					}
+				}
+
+			}
+		}
+
+		if (vme.getSpecificMeasureList() != null) {
+			for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
+				if (specificMeasure.getVmeSpecificMeasure() != null) {
+					for (String element : specificMeasure.getVmeSpecificMeasure().getStringMap().values()) {
+						if (StringUtils.containsIgnoreCase(element, text))
+							return true;
+					}
+				}
+				if (specificMeasure.getInformationSource() != null) {
+					if (specificMeasure.getInformationSource().getCitation() != null) {
+						for (String element : specificMeasure.getInformationSource().getCitation().getStringMap()
+								.values()) {
+							if (StringUtils.containsIgnoreCase(element, text))
+								return true;
+						}
+					}
+					if (specificMeasure.getInformationSource().getPublicationYear() != null
+							&& StringUtils
+									.containsIgnoreCase(Integer.toString(specificMeasure.getInformationSource()
+											.getPublicationYear()), text)) {
+						return true;
+					}
+					if (StringUtils.containsIgnoreCase(
+							specificMeasure.getInformationSource().getUrl() != null ? specificMeasure
+									.getInformationSource().getUrl().toExternalForm() : "", text))
 						return true;
 				}
-			}
-
-			if (specificMeasure.getInformationSource() != null
-					&& specificMeasure.getInformationSource().getReportSummary() != null) {
-				for (String element : specificMeasure.getInformationSource().getReportSummary().getStringMap().values()) {
-					if (StringUtils.containsIgnoreCase(element, text))
-						return true;
+				if (specificMeasure.getInformationSource() != null
+						&& specificMeasure.getInformationSource().getCommittee() != null) {
+					for (String element : specificMeasure.getInformationSource().getCommittee().getStringMap().values()) {
+						if (StringUtils.containsIgnoreCase(element, text))
+							return true;
+					}
 				}
-			}
 
+				if (specificMeasure.getInformationSource() != null
+						&& specificMeasure.getInformationSource().getReportSummary() != null) {
+					for (String element : specificMeasure.getInformationSource().getReportSummary().getStringMap()
+							.values()) {
+						if (StringUtils.containsIgnoreCase(element, text))
+							return true;
+					}
+				}
+
+			}
 		}
 		return false;
 	}
@@ -401,17 +403,20 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
 		res.setLocalName(u.getEnglish(vme.getName()));
 		res.setEnvelope("");
-		String authority_acronym = vme.getRfmo().getId();
-		try {
-			Authority authority = (Authority) referenceDAO.getReferenceByAcronym(Authority.class, authority_acronym);
+		if (vme.getRfmo() != null) {
+			String authority_acronym = vme.getRfmo().getId();
+			try {
+				Authority authority = (Authority) referenceDAO
+						.getReferenceByAcronym(Authority.class, authority_acronym);
 
-			if (authority == null) {
-				System.out.println("NULL auth");
-			} else
-				res.setOwner(authority.getName());
-		} catch (ReferenceServiceException e) {
-			res.setOwner(authority_acronym);
-			e.printStackTrace();
+				if (authority == null) {
+					// System.out.println("NULL auth");
+				} else
+					res.setOwner(authority.getName());
+			} catch (ReferenceServiceException e) {
+				res.setOwner(authority_acronym);
+				e.printStackTrace();
+			}
 		}
 
 		VmeObservation vo = figisDao.findFirstVmeObservation(vme.getId(), Integer.toString(year));
@@ -425,16 +430,20 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginYear());
 		res.setValidityPeriodTo(vme.getValidityPeriod().getEndYear());
 		res.setVmeType(vme.getAreaType());
-		
-		if(!vme.getGeoRefList().isEmpty()) {
+
+		if (!vme.getGeoRefList().isEmpty()) {
 			GeoRef first = vme.getGeoRefList().get(0);
-			
+
 			res.setYear(first.getYear());
 			res.setGeographicFeatureId(first.getGeographicFeatureID());
 		} else {
 			res.setGeographicFeatureId("");
 		}
 		return res;
+	}
+
+	public void setEm(EntityManager em) {
+		this.entityManager = em;
 	}
 
 	/**
