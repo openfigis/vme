@@ -43,10 +43,10 @@
 			-->
 			
 			<!-- Commons DBCP custom properties -->
-			<property name="hibernate.dbcp.initialSize" value="8"/>
-			<property name="hibernate.dbcp.maxIdle" value="8"/>
+			<property name="hibernate.dbcp.initialSize" value="5"/>
+			<property name="hibernate.dbcp.maxIdle" value="5"/>
 			<property name="hibernate.dbcp.minIdle" value="0"/>
-			<property name="hibernate.dbcp.validationQuery" value="SELECT * FROM DUAL;"/>
+			<property name="hibernate.dbcp.validationQuery" value="select 1 from dual"/>
 			<property name="hibernate.dbcp.testWhileIdle" value="true"/>
 			
 			<property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider"/>
@@ -112,7 +112,7 @@
 			<property name="hibernate.default_schema" value="FIGIS" />
 
 			<!-- Shared among all possible (custom) connection providers -->
-			<property name="hibernate.connection.pool_size" value="10"/>
+			<property name="hibernate.connection.pool_size" value="2"/>
 
 			<!-- BoneCP custom properties -->
 			<!--
@@ -121,10 +121,10 @@
 			-->
 			
 			<!-- Commons DBCP custom properties -->
-			<property name="hibernate.dbcp.initialSize" value="8"/>
-			<property name="hibernate.dbcp.maxIdle" value="8"/>
+			<property name="hibernate.dbcp.initialSize" value="2"/>
+			<property name="hibernate.dbcp.maxIdle" value="2"/>
 			<property name="hibernate.dbcp.minIdle" value="0"/>
-			<property name="hibernate.dbcp.validationQuery" value="SELECT * FROM DUAL;"/>
+			<property name="hibernate.dbcp.validationQuery" value="select 1 from dual"/>
 			<property name="hibernate.dbcp.testWhileIdle" value="true"/>
 			
 			<property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider"/>
