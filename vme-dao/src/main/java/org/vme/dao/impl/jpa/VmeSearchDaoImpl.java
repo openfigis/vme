@@ -60,6 +60,12 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	@SuppressWarnings("unchecked")
 	public List<VmeDto> searchVme(long authority_id, long type_id, long criteria_id, int year, String text)
 			throws Exception {
+
+		// Intervention Erik van Ingen 4 April 2014
+		// if outside of this entityManager an update takes place, this
+		// entityManager will not notice. Therefore a clear.
+		entityManager.clear();
+
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}
