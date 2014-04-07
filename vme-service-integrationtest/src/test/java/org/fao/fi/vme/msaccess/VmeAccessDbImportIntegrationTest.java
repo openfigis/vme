@@ -35,7 +35,7 @@ public class VmeAccessDbImportIntegrationTest {
 
 	@After
 	public void afterTest() {
-		c.clean(vmeDao);
+		// c.clean(vmeDao);
 	}
 
 	/**
