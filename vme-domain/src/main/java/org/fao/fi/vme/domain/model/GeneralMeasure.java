@@ -95,6 +95,8 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	/**
 	 * 
 	 */
+	@RSGName("Fishing Protocols")
+	@RSGConverter(MultiLingualStringConverter.class)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString explorataryFishingProtocol;
 
