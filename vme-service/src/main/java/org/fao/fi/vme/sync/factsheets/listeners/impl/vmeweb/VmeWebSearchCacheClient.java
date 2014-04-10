@@ -15,16 +15,31 @@ import org.slf4j.LoggerFactory;
 
 import com.ning.http.client.AsyncHttpClient;
 
-public class VmeWebSearchCache implements FactsheetChangeListener {
+/**
+ * VmeWebSearchCacheClient in order to clear the cache, when needed.
+ * 
+ * 
+ * @author Erik van Ingen
+ * 
+ */
+public class VmeWebSearchCacheClient implements FactsheetChangeListener {
+
+	private String server = "http://localhost:8081/";
+	private String resource = "vme-web/webservice/cache-delete/";
 
 	static final protected Logger LOG = LoggerFactory.getLogger(SyncFactsheetChangeListener.class);
 	static final private String errorMessage = "Did not manage to clear the cach in vme-web search properly";
 
+	/**
+	 * launches a asynchronic request in order to have the cache cleared.
+	 */
 	void clear() {
 		AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-		Handler handler = new Handler(asyncHttpClient);
+		CacheDeleteHandler cacheDeleteHandler = new CacheDeleteHandler(asyncHttpClient);
 		try {
-			asyncHttpClient.prepareGet("http://localhost:8081/vme-web/webservice/cache-delete/").execute(handler);
+			String get = server + resource;
+			asyncHttpClient.prepareGet(get).execute(cacheDeleteHandler);
+			LOG.debug("VmeWebSearchCacheClient clear request launched!");
 		} catch (IOException e) {
 			LOG.error(errorMessage, e);
 		}
@@ -118,4 +133,11 @@ public class VmeWebSearchCache implements FactsheetChangeListener {
 
 	}
 
+	public void setServer(String server) {
+		this.server = server;
+	}
+
+	public void setResource(String resource) {
+		this.resource = resource;
+	}
 }

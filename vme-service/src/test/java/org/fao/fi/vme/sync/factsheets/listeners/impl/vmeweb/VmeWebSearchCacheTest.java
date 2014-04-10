@@ -1,53 +1,75 @@
 package org.fao.fi.vme.sync.factsheets.listeners.impl.vmeweb;
 
-import static org.mockserver.integration.ClientAndProxy.startClientAndProxy;
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
-
-import java.util.concurrent.TimeUnit;
+import static net.jadler.Jadler.closeJadler;
+import static net.jadler.Jadler.initJadler;
+import static net.jadler.Jadler.onRequest;
+import static net.jadler.Jadler.port;
+//import static net.jadler.Jadler.closeJadler;
+//import static net.jadler.Jadler.initJadler;
+//import static net.jadler.Jadler.onRequest;
+//import static net.jadler.Jadler.port;
+//import static net.jadler.Jadler.verifyThatRequest;
+//import static org.hamcrest.Matchers.notNullValue;
+import static net.jadler.Jadler.verifyThatRequest;
 
 import org.fao.fi.vme.domain.model.Vme;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockserver.client.server.MockServerClient;
-import org.mockserver.integration.ClientAndProxy;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.Delay;
+
+/**
+ * http://localhost:8081/vme-web/webservice/cache-delete
+ * 
+ * @author Erik van Ingen
+ * 
+ */
 
 public class VmeWebSearchCacheTest {
 
-	VmeWebSearchCache c = new VmeWebSearchCache();
+	private VmeWebSearchCacheClient c = new VmeWebSearchCacheClient();
+	// private HttpClient client;
 
-	private ClientAndProxy proxy;
-	private ClientAndServer mockServer;
+	private String SERVER = "http://localhost:8081";
+	private String RESOURCE = "/vme-web/webservice/cache-delete";
 
-	@Before
-	public void startProxy() {
-		mockServer = startClientAndServer(8080);
-
-		new MockServerClient("localhost", 8080).when(request().withMethod("GET").withPath("/login")
-
-		).respond(
-				response().withBody("{ message: 'incorrect username and password combination' }").withDelay(
-						new Delay(TimeUnit.SECONDS, 1)));
-
-		proxy = startClientAndProxy(9090);
-	}
-
-	@After
-	public void stopProxy() {
-		proxy.stop();
-		mockServer.stop();
+	/*
+	 * Tests the havingBody methods.
+	 */
+	// @Test
+	public void run() throws Exception {
+		String server = SERVER;
+		c.setServer(server);
+		c.setResource(RESOURCE);
+		c.VMEChanged(new Vme());
 	}
 
 	@Test
-	public void testVMEChanged() throws Exception {
-		// TODO finalize this test
+	public void testVMEChangedHavingBody() throws Exception {
+		String server = "http://localhost:" + port();
+		c.setServer(server);
+		c.setResource(RESOURCE);
+
+		onRequest().havingMethodEqualTo("GET").havingPathEqualTo(RESOURCE).respond().withStatus(200)
+				.withBody(CacheDeleteHandler.MESSAGE);
 
 		c.VMEChanged(new Vme());
+		long endd = System.currentTimeMillis() + 100;
+		while (System.currentTimeMillis() < endd) {
+			// Do nothing here, let just some time pass, because the request is
+			// asynchronic.
+		}
+		verifyThatRequest().havingMethodEqualTo("GET").havingPathEqualTo(RESOURCE).receivedOnce();
 
+	}
+
+	@Before
+	public void setUp() {
+		initJadler();
+	}
+
+	@After
+	public void tearDown() {
+		closeJadler();
 	}
 
 }
