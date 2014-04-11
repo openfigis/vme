@@ -22,10 +22,9 @@ import com.ning.http.client.Response;
 @Singleton
 public class VmeWebSearchCacheClient {
 
-	// private String server = "http://localhost:8081/";
-	// private String resource = "vme-web/webservice/cache-delete/";
+	public static String RESOURCE = "/webservice/cache-delete/";
+
 	private String server;
-	private String resource;
 
 	public static final String MESSAGE = "VME_CACHE_DELETED_SUCCESS";
 
@@ -36,11 +35,9 @@ public class VmeWebSearchCacheClient {
 	 * launches a asynchronous request in order to have the cache cleared.
 	 */
 	public void process(@Observes VmeModelChange vmeModelChange) {
-		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println(this.server + this.resource);
 		final AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 		try {
-			String get = server + resource;
+			String get = getServer() + RESOURCE;
 			asyncHttpClient.prepareGet(get).execute(new AsyncCompletionHandler<Response>() {
 				@Override
 				public Response onCompleted(Response response) throws Exception {
@@ -70,8 +67,7 @@ public class VmeWebSearchCacheClient {
 		this.server = server;
 	}
 
-	public void setResource(String resource) {
-		this.resource = resource;
+	public String getServer() {
+		return server;
 	}
-
 }

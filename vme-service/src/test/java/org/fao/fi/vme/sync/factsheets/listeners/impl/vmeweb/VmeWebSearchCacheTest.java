@@ -36,7 +36,7 @@ public class VmeWebSearchCacheTest {
 	@Inject
 	private VmeWebSearchCacheClient c;
 
-	static String RESOURCE = "/vme-web/webservice/cache-delete";
+	// static String RESOURCE = "/webservice/cache-delete";
 
 	@Inject
 	@Any
@@ -71,18 +71,14 @@ public class VmeWebSearchCacheTest {
 
 	private void delegate() throws Exception {
 		Thread.sleep(100);
-		verifyThatRequest().havingMethodEqualTo("GET").havingPathEqualTo(RESOURCE).receivedOnce();
+		verifyThatRequest().havingMethodEqualTo("GET").havingPathEqualTo(VmeWebSearchCacheClient.RESOURCE)
+				.receivedOnce();
 	}
 
 	@Before
 	public void setUp() {
-		// initJadler();
-		// String server = "http://localhost:" + port();
-		// c.setServer(server);
-		// c.setResource(RESOURCE);
-
-		onRequest().havingMethodEqualTo("GET").havingPathEqualTo(RESOURCE).respond().withStatus(200)
-				.withBody(CacheDeleteHandler.MESSAGE);
+		onRequest().havingMethodEqualTo("GET").havingPathEqualTo(VmeWebSearchCacheClient.RESOURCE).respond()
+				.withStatus(200).withBody(CacheDeleteHandler.MESSAGE);
 	}
 
 	@After

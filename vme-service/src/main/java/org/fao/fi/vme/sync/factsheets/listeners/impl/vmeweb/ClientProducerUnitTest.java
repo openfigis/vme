@@ -30,7 +30,6 @@ public class ClientProducerUnitTest {
 		String server = "http://localhost:" + port();
 		VmeWebSearchCacheClient c = new VmeWebSearchCacheClient();
 		c.setServer(server);
-		c.setResource(VmeWebSearchCacheTest.RESOURCE);
 		return c;
 	}
 }
