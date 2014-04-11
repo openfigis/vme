@@ -42,7 +42,7 @@ public class RefWaterArea implements Serializable {
 	@Column(name = "CD_WATER_AREA_TYPE")
 	private Long waterAreaType;
 
-	@Column(name = "EXTERNAL_ID")
+	@Column(name = "EXTERNAL_ID", length = 50)
 	private String externalId;
 
 	@Column(name = "GRP_IND")

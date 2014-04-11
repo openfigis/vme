@@ -73,6 +73,10 @@ public class GeoRefSync implements Sync {
 	}
 
 	private void map(GeoRef geoRef, RefWaterArea object) {
+		if (geoRef.getGeographicFeatureID().length() > 50) {
+			throw new VmeException("The getGeographicFeatureID should not exceed 50 characters");
+		}
+
 		object.setExternalId(geoRef.getGeographicFeatureID());
 		if (geoRef.getVme() == null) {
 			throw new VmeException("GeoRef.vme is null, is an inconsistent state. geoRef.id = " + geoRef.getId());
