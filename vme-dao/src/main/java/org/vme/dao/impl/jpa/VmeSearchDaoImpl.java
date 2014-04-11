@@ -64,7 +64,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		// Intervention Erik van Ingen 4 April 2014
 		// if outside of this entityManager an update takes place, this
 		// entityManager will not notice. Therefore a clear.
-		entityManager.clear();
+		// entityManager.clear();
 
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
