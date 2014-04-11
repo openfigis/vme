@@ -2,18 +2,15 @@ package org.fao.fi.vme.sync.factsheets.listeners.impl.vmeweb;
 
 import java.io.IOException;
 
-import org.fao.fi.vme.domain.model.GeneralMeasure;
-import org.fao.fi.vme.domain.model.InformationSource;
-import org.fao.fi.vme.domain.model.Rfmo;
-import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
-import org.fao.fi.vme.domain.model.extended.VMEsHistory;
-import org.fao.fi.vme.sync.factsheets.listeners.FactsheetChangeListener;
-import org.fao.fi.vme.sync.factsheets.listeners.impl.SyncFactsheetChangeListener;
+import javax.enterprise.event.Observes;
+import javax.inject.Singleton;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ning.http.client.AsyncCompletionHandler;
 import com.ning.http.client.AsyncHttpClient;
+import com.ning.http.client.Response;
 
 /**
  * VmeWebSearchCacheClient in order to clear the cache, when needed.
@@ -22,115 +19,51 @@ import com.ning.http.client.AsyncHttpClient;
  * @author Erik van Ingen
  * 
  */
-public class VmeWebSearchCacheClient implements FactsheetChangeListener {
+@Singleton
+public class VmeWebSearchCacheClient {
 
-	private String server = "http://localhost:8081/";
-	private String resource = "vme-web/webservice/cache-delete/";
+	// private String server = "http://localhost:8081/";
+	// private String resource = "vme-web/webservice/cache-delete/";
+	private String server;
+	private String resource;
 
-	static final protected Logger LOG = LoggerFactory.getLogger(SyncFactsheetChangeListener.class);
+	public static final String MESSAGE = "VME_CACHE_DELETED_SUCCESS";
+
+	static final protected Logger LOG = LoggerFactory.getLogger(VmeWebSearchCacheClient.class);
 	static final private String errorMessage = "Did not manage to clear the cach in vme-web search properly";
 
 	/**
-	 * launches a asynchronic request in order to have the cache cleared.
+	 * launches a asynchronous request in order to have the cache cleared.
 	 */
-	void clear() {
-		AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
-		CacheDeleteHandler cacheDeleteHandler = new CacheDeleteHandler(asyncHttpClient);
+	public void process(@Observes VmeModelChange vmeModelChange) {
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println(this.server + this.resource);
+		final AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 		try {
 			String get = server + resource;
-			asyncHttpClient.prepareGet(get).execute(cacheDeleteHandler);
+			asyncHttpClient.prepareGet(get).execute(new AsyncCompletionHandler<Response>() {
+				@Override
+				public Response onCompleted(Response response) throws Exception {
+					if (!response.getResponseBody().equals(MESSAGE)) {
+						LOG.error("This message was expected but not received: " + MESSAGE);
+					}
+					LOG.debug("CacheDeleteHandler received this message after a cache delete request was launched to vme-web search : "
+							+ MESSAGE);
+					asyncHttpClient.close();
+					return response;
+				}
+
+				@Override
+				public void onThrowable(Throwable t) {
+					LOG.error("Something wrong happened. ");
+				}
+			});
+
+			// asyncHttpClient.close();
 			LOG.debug("VmeWebSearchCacheClient clear request launched!");
 		} catch (IOException e) {
 			LOG.error(errorMessage, e);
 		}
-	}
-
-	@Override
-	public void VMEChanged(Vme... changed) throws Exception {
-		clear();
-	}
-
-	@Override
-	public void VMEAdded(Vme... added) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void VMEDeleted(Vme... deleted) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void generalMeasureChanged(GeneralMeasure... changed) throws Exception {
-		clear();
-	}
-
-	@Override
-	public void generalMeasureAdded(GeneralMeasure... added) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void generalMeasureDeleted(Rfmo owner, GeneralMeasure... deleted) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void informationSourceChanged(InformationSource... changed) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void informationSourceAdded(InformationSource... added) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void informationSourceDeleted(Rfmo owner, InformationSource... deleted) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void fishingFootprintChanged(FisheryAreasHistory... changed) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void fishingFootprintAdded(FisheryAreasHistory... added) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void fishingFootprintDeleted(Rfmo owner, FisheryAreasHistory... deleted) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void regionalHistoryChanged(VMEsHistory... changed) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void regionalHistoryAdded(VMEsHistory... added) throws Exception {
-		clear();
-
-	}
-
-	@Override
-	public void regionalHistoryDeleted(Rfmo owner, VMEsHistory... deleted) throws Exception {
-		clear();
-
 	}
 
 	public void setServer(String server) {
@@ -140,4 +73,5 @@ public class VmeWebSearchCacheClient implements FactsheetChangeListener {
 	public void setResource(String resource) {
 		this.resource = resource;
 	}
+
 }
