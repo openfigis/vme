@@ -634,7 +634,7 @@ public class RsgServiceImplVme implements RsgService {
 				tx.commit();
 
 				this._fsChangeListener.VMEDeleted((Vme) toDelete);
-				aVmeModelChange.fire(null);
+				aVmeModelChange.fire(new VmeModelChange());
 
 				response.succeeded(entity.getName() + " report #" + reportId + " has been deleted");
 
@@ -707,7 +707,7 @@ public class RsgServiceImplVme implements RsgService {
 				} else if (toDelete instanceof VMEsHistory) {
 					this._fsChangeListener.regionalHistoryDeleted(parent, (VMEsHistory) toDelete);
 				}
-				aVmeModelChange.fire(null);
+				aVmeModelChange.fire(new VmeModelChange());
 
 				response.succeeded(entity.getName() + " reference report #" + refReportId + " has been deleted");
 
@@ -816,7 +816,7 @@ public class RsgServiceImplVme implements RsgService {
 					this._fsChangeListener.VMEAdded((Vme) updated);
 				else
 					this._fsChangeListener.VMEChanged((Vme) updated);
-				aVmeModelChange.fire(null);
+				aVmeModelChange.fire(new VmeModelChange());
 			} catch (Throwable t) {
 				LOG.warn("Unable to update factsheet for {} report {}: {} [ {} ]", report.getType(), id, t.getClass()
 						.getSimpleName(), t.getMessage(), t);
@@ -939,7 +939,7 @@ public class RsgServiceImplVme implements RsgService {
 				else
 					this._fsChangeListener.regionalHistoryChanged((VMEsHistory) updated);
 			}
-			aVmeModelChange.fire(null);
+			aVmeModelChange.fire(new VmeModelChange());
 		} catch (Throwable t) {
 			LOG.error("Unable to update {} reference report {}: {} [ {} ]", referenceReport.getType(), id, t.getClass()
 					.getSimpleName(), t.getMessage(), t);

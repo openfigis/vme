@@ -32,7 +32,7 @@ import org.junit.runner.RunWith;
 @RunWith(CdiRunner.class)
 @AdditionalClasses({ VmeWebSearchCacheClient.class })
 @ActivatedAlternatives({ VmeWebServerProducer4UnitTest.class })
-public class VmeWebSearchCacheTest {
+public class VmeWebSearchCacheClientTest {
 
 	@Inject
 	private VmeWebSearchCacheClient c;
