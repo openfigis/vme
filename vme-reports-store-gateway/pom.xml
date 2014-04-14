@@ -61,7 +61,7 @@
 			</activation>
 			<id>env-dev</id>
 			<properties>
-				<vme.web.server>http://localhost:8080/vme-web</vme.web.server>
+				<vme.web.server>http://localhost:8081/vme-web</vme.web.server>
 			</properties>
 		</profile>
 		<profile>

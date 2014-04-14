@@ -47,15 +47,15 @@ public class VmeWebSearchCacheClient {
 					if (!response.getResponseBody().equals(MESSAGE)) {
 						LOG.error("This message was expected but not received: " + MESSAGE);
 					}
-					LOG.debug("CacheDeleteHandler received this message after a cache delete request was launched to vme-web search : "
-							+ MESSAGE);
+					LOG.info("CacheDeleteHandler received this message after a cache delete request was launched to vme-web search : "
+							+ response.getResponseBody());
 					asyncHttpClient.close();
 					return response;
 				}
 
 				@Override
 				public void onThrowable(Throwable t) {
-					LOG.error("Something wrong happened. ");
+					LOG.error("Something wrong happened. ", t);
 				}
 			});
 

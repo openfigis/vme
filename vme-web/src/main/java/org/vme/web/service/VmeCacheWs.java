@@ -43,9 +43,6 @@ public class VmeCacheWs {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String clean() {
-
-		System.out.println("The real VmeCacheWs fired!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
 		String message = MESSAGE;
 		try {
 			entityManager.clear();
@@ -53,7 +50,7 @@ public class VmeCacheWs {
 			message = e.getMessage();
 			LOG.error("Caching of vme-web failed", e);
 		}
-		LOG.debug("First level cache of Hibernate EntityManager has been cleared.");
+		LOG.info("First level cache of Hibernate EntityManager has been cleared.");
 
 		return message;
 	}
