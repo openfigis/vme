@@ -24,7 +24,7 @@ public class VmeWebServerProducerPropertiesFileTest {
 
 		// there is yet no property defined for vme.web.server in
 		// vme-reports-store-gateway
-		assertTrue("http://localhost:8080/vme-web", c.getServer().contains("http://"));
+		assertTrue(c.getServer().contains("http://"));
 
 	}
 
