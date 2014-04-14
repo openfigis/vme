@@ -51,8 +51,40 @@
 		</dependency>
 	</dependencies>
 
+
+	<profiles>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<id>env-dev</id>
+			<build>
+				<finalName>vme-reports-store-gateway-web</finalName>
+			</build>
+		</profile>
+		<profile>
+			<id>vme-devel</id>
+			<build>
+				<finalName>figis#reports-store-gateway</finalName>
+			</build>
+		</profile>
+		<profile>
+			<id>vme-fiqa</id>
+			<build>
+				<finalName>figis#reports-store-gateway</finalName>
+			</build>
+		</profile>
+		<profile>
+			<id>vme-prod</id>
+			<build>
+				<finalName>figis#reports-store-gateway</finalName>
+			</build>
+		</profile>
+	</profiles>
+
+
+
 	<build>
-		<finalName>reports-store-gateway-web</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
