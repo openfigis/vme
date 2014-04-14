@@ -61,31 +61,35 @@
 			</activation>
 			<id>env-dev</id>
 			<properties>
-				<vme.web.server>http://localhost:8080/vme-web/</vme.web.server>
+				<vme.web.server>http://localhost:8080/vme-web</vme.web.server>
 			</properties>
 		</profile>
 		<profile>
 			<id>vme-devel</id>
 			<properties>
-				<vme.web.server>http://hqldvfigis1:6747/vme-web/</vme.web.server>
+				<vme.web.server>http://hqldvfigis1:6747/vme-web</vme.web.server>
 			</properties>
 		</profile>
 		<profile>
 			<id>vme-fiqa</id>
 			<properties>
-				<vme.web.server>http://figisapps.fao.org/figis/ws/vme/</vme.web.server>
+				<vme.web.server>http://figisapps.fao.org/figis/ws/vme</vme.web.server>
 			</properties>
 		</profile>
 		<profile>
 			<id>vme-prod</id>
 			<properties>
-				<vme.web.server>http://localhost:8080/vme-web/</vme.web.server>
+				<vme.web.server>http://localhost:8080/vme-web</vme.web.server>
 			</properties>
 		</profile>
 	</profiles>
-
 	<build>
-		<plugins>
-		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
+
 </project>
