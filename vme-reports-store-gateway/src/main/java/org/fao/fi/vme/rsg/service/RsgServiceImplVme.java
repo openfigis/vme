@@ -216,6 +216,8 @@ public class RsgServiceImplVme implements RsgService {
 	public ReportType[] getReportTypes() {
 		u.create();
 
+		aVmeModelChange.fire(new VmeModelChange());
+
 		for (Object report : this._reports)
 			u.add(report.getClass().getSimpleName());
 

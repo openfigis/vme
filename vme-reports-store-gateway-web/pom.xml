@@ -10,6 +10,7 @@
 	<artifactId>vme-reports-store-gateway-web</artifactId>
 	<packaging>war</packaging>
 
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -67,7 +68,11 @@
 				<version>2.2</version>
 				<configuration>
 					<url>http://hqldvfigis1:6969/manager</url>
-					<server>DEV-Server</server>
+					<server>
+						<id>DEV-Server</id>
+						<username>tomcat</username>
+						<password>tomcat</password>
+					</server>
 					<path>/figis#reports-store-gateway</path>
 				</configuration>
 			</plugin>

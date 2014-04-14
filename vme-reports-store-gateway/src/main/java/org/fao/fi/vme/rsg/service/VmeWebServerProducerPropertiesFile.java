@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
 
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.sync.factsheets.listeners.impl.vmeweb.VmeWebSearchCacheClient;
+import org.fao.fi.vme.sync.factsheets.listeners.impl.vmeweb.VmeWebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,13 +20,14 @@ import org.slf4j.LoggerFactory;
  * @author Erik van Ingen
  * 
  */
-public class ClientProducerPropertiesFile {
-	final static private Logger LOG = LoggerFactory.getLogger(ClientProducerPropertiesFile.class);
+@Alternative
+public class VmeWebServerProducerPropertiesFile {
+	final static private Logger LOG = LoggerFactory.getLogger(VmeWebServerProducerPropertiesFile.class);
 
 	@Produces
-	public VmeWebSearchCacheClient produceVmeWebSearchCacheClient() {
+	public VmeWebServer produceVmeWebSearchCacheClient() {
+		VmeWebServer c = new VmeWebServer();
 
-		VmeWebSearchCacheClient c = new VmeWebSearchCacheClient();
 		Properties prop = new Properties();
 		try {
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("vme-web.properties");

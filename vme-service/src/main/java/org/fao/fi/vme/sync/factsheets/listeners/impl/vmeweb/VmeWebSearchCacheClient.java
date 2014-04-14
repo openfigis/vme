@@ -2,8 +2,9 @@ package org.fao.fi.vme.sync.factsheets.listeners.impl.vmeweb;
 
 import java.io.IOException;
 
+import javax.enterprise.context.Dependent;
 import javax.enterprise.event.Observes;
-import javax.inject.Singleton;
+import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,17 +20,19 @@ import com.ning.http.client.Response;
  * @author Erik van Ingen
  * 
  */
-@Singleton
+
+@Dependent
 public class VmeWebSearchCacheClient {
 
 	public static String RESOURCE = "/webservice/cache-delete/";
-
-	private String server;
 
 	public static final String MESSAGE = "VME_CACHE_DELETED_SUCCESS";
 
 	static final protected Logger LOG = LoggerFactory.getLogger(VmeWebSearchCacheClient.class);
 	static final private String errorMessage = "Did not manage to clear the cach in vme-web search properly";
+
+	@Inject
+	VmeWebServer vmeWebServer;
 
 	/**
 	 * launches a asynchronous request in order to have the cache cleared.
@@ -37,7 +40,7 @@ public class VmeWebSearchCacheClient {
 	public void process(@Observes VmeModelChange vmeModelChange) {
 		final AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 		try {
-			String get = getServer() + RESOURCE;
+			String get = vmeWebServer.getServer() + RESOURCE;
 			asyncHttpClient.prepareGet(get).execute(new AsyncCompletionHandler<Response>() {
 				@Override
 				public Response onCompleted(Response response) throws Exception {
@@ -63,11 +66,4 @@ public class VmeWebSearchCacheClient {
 		}
 	}
 
-	public void setServer(String server) {
-		this.server = server;
-	}
-
-	public String getServer() {
-		return server;
-	}
 }

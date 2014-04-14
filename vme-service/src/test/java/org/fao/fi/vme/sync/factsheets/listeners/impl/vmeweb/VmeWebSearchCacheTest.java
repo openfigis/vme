@@ -1,6 +1,7 @@
 package org.fao.fi.vme.sync.factsheets.listeners.impl.vmeweb;
 
 import static net.jadler.Jadler.closeJadler;
+import static net.jadler.Jadler.initJadler;
 import static net.jadler.Jadler.onRequest;
 //import static net.jadler.Jadler.closeJadler;
 //import static net.jadler.Jadler.initJadler;
@@ -30,13 +31,11 @@ import org.junit.runner.RunWith;
  */
 @RunWith(CdiRunner.class)
 @AdditionalClasses({ VmeWebSearchCacheClient.class })
-@ActivatedAlternatives({ ClientProducerUnitTest.class })
+@ActivatedAlternatives({ VmeWebServerProducer4UnitTest.class })
 public class VmeWebSearchCacheTest {
 
 	@Inject
 	private VmeWebSearchCacheClient c;
-
-	// static String RESOURCE = "/webservice/cache-delete";
 
 	@Inject
 	@Any
@@ -47,12 +46,12 @@ public class VmeWebSearchCacheTest {
 	 * VmeWebSearchCacheClient
 	 * 
 	 * @TODO Somehow I do not get it to work. The VmeWebSearchCacheClient will
-	 *       not be produced by the ClientProducerUnitTest, which might be a bug
-	 *       of cdi-unit
+	 *       not be produced by the VmeWebServerProducer4UnitTest, which might
+	 *       be a bug of cdi-unit
 	 * 
 	 * @throws Exception
 	 */
-	// @Test
+	@Test
 	public void testLogic() throws Exception {
 		aVmeModelChange.fire(new VmeModelChange());
 		delegate();
@@ -77,8 +76,9 @@ public class VmeWebSearchCacheTest {
 
 	@Before
 	public void setUp() {
+		initJadler();
 		onRequest().havingMethodEqualTo("GET").havingPathEqualTo(VmeWebSearchCacheClient.RESOURCE).respond()
-				.withStatus(200).withBody(CacheDeleteHandler.MESSAGE);
+				.withStatus(200).withBody(VmeWebSearchCacheClient.MESSAGE);
 	}
 
 	@After
