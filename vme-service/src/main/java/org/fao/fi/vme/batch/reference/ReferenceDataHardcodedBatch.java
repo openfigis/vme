@@ -3,13 +3,17 @@
  */
 package org.fao.fi.vme.batch.reference;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.InformationSourceType;
+import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
 import org.vme.dao.ReferenceBatchDao;
+import org.vme.dao.sources.vme.VmeDao;
 
 /**
  * Batch will which load or update the reference data
@@ -24,12 +28,34 @@ public class ReferenceDataHardcodedBatch {
 	@Inject
 	private ReferenceBatchDao dao;
 
+	@Inject
+	private VmeDao vmeDao;
+
 	public void run() {
 		createAuthorities();
 		createVmeCriterias();
 		createVmeTypes();
 		createInformationSourceTypes();
 		// createYears();
+
+		synchAuthorityWithRfmo();
+	}
+
+	/**
+	 * Fabrizio had created the Authority table in the VME DB in order to be
+	 * able to search, this Authority table is a reference data table. The Rfmo
+	 * table holds only a reference.
+	 */
+	private void synchAuthorityWithRfmo() {
+		List<Authority> l = vmeDao.loadObjects(Authority.class);
+		for (Authority authority : l) {
+			Rfmo rfmo = vmeDao.getEm().find(Rfmo.class, authority.getAcronym());
+			if (rfmo == null) {
+				Rfmo newRfmo = new Rfmo();
+				newRfmo.setId(authority.getAcronym());
+				vmeDao.persist(newRfmo);
+			}
+		}
 	}
 
 	private void createAuthorities() {
