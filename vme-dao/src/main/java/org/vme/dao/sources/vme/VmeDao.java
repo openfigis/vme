@@ -530,8 +530,31 @@ public class VmeDao extends AbstractJPADao {
 			
 			this.doRemove(em, p);
 		} 
+		
+		//Unlinks InformationSources from the list of Specific Measures to remove, then unlinks the Specific Measure from the VME
 		for (Long id : specificMeasuresToDelete) {
 			SpecificMeasure s = this.getEntityById(this.em, SpecificMeasure.class, id); 
+
+			InformationSource linked = s.getInformationSource();
+			
+			if(linked != null) {
+				s.setInformationSource(null);
+				
+				Iterator<SpecificMeasure> parents = linked.getSpecificMeasureList().iterator();
+				SpecificMeasure current = null;
+				
+				while(parents.hasNext()) {
+					current = parents.next();
+					
+					if(current.getId().equals(s.getId())) {
+						parents.remove();
+						
+						this.doMerge(em, linked);
+					}
+				}
+
+				this.doMerge(em, s);
+			}
 			
 			s.setVme(null);
 			
