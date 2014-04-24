@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.interfaces.Year;
 import org.fao.fi.vme.domain.logic.YearComparator;
 import org.fao.fi.vme.domain.model.Vme;
@@ -30,7 +31,14 @@ public class PeriodGrouping {
 	private static final int FUTURE = 9999;
 
 	public List<DisseminationYearSlice> collect(Vme vme) {
+		// precondition
+		if (vme.getValidityPeriod() == null || vme.getValidityPeriod().getBeginYear() == null
+				|| vme.getValidityPeriod().getEndYear() == null) {
+			throw new VmeException("This vme does not have a properly filled validityPeridod: Vme id " + vme.getId()
+					+ " " + vme.getInventoryIdentifier());
+		}
 
+		// logic
 		List<DisseminationYearSlice> l = new ArrayList<DisseminationYearSlice>();
 
 		int beginYear = vme.getValidityPeriod().getBeginYear();
