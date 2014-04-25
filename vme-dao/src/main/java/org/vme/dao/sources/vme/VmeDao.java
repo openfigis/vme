@@ -93,10 +93,11 @@ public class VmeDao extends AbstractJPADao {
 			em.persist(vme.getRfmo());
 		}
 
-		if (vme.getGeoRefList() != null)
+		if (vme.getGeoRefList() != null) {
 			for (GeoRef geoRef : vme.getGeoRefList()) {
 				em.persist(geoRef);
 			}
+		}
 
 		if (vme.getProfileList() != null)
 			for (Profile profile : vme.getProfileList()) {
