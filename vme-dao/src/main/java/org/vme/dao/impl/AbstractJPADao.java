@@ -103,7 +103,15 @@ public abstract class AbstractJPADao implements Dao {
 
 					tq.setParameter(parameter.getKey(), value);
 				}
-			} catch (ReflectiveOperationException e) {
+			} catch (SecurityException e) {
+				throw new VmeDaoException("Unable to build query for " + entity.getSimpleName(), e);
+			} catch (NoSuchFieldException e) {
+				throw new VmeDaoException("Unable to build query for " + entity.getSimpleName(), e);
+			} catch (IllegalArgumentException e) {
+				throw new VmeDaoException("Unable to build query for " + entity.getSimpleName(), e);
+			} catch (InstantiationException e) {
+				throw new VmeDaoException("Unable to build query for " + entity.getSimpleName(), e);
+			} catch (IllegalAccessException e) {
 				throw new VmeDaoException("Unable to build query for " + entity.getSimpleName(), e);
 			}
 		}
@@ -207,17 +215,18 @@ public abstract class AbstractJPADao implements Dao {
 			et.commit();
 			LOG.debug("Object {} has been stored into persistence", object);
 		} catch (Exception e) {
-			LOG.error("Unable to store object {} into persistence: {} [ {} ]", object, e.getClass().getSimpleName(), e.getMessage());
+			LOG.error("Unable to store object {} into persistence: {} [ {} ]", object, e.getClass().getSimpleName(),
+					e.getMessage());
 			throw new VmeDaoException(e);
 		}
 
 		return object;
 	}
-	
+
 	public <E> E persistNoTx(EntityManager em, E object) {
 		em.persist(object);
 		em.flush();
-		
+
 		return object;
 	}
 
