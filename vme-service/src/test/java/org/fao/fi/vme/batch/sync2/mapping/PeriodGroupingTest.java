@@ -1,11 +1,11 @@
 package org.fao.fi.vme.batch.sync2.mapping;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import org.fao.fi.vme.batch.sync2.mapping.DisseminationYearSlice;
-import org.fao.fi.vme.batch.sync2.mapping.PeriodGrouping;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -15,6 +15,27 @@ public class PeriodGroupingTest {
 
 	PeriodGrouping grouping = new PeriodGrouping();
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
+
+	@Test
+	public void testCollectValidation() {
+		Vme vme = new Vme();
+		delegate(vme);
+		ValidityPeriod vp = new ValidityPeriod();
+		vme.setValidityPeriod(vp);
+		delegate(vme);
+		vp.setBeginYear(100);
+		delegate(vme);
+		vp.setEndYear(100);
+	}
+
+	private void delegate(Vme vme) {
+		try {
+			grouping.collect(vme);
+			fail();
+		} catch (Exception e) {
+		}
+
+	}
 
 	@Test
 	public void testCollect() {
