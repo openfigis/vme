@@ -103,8 +103,8 @@ public abstract class AbstractJPADao implements Dao {
 
 					tq.setParameter(parameter.getKey(), value);
 				}
-			} catch (Throwable t) {
-				throw new RuntimeException("Unable to build query for " + entity.getSimpleName(), t);
+			} catch (ReflectiveOperationException e) {
+				throw new VmeDaoException("Unable to build query for " + entity.getSimpleName(), e);
 			}
 		}
 

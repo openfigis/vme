@@ -93,20 +93,23 @@ public class VmeDao extends AbstractJPADao {
 			em.persist(vme.getRfmo());
 		}
 
-		if (vme.getGeoRefList() != null)
+		if (vme.getGeoRefList() != null) {
 			for (GeoRef geoRef : vme.getGeoRefList()) {
 				em.persist(geoRef);
 			}
+		}
 
-		if (vme.getProfileList() != null)
+		if (vme.getProfileList() != null) {
 			for (Profile profile : vme.getProfileList()) {
 				em.persist(profile);
 			}
+		}
 
-		if (vme.getSpecificMeasureList() != null)
+		if (vme.getSpecificMeasureList() != null) {
 			for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
 				em.persist(specificMeasure);
 			}
+		}
 
 		em.persist(vme);
 		em.flush();
@@ -147,9 +150,11 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public void delete(Object toDelete) {
-		if (toDelete == null)
+		
+		if (toDelete == null) {
 			throw new IllegalArgumentException("Cannot delete an NULL or empty data");
-
+		}
+		
 		Class<?> entity = toDelete.getClass();
 
 		// I know this sucks...
@@ -176,15 +181,19 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public void delete(Vme toDelete) {
-		if (toDelete == null)
+		
+		if (toDelete == null) {
 			throw new IllegalArgumentException("The Vme to delete cannot be NULL");
-
-		if (toDelete.getId() == null)
+		}
+		
+		if (toDelete.getId() == null) {
 			throw new IllegalArgumentException("The Vme to delete cannot have a NULL identifier");
-
-		if (toDelete.getRfmo() == null)
+		}
+			
+		if (toDelete.getRfmo() == null) {
 			throw new IllegalArgumentException("The Vme to delete cannot have a NULL parent authority");
-
+		}
+			
 		Rfmo parent = toDelete.getRfmo();
 
 		Iterator<Vme> rfmoIterator = parent.getListOfManagedVmes().iterator();
