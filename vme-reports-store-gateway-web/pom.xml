@@ -61,24 +61,36 @@
 			<build>
 				<finalName>vme-reports-store-gateway-web</finalName>
 			</build>
+			<properties>
+				<figis.web.cache.reset.endpoint.vme>http://figis02:8282/fiweb/servlet/CacheDeleteFactsheetDomain?domain=vme</figis.web.cache.reset.endpoint.vme>
+			</properties>
 		</profile>
 		<profile>
 			<id>vme-devel</id>
 			<build>
 				<finalName>figis#reports-store-gateway</finalName>
 			</build>
+			<properties>
+				<figis.web.cache.reset.endpoint.vme>http://figis02:8282/fiweb/servlet/CacheDeleteFactsheetDomain?domain=vme</figis.web.cache.reset.endpoint.vme>
+			</properties>
 		</profile>
 		<profile>
 			<id>vme-fiqa</id>
 			<build>
 				<finalName>figis#reports-store-gateway</finalName>
 			</build>
+			<properties>
+				<figis.web.cache.reset.endpoint.vme>http://figis02:8282/fiweb/servlet/CacheDeleteFactsheetDomain?domain=vme</figis.web.cache.reset.endpoint.vme>
+			</properties>
 		</profile>
 		<profile>
 			<id>vme-prod</id>
 			<build>
 				<finalName>figis#reports-store-gateway</finalName>
 			</build>
+			<properties>
+				<figis.web.cache.reset.endpoint.vme>http://figis02:8282/fiweb/servlet/CacheDeleteFactsheetDomain?domain=vme</figis.web.cache.reset.endpoint.vme>
+			</properties>
 		</profile>
 	</profiles>
 
@@ -109,5 +121,14 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
+
+
+
 </project>
