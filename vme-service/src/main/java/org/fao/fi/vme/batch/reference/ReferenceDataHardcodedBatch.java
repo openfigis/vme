@@ -42,6 +42,30 @@ public class ReferenceDataHardcodedBatch {
 	}
 
 	/**
+	 * Temporary stuff in order to be able to use access. Delete when access is
+	 * phased out.
+	 * 
+	 */
+	public void runBefore() {
+		createAuthorities();
+		createVmeCriterias();
+		createVmeTypes();
+		createInformationSourceTypes();
+		// createYears();
+
+	}
+
+	/**
+	 * Temporary stuff in order to be able to use access. Delete when access is
+	 * phased out.
+	 * 
+	 */
+	public void runAfter() {
+
+		synchAuthorityWithRfmo();
+	}
+
+	/**
 	 * Fabrizio had created the Authority table in the VME DB in order to be
 	 * able to search, this Authority table is a reference data table. The Rfmo
 	 * table holds only a reference.

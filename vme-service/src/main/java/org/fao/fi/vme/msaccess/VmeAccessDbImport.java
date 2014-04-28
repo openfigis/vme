@@ -52,10 +52,9 @@ public class VmeAccessDbImport {
 	 * likely to be Oracle but could also be Postgres.
 	 */
 	public void importMsAccessData() {
-
 		// load first the DB with referenceData in order to provide the
 		// referenceDataProviders with data.
-		rData.run();
+		rData.runBefore();
 
 		// read from MSAccess
 		List<Table> tables = reader.readObjects();
@@ -82,6 +81,8 @@ public class VmeAccessDbImport {
 
 		// write the object graph in the DB
 		writer.persistNew(objectCollectionList);
+
+		rData.runAfter();
 
 	}
 }
