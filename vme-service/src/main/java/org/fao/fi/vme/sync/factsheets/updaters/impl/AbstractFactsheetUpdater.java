@@ -34,22 +34,18 @@ import org.vme.dao.sources.vme.VmeDao;
  */
 public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 	static final protected Logger LOG = LoggerFactory.getLogger(FigisFactsheetUpdater.class);
-	static final protected String CACHE_RESET_ENDPOINT = "http://figis02:8282/fiweb/servlet/CacheDeleteFactsheetDomain?domain=vme";
+	// static final protected String CACHE_RESET_ENDPOINT =
+	// "http://figis02:8282/fiweb/servlet/CacheDeleteFactsheetDomain?domain=vme";
 
 	@Inject
 	protected VmeDao vmeDao;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.fao.fi.vme.sync.factsheets.updaters.FactsheetUpdater#refreshVme(java
-	 * .lang.Long)
-	 */
+	@Inject
+	protected CacheResetEndpoint cacheResetEndpoint;
+
 	@Override
 	public void refreshVme(Long vmeID) throws Exception {
 		this.vmeDao.getEm().clear();
-
 		this.vmeDao.getEntityById(this.vmeDao.getEm(), Vme.class, vmeID);
 	}
 
@@ -151,9 +147,10 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 			InputStream is = null;
 
 			try {
-				LOG.info("Sending factsheet cache reset request for VME ID {} to: {}", vmeID, CACHE_RESET_ENDPOINT);
+				LOG.info("Sending factsheet cache reset request for VME ID {} to: {}", vmeID,
+						cacheResetEndpoint.getCacheResetEndpoint());
 
-				is = new URL(CACHE_RESET_ENDPOINT).openStream();
+				is = new URL(cacheResetEndpoint.getCacheResetEndpoint()).openStream();
 				byte[] buffer = new byte[8192];
 
 				int len = -1;
