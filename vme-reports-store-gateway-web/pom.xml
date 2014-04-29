@@ -62,7 +62,7 @@
 				<finalName>vme-reports-store-gateway-web</finalName>
 			</build>
 			<properties>
-				<figis.web.cache.reset.endpoint.vme>http://figis02:8282/fiweb/servlet/CacheDeleteFactsheetDomain?domain=vme</figis.web.cache.reset.endpoint.vme>
+				<figis.web.cache.reset.server.vme>http://figis02:8282</figis.web.cache.reset.server.vme>
 			</properties>
 		</profile>
 		<profile>
@@ -71,7 +71,7 @@
 				<finalName>figis#reports-store-gateway</finalName>
 			</build>
 			<properties>
-				<figis.web.cache.reset.endpoint.vme>http://figis02:8282/fiweb/servlet/CacheDeleteFactsheetDomain?domain=vme</figis.web.cache.reset.endpoint.vme>
+				<figis.web.cache.reset.server.vme>http://figis02:8282</figis.web.cache.reset.server.vme>
 			</properties>
 		</profile>
 		<profile>
@@ -80,7 +80,7 @@
 				<finalName>figis#reports-store-gateway</finalName>
 			</build>
 			<properties>
-				<figis.web.cache.reset.endpoint.vme>http://figis02:8282/fiweb/servlet/CacheDeleteFactsheetDomain?domain=vme</figis.web.cache.reset.endpoint.vme>
+				<figis.web.cache.reset.server.vme>http://figis02:8282</figis.web.cache.reset.server.vme>
 			</properties>
 		</profile>
 		<profile>
@@ -89,7 +89,7 @@
 				<finalName>figis#reports-store-gateway</finalName>
 			</build>
 			<properties>
-				<figis.web.cache.reset.endpoint.vme>http://figis02:8282/fiweb/servlet/CacheDeleteFactsheetDomain?domain=vme</figis.web.cache.reset.endpoint.vme>
+				<figis.web.cache.reset.server.vme>http://figis02:8282</figis.web.cache.reset.server.vme>
 			</properties>
 		</profile>
 	</profiles>
