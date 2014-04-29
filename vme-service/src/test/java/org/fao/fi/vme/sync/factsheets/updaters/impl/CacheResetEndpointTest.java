@@ -12,11 +12,11 @@ import org.junit.runner.RunWith;
 public class CacheResetEndpointTest {
 
 	@Inject
-	CacheResetEndpoint cacheResetEndpoint;
+	FigisCacheResetEndpoint figisCacheResetEndpoint;
 
 	@Test
 	public void testGetCacheResetEndpoint() {
-		assertNotNull(cacheResetEndpoint.getCacheResetEndpoint());
+		assertNotNull(figisCacheResetEndpoint.getCacheResetEndpoint());
 	}
 
 }

@@ -41,7 +41,7 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 	protected VmeDao vmeDao;
 
 	@Inject
-	protected CacheResetEndpoint cacheResetEndpoint;
+	protected FigisCacheResetEndpoint figisCacheResetEndpoint;
 
 	@Override
 	public void refreshVme(Long vmeID) throws Exception {
@@ -148,9 +148,10 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 
 			try {
 				LOG.info("Sending factsheet cache reset request for VME ID {} to: {}", vmeID,
-						cacheResetEndpoint.getCacheResetEndpoint());
+						figisCacheResetEndpoint.getCacheResetEndpoint());
 
-				is = new URL(cacheResetEndpoint.getCacheResetEndpoint()).openStream();
+				is = new URL(figisCacheResetEndpoint.getCacheResetEndpoint()).openStream();
+
 				byte[] buffer = new byte[8192];
 
 				int len = -1;
