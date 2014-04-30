@@ -62,7 +62,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>vme-web</finalName>
+		<finalName>figis#ws#vme</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
