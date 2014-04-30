@@ -43,6 +43,7 @@ import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.batch.sync2.mapping.BiblioEntryFromInformationSource;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.MultiLingualString;
@@ -481,7 +482,7 @@ public class FigisDocBuilder {
 	 * @param i
 	 * @param figisDoc
 	 */
-	public void vme(Vme vmeDomain, int year, FIGISDoc figisDoc) {
+	public void vme(Vme vmeDomain, GeoRef georef, int year, FIGISDoc figisDoc) {
 		VMEIdent vmeIdent = new VMEIdent();
 
 		// FigisID
@@ -522,7 +523,8 @@ public class FigisDocBuilder {
 		areaForeignID.setCodeSystem("vme");
 
 		if (vmeDomain.getGeoRefList() != null && !vmeDomain.getGeoRefList().isEmpty()) {
-			areaForeignID.setCode(vmeDomain.getGeoRefList().get(0).getGeographicFeatureID());
+			// this is the bug.
+			areaForeignID.setCode(georef.getGeographicFeatureID());
 			waterAreaRef.getFigisIDsAndForeignIDs().add(areaForeignID);
 		}
 

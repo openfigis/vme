@@ -63,7 +63,7 @@ public class ObjectMapping {
 
 			FIGISDoc figisDoc = new FIGISDoc();
 			figisDocBuilder.dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
-			figisDocBuilder.vme(vme, disseminationYearSlice.getYear(), figisDoc);
+			figisDocBuilder.vme(vme, disseminationYearSlice.getGeoRef(), disseminationYearSlice.getYear(), figisDoc);
 			figisDocBuilder.fisheryArea(disseminationYearSlice.getFisheryAreasHistory(), figisDoc);
 			figisDocBuilder.vmesHistory(disseminationYearSlice.getVmesHistory(), figisDoc);
 			figisDocBuilder.specificMeasures(disseminationYearSlice.getSpecificMeasure(), figisDoc);

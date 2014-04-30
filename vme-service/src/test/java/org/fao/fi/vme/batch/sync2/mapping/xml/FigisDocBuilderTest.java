@@ -35,9 +35,6 @@ import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
-import org.fao.fi.vme.batch.sync2.mapping.xml.AddWhenContentRule;
-import org.fao.fi.vme.batch.sync2.mapping.xml.EnglishTextUtil;
-import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilder;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Profile;
@@ -264,7 +261,8 @@ public class FigisDocBuilderTest {
 	@Test
 	public void testVme() {
 		FIGISDoc figisDoc = new FIGISDoc();
-		b.vme(vme, VmeMock.YEAR, figisDoc);
+
+		b.vme(vme, vme.getGeoRefList().get(0), VmeMock.YEAR, figisDoc);
 
 		assertNotNull(figisDoc.getVME());
 		assertNotNull(figisDoc.getVME().getVMEIdent());
@@ -352,7 +350,7 @@ public class FigisDocBuilderTest {
 	@Test
 	public void testFigisDocMarshall() {
 		FIGISDoc figisDoc = new FIGISDoc();
-		b.vme(vme, VmeMock.YEAR, figisDoc);
+		b.vme(vme, vme.getGeoRefList().get(0), VmeMock.YEAR, figisDoc);
 		b.profile(vme.getProfileList().get(0), figisDoc);
 
 		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc);
