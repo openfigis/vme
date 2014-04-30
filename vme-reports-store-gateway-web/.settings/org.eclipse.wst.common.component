@@ -4,6 +4,31 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
+        <dependent-module archiveName="reports-store-gateway-interface-dto-0.0.4-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/reports-store-gateway-interface-dto/reports-store-gateway-interface-dto">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="reports-store-gateway-support-model-0.0.4-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/reports-store-gateway-support-model/reports-store-gateway-support-model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="reports-store-gateway-support-compiler-0.0.4-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/reports-store-gateway-support-compiler/reports-store-gateway-support-compiler">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="reports-store-gateway-support-compiler-bridge-0.0.4-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/reports-store-gateway-support-compiler-bridge/reports-store-gateway-support-compiler-bridge">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="reports-store-gateway-web-base-0.0.4-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/reports-store-gateway-web-base/reports-store-gateway-web-base">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="reports-store-gateway-support-builder-0.0.4-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/reports-store-gateway-support-builder/reports-store-gateway-support-builder">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="fi-security-server-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/fi-security-server/fi-security-server">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="fi-security-common-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/fi-security-common/fi-security-common">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="vme-reports-store-gateway-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-reports-store-gateway/vme-reports-store-gateway">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -29,6 +54,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/reports-store-gateway-web/target/classes"/>
-        <property name="context-root" value="reports-store-gateway-web"/>
+        <property name="context-root" value="figis#reports-store-gateway"/>
     </wb-module>
 </project-modules>

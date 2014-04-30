@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+	<persistence-unit name="vme-persistence">
+		<class>org.fao.fi.vme.domain.model.Authority</class>
+		<class>org.fao.fi.vme.domain.model.GeneralMeasure</class>
+		<class>org.fao.fi.vme.domain.model.GeoRef</class>
+		<class>org.fao.fi.vme.domain.model.History</class>
+		<class>org.fao.fi.vme.domain.model.extended.FisheryAreasHistory</class>
+		<class>org.fao.fi.vme.domain.model.extended.VMEsHistory</class>
+		<class>org.fao.fi.vme.domain.model.InformationSource</class>
+		<class>org.fao.fi.vme.domain.model.InformationSourceType</class>
+		<class>org.fao.fi.vme.domain.model.MultiLingualString</class>
+		<class>org.fao.fi.vme.domain.model.Profile</class>
+		<class>org.fao.fi.vme.domain.model.Rfmo</class>
+		<class>org.fao.fi.vme.domain.model.SpecificMeasure</class>
+		<class>org.fao.fi.vme.domain.model.Vme</class>
+		<class>org.fao.fi.vme.domain.model.VmeType</class>
+		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
+
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@hqldvoracle01:1532:FISQ" />
+			<property name="javax.persistence.jdbc.user" value="vme" />
+			<property name="javax.persistence.jdbc.password" value="zxje3cam68e3" />
+			
+			<property name="show_sql" value="false" />
+			
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.ejb.entitymanager_factory_name" value="vme_entitymanager_factory_name" />
+			<property name="hibernate.default_schema" value="vme" />
+
+			<!-- Shared among all possible (custom) connection providers -->
+			<property name="hibernate.connection.pool_size" value="5"/>
+
+			<!-- BoneCP custom properties -->
+			<!-- 
+			<property name="hibernate.bonecp.statisticsEnabled" value="true"/>
+			<property name="hibernate.bonecp.partitionCount" value="1"/>
+			-->
+			
+			<!-- Commons DBCP custom properties -->
+			<property name="hibernate.dbcp.initialSize" value="5"/>
+			<property name="hibernate.dbcp.maxIdle" value="5"/>
+			<property name="hibernate.dbcp.minIdle" value="0"/>
+			<property name="hibernate.dbcp.validationQuery" value="select 1 from dual"/>
+			<property name="hibernate.dbcp.testWhileIdle" value="true"/>
+			
+			<property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider"/>
+		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="figis-persistence">
+		<!-- reference tables -->
+		<class>org.fao.fi.figis.domain.RefVme</class>
+		<class>org.fao.fi.figis.domain.RefWaterArea</class>
+
+		<!-- factsheet tables -->
+		<class>org.fao.fi.figis.domain.VmeObservation</class>
+		<class>org.fao.fi.figis.domain.Observation</class>
+		<class>org.fao.fi.figis.domain.ObservationXml</class>
+
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@ltsdbwo1.fao.org:3301:wts01" />
+			<property name="javax.persistence.jdbc.user" value="figis_update" />
+			<property name="javax.persistence.jdbc.password" value="fi1s" />
+
+			<property name="show_sql" value="false" />
+
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
+			<property name="hibernate.default_schema" value="FIGIS" />
+
+			<!-- Shared among all possible (custom) connection providers -->
+			<property name="hibernate.connection.pool_size" value="2"/>
+
+			<!-- BoneCP custom properties -->
+			<!--
+			<property name="hibernate.bonecp.statisticsEnabled" value="true"/>
+			<property name="hibernate.bonecp.partitionCount" value="1"/>
+			-->
+			
+			<!-- Commons DBCP custom properties -->
+			<property name="hibernate.dbcp.initialSize" value="2"/>
+			<property name="hibernate.dbcp.maxIdle" value="2"/>
+			<property name="hibernate.dbcp.minIdle" value="0"/>
+			<property name="hibernate.dbcp.validationQuery" value="select 1 from dual"/>
+			<property name="hibernate.dbcp.testWhileIdle" value="true"/>
+			
+			<property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider"/>
+		</properties>
+	</persistence-unit>
+</persistence>
