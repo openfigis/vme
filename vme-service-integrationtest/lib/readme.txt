@@ -28,6 +28,7 @@ Update:
 -- so I decided not to use it.    
 
 
+Update 30 April 2014
 After problems like 
 ----------- Caused by: java.sql.SQLRecoverableException: No more data to read from socket
 I decided to download again the newest Oracle driver: 
