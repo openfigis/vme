@@ -28,6 +28,12 @@ Update:
 -- so I decided not to use it.    
 
 
+After problems like 
+----------- Caused by: java.sql.SQLRecoverableException: No more data to read from socket
+I decided to download again the newest Oracle driver: 
+----------- Download	ojdbc6.jar (3,389,454 bytes) - F
+----------- or use with JDK 6; It contains the JDBC driver classes except classes for NLS support in Oracle Object and Collection types.
+and I named it ojdbc62.jar
 
 
 
