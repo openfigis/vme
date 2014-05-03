@@ -4,7 +4,7 @@
 package org.fao.fi.vme.rsg.app;
 
 import org.fao.fi.security.server.filters.javax.SecureResourceRequestValidatorFilter;
-import org.fao.fi.security.server.interceptors.javax.EncryptedResourceResponseWriter;
+import org.fao.fi.security.server.interceptors.javax.EncryptedResourceWriter;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -26,7 +26,7 @@ public class WebAppConfiguration extends ResourceConfig {
 	 * Class constructor
 	 */
 	public WebAppConfiguration() {
-		register(EncryptedResourceResponseWriter.class);
+		register(EncryptedResourceWriter.class);
 		register(SecureResourceRequestValidatorFilter.class);
 		register(JacksonFeature.class);
 	}
