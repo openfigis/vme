@@ -58,28 +58,37 @@ public class VmeObservationPk implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		VmeObservationPk other = (VmeObservationPk) obj;
 		if (observationId == null) {
-			if (other.observationId != null)
+			if (other.observationId != null) {
 				return false;
-		} else if (!observationId.equals(other.observationId))
+			}
+		} else if (!observationId.equals(other.observationId)) {
 			return false;
+		}
 		if (reportingYear == null) {
-			if (other.reportingYear != null)
+			if (other.reportingYear != null) {
 				return false;
-		} else if (!reportingYear.equals(other.reportingYear))
+			}
+		} else if (!reportingYear.equals(other.reportingYear)) {
 			return false;
+		}
 		if (vmeId == null) {
-			if (other.vmeId != null)
+			if (other.vmeId != null) {
 				return false;
-		} else if (!vmeId.equals(other.vmeId))
+			}
+		} else if (!vmeId.equals(other.vmeId)) {
 			return false;
+		}
 		return true;
 	}
 

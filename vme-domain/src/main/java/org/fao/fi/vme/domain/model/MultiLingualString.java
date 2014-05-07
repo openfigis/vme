@@ -78,23 +78,30 @@ public class MultiLingualString implements ObjectId<Long> {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		MultiLingualString other = (MultiLingualString) obj;
 		if (this.id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!this.id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		if (this.stringMap == null) {
-			if (other.stringMap != null)
+			if (other.stringMap != null) {
 				return false;
-		} else if (!this.stringMap.equals(other.stringMap))
+			}
+		} else if (!this.stringMap.equals(other.stringMap)) {
 			return false;
+		}
 		return true;
 	}
 }

@@ -146,25 +146,33 @@ public class InformationSourceType implements NamedReferenceConcept, Serializabl
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		InformationSourceType other = (InformationSourceType) obj;
-		if (this._meetingDocument != other._meetingDocument)
+		if (this._meetingDocument != other._meetingDocument) {
 			return false;
+		}
 		if (this.id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!this.id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		if (this.name == null) {
-			if (other.name != null)
+			if (other.name != null) {
 				return false;
-		} else if (!this.name.equals(other.name))
+			}
+		} else if (!this.name.equals(other.name)) {
 			return false;
+		}
 		return true;
 	}
 }

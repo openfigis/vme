@@ -32,8 +32,9 @@ public class InformationSourceMock {
 	}
 
 	public static InformationSourceType createInformationSourceType() {
-		if(INSTANCE == null)
+		if(INSTANCE == null) {
 			INSTANCE = new InformationSourceType(2L, "Meeting documents", InformationSourceType.IS_A_MEETING_DOCUMENT);
+		}
 		
 		return INSTANCE;
 	}

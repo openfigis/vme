@@ -40,9 +40,10 @@ public class EmbeddedMsAccessConnectionProvider extends MsAccessConnectionProvid
 		try {
 			is = Thread.currentThread().getContextClassLoader().getResourceAsStream(this._resource);
 
-			if (is == null)
+			if (is == null) {
 				throw new FileNotFoundException("Resource " + this._resource + " is not available in current classpath");
-
+			}
+			
 			File temp = new File(new File(System.getProperty("java.io.tmpdir")), this._resource);
 
 			boolean copy = true;

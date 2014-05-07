@@ -148,53 +148,72 @@ public class DisseminationYearSlice {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		DisseminationYearSlice other = (DisseminationYearSlice) obj;
 		if (fisheryAreasHistory == null) {
-			if (other.fisheryAreasHistory != null)
+			if (other.fisheryAreasHistory != null) {
 				return false;
-		} else if (!fisheryAreasHistory.equals(other.fisheryAreasHistory))
+			}
+		} else if (!fisheryAreasHistory.equals(other.fisheryAreasHistory)) {
 			return false;
+		}
 		if (generalMeasure == null) {
-			if (other.generalMeasure != null)
+			if (other.generalMeasure != null) {
 				return false;
-		} else if (!generalMeasure.equals(other.generalMeasure))
+			}
+		} else if (!generalMeasure.equals(other.generalMeasure)) {
 			return false;
+		}
 		if (geoRef == null) {
-			if (other.geoRef != null)
+			if (other.geoRef != null) {
 				return false;
-		} else if (!geoRef.equals(other.geoRef))
+			}
+		} else if (!geoRef.equals(other.geoRef)) {
 			return false;
+		}
 		if (informationSourceList == null) {
-			if (other.informationSourceList != null)
+			if (other.informationSourceList != null) {
 				return false;
-		} else if (!informationSourceList.equals(other.informationSourceList))
+			}
+		} else if (!informationSourceList.equals(other.informationSourceList)) {
 			return false;
+		}
 		if (profile == null) {
-			if (other.profile != null)
+			if (other.profile != null) {
 				return false;
-		} else if (!profile.equals(other.profile))
+			}
+		} else if (!profile.equals(other.profile)) {
 			return false;
+		}
 		if (specificMeasure == null) {
-			if (other.specificMeasure != null)
+			if (other.specificMeasure != null) {
 				return false;
-		} else if (!specificMeasure.equals(other.specificMeasure))
+			}
+		} else if (!specificMeasure.equals(other.specificMeasure)) {
 			return false;
+		}
 		if (vme == null) {
-			if (other.vme != null)
+			if (other.vme != null) {
 				return false;
-		} else if (!vme.equals(other.vme))
+			}
+		} else if (!vme.equals(other.vme)) {
 			return false;
+		}
 		if (vmesHistory == null) {
-			if (other.vmesHistory != null)
+			if (other.vmesHistory != null) {
 				return false;
-		} else if (!vmesHistory.equals(other.vmesHistory))
+			}
+		} else if (!vmesHistory.equals(other.vmesHistory)) {
 			return false;
+		}
 		return true;
 	}
 

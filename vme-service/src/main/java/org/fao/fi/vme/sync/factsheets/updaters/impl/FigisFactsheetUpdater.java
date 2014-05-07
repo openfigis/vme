@@ -84,8 +84,9 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 
 		this.doDeleteFactsheets(vmeIDs);
 		
-		for(Long vmeId : vmeIDs)
+		for(Long vmeId : vmeIDs) {
 			this.updateCache(vmeId);
+		}
 	}
 	
 	private void doDeleteFactsheets(Long... vmeIDs) throws Exception {

@@ -209,61 +209,84 @@ public class VmeDto {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		VmeDto other = (VmeDto) obj;
 		if (envelope == null) {
-			if (other.envelope != null)
+			if (other.envelope != null) {
 				return false;
-		} else if (!envelope.equals(other.envelope))
+			}
+		} else if (!envelope.equals(other.envelope)) {
 			return false;
+		}
 		if (factsheetUrl == null) {
-			if (other.factsheetUrl != null)
+			if (other.factsheetUrl != null) {
 				return false;
-		} else if (!factsheetUrl.equals(other.factsheetUrl))
+			}
+		} else if (!factsheetUrl.equals(other.factsheetUrl)) {
 			return false;
+		}
 		if (geoArea == null) {
-			if (other.geoArea != null)
+			if (other.geoArea != null) {
 				return false;
-		} else if (!geoArea.equals(other.geoArea))
+			}
+		} else if (!geoArea.equals(other.geoArea)) {
 			return false;
+		}
 		if (geographicFeatureId == null) {
-			if (other.geographicFeatureId != null)
+			if (other.geographicFeatureId != null) {
 				return false;
-		} else if (!geographicFeatureId.equals(other.geographicFeatureId))
+			}
+		} else if (!geographicFeatureId.equals(other.geographicFeatureId)) {
 			return false;
+		}
 		if (inventoryIdentifier == null) {
-			if (other.inventoryIdentifier != null)
+			if (other.inventoryIdentifier != null) {
 				return false;
-		} else if (!inventoryIdentifier.equals(other.inventoryIdentifier))
+			}
+		} else if (!inventoryIdentifier.equals(other.inventoryIdentifier)) {
 			return false;
+		}
 		if (localName == null) {
-			if (other.localName != null)
+			if (other.localName != null) {
 				return false;
-		} else if (!localName.equals(other.localName))
+			}
+		} else if (!localName.equals(other.localName)) {
 			return false;
+		}
 		if (owner == null) {
-			if (other.owner != null)
+			if (other.owner != null) {
 				return false;
-		} else if (!owner.equals(other.owner))
+			}
+		} else if (!owner.equals(other.owner)) {
 			return false;
-		if (validityPeriodFrom != other.validityPeriodFrom)
+		}
+		if (validityPeriodFrom != other.validityPeriodFrom) {
 			return false;
-		if (validityPeriodTo != other.validityPeriodTo)
+		}
+		if (validityPeriodTo != other.validityPeriodTo) {
 			return false;
-		if (vmeId != other.vmeId)
+		}
+		if (vmeId != other.vmeId) {
 			return false;
+		}
 		if (vmeType == null) {
-			if (other.vmeType != null)
+			if (other.vmeType != null) {
 				return false;
-		} else if (!vmeType.equals(other.vmeType))
+			}
+		} else if (!vmeType.equals(other.vmeType)) {
 			return false;
-		if (year != other.year)
+		}
+		if (year != other.year) {
 			return false;
+		}
 		return true;
 	}
 

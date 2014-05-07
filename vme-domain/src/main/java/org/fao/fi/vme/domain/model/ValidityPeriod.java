@@ -100,23 +100,30 @@ public class ValidityPeriod implements Comparable<ValidityPeriod> {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		ValidityPeriod other = (ValidityPeriod) obj;
 		if (this.beginYear == null) {
-			if (other.beginYear != null)
+			if (other.beginYear != null) {
 				return false;
-		} else if (!this.beginYear.equals(other.beginYear))
+			}
+		} else if (!this.beginYear.equals(other.beginYear)) {
 			return false;
+		}
 		if (this.endYear == null) {
-			if (other.endYear != null)
+			if (other.endYear != null) {
 				return false;
-		} else if (!this.endYear.equals(other.endYear))
+			}
+		} else if (!this.endYear.equals(other.endYear)) {
 			return false;
+		}
 		return true;
 	}
 }

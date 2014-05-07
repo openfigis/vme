@@ -31,9 +31,10 @@ public class SerializableConceptUtils {
 	final static public String toString(Serializable... toConvert) {
 		StringBuilder builder = new StringBuilder();
 		
-		for(Serializable in : toConvert)
+		for(Serializable in : toConvert) {
 			builder.append(toString(in)).append(SEPARATOR);
-		
+		}
+			
 		return builder.toString().replaceAll("\\" + SEPARATOR + "$", "");
 	}
 	
@@ -41,10 +42,11 @@ public class SerializableConceptUtils {
 		Collection<String> parts = new ArrayList<String>();
 		
 		for(String in : toSplit.split("\\" + SEPARATOR, -1)) {
-			if(NULL_REPLACEMENT.equals(in))
+			if(NULL_REPLACEMENT.equals(in)) {
 				parts.add(null);
-			else
+			} else {
 				parts.add(in);
+			}
 		}
 		
 		return parts.toArray(new String[parts.size()]);

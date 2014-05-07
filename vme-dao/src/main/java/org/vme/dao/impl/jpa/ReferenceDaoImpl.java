@@ -174,8 +174,9 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 	private Map<Long, ReferenceYear> createYears() {
 		Map<Long, ReferenceYear> yearsMap = new LinkedHashMap<Long, ReferenceYear>();
 
-		for (long year = Calendar.getInstance().get(Calendar.YEAR); year >= 2006; year--)
+		for (long year = Calendar.getInstance().get(Calendar.YEAR); year >= 2006; year--) {
 			yearsMap.put(year, new ReferenceYear(year));
+		}
 
 		return yearsMap;
 	}
@@ -204,11 +205,13 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 			try {
 				String name = concept.getSimpleName();
 
-				if (concept.isAnnotationPresent(ReferenceConceptName.class))
+				if (concept.isAnnotationPresent(ReferenceConceptName.class)) {
 					name = concept.getAnnotation(ReferenceConceptName.class).value();
+				}
 
-				if (acronym.equalsIgnoreCase(name))
+				if (acronym.equalsIgnoreCase(name)) {
 					return concept;
+				}
 			} catch (Exception e) {
 				LOG.warn("Internal error", e);
 
@@ -235,8 +238,9 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 			for (ReferenceConcept reference : allReferenceObjects) {
 				if (reference instanceof AcronymAwareReferenceConcept) {
-					if (acronym.equals(((AcronymAwareReferenceConcept) reference).getAcronym()))
+					if (acronym.equals(((AcronymAwareReferenceConcept) reference).getAcronym())) {
 						return (AcronymAwareReferenceConcept) reference;
+					}
 				}
 			}
 

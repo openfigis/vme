@@ -763,8 +763,9 @@ public class FigisDocBuilder {
 	}
 
 	protected String safeGetMultilingualString(MultiLingualString mls, Integer lang) {
-		if (mls != null)
+		if (mls != null) {
 			return mls.getStringMap().get(lang);
+		}
 
 		return null;
 	}

@@ -144,43 +144,58 @@ public class Rfmo implements ReferenceReport {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Rfmo other = (Rfmo) obj;
 		if (this.generalMeasureList == null) {
-			if (other.generalMeasureList != null)
+			if (other.generalMeasureList != null) {
 				return false;
-		} else if (!this.generalMeasureList.equals(other.generalMeasureList))
+			}
+		} else if (!this.generalMeasureList.equals(other.generalMeasureList)) {
 			return false;
+		}
 		if (this.hasFisheryAreasHistory == null) {
-			if (other.hasFisheryAreasHistory != null)
+			if (other.hasFisheryAreasHistory != null) {
 				return false;
-		} else if (!this.hasFisheryAreasHistory.equals(other.hasFisheryAreasHistory))
+			}
+		} else if (!this.hasFisheryAreasHistory.equals(other.hasFisheryAreasHistory)) {
 			return false;
+		}
 		if (this.hasVmesHistory == null) {
-			if (other.hasVmesHistory != null)
+			if (other.hasVmesHistory != null) {
 				return false;
-		} else if (!this.hasVmesHistory.equals(other.hasVmesHistory))
+			}
+		} else if (!this.hasVmesHistory.equals(other.hasVmesHistory)) {
 			return false;
+		}
 		if (this.id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!this.id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		if (this.informationSourceList == null) {
-			if (other.informationSourceList != null)
+			if (other.informationSourceList != null) {
 				return false;
-		} else if (!this.informationSourceList.equals(other.informationSourceList))
+			}
+		} else if (!this.informationSourceList.equals(other.informationSourceList)) {
 			return false;
+		}
 		if (this.listOfManagedVmes == null) {
-			if (other.listOfManagedVmes != null)
+			if (other.listOfManagedVmes != null) {
 				return false;
-		} else if (!this.listOfManagedVmes.equals(other.listOfManagedVmes))
+			}
+		} else if (!this.listOfManagedVmes.equals(other.listOfManagedVmes)) {
 			return false;
+		}
 		return true;
 	}
 }
