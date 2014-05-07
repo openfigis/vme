@@ -27,8 +27,8 @@ public class MeetingDateParser {
 
 	public MeetingDateParser(String date) {
 
-		String values[] = determineValues(date);
-		String months[] = determineMonths(date);
+		String[] values = determineValues(date);
+		String[] months = determineMonths(date);
 
 		String startDate = "";
 		String endDate = "";

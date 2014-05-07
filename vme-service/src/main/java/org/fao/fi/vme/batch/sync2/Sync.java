@@ -13,8 +13,8 @@ import org.fao.fi.vme.domain.model.Vme;
  */
 public interface Sync {
 
-	public void sync();
+	void sync();
 
-	public void sync(Vme vme);
+	void sync(Vme vme);
 
 }

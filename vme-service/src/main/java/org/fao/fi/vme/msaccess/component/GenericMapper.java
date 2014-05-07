@@ -26,7 +26,7 @@ public class GenericMapper {
 
 		try {
 			Object object = clazz.newInstance();
-			Method ms[] = clazz.getMethods();
+			Method[] ms = clazz.getMethods();
 			for (Method method : ms) {
 				String attributeName = method.getName().substring(3, method.getName().length());
 				if (method.getName().startsWith("set")) {
