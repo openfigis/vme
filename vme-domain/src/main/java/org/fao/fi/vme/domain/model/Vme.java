@@ -257,68 +257,93 @@ public class Vme implements ObjectId<Long>, Report {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Vme other = (Vme) obj;
 		if (this.areaType == null) {
-			if (other.areaType != null)
+			if (other.areaType != null) {
 				return false;
-		} else if (!this.areaType.equals(other.areaType))
+			}
+		} else if (!this.areaType.equals(other.areaType)) {
 			return false;
+		}
 		if (this.criteria == null) {
-			if (other.criteria != null)
+			if (other.criteria != null) {
 				return false;
-		} else if (!this.criteria.equals(other.criteria))
+			}
+		} else if (!this.criteria.equals(other.criteria)) {
 			return false;
+		}
 		if (this.geoRefList == null) {
-			if (other.geoRefList != null)
+			if (other.geoRefList != null) {
 				return false;
-		} else if (!this.geoRefList.equals(other.geoRefList))
+			}
+		} else if (!this.geoRefList.equals(other.geoRefList)) {
 			return false;
+		}
 		if (this.geoArea == null) {
-			if (other.geoArea != null)
+			if (other.geoArea != null) {
 				return false;
-		} else if (!this.geoArea.equals(other.geoArea))
+			}
+		} else if (!this.geoArea.equals(other.geoArea)) {
 			return false;
+		}
 		if (this.id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!this.id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		if (this.inventoryIdentifier == null) {
-			if (other.inventoryIdentifier != null)
+			if (other.inventoryIdentifier != null) {
 				return false;
-		} else if (!this.inventoryIdentifier.equals(other.inventoryIdentifier))
+			}
+		} else if (!this.inventoryIdentifier.equals(other.inventoryIdentifier)) {
 			return false;
+		}
 		if (this.name == null) {
-			if (other.name != null)
+			if (other.name != null) {
 				return false;
-		} else if (!this.name.equals(other.name))
+			}
+		} else if (!this.name.equals(other.name)) {
 			return false;
+		}
 		if (this.profileList == null) {
-			if (other.profileList != null)
+			if (other.profileList != null) {
 				return false;
-		} else if (!this.profileList.equals(other.profileList))
+			}
+		} else if (!this.profileList.equals(other.profileList)) {
 			return false;
+		}
 		if (this.rfmo == null) {
-			if (other.rfmo != null)
+			if (other.rfmo != null) {
 				return false;
-		} else if (!this.rfmo.equals(other.rfmo))
+			}
+		} else if (!this.rfmo.equals(other.rfmo)) {
 			return false;
+		}
 		if (this.specificMeasureList == null) {
-			if (other.specificMeasureList != null)
+			if (other.specificMeasureList != null) {
 				return false;
-		} else if (!this.specificMeasureList.equals(other.specificMeasureList))
+			}
+		} else if (!this.specificMeasureList.equals(other.specificMeasureList)) {
 			return false;
+		}
 		if (this.validityPeriod == null) {
-			if (other.validityPeriod != null)
+			if (other.validityPeriod != null) {
 				return false;
-		} else if (!this.validityPeriod.equals(other.validityPeriod))
+			}
+		} else if (!this.validityPeriod.equals(other.validityPeriod)) {
 			return false;
+		}
 		return true;
 	}
 
