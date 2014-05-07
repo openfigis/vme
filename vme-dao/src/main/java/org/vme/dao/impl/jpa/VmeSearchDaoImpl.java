@@ -228,45 +228,54 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 
 	private boolean containRelevantText(Vme vme, String text) {
 
-		if (StringUtils.containsIgnoreCase(vme.getAreaType(), text))
+		if (StringUtils.containsIgnoreCase(vme.getAreaType(), text)) {
 			return true;
-		if (StringUtils.containsIgnoreCase(vme.getCriteria(), text))
+		}
+		if (StringUtils.containsIgnoreCase(vme.getCriteria(), text)) {
 			return true;
+		}
 		for (String element : vme.getGeoArea().getStringMap().values()) {
-			if (StringUtils.containsIgnoreCase(element, text))
+			if (StringUtils.containsIgnoreCase(element, text)) {
 				return true;
+			}
 		}
 		// if (StringUtils.containsIgnoreCase(vme.getGeoform(), text))
 		// return true;
 		for (GeoRef geoRef : vme.getGeoRefList()) {
-			if (StringUtils.containsIgnoreCase(geoRef.getGeographicFeatureID(), text))
+			if (StringUtils.containsIgnoreCase(geoRef.getGeographicFeatureID(), text)) {
 				return true;
+			}
 		}
-		if (StringUtils.containsIgnoreCase(vme.getInventoryIdentifier(), text))
+		if (StringUtils.containsIgnoreCase(vme.getInventoryIdentifier(), text)) {
 			return true;
+		}
 		for (String element : vme.getName().getStringMap().values()) {
-			if (StringUtils.containsIgnoreCase(element, text))
+			if (StringUtils.containsIgnoreCase(element, text)) {
 				return true;
+			}
 		}
 
 		if (vme.getProfileList() != null) {
 			for (Profile profile : vme.getProfileList()) {
 				if (profile.getDescriptionBiological() != null) {
 					for (String element : profile.getDescriptionBiological().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text))
+						if (StringUtils.containsIgnoreCase(element, text)) {
 							return true;
+						}
 					}
 				}
 				if (profile.getDescriptionImpact() != null) {
 					for (String element : profile.getDescriptionImpact().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text))
+						if (StringUtils.containsIgnoreCase(element, text)) {
 							return true;
+						}
 					}
 				}
 				if (profile.getDescriptionPhisical() != null) {
 					for (String element : profile.getDescriptionPhisical().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text))
+						if (StringUtils.containsIgnoreCase(element, text)) {
 							return true;
+						}
 					}
 				}
 			}
@@ -276,34 +285,39 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			for (GeneralMeasure generalMeasure : vme.getRfmo().getGeneralMeasureList()) {
 				if (generalMeasure.getFishingArea() != null) {
 					for (String element : generalMeasure.getFishingArea().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text))
+						if (StringUtils.containsIgnoreCase(element, text)) {
 							return true;
+						}
 					}
 				}
 
 				if (generalMeasure.getExplorataryFishingProtocol() != null) {
 					for (String element : generalMeasure.getExplorataryFishingProtocol().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text))
+						if (StringUtils.containsIgnoreCase(element, text)) {
 							return true;
+						}
 					}
 				}
 				if (generalMeasure.getVmeEncounterProtocol() != null) {
 					for (String element : generalMeasure.getVmeEncounterProtocol().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text))
+						if (StringUtils.containsIgnoreCase(element, text)) {
 							return true;
+						}
 					}
 				}
 				if (generalMeasure.getVmeIndicatorSpecies() != null) {
 					for (String element : generalMeasure.getVmeIndicatorSpecies().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text))
+						if (StringUtils.containsIgnoreCase(element, text)) {
 							return true;
+						}
 					}
 				}
 
 				if (generalMeasure.getVmeThreshold() != null) {
 					for (String element : generalMeasure.getVmeThreshold().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text))
+						if (StringUtils.containsIgnoreCase(element, text)) {
 							return true;
+						}
 					}
 				}
 
@@ -312,29 +326,34 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 
 						if (informationSource.getCitation() != null) {
 							for (String element : informationSource.getCitation().getStringMap().values()) {
-								if (StringUtils.containsIgnoreCase(element, text))
+								if (StringUtils.containsIgnoreCase(element, text)) {
 									return true;
+								}
 							}
 						}
 						if (informationSource.getCommittee() != null) {
 							for (String element : informationSource.getCommittee().getStringMap().values()) {
-								if (StringUtils.containsIgnoreCase(element, text))
+								if (StringUtils.containsIgnoreCase(element, text)) {
 									return true;
+								}
 							}
 						}
 
 						if (informationSource.getReportSummary() != null) {
 							for (String element : informationSource.getReportSummary().getStringMap().values()) {
-								if (StringUtils.containsIgnoreCase(element, text))
+								if (StringUtils.containsIgnoreCase(element, text)) {
 									return true;
+								}
 							}
 						}
 						if (StringUtils.containsIgnoreCase(Integer.toString(informationSource.getPublicationYear()),
-								text))
+								text)) {
 							return true;
+						}
 						if (StringUtils.containsIgnoreCase(informationSource.getUrl() != null ? informationSource
-								.getUrl().toExternalForm() : "", text))
+								.getUrl().toExternalForm() : "", text)) {
 							return true;
+						}
 					}
 				}
 
@@ -345,16 +364,18 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
 				if (specificMeasure.getVmeSpecificMeasure() != null) {
 					for (String element : specificMeasure.getVmeSpecificMeasure().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text))
+						if (StringUtils.containsIgnoreCase(element, text)) {
 							return true;
+						}
 					}
 				}
 				if (specificMeasure.getInformationSource() != null) {
 					if (specificMeasure.getInformationSource().getCitation() != null) {
 						for (String element : specificMeasure.getInformationSource().getCitation().getStringMap()
 								.values()) {
-							if (StringUtils.containsIgnoreCase(element, text))
+							if (StringUtils.containsIgnoreCase(element, text)) {
 								return true;
+							}
 						}
 					}
 					if (specificMeasure.getInformationSource().getPublicationYear() != null
@@ -365,14 +386,16 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 					}
 					if (StringUtils.containsIgnoreCase(
 							specificMeasure.getInformationSource().getUrl() != null ? specificMeasure
-									.getInformationSource().getUrl().toExternalForm() : "", text))
+									.getInformationSource().getUrl().toExternalForm() : "", text)) {
 						return true;
+					}
 				}
 				if (specificMeasure.getInformationSource() != null
 						&& specificMeasure.getInformationSource().getCommittee() != null) {
 					for (String element : specificMeasure.getInformationSource().getCommittee().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text))
+						if (StringUtils.containsIgnoreCase(element, text)) {
 							return true;
+						}
 					}
 				}
 
@@ -380,8 +403,9 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 						&& specificMeasure.getInformationSource().getReportSummary() != null) {
 					for (String element : specificMeasure.getInformationSource().getReportSummary().getStringMap()
 							.values()) {
-						if (StringUtils.containsIgnoreCase(element, text))
+						if (StringUtils.containsIgnoreCase(element, text)) {
 							return true;
+						}
 					}
 				}
 
