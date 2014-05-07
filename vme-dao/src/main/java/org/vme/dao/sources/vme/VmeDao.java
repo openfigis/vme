@@ -198,15 +198,17 @@ public class VmeDao extends AbstractJPADao {
 
 		Iterator<Vme> rfmoIterator = parent.getListOfManagedVmes().iterator();
 
-		while (rfmoIterator.hasNext())
+		while (rfmoIterator.hasNext()) 
 			if (rfmoIterator.next().getId().equals(toDelete.getId()))
 				rfmoIterator.remove();
 
 		this.doMerge(em, parent);
 
-		if (toDelete.getProfileList() != null)
-			for (Profile profile : new ArrayList<Profile>(toDelete.getProfileList()))
+		if (toDelete.getProfileList() != null) {
+			for (Profile profile : new ArrayList<Profile>(toDelete.getProfileList())) {
 				this.delete(profile);
+			}
+		}
 
 		if (toDelete.getGeoRefList() != null)
 			for (GeoRef geoRef : new ArrayList<GeoRef>(toDelete.getGeoRefList()))
