@@ -18,13 +18,13 @@ public class ValidityPeriodRule {
 		if (startYear == null) {
 			start = 0;
 		} else {
-			start = (new Integer(startYear).intValue());
+			start = (Integer.valueOf(startYear));
 		}
-
+		
 		if (endYear == null) {
 			end = 9999;
 		} else {
-			end = (new Integer(endYear).intValue());
+			end = (Integer.valueOf(endYear));
 		}
 	}
 
