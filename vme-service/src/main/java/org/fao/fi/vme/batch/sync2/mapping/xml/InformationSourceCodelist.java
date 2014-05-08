@@ -24,12 +24,12 @@ public class InformationSourceCodelist {
 
 	private static final Map<Long, String> map = new HashMap<Long, String>();
 	static {
-		map.put(new Long(1), value1);
-		map.put(new Long(2), value2);
-		map.put(new Long(3), value3);
-		map.put(new Long(4), value4);
-		map.put(new Long(6), value6);
-		map.put(new Long(99), value99);
+		map.put(Long.valueOf(1), value1);
+		map.put(Long.valueOf(2), value2);
+		map.put(Long.valueOf(3), value3);
+		map.put(Long.valueOf(4), value4);
+		map.put(Long.valueOf(6), value6);
+		map.put(Long.valueOf(99), value99);
 	}
 
 	public String getDescription(Long informationSourceType) {

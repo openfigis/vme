@@ -136,7 +136,7 @@ public class Meetings implements ReferenceDependentTableDomainMapper {
 			is.setMeetingEndDate(p.getEnd());
 		}
 
-		is.setId(new Long(this.ID));
+		is.setId(Long.valueOf(this.ID));
 		is.setReportSummary(u.english(this.getReport_Summary()));
 		is.setPublicationYear(this.Year_ID);
 

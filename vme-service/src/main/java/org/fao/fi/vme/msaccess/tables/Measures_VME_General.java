@@ -137,7 +137,7 @@ public class Measures_VME_General implements TableDomainMapper {
 
 		GeneralMeasure o = new GeneralMeasure();
 
-		o.setId(new Long(this.getID()));
+		o.setId(Long.valueOf(this.getID()));
 		o.setVmeEncounterProtocol(u.english(this.getVME_Encounter()));
 		o.setVmeIndicatorSpecies(u.english(this.getVME_Indicator_Sp()));
 		o.setExplorataryFishingProtocol(u.english(this.getRFB_Exploratory_Fishing_Protocol()));
@@ -146,7 +146,7 @@ public class Measures_VME_General implements TableDomainMapper {
 
 		if (this.Source_ID > 0) {
 			InformationSource is = new InformationSource();
-			is.setId(new Long(this.Source_ID));
+			is.setId(Long.valueOf(this.Source_ID));
 			List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 			informationSourceList.add(is);
 			o.setInformationSourceList(informationSourceList);
