@@ -15,13 +15,13 @@
 		<init-param>
 			<param-name>jersey.config.server.provider.packages</param-name>
 			<param-value>
-				org.gcube.application.rsg.webservice
+				org.fao.fi.vme.rsg.app.services
 			</param-value>
 		</init-param>
 	
 		<init-param>
 			<param-name>javax.ws.rs.Application</param-name>
-			<param-value>org.fao.fi.vme.rsg.app.WebAppConfiguration</param-value>
+			<param-value>org.fao.fi.vme.rsg.app.configuration.VmeRsgServicesConfiguration</param-value>
 		</init-param>
 
 		<init-param>
@@ -38,13 +38,14 @@
 		<init-param>
 			<param-name>jersey.config.server.provider.packages</param-name>
 			<param-value>
-				org.fao.fi.security
+				org.fao.fi.security.server,
+				org.fao.fi.vme.rsg.security
 			</param-value>
 		</init-param>
 	
 		<init-param>
 			<param-name>javax.ws.rs.Application</param-name>
-			<param-value>org.fao.fi.vme.rsg.app.WebAppConfiguration</param-value>
+			<param-value>org.fao.fi.vme.rsg.app.configuration.VmeRsgSecurityConfiguration</param-value>
 		</init-param>
 
 		<init-param>

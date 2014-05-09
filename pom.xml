@@ -33,6 +33,7 @@
 				<hibernate.dialect.figis>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect.figis>
 				<hibernate.hbm2ddl.auto.figis>validate</hibernate.hbm2ddl.auto.figis>
 
+				<rsg.version>1.0.0-SNAPSHOT</rsg.version>
 	</properties>
 
 	<repositories>
@@ -133,8 +134,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.0</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 		</plugins>

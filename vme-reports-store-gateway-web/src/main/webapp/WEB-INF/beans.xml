@@ -3,5 +3,6 @@
 	<alternatives>
 		<class>org.fao.fi.vme.msaccess.component.EmbeddedMsAccessConnectionProvider</class>
 		<class>org.fao.fi.vme.rsg.service.RsgServiceImplVme</class>
+		<class>org.fao.fi.security.server.providers.validators.token.impl.configuration.TokenManagerSimpleConfiguration</class>
 	</alternatives>
 </beans>

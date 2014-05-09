@@ -19,24 +19,37 @@
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-interface-dto</artifactId>
-			<version>[0.0.4-SNAPSHOT]</version>
+			<version>[${rsg.version}]</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>
 				reports-store-gateway-support-compiler
 			</artifactId>
-			<version>[0.0.4-SNAPSHOT]</version>
+			<version>[${rsg.version}]</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-web-base</artifactId>
-			<version>[0.0.4-SNAPSHOT]</version>
+			<version>[${rsg.version}]</version>
+		</dependency>
+		<dependency>
+			<groupId>org.fao.fi.security</groupId>
+			<artifactId>fi-security-server</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-reports-store-gateway</artifactId>
 			<version>${project.parent.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>
+						vme-reports-store-gateway-test
+					</artifactId>
+					<groupId>org.vme</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>javax.el</groupId>
@@ -84,9 +97,6 @@
 			</build>
 		</profile>
 	</profiles>
-
-
-
 	<build>
 		<plugins>
 			<plugin>

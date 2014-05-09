@@ -7,7 +7,8 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.naming.NamingException;
 
-import org.fao.fi.security.common.pgp.configuration.impl.JNDIKeyringConfigurator;
+import org.fao.fi.security.common.encryption.pgp.PGPBeanConstants;
+import org.fao.fi.security.common.utilities.pgp.configuration.impl.jndi.KeyringJNDIConfiguration;
 
 /**
  * Place your class / interface description here.
@@ -22,14 +23,14 @@ import org.fao.fi.security.common.pgp.configuration.impl.JNDIKeyringConfigurator
  * @version 1.0
  * @since 1 May 2014
  */
-@Singleton @Named("pgp.public.krcfg")
-public class IMarineKeyringConfigurator extends JNDIKeyringConfigurator {
+@Singleton @Named(PGPBeanConstants.PGP_PUBLIC_KEYRING_CONFIG_BEAN_NAME)
+public class iMarineKeyringConfiguration extends KeyringJNDIConfiguration {
 	/**
 	 * Class constructor
 	 *
 	 * @throws NamingException
 	 */
-	public IMarineKeyringConfigurator() throws NamingException {
-		super("java:comp/env/pgp/keyring/imarine");
+	public iMarineKeyringConfiguration() throws NamingException {
+		super("pgp/keyring/imarine");
 	}
 }
