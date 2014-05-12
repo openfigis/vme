@@ -5,8 +5,9 @@ package org.fao.fi.vme.rsg.security.pgp.javax.filters;
 
 import javax.inject.Inject;
 
-import org.fao.fi.security.server.javax.filters.token.AbstractTokenSecuredResourceRequestValidatorFilter;
+import org.fao.fi.security.server.javax.filters.token.EncryptedTokenSecuredResourceRequestValidatorFilter;
 import org.fao.fi.security.server.javax.filters.token.support.EncryptedTokenSecuredResource;
+import org.fao.fi.security.server.javax.filters.token.support.EncryptedTokenSecurer;
 import org.fao.fi.security.server.providers.validators.token.impl.encrypted.EncryptedTokenConsumer;
 
 /**
@@ -23,13 +24,13 @@ import org.fao.fi.security.server.providers.validators.token.impl.encrypted.Encr
  * @since 30 Apr 2014
  */
 @EncryptedTokenSecuredResource
-public class VmeRsgEncryptedTokenSecuredResourceRequestValidatorFilter extends AbstractTokenSecuredResourceRequestValidatorFilter {
+public class VmeRsgEncryptedTokenSecuredResourceRequestValidatorFilter extends EncryptedTokenSecuredResourceRequestValidatorFilter {
 	/**
 	 * Class constructor
 	 *
 	 * @param validator
 	 */
-	@Inject public VmeRsgEncryptedTokenSecuredResourceRequestValidatorFilter(@EncryptedTokenSecuredResource EncryptedTokenConsumer validator) {
+	@Inject public VmeRsgEncryptedTokenSecuredResourceRequestValidatorFilter(@EncryptedTokenSecurer EncryptedTokenConsumer validator) {
 		super(validator);
 	}
 }

@@ -6,6 +6,8 @@ package org.fao.fi.vme.rsg.app.services;
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
 
+import org.fao.fi.security.server.javax.filters.bandwidth.support.BandwidthLimitedResource;
+import org.fao.fi.security.server.javax.filters.origin.support.IPRestrictedResource;
 import org.fao.fi.security.server.javax.filters.token.support.PlainTokenSecuredResource;
 import org.gcube.application.rsg.webservice.RSGWebService;
 
@@ -22,6 +24,10 @@ import org.gcube.application.rsg.webservice.RSGWebService;
  * @version 1.0
  * @since 9 May 2014
  */
-@Singleton @PlainTokenSecuredResource @Path("/")
+@Singleton 
+@PlainTokenSecuredResource 
+@IPRestrictedResource 
+@BandwidthLimitedResource 
+@Path("/")
 public class VmeRsgWebServiceImpl extends RSGWebService {
 }
