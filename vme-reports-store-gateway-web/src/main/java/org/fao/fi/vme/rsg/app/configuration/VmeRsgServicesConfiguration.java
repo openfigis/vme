@@ -5,8 +5,8 @@ package org.fao.fi.vme.rsg.app.configuration;
 
 import org.fao.fi.security.server.javax.filters.origin.IPRestrictedResourceRequestValidatorFilter;
 import org.fao.fi.security.server.javax.interceptors.EncryptedResourceWriterInterceptor;
-import org.fao.fi.vme.rsg.security.pgp.javax.filters.VmeRsgEncryptedTokenSecuredResourceRequestValidatorFilter;
-import org.fao.fi.vme.rsg.security.pgp.javax.filters.VmeRsgPlainTokenSecuredResourceRequestValidatorFilter;
+import org.fao.fi.vme.rsg.security.pgp.javax.filters.token.VmeRsgEncryptedTokenSecuredResourceRequestValidatorFilter;
+import org.fao.fi.vme.rsg.security.pgp.javax.filters.token.VmeRsgPlainTokenSecuredResourceRequestValidatorFilter;
 import org.gcube.application.rsg.webservice.support.JAXBContextProvider;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;

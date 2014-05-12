@@ -1,7 +1,7 @@
 /**
  * (c) 2014 FAO / UN (project: fi-security-server)
  */
-package org.fao.fi.vme.rsg.security.pgp.javax.filters;
+package org.fao.fi.vme.rsg.security.pgp.javax.filters.token;
 
 import javax.inject.Inject;
 
