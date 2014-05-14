@@ -28,15 +28,6 @@ public class CsvService {
 
 	@Inject private VmeSearchDao dao;
 
-	/*	public static ServiceResponse<?> invoke(VmeDao vmeDao, ObservationsRequest request) {
-
-		 vmeDao.loadVmes();
-
-		ServiceResponse<?> result = new ServiceResponse<Vme>(request);
-
-		return result;
-	}
-	 */	
 	public String createCsvFile(String authorityId) throws Exception {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(baos);

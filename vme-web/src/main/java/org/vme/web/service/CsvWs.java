@@ -56,49 +56,6 @@ public class CsvWs {
 			this._log.error("Unexpected error caught: {}", t.getMessage(), t);
 			return Response.status(500).entity(t.getMessage()).build();
 		}
-	}
-	
-	/*
-	@GET
-	@Path("/ReportWithoutADEStatus")
-	@Produces({ "application/ms-excel"})
-	public Response generateQurterlyReport(){
-    QuarterlyLabelReport quartLabelReport = new QuarterlyLabelReport();
-    String fileLoc=quartLabelReport.generateQurterlyLblRep(false);
-    File file=new File(fileLoc);
-    return Response.ok(fileLoc,"application/ms-excel")
-            .header( "Content-Disposition","attachment;filename=QuarterlyReport_withoutADE.csv")
-            .build();
-}
-
-	@Path ("/try")
-	@GET
-	public Response name(@QueryParam("authority") String id_authority){
-		
-		Method[] methods = GeneralMeasure.class.getMethods();
-		
-		List<List<String>> csv = new ArrayList<List<String>>(); 
-		
-		for (List<String> list : csv) {
-			for (String string : list) {
-				
-				GeneralMeasure g = new GeneralMeasure();
-				
-				if (g.getRfmo().getId().equals(id_authority)) {
-					
-				}
-				
-				
-				
-			}
-			
-		}
-		
-		
-	}
-
-
-*/
-	
+	}	
 	
 }
