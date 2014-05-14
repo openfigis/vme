@@ -2,11 +2,7 @@ package org.vme.service;
 
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.inject.Inject;

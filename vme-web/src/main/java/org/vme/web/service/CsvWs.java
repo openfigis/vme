@@ -6,7 +6,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
@@ -23,26 +22,15 @@ import org.vme.service.CsvService;
 @Singleton
 public class CsvWs {
 	private Logger _log = LoggerFactory.getLogger(this.getClass());
-	
-	private static String MESSAGE = "Hello web-app";
 
 	@Inject private CsvService _csvService;
 	
 	public CsvWs() {
 		this._log.info("Initializing {} as a response handler", this.getClass().getSimpleName());
 	}
-	
-	@Path ("/ciao")
-	@GET
-	@Produces(MediaType.TEXT_PLAIN) //http://stackoverflow.com/questions/18342895/jersey-rest-and-csv-response
-	public String ciao(){
-		String ciao = MESSAGE;
-		
-		return ciao;
-	}
 
 	@GET
-	@Path ("/try/{authority}")
+	@Path ("/{authority}")
 	@Produces("text/csv")
 	public Response name(@PathParam("authority") String id_authority){
 		try {
