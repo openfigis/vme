@@ -1,46 +1,36 @@
 package org.vme.web.service;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.fao.fi.vme.domain.model.GeneralMeasure;
-import org.fao.fi.vme.domain.model.Vme;
-import org.vme.dao.VmeSearchDao;
-import org.vme.dao.sources.vme.VmeDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.service.CsvService;
-import org.vme.web.service.io.ObservationsRequest;
-import org.vme.web.service.io.ServiceRequest;
-import org.vme.web.service.io.ServiceResponse;
-
-import com.ning.http.client.Response.ResponseBuilder;
 
 /**
  * 
- * @author Roberto Empiri
+ * @author Roberto Empiri; Fabio Fiorellato
  * 
  */
 
 @Path ("/rfmo")
 @Singleton
 public class CsvWs {
+	private Logger _log = LoggerFactory.getLogger(this.getClass());
 	
 	private static String MESSAGE = "Hello web-app";
 
-	@Inject
-	CsvService ws;
-	@Inject
-	VmeDao vmeDao;
+	@Inject private CsvService _csvService;
+	
+	public CsvWs() {
+		this._log.info("Initializing {} as a response handler", this.getClass().getSimpleName());
+	}
 	
 	@Path ("/ciao")
 	@GET
@@ -50,21 +40,23 @@ public class CsvWs {
 		
 		return ciao;
 	}
-	
-	@Path ("/try")
+
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response name(@QueryParam("authority") String id_authority){
-		
-		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
-		request.setAuthority(Integer.parseInt(id_authority));
-		
-		ServiceResponse<?> result = CsvService.invoke(vmeDao, request);
-		
-		return Response.status(200).entity(result).build();
-		
+	@Path ("/try/{authority}")
+	@Produces("text/csv")
+	public Response name(@PathParam("authority") String id_authority){
+		try {
+			String csv;
+			return Response.
+						status(200).
+						header("Content-Disposition","attachment;filename=VME_" + id_authority + ".csv").
+						header("Content-Length", (csv = this._csvService.createCsvFile(id_authority)).length()).
+						entity(csv).build();
+		} catch(Throwable t) {
+			this._log.error("Unexpected error caught: {}", t.getMessage(), t);
+			return Response.status(500).entity(t.getMessage()).build();
+		}
 	}
-	
 	
 	/*
 	@GET

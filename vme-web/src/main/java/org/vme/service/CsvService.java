@@ -1,52 +1,70 @@
 package org.vme.service;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.UUID;
 
 import javax.inject.Inject;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
 
 import org.fao.fi.vme.domain.dto.VmeDto;
-import org.fao.fi.vme.domain.model.Vme;
 import org.vme.dao.VmeSearchDao;
-import org.vme.dao.sources.vme.VmeDao;
-import org.vme.web.service.ServiceInvoker;
-import org.vme.web.service.io.ObservationsRequest;
-import org.vme.web.service.io.ServiceResponse;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
+import au.com.bytecode.opencsv.CSVWriter;
 
-import org.fao.fi.vme.domain.model.GeneralMeasure;
+
 
 /**
  * 
- * @author Roberto Empiri
+ * @author Roberto Empiri; Fabio Fiorellato
  * 
  */
 
 public class CsvService {
 
-	@Inject
-	VmeDao dao;
+	@Inject private VmeSearchDao dao;
 
-	public static ServiceResponse<?> invoke(VmeDao vmeDao, ObservationsRequest request) {
+	/*	public static ServiceResponse<?> invoke(VmeDao vmeDao, ObservationsRequest request) {
 
-		List<Vme> vme = vmeDao.loadVmes();
+		 vmeDao.loadVmes();
+
 		ServiceResponse<?> result = new ServiceResponse<Vme>(request);
-		
-		for (Vme v : vme) {
-			if (v.getRfmo().getId().equals(String.valueOf(request.getAuthority()))) {
-				vme.remove(v);
-			}
-		}
-		
-		result.addElements(vme);
-		
+
 		return result;
 	}
-	
+	 */	
+	public String createCsvFile(String authorityId) throws Exception {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		OutputStreamWriter osw = new OutputStreamWriter(baos);
+		
+		CSVWriter csvWriter = new CSVWriter(osw, ',', '"');
+				
+		List<VmeDto> vme = dao.searchVme(Long.parseLong(authorityId), 0, 0, 0, "");
 
+		VmeDto dto = null;
+		
+		for(int i=0;i<10;i++) {
+			dto = new VmeDto();
+			dto.setLocalName("Foo" + i);
+			dto.setValidityPeriodFrom(2000 + i);
+			dto.setValidityPeriodTo(2001 + i);
+
+			vme.add(dto);
+		}
+		
+		csvWriter.writeNext(new String[] { "Vme Name", "Validity Start", "Validity End" });
+
+		for (VmeDto v : vme) {
+			csvWriter.writeNext(new String[] { v.getLocalName(), String.valueOf(v.getValidityPeriodFrom()), String.valueOf(v.getValidityPeriodTo()) });
+		}
+			
+		csvWriter.flush();
+		csvWriter.close();
+		
+		return new String(baos.toByteArray(), "UTF-8");
+	}
 }
