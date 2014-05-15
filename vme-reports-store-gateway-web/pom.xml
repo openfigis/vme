@@ -52,6 +52,12 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.3</version>
+			<scope>provided</scope>
+		</dependency>		
+		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>el-api</artifactId>
 			<version>2.2</version>
@@ -66,6 +72,12 @@
 			<groupId>org.glassfish.jersey.containers.glassfish</groupId>
 			<artifactId>jersey-gf-cdi</artifactId>
 			<version>2.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gcube.application.rsg</groupId>
+			<artifactId>reports-store-gateway-client</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<profiles>
