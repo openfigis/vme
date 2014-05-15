@@ -5,6 +5,7 @@ package org.fao.fi.vme.rsg.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 import javax.enterprise.inject.Alternative;
 
@@ -25,23 +26,23 @@ import org.fao.fi.security.server.javax.filters.origin.support.AbstractIPIdentif
  */ 
 @Alternative
 public class FAOProxyIPIdentifier extends AbstractIPIdentifier {
-	private String FAOProxyIP = "199.46.21.204";
+	private String FAOProxyIPRegexp = "199.46.21.[0-9]{1,3}";
 	
 	/**
 	 * @return the 'fAOProxyIP' value
 	 */
-	public String getFAOProxyIP() {
-		return this.FAOProxyIP;
+	public String getFAOProxyIPRegexp() {
+		return this.FAOProxyIPRegexp;
 	}
 
 	/**
-	 * @param FAOProxyIP the 'FAOProxyIP' value to set
+	 * @param FAOProxyIPRegexp the 'FAOProxyIPRegexp' value to set
 	 */
-	public void setFAOProxyIP(String FAOProxyIP) {
-		if(FAOProxyIP == null)
-			throw new IllegalArgumentException("The set FAO proxy IP cannot be NULL");
+	public void setFAOProxyIPRegexp(String FAOProxyIPRegexp) {
+		if(FAOProxyIPRegexp == null)
+			throw new IllegalArgumentException("The set FAO proxy IP Regexp cannot be NULL");
 		
-		this.FAOProxyIP = FAOProxyIP;
+		this.FAOProxyIPRegexp = FAOProxyIPRegexp;
 	}
 
 	/* (non-Javadoc)
@@ -68,7 +69,7 @@ public class FAOProxyIPIdentifier extends AbstractIPIdentifier {
 		Collection<String> filtered = new ArrayList<String>();
 		
 		for(String IP : IPs) {
-			if(!this.FAOProxyIP.equals(IP))
+			if(!Pattern.matches(this.FAOProxyIPRegexp, IP))
 				filtered.add(IP);
 		}
 		
