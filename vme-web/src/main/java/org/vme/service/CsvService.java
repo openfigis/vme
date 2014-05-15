@@ -8,7 +8,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.dto.VmeDto;
+import org.fao.fi.vme.domain.model.Authority;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.vme.dao.VmeSearchDao;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 import au.com.bytecode.opencsv.CSVWriter;
 
@@ -22,15 +25,19 @@ import au.com.bytecode.opencsv.CSVWriter;
 
 public class CsvService {
 
-	@Inject private VmeSearchDao dao;
-
-	public String createCsvFile(String authorityId) throws Exception {
+	@Inject 
+	private VmeSearchDao dao;
+	
+	@Inject @ConceptProvider
+	private ReferenceDaoImpl refDao;
+	
+	public String createCsvFile(String authorityAcronym) throws Exception {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		OutputStreamWriter osw = new OutputStreamWriter(baos);
 		
 		CSVWriter csvWriter = new CSVWriter(osw, ',', '"');
-				
-		List<VmeDto> vme = dao.searchVme(Long.parseLong(authorityId), 0, 0, 0, "");
+		
+		List<VmeDto> vme = dao.searchVme(Long.parseLong(authorityAcronym), 0, 0, 0, "");
 
 		VmeDto dto = null;
 		
@@ -54,4 +61,19 @@ public class CsvService {
 		
 		return new String(baos.toByteArray(), "UTF-8");
 	}
+	
+	public long getAuthorityIdByAcronym(String authorityAcronym){
+		
+		List<Authority> authorities = refDao.getAllAuthorities();
+		
+		for (Authority authority : authorities) {
+			if(authority.getAcronym().equals(authorityAcronym)){
+				return authority.getId();
+			}
+		}
+		
+		return 0;
+		
+	}
+	
 }
