@@ -631,7 +631,7 @@ public class FigisDocBuilder {
 			// Algorithm for "InformationSource" UML table: with regards of the
 			// meetings tab, provide all and only records with "sourcetype=3"
 			// and according to the selected year
-			Integer oneBefore = new Integer(disseminationYear - 1);
+			Integer oneBefore = Integer.valueOf(disseminationYear - 1);
 
 			// FFiorellato: fixed following conditions. Previously they were
 			// using '==' and a variable LHS that would produce NPE when the LHS
@@ -763,8 +763,9 @@ public class FigisDocBuilder {
 	}
 
 	protected String safeGetMultilingualString(MultiLingualString mls, Integer lang) {
-		if (mls != null)
+		if (mls != null) {
 			return mls.getStringMap().get(lang);
+		}
 
 		return null;
 	}

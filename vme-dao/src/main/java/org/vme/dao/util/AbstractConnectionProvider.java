@@ -250,8 +250,9 @@ abstract public class AbstractConnectionProvider implements ConnectionProvider, 
 	abstract protected void configurePool(Properties configuration) throws Throwable;
 
 	final protected void safePut(Properties props, String key, Object value) {
-		if(value != null)
+		if(value != null) {
 			props.put(key, value.toString());
+		}
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

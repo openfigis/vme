@@ -30,8 +30,9 @@ public class YearComparator implements Comparator<Year<?>> {
 	}
 	
 	final static public <Y extends Year<?>> List<Y> sort(List<Y> toSort) {
-		if(toSort == null)
+		if(toSort == null) {
 			return null;
+		}
 		
 		Collections.sort(toSort, INSTANCE);
 		
@@ -46,11 +47,13 @@ public class YearComparator implements Comparator<Year<?>> {
 		Integer year1 = y1.getYear();
 		Integer year2 = y2.getYear();
 		
-		if(year1 == null)
+		if(year1 == null) {
 			return year2 == null ? 0 : -1;
+		}
 		
-		if(year2 == null)
+		if(year2 == null) {
 			return 1;
+		}
 		
 		return year2.compareTo(year1);
 	}

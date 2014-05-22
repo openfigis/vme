@@ -62,8 +62,9 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 		GeneralMeasure toRefresh = this.vmeDao.getEntityById(em, GeneralMeasure.class, gmID);
 		Rfmo parent = toRefresh.getRfmo();
 
-		if (parent != null)
+		if (parent != null) {
 			em.refresh(parent);
+		}
 
 		em.refresh(toRefresh);
 	}
@@ -81,8 +82,9 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 		InformationSource toRefresh = this.vmeDao.getEntityById(em, InformationSource.class, isID);
 		Rfmo parent = toRefresh.getRfmo();
 
-		if (parent != null)
+		if (parent != null) {
 			em.refresh(parent);
+		}
 
 		em.refresh(toRefresh);
 	}
@@ -100,8 +102,9 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 		FisheryAreasHistory toRefresh = this.vmeDao.getEntityById(em, FisheryAreasHistory.class, ffID);
 		Rfmo parent = toRefresh.getRfmo();
 
-		if (parent != null)
+		if (parent != null) {
 			em.refresh(parent);
+		}
 
 		em.refresh(toRefresh);
 	}
@@ -119,8 +122,9 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 		VMEsHistory toRefresh = this.vmeDao.getEntityById(em, VMEsHistory.class, rhID);
 		Rfmo parent = toRefresh.getRfmo();
 
-		if (parent != null)
+		if (parent != null) {
 			em.refresh(parent);
+		}
 
 		em.refresh(toRefresh);
 	}
@@ -165,12 +169,13 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 				LOG.info("Factsheet cache reset response for vme ID {} is: {}", vmeID, result.toString());
 
 			} finally {
-				if (is != null)
+				if (is != null) {
 					try {
 						is.close();
 					} catch (Throwable t) {
 						LOG.warn("Unable to close remote stream", t);
 					}
+				}
 			}
 		}
 	}

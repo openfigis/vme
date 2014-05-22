@@ -18,24 +18,24 @@ public class DomainRule4ObservationXmlId {
 
 	static Map<Integer, String> map = new HashMap<Integer, String>();
 	static {
-		map.put(new Integer(0), "--");
-		map.put(new Integer(1), "en");
-		map.put(new Integer(2), "fr");
-		map.put(new Integer(3), "es");
-		map.put(new Integer(4), "zh");
-		map.put(new Integer(5), "ar");
-		map.put(new Integer(6), "it");
-		map.put(new Integer(7), "de");
-		map.put(new Integer(8), "pt");
-		map.put(new Integer(9), "el");
-		map.put(new Integer(10), "hr");
-		map.put(new Integer(11), "sl");
-		map.put(new Integer(12), "ru");
-		map.put(new Integer(13), "uk");
-		map.put(new Integer(14), "bg");
-		map.put(new Integer(15), "ro");
-		map.put(new Integer(16), "tr");
-		map.put(new Integer(99), "--");
+		map.put(Integer.valueOf(0), "--");
+		map.put(Integer.valueOf(1), "en");
+		map.put(Integer.valueOf(2), "fr");
+		map.put(Integer.valueOf(3), "es");
+		map.put(Integer.valueOf(4), "zh");
+		map.put(Integer.valueOf(5), "ar");
+		map.put(Integer.valueOf(6), "it");
+		map.put(Integer.valueOf(7), "de");
+		map.put(Integer.valueOf(8), "pt");
+		map.put(Integer.valueOf(9), "el");
+		map.put(Integer.valueOf(10), "hr");
+		map.put(Integer.valueOf(11), "sl");
+		map.put(Integer.valueOf(12), "ru");
+		map.put(Integer.valueOf(13), "uk");
+		map.put(Integer.valueOf(14), "bg");
+		map.put(Integer.valueOf(15), "ro");
+		map.put(Integer.valueOf(16), "tr");
+		map.put(Integer.valueOf(99), "--");
 
 	}
 

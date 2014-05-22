@@ -49,8 +49,9 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final public void VMEChanged(final Vme... changed) throws Exception {
 		LOG.info("Notified of changes to {} elements of type Vme", ( changed == null ? "NULL" : changed.length));
 		
-		for(Vme in : changed)
+		for(Vme in : changed) {
 			this._updater.refreshVme(in.getId());
+		}
 		
 		this.updateFactsheets(this.findVMEIDs(changed));
 	}
@@ -62,9 +63,10 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final public void VMEAdded(final Vme... added) throws Exception {
 		LOG.info("Notified of additions of {} elements of type Vme", ( added == null ? "NULL" : added.length));	
 		
-		for(Vme in : added)
+		for(Vme in : added) {
 			this._updater.refreshVme(in.getId());
-		
+		}
+			
 		this.createFactsheets(this.findVMEIDs(added));
 	}
 
@@ -85,8 +87,9 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final public void generalMeasureChanged(final GeneralMeasure... changed) throws Exception {
 		LOG.info("Notified of changes to {} elements of type GeneralMeasure", ( changed == null ? "NULL" : changed.length));
 		
-		for(GeneralMeasure in : changed)
+		for(GeneralMeasure in : changed) {
 			this._updater.refreshGeneralMeasure(in.getId());
+		}
 		
 		this.updateFactsheets(this.findVMEIDs(changed));
 	}
@@ -98,8 +101,9 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final public void generalMeasureAdded(final GeneralMeasure... added) throws Exception {
 		LOG.info("Notified of additions of {} elements of type GeneralMeasure", ( added == null ? "NULL" : added.length));
 		
-		for(GeneralMeasure in : added)
+		for(GeneralMeasure in : added) {
 			this._updater.refreshGeneralMeasure(in.getId());
+		}
 		
 		this.updateFactsheets(this.findVMEIDs(added));
 	}
@@ -121,9 +125,10 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final public void informationSourceChanged(final InformationSource... changed) throws Exception {
 		LOG.info("Notifiying listeners of changes to {} elements of type InformationSource", ( changed == null ? "NULL" : changed.length));
 
-		for(InformationSource in : changed)
+		for(InformationSource in : changed) {
 			this._updater.refreshInformationSource(in.getId());
-
+		}
+		
 		this.updateFactsheets(this.findVMEIDs(changed));
 
 		LOG.info("Notified of changes to {} elements of type InformationSource", ( changed == null ? "NULL" : changed.length));
@@ -136,9 +141,10 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final public void informationSourceAdded(final InformationSource... added) throws Exception {
 		LOG.info("Notified of additions of {} elements of type InformationSource", ( added == null ? "NULL" : added.length));
 		
-		for(InformationSource in : added)
+		for(InformationSource in : added) {
 			this._updater.refreshInformationSource(in.getId());
-
+		}
+			
 		this.updateFactsheets(this.findVMEIDs(added));
 	}
 
@@ -159,9 +165,10 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final public void fishingFootprintChanged(final FisheryAreasHistory... changed) throws Exception {
 		LOG.info("Notified of changes to {} elements of type FisheryAreasHistory", ( changed == null ? "NULL" : changed.length));
 		
-		for(FisheryAreasHistory in : changed)
+		for(FisheryAreasHistory in : changed) {
 			this._updater.refreshFishingFootprint(in.getId());
-		
+		}
+			
 		this.updateFactsheets(this.findVMEIDs(changed));
 	}
 
@@ -202,9 +209,10 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final public void regionalHistoryChanged(final VMEsHistory... changed) throws Exception {
 		LOG.info("Notified of changes to {} elements of type VMEsHistory", ( changed == null ? "NULL" : changed.length));
 
-		for(VMEsHistory in : changed)
+		for(VMEsHistory in : changed) {
 			this._updater.refreshRegionalHistory(in.getId());
-
+		}
+			
 		this.updateFactsheets(this.findVMEIDs(changed));
 	}
 
@@ -215,9 +223,10 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final public void regionalHistoryAdded(final VMEsHistory... added) throws Exception {
 		LOG.info("Notified of additions of {} elements of type VMEsHistory", ( added == null ? "NULL" : added.length));
 		
-		for(VMEsHistory in : added)
+		for(VMEsHistory in : added) {
 			this._updater.refreshRegionalHistory(in.getId());
-
+		}
+		
 		this.updateFactsheets(this.findVMEIDs(added));
 	}
 
@@ -301,8 +310,9 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		Collection<Long> IDs = new HashSet<Long>();
 		
 		for(Vme in : vmes) {
-			if(in != null && in.getId() != null)
+			if(in != null && in.getId() != null) {
 				IDs.add(in.getId());
+			}
 		}
 		
 		return IDs.toArray(new Long[IDs.size()]);
@@ -330,8 +340,9 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		for(Rfmo authority : RFMOs) {
 			if(authority != null && authority.getListOfManagedVmes() != null)
 				for(Vme vme : authority.getListOfManagedVmes()) {
-					if(vme.getId() != null)
+					if(vme.getId() != null) {
 						IDs.add(vme.getId());
+					}
 				}
 		}
 		
@@ -344,8 +355,9 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		Collection<Rfmo> RFMOs = new ArrayList<Rfmo>();
 		
 		for(GeneralMeasure gm : generalMeasures) {
-			if(gm != null && gm.getRfmo() != null)
+			if(gm != null && gm.getRfmo() != null) {
 				RFMOs.add(gm.getRfmo());
+			}
 		}
 		
 		LOG.info("RFMOs owning GeneralMeasures {} are: {}", this.serializeIDs(generalMeasures), this.serializeIDs(RFMOs.toArray(new Rfmo[RFMOs.size()])));
@@ -357,8 +369,9 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		Collection<Rfmo> RFMOs = new ArrayList<Rfmo>();
 		
 		for(InformationSource is : informationSources) {
-			if(is != null && is.getRfmo() != null)
+			if(is != null && is.getRfmo() != null) {
 				RFMOs.add(is.getRfmo());
+			}
 		}
 		
 		LOG.info("RFMOs owning InformationSources {} are: {}", this.serializeIDs(informationSources), this.serializeIDs(RFMOs.toArray(new Rfmo[RFMOs.size()])));
@@ -370,8 +383,9 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		Collection<Rfmo> RFMOs = new ArrayList<Rfmo>();
 		
 		for(FisheryAreasHistory ff : fishingFootprints) {
-			if(ff != null && ff.getRfmo() != null)
+			if(ff != null && ff.getRfmo() != null) {
 				RFMOs.add(ff.getRfmo());
+			}
 		}
 		
 		LOG.info("RFMOs owning FishingFootprints {} are: {}", this.serializeIDs(fishingFootprints), this.serializeIDs(RFMOs.toArray(new Rfmo[RFMOs.size()])));
@@ -383,8 +397,9 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		Collection<Rfmo> RFMOs = new ArrayList<Rfmo>();
 		
 		for(VMEsHistory rh : regionalHistories) {
-			if(rh != null && rh.getRfmo() != null)
+			if(rh != null && rh.getRfmo() != null) {
 				RFMOs.add(rh.getRfmo());
+			}
 		}
 		
 		LOG.info("RFMOs owning RegionalHistories {} are: {}", this.serializeIDs(regionalHistories), this.serializeIDs(RFMOs.toArray(new Rfmo[RFMOs.size()])));
@@ -407,9 +422,11 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final protected String serializeIDs(ObjectId<?>[] objects) {
 		Collection<Object> IDs = new HashSet<Object>();
 		
-		for(ObjectId<?> in : objects)
-			if(in != null && in.getId() != null)
+		for(ObjectId<?> in : objects) {
+			if(in != null && in.getId() != null) {
 				IDs.add(in.getId());
+			}
+		}
 		
 		return this.serializeIDs(IDs.toArray(new Object[IDs.size()]));
 	}
@@ -417,9 +434,11 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	final protected String serializeIDs(Rfmo[] rfmos) {
 		Collection<Object> IDs = new HashSet<Object>();
 		
-		for(Rfmo in : rfmos)
-			if(in != null && in.getId() != null)
+		for(Rfmo in : rfmos) {
+			if(in != null && in.getId() != null) {
 				IDs.add(in.getId());
+			}
+		}
 		
 		return this.serializeIDs(IDs.toArray(new Object[IDs.size()]));
 	}

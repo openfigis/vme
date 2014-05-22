@@ -42,18 +42,23 @@ public class ObservationDomain extends Observation {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		ObservationDomain other = (ObservationDomain) obj;
 		if (reportingYear == null) {
-			if (other.reportingYear != null)
+			if (other.reportingYear != null) {
 				return false;
-		} else if (!reportingYear.equals(other.reportingYear))
+			}
+		} else if (!reportingYear.equals(other.reportingYear)) {
 			return false;
+		}
 		return true;
 	}
 

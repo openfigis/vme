@@ -41,7 +41,7 @@ public abstract class FigisDaoTestLogic {
 		if (dao.find(RefVme.class, refVme.getId()) == null) {
 			dao.persist(refVme);
 		}
-		int count[] = count();
+		int[] count = count();
 		VmeObservationDomain vod = createVmeObservationDomain(1);
 		assertEquals(1, vod.getObservationDomainList().size());
 
@@ -77,7 +77,7 @@ public abstract class FigisDaoTestLogic {
 		if (dao.find(RefVme.class, refVme.getId()) == null) {
 			dao.persist(refVme);
 		}
-		int count[] = count();
+		int[] count = count();
 		VmeObservationDomain vod = createVmeObservationDomain(1);
 
 		vod.setRefVme(refVme);

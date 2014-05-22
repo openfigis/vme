@@ -162,48 +162,65 @@ public class Profile implements ObjectId<Long>, Year<Profile> {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Profile other = (Profile) obj;
 		if (this.descriptionBiological == null) {
-			if (other.descriptionBiological != null)
+			if (other.descriptionBiological != null) {
 				return false;
-		} else if (!this.descriptionBiological.equals(other.descriptionBiological))
+			}
+		} else if (!this.descriptionBiological.equals(other.descriptionBiological)) {
 			return false;
+		}
 		if (this.descriptionImpact == null) {
-			if (other.descriptionImpact != null)
+			if (other.descriptionImpact != null) {
 				return false;
-		} else if (!this.descriptionImpact.equals(other.descriptionImpact))
+			}
+		} else if (!this.descriptionImpact.equals(other.descriptionImpact)) {
 			return false;
+		}
 		if (this.descriptionPhisical == null) {
-			if (other.descriptionPhisical != null)
+			if (other.descriptionPhisical != null) {
 				return false;
-		} else if (!this.descriptionPhisical.equals(other.descriptionPhisical))
+			}
+		} else if (!this.descriptionPhisical.equals(other.descriptionPhisical)) {
 			return false;
+		}
 		if (this.geoform == null) {
-			if (other.geoform != null)
+			if (other.geoform != null) {
 				return false;
-		} else if (!this.geoform.equals(other.geoform))
+			}
+		} else if (!this.geoform.equals(other.geoform)) {
 			return false;
+		}
 		if (this.id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!this.id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		if (this.vme == null) {
-			if (other.vme != null)
+			if (other.vme != null) {
 				return false;
-		} else if (!this.vme.equals(other.vme))
+			}
+		} else if (!this.vme.equals(other.vme)) {
 			return false;
+		}
 		if (this.year == null) {
-			if (other.year != null)
+			if (other.year != null) {
 				return false;
-		} else if (!this.year.equals(other.year))
+			}
+		} else if (!this.year.equals(other.year)) {
 			return false;
+		}
 		return true;
 	}
 }

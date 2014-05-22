@@ -22,7 +22,7 @@ public interface ReferenceDAO extends ReferenceConceptProvider<Long> {
 	 * @return the existing ReferenceConcepts if any, an empty list otherwise
 	 * @throws ReferenceServiceException
 	 */
-	public List<Class<? extends ReferenceConcept>> getConcepts() throws ReferenceServiceException;
+	List<Class<? extends ReferenceConcept>> getConcepts() throws ReferenceServiceException;
 	
 	
 	/**
@@ -31,7 +31,7 @@ public interface ReferenceDAO extends ReferenceConceptProvider<Long> {
 	 * @return the requested ReferenceConcept if existing, null otherwise 
 	 * @throws ReferenceServiceException
 	 */
-	public Class<? extends ReferenceConcept> getConcept(String acronym) throws ReferenceServiceException;
+	Class<? extends ReferenceConcept> getConcept(String acronym) throws ReferenceServiceException;
 
 	/**
 	 * Return a defined ReferenceConcept class via its name.
@@ -39,7 +39,7 @@ public interface ReferenceDAO extends ReferenceConceptProvider<Long> {
 	 * @return the requested ReferenceConcept class if existing
 	 * @throws ReferenceServiceException
 	 */
-	public ReferenceConcept getReference(Class<? extends ReferenceConcept> concept, Long id) throws ReferenceServiceException;	
+	ReferenceConcept getReference(Class<? extends ReferenceConcept> concept, Long id) throws ReferenceServiceException;	
 	
 	/**
 	 * Return a defined ReferenceConcept class via its name.
@@ -47,6 +47,6 @@ public interface ReferenceDAO extends ReferenceConceptProvider<Long> {
 	 * @return the requested ReferenceConcept class if existing
 	 * @throws ReferenceServiceException
 	 */
-	public AcronymAwareReferenceConcept getReferenceByAcronym(Class<? extends AcronymAwareReferenceConcept> concept, String acronym) throws ReferenceServiceException;
+	AcronymAwareReferenceConcept getReferenceByAcronym(Class<? extends AcronymAwareReferenceConcept> concept, String acronym) throws ReferenceServiceException;
 	
 }

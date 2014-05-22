@@ -10,8 +10,8 @@ package org.fao.fi.vme.domain.interfaces;
 
 public interface Year<E> {
 
-	public abstract Integer getYear();
+	Integer getYear();
 
-	public abstract void setYear(Integer year);
+	void setYear(Integer year);
 
 }

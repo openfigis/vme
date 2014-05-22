@@ -8,8 +8,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.msaccess.VmeClean;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
@@ -42,6 +44,11 @@ public class VmeProfileRelationTest {
 
 	@Test
 	public void test() {
+//		InformationSourceType defaultIST = InformationSourceMock
+//				.createInformationSourceType();
+//
+//		vmeDao.persist(defaultIST);
+		
 		Vme vme = new Vme();
 		Profile profile = new Profile();
 		profile.setVme(vme);

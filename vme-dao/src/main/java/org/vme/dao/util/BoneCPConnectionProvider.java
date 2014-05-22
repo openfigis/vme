@@ -87,8 +87,9 @@ public class BoneCPConnectionProvider extends AbstractConnectionProvider {
 
 		this._ds = new BoneCP(config);
 		
-		if(config.isStatisticsEnabled())
+		if(config.isStatisticsEnabled()) {
 			this._stats = new Statistics(this._ds);
+		}
 		
 		Connection conn = this._ds.getConnection();
 		conn.close();

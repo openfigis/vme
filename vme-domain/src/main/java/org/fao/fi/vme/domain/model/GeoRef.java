@@ -108,33 +108,44 @@ public class GeoRef implements ObjectId<Long>, Year<GeoRef> {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		GeoRef other = (GeoRef) obj;
 		if (this.geographicFeatureID == null) {
-			if (other.geographicFeatureID != null)
+			if (other.geographicFeatureID != null) {
 				return false;
-		} else if (!this.geographicFeatureID.equals(other.geographicFeatureID))
+			}
+		} else if (!this.geographicFeatureID.equals(other.geographicFeatureID)) {
 			return false;
+		}
 		if (this.id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!this.id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		if (this.vme == null) {
-			if (other.vme != null)
+			if (other.vme != null) {
 				return false;
-		} else if (!this.vme.equals(other.vme))
+			}
+		} else if (!this.vme.equals(other.vme)) {
 			return false;
+		}
 		if (this.year == null) {
-			if (other.year != null)
+			if (other.year != null) {
 				return false;
-		} else if (!this.year.equals(other.year))
+			}
+		} else if (!this.year.equals(other.year)) {
 			return false;
+		}
 		return true;
 	}
 

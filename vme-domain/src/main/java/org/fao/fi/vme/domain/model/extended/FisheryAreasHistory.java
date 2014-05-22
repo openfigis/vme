@@ -172,28 +172,37 @@ public class FisheryAreasHistory implements ObjectId<Long>, History, Year<Histor
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		FisheryAreasHistory other = (FisheryAreasHistory) obj;
 		if (this.history == null) {
-			if (other.history != null)
+			if (other.history != null) {
 				return false;
-		} else if (!this.history.equals(other.history))
+			}
+		} else if (!this.history.equals(other.history)) {
 			return false;
+		}
 		if (this.id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!this.id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		if (this.year == null) {
-			if (other.year != null)
+			if (other.year != null) {
 				return false;
-		} else if (!this.year.equals(other.year))
+			}
+		} else if (!this.year.equals(other.year)) {
 			return false;
+		}
 		return true;
 	}
 }

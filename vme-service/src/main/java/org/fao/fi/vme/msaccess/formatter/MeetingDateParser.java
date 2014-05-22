@@ -27,8 +27,8 @@ public class MeetingDateParser {
 
 	public MeetingDateParser(String date) {
 
-		String values[] = determineValues(date);
-		String months[] = determineMonths(date);
+		String[] values = determineValues(date);
+		String[] months = determineMonths(date);
 
 		String startDate = "";
 		String endDate = "";
@@ -124,13 +124,13 @@ public class MeetingDateParser {
 
 	int convertString2Int(String value) {
 		value = value.trim();
-		return (new Integer(value)).intValue();
+		return (Integer.valueOf(value));
 	}
 
 	boolean isNumber(String string) {
 		boolean isNumber = true;
 		try {
-			new Integer(string).intValue();
+			Integer.valueOf(string);
 		} catch (Exception e) {
 			isNumber = false;
 		}

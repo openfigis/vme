@@ -49,23 +49,30 @@ public class VmeObservationDomain {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		VmeObservationDomain other = (VmeObservationDomain) obj;
 		if (observationList == null) {
-			if (other.observationList != null)
+			if (other.observationList != null) {
 				return false;
-		} else if (!observationList.equals(other.observationList))
+			}
+		} else if (!observationList.equals(other.observationList)) {
 			return false;
+		}
 		if (refVme == null) {
-			if (other.refVme != null)
+			if (other.refVme != null) {
 				return false;
-		} else if (!refVme.equals(other.refVme))
+			}
+		} else if (!refVme.equals(other.refVme)) {
 			return false;
+		}
 		return true;
 	}
 
