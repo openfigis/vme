@@ -18,7 +18,7 @@ import org.vme.service.CsvService;
  * 
  */
 
-@Path ("/rfmo")
+@Path ("/ard")
 @Singleton
 public class CsvWs {
 	private Logger _log = LoggerFactory.getLogger(this.getClass());

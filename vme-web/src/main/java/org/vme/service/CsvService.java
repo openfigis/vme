@@ -1,7 +1,5 @@
 package org.vme.service;
 
-import com.aspose.cells.Workbook;
-
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -55,6 +53,7 @@ public class CsvService {
 		
 		long authorityId;
 		
+		
 		try {
 			authorityId = Long.parseLong(authorityAcronym);
 		} catch(NumberFormatException e){
@@ -62,8 +61,8 @@ public class CsvService {
 			authorityId = getAuthorityIdByAcronym(authorityAcronym);
 		}
 	
-		/* Note: 	VmeSearchDao 	--> Vme Name, Vme year, Vme geoRef, Vme startY, Vme endY
-		 * 			VmeDao 			--> Vme AreaType, Vme SpecMeasure
+		/* Note: 	this for block removes vmes from other
+		 * 			RFMO by reconising them from RFMO`s id
 		 */
 		
 		List<Vme> vme = vdao.loadVmes();
@@ -90,7 +89,7 @@ public class CsvService {
 	 * consistency of data from Vme and VmeDto
 	 */
 	
-	private List<String[]> stringBuilderFromCollection(List<Vme> vmeList) {
+	public List<String[]> stringBuilderFromCollection(List<Vme> vmeList) {
 		
 		List<String[]> result = new ArrayList<String[]>();
 		result.add(new String[] { "Vme Name","Geographical Area", "Area Type",
