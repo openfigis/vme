@@ -30,9 +30,11 @@ public class TabularGeneratorTest {
 			System.out.println();
 
 		}
-		assertEquals(TabularGenerator.VMEPROFILE.length, tabular.get(0).size());
-		assertEquals(TabularGenerator.VMEPROFILE.length, tabular.get(1).size());
-		assertEquals(TabularGenerator.VMEPROFILE.length, tabular.get(2).size());
+		int l = new VmeProfileRecord().getHeaders().length;
+
+		assertEquals(l, tabular.get(0).size());
+		assertEquals(l, tabular.get(1).size());
+		assertEquals(l, tabular.get(2).size());
 
 	}
 

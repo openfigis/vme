@@ -1,39 +1,53 @@
 package org.vme.service.tabular;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class TabularGenerator {
 
-	public static final String[] VMEPROFILE = { "Vme Name", "Area Type", "Geographic Reference", "Criteria",
-			"Begin year", "End year", "Profile Year", "Geo Form", "Physical description", "Biological description",
-			"Impact description" };
-
-	private MultiLingualStringUtil u = new MultiLingualStringUtil();
-
 	public List<List<Object>> generateVmeProfile(List<Vme> vmeList) {
+		RecordGenerator<Vme, Profile, Empty> r = new VmeProfileRecord();
+		return generateTabular(vmeList, r);
+
+	}
+
+	private <F, S, T> List<List<Object>> generateTabular(List<F> firstList, RecordGenerator<F, S, T> r) {
 		List<List<Object>> tabular = new ArrayList<List<Object>>();
-		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(VMEPROFILE));
+		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
 		tabular.add(firstRecord);
-		for (Vme v : vmeList) {
-			if (v.getProfileList() != null && !v.getProfileList().isEmpty()) {
-				for (Profile p : v.getProfileList()) {
+		for (F v : firstList) {
+			try {
+				@SuppressWarnings("unchecked")
+				List<S> secondLevelList = (List<S>) r.getSecondLevelMethod().invoke(v);
+
+				if (secondLevelList != null && !secondLevelList.isEmpty()) {
+					for (S secondLevelObject : secondLevelList) {
+
+						List<Object> nextRecord = new ArrayList<Object>();
+						r.doFirstLevel(v, nextRecord);
+						r.doSecondLevel(secondLevelObject, nextRecord);
+						tabular.add(nextRecord);
+					}
+				} else {
 					List<Object> nextRecord = new ArrayList<Object>();
-					doFirstLevelVmeProfile(v, nextRecord);
-					doNextLevelVmeProfile(p, nextRecord);
+					r.doFirstLevel(v, nextRecord);
 					tabular.add(nextRecord);
+					fillUp(nextRecord, r.getHeaders().length);
 				}
-			} else {
-				List<Object> nextRecord = new ArrayList<Object>();
-				doFirstLevelVmeProfile(v, nextRecord);
-				tabular.add(nextRecord);
-				fillUp(nextRecord, VMEPROFILE.length);
+			} catch (IllegalArgumentException e) {
+				throw new VmeException(e);
+			} catch (IllegalAccessException e) {
+				throw new VmeException(e);
+			} catch (InvocationTargetException e) {
+				throw new VmeException(e);
 			}
+
 		}
 		return tabular;
 	}
@@ -42,26 +56,6 @@ public class TabularGenerator {
 		for (int i = nextRecord.size(); i < length; i++) {
 			nextRecord.add(null);
 		}
-	}
-
-	private void doFirstLevelVmeProfile(Vme v, List<Object> nextRecord) {
-		nextRecord.add(u.getEnglish(v.getName()));
-		nextRecord.add(v.getAreaType());
-		nextRecord.add(u.getEnglish(v.getGeoArea()));
-		nextRecord.add(v.getCriteria());
-		nextRecord.add(v.getValidityPeriod().getBeginYear());
-		nextRecord.add(v.getValidityPeriod().getEndYear());
-
-	}
-
-	private void doNextLevelVmeProfile(Profile p, List<Object> nextRecord) {
-
-		nextRecord.add(p.getYear());
-		nextRecord.add(u.getEnglish(p.getGeoform()));
-		nextRecord.add(u.getEnglish(p.getDescriptionPhisical()));
-		nextRecord.add(u.getEnglish(p.getDescriptionBiological()));
-		nextRecord.add(u.getEnglish(p.getDescriptionImpact()));
-
 	}
 
 	public List<List<Object>> generateSpecificMeasure() {
