@@ -55,15 +55,6 @@ public class XlsService {
 		 * their file by querying by Id or the Acronym
 		 */
 
-		long authorityId;
-
-		try {
-			authorityId = Long.parseLong(authorityAcronym);
-		} catch (NumberFormatException e) {
-			log.info("authority {} is an acronym", authorityAcronym);
-			authorityId = getAuthorityIdByAcronym(authorityAcronym);
-		}
-
 		/*
 		 * Note: this for block removes vmes from other RFMO by recognising them
 		 * from RFMO`s id
@@ -72,7 +63,7 @@ public class XlsService {
 		List<Vme> vmeListPerRfmo = new ArrayList<Vme>();
 
 		for (Vme v : vmeList) {
-			if (v.getRfmo().getId().equals(authorityId)) {
+			if (v.getRfmo().getId().equals(authorityAcronym)) {
 				vmeListPerRfmo.add(v);
 			}
 		}
