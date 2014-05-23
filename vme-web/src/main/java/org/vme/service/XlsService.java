@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import jxl.write.Blank;
 import jxl.write.Label;
 import jxl.write.Number;
 import jxl.write.NumberFormats;
@@ -16,8 +17,8 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Authority;
-import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -26,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
+import org.vme.service.tabular.TabularGenerator;
 
 public class XlsService {
 
@@ -36,9 +38,10 @@ public class XlsService {
 	@ConceptProvider
 	private ReferenceDaoImpl refDao;
 
-	MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
+	private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
 
 	private WritableWorkbookFactory f = new WritableWorkbookFactory();
+	private TabularGenerator g = new TabularGenerator();
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -82,47 +85,13 @@ public class XlsService {
 		return new ByteArrayInputStream(baos.toByteArray());
 	}
 
-	public void fillWorkSheet(WritableSheet wSheet, List<Vme> vme) throws RowsExceededException, WriteException {
+	public void fillWorkSheet(WritableSheet wSheet, List<Vme> vmeList) throws RowsExceededException, WriteException {
 
 		WritableCellFormat integerFormat = new WritableCellFormat(NumberFormats.INTEGER);
 
 		if (wSheet.getName().equals("VME_Profile")) {
-
-			wSheet.addCell(new Label(0, 0, "Vme Name"));
-			wSheet.addCell(new Label(1, 0, "Area Type"));
-			wSheet.addCell(new Label(2, 0, "Geographic Reference"));
-			wSheet.addCell(new Label(3, 0, "Criteria"));
-			wSheet.addCell(new Label(4, 0, "Begin year"));
-			wSheet.addCell(new Label(5, 0, "End year"));
-			wSheet.addCell(new Label(6, 0, "Profile"));
-			wSheet.addCell(new Label(7, 0, "Year"));
-			wSheet.addCell(new Label(8, 0, "Geo Form"));
-			wSheet.addCell(new Label(9, 0, "Phisical description"));
-			wSheet.addCell(new Label(10, 0, "Biological description"));
-			wSheet.addCell(new Label(11, 0, "Impact description"));
-
-			int x = 1;
-			for (Vme v : vme) {
-				wSheet.addCell(new Label(0, x, UTIL.getEnglish(v.getName())));
-				wSheet.addCell(new Label(1, x, v.getAreaType()));
-				wSheet.addCell(new Label(2, x, UTIL.getEnglish(v.getGeoArea())));
-				wSheet.addCell(new Label(3, x, v.getCriteria()));
-				wSheet.addCell(new Number(4, x, v.getValidityPeriod().getBeginYear(), integerFormat));
-				wSheet.addCell(new Number(5, x, v.getValidityPeriod().getEndYear(), integerFormat));
-				if (!v.getProfileList().isEmpty()) {
-					for (Profile p : v.getProfileList()) {
-						wSheet.addCell(new Number(7, x, p.getYear(), integerFormat));
-						wSheet.addCell(new Label(8, x, UTIL.getEnglish(p.getGeoform())));
-						wSheet.addCell(new Label(9, x, UTIL.getEnglish(p.getDescriptionPhisical())));
-						wSheet.addCell(new Label(10, x, UTIL.getEnglish(p.getDescriptionBiological())));
-						wSheet.addCell(new Label(11, x, UTIL.getEnglish(p.getDescriptionImpact())));
-						x++;
-					}
-				} else {
-					x++;
-				}
-			}
-
+			List<List<Object>> tabular = g.generateVmeProfile(vmeList);
+			fillCells(tabular, wSheet);
 		}
 
 		if (wSheet.getName().equals("Specific_measure")) {
@@ -135,7 +104,7 @@ public class XlsService {
 			wSheet.addCell(new Label(5, 0, "Information Source URL"));
 
 			int x = 1;
-			for (Vme v : vme) {
+			for (Vme v : vmeList) {
 				wSheet.addCell(new Label(0, x, UTIL.getEnglish(v.getName())));
 				if (!v.getSpecificMeasureList().isEmpty()) {
 					for (SpecificMeasure sm : v.getSpecificMeasureList()) {
@@ -155,9 +124,6 @@ public class XlsService {
 		if (wSheet.getName().equals("General_Measure")) {
 			wSheet.addCell(new Label(0, 0, "Vme Name"));
 
-			for (Vme v : vme) {
-
-			}
 		}
 
 		if (wSheet.getName().equals("History")) {
@@ -172,6 +138,35 @@ public class XlsService {
 
 		}
 
+	}
+
+	private void fillCells(List<List<Object>> tabular, WritableSheet wSheet) {
+		for (int r = 0; r < tabular.size(); r++) {
+			List<Object> record = tabular.get(r);
+			for (int c = 0; c < record.size(); c++) {
+				Object cell = record.get(c);
+				try {
+					if (cell == null) {
+						wSheet.addCell(new Blank(c, r));
+					} else {
+						if (cell instanceof String) {
+							String stringContent = (String) cell;
+							wSheet.addCell(new Label(c, r, stringContent));
+						}
+						if (cell instanceof Integer) {
+							Integer integerContent = (Integer) cell;
+							wSheet.addCell(new Number(c, r, integerContent, new WritableCellFormat(
+									NumberFormats.INTEGER)));
+						}
+					}
+				} catch (RowsExceededException e) {
+					log.error("Error during creation of Excell sheet", e);
+					throw new VmeException(e);
+				} catch (WriteException e) {
+					log.error("Error during creation of Excell sheet", e);
+				}
+			}
+		}
 	}
 
 	public long getAuthorityIdByAcronym(String authorityAcronym) {

@@ -1,7 +1,6 @@
 package org.vme.web.service;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -15,9 +14,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 
-import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.service.XlsService;
@@ -28,52 +24,51 @@ import org.vme.service.XlsService;
  * 
  */
 
-@Path ("/rfmoXls")
+@Path("/rfmoXls")
 @Singleton
 public class XlsWs {
 	private Logger _log = LoggerFactory.getLogger(this.getClass());
-	
-	@Inject private XlsService _xlsService;
-	
+
+	@Inject
+	private XlsService _xlsService;
+
 	public XlsWs() {
 		this._log.info("Initializing {} as a response handler", this.getClass().getSimpleName());
 	}
-	
+
 	@GET
-	@Path ("/{authority}")
+	@Path("/{authority}")
 	@Produces("application/vnd.ms-excel")
-	public Response name(@PathParam("authority") String id_authority){
-		
+	public Response name(@PathParam("authority") String id_authority) {
+
 		StreamingOutput stream = null;
 		try {
-	        final ByteArrayInputStream in = this._xlsService.createXlsFile(id_authority);
-	        stream = new StreamingOutput(){
-	            public void write(OutputStream out) throws IOException, WebApplicationException{
-	                try {
-	                    int read = 0;
-	                        byte[] bytes = new byte[1024];
+			final ByteArrayInputStream in = this._xlsService.createXlsFile(id_authority);
+			stream = new StreamingOutput() {
+				public void write(OutputStream out) throws IOException, WebApplicationException {
+					try {
+						int read = 0;
+						byte[] bytes = new byte[1024];
 
-	                        while ((read = in.read(bytes)) != -1) {
-	                            out.write(bytes, 0, read);
-	                        }
-	                } catch (Exception e) {
-	                    throw new WebApplicationException(e);
-	                }
-	            }
-	        };
+						while ((read = in.read(bytes)) != -1) {
+							out.write(bytes, 0, read);
+						}
+					} catch (Exception e) {
+						throw new WebApplicationException(e);
+					}
+				}
+			};
 		} catch (Throwable t) {
-	        t.printStackTrace();
-	    }
-		
-		
-		
+			t.printStackTrace();
+		}
+
 		try {
-			return Response.ok(stream)
-					.header("content-disposition","attachment; filename = "+id_authority+"_VME").build();
+			return Response.ok(stream).header("content-disposition", "attachment; filename = " + id_authority + "_VME")
+					.build();
 		} catch (Throwable t) {
 			this._log.error("Unexpected error caught: {}", t.getMessage(), t);
 			return Response.status(500).entity(t.getMessage()).build();
-		} 
-	
-}
+		}
+
+	}
 }

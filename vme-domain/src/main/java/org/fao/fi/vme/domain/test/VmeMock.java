@@ -112,7 +112,7 @@ public class VmeMock {
 			hasVmesHistory.add(vmehistory);
 
 			Profile profile = new Profile();
-
+			profile.setGeoform(u.english("Geoform"));
 			profile.setDescriptionBiological(u.english("Hello World DescriptionBiological"));
 			profile.setDescriptionImpact(u.english("Hello World DescriptionImpact"));
 			profile.setDescriptionPhisical(u.english("Hello World DescriptionPhisical"));

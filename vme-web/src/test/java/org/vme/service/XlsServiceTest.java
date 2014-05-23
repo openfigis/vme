@@ -9,8 +9,6 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -19,7 +17,6 @@ import jxl.write.biff.RowsExceededException;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.junit.Test;
-import org.vme.dao.sources.vme.VmeDao;
 
 //@RunWith(CdiRunner.class)
 //@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
@@ -28,8 +25,8 @@ public class XlsServiceTest {
 	// @Inject
 	private XlsService xlsService = new XlsService();
 
-	@Inject
-	private VmeDao vDao;
+	// @Inject
+	// private VmeDao vDao;
 
 	private WritableWorkbookFactory f = new WritableWorkbookFactory();
 
@@ -44,6 +41,8 @@ public class XlsServiceTest {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 		Vme vme = VmeMock.generateVme(2);
+		vme.getValidityPeriod().setEndYear(null);
+		vme.setCriteria(null);
 
 		List<Vme> vmeList = new ArrayList<Vme>();
 		vmeList.add(vme);
