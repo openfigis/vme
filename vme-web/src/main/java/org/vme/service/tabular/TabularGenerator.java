@@ -7,7 +7,10 @@ import java.util.List;
 
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Profile;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.vme.service.tabular.record.SpecificMeasureRecord;
+import org.vme.service.tabular.record.VmeProfileRecord;
 
 public class TabularGenerator {
 
@@ -16,6 +19,27 @@ public class TabularGenerator {
 		return generateTabular(vmeList, r);
 
 	}
+
+	public List<List<Object>> generateSpecificMeasure(List<Vme> vmeList) {
+		RecordGenerator<Vme, SpecificMeasure, Empty> r = new SpecificMeasureRecord();
+		return null;
+	};
+
+	public List<List<Object>> generateGeneralMeasure() {
+		return null;
+	};
+
+	public List<List<Object>> generateHistory() {
+		return null;
+	};
+
+	public List<List<Object>> generateInfoSource() {
+		return null;
+	};
+
+	public List<List<Object>> generateGeoRef() {
+		return null;
+	};
 
 	private <F, S, T> List<List<Object>> generateTabular(List<F> firstList, RecordGenerator<F, S, T> r) {
 		List<List<Object>> tabular = new ArrayList<List<Object>>();
@@ -57,25 +81,5 @@ public class TabularGenerator {
 			nextRecord.add(null);
 		}
 	}
-
-	public List<List<Object>> generateSpecificMeasure() {
-		return null;
-	};
-
-	public List<List<Object>> generateGeneralMeasure() {
-		return null;
-	};
-
-	public List<List<Object>> generateHistory() {
-		return null;
-	};
-
-	public List<List<Object>> generateInfoSource() {
-		return null;
-	};
-
-	public List<List<Object>> generateGeoRef() {
-		return null;
-	};
 
 }

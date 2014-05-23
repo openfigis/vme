@@ -19,9 +19,7 @@ import jxl.write.biff.RowsExceededException;
 
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Authority;
-import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +35,6 @@ public class XlsService {
 	@Inject
 	@ConceptProvider
 	private ReferenceDaoImpl refDao;
-
-	private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
 
 	private WritableWorkbookFactory f = new WritableWorkbookFactory();
 	private TabularGenerator g = new TabularGenerator();
@@ -87,38 +83,14 @@ public class XlsService {
 
 	public void fillWorkSheet(WritableSheet wSheet, List<Vme> vmeList) throws RowsExceededException, WriteException {
 
-		WritableCellFormat integerFormat = new WritableCellFormat(NumberFormats.INTEGER);
-
 		if (wSheet.getName().equals("VME_Profile")) {
 			List<List<Object>> tabular = g.generateVmeProfile(vmeList);
 			fillCells(tabular, wSheet);
 		}
 
 		if (wSheet.getName().equals("Specific_measure")) {
-
-			wSheet.addCell(new Label(0, 0, "Vme Name"));
-			wSheet.addCell(new Label(1, 0, "SpecificMeasure"));
-			wSheet.addCell(new Label(2, 0, "Year"));
-			wSheet.addCell(new Label(3, 0, "Begin year"));
-			wSheet.addCell(new Label(4, 0, "End year"));
-			wSheet.addCell(new Label(5, 0, "Information Source URL"));
-
-			int x = 1;
-			for (Vme v : vmeList) {
-				wSheet.addCell(new Label(0, x, UTIL.getEnglish(v.getName())));
-				if (!v.getSpecificMeasureList().isEmpty()) {
-					for (SpecificMeasure sm : v.getSpecificMeasureList()) {
-						wSheet.addCell(new Label(1, x, UTIL.getEnglish(sm.getVmeSpecificMeasure())));
-						wSheet.addCell(new Number(2, x, sm.getYear(), integerFormat));
-						wSheet.addCell(new Number(3, x, sm.getValidityPeriod().getBeginYear(), integerFormat));
-						wSheet.addCell(new Number(4, x, sm.getValidityPeriod().getEndYear(), integerFormat));
-						wSheet.addCell(new Label(5, x, sm.getInformationSource().getUrl().toString()));
-						x++;
-					}
-				} else {
-					x++;
-				}
-			}
+			List<List<Object>> tabular = g.generateSpecificMeasure(vmeList);
+			fillCells(tabular, wSheet);
 		}
 
 		if (wSheet.getName().equals("General_Measure")) {

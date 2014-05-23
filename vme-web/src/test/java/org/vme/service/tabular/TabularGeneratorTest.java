@@ -10,6 +10,7 @@ import java.util.List;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.junit.Test;
+import org.vme.service.tabular.record.VmeProfileRecord;
 
 public class TabularGeneratorTest {
 

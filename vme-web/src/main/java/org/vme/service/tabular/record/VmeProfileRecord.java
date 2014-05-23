@@ -1,16 +1,14 @@
-package org.vme.service.tabular;
+package org.vme.service.tabular.record;
 
 import java.lang.reflect.Method;
 import java.util.List;
 
-import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.vme.service.tabular.Empty;
+import org.vme.service.tabular.RecordGenerator;
 
-public class VmeProfileRecord implements RecordGenerator<Vme, Profile, Empty> {
-
-	private MultiLingualStringUtil u = new MultiLingualStringUtil();
+public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<Vme, Profile, Empty> {
 
 	@Override
 	public void doFirstLevel(Vme v, List<Object> nextRecord) {
@@ -39,13 +37,7 @@ public class VmeProfileRecord implements RecordGenerator<Vme, Profile, Empty> {
 
 	@Override
 	public Method getSecondLevelMethod() {
-		try {
-			return Vme.class.getMethod("getProfileList");
-		} catch (NoSuchMethodException e) {
-			throw new VmeException(e);
-		} catch (SecurityException e) {
-			throw new VmeException(e);
-		}
+		return getMethod("getProfileList");
 	}
 
 	@Override
