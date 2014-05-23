@@ -2,12 +2,11 @@ package org.vme.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import jxl.Workbook;
-import jxl.WorkbookSettings;
 import jxl.write.Label;
 import jxl.write.Number;
 import jxl.write.NumberFormats;
@@ -37,30 +36,19 @@ public class XlsService {
 	@ConceptProvider
 	private ReferenceDaoImpl refDao;
 
-	@Inject
-	MultiLingualStringUtil UTIL;
+	MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
+
+	private WritableWorkbookFactory f = new WritableWorkbookFactory();
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	public ByteArrayInputStream createXlsFile(String authorityAcronym) throws Exception {
-
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
 		/*
 		 * Note: this block create all the different worksheets needed by RFMO
 		 */
 
-		WorkbookSettings wSettings = new WorkbookSettings();
-		wSettings.setEncoding("utf8");
-		wSettings.setExcel9File(true);
-
-		WritableWorkbook ww = Workbook.createWorkbook(baos, wSettings);
-		ww.createSheet("VME_Profile", 0);
-		ww.createSheet("Specific_measure", 1);
-		ww.createSheet("General_Measure", 2);
-		ww.createSheet("History", 3);
-		ww.createSheet("Info_Sources", 4);
-		ww.createSheet("Geo_Reference", 5);
+		WritableWorkbook ww = f.create(baos);
 
 		/*
 		 * Note: this block handles wrong request from RFMO so they can access
@@ -77,25 +65,24 @@ public class XlsService {
 		}
 
 		/*
-		 * Note: this for block removes vmes from other RFMO by reconising them
+		 * Note: this for block removes vmes from other RFMO by recognising them
 		 * from RFMO`s id
 		 */
+		List<Vme> vmeList = vdao.loadVmes();
+		List<Vme> vmeListPerRfmo = new ArrayList<Vme>();
 
-		List<Vme> vme = vdao.loadVmes();
-
-		for (Vme v : vme) {
-			if (!v.getRfmo().getId().equals(authorityId)) {
-				vme.remove(v);
+		for (Vme v : vmeList) {
+			if (v.getRfmo().getId().equals(authorityId)) {
+				vmeListPerRfmo.add(v);
 			}
 		}
 
 		/*
-		 * Note: this for block adds information and datas to all worksheet of
+		 * Note: this for block adds information and data to all worksheets of
 		 * the returning file
 		 */
-
 		for (WritableSheet wSheet : ww.getSheets()) {
-			fillWorkSheet(wSheet, vme);
+			fillWorkSheet(wSheet, vmeListPerRfmo);
 		}
 
 		ww.write();
