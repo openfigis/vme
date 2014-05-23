@@ -94,8 +94,8 @@ public class XlsService {
 		}
 
 		if (wSheet.getName().equals("General_Measure")) {
-			wSheet.addCell(new Label(0, 0, "Vme Name"));
-
+			List<List<Object>> tabular = g.generateGeneralMeasure(vmeList.get(0).getRfmo());
+			fillCells(tabular, wSheet);
 		}
 
 		if (wSheet.getName().equals("History")) {

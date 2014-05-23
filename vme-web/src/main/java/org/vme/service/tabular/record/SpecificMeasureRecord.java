@@ -31,7 +31,7 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 
 	@Override
 	public Method getSecondLevelMethod() {
-		return getMethod("getSpecificMeasureList");
+		return getMethod(Vme.class, "getSpecificMeasureList");
 	}
 
 	@Override

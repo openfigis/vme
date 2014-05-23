@@ -6,9 +6,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.fao.fi.vme.VmeException;
+import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.Profile;
+import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.vme.service.tabular.record.GeneralMeasureRecord;
 import org.vme.service.tabular.record.SpecificMeasureRecord;
 import org.vme.service.tabular.record.VmeProfileRecord;
 
@@ -22,12 +25,15 @@ public class TabularGenerator {
 
 	public List<List<Object>> generateSpecificMeasure(List<Vme> vmeList) {
 		RecordGenerator<Vme, SpecificMeasure, Empty> r = new SpecificMeasureRecord();
-		return null;
+		return generateTabular(vmeList, r);
 	};
 
-	public List<List<Object>> generateGeneralMeasure() {
-		return null;
-	};
+	public List<List<Object>> generateGeneralMeasure(Rfmo rfmo) {
+		RecordGenerator<Rfmo, GeneralMeasure, Empty> r = new GeneralMeasureRecord();
+		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
+		rfmoList.add(rfmo);
+		return generateTabular(rfmoList, r);
+	}
 
 	public List<List<Object>> generateHistory() {
 		return null;

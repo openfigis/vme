@@ -37,7 +37,7 @@ public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<
 
 	@Override
 	public Method getSecondLevelMethod() {
-		return getMethod("getProfileList");
+		return getMethod(Vme.class, "getProfileList");
 	}
 
 	@Override
