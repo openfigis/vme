@@ -5,10 +5,9 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
-import org.vme.service.tabular.Empty;
 import org.vme.service.tabular.RecordGenerator;
 
-public class SpecificMeasureRecord extends AbstractRecord implements RecordGenerator<Vme, SpecificMeasure, Empty> {
+public class SpecificMeasureRecord extends AbstractRecord implements RecordGenerator<Vme, SpecificMeasure> {
 
 	@Override
 	public void doFirstLevel(Vme v, List<Object> nextRecord) {
@@ -22,11 +21,6 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 		nextRecord.add(sm.getValidityPeriod().getBeginYear());
 		nextRecord.add(sm.getValidityPeriod().getEndYear());
 		nextRecord.add(sm.getInformationSource().getUrl().toString());
-	}
-
-	@Override
-	public void doThirdLevel(Empty p, List<Object> nextRecord) {
-
 	}
 
 	@Override

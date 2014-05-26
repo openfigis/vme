@@ -5,10 +5,9 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Vme;
-import org.vme.service.tabular.Empty;
 import org.vme.service.tabular.RecordGenerator;
 
-public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<Vme, Profile, Empty> {
+public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<Vme, Profile> {
 
 	@Override
 	public void doFirstLevel(Vme v, List<Object> nextRecord) {
@@ -29,10 +28,6 @@ public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<
 		nextRecord.add(u.getEnglish(p.getDescriptionBiological()));
 		nextRecord.add(u.getEnglish(p.getDescriptionImpact()));
 
-	}
-
-	@Override
-	public void doThirdLevel(Empty p, List<Object> nextRecord) {
 	}
 
 	@Override

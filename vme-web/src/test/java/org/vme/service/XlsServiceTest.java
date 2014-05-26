@@ -53,7 +53,7 @@ public class XlsServiceTest {
 			xlsService.fillWorkSheet(wSheet, vmeList);
 		}
 
-		assertEquals(3, ww.getNumberOfSheets());
+		assertEquals(7, ww.getNumberOfSheets());
 
 		for (WritableSheet wSheet : ww.getSheets()) {
 			assertTrue(wSheet.getRows() > 1);

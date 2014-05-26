@@ -5,10 +5,9 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.Rfmo;
-import org.vme.service.tabular.Empty;
 import org.vme.service.tabular.RecordGenerator;
 
-public class GeneralMeasureRecord extends AbstractRecord implements RecordGenerator<Rfmo, GeneralMeasure, Empty> {
+public class GeneralMeasureRecord extends AbstractRecord implements RecordGenerator<Rfmo, GeneralMeasure> {
 
 	@Override
 	public void doFirstLevel(Rfmo p, List<Object> nextRecord) {
@@ -27,11 +26,6 @@ public class GeneralMeasureRecord extends AbstractRecord implements RecordGenera
 	}
 
 	@Override
-	public void doThirdLevel(Empty p, List<Object> nextRecord) {
-
-	}
-
-	@Override
 	public Method getSecondLevelMethod() {
 		return getMethod(Rfmo.class, "getGeneralMeasureList");
 	}
@@ -44,6 +38,6 @@ public class GeneralMeasureRecord extends AbstractRecord implements RecordGenera
 	@Override
 	public String[] getHeaders() {
 		return new String[] { "Year", "getFishingArea", "getExplorataryFishingProtocol", "getVmeEncounterProtocol",
-				"getVmeIndicatorSpecies", "getVmeThreshold", "Begin Year" , "End Year" };
+				"getVmeIndicatorSpecies", "getVmeThreshold", "Begin Year", "End Year" };
 	}
 }
