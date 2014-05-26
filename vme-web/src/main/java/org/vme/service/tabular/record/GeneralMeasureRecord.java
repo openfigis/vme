@@ -22,6 +22,8 @@ public class GeneralMeasureRecord extends AbstractRecord implements RecordGenera
 		nextRecord.add(u.getEnglish(p.getVmeEncounterProtocol()));
 		nextRecord.add(u.getEnglish(p.getVmeIndicatorSpecies()));
 		nextRecord.add(u.getEnglish(p.getVmeThreshold()));
+		nextRecord.add(p.getValidityPeriod().getBeginYear());
+		nextRecord.add(p.getValidityPeriod().getEndYear());
 	}
 
 	@Override
@@ -42,6 +44,6 @@ public class GeneralMeasureRecord extends AbstractRecord implements RecordGenera
 	@Override
 	public String[] getHeaders() {
 		return new String[] { "Year", "getFishingArea", "getExplorataryFishingProtocol", "getVmeEncounterProtocol",
-				"getVmeIndicatorSpecies", "getVmeThreshold" };
+				"getVmeIndicatorSpecies", "getVmeThreshold", "Begin Year" , "End Year" };
 	}
 }

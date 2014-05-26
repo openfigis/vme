@@ -25,9 +25,10 @@ public class WritableWorkbookFactory {
 		ww.createSheet("VME_Profile", 0);
 		ww.createSheet("Specific_measure", 1);
 		ww.createSheet("General_Measure", 2);
-		// ww.createSheet("History", 3);
-		// ww.createSheet("Info_Sources", 4);
-		// ww.createSheet("Geo_Reference", 5);
+		ww.createSheet("Fishery_Areas_History", 3);
+		ww.createSheet("VMEs_History", 4);
+//		ww.createSheet("Info_Sources", 5);
+		ww.createSheet("Geo_Reference", 6);
 		return ww;
 	}
 

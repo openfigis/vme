@@ -43,6 +43,7 @@ public class XlsService {
 
 	public ByteArrayInputStream createXlsFile(String authorityAcronym) throws Exception {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
 		/*
 		 * Note: this block create all the different worksheets needed by RFMO
 		 */
@@ -53,7 +54,7 @@ public class XlsService {
 		 * Note: this block handles wrong request from RFMO so they can access
 		 * their file by querying by Id or the Acronym
 		 */
-
+		
 		/*
 		 * Note: this for block removes vmes from other RFMO by recognising them
 		 * from RFMO`s id
@@ -98,8 +99,14 @@ public class XlsService {
 			fillCells(tabular, wSheet);
 		}
 
-		if (wSheet.getName().equals("History")) {
-
+		if (wSheet.getName().equals("Fishery_Areas_History")) {
+			List<List<Object>> tabular = g.generateFisheryHistory(vmeList.get(0).getRfmo());
+			fillCells(tabular, wSheet);
+		}
+		
+		if (wSheet.getName().equals("VMEs_History")) {
+			List<List<Object>> tabular = g.generateVMEHistory(vmeList.get(0).getRfmo());
+			fillCells(tabular, wSheet);
 		}
 
 		if (wSheet.getName().equals("Info_Sources")) {
