@@ -1,6 +1,7 @@
 package org.fao.fi.vme.domain.test;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class GeneralMeasureMock {
@@ -16,6 +17,10 @@ public class GeneralMeasureMock {
 		gm.setVmeIndicatorSpecies(u.english(longString));
 		gm.setVmeThreshold(u.english(longString));
 		gm.setYear(4567);
+		ValidityPeriod vp = new ValidityPeriod();
+		vp.setBeginYear(1999);
+		vp.setEndYear(2001);
+		gm.setValidityPeriod(vp);
 
 		return gm;
 	}

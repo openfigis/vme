@@ -110,11 +110,13 @@ public class XlsService {
 		}
 
 		if (wSheet.getName().equals("Info_Sources")) {
-
+			List<List<Object>> tabular = g.generateInfoSource(vmeList.get(0).getRfmo());
+			fillCells(tabular, wSheet);
 		}
 
 		if (wSheet.getName().equals("Geo_Reference")) {
-
+			List<List<Object>> tabular = g.generateGeoRef(vmeList);
+			fillCells(tabular, wSheet);
 		}
 
 	}

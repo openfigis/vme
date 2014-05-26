@@ -15,6 +15,7 @@ import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.fao.fi.vme.domain.test.RfmoMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.Lang;
 import org.junit.Test;
@@ -64,24 +65,26 @@ public class TabularGeneratorTest {
 		}
 	}
 
-	// @Test
+	@Test
 	public void testGenerateGeneralMeasure() {
-		fail("Not yet implemented");
+		Rfmo rfmo = RfmoMock.create();
+		
+		List<List<Object>> tabular = g.generateGeneralMeasure(rfmo);
+		for (List<Object> list : tabular) {
+			for (Object object : list) {
+				System.out.print(object);
+				System.out.print('\t');
+				assertNotNull(object);
+			}
+			System.out.println();
+
+		}
 	}
 
 	@Test
 	public void testGenerateFisheryAreaHistory() {
-		Rfmo rfmo = new Rfmo();
-		List<FisheryAreasHistory> hasFisheryAreasHistory = new ArrayList<FisheryAreasHistory>();
-		FisheryAreasHistory fahistory = new FisheryAreasHistory();
-		MultiLingualString mshistory = new MultiLingualString();
-		Map<Integer, String> stringMap = new HashMap<Integer, String>();
-		stringMap.put(Lang.EN, "Fishery Area history value");
-		mshistory.setStringMap(stringMap);
-		fahistory.setHistory(mshistory);
-		fahistory.setYear(1999);
-		hasFisheryAreasHistory.add(fahistory);
-		rfmo.setHasFisheryAreasHistory(hasFisheryAreasHistory);
+		Rfmo rfmo = RfmoMock.create();
+		
 		List<List<Object>> tabular = g.generateFisheryHistory(rfmo);
 		for (List<Object> list : tabular) {
 			for (Object object : list) {
@@ -96,17 +99,8 @@ public class TabularGeneratorTest {
 	
 	@Test
 	public void testGenerateVmeHistory() {
-		Rfmo rfmo = new Rfmo();
-		List<VMEsHistory> hasVmesHistory = new ArrayList<VMEsHistory>();
-		VMEsHistory vhistory = new VMEsHistory();
-		MultiLingualString mshistory = new MultiLingualString();
-		Map<Integer, String> stringMap = new HashMap<Integer, String>();
-		stringMap.put(Lang.EN, "VMEs history value");
-		mshistory.setStringMap(stringMap);
-		vhistory.setHistory(mshistory);
-		vhistory.setYear(1999);
-		hasVmesHistory.add(vhistory);
-		rfmo.setHasVmesHistory(hasVmesHistory);
+		Rfmo rfmo = RfmoMock.create();
+		
 		List<List<Object>> tabular = g.generateVMEHistory(rfmo);
 		for (List<Object> list : tabular) {
 			for (Object object : list) {
@@ -119,9 +113,20 @@ public class TabularGeneratorTest {
 		}
 	}
 
-	// @Test
+	@Test
 	public void testGenerateInfoSource() {
-		fail("Not yet implemented");
+		Rfmo rfmo = RfmoMock.create();
+		
+		List<List<Object>> tabular = g.generateInfoSource(rfmo);
+		for (List<Object> list : tabular) {
+			for (Object object : list) {
+				System.out.print(object);
+				System.out.print('\t');
+				assertNotNull(object);
+			}
+			System.out.println();
+
+		}
 	}
 
 	@Test

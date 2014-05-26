@@ -8,6 +8,7 @@ import java.util.List;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
+import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
@@ -17,6 +18,7 @@ import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.vme.service.tabular.record.FisheryAreasHistoryRecord;
 import org.vme.service.tabular.record.GeneralMeasureRecord;
 import org.vme.service.tabular.record.GeoReferenceRecord;
+import org.vme.service.tabular.record.InformationSourceBisRecord;
 import org.vme.service.tabular.record.SpecificMeasureRecord;
 import org.vme.service.tabular.record.VmesHistoryRecord;
 import org.vme.service.tabular.record.VmeProfileRecord;
@@ -55,8 +57,11 @@ public class TabularGenerator {
 		return generateTabular(rfmoList, r);
 	};
 
-	public List<List<Object>> generateInfoSource() {
-		return null;
+	public List<List<Object>> generateInfoSource(Rfmo rfmo) {
+		RecordGenerator<Rfmo, InformationSource, Empty> r = new InformationSourceBisRecord();
+		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
+		rfmoList.add(rfmo);
+		return generateTabular(rfmoList, r);
 	};
 
 	public List<List<Object>> generateGeoRef(List<Vme> vmeList) {

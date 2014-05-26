@@ -27,7 +27,7 @@ public class WritableWorkbookFactory {
 		ww.createSheet("General_Measure", 2);
 		ww.createSheet("Fishery_Areas_History", 3);
 		ww.createSheet("VMEs_History", 4);
-//		ww.createSheet("Info_Sources", 5);
+		ww.createSheet("Info_Sources", 5);
 		ww.createSheet("Geo_Reference", 6);
 		return ww;
 	}
