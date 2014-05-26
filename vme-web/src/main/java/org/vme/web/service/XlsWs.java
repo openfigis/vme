@@ -24,9 +24,12 @@ import org.vme.service.XlsService;
  * 
  */
 
-@Path("/rfmoXls")
+@Path("/rfmo")
 @Singleton
 public class XlsWs {
+
+	private static final String ERROR_MESSAGE = "XML generation failed";
+
 	private Logger _log = LoggerFactory.getLogger(this.getClass());
 
 	@Inject
@@ -58,16 +61,14 @@ public class XlsWs {
 					}
 				}
 			};
-		} catch (Throwable t) {
-			t.printStackTrace();
-		}
-
-		try {
 			return Response.ok(stream).header("content-disposition", "attachment; filename = " + id_authority + "_VME")
 					.build();
-		} catch (Throwable t) {
+		} catch (RuntimeException t) {
 			this._log.error("Unexpected error caught: {}", t.getMessage(), t);
-			return Response.status(500).entity(t.getMessage()).build();
+			return Response.status(500).entity(ERROR_MESSAGE).build();
+		} catch (Exception t) {
+			this._log.error("Unexpected error caught: {}", t.getMessage(), t);
+			return Response.status(500).entity(ERROR_MESSAGE).build();
 		}
 
 	}
