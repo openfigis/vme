@@ -1,5 +1,6 @@
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,12 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
  */
 @Entity
 @RSGReferenceReport(name = "Authority")
-public class Rfmo implements ReferenceReport {
+public class Rfmo implements ReferenceReport, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2965413570014009146L;
+
 	/**
 	 * The id comes from RMTS
 	 */
@@ -61,11 +67,11 @@ public class Rfmo implements ReferenceReport {
 	 * necessarily be a robust solution.
 	 */
 	// @RSGName("Fishery Areas History")
-	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<FisheryAreasHistory> hasFisheryAreasHistory;
 
 	// @RSGName("VMEs History")
-	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<VMEsHistory> hasVmesHistory;
 
 	public String getId() {

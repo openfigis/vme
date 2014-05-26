@@ -3,6 +3,8 @@
  */
 package org.fao.fi.vme.domain.model.extended;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,20 +32,24 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
 
 /**
  * Place your class / interface description here.
- *
+ * 
  * History:
- *
- * ------------- --------------- -----------------------
- * Date			 Author			 Comment
- * ------------- --------------- -----------------------
- * 15 Jan 2014   Fiorellato     Creation.
- *
+ * 
+ * ------------- --------------- ----------------------- Date Author Comment
+ * ------------- --------------- ----------------------- 15 Jan 2014 Fiorellato
+ * Creation.
+ * 
  * @version 1.0
  * @since 13 Nov 2013
  */
 @RSGReferenceReport(name = "Fishing Footprint")
 @Entity(name = "FISHERY_AREAS_HISTORY")
-public class FisheryAreasHistory implements ObjectId<Long>, History, Year<History>, ReferenceReport {
+public class FisheryAreasHistory implements ObjectId<Long>, History, Year<History>, ReferenceReport, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1222341068833710991L;
+
 	/** 
 	 * 
 	 */

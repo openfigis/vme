@@ -1,5 +1,6 @@
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,7 +34,12 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
  */
 @RSGReferenceReport(name = "General Measure")
 @Entity(name = "GENERAL_MEASURE")
-public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, ReferenceReport {
+public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, ReferenceReport, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6703934250783141637L;
 
 	/** 
 	 * 
@@ -78,7 +84,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	 */
 	@RSGName("Information Sources")
 	@RSGWeight(0)
-	@ManyToMany(cascade=CascadeType.MERGE)
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "GM_IS", joinColumns = { @JoinColumn(name = "GM_ID") },//
 	inverseJoinColumns = { @JoinColumn(name = "IS_ID") })
 	private List<InformationSource> informationSourceList;

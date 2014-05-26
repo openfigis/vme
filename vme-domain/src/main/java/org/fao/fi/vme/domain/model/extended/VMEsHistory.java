@@ -3,6 +3,8 @@
  */
 package org.fao.fi.vme.domain.model.extended;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,20 +32,24 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
 
 /**
  * Place your class / interface description here.
- *
+ * 
  * History:
- *
- * ------------- --------------- -----------------------
- * Date			 Author			 Comment
- * ------------- --------------- -----------------------
- * 15 Jan 2014   Fiorellato     Creation.
- *
+ * 
+ * ------------- --------------- ----------------------- Date Author Comment
+ * ------------- --------------- ----------------------- 15 Jan 2014 Fiorellato
+ * Creation.
+ * 
  * @version 1.0
  * @since 13 Nov 2013
  */
 @RSGReferenceReport(name = "Regional History of VMEs")
 @Entity(name = "VMES_HISTORY")
-public class VMEsHistory implements ObjectId<Long>, History, Year<History>, ReferenceReport {
+public class VMEsHistory implements ObjectId<Long>, History, Year<History>, ReferenceReport, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -83401529380589245L;
 
 	/** 
 	 * 
@@ -99,7 +105,8 @@ public class VMEsHistory implements ObjectId<Long>, History, Year<History>, Refe
 	}
 
 	/**
-	 * @param rfmo the 'rfmo' value to set
+	 * @param rfmo
+	 *            the 'rfmo' value to set
 	 */
 	public void setRfmo(Rfmo rfmo) {
 		this.rfmo = rfmo;

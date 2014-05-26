@@ -1,5 +1,7 @@
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
@@ -29,14 +31,20 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.Integer
  * ValidityPeriods for GeneralMeasureSet = {2000-2007, 2008-2009, 2010-9999}
  * 
  * 
- * See also http://km.fao.org/FIGISwiki/index.php/VME_UML#Rules_for_the_validity_period
+ * See also
+ * http://km.fao.org/FIGISwiki/index.php/VME_UML#Rules_for_the_validity_period
  * 
  * 
  * @author Erik van Ingen
  * 
  */
 @Embeddable
-public class ValidityPeriod implements Comparable<ValidityPeriod> {
+public class ValidityPeriod implements Comparable<ValidityPeriod>, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4888316652934717923L;
 
 	/** 
 	  
@@ -83,7 +91,9 @@ public class ValidityPeriod implements Comparable<ValidityPeriod> {
 		return compare;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -95,7 +105,9 @@ public class ValidityPeriod implements Comparable<ValidityPeriod> {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

@@ -1,5 +1,6 @@
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -46,7 +47,12 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
  */
 @RSGReferenceReport(name = "VME Information Source")
 @Entity(name = "INFORMATION_SOURCE")
-public class InformationSource implements ObjectId<Long>, ReferenceReport {
+public class InformationSource implements ObjectId<Long>, ReferenceReport, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1951414470540758166L;
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
@@ -152,7 +158,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString citation;
-	
+
 	@Override
 	public Long getId() {
 		return id;
@@ -235,7 +241,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 	public void setCitation(MultiLingualString citation) {
 		this.citation = citation;
 	}
-	
+
 	/**
 	 * @return the 'sourceType' value
 	 */
@@ -244,7 +250,8 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 	}
 
 	/**
-	 * @param sourceType the 'sourceType' value to set
+	 * @param sourceType
+	 *            the 'sourceType' value to set
 	 */
 	public void setSourceType(InformationSourceType sourceType) {
 		this.sourceType = sourceType;
@@ -265,21 +272,21 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		
+
 		if (this == obj) {
 			return true;
 		}
-		
+
 		if (obj == null) {
 			return false;
 		}
-		
+
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		
+
 		InformationSource other = (InformationSource) obj;
-		
+
 		if (this.citation == null) {
 			if (other.citation != null) {
 				return false;
@@ -287,7 +294,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport {
 		} else if (!this.citation.equals(other.citation)) {
 			return false;
 		}
-		
+
 		if (this.sourceType == null) {
 			if (other.sourceType != null) {
 				return false;

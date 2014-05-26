@@ -1,5 +1,6 @@
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -35,7 +36,12 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.Report;
  */
 @Entity
 @RSGReport(name = "Vulnerable Marine Ecosystem")
-public class Vme implements ObjectId<Long>, Report {
+public class Vme implements ObjectId<Long>, Report, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8030400189803452093L;
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
@@ -113,7 +119,7 @@ public class Vme implements ObjectId<Long>, Report {
 	@RSGConverter(StringDataConverter.class)
 	@RSGWeight(2)
 	private String criteria;
-	
+
 	@RSGName("Inventory identifier")
 	@RSGConverter(StringDataConverter.class)
 	@RSGMandatory
@@ -176,7 +182,6 @@ public class Vme implements ObjectId<Long>, Report {
 	public void setValidityPeriod(ValidityPeriod validityPeriod) {
 		this.validityPeriod = validityPeriod;
 	}
-
 
 	public String getAreaType() {
 		return areaType;

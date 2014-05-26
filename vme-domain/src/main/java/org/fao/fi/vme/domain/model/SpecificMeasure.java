@@ -1,5 +1,7 @@
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +27,12 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  */
 @RSGReferenced
 @Entity(name = "SPECIFIC_MEASURE")
-public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure> {
+public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6481813663182378122L;
 
 	/**
 	 *  

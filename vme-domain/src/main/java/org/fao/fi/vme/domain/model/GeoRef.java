@@ -1,5 +1,7 @@
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +24,12 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  */
 @RSGReferenced
 @Entity
-public class GeoRef implements ObjectId<Long>, Year<GeoRef> {
+public class GeoRef implements ObjectId<Long>, Year<GeoRef>, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4039968921753947480L;
 
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)

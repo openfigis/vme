@@ -3,6 +3,8 @@
  */
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -19,7 +21,12 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Na
 @Entity
 @Table(name = "VME_TYPE")
 @ReferenceConceptName("type")
-public class VmeType implements NamedReferenceConcept {
+public class VmeType implements NamedReferenceConcept, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3182738315405156758L;
+
 	/**
 	 * Identifier of the domain entity.
 	 */
@@ -32,8 +39,9 @@ public class VmeType implements NamedReferenceConcept {
 	 */
 	private String name;
 
-	public VmeType() {} 
-	
+	public VmeType() {
+	}
+
 	public VmeType(Long id, String name) {
 		super();
 		this.id = id;
@@ -48,7 +56,8 @@ public class VmeType implements NamedReferenceConcept {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -62,13 +71,16 @@ public class VmeType implements NamedReferenceConcept {
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -80,7 +92,9 @@ public class VmeType implements NamedReferenceConcept {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

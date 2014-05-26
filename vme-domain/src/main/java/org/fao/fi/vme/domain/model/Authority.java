@@ -1,5 +1,7 @@
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -14,7 +16,12 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Na
  */
 @Entity
 @ReferenceConceptName("authority")
-public class Authority implements NamedReferenceConcept, AcronymAwareReferenceConcept {
+public class Authority implements NamedReferenceConcept, AcronymAwareReferenceConcept, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2840731664895873896L;
+
 	/**
 	 * Identifier of the domain entity.
 	 */

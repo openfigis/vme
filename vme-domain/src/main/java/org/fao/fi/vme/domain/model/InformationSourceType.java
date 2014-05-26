@@ -3,6 +3,8 @@
  */
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,24 +18,28 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Se
 
 /**
  * Place your class / interface description here.
- *
+ * 
  * History:
- *
- * ------------- --------------- -----------------------
- * Date			 Author			 Comment
- * ------------- --------------- -----------------------
- * 26 Feb 2014   Fiorellato     Creation.
- *
+ * 
+ * ------------- --------------- ----------------------- Date Author Comment
+ * ------------- --------------- ----------------------- 26 Feb 2014 Fiorellato
+ * Creation.
+ * 
  * @version 1.0
  * @since 26 Feb 2014
  */
 @Entity
 @Table(name = "INFORMATION_SOURCE_TYPE")
 @ReferenceConceptName("InformationSourceType")
-public class InformationSourceType implements NamedReferenceConcept, SerializableReferenceConcept<InformationSourceType> {
+public class InformationSourceType implements NamedReferenceConcept,
+		SerializableReferenceConcept<InformationSourceType>, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3051286652484467150L;
 	final static public Character IS_A_MEETING_DOCUMENT = 'Y';
-	final static public Character IS_NOT_A_MEETING_DOCUMENT =  'N';
-	
+	final static public Character IS_NOT_A_MEETING_DOCUMENT = 'N';
+
 	/**
 	 * Identifier of the domain entity.
 	 */
@@ -45,19 +51,20 @@ public class InformationSourceType implements NamedReferenceConcept, Serializabl
 	 * Name of the vme type
 	 */
 	private String name;
-	
-	@Column(name="MEETING_DOCUMENT", nullable=false)
+
+	@Column(name = "MEETING_DOCUMENT", nullable = false)
 	private char _meetingDocument;
 
-	public InformationSourceType() {} 
-	
+	public InformationSourceType() {
+	}
+
 	public InformationSourceType(Long id, String name, Character meetingDocument) {
 		super();
 		this.id = id;
 		this.name = name;
 		this._meetingDocument = meetingDocument == null ? IS_NOT_A_MEETING_DOCUMENT : meetingDocument;
 	}
-	
+
 	public InformationSourceType(Long id, String name, boolean meetingDocument) {
 		this(id, name, meetingDocument ? IS_A_MEETING_DOCUMENT : IS_NOT_A_MEETING_DOCUMENT);
 	}
@@ -70,7 +77,8 @@ public class InformationSourceType implements NamedReferenceConcept, Serializabl
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -84,7 +92,8 @@ public class InformationSourceType implements NamedReferenceConcept, Serializabl
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -98,37 +107,47 @@ public class InformationSourceType implements NamedReferenceConcept, Serializabl
 	}
 
 	/**
-	 * @param meetingDocument the 'meetingDocument' value to set
+	 * @param meetingDocument
+	 *            the 'meetingDocument' value to set
 	 */
 	public void setMeetingDocument(Character meetingDocument) {
 		this._meetingDocument = meetingDocument == null ? IS_NOT_A_MEETING_DOCUMENT : meetingDocument;
 	}
-	
-	public boolean isAMeetingDocument() { 
+
+	public boolean isAMeetingDocument() {
 		return IS_A_MEETING_DOCUMENT.equals(this._meetingDocument);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.SerializableReferenceConcept#getSerializedForm()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.gcube.application.rsg.support.compiler.bridge.interfaces.reference
+	 * .SerializableReferenceConcept#getSerializedForm()
 	 */
 	@Override
 	public String getSerializedForm() {
 		return SerializableConceptUtils.toString(this.id, this.name, this._meetingDocument);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.SerializableReferenceConcept#fromSerializedForm(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.gcube.application.rsg.support.compiler.bridge.interfaces.reference
+	 * .SerializableReferenceConcept#fromSerializedForm(java.lang.String)
 	 */
 	@Override
 	public InformationSourceType fromSerializedForm(String serialized) {
 		String[] parts = SerializableConceptUtils.parts(serialized);
-		
-		return new InformationSourceType(parts[0] == null ? null : Long.parseLong(parts[0]),
-										 parts[1],
-										 parts[2].charAt(0));
+
+		return new InformationSourceType(parts[0] == null ? null : Long.parseLong(parts[0]), parts[1],
+				parts[2].charAt(0));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -141,7 +160,9 @@ public class InformationSourceType implements NamedReferenceConcept, Serializabl
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

@@ -3,6 +3,8 @@
  */
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,27 +15,30 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Na
 
 /**
  * @author Fabrizio Sibeni
- *
+ * 
  */
 
 @Entity
-@Table(name="VME_CRITERIA")
+@Table(name = "VME_CRITERIA")
 @ReferenceConceptName("criteria")
-public class VmeCriteria implements NamedReferenceConcept {
+public class VmeCriteria implements NamedReferenceConcept, Serializable {
 	/**
-	 *  Identifier of the domain entity.  
+	 * 
+	 */
+	private static final long serialVersionUID = -2762787230973510513L;
+
+	/**
+	 * Identifier of the domain entity.
 	 */
 	@RSGIdentifier
 	@Id
 	private Long id;
-	
-	/** 
+
+	/**
 	 * Name of the vme criteria
 	 */
 	private String name;
 
-
-	
 	/**
 	 * 
 	 */
@@ -41,15 +46,11 @@ public class VmeCriteria implements NamedReferenceConcept {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
 	public VmeCriteria(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
-
-
 
 	/**
 	 * @return the id
@@ -59,7 +60,8 @@ public class VmeCriteria implements NamedReferenceConcept {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -73,15 +75,16 @@ public class VmeCriteria implements NamedReferenceConcept {
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -93,9 +96,9 @@ public class VmeCriteria implements NamedReferenceConcept {
 		return result;
 	}
 
-
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

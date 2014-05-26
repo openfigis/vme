@@ -1,5 +1,6 @@
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import javax.persistence.ElementCollection;
@@ -24,7 +25,12 @@ import javax.persistence.Lob;
  * 
  */
 @Entity(name = "MULTILINGUAL_STRING")
-public class MultiLingualString implements ObjectId<Long> {
+public class MultiLingualString implements ObjectId<Long>, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3541784570734810462L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
