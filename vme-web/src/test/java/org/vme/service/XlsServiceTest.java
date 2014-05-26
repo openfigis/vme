@@ -61,6 +61,26 @@ public class XlsServiceTest {
 
 	}
 
+	@Test
+	public void testFillWorkSheetInCaseOfEmptyDB() throws RowsExceededException, WriteException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+		List<Vme> vmeList = new ArrayList<Vme>();
+
+		WritableWorkbook ww = f.create(baos);
+
+		for (WritableSheet wSheet : ww.getSheets()) {
+			xlsService.fillWorkSheet(wSheet, vmeList);
+		}
+
+		assertEquals(7, ww.getNumberOfSheets());
+
+		for (WritableSheet wSheet : ww.getSheets()) {
+			assertTrue(wSheet.getRows() > 1);
+		}
+
+	}
+
 	// @Test
 	public void testGetAuthorityIdByAcronym() {
 		// fail("Not yet implemented");
