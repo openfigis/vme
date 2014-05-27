@@ -73,6 +73,18 @@ public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, S
 	@RSGConverter(IntegerDataConverter.class)
 	private Integer year;
 
+	/**
+	 * Review year. Year in which this measure will be reviewed/is reviewed.
+	 * 
+	 * This attribute has been added to the Vme model as a result of the Vme
+	 * workshop Rome 2014
+	 * 
+	 */
+	@RSGName("Review Year")
+	@RSGWeight(1)
+	@RSGConverter(IntegerDataConverter.class)
+	private Integer reviewYear;
+
 	/** 
 	 */
 	@RSGName("VME Specific Measure Summary")
@@ -131,13 +143,17 @@ public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, S
 
 	public void setVmeSpecificMeasure(MultiLingualString vmeSpecificMeasure) {
 		this.vmeSpecificMeasure = vmeSpecificMeasure;
+
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
+	public Integer getReviewYear() {
+		return reviewYear;
+	}
+
+	public void setReviewYear(Integer reviewYear) {
+		this.reviewYear = reviewYear;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

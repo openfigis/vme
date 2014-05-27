@@ -78,6 +78,12 @@ public class Vme implements ObjectId<Long>, Report, Serializable {
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<GeoRef> geoRefList;
 
+	@RSGName("Vme Criteria")
+	@RSGWeight(6)
+	@RSGSection
+	@OneToMany(cascade = { CascadeType.ALL })
+	private List<Criteria> criteriaList;
+
 	/**
 	 * This validity period on the level of the reference object and applies to
 	 * the VME itself. It has noting to do with the reporting year.
