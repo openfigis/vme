@@ -19,6 +19,7 @@
 		<class>org.fao.fi.vme.domain.model.SpecificMeasure</class>
 		<class>org.fao.fi.vme.domain.model.Vme</class>
 		<class>org.fao.fi.vme.domain.model.VmeType</class>
+		<class>org.fao.fi.vme.domain.model.Criteria</class>
 		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
 
 		<properties>
@@ -76,6 +77,7 @@
 		<class>org.fao.fi.vme.domain.model.SpecificMeasure</class>
 		<class>org.fao.fi.vme.domain.model.Vme</class>
 		<class>org.fao.fi.vme.domain.model.VmeType</class>
+		<class>org.fao.fi.vme.domain.model.Criteria</class>
 		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
 
 		<properties>
