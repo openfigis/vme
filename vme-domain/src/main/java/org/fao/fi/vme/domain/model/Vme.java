@@ -81,7 +81,7 @@ public class Vme implements ObjectId<Long>, Report, Serializable {
 	@RSGName("Vme Criteria")
 	@RSGWeight(6)
 	@RSGSection
-	@OneToMany(cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
 	private List<Criteria> criteriaList;
 
 	/**
@@ -228,44 +228,14 @@ public class Vme implements ObjectId<Long>, Report, Serializable {
 		this.specificMeasureList = YearComparator.sort(specificMeasureList);
 	}
 
-	// /* (non-Javadoc)
-	// * @see java.lang.Object#hashCode()
-	// */
-	// @Override
-	// public int hashCode() {
-	// final int prime = 31;
-	// int result = 1;
-	// result = prime * result + ((this.areaType == null) ? 0 :
-	// this.areaType.hashCode());
-	// result = prime * result + ((this.criteria == null) ? 0 :
-	// this.criteria.hashCode());
-	// result = prime * result + ((this.geoRefList == null) ? 0 :
-	// this.geoRefList.hashCode());
-	// result = prime * result + ((this.geoarea == null) ? 0 :
-	// this.geoarea.hashCode());
-	// result = prime * result + ((this.geoform == null) ? 0 :
-	// this.geoform.hashCode());
-	// result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-	// result = prime * result + ((this.inventoryIdentifier == null) ? 0 :
-	// this.inventoryIdentifier.hashCode());
-	// result = prime * result + ((this.name == null) ? 0 :
-	// this.name.hashCode());
-	// result = prime * result + ((this.profileList == null) ? 0 :
-	// this.profileList.hashCode());
-	// result = prime * result + ((this.rfmo == null) ? 0 :
-	// this.rfmo.hashCode());
-	// result = prime * result + ((this.specificMeasureList == null) ? 0 :
-	// this.specificMeasureList.hashCode());
-	// result = prime * result + ((this.validityPeriod == null) ? 0 :
-	// this.validityPeriod.hashCode());
-	// return result;
-	// }
+	public List<Criteria> getCriteriaList() {
+		return criteriaList;
+	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+	public void setCriteriaList(List<Criteria> criteriaList) {
+		this.criteriaList = criteriaList;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

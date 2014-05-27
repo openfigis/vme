@@ -2,10 +2,9 @@ package org.fao.fi.vme.domain.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
@@ -39,7 +38,7 @@ public class Criteria implements ObjectId<Long>, Serializable {
 	/**
 	 * 
 	 */
-	@OneToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	private Vme vme;
 
 	public Vme getVme() {
