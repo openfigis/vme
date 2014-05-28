@@ -31,7 +31,7 @@ public class FactSheetRecord extends AbstractRecord implements RecordGenerator<V
 
 	@Override
 	public Method getSecondLevelMethod() {
-		return getMethod(FigisDao.class, "findVmeObservationByVme");
+		return getMethod(VmeContainer.class, "findVmeObservationByVme");
 	}
 
 	@Override
