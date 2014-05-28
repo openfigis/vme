@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
@@ -15,6 +16,7 @@ import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.vme.service.tabular.record.FactSheetRecord;
 import org.vme.service.tabular.record.FisheryAreasHistoryRecord;
 import org.vme.service.tabular.record.GeneralMeasureRecord;
 import org.vme.service.tabular.record.GeoReferenceRecord;
@@ -69,11 +71,10 @@ public class TabularGenerator {
 		return generateTabular(vmeList, r);
 	};
 
-	//	public List<List<Object>> generateFactSheet(List<Vme> vmeList) {
-	//		// TODO Auto-generated method stub
-	//		RecordGenerator<Vme, FactSheet> r = new
-	//		return null;
-	//	}
+		public List<List<Object>> generateFactSheet(List<Vme> vmeList) {
+			RecordGenerator<Vme, VmeObservation, Empty> r = new FactSheetRecord();
+			return generateTabular(vmeList, r);
+		}
 
 	private <F, S, T> List<List<Object>> generateTabular(List<F> firstList, RecordGenerator<F, S, T> r) {
 		List<List<Object>> tabular = new ArrayList<List<Object>>();

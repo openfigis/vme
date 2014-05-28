@@ -29,7 +29,7 @@ public class WritableWorkbookFactory {
 		ww.createSheet("VMEs History", 4);
 		ww.createSheet("Meeting reports", 5);
 		ww.createSheet("Geo Reference", 6);
-//		ww.createSheet("Fact Sheets", 7);
+		ww.createSheet("Fact Sheets", 7);
 		return ww;
 	}
 

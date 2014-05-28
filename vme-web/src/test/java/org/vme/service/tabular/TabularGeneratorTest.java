@@ -146,5 +146,10 @@ public class TabularGeneratorTest {
 		}
 		
 	}
+	
+	@Test
+	public void testGenerateFactSheet() {
+		
+	}
 
 }

@@ -129,10 +129,10 @@ public class XlsService {
 			fillCells(tabular, wSheet);
 		}
 		
-//		if (wSheet.getName().equals("Fact Sheets")) {
-//			List<List<Object>> tabular = g.generateFactSheet(vmeList);
-//			fillCells(tabular, wSheet);
-//		}
+		if (wSheet.getName().equals("Fact Sheets")) {
+			List<List<Object>> tabular = g.generateFactSheet(vmeList);
+			fillCells(tabular, wSheet);
+		}
 
 	}
 
