@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
-import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
@@ -22,8 +21,8 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
@@ -35,10 +34,6 @@ public class VmeDaoTest {
 
 	@Test
 	public void testVmeProfile() {
-		@SuppressWarnings("unused")
-		Vme vme = new Vme();
-		@SuppressWarnings("unused")
-		Profile profile = new Profile();
 	}
 
 	@Test
