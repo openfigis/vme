@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class GeoRefTest extends GeoRef {
+public class GeoRefTest {
 
 	@Test
 	public void testEqualsObject() {
