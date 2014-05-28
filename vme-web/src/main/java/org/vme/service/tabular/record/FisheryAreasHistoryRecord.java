@@ -26,11 +26,6 @@ public class FisheryAreasHistoryRecord extends AbstractRecord implements RecordG
 	}
 
 	@Override
-	public Method getThirdLevelMethod() {
-		return null;
-	}
-
-	@Override
 	public String[] getHeaders() {
 		return new String[] { "Year", "Fishing Area History" };
 	}

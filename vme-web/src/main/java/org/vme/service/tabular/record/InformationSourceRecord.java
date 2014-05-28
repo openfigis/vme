@@ -29,12 +29,7 @@ public class InformationSourceRecord extends AbstractRecord implements RecordGen
 	public Method getSecondLevelMethod() {
 		return getMethod(Rfmo.class, "getInformationSourceList");
 	}
-
-	@Override
-	public Method getThirdLevelMethod() {
-		return null;
-	}
-
+	
 	@Override
 	public String[] getHeaders() {
 		return new String[] { "Publication Year", "Meeting Start Date", "Meeting End Date", "Committee",

@@ -31,11 +31,6 @@ public class GeneralMeasureRecord extends AbstractRecord implements RecordGenera
 	}
 
 	@Override
-	public Method getThirdLevelMethod() {
-		return null;
-	}
-
-	@Override
 	public String[] getHeaders() {
 		return new String[] { "Year", "getFishingArea", "getExplorataryFishingProtocol", "getVmeEncounterProtocol",
 				"getVmeIndicatorSpecies", "getVmeThreshold", "Begin Year", "End Year" };

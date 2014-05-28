@@ -29,11 +29,6 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 	}
 
 	@Override
-	public Method getThirdLevelMethod() {
-		return null;
-	}
-
-	@Override
 	public String[] getHeaders() {
 		return new String[] { "Vme Name", "SpecificMeasure", "Year", "Begin year", "End year", "Information Source URL" };
 	}

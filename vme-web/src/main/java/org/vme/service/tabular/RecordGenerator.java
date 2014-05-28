@@ -11,8 +11,6 @@ public interface RecordGenerator<F, S> {
 
 	public Method getSecondLevelMethod();
 
-	public Method getThirdLevelMethod();
-
 	public String[] getHeaders();
 
 }

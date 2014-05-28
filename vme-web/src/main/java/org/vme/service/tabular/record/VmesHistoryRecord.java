@@ -25,11 +25,6 @@ public class VmesHistoryRecord extends AbstractRecord implements RecordGenerator
 	}
 
 	@Override
-	public Method getThirdLevelMethod() {
-		return null;
-	}
-
-	@Override
 	public String[] getHeaders() {
 		return new String[] { "Year", "Vme History" };
 	}

@@ -25,11 +25,6 @@ public class GeoReferenceRecord extends AbstractRecord implements RecordGenerato
 	}
 
 	@Override
-	public Method getThirdLevelMethod() {
-		return null;
-	}
-
-	@Override
 	public String[] getHeaders() {
 		return new String[] { "Year", "Geographic Feature Id" };
 	}

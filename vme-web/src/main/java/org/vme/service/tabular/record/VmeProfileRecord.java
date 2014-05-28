@@ -36,11 +36,6 @@ public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<
 	}
 
 	@Override
-	public Method getThirdLevelMethod() {
-		return null;
-	}
-
-	@Override
 	public String[] getHeaders() {
 		return new String[] { "Vme Name", "Area Type", "Geographic Reference", "Criteria", "Begin year", "End year",
 				"Profile Year", "Geo Form", "Physical description", "Biological description", "Impact description" };
