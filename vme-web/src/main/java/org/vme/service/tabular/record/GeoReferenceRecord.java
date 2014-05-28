@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.Vme;
+import org.vme.service.tabular.Empty;
 import org.vme.service.tabular.RecordGenerator;
 
-public class GeoReferenceRecord extends AbstractRecord implements RecordGenerator<Vme, GeoRef> {
+public class GeoReferenceRecord extends AbstractRecord implements RecordGenerator<Vme, GeoRef, Empty> {
 
 	@Override
 	public void doFirstLevel(Vme p, List<Object> nextRecord) {
@@ -27,6 +28,17 @@ public class GeoReferenceRecord extends AbstractRecord implements RecordGenerato
 	@Override
 	public String[] getHeaders() {
 		return new String[] { "Year", "Geographic Feature Id" };
+	}
+
+	@Override
+	public void doThirdLevel(Empty p, List<Object> nextRecord) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Method getThirdLevelMethod() {
+		return null;
 	}
 
 }

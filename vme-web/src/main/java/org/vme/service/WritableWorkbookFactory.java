@@ -22,13 +22,14 @@ public class WritableWorkbookFactory {
 		} catch (IOException e) {
 			throw new VmeException(e);
 		}
-		ww.createSheet("VME_Profile", 0);
-		ww.createSheet("Specific_measure", 1);
-		ww.createSheet("General_Measure", 2);
-		ww.createSheet("Fishery_Areas_History", 3);
-		ww.createSheet("VMEs_History", 4);
-		ww.createSheet("Info_Sources", 5);
-		ww.createSheet("Geo_Reference", 6);
+		ww.createSheet("Description", 0);
+		ww.createSheet("Measures specific to this area", 1);
+		ww.createSheet("General Measure", 2);
+		ww.createSheet("Fishing Area History", 3);
+		ww.createSheet("VMEs History", 4);
+		ww.createSheet("Meeting reports", 5);
+		ww.createSheet("Geo Reference", 6);
+//		ww.createSheet("Fact Sheets", 7);
 		return ww;
 	}
 

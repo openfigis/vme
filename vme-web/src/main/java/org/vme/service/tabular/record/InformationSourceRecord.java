@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
+import org.vme.service.tabular.Empty;
 import org.vme.service.tabular.RecordGenerator;
 
-public class InformationSourceRecord extends AbstractRecord implements RecordGenerator<Rfmo, InformationSource> {
+public class InformationSourceRecord extends AbstractRecord implements RecordGenerator<Rfmo, InformationSource, Empty> {
 
 	@Override
 	public void doFirstLevel(Rfmo p, List<Object> nextRecord) {
@@ -23,6 +24,7 @@ public class InformationSourceRecord extends AbstractRecord implements RecordGen
 		nextRecord.add(p.getUrl().toString());
 		nextRecord.add(u.getEnglish(p.getCitation()));
 		nextRecord.add(p.getSourceType().getName());
+		nextRecord.add(p.getId());
 	}
 
 	@Override
@@ -33,7 +35,19 @@ public class InformationSourceRecord extends AbstractRecord implements RecordGen
 	@Override
 	public String[] getHeaders() {
 		return new String[] { "Publication Year", "Meeting Start Date", "Meeting End Date", "Committee",
-				"Report Summary", "URL", "Citation", "Type Name" };
+				"Report Summary", "URL", "Citation", "Type of publication" , "Source ID" };
+	}
+
+	@Override
+	public void doThirdLevel(Empty p, List<Object> nextRecord) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Method getThirdLevelMethod() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

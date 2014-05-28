@@ -26,65 +26,96 @@ import org.vme.service.tabular.record.VmesHistoryRecord;
 public class TabularGenerator {
 
 	public List<List<Object>> generateVmeProfile(List<Vme> vmeList) {
-		RecordGenerator<Vme, Profile> r = new VmeProfileRecord();
+		RecordGenerator<Vme, Profile, Empty> r = new VmeProfileRecord();
 		return generateTabular(vmeList, r);
 
 	}
 
 	public List<List<Object>> generateSpecificMeasure(List<Vme> vmeList) {
-		RecordGenerator<Vme, SpecificMeasure> r = new SpecificMeasureRecord();
+		RecordGenerator<Vme, SpecificMeasure, Empty> r = new SpecificMeasureRecord();
 		return generateTabular(vmeList, r);
 	};
 
 	public List<List<Object>> generateGeneralMeasure(Rfmo rfmo) {
-		RecordGenerator<Rfmo, GeneralMeasure> r = new GeneralMeasureRecord();
+		RecordGenerator<Rfmo, GeneralMeasure, InformationSource> r = new GeneralMeasureRecord();
 		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
 		rfmoList.add(rfmo);
 		return generateTabular(rfmoList, r);
 	}
 
 	public List<List<Object>> generateFisheryHistory(Rfmo rfmo) {
-		RecordGenerator<Rfmo, FisheryAreasHistory> r = new FisheryAreasHistoryRecord();
+		RecordGenerator<Rfmo, FisheryAreasHistory, Empty> r = new FisheryAreasHistoryRecord();
 		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
 		rfmoList.add(rfmo);
 		return generateTabular(rfmoList, r);
 	};
 
 	public List<List<Object>> generateVMEHistory(Rfmo rfmo) {
-		RecordGenerator<Rfmo, VMEsHistory> r = new VmesHistoryRecord();
+		RecordGenerator<Rfmo, VMEsHistory, Empty> r = new VmesHistoryRecord();
 		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
 		rfmoList.add(rfmo);
 		return generateTabular(rfmoList, r);
 	};
 
 	public List<List<Object>> generateInfoSource(Rfmo rfmo) {
-		RecordGenerator<Rfmo, InformationSource> r = new InformationSourceRecord();
+		RecordGenerator<Rfmo, InformationSource, Empty> r = new InformationSourceRecord();
 		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
 		rfmoList.add(rfmo);
 		return generateTabular(rfmoList, r);
 	};
 
 	public List<List<Object>> generateGeoRef(List<Vme> vmeList) {
-		RecordGenerator<Vme, GeoRef> r = new GeoReferenceRecord();
+		RecordGenerator<Vme, GeoRef, Empty> r = new GeoReferenceRecord();
 		return generateTabular(vmeList, r);
 	};
 
-	private <F, S, T> List<List<Object>> generateTabular(List<F> firstList, RecordGenerator<F, S> r) {
+	//	public List<List<Object>> generateFactSheet(List<Vme> vmeList) {
+	//		// TODO Auto-generated method stub
+	//		RecordGenerator<Vme, FactSheet> r = new
+	//		return null;
+	//	}
+
+	private <F, S, T> List<List<Object>> generateTabular(List<F> firstList, RecordGenerator<F, S, T> r) {
 		List<List<Object>> tabular = new ArrayList<List<Object>>();
 		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
 		tabular.add(firstRecord);
 		for (F v : firstList) {
+			
 			try {
 				@SuppressWarnings("unchecked")
 				List<S> secondLevelList = (List<S>) r.getSecondLevelMethod().invoke(v);
-
+				
 				if (secondLevelList != null && !secondLevelList.isEmpty()) {
 					for (S secondLevelObject : secondLevelList) {
+						
+						try{
+							if(r.getThirdLevelMethod()!=null){
+								@SuppressWarnings("unchecked")
+								List<T> thirdLevelList = (List<T>) r.getThirdLevelMethod().invoke(secondLevelObject);
+								if(thirdLevelList != null && !thirdLevelList.isEmpty()){
+									for (T thirdLevelObject : thirdLevelList){
+										List<Object> nextRecord = new ArrayList<Object>();
+										r.doFirstLevel(v, nextRecord);
+										r.doSecondLevel(secondLevelObject, nextRecord);
+										r.doThirdLevel(thirdLevelObject, nextRecord);
+										tabular.add(nextRecord);
+									}
 
-						List<Object> nextRecord = new ArrayList<Object>();
-						r.doFirstLevel(v, nextRecord);
-						r.doSecondLevel(secondLevelObject, nextRecord);
-						tabular.add(nextRecord);
+								}							
+							} else {
+
+								List<Object> nextRecord = new ArrayList<Object>();
+								r.doFirstLevel(v, nextRecord);
+								r.doSecondLevel(secondLevelObject, nextRecord);
+								tabular.add(nextRecord);
+							}
+						} catch (IllegalArgumentException e) {
+							throw new VmeException(e);
+						} catch (IllegalAccessException e) {
+							throw new VmeException(e);
+						} catch (InvocationTargetException e) {
+							throw new VmeException(e);
+						}
 					}
 				} else {
 					List<Object> nextRecord = new ArrayList<Object>();
@@ -108,5 +139,7 @@ public class TabularGenerator {
 			nextRecord.add(null);
 		}
 	}
+
+
 
 }

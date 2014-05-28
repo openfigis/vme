@@ -56,7 +56,7 @@ public class XlsServiceTest {
 			xlsService.fillWorkSheet(wSheet, vmeList);
 		}
 
-		assertEquals(7, ww.getNumberOfSheets());
+		assertEquals(8, ww.getNumberOfSheets());
 
 		for (WritableSheet wSheet : ww.getSheets()) {
 			assertTrue(wSheet.getRows() > 1);
@@ -87,6 +87,11 @@ public class XlsServiceTest {
 	// @Test
 	public void testGetAuthorityIdByAcronym() {
 		// fail("Not yet implemented");
+	}
+	
+	@Test
+	public void dataStringTest(){
+		System.out.println(xlsService.dataString());
 	}
 
 }

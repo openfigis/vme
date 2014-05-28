@@ -2,7 +2,12 @@ package org.vme.service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -38,6 +43,7 @@ public class XlsService {
 
 	private WritableWorkbookFactory f = new WritableWorkbookFactory();
 	private TabularGenerator g = new TabularGenerator();
+	private static HashMap<String, Class<?>> classMap;
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -82,42 +88,51 @@ public class XlsService {
 		return new ByteArrayInputStream(baos.toByteArray());
 	}
 
+	/** Note: this is the refactoring of fillWorkSheet method!
+	 * 
+	 */
+	
 	public void fillWorkSheet(WritableSheet wSheet, List<Vme> vmeList) throws RowsExceededException, WriteException {
 
-		if (wSheet.getName().equals("VME_Profile")) {
+		if (wSheet.getName().equals("Description")) {
 			List<List<Object>> tabular = g.generateVmeProfile(vmeList);
 			fillCells(tabular, wSheet);
 		}
 
-		if (wSheet.getName().equals("Specific_measure")) {
+		if (wSheet.getName().equals("Measures specific to this area")) {
 			List<List<Object>> tabular = g.generateSpecificMeasure(vmeList);
 			fillCells(tabular, wSheet);
 		}
 
-		if (wSheet.getName().equals("General_Measure")) {
+		if (wSheet.getName().equals("General Measure")) {
 			List<List<Object>> tabular = g.generateGeneralMeasure(vmeList.get(0).getRfmo());
 			fillCells(tabular, wSheet);
 		}
 
-		if (wSheet.getName().equals("Fishery_Areas_History")) {
+		if (wSheet.getName().equals("Fishing Area History")) {
 			List<List<Object>> tabular = g.generateFisheryHistory(vmeList.get(0).getRfmo());
 			fillCells(tabular, wSheet);
 		}
 		
-		if (wSheet.getName().equals("VMEs_History")) {
+		if (wSheet.getName().equals("VMEs History")) {
 			List<List<Object>> tabular = g.generateVMEHistory(vmeList.get(0).getRfmo());
 			fillCells(tabular, wSheet);
 		}
 
-		if (wSheet.getName().equals("Info_Sources")) {
+		if (wSheet.getName().equals("Meeting reports")) {
 			List<List<Object>> tabular = g.generateInfoSource(vmeList.get(0).getRfmo());
 			fillCells(tabular, wSheet);
 		}
 
-		if (wSheet.getName().equals("Geo_Reference")) {
+		if (wSheet.getName().equals("Geo Reference")) {
 			List<List<Object>> tabular = g.generateGeoRef(vmeList);
 			fillCells(tabular, wSheet);
 		}
+		
+//		if (wSheet.getName().equals("Fact Sheets")) {
+//			List<List<Object>> tabular = g.generateFactSheet(vmeList);
+//			fillCells(tabular, wSheet);
+//		}
 
 	}
 
@@ -161,5 +176,13 @@ public class XlsService {
 		}
 		return 0;
 	}
+	
+		  public String dataString() {
+		 
+			   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			   Calendar cal = Calendar.getInstance();
+		 
+			   return dateFormat.format(cal.getTime());
+		  }
 
 }

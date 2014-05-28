@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.vme.service.tabular.Empty;
 import org.vme.service.tabular.RecordGenerator;
 
-public class FisheryAreasHistoryRecord extends AbstractRecord implements RecordGenerator<Rfmo, FisheryAreasHistory> {
+public class FisheryAreasHistoryRecord extends AbstractRecord implements RecordGenerator<Rfmo, FisheryAreasHistory, Empty> {
 
 	@Override
 	public void doFirstLevel(Rfmo p, List<Object> nextRecord) {
@@ -27,7 +28,19 @@ public class FisheryAreasHistoryRecord extends AbstractRecord implements RecordG
 
 	@Override
 	public String[] getHeaders() {
-		return new String[] { "Year", "Fishing Area History" };
+		return new String[] { "Year", "Bottom fishing areas" };
+	}
+
+	@Override
+	public void doThirdLevel(Empty p, List<Object> nextRecord) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Method getThirdLevelMethod() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -72,7 +72,7 @@ public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, S
 	@RSGWeight(1)
 	@RSGConverter(IntegerDataConverter.class)
 	private Integer year;
-
+	
 	/** 
 	 */
 	@RSGName("VME Specific Measure Summary")
