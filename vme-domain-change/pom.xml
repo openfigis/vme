@@ -16,7 +16,11 @@
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-configuration</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
