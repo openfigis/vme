@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -162,14 +163,35 @@ public class XlsService {
 					if (cell == null) {
 						wSheet.addCell(new Blank(c, r));
 					} else {
-						if (cell instanceof String) {
+						boolean problem = true;
+
+						if (cell.getClass().equals(String.class)) {
+							problem = false;
 							String stringContent = (String) cell;
 							wSheet.addCell(new Label(c, r, stringContent));
 						}
+
 						if (cell instanceof Integer) {
+							problem = false;
 							Integer integerContent = (Integer) cell;
 							wSheet.addCell(new Number(c, r, integerContent, new WritableCellFormat(
 									NumberFormats.INTEGER)));
+						}
+
+						if (cell instanceof Long) {
+							problem = false;
+							Long integerContent = (Long) cell;
+							wSheet.addCell(new Number(c, r, integerContent, new WritableCellFormat(
+									NumberFormats.INTEGER)));
+						}
+						if (cell instanceof Date) {
+							problem = false;
+							Date dateContent = (Date) cell;
+							wSheet.addCell(new jxl.write.DateTime(c, r, dateContent));
+						}
+
+						if (problem) {
+							throw new VmeException("Type not found:" + cell.getClass());
 						}
 					}
 				} catch (RowsExceededException e) {
