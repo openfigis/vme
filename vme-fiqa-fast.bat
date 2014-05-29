@@ -1,0 +1,1 @@
+mvn install -Dmaven.test.skip=true -P vme-fiqa-Dmaven.test.skip=true
