@@ -20,9 +20,9 @@ public class InformationSourceRecord extends AbstractRecord implements RecordGen
 		nextRecord.add(p.getMeetingStartDate());
 		nextRecord.add(p.getMeetingEndDate());
 		nextRecord.add(u.getEnglish(p.getCommittee()));
+		nextRecord.add(u.getEnglish(p.getCitation()));
 		nextRecord.add(u.getEnglish(p.getReportSummary()));
 		nextRecord.add(p.getUrl().toString());
-		nextRecord.add(u.getEnglish(p.getCitation()));
 		nextRecord.add(p.getSourceType().getName());
 		nextRecord.add(p.getId());
 	}
@@ -34,8 +34,8 @@ public class InformationSourceRecord extends AbstractRecord implements RecordGen
 	
 	@Override
 	public String[] getHeaders() {
-		return new String[] { "Publication Year", "Meeting Start Date", "Meeting End Date", "Committee",
-				"Report Summary", "URL", "Citation", "Type of publication" , "Source ID" };
+		return new String[] { "Publication Year", "Meeting Start Date", "Meeting End Date", "Committee", "Source of Information - Citation",
+				"Report Summary", "URL", "Type of publication" , "Source ID" };
 	}
 
 	@Override

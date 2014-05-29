@@ -39,7 +39,8 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 
 	@Override
 	public String[] getHeaders() {
-		return new String[] { "Vme Name", "Measure Specific to this area", "Year", "Begin year", "End year", "Citation" , "Source ID" , "Review Year" };
+		return new String[] { "Vme Name", "Measure Specific to this area", "Year", "Begin date", "End date",
+				"Source of Information - Citation" , "Source ID" , "Review Year" };
 	}
 
 	@Override

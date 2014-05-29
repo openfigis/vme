@@ -36,7 +36,7 @@ public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<
 
 	@Override
 	public String[] getHeaders() {
-		return new String[] { "Vme Name", "Inventory Identifier" , "Area Type", "Geographic Reference", "Criteria", "Begin year", "End year", 
+		return new String[] { "Vme Name", "Inventory Identifier" , "Area Type", "Geographic Reference", "Criteria", "Begin date", "End date", 
 				"Year", "Type of sea floor physiography", "Physical description of the environment", "General Biology", "Impacts" };
 	}
 

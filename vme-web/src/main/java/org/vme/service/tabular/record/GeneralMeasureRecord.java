@@ -45,7 +45,7 @@ public class GeneralMeasureRecord extends AbstractRecord implements RecordGenera
 	
 	@Override
 	public String[] getHeaders() {
-		return new String[] { "Year" , "Begin Year", "End Year" , "Fishing areas", "Exploratory fishing protocol",
-				"Encounter protocols" , "Indicator species", "Threshold" , "Citation" , "Source ID" };
+		return new String[] { "Year" , "Begin date", "End date" , "Fishing areas", "Exploratory fishing protocol",
+				"Encounter protocols" , "Indicator species", "Threshold" , "Source of Information - Citation" , "Source ID" };
 	}
 }

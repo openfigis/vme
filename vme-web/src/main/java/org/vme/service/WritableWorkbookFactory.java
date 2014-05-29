@@ -25,8 +25,8 @@ public class WritableWorkbookFactory {
 		ww.createSheet("Description", 0);
 		ww.createSheet("Measures specific to this area", 1);
 		ww.createSheet("General Measure", 2);
-		ww.createSheet("Fishing Area History", 3);
-		ww.createSheet("VMEs History", 4);
+		ww.createSheet("Overview of fishing areas", 3);
+		ww.createSheet("Overview of VMEs", 4);
 		ww.createSheet("Meeting reports", 5);
 		ww.createSheet("Geo Reference", 6);
 		ww.createSheet("Fact Sheets", 7);

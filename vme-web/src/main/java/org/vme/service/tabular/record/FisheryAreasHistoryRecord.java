@@ -28,7 +28,7 @@ public class FisheryAreasHistoryRecord extends AbstractRecord implements RecordG
 
 	@Override
 	public String[] getHeaders() {
-		return new String[] { "Year", "Bottom fishing areas" };
+		return new String[] { "Year", "Overview of Bottom fishing areas" };
 	}
 
 	@Override

@@ -115,12 +115,12 @@ public class XlsService {
 			fillCells(tabular, wSheet);
 		}
 
-		if (wSheet.getName().equals("Fishing Area History")) {
+		if (wSheet.getName().equals("Overview of fishing areas")) {
 			List<List<Object>> tabular = g.generateFisheryHistory(vmeList.get(0).getRfmo());
 			fillCells(tabular, wSheet);
 		}
 
-		if (wSheet.getName().equals("VMEs History")) {
+		if (wSheet.getName().equals("Overview of VMEs")) {
 			List<List<Object>> tabular = g.generateVMEHistory(vmeList.get(0).getRfmo());
 			fillCells(tabular, wSheet);
 		}
