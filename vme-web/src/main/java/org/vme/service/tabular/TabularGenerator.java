@@ -22,6 +22,7 @@ import org.vme.service.tabular.record.GeneralMeasureRecord;
 import org.vme.service.tabular.record.GeoReferenceRecord;
 import org.vme.service.tabular.record.InformationSourceRecord;
 import org.vme.service.tabular.record.SpecificMeasureRecord;
+import org.vme.service.tabular.record.VmeContainer;
 import org.vme.service.tabular.record.VmeProfileRecord;
 import org.vme.service.tabular.record.VmesHistoryRecord;
 
@@ -71,30 +72,30 @@ public class TabularGenerator {
 		return generateTabular(vmeList, r);
 	};
 
-		public List<List<Object>> generateFactSheet(List<Vme> vmeList) {
-			RecordGenerator<Vme, VmeObservation, Empty> r = new FactSheetRecord();
-			return generateTabular(vmeList, r);
-		}
+	public List<List<Object>> generateFactSheet(List<VmeContainer> vmeList) {
+		RecordGenerator<VmeContainer, VmeObservation, Empty> r = new FactSheetRecord();
+		return generateTabular(vmeList, r);
+	}
 
 	private <F, S, T> List<List<Object>> generateTabular(List<F> firstList, RecordGenerator<F, S, T> r) {
 		List<List<Object>> tabular = new ArrayList<List<Object>>();
 		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
 		tabular.add(firstRecord);
 		for (F v : firstList) {
-			
+
 			try {
 				@SuppressWarnings("unchecked")
 				List<S> secondLevelList = (List<S>) r.getSecondLevelMethod().invoke(v);
-				
+
 				if (secondLevelList != null && !secondLevelList.isEmpty()) {
 					for (S secondLevelObject : secondLevelList) {
-						
-						try{
-							if(r.getThirdLevelMethod()!=null){
+
+						try {
+							if (r.getThirdLevelMethod() != null) {
 								@SuppressWarnings("unchecked")
 								List<T> thirdLevelList = (List<T>) r.getThirdLevelMethod().invoke(secondLevelObject);
-								if(thirdLevelList != null && !thirdLevelList.isEmpty()){
-									for (T thirdLevelObject : thirdLevelList){
+								if (thirdLevelList != null && !thirdLevelList.isEmpty()) {
+									for (T thirdLevelObject : thirdLevelList) {
 										List<Object> nextRecord = new ArrayList<Object>();
 										r.doFirstLevel(v, nextRecord);
 										r.doSecondLevel(secondLevelObject, nextRecord);
@@ -102,7 +103,7 @@ public class TabularGenerator {
 										tabular.add(nextRecord);
 									}
 
-								}							
+								}
 							} else {
 
 								List<Object> nextRecord = new ArrayList<Object>();
@@ -140,7 +141,5 @@ public class TabularGenerator {
 			nextRecord.add(null);
 		}
 	}
-
-
 
 }

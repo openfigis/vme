@@ -2,21 +2,26 @@ package org.vme.service.tabular.record;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.vme.domain.model.Vme;
-import org.vme.dao.sources.figis.FigisDao;
+import org.fao.fi.vme.domain.model.MultiLingualString;
 
 public class VmeContainer {
-	
-	@Inject
-	FigisDao fDao;
-	
-	public List<VmeObservation> findVmeObservationByVme(Vme v){
-		
-		return fDao.findVmeObservationByVme(v.getId());
-		
+
+	private MultiLingualString name;
+
+	public MultiLingualString getName() {
+		return name;
+	}
+
+	private List<VmeObservation> observations;
+
+	public VmeContainer(MultiLingualString name, List<VmeObservation> observations) {
+		this.observations = observations;
+		this.name = name;
+	}
+
+	public List<VmeObservation> findVmeObservationByVme() {
+		return observations;
 	}
 
 }

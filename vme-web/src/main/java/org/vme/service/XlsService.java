@@ -6,7 +6,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +21,7 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.Vme;
@@ -29,13 +29,18 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProv
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
+import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 import org.vme.service.tabular.TabularGenerator;
+import org.vme.service.tabular.record.VmeContainer;
 
 public class XlsService {
 
 	@Inject
 	private VmeDao vdao;
+
+	@Inject
+	private FigisDao fDao;
 
 	@Inject
 	@ConceptProvider
@@ -49,7 +54,7 @@ public class XlsService {
 
 	public ByteArrayInputStream createXlsFile(String authorityAcronym) throws Exception {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		
+
 		/*
 		 * Note: this block create all the different worksheets needed by RFMO
 		 */
@@ -60,7 +65,7 @@ public class XlsService {
 		 * Note: this block handles wrong request from RFMO so they can access
 		 * their file by querying by Id or the Acronym
 		 */
-		
+
 		/*
 		 * Note: this for block removes vmes from other RFMO by recognising them
 		 * from RFMO`s id
@@ -88,10 +93,11 @@ public class XlsService {
 		return new ByteArrayInputStream(baos.toByteArray());
 	}
 
-	/** Note: this is the refactoring of fillWorkSheet method!
+	/**
+	 * Note: this is the refactoring of fillWorkSheet method!
 	 * 
 	 */
-	
+
 	public void fillWorkSheet(WritableSheet wSheet, List<Vme> vmeList) throws RowsExceededException, WriteException {
 
 		if (wSheet.getName().equals("Description")) {
@@ -113,7 +119,7 @@ public class XlsService {
 			List<List<Object>> tabular = g.generateFisheryHistory(vmeList.get(0).getRfmo());
 			fillCells(tabular, wSheet);
 		}
-		
+
 		if (wSheet.getName().equals("VMEs History")) {
 			List<List<Object>> tabular = g.generateVMEHistory(vmeList.get(0).getRfmo());
 			fillCells(tabular, wSheet);
@@ -128,12 +134,23 @@ public class XlsService {
 			List<List<Object>> tabular = g.generateGeoRef(vmeList);
 			fillCells(tabular, wSheet);
 		}
-		
+
 		if (wSheet.getName().equals("Fact Sheets")) {
-			List<List<Object>> tabular = g.generateFactSheet(vmeList);
+			List<VmeContainer> vmeContainerList = prepereList(vmeList);
+			List<List<Object>> tabular = g.generateFactSheet(vmeContainerList);
 			fillCells(tabular, wSheet);
 		}
 
+	}
+
+	private List<VmeContainer> prepereList(List<Vme> vmeList) {
+		List<VmeContainer> cList = new ArrayList<VmeContainer>();
+		for (Vme vme : vmeList) {
+			List<VmeObservation> observations = fDao.findVmeObservationByVme(vme.getId());
+			VmeContainer c = new VmeContainer(vme.getName(), observations);
+			cList.add(c);
+		}
+		return cList;
 	}
 
 	private void fillCells(List<List<Object>> tabular, WritableSheet wSheet) {
@@ -176,13 +193,13 @@ public class XlsService {
 		}
 		return 0;
 	}
-	
-		  public String dataString() {
-		 
-			   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			   Calendar cal = Calendar.getInstance();
-		 
-			   return dateFormat.format(cal.getTime());
-		  }
+
+	public String dataString() {
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+
+		return dateFormat.format(cal.getTime());
+	}
 
 }
