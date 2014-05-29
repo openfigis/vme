@@ -58,13 +58,11 @@ public class VmeDao extends AbstractJPADao {
 
 	public void commit(EntityTransaction tx) {
 		tx.commit();
-
 		this.em.clear();
 	}
 
 	public void rollback(EntityTransaction tx) {
 		tx.rollback();
-
 		this.em.clear();
 	}
 
@@ -127,6 +125,7 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public <E> E merge(E object) {
+		System.out.println("EM" + em);
 		return super.merge(em, object);
 	}
 

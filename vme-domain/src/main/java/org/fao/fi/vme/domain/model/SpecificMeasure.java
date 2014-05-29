@@ -27,7 +27,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  */
 @RSGReferenced
 @Entity(name = "SPECIFIC_MEASURE")
-public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, Serializable {
+public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, Serializable, Period {
 
 	/**
 	 * 

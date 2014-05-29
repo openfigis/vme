@@ -1,12 +1,17 @@
 package org.fao.fi.vme.domain.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 
 /**
@@ -49,6 +54,23 @@ public class ValidityPeriod implements Comparable<ValidityPeriod>, Serializable 
 	/** 
 	  
 	  */
+	@RSGName("Validity Period - Startdate")
+	@RSGInstructions("Use the YYYY/MM/DD format")
+	@RSGConverter(DateDataConverter.class)
+	@RSGWeight(1)
+	@Temporal(TemporalType.DATE)
+	private Date beginDate;
+
+	@RSGName("Validity Period - Enddate")
+	@RSGInstructions("Use the YYYY/MM/DD format")
+	@RSGConverter(DateDataConverter.class)
+	@RSGWeight(2)
+	@Temporal(TemporalType.DATE)
+	private Date endDate;
+
+	/** 
+	  
+	  */
 	@RSGName("Validity Period - Start")
 	@RSGConverter(IntegerDataConverter.class)
 	private Integer beginYear;
@@ -62,6 +84,22 @@ public class ValidityPeriod implements Comparable<ValidityPeriod>, Serializable 
 
 	public Integer getBeginYear() {
 		return beginYear;
+	}
+
+	public Date getBeginDate() {
+		return beginDate;
+	}
+
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public void setBeginYear(Integer beginYear) {

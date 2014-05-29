@@ -7,9 +7,12 @@ public class VmeWorkshop2014ModelChange {
 	@Inject
 	private CriteriaMigrationElement criteriaMigrationElement;
 
+	@Inject
+	private ValidityPeriodMigrationElement validityPeriodMigrationElement;
+
 	public void migrate() {
 		criteriaMigrationElement.migrate();
-
+		validityPeriodMigrationElement.migrate();
 	}
 
 }

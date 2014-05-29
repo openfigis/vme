@@ -36,7 +36,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.Report;
  */
 @Entity
 @RSGReport(name = "Vulnerable Marine Ecosystem")
-public class Vme implements ObjectId<Long>, Report, Serializable {
+public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 
 	/**
 	 * 
