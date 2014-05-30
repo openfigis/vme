@@ -34,7 +34,7 @@ public class InformationSourceRecord extends AbstractRecord implements RecordGen
 	
 	@Override
 	public String[] getHeaders() {
-		return new String[] { "Publication Year", "Meeting Start Date", "Meeting End Date", "Committee", "Source of Information - Citation",
+		return new String[] { "Publication Year", "Meeting Start Date", "Meeting End Date", "Committee", "Citation",
 				"Report Summary", "URL", "Type of publication" , "Source ID" };
 	}
 

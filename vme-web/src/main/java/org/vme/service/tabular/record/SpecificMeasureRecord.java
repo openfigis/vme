@@ -23,6 +23,7 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 		nextRecord.add(sm.getValidityPeriod().getEndYear());
 		nextRecord.add(u.getEnglish(sm.getInformationSource().getCitation()));
 		nextRecord.add(sm.getInformationSource().getId());
+		//nextRecord.add(sm.getReviewYear());
 		
 		/*
 		 *  Note: this methods lacks of nextRecord.add(sm.getReviewYear) because

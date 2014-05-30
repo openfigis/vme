@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -49,7 +48,6 @@ public class XlsService {
 
 	private WritableWorkbookFactory f = new WritableWorkbookFactory();
 	private TabularGenerator g = new TabularGenerator();
-	private static HashMap<String, Class<?>> classMap;
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
