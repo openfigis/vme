@@ -51,8 +51,6 @@ public class XlsServiceTest {
 
 		List<Vme> vmeList = new ArrayList<Vme>();
 		vmeList.add(vme);
-	
-		Observation
 
 		WritableWorkbook ww = f.create(baos);
 
