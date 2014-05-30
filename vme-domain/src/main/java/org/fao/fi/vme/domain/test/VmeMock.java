@@ -18,7 +18,7 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class VmeMock {
 
-	// public final static Long ID = 1000l;
+	public static Long ID = 1000l;
 	// public final static Long VME_ID = 2000l;
 	public final static int YEAR = 2000;
 	public final static String INVENTORY_ID = "VME_RFMO_1";
@@ -73,10 +73,10 @@ public class VmeMock {
 		int startYear = YEAR;
 		int endYear = YEAR + nrOfyears - 1;
 
-		long id = 0;
-
 		Vme vme = new Vme();
 
+		vme.setId(ID+1);
+		
 		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 		List<Profile> pList = new ArrayList<Profile>();
 		List<SpecificMeasure> specificMeasureList = new ArrayList<SpecificMeasure>();
@@ -158,7 +158,7 @@ public class VmeMock {
 		}
 
 		Rfmo rfmo = new Rfmo();
-		String rfmoId = new Long(id++).toString();
+		String rfmoId = new Long(ID++).toString();
 		rfmo.setId(rfmoId);
 		rfmo.setHasFisheryAreasHistory(fishingHistoryList);
 		rfmo.setHasVmesHistory(hasVmesHistory);

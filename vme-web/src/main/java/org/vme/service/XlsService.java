@@ -142,7 +142,7 @@ public class XlsService {
 
 	}
 
-	private List<VmeContainer> prepereList(List<Vme> vmeList) {
+	public List<VmeContainer> prepereList(List<Vme> vmeList) {
 		List<VmeContainer> cList = new ArrayList<VmeContainer>();
 		for (Vme vme : vmeList) {
 			List<VmeObservation> observations = fDao.findVmeObservationByVme(vme.getId());
@@ -152,7 +152,7 @@ public class XlsService {
 		return cList;
 	}
 
-	private void fillCells(List<List<Object>> tabular, WritableSheet wSheet) {
+	public void fillCells(List<List<Object>> tabular, WritableSheet wSheet) {
 		for (int r = 0; r < tabular.size(); r++) {
 			List<Object> record = tabular.get(r);
 			for (int c = 0; c < record.size(); c++) {
