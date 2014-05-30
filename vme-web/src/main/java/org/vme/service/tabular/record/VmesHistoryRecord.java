@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.vme.service.tabular.Empty;
 import org.vme.service.tabular.RecordGenerator;
 
-public class VmesHistoryRecord extends AbstractRecord implements RecordGenerator<Rfmo, VMEsHistory> {
+public class VmesHistoryRecord extends AbstractRecord implements RecordGenerator<Rfmo, VMEsHistory, Empty> {
 
 	@Override
 	public void doFirstLevel(Rfmo p, List<Object> nextRecord) {
@@ -25,13 +26,20 @@ public class VmesHistoryRecord extends AbstractRecord implements RecordGenerator
 	}
 
 	@Override
-	public Method getThirdLevelMethod() {
-		return null;
+	public String[] getHeaders() {
+		return new String[] { "Year", "Overview of VMEs" };
 	}
 
 	@Override
-	public String[] getHeaders() {
-		return new String[] { "Year", "Vme History" };
+	public void doThirdLevel(Empty p, List<Object> nextRecord) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Method getThirdLevelMethod() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

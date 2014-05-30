@@ -61,7 +61,7 @@ public class XlsWs {
 					}
 				}
 			};
-			return Response.ok(stream).header("content-disposition", "attachment; filename = " + id_authority + "_VME")
+			return Response.ok(stream).header("content-disposition", "attachment; filename = "+ id_authority + "_VME-DataBase_Summary_"+_xlsService.dataString())
 					.build();
 		} catch (RuntimeException t) {
 			this._log.error("Unexpected error caught: {}", t.getMessage(), t);

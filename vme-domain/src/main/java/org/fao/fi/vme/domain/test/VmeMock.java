@@ -148,6 +148,10 @@ public class VmeMock {
 			gm.setVmeIndicatorSpecies(u.english("a [VmeIndicatorSpecies] general measure"));
 			gm.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
 			gm.setInformationSourceList(Arrays.asList(is));
+			for (InformationSource is1 : gm.getInformationSourceList()) {
+				is1.setCitation(u.english("This is a citation for a SpecificMeasure"));
+				is.setId(Long.valueOf(1000));
+			}
 			generalMeasureList.add(gm);
 
 		}

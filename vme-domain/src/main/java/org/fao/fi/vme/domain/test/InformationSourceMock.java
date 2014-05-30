@@ -21,6 +21,7 @@ public class InformationSourceMock {
 		is.setCitation(u.english(CIT));
 		is.setMeetingStartDate(Calendar.getInstance().getTime());
 		is.setMeetingEndDate(Calendar.getInstance().getTime());
+		is.setId(Long.valueOf(1000));
 		try {
 			is.setUrl(new URL("http://www.rfmo.org"));
 		} catch (Exception e) {

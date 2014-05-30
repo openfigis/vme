@@ -9,28 +9,35 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+import org.fao.fi.figis.domain.Observation;
+import org.fao.fi.figis.domain.ObservationDomain;
+import org.fao.fi.figis.domain.VmeObservation;
+import org.fao.fi.figis.domain.rule.VmeObservationDomainFactory;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.junit.Test;
+import org.vme.dao.sources.vme.VmeDao;
 
 //@RunWith(CdiRunner.class)
 //@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
 public class XlsServiceTest {
 
-	// @Inject
+	@Inject
 	private XlsService xlsService = new XlsService();
 
-	// @Inject
-	// private VmeDao vDao;
+	@Inject
+	private VmeDao vDao;
 
 	private WritableWorkbookFactory f = new WritableWorkbookFactory();
 
-	// @Test
+	@Test
 	public void testCreateXlsFile() throws Exception {
 		ByteArrayInputStream bos = xlsService.createXlsFile("SEAFO");
 		assertNotNull(bos);
@@ -41,8 +48,6 @@ public class XlsServiceTest {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 		Vme vme = VmeMock.generateVme(2);
-		vme.getValidityPeriod().setEndYear(null);
-		vme.setCriteria(null);
 
 		List<Vme> vmeList = new ArrayList<Vme>();
 		vmeList.add(vme);
@@ -53,7 +58,7 @@ public class XlsServiceTest {
 			xlsService.fillWorkSheet(wSheet, vmeList);
 		}
 
-		assertEquals(7, ww.getNumberOfSheets());
+		assertEquals(8, ww.getNumberOfSheets());
 
 		for (WritableSheet wSheet : ww.getSheets()) {
 			assertTrue(wSheet.getRows() > 1);
@@ -84,6 +89,11 @@ public class XlsServiceTest {
 	// @Test
 	public void testGetAuthorityIdByAcronym() {
 		// fail("Not yet implemented");
+	}
+	
+	@Test
+	public void dataStringTest(){
+		System.out.println(xlsService.dataString());
 	}
 
 }

@@ -45,6 +45,12 @@ public class RfmoMock {
 		List<InformationSource> InfoSourceList = new ArrayList<InformationSource>();
 		InfoSourceList.add(InformationSourceMock.create());
 		rfmo.setInformationSourceList(InfoSourceList);
+		
+		for (GeneralMeasure gm : gmList) {
+			List<InformationSource> InfoSourceList1 = new ArrayList<InformationSource>();
+			InfoSourceList1.add(InformationSourceMock.create());
+			gm.setInformationSourceList(InfoSourceList1);
+		}
 
 		return rfmo;
 
