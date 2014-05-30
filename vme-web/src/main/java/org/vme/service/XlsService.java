@@ -16,6 +16,7 @@ import jxl.write.Label;
 import jxl.write.Number;
 import jxl.write.NumberFormats;
 import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -174,21 +175,28 @@ public class XlsService {
 		return cList;
 	}
 
-	public void fillCells(List<List<Object>> tabular, WritableSheet wSheet) {
+	public void fillCells(List<List<Object>> tabular, WritableSheet wSheet) throws WriteException {
+		WritableFont cellFont = new WritableFont(WritableFont.ARIAL, 10);
 		for (int r = 0; r < tabular.size(); r++) {
 			List<Object> record = tabular.get(r);
+			if(r==0){
+				cellFont.setBoldStyle(WritableFont.BOLD);
+			} else {
+				cellFont.setBoldStyle(WritableFont.NO_BOLD);
+			}
 			for (int c = 0; c < record.size(); c++) {
+				WritableCellFormat cellFormat = new WritableCellFormat(cellFont);
 				Object cell = record.get(c);
 				try {
 					if (cell == null) {
-						wSheet.addCell(new Blank(c, r));
+						wSheet.addCell(new Blank(c, r, cellFormat));
 					} else {
 						boolean problem = true;
 
 						if (cell.getClass().equals(String.class)) {
 							problem = false;
 							String stringContent = (String) cell;
-							wSheet.addCell(new Label(c, r, stringContent));
+							wSheet.addCell(new Label(c, r, stringContent, cellFormat));
 						}
 
 						if (cell instanceof Integer) {
