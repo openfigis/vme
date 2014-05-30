@@ -128,6 +128,7 @@ public class VmeMock {
 			specificMeasure.setVmeSpecificMeasure(u.english("A specific measure for the year " + year));
 			specificMeasure.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
 			specificMeasure.setInformationSource(isSm);
+			specificMeasure.setReviewYear(year+1);
 			specificMeasureList.add(specificMeasure);
 
 			for (int k = 0; k < nrOfyears; k++) {
