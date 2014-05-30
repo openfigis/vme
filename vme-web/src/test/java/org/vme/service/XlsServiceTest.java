@@ -17,21 +17,15 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
 import org.fao.fi.figis.domain.Observation;
-import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.ObservationXml;
-import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.VmeObservationPk;
-import org.fao.fi.figis.domain.rule.VmeObservationDomainFactory;
 import org.fao.fi.figis.domain.test.ObservationMock;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
-import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.junit.Test;
-import org.vme.dao.sources.figis.FigisDao;
-import org.vme.dao.sources.vme.VmeDao;
+
 import org.vme.service.tabular.TabularGenerator;
 import org.vme.service.tabular.record.VmeContainer;
 
@@ -41,12 +35,6 @@ public class XlsServiceTest {
 
 	@Inject
 	private XlsService xlsService = new XlsService();
-
-	@Inject
-	private VmeDao vDao;
-
-	@Inject
-	private FigisDao fDao;
 
 	private WritableWorkbookFactory f = new WritableWorkbookFactory();
 	private TabularGenerator g = new TabularGenerator();
@@ -73,9 +61,6 @@ public class XlsServiceTest {
 		for (WritableSheet wSheet : ww.getSheets()) {
 			if (wSheet.getName().equals("Fact Sheets")) {
 				List<VmeContainer> vmeContainerList = prepereListMock(vmeList);
-				for (VmeContainer vmeContainer : vmeContainerList) {
-					vmeContainerList.remove(null);
-				}
 				List<List<Object>> tabular = g.generateFactSheet(vmeContainerList);
 				xlsService.fillCells(tabular, wSheet);
 			} else {
@@ -100,21 +85,13 @@ public class XlsServiceTest {
 		WritableWorkbook ww = f.create(baos);
 
 		for (WritableSheet wSheet : ww.getSheets()) {
-
-			if (wSheet.getName().equals("Fact Sheets")) {
-				List<VmeContainer> vmeContainerList = prepereListMock(vmeList);
-				List<List<Object>> tabular = g.generateFactSheet(vmeContainerList);
-				xlsService.fillCells(tabular, wSheet);
-			} else {
-				xlsService.fillWorkSheet(wSheet, vmeList);
-			}
-
+			xlsService.fillWorkSheet(wSheet, vmeList);
 		}
 
-		assertEquals(7, ww.getNumberOfSheets());
-
+		assertEquals(8, ww.getNumberOfSheets());
+		
 		for (WritableSheet wSheet : ww.getSheets()) {
-			assertTrue(wSheet.getRows() > 1);
+			assertTrue(wSheet.getRows() == 1);
 		}
 
 	}

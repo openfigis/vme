@@ -110,22 +110,42 @@ public class XlsService {
 		}
 
 		if (wSheet.getName().equals("General Measure")) {
-			List<List<Object>> tabular = g.generateGeneralMeasure(vmeList.get(0).getRfmo());
+			List<List<Object>> tabular;
+			if(!vmeList.isEmpty()){
+				tabular = g.generateGeneralMeasure(vmeList.get(0).getRfmo());
+			} else {
+				tabular = g.generateGeneralMeasure(null);
+			}
 			fillCells(tabular, wSheet);
 		}
 
 		if (wSheet.getName().equals("Overview of fishing areas")) {
-			List<List<Object>> tabular = g.generateFisheryHistory(vmeList.get(0).getRfmo());
+			List<List<Object>> tabular;
+			if(!vmeList.isEmpty()){
+				tabular = g.generateFisheryHistory(vmeList.get(0).getRfmo());
+			} else {
+				tabular = g.generateFisheryHistory(null);
+			}
 			fillCells(tabular, wSheet);
 		}
 
 		if (wSheet.getName().equals("Overview of VMEs")) {
-			List<List<Object>> tabular = g.generateVMEHistory(vmeList.get(0).getRfmo());
+			List<List<Object>> tabular;
+			if(!vmeList.isEmpty()){
+				tabular = g.generateVMEHistory(vmeList.get(0).getRfmo());
+			} else {
+				tabular = g.generateVMEHistory(null);
+			}
 			fillCells(tabular, wSheet);
 		}
 
 		if (wSheet.getName().equals("Meeting reports")) {
-			List<List<Object>> tabular = g.generateInfoSource(vmeList.get(0).getRfmo());
+			List<List<Object>> tabular;
+			if(!vmeList.isEmpty()){
+				tabular = g.generateInfoSource(vmeList.get(0).getRfmo());
+			} else {
+				tabular = g.generateInfoSource(null);
+			}
 			fillCells(tabular, wSheet);
 		}
 
@@ -144,10 +164,12 @@ public class XlsService {
 
 	public List<VmeContainer> prepereList(List<Vme> vmeList) {
 		List<VmeContainer> cList = new ArrayList<VmeContainer>();
-		for (Vme vme : vmeList) {
-			List<VmeObservation> observations = fDao.findVmeObservationByVme(vme.getId());
-			VmeContainer c = new VmeContainer(vme.getName(), observations);
-			cList.add(c);
+		if(!vmeList.isEmpty()) {
+			for (Vme vme : vmeList) {
+				List<VmeObservation> observations = fDao.findVmeObservationByVme(vme.getId());
+				VmeContainer c = new VmeContainer(vme.getName(), observations);
+				cList.add(c);
+			}
 		}
 		return cList;
 	}
