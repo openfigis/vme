@@ -17,4 +17,10 @@ public class VpUgraderTest {
 		assertNotNull(vp.getBeginDate());
 		assertNotNull(vp.getEndDate());
 	}
+
+	@Test
+	public void testUpgradeEmpty() {
+		ValidityPeriod vp = null;
+		u.upgrade(vp);
+	}
 }

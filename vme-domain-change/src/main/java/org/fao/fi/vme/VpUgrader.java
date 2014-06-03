@@ -7,7 +7,7 @@ import org.fao.fi.vme.domain.model.ValidityPeriod;
 public class VpUgrader {
 
 	public void upgrade(ValidityPeriod vp) {
-		if (vp.getBeginYear() != null) {
+		if (vp != null && vp.getBeginYear() != null) {
 			Calendar c = Calendar.getInstance();
 			c.set(vp.getBeginYear(), 0, 1);
 			vp.setBeginDate(c.getTime());
@@ -15,7 +15,7 @@ public class VpUgrader {
 			System.out.println("reporting nulls");
 		}
 
-		if (vp.getEndYear() != null) {
+		if (vp != null && vp.getEndYear() != null) {
 			Calendar c = Calendar.getInstance();
 			c.set(vp.getEndYear(), 11, 31);
 			vp.setEndDate(c.getTime());
