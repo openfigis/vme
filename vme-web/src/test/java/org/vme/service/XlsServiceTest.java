@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
@@ -24,17 +25,25 @@ import org.fao.fi.figis.domain.test.ObservationMock;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
-
+import org.junit.runner.RunWith;
+import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.sources.vme.VmeDao;
 import org.vme.service.tabular.TabularGenerator;
 import org.vme.service.tabular.record.VmeContainer;
 
-//@RunWith(CdiRunner.class)
-//@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
+@RunWith(CdiRunner.class)
+@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
 public class XlsServiceTest {
 
 	@Inject
 	private XlsService xlsService = new XlsService();
+	
+	@Inject
+	VmeDao vDao;
 
 	private WritableWorkbookFactory f = new WritableWorkbookFactory();
 	private TabularGenerator g = new TabularGenerator();
@@ -43,8 +52,19 @@ public class XlsServiceTest {
 
 	@Test
 	public void testCreateXlsFile() throws Exception {
-		ByteArrayInputStream bos = xlsService.createXlsFile("SEAFO");
-		assertNotNull(bos);
+
+		VmeDataBaseProducer vdbp = new VmeDataBaseProducer();
+			
+		EntityManager em = vdbp.produceEntityManager();
+		
+		Vme vme = VmeMock.generateVme(3);
+		vDao.saveVme(vme);
+		vDao.persist(em, vme);
+		
+		ByteArrayInputStream byteArrayInputStream = xlsService.createXlsFile("SEAFO");
+		
+
+		assertNotNull(byteArrayInputStream);
 	}
 
 	@Test

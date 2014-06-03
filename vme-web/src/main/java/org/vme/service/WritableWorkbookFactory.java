@@ -15,7 +15,7 @@ public class WritableWorkbookFactory {
 		WorkbookSettings wSettings = new WorkbookSettings();
 		wSettings.setEncoding("utf8");
 		wSettings.setExcel9File(true);
-
+		
 		WritableWorkbook ww;
 		try {
 			ww = Workbook.createWorkbook(os, wSettings);
