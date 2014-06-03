@@ -26,17 +26,23 @@ import org.fao.fi.figis.domain.test.ObservationXmlMock;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
+import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 import org.vme.service.tabular.TabularGenerator;
 import org.vme.service.tabular.record.VmeContainer;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
+@AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
+@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class, VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
 public class XlsServiceTest {
 
 	@Inject
@@ -50,25 +56,30 @@ public class XlsServiceTest {
 
 	private static final Long observation_ID = (long) 10001;
 
+	/**
+	 *  Note: @throws NullPointerException
+	 * 
+	 */
+	
 	@Test
 	public void testCreateXlsFile() throws Exception {
 
 		VmeDataBaseProducer vdbp = new VmeDataBaseProducer();
 			
-		EntityManager em = vdbp.produceEntityManager();
+		EntityManager manager = vdbp.produceEntityManager();
 		
 		Vme vme = VmeMock.generateVme(3);
 		vDao.saveVme(vme);
-		vDao.persist(em, vme);
+		vDao.persist(manager, vme);
 		
 		ByteArrayInputStream byteArrayInputStream = xlsService.createXlsFile("SEAFO");
 		
-
 		assertNotNull(byteArrayInputStream);
 	}
 
 	@Test
 	public void testFillWorkSheet() throws RowsExceededException, WriteException {
+		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 		Vme vme = VmeMock.generateVme(2);
@@ -79,20 +90,15 @@ public class XlsServiceTest {
 		WritableWorkbook ww = f.create(baos);
 
 		for (WritableSheet wSheet : ww.getSheets()) {
-			if (wSheet.getName().equals("Fact Sheets")) {
-				List<VmeContainer> vmeContainerList = prepereListMock(vmeList);
-				List<List<Object>> tabular = g.generateFactSheet(vmeContainerList);
-				xlsService.fillCells(tabular, wSheet);
-			} else {
+			if (!wSheet.getName().equals("Fact Sheets")){
 				xlsService.fillWorkSheet(wSheet, vmeList);
+			} else {
+				List<List<Object>> tabular = g.generateFactSheet(new ArrayList<VmeContainer>());
+				xlsService.fillCells(tabular , wSheet);
 			}
 		}
 
 		assertEquals(8, ww.getNumberOfSheets());
-
-		for (WritableSheet wSheet : ww.getSheets()) {
-			assertTrue(wSheet.getRows() > 1);
-		}
 
 	}
 
@@ -194,8 +200,6 @@ public class XlsServiceTest {
 			cList.add(c);
 			i++;
 		}
-
-		assertNotNull(cList);
 
 		return cList;
 	}
