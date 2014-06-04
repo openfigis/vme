@@ -21,6 +21,7 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 		nextRecord.add(sm.getYear());
 		nextRecord.add(sm.getValidityPeriod().getBeginYear());
 		nextRecord.add(sm.getValidityPeriod().getEndYear());
+		nextRecord.add(sm.getReviewYear());
 		if(sm.getInformationSource()!=null){
 			nextRecord.add(u.getEnglish(sm.getInformationSource().getCitation()));
 			nextRecord.add(sm.getInformationSource().getId());
@@ -28,7 +29,6 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 			nextRecord.add("");
 			nextRecord.add("");
 		}		
-		nextRecord.add(sm.getReviewYear());
 		
 		/*
 		 *  Note: this methods lacks of nextRecord.add(sm.getReviewYear) because
@@ -45,8 +45,8 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 
 	@Override
 	public String[] getHeaders() {
-		return new String[] { "Vme Name", "Measure Specific to this area", "Year", "Begin date", "End date",
-				"Source of Information - Citation" , "Source ID" , "Review Year" };
+		return new String[] { "Vme Name", "Measure Specific to this area", "Year", "Begin date", "End date", "Review Year" ,
+				"Source of Information - Citation" , "Source ID" };
 	}
 
 	@Override

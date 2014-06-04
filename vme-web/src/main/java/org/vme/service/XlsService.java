@@ -11,7 +11,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import jxl.format.BoldStyle;
 import jxl.write.Blank;
 import jxl.write.Label;
 import jxl.write.Number;
@@ -27,7 +26,6 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.test.VmeMock;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,8 +78,7 @@ public class XlsService {
 				vmeListPerRfmo.add(v);
 			}
 		}
-		
-
+	
 		/*
 		 * Note: this for block adds information and data to all worksheets of
 		 * the returning file
