@@ -41,7 +41,7 @@ public class TabularGenerator {
 	public List<List<Object>> generateGeneralMeasure(Rfmo rfmo) {
 		RecordGenerator<Rfmo, GeneralMeasure, InformationSource> r = new GeneralMeasureRecord();
 		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		if(rfmo!=null){
+		if (rfmo != null) {
 			rfmoList.add(rfmo);
 		}
 		return generateTabular(rfmoList, r);
@@ -50,7 +50,7 @@ public class TabularGenerator {
 	public List<List<Object>> generateFisheryHistory(Rfmo rfmo) {
 		RecordGenerator<Rfmo, FisheryAreasHistory, Empty> r = new FisheryAreasHistoryRecord();
 		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		if(rfmo!=null){
+		if (rfmo != null) {
 			rfmoList.add(rfmo);
 		}
 		return generateTabular(rfmoList, r);
@@ -59,7 +59,7 @@ public class TabularGenerator {
 	public List<List<Object>> generateVMEHistory(Rfmo rfmo) {
 		RecordGenerator<Rfmo, VMEsHistory, Empty> r = new VmesHistoryRecord();
 		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		if(rfmo!=null){
+		if (rfmo != null) {
 			rfmoList.add(rfmo);
 		}
 		return generateTabular(rfmoList, r);
@@ -68,7 +68,7 @@ public class TabularGenerator {
 	public List<List<Object>> generateInfoSource(Rfmo rfmo) {
 		RecordGenerator<Rfmo, InformationSource, Empty> r = new InformationSourceRecord();
 		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		if(rfmo!=null){
+		if (rfmo != null) {
 			rfmoList.add(rfmo);
 		}
 		return generateTabular(rfmoList, r);
@@ -88,48 +88,43 @@ public class TabularGenerator {
 		List<List<Object>> tabular = new ArrayList<List<Object>>();
 		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
 		tabular.add(firstRecord);
-		if(!firstList.isEmpty()){
-			for (F v : firstList) {
-
+		if (!firstList.isEmpty()) {
+			for (F firstLevelObject : firstList) {
 				try {
 					@SuppressWarnings("unchecked")
-					List<S> secondLevelList = (List<S>) r.getSecondLevelMethod().invoke(v);
-
+					List<S> secondLevelList = (List<S>) r.getSecondLevelMethod().invoke(firstLevelObject);
 					if (secondLevelList != null && !secondLevelList.isEmpty()) {
 						for (S secondLevelObject : secondLevelList) {
-
-							try {
-								if (r.getThirdLevelMethod() != null) {
-									@SuppressWarnings("unchecked")
-									List<T> thirdLevelList = (List<T>) r.getThirdLevelMethod().invoke(secondLevelObject);
-									if (thirdLevelList != null && !thirdLevelList.isEmpty()) {
-										for (T thirdLevelObject : thirdLevelList) {
-											List<Object> nextRecord = new ArrayList<Object>();
-											r.doFirstLevel(v, nextRecord);
-											r.doSecondLevel(secondLevelObject, nextRecord);
-											r.doThirdLevel(thirdLevelObject, nextRecord);
-											tabular.add(nextRecord);
-										}
-
+							if (r.getThirdLevelMethod() != null) {
+								@SuppressWarnings("unchecked")
+								List<T> thirdLevelList = (List<T>) r.getThirdLevelMethod().invoke(secondLevelObject);
+								if (thirdLevelList != null && !thirdLevelList.isEmpty()) {
+									for (T thirdLevelObject : thirdLevelList) {
+										List<Object> nextRecord = new ArrayList<Object>();
+										r.doFirstLevel(firstLevelObject, nextRecord);
+										r.doSecondLevel(secondLevelObject, nextRecord);
+										r.doThirdLevel(thirdLevelObject, nextRecord);
+										tabular.add(nextRecord);
 									}
 								} else {
-
 									List<Object> nextRecord = new ArrayList<Object>();
-									r.doFirstLevel(v, nextRecord);
+									r.doFirstLevel(firstLevelObject, nextRecord);
 									r.doSecondLevel(secondLevelObject, nextRecord);
 									tabular.add(nextRecord);
+									fillUp(nextRecord, r.getHeaders().length);
 								}
-							} catch (IllegalArgumentException e) {
-								throw new VmeException(e);
-							} catch (IllegalAccessException e) {
-								throw new VmeException(e);
-							} catch (InvocationTargetException e) {
-								throw new VmeException(e);
+							} else {
+								// do we need this?
+								List<Object> nextRecord = new ArrayList<Object>();
+								r.doFirstLevel(firstLevelObject, nextRecord);
+								r.doSecondLevel(secondLevelObject, nextRecord);
+								tabular.add(nextRecord);
+								fillUp(nextRecord, r.getHeaders().length);
 							}
 						}
 					} else {
 						List<Object> nextRecord = new ArrayList<Object>();
-						r.doFirstLevel(v, nextRecord);
+						r.doFirstLevel(firstLevelObject, nextRecord);
 						tabular.add(nextRecord);
 						fillUp(nextRecord, r.getHeaders().length);
 					}

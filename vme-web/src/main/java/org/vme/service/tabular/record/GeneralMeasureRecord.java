@@ -8,7 +8,8 @@ import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.vme.service.tabular.RecordGenerator;
 
-public class GeneralMeasureRecord extends AbstractRecord implements RecordGenerator<Rfmo, GeneralMeasure, InformationSource> {
+public class GeneralMeasureRecord extends AbstractRecord implements
+		RecordGenerator<Rfmo, GeneralMeasure, InformationSource> {
 
 	@Override
 	public void doFirstLevel(Rfmo p, List<Object> nextRecord) {
@@ -26,7 +27,7 @@ public class GeneralMeasureRecord extends AbstractRecord implements RecordGenera
 		nextRecord.add(u.getEnglish(p.getVmeThreshold()));
 
 	}
-	
+
 	@Override
 	public void doThirdLevel(InformationSource p, List<Object> nextRecord) {
 		nextRecord.add(u.getEnglish(p.getCitation()));
@@ -37,15 +38,16 @@ public class GeneralMeasureRecord extends AbstractRecord implements RecordGenera
 	public Method getSecondLevelMethod() {
 		return getMethod(Rfmo.class, "getGeneralMeasureList");
 	}
-	
+
 	@Override
 	public Method getThirdLevelMethod() {
 		return getMethod(GeneralMeasure.class, "getInformationSourceList");
 	}
-	
+
 	@Override
 	public String[] getHeaders() {
-		return new String[] { "Year" , "Begin date", "End date" , "Fishing areas", "Exploratory fishing protocol",
-				"Encounter protocols" , "Indicator species", "Threshold" , "Source of Information - Citation" , "Source ID" };
+		return new String[] { "Year", "Begin date", "End date", "Fishing areas", "Exploratory fishing protocol",
+				"Encounter protocols", "Indicator species", "Threshold", "Source of Information - Citation",
+				"Source ID" };
 	}
 }
