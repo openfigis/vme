@@ -22,7 +22,11 @@ public class InformationSourceRecord extends AbstractRecord implements RecordGen
 		nextRecord.add(u.getEnglish(p.getCommittee()));
 		nextRecord.add(u.getEnglish(p.getCitation()));
 		nextRecord.add(u.getEnglish(p.getReportSummary()));
-		nextRecord.add(p.getUrl().toString());
+		if (p.getUrl() != null) {
+			nextRecord.add(p.getUrl().toString());
+		} else {
+			nextRecord.add("");
+		}
 		nextRecord.add(p.getSourceType().getName());
 		nextRecord.add(p.getId());
 	}
@@ -31,17 +35,17 @@ public class InformationSourceRecord extends AbstractRecord implements RecordGen
 	public Method getSecondLevelMethod() {
 		return getMethod(Rfmo.class, "getInformationSourceList");
 	}
-	
+
 	@Override
 	public String[] getHeaders() {
 		return new String[] { "Year", "Meeting Start Date", "Meeting End Date", "Committee", "Citation",
-				"Report Summary", "URL", "Type of publication" , "Source ID" };
+				"Report Summary", "URL", "Type of publication", "Source ID" };
 	}
 
 	@Override
 	public void doThirdLevel(Empty p, List<Object> nextRecord) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
