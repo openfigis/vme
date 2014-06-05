@@ -84,6 +84,7 @@ public class FigisDocBuilder {
 	private ObjectFactory f = new ObjectFactory();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 	private EnglishTextUtil ut = new EnglishTextUtil();
+	private JAXBElementUtil uj = new JAXBElementUtil();
 	private GeneralMeasureManagementMethodEntryBuilder mmeBuilder = new GeneralMeasureManagementMethodEntryBuilder();
 	private CurrentDate currentDate = new CurrentDate();
 	private BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
@@ -167,13 +168,14 @@ public class FigisDocBuilder {
 
 			// range (time)
 			if (specificMeasure.getValidityPeriod() != null) {
-				Min min = f.createMin();
-				min.setContent(specificMeasure.getValidityPeriod().getBeginYear().toString());
-				JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
+				JAXBElement<Min> minJAXBElement = f.createRangeMin(f.createMin());
+				uj.fillObject(specificMeasure.getValidityPeriod().getBeginDate(), minJAXBElement);
 
-				Max max = f.createMax();
-				max.setContent(specificMeasure.getValidityPeriod().getEndYear().toString());
-				JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
+				JAXBElement<Max> maxJAXBElement = f.createRangeMax(f.createMax());
+				uj.fillObject(specificMeasure.getValidityPeriod().getEndDate(), maxJAXBElement);
+
+				f.createRangeMax(f.createMax());
+				uj.fillObject(specificMeasure.getValidityPeriod().getEndDate(), maxJAXBElement);
 
 				Range range = f.createRange();
 				range.setType("Time");
@@ -528,18 +530,11 @@ public class FigisDocBuilder {
 			waterAreaRef.getFigisIDsAndForeignIDs().add(areaForeignID);
 		}
 
-		// Validity period - Range
-		Min min = f.createMin();
+		JAXBElement<Min> minJAXBElement = f.createRangeMin(f.createMin());
+		uj.fillObject(vmeDomain.getValidityPeriod().getBeginDate(), minJAXBElement);
 
-		Integer beginYear = vmeDomain.getValidityPeriod().getBeginYear();
-		min.setContent(beginYear == null ? null : beginYear.toString());
-		JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
-
-		Max max = f.createMax();
-
-		Integer endYear = vmeDomain.getValidityPeriod().getEndYear();
-		max.setContent(endYear == null ? null : endYear.toString());
-		JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
+		JAXBElement<Max> maxJAXBElement = f.createRangeMax(f.createMax());
+		uj.fillObject(vmeDomain.getValidityPeriod().getEndDate(), maxJAXBElement);
 
 		Range range = f.createRange();
 		range.setType("Time");

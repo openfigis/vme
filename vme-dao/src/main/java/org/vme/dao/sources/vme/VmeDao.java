@@ -68,13 +68,11 @@ public class VmeDao extends AbstractJPADao {
 
 	public Vme saveVme(Vme vme) {
 		EntityTransaction et = em.getTransaction();
-
-		// try {
 		et.begin();
 
 		if (vme.getRfmo() != null && vme.getRfmo().getGeneralMeasureList() != null) {
-			for (GeneralMeasure o : vme.getRfmo().getGeneralMeasureList()) {
-				em.persist(o);
+			for (GeneralMeasure g : vme.getRfmo().getGeneralMeasureList()) {
+				em.persist(g);
 			}
 
 			for (FisheryAreasHistory h : vme.getRfmo().getHasFisheryAreasHistory()) {
@@ -86,14 +84,17 @@ public class VmeDao extends AbstractJPADao {
 			}
 
 			for (InformationSource informationSource : vme.getRfmo().getInformationSourceList()) {
-				em.persist(informationSource);
-			}
+				if (!em.contains(informationSource)) {
+					em.persist(informationSource);
+				}
 
+			}
 			em.persist(vme.getRfmo());
 		}
 
 		if (vme.getGeoRefList() != null) {
 			for (GeoRef geoRef : vme.getGeoRefList()) {
+				System.out.println(em.contains(geoRef));
 				em.persist(geoRef);
 			}
 		}
@@ -540,6 +541,8 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public Vme update(Vme updatedVME) throws Throwable {
+		EntityTransaction et = em.getTransaction();
+		et.begin();
 
 		if (updatedVME == null) {
 			throw new IllegalArgumentException("Updated Vme cannot be NULL");
@@ -693,6 +696,8 @@ public class VmeDao extends AbstractJPADao {
 		// Update the Vme: this will unlink GeoRefs / Profiles /
 		// SpecificMeasures but not remove them.
 		Vme mergedVME = this.doMerge(em, updatedVME);
+
+		et.commit();
 
 		return mergedVME;
 	}

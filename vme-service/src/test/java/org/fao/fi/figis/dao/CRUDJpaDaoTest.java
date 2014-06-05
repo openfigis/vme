@@ -25,6 +25,8 @@ import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
+import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
@@ -32,6 +34,7 @@ import org.fao.fi.vme.msaccess.component.MsAcces2DomainMapper;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,7 +57,8 @@ import org.vme.dao.sources.vme.VmeDao;
  * @since 16 Jan 2014
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class})
+@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, VmeTestPersistenceUnitConfiguration.class,
+		VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
 @AdditionalClasses({ MsAcces2DomainMapper.class, ReferenceDaoImpl.class, VmeAccessDbImport.class })
 public class CRUDJpaDaoTest {
 	@Inject
@@ -63,6 +67,8 @@ public class CRUDJpaDaoTest {
 	private VmeDao vmeDao;
 
 	private EntityManager em;
+
+	private ValidityPeriodUtil vu = new ValidityPeriodUtil();
 
 	@PostConstruct
 	public void postConstruct() {
@@ -393,12 +399,10 @@ public class CRUDJpaDaoTest {
 		vme.setCriteria("Fragility");
 		vme.setName(MLSu.english("Foobazzi mountain"));
 		vme.setGeoArea(MLSu.english("GeoArea"));
-//		vme.setGeoform("GeoForm");
+		// vme.setGeoform("GeoForm");
 		vme.setInventoryIdentifier("InventoryIdentifier");
 
-		ValidityPeriod validityPeriod = new ValidityPeriod();
-		validityPeriod.setBeginYear(1975);
-		validityPeriod.setEndYear(2015);
+		ValidityPeriod validityPeriod = ValidityPeriodMock.create(1975, 2015);
 
 		vme.setValidityPeriod(validityPeriod);
 
@@ -436,17 +440,17 @@ public class CRUDJpaDaoTest {
 
 		SpecificMeasure s1 = new SpecificMeasure();
 		s1.setInformationSource(is1);
-		s1.setValidityPeriod(new ValidityPeriod());
-		s1.getValidityPeriod().setBeginYear(1888);
-		s1.getValidityPeriod().setEndYear(1988);
+
+		ValidityPeriod vp = ValidityPeriodMock.create(1888, 1988);
+		s1.setValidityPeriod(vp);
 		s1.setYear(1888);
 		s1.setVmeSpecificMeasure(MLSu.english("IS_1888"));
 
 		SpecificMeasure s2 = new SpecificMeasure();
 		s2.setInformationSource(is2);
-		s2.setValidityPeriod(new ValidityPeriod());
-		s2.getValidityPeriod().setBeginYear(1988);
-		s2.getValidityPeriod().setEndYear(2008);
+		ValidityPeriod vp2 = ValidityPeriodMock.create(1988, 2008);
+		s2.setValidityPeriod(vp2);
+
 		s2.setYear(1988);
 		s2.setVmeSpecificMeasure(MLSu.english("IS_1988"));
 
@@ -621,13 +625,17 @@ public class CRUDJpaDaoTest {
 
 		toUpdate.setName(MLSu.english("U_" + MLSu.getEnglish(ref.getName())));
 		toUpdate.setGeoArea(MLSu.english("U_" + MLSu.getEnglish(ref.getGeoArea())));
-//		toUpdate.setGeoform("U_" + ref.getGeoform());
+		// toUpdate.setGeoform("U_" + ref.getGeoform());
 		toUpdate.setInventoryIdentifier("U_" + ref.getInventoryIdentifier());
 		toUpdate.setAreaType(ref.getAreaType());
 		toUpdate.setCriteria(null);
 		toUpdate.setValidityPeriod(ref.getValidityPeriod());
-		toUpdate.getValidityPeriod().setBeginYear(ref.getValidityPeriod().getBeginYear() - 100);
-		toUpdate.getValidityPeriod().setEndYear(ref.getValidityPeriod().getEndYear() + 100);
+
+		DateTime begin = new DateTime(ref.getValidityPeriod().getBeginDate()).minusYears(100);
+		DateTime end = new DateTime(ref.getValidityPeriod().getEndDate()).plusYears(100);
+
+		toUpdate.getValidityPeriod().setBeginDate(begin.toDate());
+		toUpdate.getValidityPeriod().setEndDate(end.toDate());
 
 		tx.begin();
 		Vme updated = this.vmeDao.update(toUpdate);

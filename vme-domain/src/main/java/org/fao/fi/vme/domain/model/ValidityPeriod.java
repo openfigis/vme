@@ -12,7 +12,6 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGI
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.DateDataConverter;
-import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 
 /**
  * 
@@ -25,11 +24,11 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.Integer
  * 
  * Validity periods cannot overlap
  * 
- * Validaty periods are sequential A validity period has a begin and an end year
+ * Validaty periods are sequential A validity period has a begin and an end Date
  * 
- * If the end year is open, 9999 will be used
+ * If the end Date is open, 9999 will be used
  * 
- * The begin and end year are inclusive Examples:
+ * The begin and end Date are inclusive Examples:
  * 
  * Objects={ Vme, SpecificMeasure, GeneralMeasure, }
  * 
@@ -68,24 +67,6 @@ public class ValidityPeriod implements Comparable<ValidityPeriod>, Serializable 
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
 
-	/** 
-	  
-	  */
-	@RSGName("Validity Period - Start")
-	@RSGConverter(IntegerDataConverter.class)
-	private Integer beginYear;
-
-	/** 
-	  */
-	@RSGName("Validity Period - End")
-	@RSGInstructions("End date, leave empty if not applicable")
-	@RSGConverter(IntegerDataConverter.class)
-	private Integer endYear;
-
-	public Integer getBeginYear() {
-		return beginYear;
-	}
-
 	public Date getBeginDate() {
 		return beginDate;
 	}
@@ -102,28 +83,16 @@ public class ValidityPeriod implements Comparable<ValidityPeriod>, Serializable 
 		this.endDate = endDate;
 	}
 
-	public void setBeginYear(Integer beginYear) {
-		this.beginYear = beginYear;
-	}
-
-	public Integer getEndYear() {
-		return endYear;
-	}
-
-	public void setEndYear(Integer endYear) {
-		this.endYear = endYear;
-	}
-
 	/**
 	 * This method does not validate
 	 */
 	@Override
 	public int compareTo(ValidityPeriod vp) {
 		int compare = 0;
-		if (this.getEndYear() < vp.getBeginYear()) {
+		if (this.getEndDate().compareTo(vp.getBeginDate()) < 0) {
 			compare = -1;
 		}
-		if (this.getBeginYear() > vp.getEndYear()) {
+		if (this.getBeginDate().compareTo(vp.getEndDate()) > 0) {
 			compare = 1;
 		}
 		return compare;
@@ -138,8 +107,8 @@ public class ValidityPeriod implements Comparable<ValidityPeriod>, Serializable 
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.beginYear == null) ? 0 : this.beginYear.hashCode());
-		result = prime * result + ((this.endYear == null) ? 0 : this.endYear.hashCode());
+		result = prime * result + ((this.beginDate == null) ? 0 : this.beginDate.hashCode());
+		result = prime * result + ((this.endDate == null) ? 0 : this.endDate.hashCode());
 		return result;
 	}
 
@@ -160,18 +129,18 @@ public class ValidityPeriod implements Comparable<ValidityPeriod>, Serializable 
 			return false;
 		}
 		ValidityPeriod other = (ValidityPeriod) obj;
-		if (this.beginYear == null) {
-			if (other.beginYear != null) {
+		if (this.beginDate == null) {
+			if (other.beginDate != null) {
 				return false;
 			}
-		} else if (!this.beginYear.equals(other.beginYear)) {
+		} else if (!this.beginDate.equals(other.beginDate)) {
 			return false;
 		}
-		if (this.endYear == null) {
-			if (other.endYear != null) {
+		if (this.endDate == null) {
+			if (other.endDate != null) {
 				return false;
 			}
-		} else if (!this.endYear.equals(other.endYear)) {
+		} else if (!this.endDate.equals(other.endDate)) {
 			return false;
 		}
 		return true;

@@ -9,7 +9,14 @@
 	<artifactId>vme-domain</artifactId>
 
 
+
+
 	<dependencies>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.3</version>
+		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-support-compiler-bridge</artifactId>

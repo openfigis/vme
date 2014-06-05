@@ -374,12 +374,12 @@ public class RsgServiceImplVme implements RsgService {
 							.toString()));
 			entry.getNameValueList().add(
 					new NameValue("Validity start", generalMeasure.getValidityPeriod() == null
-							|| generalMeasure.getValidityPeriod().getBeginYear() == null ? null : generalMeasure
-							.getValidityPeriod().getBeginYear().toString()));
+							|| generalMeasure.getValidityPeriod().getBeginDate() == null ? null : generalMeasure
+							.getValidityPeriod().getBeginDate().toString()));
 			entry.getNameValueList().add(
 					new NameValue("Validity end", generalMeasure.getValidityPeriod() == null
-							|| generalMeasure.getValidityPeriod().getEndYear() == null ? null : generalMeasure
-							.getValidityPeriod().getEndYear().toString()));
+							|| generalMeasure.getValidityPeriod().getEndDate() == null ? null : generalMeasure
+							.getValidityPeriod().getEndDate().toString()));
 
 			results.add(entry);
 		}

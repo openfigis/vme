@@ -2,10 +2,7 @@
 <!-- edited  by Yves Jaques, Aureliano gentile (FAO Headquarters) -->
 <?xml-stylesheet type="text/xsl" href="global_elems.xslt"?>
 <!-- global_schema_to_domain.xslt -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" 
-xmlns:ags="http://www.purl.org/agmes/1.1/" xmlns:aida="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd" 
-xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dwc="http://rs.tdwg.org/dwc/terms/" 
-xmlns:fi="http://www.fao.org/fi/figis/devcon/" targetNamespace="http://www.fao.org/fi/figis/devcon/" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ags="http://www.purl.org/agmes/1.1/" xmlns:aida="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dwc="http://rs.tdwg.org/dwc/terms/" xmlns:fi="http://www.fao.org/fi/figis/devcon/" targetNamespace="http://www.fao.org/fi/figis/devcon/" elementFormDefault="qualified">
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
 	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
 	<xs:import namespace="http://rs.tdwg.org/dwc/terms/" schemaLocation="dwc.xsd"/>
@@ -72,6 +69,8 @@ xmlns:fi="http://www.fao.org/fi/figis/devcon/" targetNamespace="http://www.fao.o
 			<xs:element name="FIGISSearch" type="fi:FIGISSearch"/>
 			<xs:element name="FIGISCondLink" type="fi:FIGISCondLink"/>
 			<xs:element name="FIGISCondLinkSet" type="fi:FIGISCondLinkSet"/>
+			<xs:element name="ExtSearchForm" type="fi:ExtSearchForm"/>
+			<xs:element name="ExtSearchList" type="fi:ExtSearchList"/>
 		</xs:choice>
 	</xs:group>
 	<xs:group name="textEntNoKOR">
@@ -752,7 +751,6 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 		<xs:attribute name="Label" type="xs:string"/>
 	</xs:complexType>
 	<xs:complexType name="AquacultureSector" mixed="false">
-		<!-- this is equivalent to AquacultureSectorIndustryProfile it will be deleted when NASO will be migrated to the new version -->
 		<xs:annotation>
 			<xs:documentation>
 				<Title>Aquaculture SubSector</Title>
@@ -775,6 +773,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 		<xs:attributeGroup ref="fi:environEnt"/>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
+		<!-- this is equivalent to AquacultureSectorIndustryProfile it will be deleted when NASO will be migrated to the new version -->
 		<!-- this is equivalent to AquacultureSectorIndustryProfile it will be deleted when NASO will be migrated to the new version -->
 	</xs:complexType>
 	<xs:complexType name="AquacultureProductionSector" mixed="false">
@@ -2777,6 +2776,20 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
 	</xs:complexType>
+	<xs:complexType name="AdditionalValue" mixed="true">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Additional Value</Title>
+				<Description>contains a discrete value.</Description>
+				<Usage>To be used within the Range element. For VME it is used to indicate the Review Year.</Usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Text" type="fi:Text"/>
+		</xs:choice>
+		<xs:attribute ref="xml:lang"/>
+		<xs:attribute name="Label" type="xs:string"/>
+	</xs:complexType>
 	<xs:complexType name="DiseaseControl" mixed="false">
 		<xs:annotation>
 			<xs:documentation>
@@ -3336,7 +3349,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 					<xs:enumeration value="49-FAO_Species_Identification_Field_Guides"/>
 					<xs:enumeration value="247-FAO_Species_Identification_Guide_for_Fishery_Purposes"/>
 					<xs:enumeration value="116-FAO_Technical_Guidelines_for_Responsible_Fisheries"/>
-					<xs:enumeration value="214-FAO_Training_Series"/>
+					<xs:enumeration value="175-FAO_Training_Series"/>
 					<xs:enumeration value="215-FAO_Yearbook_of_Fishery_Statistics"/>
 					<xs:enumeration value="115-GESAMP_Reports_and_Studies"/>
 					<xs:enumeration value="259-GFCM_Report"/>
@@ -3348,10 +3361,10 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 					<xs:enumeration value="330-GLOBEFISH Research Programme"/>
 					<xs:enumeration value="332-CECAF/ECAF_Series"/>
 					<xs:enumeration value="319-FAO_Proceedings"/>
-					<xs:enumeration value="333-RAP_Publication"/>
+					<xs:enumeration value="249-RAP_Publication"/>
 					<xs:enumeration value="359-New directions in fisheries"/>
-					<xs:enumeration value="372-CIFAA Occasional Papers"/>
-					<xs:enumeration value="371-CIFAA Technical Papers"/>
+					<xs:enumeration value="392-CIFAA Occasional Papers"/>
+					<xs:enumeration value="393-CIFAA Technical Papers"/>
 					<xs:enumeration value="374-FAO Fisheries and Aquaculture Technical Paper"/>
 					<xs:enumeration value="375-FAO Fisheries and Aquaculture Report"/>
 					<xs:enumeration value="376-FAO Fisheries and Aquaculture Circular"/>
@@ -3814,6 +3827,91 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 		<xs:attribute name="target" type="xs:string"/>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="ExtSearchForm" mixed="true">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>External search</Title>
+				<Description>Allows searches through a form in external database (e.g. Aquatic Commons, FAO Document Repository).</Description>
+				<Usage> </Usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ExtSearchSort" type="fi:ExtSearchSort"/>
+			<xs:element name="ExtSearchFormEntry" type="fi:ExtSearchFormEntry" minOccurs="0" maxOccurs="1"/>
+		</xs:choice>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="ExtSearchList" mixed="true">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>External search</Title>
+				<Description>Returns results list from searches in external database (e.g. Aquatic Commons, FAO Document Repository).</Description>
+				<Usage> </Usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ExtSearchSort" type="fi:ExtSearchSort"/>
+			<xs:element name="ExtSearchFormEntry" type="fi:ExtSearchFormEntry"/>
+		</xs:choice>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="ExtSearchFormEntry" mixed="true">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>External search Form entry</Title>
+				<Description>Entries for external search.</Description>
+				<Usage>Use the attribute Source to indicate the conventional name of the external data base in which the search will be performed.</Usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Param" type="fi:Param"/>
+			<xs:element name="Select" type="fi:Select"/>
+			<xs:element name="HiddenParam" type="fi:HiddenParam"/>
+		</xs:choice>
+		<xs:attribute name="Source" type="xs:string"/>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="ExtSearchListEntry" mixed="true">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>External search List entry</Title>
+				<Description>Entries for external search.</Description>
+				<Usage>Use the attribute Source to indicate the conventional name of the external data base in which the search will be performed.</Usage>
+				<Usage> </Usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Param" type="fi:Param"/>
+		</xs:choice>
+		<xs:attribute name="Source" type="xs:string"/>
+		<xs:attribute ref="xml:lang"/>
+	</xs:complexType>
+	<xs:complexType name="ExtSearchSort" mixed="true">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>External search sort instructions</Title>
+				<Description>Allows to sort results of external searches.</Description>
+				<Usage> </Usage>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Field">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="Title"/>
+					<xs:enumeration value="Date"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Order">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="Ascending"/>
+					<xs:enumeration value="Descending"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute ref="xml:lang"/>
 	</xs:complexType>
 	<xs:complexType name="Factsheet" mixed="false">
 		<xs:annotation>
@@ -5474,7 +5572,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 				<xs:element name="ForeignID" type="fi:ForeignID"/>
 			</xs:choice>
 			<xs:element ref="dc:Title" minOccurs="0" maxOccurs="6"/>
-			<xs:element maxOccurs="unbounded" ref="dc:Identifier" minOccurs="0"/>
+			<xs:element ref="dc:Identifier" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="Geartypes" mixed="false">
@@ -5668,7 +5766,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 				<Description>"Marine habitat/Fishing ground: type of sea floor physiography in which the fishery resource is distributed or in which the fishery is conducted" (FIRMS Inventory Guidelines 2011). "Type of sea floor physiography in which the aquatic resource is distributed" (FIRMS TWG2, 2008). </Description>
 			</xs:documentation>
 		</xs:annotation>
-		<xs:choice maxOccurs="unbounded">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
 			<xs:group ref="fi:textEnt"/>
 		</xs:choice>
 		<xs:attribute name="Value" use="optional">
@@ -7227,7 +7325,7 @@ an historical review of the Stock or Resource exploitation, management regimes o
 				<Description>adds a linebreak</Description>
 			</xs:documentation>
 		</xs:annotation>
-		<xs:complexContent mixed="false">
+		<xs:complexContent>
 			<xs:restriction base="xs:anyType"/>
 		</xs:complexContent>
 	</xs:complexType>
@@ -7743,18 +7841,18 @@ an historical review of the Stock or Resource exploitation, management regimes o
 					<xs:enumeration value="Trade-related_measures"/>
 					<xs:enumeration value="Port_departure_requirements"/>
 					<xs:enumeration value="Miscellaneous"/>
-					<!-- the following  are from the Fishery module -->
 					<xs:enumeration value="Aquatic species-related measures"/>
 					<xs:enumeration value="Gear-related measures"/>
 					<xs:enumeration value="Vessel-related measures"/>
 					<xs:enumeration value="Fishing activity-related measures"/>
-					<!-- the following  are from the VME module -->
 					<xs:enumeration value="VME-specific measures"/>
 					<xs:enumeration value="VME_threshold"/>
 					<xs:enumeration value="VME_encounter_protocols"/>
 					<xs:enumeration value="VME_indicatorspecies"/>
 					<xs:enumeration value="Fishing_areas"/>
 					<xs:enumeration value="Exploratory_fishing_protocol"/>
+					<!-- the following  are from the Fishery module -->
+					<!-- the following  are from the VME module -->
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
@@ -9000,6 +9098,17 @@ an historical review of the Stock or Resource exploitation, management regimes o
 		</xs:annotation>
 		<xs:attribute name="Name" type="xs:string"/>
 		<xs:attribute name="Value" type="xs:string"/>
+		<xs:attribute name="Label" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="HiddenParam" mixed="false">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>HiddenParam</Title>
+				<Description>Hidden Parameter related to the parent element.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:attribute name="Name" type="xs:string"/>
+		<xs:attribute name="Value" type="xs:string"/>
 	</xs:complexType>
 	<xs:complexType name="Perspective" mixed="false">
 		<xs:annotation>
@@ -9534,6 +9643,7 @@ an historical review of the Stock or Resource exploitation, management regimes o
 			<xs:element name="Min" type="fi:Min"/>
 			<xs:element name="Max" type="fi:Max"/>
 			<xs:element name="DiscreteValue" type="fi:DiscreteValue"/>
+			<xs:element name="AdditionalValue" type="fi:AdditionalValue"/>
 			<xs:group ref="fi:textEnt"/>
 		</xs:choice>
 		<xs:attribute name="Type">
@@ -9997,7 +10107,6 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 		<xs:attribute name="Label" type="xs:string"/>
 	</xs:complexType>
 	<xs:complexType name="SectorSocioEcoContribution" mixed="false">
-		<!-- a new element substituting Performance which will be finally removed when migrating NASO -->
 		<xs:annotation>
 			<xs:documentation>
 				<Title>Socio-economic contribution of the fishery sector</Title>
@@ -10018,6 +10127,7 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 		<xs:attributeGroup ref="fi:sectorEnt"/>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
+		<!-- a new element substituting Performance which will be finally removed when migrating NASO -->
 	</xs:complexType>
 	<xs:complexType name="SecuEquip" mixed="false">
 		<xs:annotation>
@@ -10051,6 +10161,19 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 			</xs:simpleType>
 		</xs:attribute>
 		<xs:attribute ref="xml:lang"/>
+		<xs:attribute name="Label" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="Select" mixed="false">
+		<xs:annotation>
+			<xs:documentation>
+				<Title>Select</Title>
+				<Description>Element to allow the display of select in a search form.</Description>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Param" type="fi:Param"/>
+		</xs:choice>
+		<xs:attribute name="Name" type="xs:string"/>
 		<xs:attribute name="Label" type="xs:string"/>
 	</xs:complexType>
 	<xs:complexType name="SelfMonitoring" mixed="false">
@@ -10243,7 +10366,6 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 		<xs:attribute name="Label" type="xs:string"/>
 	</xs:complexType>
 	<xs:complexType name="SocioEconReport" mixed="false">
-		<!-- a new element substituting EconReport which will be finally removed when migrating NASO -->
 		<xs:annotation>
 			<xs:documentation>
 				<Title>Socio-Economic Report</Title>
@@ -10256,6 +10378,7 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 		</xs:choice>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
+		<!-- a new element substituting EconReport which will be finally removed when migrating NASO -->
 	</xs:complexType>
 	<xs:complexType name="Solution" mixed="false">
 		<xs:annotation>
@@ -12045,6 +12168,14 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 		</xs:sequence>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
+		<xs:attribute name="Type" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="VME"/>
+					<xs:enumeration value="Regulatory"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="VMEIdent" mixed="false">
 		<xs:annotation>
@@ -12059,9 +12190,9 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 				<xs:element name="ForeignID" type="fi:ForeignID" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element name="WaterAreaRef" type="fi:WaterAreaRef"/>
 				<xs:element name="OrgRef" type="fi:OrgRef"/>
-				<xs:element ref="dc:Title"/>
+				<xs:element ref="dc:Title" minOccurs="1" maxOccurs="6"/>
 				<xs:element name="VMEType" type="fi:VMEType"/>
-				<xs:element name="VMECriteria" type="fi:VMECriteria"/>
+				<xs:element name="VMECriteria" type="fi:VMECriteria" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element name="ReportingYear" type="fi:ReportingYear" maxOccurs="1"/>
 				<xs:element name="Range" type="fi:Range" minOccurs="0"/>
 				<xs:element name="GeoReference" type="fi:GeoReference"/>
@@ -12101,7 +12232,7 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 				<Description>XXXX</Description>
 			</xs:documentation>
 		</xs:annotation>
-		<xs:attribute name="Value" use="optional">
+		<xs:attribute name="Value" use="required">
 			<xs:simpleType>
 				<xs:restriction base="xs:token">
 					<xs:enumeration value="Uniqueness or rarity"/>

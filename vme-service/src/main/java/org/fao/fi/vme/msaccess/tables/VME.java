@@ -181,7 +181,7 @@ public class VME implements TableDomainMapper {
 
 		o.setAreaType(this.VME_Area_Type);
 		// o.setCriteria(this.)
-//		o.setGeoform(this.VME_Geoform);
+		// o.setGeoform(this.VME_Geoform);
 		o.setGeoArea(u.english(this.VME_GeogArea1));
 
 		// o.setGeoArea(this.VME_GeogArea1);
@@ -193,8 +193,11 @@ public class VME implements TableDomainMapper {
 
 		ValidityPeriodRule r = new ValidityPeriodRule(this.VME_Validity_Start, this.VME_Validity_End);
 		ValidityPeriod vp = new ValidityPeriod();
-		vp.setBeginYear(r.getStart());
-		vp.setEndYear(r.getEnd());
+
+		// Intervention Erik van Ingen 5 June 2014. Commented because this logic
+		// is not used anymore and therefore does not need to be updated.
+		// vp.setBeginYear(r.getStart());
+		// vp.setEndYear(r.getEnd());
 		o.setValidityPeriod(vp);
 
 		Profile p = new Profile();

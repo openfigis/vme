@@ -232,9 +232,9 @@ public class FigisDocBuilderTest {
 
 			} else if (obj instanceof Range) {
 				assertEquals("Time", ((Range) obj).getType());
-				assertEquals(generalMeasure.getValidityPeriod().getBeginYear().toString(),
+				assertEquals(generalMeasure.getValidityPeriod().getBeginDate().toString(),
 						((JAXBElement<Min>) ((Range) obj).getContent().get(0)).getValue().getContent());
-				assertEquals(generalMeasure.getValidityPeriod().getEndYear().toString(),
+				assertEquals(generalMeasure.getValidityPeriod().getEndDate().toString(),
 						((JAXBElement<Max>) ((Range) obj).getContent().get(1)).getValue().getContent());
 
 			} else if (obj instanceof Sources) {
@@ -285,10 +285,13 @@ public class FigisDocBuilderTest {
 			} else if (obj instanceof Range) {
 				assertEquals("Time", ((Range) obj).getType());
 				JAXBElement<Min> min = (JAXBElement<Min>) ((Range) obj).getContent().get(0);
-				assertEquals(vme.getValidityPeriod().getBeginYear().toString(), min.getValue().getContent());
+				System.out.println(vme.getValidityPeriod().getBeginDate());
+				System.out.println(min.getValue());
+
+				assertEquals(vme.getValidityPeriod().getBeginDate().toString(), min.getValue());
 
 				JAXBElement<Max> max = (JAXBElement<Max>) ((Range) obj).getContent().get(1);
-				assertEquals(vme.getValidityPeriod().getEndYear().toString(), max.getValue().getContent());
+				assertEquals(vme.getValidityPeriod().getEndDate().toString(), max.getValue());
 			}
 		}
 	}

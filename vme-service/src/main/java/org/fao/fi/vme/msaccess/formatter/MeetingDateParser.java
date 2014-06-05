@@ -1,11 +1,8 @@
 package org.fao.fi.vme.msaccess.formatter;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
-import org.fao.fi.vme.VmeException;
+import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 
 /**
  * Tony Thompson used a specific convention for noting the start to end dates.
@@ -18,6 +15,7 @@ public class MeetingDateParser {
 
 	private Date start;
 	private Date end;
+	private VmeSimpleDateFormat sf = new VmeSimpleDateFormat();
 
 	/**
 	 * 17-21 Sep 2012
@@ -45,13 +43,8 @@ public class MeetingDateParser {
 			endDate = correctDayNumber(values[1]) + months[1] + values[2];
 		}
 
-		SimpleDateFormat sf = new SimpleDateFormat("ddMMMyyyy", Locale.ENGLISH);
-		try {
-			this.start = sf.parse(startDate);
-			this.end = sf.parse(endDate);
-		} catch (ParseException e) {
-			throw new VmeException(e);
-		}
+		this.start = sf.parse(startDate);
+		this.end = sf.parse(endDate);
 
 	}
 

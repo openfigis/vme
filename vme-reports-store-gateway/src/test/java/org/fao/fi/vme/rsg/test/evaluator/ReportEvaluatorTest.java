@@ -143,8 +143,8 @@ public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 		current.setVmeSpecificMeasure(null);
 		current.setYear(null);
 		current.setValidityPeriod(new ValidityPeriod());
-		current.getValidityPeriod().setBeginYear(null);
-		current.getValidityPeriod().setEndYear(null);
+		current.getValidityPeriod().setBeginDate(null);
+		current.getValidityPeriod().setEndDate(null);
 		current.getInformationSource().setId(null);
 		current.getInformationSource().setCitation(null);
 		current.getInformationSource().setCommittee(null);

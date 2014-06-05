@@ -75,8 +75,8 @@ public class VmeMock {
 
 		Vme vme = new Vme();
 
-		vme.setId(ID+1);
-		
+		// vme.setId(ID + 1);
+
 		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 		List<Profile> pList = new ArrayList<Profile>();
 		List<SpecificMeasure> specificMeasureList = new ArrayList<SpecificMeasure>();
@@ -87,12 +87,15 @@ public class VmeMock {
 
 		for (int i = 0; i < nrOfyears; i++) {
 			int year = startYear + i;
+
+			// this one is used for the genericMeasure
 			InformationSource is = InformationSourceMock.create();
 			is.setPublicationYear(year);
 			is.setSourceType(InformationSourceMock.createInformationSourceType());
 			// is.setId(id++);
 			informationSourceList.add(is);
 
+			// this one is used for the specificMeasure
 			InformationSource isSm = InformationSourceMock.create();
 			isSm.setPublicationYear(year);
 			// isSm.setId(id++);
@@ -128,7 +131,7 @@ public class VmeMock {
 			specificMeasure.setVmeSpecificMeasure(u.english("A specific measure for the year " + year));
 			specificMeasure.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
 			specificMeasure.setInformationSource(isSm);
-			specificMeasure.setReviewYear(year+1);
+			specificMeasure.setReviewYear(year + 1);
 			specificMeasureList.add(specificMeasure);
 
 			for (int k = 0; k < nrOfyears; k++) {
@@ -151,7 +154,6 @@ public class VmeMock {
 			gm.setInformationSourceList(Arrays.asList(is));
 			for (InformationSource is1 : gm.getInformationSourceList()) {
 				is1.setCitation(u.english("This is a citation for a SpecificMeasure"));
-				is.setId(Long.valueOf(1000));
 			}
 			generalMeasureList.add(gm);
 
@@ -172,9 +174,7 @@ public class VmeMock {
 		vme.setProfileList(pList);
 		vme.setSpecificMeasureList(specificMeasureList);
 		vme.setGeoRefList(geoRefList);
-		ValidityPeriod vp = new ValidityPeriod();
-		vp.setBeginYear(startYear);
-		vp.setEndYear(endYear);
+		ValidityPeriod vp = ValidityPeriodMock.create(startYear, endYear);
 		vme.setValidityPeriod(vp);
 		vme.setAreaType("Established VME");
 		vme.setCriteria("Uniqueness or rarity");

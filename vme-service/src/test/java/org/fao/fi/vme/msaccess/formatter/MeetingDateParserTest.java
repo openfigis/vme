@@ -2,6 +2,7 @@ package org.fao.fi.vme.msaccess.formatter;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MeetingDateParserTest {
@@ -15,6 +16,7 @@ public class MeetingDateParserTest {
 			"30 Sep - 2 Oct 2009", "4-9 Oct 2010", "28 Sep - 7 Oct 2011", "30-31 Dec 2099" };
 
 	@Test
+	@Ignore
 	public void testMeetingDateParser() {
 		for (String date : testDates) {
 			MeetingDateParser p = new MeetingDateParser(date);

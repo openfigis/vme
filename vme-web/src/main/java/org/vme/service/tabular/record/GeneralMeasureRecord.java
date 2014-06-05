@@ -18,8 +18,8 @@ public class GeneralMeasureRecord extends AbstractRecord implements
 	@Override
 	public void doSecondLevel(GeneralMeasure p, List<Object> nextRecord) {
 		nextRecord.add(p.getYear());
-		nextRecord.add(p.getValidityPeriod().getBeginYear());
-		nextRecord.add(p.getValidityPeriod().getEndYear());
+		nextRecord.add(p.getValidityPeriod().getBeginDate());
+		nextRecord.add(p.getValidityPeriod().getEndDate());
 		nextRecord.add(u.getEnglish(p.getFishingArea()));
 		nextRecord.add(u.getEnglish(p.getExplorataryFishingProtocol()));
 		nextRecord.add(u.getEnglish(p.getVmeEncounterProtocol()));

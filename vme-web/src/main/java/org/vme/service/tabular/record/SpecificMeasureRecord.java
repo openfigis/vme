@@ -19,23 +19,23 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 	public void doSecondLevel(SpecificMeasure sm, List<Object> nextRecord) {
 		nextRecord.add(u.getEnglish(sm.getVmeSpecificMeasure()));
 		nextRecord.add(sm.getYear());
-		nextRecord.add(sm.getValidityPeriod().getBeginYear());
-		nextRecord.add(sm.getValidityPeriod().getEndYear());
+		nextRecord.add(sm.getValidityPeriod().getBeginDate());
+		nextRecord.add(sm.getValidityPeriod().getEndDate());
 		nextRecord.add(sm.getReviewYear());
-		if(sm.getInformationSource()!=null){
+		if (sm.getInformationSource() != null) {
 			nextRecord.add(u.getEnglish(sm.getInformationSource().getCitation()));
 			nextRecord.add(sm.getInformationSource().getId());
 		} else {
 			nextRecord.add("");
 			nextRecord.add("");
-		}		
-		
+		}
+
 		/*
-		 *  Note: this methods lacks of nextRecord.add(sm.getReviewYear) because
-		 *  this field (ReviewYear) is missing in Specific Measure, once it`ll be
-		 *  implemented it could be available
+		 * Note: this methods lacks of nextRecord.add(sm.getReviewYear) because
+		 * this field (ReviewYear) is missing in Specific Measure, once it`ll be
+		 * implemented it could be available
 		 */
-		
+
 	}
 
 	@Override
@@ -45,14 +45,14 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 
 	@Override
 	public String[] getHeaders() {
-		return new String[] { "Vme Name", "Measure Specific to this area", "Year", "Begin date", "End date", "Review Year" ,
-				"Source of Information - Citation" , "Source ID" };
+		return new String[] { "Vme Name", "Measure Specific to this area", "Year", "Begin date", "End date",
+				"Review Year", "Source of Information - Citation", "Source ID" };
 	}
 
 	@Override
 	public void doThirdLevel(Empty p, List<Object> nextRecord) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

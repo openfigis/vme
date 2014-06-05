@@ -23,6 +23,7 @@ import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.ReferenceDAO;
@@ -209,7 +210,8 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 
 				if (!toBeRemoved) {
 					ValidityPeriod validityPeriod = vme.getValidityPeriod();
-					if (year < validityPeriod.getBeginYear()) {
+					DateTime dt = new DateTime(validityPeriod.getBeginDate());
+					if (year < dt.getYear()) {
 						toBeRemoved = true;
 					}
 				}
@@ -457,8 +459,8 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		}
 
 		res.setGeoArea(u.getEnglish(vme.getGeoArea()));
-		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginYear());
-		res.setValidityPeriodTo(vme.getValidityPeriod().getEndYear());
+		res.setValidityPeriodFrom((new DateTime(vme.getValidityPeriod().getBeginDate())).getYear());
+		res.setValidityPeriodTo((new DateTime(vme.getValidityPeriod().getEndDate())).getYear());
 		res.setVmeType(vme.getAreaType());
 
 		if (!vme.getGeoRefList().isEmpty()) {

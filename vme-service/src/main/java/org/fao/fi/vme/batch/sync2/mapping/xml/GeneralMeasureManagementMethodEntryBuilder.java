@@ -37,7 +37,7 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 	public final static String VME_INDICATORSPECIES = "VME_indicatorspecies";
 	public final static String URI = "URI";
 	public final static String TIME = "Time";
-	BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
+	private BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
 
 	private ObjectFactory f = new ObjectFactory();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
@@ -210,19 +210,20 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 		// ManagementMethodEntry ValidityPeriod
 		if (yearObject != null) {
 			Min min = f.createMin();
-			min.setContent(yearObject.getValidityPeriod().getBeginYear().toString());
+
+			min.setContent(yearObject.getValidityPeriod().getBeginDate().toString());
 			JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
 
 			Max max = f.createMax();
-			max.setContent(yearObject.getValidityPeriod().getEndYear().toString());
+			max.setContent(yearObject.getValidityPeriod().getEndDate().toString());
 			JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
 
 			Range range = f.createRange();
 			range.setType(TIME);
 			range.getContent().add(minJAXBElement);
 			range.getContent().add(maxJAXBElement);
-			new AddWhenContentRule<Object>().check(yearObject.getValidityPeriod().getBeginYear().toString())
-					.check(yearObject.getValidityPeriod().getEndYear().toString()).beforeAdding(range)
+			new AddWhenContentRule<Object>().check(yearObject.getValidityPeriod().getBeginDate().toString())
+					.check(yearObject.getValidityPeriod().getEndDate().toString()).beforeAdding(range)
 					.to(entry.getTextsAndImagesAndTables());
 
 		}

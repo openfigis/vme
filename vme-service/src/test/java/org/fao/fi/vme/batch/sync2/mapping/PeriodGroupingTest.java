@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.junit.Test;
@@ -15,6 +16,7 @@ public class PeriodGroupingTest {
 
 	PeriodGrouping grouping = new PeriodGrouping();
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
+	ValidityPeriodUtil vu = new ValidityPeriodUtil();
 
 	@Test
 	public void testCollectValidation() {
@@ -23,9 +25,10 @@ public class PeriodGroupingTest {
 		ValidityPeriod vp = new ValidityPeriod();
 		vme.setValidityPeriod(vp);
 		delegate(vme);
-		vp.setBeginYear(100);
+
+		vp.setBeginDate(vu.beginYear2BeginDate(100));
 		delegate(vme);
-		vp.setEndYear(100);
+		vp.setEndDate(vu.endYear2endDate(100));
 	}
 
 	private void delegate(Vme vme) {
@@ -62,13 +65,13 @@ public class PeriodGroupingTest {
 		Vme vme = VmeMock.generateVme(numberOfYears);
 		int endYear = 1971;
 
-		vme.getSpecificMeasureList().get(0).getValidityPeriod().setEndYear(endYear);
-		int endYearSecond = vme.getSpecificMeasureList().get(1).getValidityPeriod().getEndYear();
+		vme.getSpecificMeasureList().get(0).getValidityPeriod().setEndDate(vu.endYear2endDate(endYear));
+		int endYearSecond = vu.getEndYear(vme.getSpecificMeasureList().get(1).getValidityPeriod());
 
 		List<DisseminationYearSlice> list = grouping.collect(vme);
 		assertEquals(numberOfYears, list.size());
-		assertEquals(endYearSecond, list.get(0).getSpecificMeasure().getValidityPeriod().getEndYear().intValue());
-		assertEquals(endYear, list.get(1).getSpecificMeasure().getValidityPeriod().getEndYear().intValue());
+		assertEquals(endYearSecond, vu.getEndYear(list.get(0).getSpecificMeasure().getValidityPeriod()));
+		assertEquals(endYear, vu.getEndYear(list.get(1).getSpecificMeasure().getValidityPeriod()));
 
 	}
 }

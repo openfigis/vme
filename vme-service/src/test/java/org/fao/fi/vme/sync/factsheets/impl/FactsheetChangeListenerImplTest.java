@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
-import javax.persistence.EntityTransaction;
 
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
@@ -60,32 +59,26 @@ public class FactsheetChangeListenerImplTest {
 
 	@Test
 	public void testDoUpdateFactsheets() throws Throwable {
-		EntityTransaction tx = vmeDao.getEm().getTransaction();
-		
+
 		InformationSourceType defaultInformationSourceType = InformationSourceMock.createInformationSourceType();
-		
-		tx.begin();
-		vmeDao.getEm().persist(defaultInformationSourceType);
-		tx.commit();
-		
+
+		vmeDao.persist(defaultInformationSourceType);
+
 		String before = "before";
 		Vme vme = VmeMock.generateVme(1);
 		Rfmo rfmo = new Rfmo();
 		rfmo.setId("fjdskjfds");
+
 		vme.setName(u.english(before));
-		
-		
-		
+
 		vmeDao.saveVme(vme);
 		syncBatch2.syncFigisWithVme();
 		assertTrue(figisDao.loadObjects(ObservationXml.class).get(0).getXml().contains(before));
 		delegateCount();
 		String after = "after";
 		vme.setName(u.english(after));
-		
-		tx.begin();
+
 		vmeDao.update(vme);
-		tx.commit();
 		l.VMEChanged(vme);
 		delegateCount();
 

@@ -155,8 +155,10 @@ public class Measures_VME_General implements TableDomainMapper {
 		ValidityPeriodRule r = new ValidityPeriodRule(this.VME_GeneralMeasure_Validity_Start,
 				VME_GeneralMeasure_Validity_End);
 		ValidityPeriod vp = new ValidityPeriod();
-		vp.setBeginYear(r.getStart());
-		vp.setEndYear(r.getEnd());
+		// Intervention Erik van Ingen 5 June 2014. Commented because this logic
+		// is not used anymore and therefore does not need to be updated.
+		// vp.setBeginYear(r.getStart());
+		// vp.setEndYear(r.getEnd());
 		o.setValidityPeriod(vp);
 		o.setYear(this.Year_ID);
 		return o;

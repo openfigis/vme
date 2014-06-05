@@ -15,6 +15,7 @@ import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
@@ -61,6 +62,7 @@ public class VmeBackupTest {
 	 * objects.
 	 */
 	@Test
+	@Ignore("msaccess is not supported anymore")
 	public void testRunWithAccess() {
 		i.importMsAccessData();
 		List<Vme> vmeList = vmeDao.loadVmes();

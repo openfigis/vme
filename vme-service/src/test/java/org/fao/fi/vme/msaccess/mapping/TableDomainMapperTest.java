@@ -15,6 +15,7 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
@@ -47,6 +48,7 @@ public class TableDomainMapperTest {
 	}
 
 	@Test
+	@Ignore("because msaccess is not supported anymore")
 	public void testMap() {
 		for (Class<?> clazz : reader.getTables()) {
 			Table table = tr.read(clazz);

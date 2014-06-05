@@ -24,6 +24,7 @@ import org.fao.fi.vme.msaccess.model.Table;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
@@ -48,6 +49,7 @@ public class LinkerTest {
 	ReferenceDataHardcodedBatch rData;
 
 	@Test
+	@Ignore("msaccess is not supported anymore")
 	public void testLink() {
 
 		rData.run();
@@ -121,8 +123,8 @@ public class LinkerTest {
 			assertNotNull(o.getSpecificMeasureList().get(0).getVmeSpecificMeasure());
 		}
 
-		assertNotNull(o.getValidityPeriod().getBeginYear());
-		assertNotNull(o.getValidityPeriod().getEndYear());
+		assertNotNull(o.getValidityPeriod().getBeginDate());
+		assertNotNull(o.getValidityPeriod().getEndDate());
 
 	}
 

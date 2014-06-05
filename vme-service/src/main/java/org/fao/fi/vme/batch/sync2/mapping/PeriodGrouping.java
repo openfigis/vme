@@ -9,6 +9,7 @@ import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.interfaces.Year;
 import org.fao.fi.vme.domain.logic.YearComparator;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 
 /**
  * 
@@ -29,11 +30,12 @@ import org.fao.fi.vme.domain.model.Vme;
 public class PeriodGrouping {
 
 	private static final int FUTURE = 9999;
+	private ValidityPeriodUtil vu = new ValidityPeriodUtil();
 
 	public List<DisseminationYearSlice> collect(Vme vme) {
 		// precondition
-		if (vme.getValidityPeriod() == null || vme.getValidityPeriod().getBeginYear() == null
-				|| vme.getValidityPeriod().getEndYear() == null) {
+		if (vme.getValidityPeriod() == null || vme.getValidityPeriod().getBeginDate() == null
+				|| vme.getValidityPeriod().getEndDate() == null) {
 			throw new VmeException("This vme does not have a properly filled validityPeridod: Vme id " + vme.getId()
 					+ " " + vme.getInventoryIdentifier());
 		}
@@ -41,8 +43,8 @@ public class PeriodGrouping {
 		// logic
 		List<DisseminationYearSlice> l = new ArrayList<DisseminationYearSlice>();
 
-		int beginYear = vme.getValidityPeriod().getBeginYear();
-		int endYear = vme.getValidityPeriod().getEndYear();
+		int beginYear = vu.getBeginYear(vme.getValidityPeriod());
+		int endYear = vu.getEndYear(vme.getValidityPeriod());
 
 		if (endYear == FUTURE) {
 			endYear = Calendar.getInstance().get(Calendar.YEAR);

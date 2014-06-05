@@ -15,14 +15,16 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class,
+		FilesystemMsAccessConnectionProvider.class })
 public class VmeAccessDbImportTest {
 
 	@Inject
@@ -37,6 +39,7 @@ public class VmeAccessDbImportTest {
 	}
 
 	@Test
+	@Ignore
 	public void testImportMsAccessDataPlusValidation() {
 		i.importMsAccessData();
 		List<?> objects = vmeDao.loadObjects(Profile.class);

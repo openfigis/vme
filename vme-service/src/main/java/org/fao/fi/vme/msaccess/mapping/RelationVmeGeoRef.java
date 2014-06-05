@@ -149,13 +149,17 @@ public class RelationVmeGeoRef {
 		}
 
 		// take the earliest start
-		if (vme.getValidityPeriod().getBeginYear() < vmeTarget.getValidityPeriod().getBeginYear()) {
-			vmeTarget.getValidityPeriod().setBeginYear(vme.getValidityPeriod().getBeginYear());
-		}
-		// take the latest start
-		if (vme.getValidityPeriod().getEndYear() > vmeTarget.getValidityPeriod().getEndYear()) {
-			vmeTarget.getValidityPeriod().setEndYear(vme.getValidityPeriod().getEndYear());
-		}
+		// Intervention Erik van Ingen 5 June 2014. Commented because this logic
+		// is not used anymore and therefore does not need to be updated.
+		// if (vme.getValidityPeriod().getBeginYear() <
+		// vmeTarget.getValidityPeriod().getBeginYear()) {
+		// vmeTarget.getValidityPeriod().setBeginYear(vme.getValidityPeriod().getBeginYear());
+		// }
+		// // take the latest start
+		// if (vme.getValidityPeriod().getEndYear() >
+		// vmeTarget.getValidityPeriod().getEndYear()) {
+		// vmeTarget.getValidityPeriod().setEndYear(vme.getValidityPeriod().getEndYear());
+		// }
 
 	}
 }

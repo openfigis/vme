@@ -14,6 +14,7 @@ import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -32,10 +33,8 @@ import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
-@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, 
-						 FigisDataBaseProducer.class, 
-						 VmeTestPersistenceUnitConfiguration.class, 
-						 VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
+		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
 public class VmeSearchDaoImplTest {
 
 	@VmeDB
@@ -49,6 +48,7 @@ public class VmeSearchDaoImplTest {
 	private VmeDao vmeDao;
 
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
+	ValidityPeriodUtil vu = new ValidityPeriodUtil();
 
 	@Test
 	public void testGetObservationByGeographicFeatureId() {
@@ -140,8 +140,8 @@ public class VmeSearchDaoImplTest {
 		int year = 2012;
 		String text = "lola";
 		Vme vme = VmeMock.generateVme(1);
-		vme.getValidityPeriod().setBeginYear(year);
-		vme.getValidityPeriod().setEndYear(year);
+		vme.getValidityPeriod().setBeginDate(vu.beginYear2BeginDate(year));
+		vme.getValidityPeriod().setEndDate(vu.endYear2endDate(year));
 
 		Authority a = new Authority();
 		a.setAcronym(vme.getRfmo().getId());
