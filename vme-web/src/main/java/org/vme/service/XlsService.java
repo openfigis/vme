@@ -70,9 +70,10 @@ public class XlsService {
 		 * Note: this for block removes vmes from other RFMO by recognising them
 		 * from RFMO`s id
 		 */
+		
 		List<Vme> vmeList = vdao.loadVmes();
 		List<Vme> vmeListPerRfmo = new ArrayList<Vme>();
-
+				
 		for (Vme v : vmeList) {
 			if (v.getRfmo().getId().equals(authorityAcronym)) {
 				vmeListPerRfmo.add(v);

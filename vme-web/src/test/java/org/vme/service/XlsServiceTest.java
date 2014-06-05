@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
@@ -23,8 +22,11 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationPk;
 import org.fao.fi.figis.domain.test.ObservationMock;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
+import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.test.RfmoMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
@@ -32,7 +34,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
 import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
@@ -52,6 +53,10 @@ public class XlsServiceTest {
 	
 	@Inject
 	VmeDao vDao;
+	
+	@Inject
+	@ConceptProvider
+	private ReferenceDaoImpl refDao;
 
 	private WritableWorkbookFactory f = new WritableWorkbookFactory();
 	private TabularGenerator g = new TabularGenerator();
@@ -65,16 +70,13 @@ public class XlsServiceTest {
 	
 	@Test
 	public void testCreateXlsFile() throws Exception {
-
-		VmeDataBaseProducer vdbp = new VmeDataBaseProducer();
-			
-		EntityManager manager = vdbp.produceEntityManager();
 		
-		Vme vme = VmeMock.generateVme(3);
-		vDao.saveVme(vme);
-		vDao.persist(manager, vme);
+		Rfmo rfmo = RfmoMock.create();
+		for (Vme v : rfmo.getListOfManagedVmes()) {
+			vDao.saveVme(v);
+		}
 		
-		ByteArrayInputStream byteArrayInputStream = xlsService.createXlsFile("SEAFO");
+		ByteArrayInputStream byteArrayInputStream = xlsService.createXlsFile("1000");
 		
 		assertNotNull(byteArrayInputStream);
 	}

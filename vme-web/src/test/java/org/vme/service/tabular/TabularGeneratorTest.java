@@ -2,24 +2,16 @@ package org.vme.service.tabular;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.batch.sync2.mapping.VmeHistory;
-import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
-import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.test.RfmoMock;
 import org.fao.fi.vme.domain.test.VmeMock;
-import org.fao.fi.vme.domain.util.Lang;
 import org.junit.Test;
 import org.vme.service.XlsService;
 import org.vme.service.tabular.record.VmeContainer;
@@ -287,5 +279,5 @@ public class TabularGeneratorTest {
 			System.out.println();
 		}
 	}
-	
+
 }

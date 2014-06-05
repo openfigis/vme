@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 public interface RecordGenerator<F, S, T> {
-
+	
 	public void doFirstLevel(F p, List<Object> nextRecord);
 
 	public void doSecondLevel(S p, List<Object> nextRecord);

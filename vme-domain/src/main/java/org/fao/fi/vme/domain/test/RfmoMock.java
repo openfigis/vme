@@ -14,6 +14,7 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 public class RfmoMock {
 
 	static MultiLingualStringUtil u = new MultiLingualStringUtil();
+	final static String ID = String.valueOf(1000);
 
 	public static Rfmo create() {
 
@@ -22,6 +23,7 @@ public class RfmoMock {
 		gmList.add(GeneralMeasureMock.create());
 		gmList.add(GeneralMeasureMock.create());
 		rfmo.setGeneralMeasureList(gmList);
+		rfmo.setId(ID);
 
 		List<FisheryAreasHistory> hasFisheryAreasHistory = new ArrayList<FisheryAreasHistory>();
 		FisheryAreasHistory fahistory = new FisheryAreasHistory();
