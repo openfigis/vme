@@ -25,7 +25,6 @@ import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
-import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.VmeAccessDbImport;
@@ -36,6 +35,7 @@ import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.joda.time.DateTime;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
@@ -68,16 +68,14 @@ public class CRUDJpaDaoTest {
 
 	private EntityManager em;
 
-	private ValidityPeriodUtil vu = new ValidityPeriodUtil();
-
 	@PostConstruct
 	public void postConstruct() {
 		this.em = vmeDao.getEm();
-
-		importer.importMsAccessData();
+		// importer.importMsAccessData();
 	}
 
 	@Test
+	@Ignore("ms access is not anymore supported")
 	public void testDeleteVme() {
 		EntityTransaction et = this.vmeDao.getEm().getTransaction();
 
@@ -105,6 +103,7 @@ public class CRUDJpaDaoTest {
 	}
 
 	@Test
+	@Ignore("ms access is not anymore supported")
 	public void testChangeVmeRfmo() {
 		Vme ref = this.vmeDao.getEntityById(this.em, Vme.class, 1L);
 		Rfmo currentRfmo = ref.getRfmo();
@@ -152,6 +151,7 @@ public class CRUDJpaDaoTest {
 	}
 
 	@Test
+	@Ignore("ms access is not anymore supported")
 	public void testRemoveVmeRfmo() {
 		Vme ref = this.vmeDao.getEntityById(this.em, Vme.class, 1L);
 		Rfmo currentRfmo = ref.getRfmo();
@@ -183,6 +183,7 @@ public class CRUDJpaDaoTest {
 	}
 
 	@Test
+	@Ignore("ms access is not anymore supported")
 	public void testDefaultDeleteGeoRef() {
 		EntityTransaction et = this.vmeDao.getEm().getTransaction();
 
@@ -205,6 +206,7 @@ public class CRUDJpaDaoTest {
 	}
 
 	@Test
+	@Ignore("ms access is not anymore supported")
 	public void testDefaultDeleteProfile() {
 		EntityTransaction et = this.vmeDao.getEm().getTransaction();
 
@@ -227,6 +229,7 @@ public class CRUDJpaDaoTest {
 	}
 
 	@Test
+	@Ignore("ms access is not anymore supported")
 	public void testDefaultDeleteSpecificMeasure() {
 		EntityTransaction et = this.vmeDao.getEm().getTransaction();
 
@@ -465,6 +468,7 @@ public class CRUDJpaDaoTest {
 	}
 
 	@Test
+	@Ignore("ms access is not anymore supported")
 	public void testCreateVme() throws Throwable {
 		MultiLingualStringUtil MLSu = new MultiLingualStringUtil();
 
@@ -519,6 +523,7 @@ public class CRUDJpaDaoTest {
 	}
 
 	@Test
+	@Ignore("ms access is not anymore supported")
 	public void testUpdateVme() throws Throwable {
 		MultiLingualStringUtil MLSu = new MultiLingualStringUtil();
 
