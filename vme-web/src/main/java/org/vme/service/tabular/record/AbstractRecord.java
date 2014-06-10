@@ -6,7 +6,7 @@ import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class AbstractRecord {
-	
+
 	protected MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	protected Method getMethod(Class<?> clazz, String methodName) {

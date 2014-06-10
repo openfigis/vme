@@ -84,6 +84,9 @@ public class VmeDao extends AbstractJPADao {
 			}
 
 			for (InformationSource informationSource : vme.getRfmo().getInformationSourceList()) {
+				if (!em.contains(informationSource.getSourceType())) {
+					em.persist(informationSource.getSourceType());
+				}
 				if (!em.contains(informationSource)) {
 					em.persist(informationSource);
 				}

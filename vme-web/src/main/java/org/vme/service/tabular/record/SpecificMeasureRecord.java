@@ -22,12 +22,20 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 		nextRecord.add(sm.getValidityPeriod().getBeginDate());
 		nextRecord.add(sm.getValidityPeriod().getEndDate());
 		nextRecord.add(sm.getReviewYear());
-		if (sm.getInformationSource() != null) {
-			nextRecord.add(u.getEnglish(sm.getInformationSource().getCitation()));
-			nextRecord.add(sm.getInformationSource().getId());
+		if (sm.getInformationSource() == null) {
+			nextRecord.add("");
+			nextRecord.add("");
 		} else {
-			nextRecord.add("");
-			nextRecord.add("");
+			if (sm.getInformationSource().getCitation() == null) {
+				nextRecord.add("");
+			} else {
+				nextRecord.add(u.getEnglish(sm.getInformationSource().getCitation()));
+			}
+			if (sm.getInformationSource().getId() == null) {
+				nextRecord.add("");
+			} else {
+				nextRecord.add(sm.getInformationSource().getId());
+			}
 		}
 
 		/*

@@ -20,9 +20,11 @@ public class GeneralMeasureMock {
 		gm.setVmeIndicatorSpecies(u.english(longString));
 		gm.setVmeThreshold(u.english(longString));
 		gm.setYear(4567);
+
 		ValidityPeriod vp = new ValidityPeriod();
 		vp.setBeginDate(vu.beginYear2BeginDate(1999));
 		vp.setEndDate(vu.beginYear2BeginDate(2001));
+
 		gm.setValidityPeriod(vp);
 
 		return gm;

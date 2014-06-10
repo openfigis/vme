@@ -22,13 +22,20 @@ public class InformationSourceRecord extends AbstractRecord implements RecordGen
 		nextRecord.add(u.getEnglish(p.getCommittee()));
 		nextRecord.add(u.getEnglish(p.getCitation()));
 		nextRecord.add(u.getEnglish(p.getReportSummary()));
-		if (p.getUrl() != null) {
-			nextRecord.add(p.getUrl().toString());
-		} else {
+
+		if (p.getUrl() == null) {
 			nextRecord.add("");
+		} else {
+			nextRecord.add(p.getUrl().toString());
 		}
+
 		nextRecord.add(p.getSourceType().getName());
-		nextRecord.add(p.getId());
+
+		if (p.getId() == null) {
+			nextRecord.add("");
+		} else {
+			nextRecord.add(p.getId());
+		}
 	}
 
 	@Override

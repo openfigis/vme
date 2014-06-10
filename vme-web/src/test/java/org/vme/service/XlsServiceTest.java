@@ -22,9 +22,9 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationPk;
 import org.fao.fi.figis.domain.test.ObservationMock;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
-import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.test.RfmoMock;
+import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -50,10 +50,10 @@ public class XlsServiceTest {
 
 	@Inject
 	private XlsService xlsService = new XlsService();
-	
+
 	@Inject
 	VmeDao vDao;
-	
+
 	@Inject
 	@ConceptProvider
 	private ReferenceDaoImpl refDao;
@@ -64,26 +64,27 @@ public class XlsServiceTest {
 	private static final Long observation_ID = (long) 10001;
 
 	/**
-	 *  Note: @throws NullPointerException
+	 * Note: @throws NullPointerException
 	 * 
 	 */
-	
+
 	@Test
 	public void testCreateXlsFile() throws Exception {
-		
-		Rfmo rfmo = RfmoMock.create();
-		for (Vme v : rfmo.getListOfManagedVmes()) {
-			vDao.saveVme(v);
-		}
-		
+		InformationSourceType defaultIST = InformationSourceMock.createInformationSourceType();
+
+		vDao.persist(defaultIST);
+
+		Vme vme = VmeMock.generateVme(5);
+		vDao.saveVme(vme);
+
 		ByteArrayInputStream byteArrayInputStream = xlsService.createXlsFile("1000");
-		
+
 		assertNotNull(byteArrayInputStream);
 	}
 
 	@Test
 	public void testFillWorkSheet() throws RowsExceededException, WriteException {
-		
+
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 		Vme vme = VmeMock.generateVme(2);
@@ -94,11 +95,11 @@ public class XlsServiceTest {
 		WritableWorkbook ww = f.create(baos);
 
 		for (WritableSheet wSheet : ww.getSheets()) {
-			if (!wSheet.getName().equals("Fact Sheets")){
+			if (!wSheet.getName().equals("Fact Sheets")) {
 				xlsService.fillWorkSheet(wSheet, vmeList);
 			} else {
 				List<List<Object>> tabular = g.generateFactSheet(new ArrayList<VmeContainer>());
-				xlsService.fillCells(tabular , wSheet);
+				xlsService.fillCells(tabular, wSheet);
 			}
 		}
 
@@ -119,7 +120,7 @@ public class XlsServiceTest {
 		}
 
 		assertEquals(8, ww.getNumberOfSheets());
-		
+
 		for (WritableSheet wSheet : ww.getSheets()) {
 			assertTrue(wSheet.getRows() == 1);
 		}
@@ -128,11 +129,11 @@ public class XlsServiceTest {
 
 	@Test
 	public void testGetAuthorityIdByAcronym() {
-//		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
-	public void prepereListTest(){
+	public void prepereListTest() {
 
 		Vme vme = VmeMock.generateVme(2);
 
@@ -146,7 +147,7 @@ public class XlsServiceTest {
 		for (Vme v : vmeList) {
 
 			Observation ob = ObservationMock.create();
-			ob.setId(observation_ID+i);
+			ob.setId(observation_ID + i);
 
 			List<ObservationXml> observationXmlList = new ArrayList<ObservationXml>();
 			observationXmlList.add(ObservationXmlMock.create());
@@ -170,8 +171,8 @@ public class XlsServiceTest {
 
 		assertNotNull(cList);
 	}
-	
-	public List<VmeContainer> prepereListMock(List<Vme> vmeList){
+
+	public List<VmeContainer> prepereListMock(List<Vme> vmeList) {
 
 		List<VmeContainer> cList = new ArrayList<VmeContainer>();
 
@@ -180,11 +181,11 @@ public class XlsServiceTest {
 		for (Vme v : vmeList) {
 
 			Observation ob = ObservationMock.create();
-			ob.setId(observation_ID+i);
+			ob.setId(observation_ID + i);
 
 			ObservationXml obXml = ObservationXmlMock.create();
 			obXml.setObservation(ob);
-			
+
 			List<ObservationXml> observationXmlList = new ArrayList<ObservationXml>();
 			observationXmlList.add(obXml);
 			ob.setObservationsPerLanguage(observationXmlList);
@@ -209,7 +210,7 @@ public class XlsServiceTest {
 	}
 
 	@Test
-	public void dataStringTest(){
+	public void dataStringTest() {
 		System.out.println(xlsService.dataString());
 	}
 

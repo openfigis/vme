@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.lang.StringUtils;
 import org.fao.fi.figis.domain.VmeObservation;
@@ -77,6 +78,9 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 
 		Query query = entityManager.createQuery(createHibernateSearchTextualQuery(authority_id, type_id, criteria_id,
 				year));
+		Date date = vu.beginYear2BeginDate(year);
+		query.setParameter("beginDate", date, TemporalType.DATE);
+
 		List<Vme> result = (List<Vme>) query.getResultList();
 		List<Vme> toRemove = postPurgeResult(year, text, result);
 		List<VmeDto> res = convertPersistenceResult(year, (List<Vme>) result, toRemove);
@@ -174,12 +178,9 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 
 		txtQuery.append(conjunction);
 
-		Date date = vu.beginYear2BeginDate(year);
-		txtQuery.append(" vme.validityPeriod.beginDate <= ");
-		txtQuery.append(uj.date2JqlString(date));
+		txtQuery.append(" vme.validityPeriod.beginDate <= :beginDate ");
 
 		String res = txtQuery.toString();
-		System.out.println(res);
 
 		LOG.debug("FAB: {}", res);
 		return res;

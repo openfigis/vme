@@ -25,13 +25,18 @@ public class GeneralMeasureRecord extends AbstractRecord implements
 		nextRecord.add(u.getEnglish(p.getVmeEncounterProtocol()));
 		nextRecord.add(u.getEnglish(p.getVmeIndicatorSpecies()));
 		nextRecord.add(u.getEnglish(p.getVmeThreshold()));
-
 	}
 
 	@Override
 	public void doThirdLevel(InformationSource p, List<Object> nextRecord) {
 		nextRecord.add(u.getEnglish(p.getCitation()));
-		nextRecord.add(p.getId());
+		nextRecord.add("dd");
+		if (p.getId() == null) {
+			nextRecord.add("");
+		} else {
+			nextRecord.add(p.getId());
+		}
+
 	}
 
 	@Override
