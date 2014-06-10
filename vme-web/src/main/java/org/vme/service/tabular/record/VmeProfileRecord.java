@@ -17,8 +17,13 @@ public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<
 		nextRecord.add(v.getAreaType());
 		nextRecord.add(u.getEnglish(v.getGeoArea()));
 		nextRecord.add(v.getCriteria());
-		nextRecord.add(v.getValidityPeriod().getBeginDate());
-		nextRecord.add(v.getValidityPeriod().getEndDate());
+		if (v.getValidityPeriod() == null) {
+			nextRecord.add("");
+			nextRecord.add("");
+		} else {
+			nextRecord.add(v.getValidityPeriod().getBeginDate());
+			nextRecord.add(v.getValidityPeriod().getEndDate());
+		}
 	}
 
 	public void doSecondLevel(Profile p, List<Object> nextRecord) {
