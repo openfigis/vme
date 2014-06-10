@@ -1,188 +1,327 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>VME web service testing page</title>
+    
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="Map application to display areas of Vulnerable Marine Ecosystems." />
+	<meta name="author-corporate" content="FAO of the UN" />
+	<meta name="copyright" content="http://www.fao.org/corp/copyright/en/" />
+	<meta name="keywords" content="RFB, Regional Fishery Body, Map, FAO" />
+	<title>Vulnerable Marine Ecosystems Database</title>
+	
+	<link rel="stylesheet" type="text/css" href="lib/OpenLayers/theme/default/style.css" />
+	<link rel="stylesheet" href="theme/css/style.css" type="text/css" />
+	<link rel="stylesheet" href="theme/css/html.css" type="text/css" />
+	<link rel="stylesheet" href="theme/css/vme.css" type="text/css" />
+    <link rel="stylesheet" href="theme/css/vmefonts.css" type="text/css" />
+	
+	<script type="text/javascript" src="lib/extjs/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="lib/extjs/ext-all.js"></script>
+	<link rel="stylesheet" type="text/css" href="lib/extjs/resources/css/ext-all.css" />
+	<link rel="stylesheet" type="text/css" href="lib/extjs/resources/css/xtheme-gray.css" />
+	<link rel="stylesheet" type="text/css" href="lib/GeoExt/resources/css/geoext-all.css" />
 
+	<!-- <link rel="stylesheet" type="text/css" href="lib/jQueryUI/development-bundle/themes/start/jquery-ui-1.8.2.custom.css" /> -->
+    <!-- <script type="text/javascript" src="lib/jQueryUI/js/jquery-1.4.2.min.js" ></script> -->
+	<!-- <script type="text/javascript" src="lib/jQueryUI/js/jquery-ui-1.8.2.custom.min.js"></script> -->
+	
+	<script type="text/javascript" src="lib/OpenLayers/OpenLayers.js"></script>
+	<script type="text/javascript" src="lib/proj4js/lib/proj4js-compressed.js"></script>
+	<script type="text/javascript" src="lib/OpenLayers/openlayers-ext/LoadingPanel.js"></script>
+	<script type="text/javascript" src="lib/GeoExt/script/GeoExt.js"></script>
+    <script type="text/javascript" src="lib/OpenLayers/openlayers-ext/GlassyPanZoom.js" defer="defer"></script>
+
+	<script type="text/javascript" src="src/figis-data.js"></script>
+	<script type="text/javascript" src="src/georeferences.js"></script>
+	<script type="text/javascript" src="src/login.js"></script>	
+    <script type="text/javascript" src="src/factsheet.js"></script> 
+	
+	<script type="text/javascript" src="src/FigisMap.js"></script>
+    <!-- proxy overriding configuration: allows to use a proxy for test purpose -->
+    <script type="text/javascript" src="src/proxy-ovr.js" defer="defer"></script>
+	<script type="text/javascript" src="src/vmeData.js" ></script>
+	<script type="text/javascript" src="src/popups.js"></script>
+	<script type="text/javascript" src="src/sidePanel.js" ></script>
+	<script type="text/javascript" src="src/vme.js"></script>
+
+	<script type="text/javascript" src="lib/OpenLayers/openlayers-ext/Watermark.js" defer="defer"></script>
+    
+    <style type="text/css">
+          	
+          table.featureInfo, table.featureInfo td, table.featureInfo th {
+                  border:1px solid #15428B; 
+                  margin:0; 
+                  padding:0; 
+                  font-size: 12px;
+                  white-space: nowrap; 
+                  /*padding:.1em .1em; */
+          }
+          
+          table.featureInfo th{
+                  padding:.2em .2em; 
+                  /*text-transform:lowercase;*/
+                  color:#fff; 
+                  font-weight:bold; 
+                  font-size: 12px; 
+                  background:#15428B; 
+          }
+          
+          table.featureInfo td{
+                  background:#fff; 
+                  font-size: 12px;
+                  white-space: nowrap; 
+          }
+          
+          table.featureInfo tr.odd td{
+                  background:#CEDFF5; 
+                  font-size: 12px;
+                  white-space: nowrap; 
+          }
+          
+          table.featureInfo caption{
+                  text-align:left; 
+                  font-size:100%; 
+                  font-weight:bold; 
+                  text-transform:lowercase;
+                  padding:.2em .2em; 
+          }
+			
+    </style>
+    <!-- header style -->
+    <style type="text/css">
+        #header {
+            width: 920px;
+            position: relative;
+            background-image: url(theme/img/patternbanner.jpg);
+            background-repeat: no-repeat;
+            background-position: left top;
+            height: 172px;
+        }
+        #header #logo {
+            width: 400px;
+        }
+        #header .info {
+            width: 360px;
+            position: absolute;
+            right: 20px;
+            top: 40px;
+            color: #fff;
+            font-family: Verdana, Helvetica, Arial, sans-serif;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 16px;
+            text-align: left;
+            text-shadow: 1px 1px 2px #000;
+        }
+        img{
+            max-width: 100%
+        }
+</style>
+<!--[if lt IE 9]>
+    <link rel="stylesheet" href="theme/css/oldie.css" type="text/css" />
+
+    <![endif]-->
+<script type="text/javascript">
+//Workaround for IE7 IE8 http://trac.osgeo.org/openlayers/ticket/2304
+document.namespaces;
+</script>
 </head>
-<body>
-	<h1>
-		<span style="color: rgb(0, 0, 102);"> Welcome to VME RESTful
-			web service !!!&nbsp;</span>
-	</h1>
-	<br>
-	<br>
-	<table style="text-align: left; width: 100%;">
-		<tbody>
-			<tr>
-				<td style="color: rgb(102, 0, 0); width: 610px;">If you want to
-					see the documentation of this service ...</td>
-				<td style="width: 756px;"><a
-					href="http://km.fao.org/FIGISwiki/index.php/VME_Search_Rest_Service">http://km.fao.org/FIGISwiki/index.php/VME_Search_Rest_Service</a></td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); width: 610px;">If you want to
-					flush the cache</td>
-				<td style="width: 756px;"><a href="webservice/cache-delete">webservice/cache-delete</a></td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); width: 610px;"></td>
-				<td style="width: 756px;"></td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); width: 610px;">If you want to
-					get the code list of the authorities&nbsp;in json format</td>
-				<td style="width: 756px;"><a
-					href="webservice/references/authority/en/list">webservice/references/authority/en/list</a></td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); width: 610px;">If you want to
-					get&nbsp;the code list of VME types&nbsp;in json format</td>
-				<td style="width: 756px;"><a
-					href="webservice/references/type/en/list">webservice/references/type/en/list</a></td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); width: 610px;">If you want to
-					get&nbsp;the code list of VME criterias in json format</td>
-				<td style="width: 756px;"><a
-					href="webservice/references/criteria/en/list">webservice/references/criteria/en/list</a></td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); width: 610px;">If you want to
-					get&nbsp;the data related years in json format</td>
-				<td style="width: 756px;"><a
-					href="webservice/references/years/en/list">webservice/references/years/en/list</a></td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); width: 610px;"></td>
-				<td style="width: 756px;"></td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); width: 610px;"><span
-					style="font-style: italic;">To having an example of
-						&nbsp;how...</span></td>
-				<td style="width: 756px;"></td>
-			</tr>
-			<tr>
-				<td>... search with a searchTerm</td>
-				<td style="width: 756px;"><a
-					href="webservice/search?text=lophelia">webservice/search?text=lophelia</a>
-				</td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...query
-					the data&nbsp;(json format service):</td>
-				<td style="width: 756px;"><a
-					href="webservice/search?authority=20010&amp;vme_type=10&amp;year=2012">webservice/search?authority=20010&amp;vme_type=10&amp;year=2012</a>
-				</td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
-					get a single vme item by its <span style="font-style: italic;">id</span>&nbsp;
-					(unspecified year, it assumes current one)
-				</td>
-				<td style="width: 756px;"><a href="webservice/get?id=10">webservice/get?id=10</a>
-				</td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...
-					to get a single vme item by its <span style="font-style: italic;">id</span>&nbsp;(year
-					specified)
-				</td>
-				<td style="width: 756px;"><a
-					href="webservice/get?id=10&amp;year=2010">webservice/get?id=10&amp;year=2010</a>
-				</td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
-					get&nbsp;a single vme item by its<span style="font-style: italic;">
-						inventory identifier</span> (unspecified year, it assumes current one)
-				</td>
-				<td style="width: 756px;"><a
-					href="webservice/get?inventoryIdentifier=VME_NAFO_12">webservice/get?inventoryIdentifier=VME_NAFO_12<br>
-				</a></td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
-					get&nbsp;a single vme item by its<span style="font-style: italic;">
-						inventory identifier</span> (year specified)
-				</td>
-				<td style="width: 756px;"><a
-					href="webservice/get?inventoryIdentifier=VME_NAFO_12&amp;year=2010">webservice/get?inventoryIdentifier=VME_NAFO_12&amp;year=2010</a><a
-					href="webservice/get?inventoryIdentifier=VME_NAFO_12&amp;year=2010">
-				</a></td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
-					get&nbsp;a single vme item by its <span style="font-style: italic;">geographic
-						feature ident.</span>(unspecified year, it assumes current one)
-				</td>
-				<td style="width: 756px;"><a
-					href="webservice/get?geographicFeatureId=VME_NAFO_10_2009">webservice/get?geographicFeatureId=VME_NAFO_10_2009<br>
-				</a></td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">...to
-					get&nbsp;a single vme item by its <span style="font-style: italic;">geographic
-						feature identifier </span>(year specified)
-				</td>
-				<td style="width: 756px;"><a
-					href="webservice/get?geographicFeatureId=VME_NAFO_10_2009&amp;year=2012">webservice/get?geographicFeatureId=VME_NAFO_10_2009&amp;year=2012</a><a
-					href="webservice/get?geographicFeatureId=VME_NAFO_10_2009&amp;year=2012">
-				</a></td>
-			</tr>
 
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">
-					Link to get a vme data base summary for: <span style="font-style: italic;"> SEAFO </span>
-				</td>
-				<td style="width: 756px;"><a href="webservice/rfmo/SEAFO">webservice/rfmo/SEAFO.xls</a>
-				</td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">
-					Link to get a vme data base summary for: <span style="font-style: italic;"> NAFO </span>
-				</td>
-				<td style="width: 756px;"><a href="webservice/rfmo/NAFO">webservice/rfmo/NAFO.xls</a>
-				</td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">
-					Link to get a vme data base summary for: <span style="font-style: italic;"> GFCM </span>
-				</td>
-				<td style="width: 756px;"><a href="webservice/rfmo/GFCM">webservice/rfmo/GFCM.xls</a>
-				</td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">
-					Link to get a vme data base summary for: <span style="font-style: italic;"> CCAMLR </span>
-				</td>
-				<td style="width: 756px;"><a href="webservice/rfmo/CCAMLR">webservice/rfmo/CCAMLR.xls</a>
-				</td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">
-					Link to get a vme data base summary for: <span style="font-style: italic;"> NEAFC </span>
-				</td>
-				<td style="width: 756px;"><a href="webservice/rfmo/NEAFC">webservice/rfmo/NEAFC.xls</a>
-				</td>
-			</tr>
-			<tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">
-					Link to get a vme data base summary for: <span style="font-style: italic;"> WECAFC </span>
-				</td>
-				<td style="width: 756px;"><a href="webservice/rfmo/WECAFC">webservice/rfmo/WECAFC.xls</a>
-				</td>
-			</tr><tr>
-				<td style="color: rgb(102, 0, 0); text-align: right; width: 610px;">
-					Link to get a vme data base summary for: <span style="font-style: italic;"> SPRFMO </span>
-				</td>
-				<td style="width: 756px;"><a href="webservice/rfmo/SPRFMO">webservice/rfmo/SPRFMO.xls</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<br>
-	<br>
-</body>
+<body>
+
+<div id="page">
+	<div id="wrapper">
+    <!--
+		<div id="top">
+
+			<table width="100%" cellpadding="0" cellspacing="0" border="0">
+				<tr>
+					<td align="left">
+						<a href="http://www.fao.org" target="_blank"><img border=0 style="vertical-align: middle;" src="theme/img/FIGIS_banner-logo.gif" alt="FOOD AND AGRICULTURE ORGANIZATION OF THE UNITED NATIONS" title="Food and Agriculture Organization of the United Nations"/></a>
+					</td>
+					<td align="right">
+						<a href="http://www.fao.org/fishery" target="_blank"><img border=0 style="vertical-align: middle;" src="theme/img/FIGIS_banner-text.gif" alt="FAO Fisheries and Aquaculture Department" title="FAO Fisheries and Aquaculture Department"/></a>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<h1 id="title">Vulnerable Marine Ecosystems Map Viewer</h1>
+					</td>
+				</tr>			
+			</table>
+			
+		</div> -->
+        <div>
+            <div class="ribbon" style="position:absolute;right:0px;top:0px;z-index:5000">
+               <img src="theme/img/beta-ribbon.png" alt="Beta"/>
+            </div> 
+        </div>
+
+        <div  id="header">
+            <div id="logo"><a href="#" onClick="resetVME();"><img src="theme/img/logo.fw.png" width="377" height="172"  alt=""/></a></div>
+            <div id="subTitle" class="info">
+            	<!--The Vulnerable Marine Ecosystem Database (VME-DB)<br />
+            	gathers information on VME areas stored in harmonized<br />
+            	way and disseminated through maps and fact sheets.-->
+				Global inventory of fisheries measures adopted to <br />
+				prevent significant adverse impacts of high-seas <br />
+				bottom fisheries on vulnerable marine ecosystems (VMEs) and associated information
+            </div>
+        </div>
+
+		<div  style="display:none" id="topBar">			
+			<label id="lblFilRFB" style="visibility:hidden">Zoom to:</label>
+			<select  id="FilterRFB" onchange="setZoom()"></select>
+			<label style="visibility:hidden" id="lblRFB">Filter by:</label>
+			<select style="visibility:hidden" id="SelectRFB" onchange="setVME(null, null, null, 'e-link','rfbs-link', 'rfbs-html')"></select>  
+
+			<!--a href="javascript:embedLink();" id="EmbedLink" title="Link or embed this RFB map"><span>Link</span></a-->
+			<input id="txtCql" type="hidden" />
+			<input id="command" type="hidden" />
+
+			<input id="opt" type="hidden" />
+			<!-- li>
+				<label id="lblCQL">Provide CQL Query</label>
+				<input id="txtCql" type="text" />
+				<input id="btnUpdate" type="button" value="UPDATE" onClick="addRFBCQL()"/>
+			</li>
+			<li>
+				<label id="lblCQL">Enter Command</label>
+				<input id="command" type="text" />
+				<input id="cmdbtn" type="button" value="UPDATE" onClick="Command()"/>
+			</li>
+			<li>
+				<label id="lblCQL">Optional Arguments</label>
+				<input id="opt" type="text" />
+			</li -->					
+		</div> 
+		
+		<div style="position:relative" id="main">
+			<div id="map"  class="map"></div>
+            <div  id="bottomLeftPanel">
+                        <div id="lblSRS" onclick="toggleProjectionPanel();">
+                            Change projection
+                        </div>
+                <div id="SelectSRS">
+                   <div> 
+                                <p>
+                                    <input id="mercatorRadio" type="radio" onclick="radioClick(this)" onchange="setVME(null, null, this.value, 'embed-link','embed-url', 'embed-iframe')" name="srs" value='3349' checked="checked" />
+                                    <label>Mercator</label>
+                                </p>
+
+                                <p>
+                                    <input type="radio" onclick="radioClick(this)" onchange="setVME(null, null, this.value, 'embed-link','embed-url', 'embed-iframe')" name="srs" value='4326' />
+                                    <label>WGS84</label>
+                                </p>
+                   </div>
+                   <div> 
+                                <p>
+                                    <input type="radio" onclick="radioClick(this)" onchange="setVME(null, null, this.value, 'embed-link','embed-url', 'embed-iframe')" name="srs" value='3031' />
+                                    <label>South Polar</label>
+                                </p>
+								<!-- missing proj4js eck4.js file -->
+								<!-- <option value='54012'>EckertIV (54012)</option> -->
+                                <p>
+                                    <input type="radio" onclick="radioClick(this)" onchange="setVME(null, null, this.value, 'embed-link','embed-url', 'embed-iframe')" name="srs" value='54009' />
+                                    <label>Mollweide</label>
+                                </p>
+                   </div> 
+                </div>
+                
+            </div>
+            <div  id="bottomRightPanel">
+                <div id="yearLess" onClick="FigisMap.ol.decrementYear(); setVMEEmbedLink('embed-url', 'embed-iframe');" unselectable="on"></div>
+                <div id="yearCurrent">
+                    2013
+                </div>
+                <div id="yearMore" onClick="FigisMap.ol.incrementYear(); setVMEEmbedLink('embed-url', 'embed-iframe');" unselectable="on"></div>
+            </div>
+            <div id="loginContainer" class="figisButton" onclick="FigisMap.logInOut()">Login</div>
+	
+			<div id="lblVME" class="lblVME figisButtonToggle" style="" onclick="toggleStyle(this, true)">VME areas</div>
+			
+			<div id="lblFootprints" class="lblFootprints figisButton" style="" onclick="toggleStyle(this, true)">Footprints</div>			
+			
+			<div id="lblReset" class="lblReset figisButton" style="" onclick="resetVME()">Reset</div>
+			
+            <div id="sidebar">
+                <div id="leftTopPan">
+                    <div id="searchtextwrapper"><input type="text" id="searchtext" name="searchtext" onkeydown="if (event.keyCode == 13) { Vme.search(false);sidePanel.layout.setActiveItem('searchPanel');sidePanel.expand();Vme.form.panels.SearchPanel.layout.setActiveItem('resultPanel');}"/><div onclick=" Vme.search(false);sidePanel.layout.setActiveItem('searchPanel');sidePanel.expand();Vme.form.panels.SearchPanel.layout.setActiveItem('resultPanel');" id="simpleSearchButton"></div></div>
+                    <div id="leftTopLinks"> 
+                        <a onclick="sidePanel.layout.setActiveItem('searchPanel');sidePanel.expand();Vme.form.panels.SearchPanel.layout.setActiveItem('searchForm');Vme.form.panels.SearchPanel.doLayout()">Advanced Search</a> |
+                        <a onclick="sidePanel.layout.setActiveItem('legendPanel');sidePanel.expand();">Legend</a> <div class="xbutton-closepanels" onclick="sidePanel.collapse();" >  </div> |
+						<a onclick="sidePanel.layout.setActiveItem('embed-link');sidePanel.expand();setVMEEmbedLink('embed-url', 'embed-iframe');">EmbedLink</a> <div class="xbutton-closepanels" onclick="sidePanel.collapse();" >  </div>
+                    </div>
+                </div>
+				
+                <div id="sidebarP"></div></div>
+		
+				<!--div id="e-link">
+					<div>
+						<label for="rfbs-link">Paste the link in email or chat</label>
+						<input id="rfbs-link" type="text" readonly="readonly" value="" onclick="this.focus();this.select();"/>
+					</div>
+					<div>
+						<label for="rfbs-html">Paste the HTML in a web site</label>
+						<input id="rfbs-html" type="text" readonly="readonly" value="" onclick="this.focus();this.select();"/>
+					</div>
+
+				</div-->
+				<!-- <div class="legend legendTitle" id="legendLegendTitle">Legend</div>
+				<div id="legend" class="legend"></div> -->
+				<!--div class="legend legendTitle" id="legendMembersTitle">List of Members</div>
+				<div id="MemberCountries" class="legend"></div-->
+		</div>	
+	</div>
+</div>
+
+<div id ="disclaimer">
+		</div>
+<div id="bottomBar1"><a href="http://www.geo-solutions.it" style="float:left;text-align:left;padding-left:2px;">Credits</a>
+			powered by
+			<a title="FIGIS web site" href="http://www.fao.org/fishery/figis/en">FIGIS</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+			<a title="FAO Copyright" target="_blank" href="http://www.fao.org/corp/copyright/en/">
+				&copy;&nbsp;FAO,
+				<span id="copyYear">2011</span>
+				&nbsp;
+			</a>
+		</div>
+	<script type="text/javascript">
+	// <![CDATA[
+		Ext.onReady(function(){
+			sidePanel.render(document.getElementById('sidebarP'));
+
+			setVMEPage('embed-link','embed-url', 'embed-iframe');
+			
+            Ext.QuickTips.init();
+
+            //FigisMap.ol.setSelectedYear(new Date().getFullYear());  // moved in setVMEPage to manage embed link
+			
+    		if(Ext.isIE7 || Ext.isIE8 || Ext.isIE9)
+                Ext.get('yearCurrent').addClass('ie');
+		});
+		
+		function updateCopyYear() {
+			var uy = new Date();
+			uy = parseInt(uy.getFullYear() ? uy.getFullYear() : uy.getYear());
+			var py = parseInt( document.getElementById('copyYear').innerHTML );
+			if ( isNaN(uy) || isNaN(py) ) return void(0);
+			if ( uy > py ) document.getElementById('copyYear').innerHTML = String( uy );
+			return void(0);
+		}
+		updateCopyYear();
+		document.getElementById('disclaimer').innerHTML = FigisMap.label('DISCLAIMER', '<p></p>');
+		document.getElementById('subTitle').innerHTML = FigisMap.label('SUB_TITLE');
+	// ]]>
+	</script>
+	<!--<input type="button" id="addlayer" value="Show RFB" onclick="addLayer()"/>
+	<input type="button" id="addlayer" value="Show zoom" onclick="SLD()"/>-->
+	</body>
 </html>
+

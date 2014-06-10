@@ -1,6 +1,7 @@
 package org.vme.dao.impl.jpa;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
+import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.joda.time.DateTime;
@@ -53,6 +55,8 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	private FigisDao figisDao;
 
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
+	private JqlDateUtil uj = new JqlDateUtil();
+	private ValidityPeriodUtil vu = new ValidityPeriodUtil();
 
 	public VmeSearchDaoImpl() {
 		LOG.info("VME search engine 1.0");
@@ -169,12 +173,13 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		}
 
 		txtQuery.append(conjunction);
-		txtQuery.append(" vme.validityPeriod.beginYear <= ");
-		txtQuery.append(year);
-		// txtQuery.append(" AND vme.validityPeriod.endYear >= ");
-		// txtQuery.append(year);
+
+		Date date = vu.beginYear2BeginDate(year);
+		txtQuery.append(" vme.validityPeriod.beginDate <= ");
+		txtQuery.append(uj.date2JqlString(date));
 
 		String res = txtQuery.toString();
+		System.out.println(res);
 
 		LOG.debug("FAB: {}", res);
 		return res;

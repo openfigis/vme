@@ -47,8 +47,8 @@ public class VmeSearchDaoImplTest {
 	@Inject
 	private VmeDao vmeDao;
 
-	MultiLingualStringUtil u = new MultiLingualStringUtil();
-	ValidityPeriodUtil vu = new ValidityPeriodUtil();
+	private MultiLingualStringUtil u = new MultiLingualStringUtil();
+	private ValidityPeriodUtil vu = new ValidityPeriodUtil();
 
 	@Test
 	public void testGetObservationByGeographicFeatureId() {
