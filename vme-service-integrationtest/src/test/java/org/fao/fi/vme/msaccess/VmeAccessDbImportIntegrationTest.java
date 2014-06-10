@@ -7,6 +7,7 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
@@ -42,6 +43,7 @@ public class VmeAccessDbImportIntegrationTest {
 	 * 
 	 */
 	@Test
+	@Ignore("ms access is phased out")
 	public void testImportMsAccessData() {
 		i.importMsAccessData();
 	}

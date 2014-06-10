@@ -13,6 +13,7 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
@@ -40,6 +41,7 @@ public class TemporaryBatchIntegrationTest {
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	@Test
+	@Ignore("ms access is phased out")
 	public void testRun() {
 		temporaryBatch.run();
 
