@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
+import org.fao.fi.figis.devcon.AdditionalValue;
 import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.CollectionRef;
 import org.fao.fi.figis.devcon.CorporateCoverPage;
@@ -167,6 +168,10 @@ public class FigisDocBuilder {
 			// measure.getTextsAndImagesAndTables())
 
 			// range (time)
+			Range range = f.createRange();
+			range.setType("Time");
+			measure.getTextsAndImagesAndTables().add(range);
+
 			if (specificMeasure.getValidityPeriod() != null) {
 				JAXBElement<Min> minJAXBElement = f.createRangeMin(f.createMin());
 				uj.fillObject(specificMeasure.getValidityPeriod().getBeginDate(), minJAXBElement);
@@ -174,14 +179,19 @@ public class FigisDocBuilder {
 				JAXBElement<Max> maxJAXBElement = f.createRangeMax(f.createMax());
 				uj.fillObject(specificMeasure.getValidityPeriod().getEndDate(), maxJAXBElement);
 
-				f.createRangeMax(f.createMax());
 				uj.fillObject(specificMeasure.getValidityPeriod().getEndDate(), maxJAXBElement);
 
-				Range range = f.createRange();
-				range.setType("Time");
 				range.getContent().add(minJAXBElement);
 				range.getContent().add(maxJAXBElement);
-				measure.getTextsAndImagesAndTables().add(range);
+			}
+
+			// review year
+			// fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Range@Type="Time"/fi:AdditionalValue
+			if (specificMeasure.getReviewYear() != null) {
+				JAXBElement<AdditionalValue> additionalValueJAXBElement = f.createRangeAdditionalValue(f
+						.createAdditionalValue());
+				uj.fillObject(specificMeasure.getReviewYear(), additionalValueJAXBElement);
+				range.getContent().add(additionalValueJAXBElement);
 			}
 
 			// sources
