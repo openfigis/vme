@@ -17,6 +17,7 @@ drop table vme_georef;
 drop table information_source_type;
 drop table multilingualstring_stringmap;
 drop table vme_type;
+drop table criteria;
 
 
 

@@ -7,6 +7,7 @@ import java.util.List;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
@@ -75,8 +76,6 @@ public class VmeMock {
 
 		Vme vme = new Vme();
 
-		// vme.setId(ID + 1);
-
 		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 		List<Profile> pList = new ArrayList<Profile>();
 		List<SpecificMeasure> specificMeasureList = new ArrayList<SpecificMeasure>();
@@ -85,13 +84,15 @@ public class VmeMock {
 		List<FisheryAreasHistory> fishingHistoryList = new ArrayList<FisheryAreasHistory>();
 		List<VMEsHistory> hasVmesHistory = new ArrayList<VMEsHistory>();
 
+		InformationSourceType ist = InformationSourceMock.createInformationSourceType();
+
 		for (int i = 0; i < nrOfyears; i++) {
 			int year = startYear + i;
 
 			// this one is used for the genericMeasure
 			InformationSource is = InformationSourceMock.create();
 			is.setPublicationYear(year);
-			is.setSourceType(InformationSourceMock.createInformationSourceType());
+			is.setSourceType(ist);
 			// is.setId(id++);
 			informationSourceList.add(is);
 
@@ -119,6 +120,7 @@ public class VmeMock {
 			profile.setDescriptionBiological(u.english("Hello World DescriptionBiological"));
 			profile.setDescriptionImpact(u.english("Hello World DescriptionImpact"));
 			profile.setDescriptionPhisical(u.english("Hello World DescriptionPhisical"));
+			profile.setVme(vme);
 
 			// profile.setId(id++);
 			profile.setYear(year);
@@ -132,6 +134,7 @@ public class VmeMock {
 			specificMeasure.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
 			specificMeasure.setInformationSource(isSm);
 			specificMeasure.setReviewYear(year + 1);
+			specificMeasure.setVme(vme);
 			specificMeasureList.add(specificMeasure);
 
 			for (int k = 0; k < nrOfyears; k++) {

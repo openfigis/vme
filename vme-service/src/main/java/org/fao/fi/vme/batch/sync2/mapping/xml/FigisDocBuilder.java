@@ -618,32 +618,38 @@ public class FigisDocBuilder {
 	 * @param figisDoc
 	 */
 	public void informationSource(List<InformationSource> infoSourceList, int disseminationYear, FIGISDoc figisDoc) {
-		Sources sources = f.createSources();
 
-		Collections.sort(infoSourceList, new InformationSourceComparator());
+		if (infoSourceList != null) {
+			Sources sources = f.createSources();
 
-		for (InformationSource infoSource : infoSourceList) {
-			// Algorithm for "InformationSource" UML table: with regards of the
-			// meetings tab, provide all and only records with "sourcetype=3"
-			// and according to the selected year
-			Integer oneBefore = Integer.valueOf(disseminationYear - 1);
+			Collections.sort(infoSourceList, new InformationSourceComparator());
 
-			// FFiorellato: fixed following conditions. Previously they were
-			// using '==' and a variable LHS that would produce NPE when the LHS
-			// was null
-			if (infoSource != null
-					&& infoSource.getSourceType() != null
-					&& infoSource.getSourceType().isAMeetingDocument()
-					&& (new Integer(disseminationYear).equals(infoSource.getPublicationYear()) || oneBefore
-							.equals(infoSource.getPublicationYear()))) {
-				BiblioEntry biblioEntry = bu.transform(infoSource);
+			for (InformationSource infoSource : infoSourceList) {
+				// Algorithm for "InformationSource" UML table: with regards of
+				// the
+				// meetings tab, provide all and only records with
+				// "sourcetype=3"
+				// and according to the selected year
+				Integer oneBefore = Integer.valueOf(disseminationYear - 1);
 
-				new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
-						.to(sources.getTextsAndImagesAndTables());
+				// FFiorellato: fixed following conditions. Previously they were
+				// using '==' and a variable LHS that would produce NPE when the
+				// LHS
+				// was null
+				if (infoSource != null
+						&& infoSource.getSourceType() != null
+						&& infoSource.getSourceType().isAMeetingDocument()
+						&& (new Integer(disseminationYear).equals(infoSource.getPublicationYear()) || oneBefore
+								.equals(infoSource.getPublicationYear()))) {
+					BiblioEntry biblioEntry = bu.transform(infoSource);
+
+					new AddWhenContentRule<Object>().check(biblioEntry).beforeAdding(biblioEntry)
+							.to(sources.getTextsAndImagesAndTables());
+				}
+
 			}
-
+			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(sources);
 		}
-		figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(sources);
 	}
 
 	/**

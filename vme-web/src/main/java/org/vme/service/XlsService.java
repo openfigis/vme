@@ -58,7 +58,7 @@ public class XlsService {
 		/*
 		 * Note: this block create all the different worksheets needed by RFMO
 		 */
-		
+
 		WritableWorkbook ww = f.create(baos);
 
 		/*
@@ -70,16 +70,16 @@ public class XlsService {
 		 * Note: this for block removes vmes from other RFMO by recognising them
 		 * from RFMO`s id
 		 */
-		
+
 		List<Vme> vmeList = vdao.loadVmes();
 		List<Vme> vmeListPerRfmo = new ArrayList<Vme>();
-				
+
 		for (Vme v : vmeList) {
 			if (v.getRfmo().getId().equals(authorityAcronym)) {
 				vmeListPerRfmo.add(v);
 			}
 		}
-	
+
 		/*
 		 * Note: this for block adds information and data to all worksheets of
 		 * the returning file
@@ -113,7 +113,7 @@ public class XlsService {
 
 		if (wSheet.getName().equals("General Measure")) {
 			List<List<Object>> tabular;
-			if(!vmeList.isEmpty()){
+			if (!vmeList.isEmpty()) {
 				tabular = g.generateGeneralMeasure(vmeList.get(0).getRfmo());
 			} else {
 				tabular = g.generateGeneralMeasure(null);
@@ -123,7 +123,7 @@ public class XlsService {
 
 		if (wSheet.getName().equals("Overview of fishing areas")) {
 			List<List<Object>> tabular;
-			if(!vmeList.isEmpty()){
+			if (!vmeList.isEmpty()) {
 				tabular = g.generateFisheryHistory(vmeList.get(0).getRfmo());
 			} else {
 				tabular = g.generateFisheryHistory(null);
@@ -133,7 +133,7 @@ public class XlsService {
 
 		if (wSheet.getName().equals("Overview of VMEs")) {
 			List<List<Object>> tabular;
-			if(!vmeList.isEmpty()){
+			if (!vmeList.isEmpty()) {
 				tabular = g.generateVMEHistory(vmeList.get(0).getRfmo());
 			} else {
 				tabular = g.generateVMEHistory(null);
@@ -143,7 +143,7 @@ public class XlsService {
 
 		if (wSheet.getName().equals("Meeting reports")) {
 			List<List<Object>> tabular;
-			if(!vmeList.isEmpty()){
+			if (!vmeList.isEmpty()) {
 				tabular = g.generateInfoSource(vmeList.get(0).getRfmo());
 			} else {
 				tabular = g.generateInfoSource(null);
@@ -166,7 +166,7 @@ public class XlsService {
 
 	public List<VmeContainer> prepereList(List<Vme> vmeList) {
 		List<VmeContainer> cList = new ArrayList<VmeContainer>();
-		if(!vmeList.isEmpty()) {
+		if (!vmeList.isEmpty()) {
 			for (Vme vme : vmeList) {
 				List<VmeObservation> observations = fDao.findVmeObservationByVme(vme.getId());
 				VmeContainer c = new VmeContainer(vme.getName(), observations);
@@ -177,6 +177,11 @@ public class XlsService {
 	}
 
 	public void fillCells(List<List<Object>> tabular, WritableSheet wSheet) throws WriteException {
+		// precondition
+		if (tabular.size() == 0) {
+			throw new VmeException("no first row found");
+		}
+
 		WritableFont cellFont = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD);
 		WritableCellFormat cellFormat = new WritableCellFormat(cellFont);
 		for (int r = 0; r < tabular.size(); r++) {
@@ -192,10 +197,10 @@ public class XlsService {
 						if (cell.getClass().equals(String.class)) {
 							problem = false;
 							String stringContent = (String) cell;
-							if (r==0){
+							if (r == 0) {
 								wSheet.addCell(new Label(c, r, stringContent, cellFormat));
 							} else {
-							wSheet.addCell(new Label(c, r, stringContent));
+								wSheet.addCell(new Label(c, r, stringContent));
 							}
 						}
 

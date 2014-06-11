@@ -187,6 +187,8 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public void delete(Vme toDelete) {
+		EntityTransaction et = em.getTransaction();
+		et.begin();
 
 		if (toDelete == null) {
 			throw new IllegalArgumentException("The Vme to delete cannot be NULL");
@@ -199,18 +201,6 @@ public class VmeDao extends AbstractJPADao {
 		if (toDelete.getRfmo() == null) {
 			throw new IllegalArgumentException("The Vme to delete cannot have a NULL parent authority");
 		}
-
-		Rfmo parent = toDelete.getRfmo();
-
-		Iterator<Vme> rfmoIterator = parent.getListOfManagedVmes().iterator();
-
-		while (rfmoIterator.hasNext()) {
-			if (rfmoIterator.next().getId().equals(toDelete.getId())) {
-				rfmoIterator.remove();
-			}
-		}
-
-		this.doMerge(em, parent);
 
 		if (toDelete.getProfileList() != null) {
 			for (Profile profile : new ArrayList<Profile>(toDelete.getProfileList())) {
@@ -230,7 +220,8 @@ public class VmeDao extends AbstractJPADao {
 			}
 		}
 
-		this.doRemove(em, toDelete);
+		em.remove(toDelete);
+		et.commit();
 	}
 
 	public void delete(InformationSource toDelete) {
@@ -527,7 +518,7 @@ public class VmeDao extends AbstractJPADao {
 			this.doMerge(em, vme);
 		}
 
-		if (toDelete.getInformationSource() != null) {
+		if (toDelete.getInformationSource() != null && toDelete.getInformationSource().getSpecificMeasureList() != null) {
 			Iterator<SpecificMeasure> informationSourceIterator = toDelete.getInformationSource()
 					.getSpecificMeasureList().iterator();
 
