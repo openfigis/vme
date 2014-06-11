@@ -141,7 +141,7 @@ public class XlsService {
 			fillCells(tabular, wSheet);
 		}
 
-		if (wSheet.getName().equals("Meeting reports")) {
+		if (wSheet.getName().equals("Reports")) {
 			List<List<Object>> tabular;
 			if (!vmeList.isEmpty()) {
 				tabular = g.generateInfoSource(vmeList.get(0).getRfmo());
