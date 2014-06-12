@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import org.fao.fi.vme.domain.model.ReferenceDataObject;
 import org.vme.dao.config.vme.VmeDB;
 import org.vme.dao.impl.AbstractJPADao;
 
@@ -21,13 +22,13 @@ public class ReferenceBatchDao extends AbstractJPADao {
 	@VmeDB
 	private EntityManager em;
 
-	public void syncStoreObject(Object object, Object primaryKey) {
+	public void syncStoreObject(ReferenceDataObject<?> referenceDataObject) {
 		EntityTransaction et = em.getTransaction();
 		et.begin();
-		if (em.find(object.getClass(), primaryKey) == null) {
-			em.persist(object);
+		if (em.find(referenceDataObject.getClass(), referenceDataObject.getId()) == null) {
+			em.persist(referenceDataObject);
 		} else {
-			em.merge(object);
+			em.merge(referenceDataObject);
 		}
 		et.commit();
 	}

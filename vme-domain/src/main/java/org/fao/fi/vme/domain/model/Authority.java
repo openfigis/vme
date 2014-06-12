@@ -16,7 +16,8 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Na
  */
 @Entity
 @ReferenceConceptName("authority")
-public class Authority implements NamedReferenceConcept, AcronymAwareReferenceConcept, Serializable {
+public class Authority implements ReferenceDataObject<Long>, NamedReferenceConcept, AcronymAwareReferenceConcept,
+		Serializable {
 	/**
 	 * 
 	 */

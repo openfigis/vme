@@ -31,7 +31,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Se
 @Entity
 @Table(name = "INFORMATION_SOURCE_TYPE")
 @ReferenceConceptName("InformationSourceType")
-public class InformationSourceType implements NamedReferenceConcept,
+public class InformationSourceType implements ReferenceDataObject<Long>, NamedReferenceConcept,
 		SerializableReferenceConcept<InformationSourceType>, Serializable {
 	/**
 	 * 

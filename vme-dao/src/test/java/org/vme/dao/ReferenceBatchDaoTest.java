@@ -29,10 +29,10 @@ public class ReferenceBatchDaoTest {
 	public void testSyncStoreObject() {
 		Authority a = new Authority(20220L, "NAFO", "Northwest Atlantic Fisheries Organization");
 		assertEquals(0, dao.loadObjects(em, Authority.class).size());
-		dao.syncStoreObject(a, a.getId());
+		dao.syncStoreObject(a);
 		assertEquals(1, dao.loadObjects(em, Authority.class).size());
 		a.setAcronym("5483905843905");
-		dao.syncStoreObject(a, a.getId());
+		dao.syncStoreObject(a);
 		assertEquals(1, dao.loadObjects(em, Authority.class).size());
 
 	}
