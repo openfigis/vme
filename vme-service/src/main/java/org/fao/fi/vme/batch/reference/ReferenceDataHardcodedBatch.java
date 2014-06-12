@@ -107,9 +107,46 @@ public class ReferenceDataHardcodedBatch {
 	}
 
 	private void createVmeTypes() {
-		dao.syncStoreObject(new VmeType(10l, "VME"));
-		dao.syncStoreObject(new VmeType(20l, "Risk area"));
-		dao.syncStoreObject(new VmeType(30l, "Other types of closed/restricted area"));
+		// dao.syncStoreObject(new VmeType(10l, "VME"));
+		// dao.syncStoreObject(new VmeType(20l, "Risk area"));
+		// dao.syncStoreObject(new VmeType(30l,
+		// "Other types of closed/restricted area"));
+
+		// these were the original ones
+		dao.syncStoreObject(new VmeType(10l, "VME", "Registered VMEs"));
+		dao.syncStoreObject(new VmeType(20l, "AREA_RISK", "Risk Areas"));
+		dao.syncStoreObject(new VmeType(30l, "CLOS_AREA", "Closed areas"));
+
+		// then these others were added on 12 Jun 2014, as a restult from the
+		// input of the VME 2014 Rome workshop.
+		dao.syncStoreObject(new VmeType(130l, "TTH_FISH_EST", "Established toothfish fisheries "));
+		dao.syncStoreObject(new VmeType(140l, "TTH_FISH_EXPL", "Exploratory toothfish fisheries"));
+		dao.syncStoreObject(new VmeType(150l, "TTH_FISH_RSCH", "Research fisheries"));
+		dao.syncStoreObject(new VmeType(160l, "BTM_FISH_FP", "Existing bottom fishing (footprint) areas "));
+		dao.syncStoreObject(new VmeType(170l, "BTM_FISH", "Existing bottom fishing areas"));
+		dao.syncStoreObject(new VmeType(180l, "BTM_FISH_SEAM", "Seamount fishing areas"));
+		dao.syncStoreObject(new VmeType(190l, "BTM_FISH", "Existing bottom fishing areas"));
+		dao.syncStoreObject(new VmeType(200l, "BTM_FISH_LL", "Existing bottom fishing areas (set longlines)"));
+		dao.syncStoreObject(new VmeType(210l, "BTM_FISH_FP_2", "Bottom fishing footprint"));
+
+		dao.syncStoreObject(new VmeType(240l, "AREA_RESTRICTED", "Fisheries Restricted Areas"));
+		dao.syncStoreObject(new VmeType(250l, "CLOS_SEAM", "Seamount closure"));
+		dao.syncStoreObject(new VmeType(260l, "CLOS_CORAL", "Coral closure"));
+		dao.syncStoreObject(new VmeType(270l, "AREA_SPOCOR", "Area of higher sponge and coral concentration"));
+		dao.syncStoreObject(new VmeType(280l, "CLOS_VME", "VME closure"));
+
+		dao.syncStoreObject(new VmeType(300l, "CLOS_AREA_BTMFISH", "Area closed to bottom fishing"));
+		dao.syncStoreObject(new VmeType(310l, "TTH_FISH_CLOS", "Closed toothfish fisheries"));
+		dao.syncStoreObject(new VmeType(320l, "AREA_SHALLOW", "Shallow water management"));
+		dao.syncStoreObject(new VmeType(330l, "AREA_DEEP", "Deepwater Fisheries Restriction"));
+		dao.syncStoreObject(new VmeType(340l, "BTM_FISH_NEW", "New bottom fishing areas"));
+		dao.syncStoreObject(new VmeType(350l, "BTM_UNFISHED", "Unfished bottom areas"));
+		dao.syncStoreObject(new VmeType(360l, "BTM_FISH_NEW", "New bottom fishing areas"));
+		dao.syncStoreObject(new VmeType(370l, "BTM_FISH_CLOS", "Prohibited bottom fishing  (provisional) areas "));
+		dao.syncStoreObject(new VmeType(380l, "AREA_ASSESS", "Areas requiring assessment"));
+		dao.syncStoreObject(new VmeType(390l, "BTM_FISH_NEW", "New bottom fishing areas"));
+		dao.syncStoreObject(new VmeType(400l, "BTM_FISH_OUT_FP", "Bottom fishing outside the footprint"));
+
 	}
 
 	private void createInformationSourceTypes() {

@@ -36,4 +36,5 @@ public class ReferenceBatchDaoTest {
 		assertEquals(1, dao.loadObjects(em, Authority.class).size());
 
 	}
+
 }
