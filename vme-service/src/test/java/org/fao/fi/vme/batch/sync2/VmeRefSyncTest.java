@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -38,6 +39,7 @@ public class VmeRefSyncTest {
 	@Test
 	public void testSync() {
 		assertNrOfObjects(0);
+		vmeDao.persist(VmeTypeMock.create());
 		vmeDao.persist(VmeMock.create());
 		vmeRefSync.sync();
 		assertNrOfObjects(1);

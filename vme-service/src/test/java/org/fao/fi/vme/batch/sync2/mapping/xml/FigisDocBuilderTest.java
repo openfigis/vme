@@ -279,7 +279,7 @@ public class FigisDocBuilderTest {
 				assertEquals(vme.getGeoRefList().get(0).getGeographicFeatureID(), ((ForeignID) ((WaterAreaRef) obj)
 						.getFigisIDsAndForeignIDs().get(0)).getCode());
 			} else if (obj instanceof VMEType) {
-				assertEquals(vme.getAreaType(), ((VMEType) obj).getValue());
+				assertEquals(vme.getAreaType().getName(), ((VMEType) obj).getValue());
 			} else if (obj instanceof VMECriteria) {
 				assertEquals(vme.getCriteria(), ((VMECriteria) obj).getValue());
 			} else if (obj instanceof Range) {

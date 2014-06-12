@@ -26,6 +26,7 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.VmeType;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -221,6 +222,13 @@ public class XlsService {
 							problem = false;
 							Date dateContent = (Date) cell;
 							wSheet.addCell(new jxl.write.DateTime(c, r, dateContent));
+						}
+
+						if (cell instanceof VmeType) {
+							problem = false;
+							VmeType vmeType = (VmeType) cell;
+							wSheet.addCell(new Label(c, r, vmeType.getName(), cellFormat));
+
 						}
 
 						if (problem) {

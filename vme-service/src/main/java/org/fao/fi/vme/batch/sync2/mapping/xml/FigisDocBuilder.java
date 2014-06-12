@@ -553,7 +553,7 @@ public class FigisDocBuilder {
 
 		// VME Type
 		VMEType vmeType = new VMEType();
-		vmeType.setValue(vmeDomain.getAreaType());
+		vmeType.setValue(vmeDomain.getAreaType().getName());
 
 		// VME Criteria
 		VMECriteria vmeCriteria = new VMECriteria();

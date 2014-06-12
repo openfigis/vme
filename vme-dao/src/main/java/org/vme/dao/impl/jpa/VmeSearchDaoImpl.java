@@ -236,7 +236,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 
 	private boolean containRelevantText(Vme vme, String text) {
 
-		if (StringUtils.containsIgnoreCase(vme.getAreaType(), text)) {
+		if (StringUtils.containsIgnoreCase(vme.getAreaType().getName(), text)) {
 			return true;
 		}
 		if (StringUtils.containsIgnoreCase(vme.getCriteria(), text)) {
@@ -467,7 +467,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		res.setGeoArea(u.getEnglish(vme.getGeoArea()));
 		res.setValidityPeriodFrom((new DateTime(vme.getValidityPeriod().getBeginDate())).getYear());
 		res.setValidityPeriodTo((new DateTime(vme.getValidityPeriod().getEndDate())).getYear());
-		res.setVmeType(vme.getAreaType());
+		res.setVmeType(vme.getAreaType().getName());
 
 		if (!vme.getGeoRefList().isEmpty()) {
 			GeoRef first = vme.getGeoRefList().get(0);

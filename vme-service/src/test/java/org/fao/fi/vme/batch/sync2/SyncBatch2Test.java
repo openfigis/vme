@@ -13,19 +13,21 @@ import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FigisDataBaseProducer.class, FigisTestPersistenceUnitConfiguration.class })
+@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class,
+		FigisDataBaseProducer.class, FigisTestPersistenceUnitConfiguration.class })
 public class SyncBatch2Test {
 
 	@Inject
@@ -45,6 +47,7 @@ public class SyncBatch2Test {
 		Rfmo rfmo = new Rfmo();
 		rfmo.setId("RFMO");
 		vmeDao.persist(rfmo);
+		vmeDao.persist(VmeTypeMock.create());
 
 		vme.setRfmo(rfmo);
 		vmeDao.persist(vme);

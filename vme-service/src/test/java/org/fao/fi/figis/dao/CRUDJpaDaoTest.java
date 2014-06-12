@@ -26,6 +26,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
+import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
@@ -398,7 +399,7 @@ public class CRUDJpaDaoTest {
 		MultiLingualStringUtil MLSu = new MultiLingualStringUtil();
 
 		Vme vme = new Vme();
-		vme.setAreaType("Risk area");
+		vme.setAreaType(VmeTypeMock.create());
 		vme.setCriteria("Fragility");
 		vme.setName(MLSu.english("Foobazzi mountain"));
 		vme.setGeoArea(MLSu.english("GeoArea"));

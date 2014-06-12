@@ -21,10 +21,10 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationPk;
 import org.fao.fi.figis.domain.test.ObservationMock;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
-import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -70,9 +70,9 @@ public class XlsServiceTest {
 
 	@Test
 	public void testCreateXlsFile() throws Exception {
-		InformationSourceType defaultIST = InformationSourceMock.createInformationSourceType();
 
-		vDao.persist(defaultIST);
+		vDao.persist(InformationSourceMock.createInformationSourceType());
+		vDao.persist(VmeTypeMock.create());
 
 		Vme vme = VmeMock.generateVme(5);
 		vDao.saveVme(vme);

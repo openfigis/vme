@@ -11,11 +11,11 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.RefWaterArea;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.batch.sync2.SyncBatch2;
-import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync.factsheets.listeners.FactsheetChangeListener;
 import org.fao.fi.vme.sync.factsheets.listeners.impl.SyncFactsheetChangeListener;
@@ -60,9 +60,8 @@ public class FactsheetChangeListenerImplTest {
 	@Test
 	public void testDoUpdateFactsheets() throws Throwable {
 
-		InformationSourceType defaultInformationSourceType = InformationSourceMock.createInformationSourceType();
-
-		vmeDao.persist(defaultInformationSourceType);
+		vmeDao.persist(InformationSourceMock.createInformationSourceType());
+		vmeDao.persist(VmeTypeMock.create());
 
 		String before = "before";
 		Vme vme = VmeMock.generateVme(1);

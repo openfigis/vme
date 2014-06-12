@@ -13,6 +13,7 @@ import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.VmeType;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -45,7 +46,9 @@ public class VmeMock {
 
 		vme.setGeoRefList(l);
 
-		vme.setAreaType("20");
+		VmeType vmeType = VmeTypeMock.create();
+
+		vme.setAreaType(vmeType);
 		return vme;
 	}
 
@@ -179,7 +182,7 @@ public class VmeMock {
 		vme.setGeoRefList(geoRefList);
 		ValidityPeriod vp = ValidityPeriodMock.create(startYear, endYear);
 		vme.setValidityPeriod(vp);
-		vme.setAreaType("Established VME");
+		vme.setAreaType(VmeTypeMock.create());
 		vme.setCriteria("Uniqueness or rarity");
 		vme.setGeoArea(u.english("Southern Pacific Ocean"));
 

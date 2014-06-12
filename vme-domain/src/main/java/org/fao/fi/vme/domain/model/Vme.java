@@ -109,12 +109,14 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString geoArea;
 
-	@RSGName("Area Type")
-	@RSGMandatory
-	@RSGOneAmong(concept = VmeType.class, label = ConceptData.NAME, value = ConceptData.NAME)
-	@RSGConverter(StringDataConverter.class)
-	@RSGWeight(2)
-	private String areaType;
+	// @RSGName("Area Type")
+	// @RSGMandatory
+	// @RSGOneAmong(concept = VmeType.class, label = ConceptData.NAME, value =
+	// ConceptData.NAME)
+	// @RSGConverter(StringDataConverter.class)
+	// @RSGWeight(2)
+	@OneToOne(cascade = { CascadeType.DETACH })
+	private VmeType areaType;
 
 	/**
 	 *
@@ -189,11 +191,11 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 		this.validityPeriod = validityPeriod;
 	}
 
-	public String getAreaType() {
+	public VmeType getAreaType() {
 		return areaType;
 	}
 
-	public void setAreaType(String areaType) {
+	public void setAreaType(VmeType areaType) {
 		this.areaType = areaType;
 	}
 

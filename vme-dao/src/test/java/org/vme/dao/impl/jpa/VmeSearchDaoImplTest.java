@@ -17,6 +17,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -75,6 +76,7 @@ public class VmeSearchDaoImplTest {
 		l1.add(g2);
 		g1.setVme(vme);
 		vme.setRfmo(r);
+		vme.setAreaType(VmeTypeMock.create());
 		vme.setGeoRefList(l1);
 		vme.setValidityPeriod(ValidityPeriodMock.create());
 
@@ -83,6 +85,7 @@ public class VmeSearchDaoImplTest {
 
 		r.setListOfManagedVmes(listOfManagedVmes);
 
+		vmeDao.persist(VmeTypeMock.create());
 		vmeDao.persist(r);
 		vmeDao.saveVme(vme);
 

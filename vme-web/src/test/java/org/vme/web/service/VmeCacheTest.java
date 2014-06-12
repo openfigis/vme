@@ -9,6 +9,7 @@ import javax.persistence.EntityTransaction;
 
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -54,6 +55,7 @@ public class VmeCacheTest {
 
 		EntityTransaction et = em1.getTransaction();
 		et.begin();
+		em1.persist(VmeTypeMock.create());
 		em1.persist(vme);
 		et.commit();
 

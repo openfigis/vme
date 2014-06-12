@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -44,6 +45,7 @@ public class VmeSearchWsTest {
 		String text2 = "vdfewsiuj";
 		Vme vme = VmeMock.create();
 		vme.setName(u.english(text1));
+		vmeDao.persist(VmeTypeMock.create());
 		vmeDao.persist(vme);
 		assertEquals(1, vmeSearchDao.searchVme(0, 0, 0, 0, text1).size());
 		vme.setName(u.english(text2));
