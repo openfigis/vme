@@ -179,7 +179,8 @@ public class VME implements TableDomainMapper {
 
 		o.setName(u.english(this.getVME_ID()));
 
-		o.setAreaType(this.VME_Area_Type);
+		// commented, ms access is not anymore supported..
+		// o.setAreaType(this.VME_Area_Type);
 		// o.setCriteria(this.)
 		// o.setGeoform(this.VME_Geoform);
 		o.setGeoArea(u.english(this.VME_GeogArea1));

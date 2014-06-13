@@ -15,6 +15,7 @@ import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.vme.batch.sync2.mapping.BiblioEntryFromInformationSource;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.purl.dc.elements._1.Title;
 
@@ -38,7 +39,7 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 	public final static String URI = "URI";
 	public final static String TIME = "Time";
 	private BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
-
+	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
 	private ObjectFactory f = new ObjectFactory();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 
@@ -211,19 +212,21 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 		if (yearObject != null) {
 			Min min = f.createMin();
 
-			min.setContent(yearObject.getValidityPeriod().getBeginDate().toString());
+			min.setContent(du.createUiString(yearObject.getValidityPeriod().getBeginDate()));
 			JAXBElement<Min> minJAXBElement = f.createRangeMin(min);
 
 			Max max = f.createMax();
-			max.setContent(yearObject.getValidityPeriod().getEndDate().toString());
+
+			max.setContent(du.createUiString(yearObject.getValidityPeriod().getEndDate()));
 			JAXBElement<Max> maxJAXBElement = f.createRangeMax(max);
 
 			Range range = f.createRange();
 			range.setType(TIME);
 			range.getContent().add(minJAXBElement);
 			range.getContent().add(maxJAXBElement);
-			new AddWhenContentRule<Object>().check(yearObject.getValidityPeriod().getBeginDate().toString())
-					.check(yearObject.getValidityPeriod().getEndDate().toString()).beforeAdding(range)
+
+			new AddWhenContentRule<Object>().check(du.createUiString(yearObject.getValidityPeriod().getBeginDate()))
+					.check(du.createUiString(yearObject.getValidityPeriod().getEndDate())).beforeAdding(range)
 					.to(entry.getTextsAndImagesAndTables());
 
 		}

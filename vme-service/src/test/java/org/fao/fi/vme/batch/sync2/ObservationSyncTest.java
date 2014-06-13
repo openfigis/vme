@@ -14,12 +14,12 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.figis.domain.test.RefVmeMock;
-import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -27,10 +27,10 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
@@ -40,7 +40,8 @@ import org.vme.dao.sources.vme.VmeDao;
  * 
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FigisDataBaseProducer.class, FigisTestPersistenceUnitConfiguration.class })
+@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class,
+		FigisDataBaseProducer.class, FigisTestPersistenceUnitConfiguration.class })
 public class ObservationSyncTest extends FigisDaoTestLogic {
 
 	int NUMBER_OF_YEARS = 1;
@@ -61,10 +62,9 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 
 	@Before
 	public void generateVme() {
-		InformationSourceType defaultIST = InformationSourceMock.createInformationSourceType();
-		
-		vmeDao.persist(defaultIST);
-		
+		vmeDao.persist(VmeTypeMock.create());
+		vmeDao.persist(InformationSourceMock.createInformationSourceType());
+
 		Vme vme = VmeMock.generateVme(NUMBER_OF_YEARS);
 		vmeDao.saveVme(vme);
 

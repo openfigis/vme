@@ -21,7 +21,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Na
 @Entity
 @Table(name = "VME_CRITERIA")
 @ReferenceConceptName("criteria")
-public class VmeCriteria implements NamedReferenceConcept, Serializable {
+public class VmeCriteria implements ReferenceDataObject<Long>, NamedReferenceConcept, Serializable {
 	/**
 	 * 
 	 */

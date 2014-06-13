@@ -21,7 +21,7 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Na
 @Entity
 @Table(name = "VME_TYPE")
 @ReferenceConceptName("type")
-public class VmeType implements NamedReferenceConcept, Serializable {
+public class VmeType implements ReferenceDataObject<Long>, NamedReferenceConcept, Serializable {
 	/**
 	 * 
 	 */
@@ -39,12 +39,26 @@ public class VmeType implements NamedReferenceConcept, Serializable {
 	 */
 	private String name;
 
+	/**
+	 * The code for this VME type
+	 */
+	private String code;
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	public VmeType() {
 	}
 
-	public VmeType(Long id, String name) {
+	public VmeType(Long id, String code, String name) {
 		super();
 		this.id = id;
+		this.code = code;
 		this.name = name;
 	}
 

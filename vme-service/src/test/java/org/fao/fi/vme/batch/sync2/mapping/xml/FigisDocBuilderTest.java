@@ -40,6 +40,7 @@ import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -61,6 +62,7 @@ public class FigisDocBuilderTest {
 	Vme vme;
 
 	ObjectFactory f = new ObjectFactory();
+	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
 
 	@Before
 	public void prepareBefore() {
@@ -232,9 +234,9 @@ public class FigisDocBuilderTest {
 
 			} else if (obj instanceof Range) {
 				assertEquals("Time", ((Range) obj).getType());
-				assertEquals(generalMeasure.getValidityPeriod().getBeginDate().toString(),
+				assertEquals(du.createUiString(generalMeasure.getValidityPeriod().getBeginDate()),
 						((JAXBElement<Min>) ((Range) obj).getContent().get(0)).getValue().getContent());
-				assertEquals(generalMeasure.getValidityPeriod().getEndDate().toString(),
+				assertEquals(du.createUiString(generalMeasure.getValidityPeriod().getEndDate()),
 						((JAXBElement<Max>) ((Range) obj).getContent().get(1)).getValue().getContent());
 
 			} else if (obj instanceof Sources) {
@@ -279,19 +281,17 @@ public class FigisDocBuilderTest {
 				assertEquals(vme.getGeoRefList().get(0).getGeographicFeatureID(), ((ForeignID) ((WaterAreaRef) obj)
 						.getFigisIDsAndForeignIDs().get(0)).getCode());
 			} else if (obj instanceof VMEType) {
-				assertEquals(vme.getAreaType(), ((VMEType) obj).getValue());
+				assertEquals(vme.getAreaType().getName(), ((VMEType) obj).getValue());
 			} else if (obj instanceof VMECriteria) {
 				assertEquals(vme.getCriteria(), ((VMECriteria) obj).getValue());
 			} else if (obj instanceof Range) {
 				assertEquals("Time", ((Range) obj).getType());
 				JAXBElement<Min> min = (JAXBElement<Min>) ((Range) obj).getContent().get(0);
-				System.out.println(vme.getValidityPeriod().getBeginDate());
-				System.out.println(min.getValue());
 
-				assertEquals(vme.getValidityPeriod().getBeginDate().toString(), min.getValue());
+				assertEquals(du.createUiString(vme.getValidityPeriod().getBeginDate()), min.getValue());
 
 				JAXBElement<Max> max = (JAXBElement<Max>) ((Range) obj).getContent().get(1);
-				assertEquals(vme.getValidityPeriod().getEndDate().toString(), max.getValue());
+				assertEquals(du.createUiString(vme.getValidityPeriod().getEndDate()), max.getValue());
 			}
 		}
 	}

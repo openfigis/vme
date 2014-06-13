@@ -1,88 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.1.2" icons="false" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
-  realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+<class-diagram version="1.1.6" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="org.fao.fi.figis.domain.VmeObservation" project="figis-domain" 
     file="/figis-domain/src/main/java/org/fao/fi/figis/domain/VmeObservation.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="191" y="150"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" accessors="true" 
-      visibility="false">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
+    <position height="-1" width="-1" x="451" y="424"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="2" language="java" name="org.fao.fi.figis.domain.RefVme" project="figis-domain" 
     file="/figis-domain/src/main/java/org/fao/fi/figis/domain/RefVme.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="469" y="108"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" accessors="true" 
-      visibility="false">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
+    <position height="-1" width="-1" x="91" y="368"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="3" language="java" name="org.fao.fi.figis.domain.ObservationXml" project="figis-domain" 
     file="/figis-domain/src/main/java/org/fao/fi/figis/domain/ObservationXml.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="800" y="265"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" accessors="true" 
-      visibility="false">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
+    <position height="-1" width="-1" x="651" y="111"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="4" language="java" name="org.fao.fi.figis.domain.Observation" project="figis-domain" 
     file="/figis-domain/src/main/java/org/fao/fi/figis/domain/Observation.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="421" y="289"/>    
-    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" accessors="true" 
-      visibility="false">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="false" package="false" protected="false" private="false"/>    
+    <position height="-1" width="-1" x="326" y="119"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
     </display>  
   </class>  
-  <association id="5">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="6" name="observation">        
-        <position height="18" width="67" x="308" y="197"/>      
-      </attribute>      
-      <multiplicity id="7" minimum="0" maximum="1"/>    
+  <class id="5" language="java" name="org.fao.fi.figis.domain.ObservationDomain" project="figis-domain" 
+    file="/figis-domain/src/main/java/org/fao/fi/figis/domain/ObservationDomain.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="290" y="296"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="org.fao.fi.figis.domain.VmeObservationDomain" project="figis-domain" 
+    file="/figis-domain/src/main/java/org/fao/fi/figis/domain/VmeObservationDomain.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="112" y="65"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="org.fao.fi.figis.domain.VmeObservationPk" project="figis-domain" 
+    file="/figis-domain/src/main/java/org/fao/fi/figis/domain/VmeObservationPk.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="702" y="439"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="org.fao.fi.figis.domain.RefWaterArea" project="figis-domain" 
+    file="/figis-domain/src/main/java/org/fao/fi/figis/domain/RefWaterArea.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="854" y="183"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <association id="9">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="10" name="observationList"/>      
+      <multiplicity id="11" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="8">    
+  <association id="12">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="9" name="refVme">        
-        <position height="18" width="46" x="304" y="107"/>      
-      </attribute>      
-      <multiplicity id="10" minimum="0" maximum="1"/>    
+      <attribute id="13" name="id"/>      
+      <multiplicity id="14" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="7" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="11">    
-    <bendpoint x="613" y="171"/>    
+  <association id="15">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="12" name="observation">        
-        <position height="18" width="67" x="573" y="152"/>      
-      </attribute>      
-      <multiplicity id="13" minimum="0" maximum="1"/>    
+      <attribute id="16" name="observation"/>      
+      <multiplicity id="17" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="14">    
-    <bendpoint x="596" y="343"/>    
+  <association id="18">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="15" name="observationsPerLanguage">        
-        <position height="18" width="137" x="535" y="351"/>      
-      </attribute>      
-      <multiplicity id="16" minimum="0" maximum="2147483647"/>    
+      <attribute id="19" name="observationsPerLanguage"/>      
+      <multiplicity id="20" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <classifier-display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
-    accessors="true" visibility="false">    
-    <attributes public="true" package="true" protected="true" private="true"/>    
-    <operations public="false" package="false" protected="false" private="false"/>  
+  <generalization id="21">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <association id="22">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="23" name="refVme"/>      
+      <multiplicity id="24" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="false" package="false" protected="false" private="false" static="true"/>  
   </classifier-display>  
   <association-display labels="true" multiplicity="true"/>
 </class-diagram>

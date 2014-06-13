@@ -17,6 +17,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
@@ -121,6 +122,7 @@ public class VmeDaoTest {
 		dao.persist(InformationSourceMock.createInformationSourceType());
 		int nrOfyears = 1;
 		Vme vme = VmeMock.generateVme(nrOfyears);
+		dao.persist(VmeTypeMock.create());
 		dao.saveVme(vme);
 		assertNotNull(vme.getId());
 		Vme vmeFound = dao.findVme(vme.getId());
@@ -144,6 +146,7 @@ public class VmeDaoTest {
 	@Test
 	public void testCount() {
 		assertEquals(0, dao.count(Vme.class).intValue());
+		dao.persist(VmeTypeMock.create());
 
 		dao.persist(VmeMock.create());
 		assertEquals(1, dao.count(Vme.class).intValue());
