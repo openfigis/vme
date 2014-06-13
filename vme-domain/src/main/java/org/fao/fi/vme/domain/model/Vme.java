@@ -128,6 +128,10 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGWeight(2)
 	private String criteria;
 
+	// peparations for scope
+	// @OneToOne(cascade = { CascadeType.DETACH })
+	// private Scope scope;
+
 	@RSGName("Inventory identifier")
 	@RSGConverter(StringDataConverter.class)
 	@RSGMandatory
