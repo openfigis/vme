@@ -5,130 +5,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.VmeException;
-import org.fao.fi.vme.domain.model.GeneralMeasure;
-import org.fao.fi.vme.domain.model.GeoRef;
-import org.fao.fi.vme.domain.model.InformationSource;
-import org.fao.fi.vme.domain.model.Profile;
-import org.fao.fi.vme.domain.model.Rfmo;
-import org.fao.fi.vme.domain.model.SpecificMeasure;
-import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
-import org.fao.fi.vme.domain.model.extended.VMEsHistory;
-import org.vme.service.tabular.record.FactSheetRecord;
-import org.vme.service.tabular.record.FisheryAreasHistoryRecord;
-import org.vme.service.tabular.record.GeneralMeasureRecord;
-import org.vme.service.tabular.record.GeoReferenceRecord;
-import org.vme.service.tabular.record.InformationSourceRecord;
-import org.vme.service.tabular.record.SpecificMeasureRecord;
-import org.vme.service.tabular.record.VmeContainer;
-import org.vme.service.tabular.record.VmeProfileRecord;
-import org.vme.service.tabular.record.VmesHistoryRecord;
 
 public class TabularGenerator {
 
-	public List<List<Object>> generateVmeProfile(List<Vme> vmeList) {
-		RecordGenerator<Vme, Profile, Empty> r = new VmeProfileRecord();
+	public <F, S, T> List<List<Object>> generate(List<F> objectList, RecordGenerator<F, S, T> r){
 		List<List<Object>> tabular = new ArrayList<List<Object>>();
 		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
 		tabular.add(firstRecord);
-		if (!vmeList.isEmpty()) {
-			return generateTabular(tabular, vmeList, r);
+		if (!objectList.isEmpty()) {
+			return generateTabular(tabular, objectList, r);
 		} else {
-			return tabular;
-		}
-	}
-
-	public List<List<Object>> generateSpecificMeasure(List<Vme> vmeList) {
-		RecordGenerator<Vme, SpecificMeasure, Empty> r = new SpecificMeasureRecord();
-		List<List<Object>> tabular = new ArrayList<List<Object>>();
-		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
-		tabular.add(firstRecord);
-		if (!vmeList.isEmpty()) {
-			return generateTabular(tabular, vmeList, r);
-		} else {
-			return tabular;
-		}
-	}
-
-	public List<List<Object>> generateGeneralMeasure(Rfmo rfmo) {
-		RecordGenerator<Rfmo, GeneralMeasure, InformationSource> r = new GeneralMeasureRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		List<List<Object>> tabular = new ArrayList<List<Object>>();
-		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
-		tabular.add(firstRecord);
-		if (rfmo != null) {
-			rfmoList.add(rfmo);
-			return generateTabular(tabular, rfmoList, r);
-		} else {
-			return tabular;
-		}
-	}
-
-	public List<List<Object>> generateFisheryHistory(Rfmo rfmo) {
-		RecordGenerator<Rfmo, FisheryAreasHistory, Empty> r = new FisheryAreasHistoryRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		List<List<Object>> tabular = new ArrayList<List<Object>>();
-		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
-		tabular.add(firstRecord);
-		if (rfmo != null) {
-			rfmoList.add(rfmo);
-			return generateTabular(tabular, rfmoList, r);
-		} else {
-			return tabular;
-		}
-	}
-
-	public List<List<Object>> generateVMEHistory(Rfmo rfmo) {
-		RecordGenerator<Rfmo, VMEsHistory, Empty> r = new VmesHistoryRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		List<List<Object>> tabular = new ArrayList<List<Object>>();
-		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
-		tabular.add(firstRecord);
-		if (rfmo != null) {
-			rfmoList.add(rfmo);
-			return generateTabular(tabular, rfmoList, r);
-		} else {
-			return tabular;
-		}
-	}
-
-	public List<List<Object>> generateInfoSource(Rfmo rfmo) {
-		RecordGenerator<Rfmo, InformationSource, Empty> r = new InformationSourceRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		List<List<Object>> tabular = new ArrayList<List<Object>>();
-		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
-		tabular.add(firstRecord);
-		if (rfmo != null) {
-			rfmoList.add(rfmo);
-			return generateTabular(tabular, rfmoList, r);
-		} else {
-			return tabular;
-		}
-	}
-
-	public List<List<Object>> generateGeoRef(List<Vme> vmeList) {
-		RecordGenerator<Vme, GeoRef, Empty> r = new GeoReferenceRecord();
-		List<List<Object>> tabular = new ArrayList<List<Object>>();
-		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
-		tabular.add(firstRecord);
-		if (!vmeList.isEmpty()) {
-			return generateTabular(tabular, vmeList, r);
-		} else {
-			return tabular;
-		}
-	}
-
-	public List<List<Object>> generateFactSheet(List<VmeContainer> vmeList) {
-		RecordGenerator<VmeContainer, VmeObservation, Empty> r = new FactSheetRecord();
-		List<List<Object>> tabular = new ArrayList<List<Object>>();
-		List<Object> firstRecord = new ArrayList<Object>(Arrays.asList(r.getHeaders()));
-		tabular.add(firstRecord);
-		if (!vmeList.isEmpty()) {
-			return generateTabular(tabular, vmeList, r);
-		} else {
-			return tabular;
+			return tabular;		
 		}
 	}
 

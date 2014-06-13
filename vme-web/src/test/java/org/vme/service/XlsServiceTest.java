@@ -29,7 +29,6 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProv
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
@@ -92,15 +91,10 @@ public class XlsServiceTest {
 		List<Vme> vmeList = new ArrayList<Vme>();
 		vmeList.add(vme);
 
-		WritableWorkbook ww = f.create(baos);
+		WritableWorkbook ww = f.create(baos, vmeList);
 
 		for (WritableSheet wSheet : ww.getSheets()) {
-			if (!wSheet.getName().equals("Fact Sheets")) {
-				xlsService.fillWorkSheet(wSheet, vmeList);
-			} else {
-				List<List<Object>> tabular = g.generateFactSheet(new ArrayList<VmeContainer>());
-				xlsService.fillCells(tabular, wSheet);
-			}
+			f.fillWorkSheet(wSheet);
 		}
 
 		assertEquals(8, ww.getNumberOfSheets());
@@ -108,16 +102,15 @@ public class XlsServiceTest {
 	}
 
 	@Test
-	@Ignore("TODO Roberto")
 	public void testFillWorkSheetInCaseOfEmptyDB() throws RowsExceededException, WriteException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 		List<Vme> vmeList = new ArrayList<Vme>();
 
-		WritableWorkbook ww = f.create(baos);
+		WritableWorkbook ww = f.create(baos, vmeList);
 
 		for (WritableSheet wSheet : ww.getSheets()) {
-			xlsService.fillWorkSheet(wSheet, vmeList);
+			f.fillWorkSheet(wSheet);
 		}
 
 		assertEquals(8, ww.getNumberOfSheets());

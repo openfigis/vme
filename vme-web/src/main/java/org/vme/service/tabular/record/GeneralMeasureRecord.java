@@ -31,6 +31,11 @@ public class GeneralMeasureRecord extends AbstractRecord implements
 	public void doThirdLevel(InformationSource p, List<Object> nextRecord) {
 		nextRecord.add(u.getEnglish(p.getCitation()));
 		nextRecord.add("dd");
+		
+		/*TODO
+		 *  new Rule().process(p.getId, nextRecord);
+		 */
+		
 		if (p.getId() == null) {
 			nextRecord.add("");
 		} else {
