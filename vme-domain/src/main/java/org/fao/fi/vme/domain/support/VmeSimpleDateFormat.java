@@ -18,7 +18,7 @@ import org.fao.fi.vme.VmeException;
 public class VmeSimpleDateFormat {
 
 	private SimpleDateFormat sf = new SimpleDateFormat("ddMMyyyy", Locale.ENGLISH);
-	private SimpleDateFormat uiStringFormat = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+	private SimpleDateFormat uiStringFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
 	/**
 	 * Date format is ddMMyyyy

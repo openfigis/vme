@@ -16,6 +16,6 @@ public class VmeSimpleDateFormatTest {
 	@Test
 	public void testCreateUiString() {
 
-		assertEquals("01 Jan 2000", f.createUiString(f.parse("01012000")));
+		assertEquals("2000-01-01", f.createUiString(f.parse("01012000")));
 	}
 }
