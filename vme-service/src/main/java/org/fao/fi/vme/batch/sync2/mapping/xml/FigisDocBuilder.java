@@ -51,6 +51,7 @@ import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.purl.dc.elements._1.Title;
@@ -89,6 +90,7 @@ public class FigisDocBuilder {
 	private GeneralMeasureManagementMethodEntryBuilder mmeBuilder = new GeneralMeasureManagementMethodEntryBuilder();
 	private CurrentDate currentDate = new CurrentDate();
 	private BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
+	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
 
 	public static final String VULNERABLE_MARINE_ECOSYSTEMS = "Vulnerable Marine Ecosystems";
 
@@ -174,12 +176,12 @@ public class FigisDocBuilder {
 
 			if (specificMeasure.getValidityPeriod() != null) {
 				JAXBElement<Min> minJAXBElement = f.createRangeMin(f.createMin());
-				uj.fillObject(specificMeasure.getValidityPeriod().getBeginDate(), minJAXBElement);
+				uj.fillObject(du.createUiString(specificMeasure.getValidityPeriod().getBeginDate()), minJAXBElement);
 
 				JAXBElement<Max> maxJAXBElement = f.createRangeMax(f.createMax());
-				uj.fillObject(specificMeasure.getValidityPeriod().getEndDate(), maxJAXBElement);
+				uj.fillObject(du.createUiString(specificMeasure.getValidityPeriod().getEndDate()), maxJAXBElement);
 
-				uj.fillObject(specificMeasure.getValidityPeriod().getEndDate(), maxJAXBElement);
+				uj.fillObject(du.createUiString(specificMeasure.getValidityPeriod().getEndDate()), maxJAXBElement);
 
 				range.getContent().add(minJAXBElement);
 				range.getContent().add(maxJAXBElement);
@@ -541,10 +543,10 @@ public class FigisDocBuilder {
 		}
 
 		JAXBElement<Min> minJAXBElement = f.createRangeMin(f.createMin());
-		uj.fillObject(vmeDomain.getValidityPeriod().getBeginDate(), minJAXBElement);
+		uj.fillObject(du.createUiString(vmeDomain.getValidityPeriod().getBeginDate()), minJAXBElement);
 
 		JAXBElement<Max> maxJAXBElement = f.createRangeMax(f.createMax());
-		uj.fillObject(vmeDomain.getValidityPeriod().getEndDate(), maxJAXBElement);
+		uj.fillObject(du.createUiString(vmeDomain.getValidityPeriod().getEndDate()), maxJAXBElement);
 
 		Range range = f.createRange();
 		range.setType("Time");
