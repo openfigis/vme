@@ -9,14 +9,19 @@
 	<artifactId>vme-reports-store-gateway</artifactId>
 	<dependencies>
 		<dependency>
+			<groupId>org.gcube.application</groupId>
+			<artifactId>gcube-reporting-modeler</artifactId>
+			<version>1.1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-interface-dto</artifactId>
-			<version>[0.0.4-SNAPSHOT]</version>
+			<version>[${rsg.version}]</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-support-compiler</artifactId>
-			<version>[0.0.4-SNAPSHOT]</version>
+			<version>[${rsg.version}]</version>
 		</dependency>
 		<dependency>
 			<groupId>org.vme</groupId>
@@ -28,30 +33,25 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.gcube.application</groupId>
-			<artifactId>gcube-reporting-modeler</artifactId>
-			<version>1.1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-support-builder</artifactId>
-			<version>[0.0.4-SNAPSHOT]</version>
+			<version>[${rsg.version}]</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-test</artifactId>
-			<version>[0.0.4-SNAPSHOT]</version>
+			<version>[${rsg.version}]</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-configuration</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>1.4.5</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.vme</groupId>
-			<artifactId>vme-configuration</artifactId>
 		</dependency>
 	</dependencies>
 	<profiles>

@@ -51,12 +51,11 @@
 			<property name="hibernate.dbcp.minIdle" value="0"/>
 			<property name="hibernate.dbcp.validationQuery" value="select 1 from dual"/>
 			<property name="hibernate.dbcp.testWhileIdle" value="true"/>
-            <property name="hibernate.dbcp.testOnBorrow" value="true"/>
-            <property name="hibernate.dbcp.testOnReturn" value="true"/>
-            <property name="hibernate.dbcp.timeBetweenEvictionRunsMillis" value="1800000"/>
-            <property name="hibernate.dbcp.numTestsPerEvictionRun" value="3"/>
-            <property name="hibernate.dbcp.minEvictableIdleTimeMillis" value="1800000"/>
-			
+			<property name="hibernate.dbcp.testOnBorrow" value="true"/>
+			<property name="hibernate.dbcp.testOnReturn" value="true"/>
+			<property name="hibernate.dbcp.timeBetweenEvictionRunsMillis" value="1800000"/>
+			<property name="hibernate.dbcp.numTestsPerEvictionRun" value="3"/>
+			<property name="hibernate.dbcp.minEvictableIdleTimeMillis" value="1800000"/>
 			
 			<property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider"/>
 		</properties>
@@ -141,8 +140,7 @@
             <property name="hibernate.dbcp.timeBetweenEvictionRunsMillis" value="1800000"/>
             <property name="hibernate.dbcp.numTestsPerEvictionRun" value="3"/>
             <property name="hibernate.dbcp.minEvictableIdleTimeMillis" value="1800000"/>
-			
-			
+		
 			<property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider"/>
 		</properties>
 	</persistence-unit>
