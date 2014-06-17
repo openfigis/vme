@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.xml.bind.JAXBElement;
 
 import org.apache.commons.lang.StringUtils;
@@ -33,7 +34,6 @@ import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
 import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
-import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
@@ -44,17 +44,28 @@ import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
+import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.purl.agmes._1.CreatorCorporate;
 import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.terms.Abstrakt;
 import org.purl.dc.terms.BibliographicCitation;
 import org.purl.dc.terms.Created;
+import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.fimes.jaxb.JaxbMarshall;
 
+@RunWith(CdiRunner.class)
+@AdditionalClasses({ ReferenceDaoImpl.class })
+@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
 public class FigisDocBuilderTest {
 
+	@Inject
 	FigisDocBuilder b;
 	JaxbMarshall m;
 	MultiLingualStringUtil u;
@@ -66,7 +77,6 @@ public class FigisDocBuilderTest {
 
 	@Before
 	public void prepareBefore() {
-		b = new FigisDocBuilder();
 		m = new JaxbMarshall();
 		u = new MultiLingualStringUtil();
 		vme = VmeMock.generateVme(nrOfYears);
@@ -280,8 +290,9 @@ public class FigisDocBuilderTest {
 			} else if (obj instanceof WaterAreaRef) {
 				assertEquals(vme.getGeoRefList().get(0).getGeographicFeatureID(), ((ForeignID) ((WaterAreaRef) obj)
 						.getFigisIDsAndForeignIDs().get(0)).getCode());
-			} else if (obj instanceof VMEType) {
-				assertEquals(vme.getAreaType().getName(), ((VMEType) obj).getValue());
+				// } else if (obj instanceof VMEType) {
+				// assertEquals(vme.getAreaType().getName(), ((VMEType)
+				// obj).getValue());
 			} else if (obj instanceof VMECriteria) {
 				assertEquals(vme.getCriteria(), ((VMECriteria) obj).getValue());
 			} else if (obj instanceof Range) {

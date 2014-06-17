@@ -2,7 +2,6 @@ package org.fao.fi.vme.batch.sync2;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.RefVme;
@@ -31,9 +30,12 @@ public class ObservationSync implements Sync {
 
 	@Inject
 	private VmeDao vmeDao;
-	
-	@Inject @ConceptProvider private ReferenceDAO refDao;
 
+	@Inject
+	@ConceptProvider
+	private ReferenceDAO refDao;
+
+	@Inject
 	private ObjectMapping om;
 
 	@Override
@@ -45,11 +47,6 @@ public class ObservationSync implements Sync {
 			sync(vme);
 
 		}
-	}
-	
-	@PostConstruct
-	public void postConstruct() {
-		this.om = new ObjectMapping(this.refDao);
 	}
 
 	@Override
