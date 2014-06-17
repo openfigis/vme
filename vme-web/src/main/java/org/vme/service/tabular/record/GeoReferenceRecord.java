@@ -32,8 +32,9 @@ public class GeoReferenceRecord extends AbstractRecord implements RecordGenerato
 
 	@Override
 	public void doThirdLevel(Empty p, List<Object> nextRecord) {
-		// TODO Auto-generated method stub
-		
+		/*
+		 * Unusued method
+		 */
 	}
 
 	@Override

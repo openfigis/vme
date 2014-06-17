@@ -59,13 +59,13 @@ public class SpecificMeasureRecord extends AbstractRecord implements RecordGener
 
 	@Override
 	public void doThirdLevel(Empty p, List<Object> nextRecord) {
-		// TODO Auto-generated method stub
-
+		/*
+		 * Unusued method
+		 */
 	}
 
 	@Override
 	public Method getThirdLevelMethod() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -20,9 +20,9 @@ import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.test.RfmoMock;
 import org.fao.fi.vme.domain.test.VmeMock;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.vme.service.WritableWorkbookFactory;
+import org.vme.service.WritableWorkbookFactoryTest;
 import org.vme.service.XlsServiceTest;
 import org.vme.service.tabular.record.FactSheetRecord;
 import org.vme.service.tabular.record.FisheryAreasHistoryRecord;
@@ -38,6 +38,9 @@ public class TabularGeneratorTest {
 	
 	@Inject
 	XlsServiceTest xlsServiceTest = new XlsServiceTest();
+	
+	@Inject
+	WritableWorkbookFactoryTest workbookFactoryTest = new WritableWorkbookFactoryTest();
 
 	TabularGenerator g = new TabularGenerator();
 	private WritableWorkbookFactory f = new WritableWorkbookFactory();
@@ -176,13 +179,12 @@ public class TabularGeneratorTest {
 	}
 	
 	@Test
-	@Ignore("TODO Roberto")
 	public void testGenerateFactSheet() {
 		RecordGenerator<VmeContainer, VmeObservation, Empty> r = new FactSheetRecord();
 		Vme vme = VmeMock.generateVme(2);
 		List<Vme> vmeList = new ArrayList<Vme>();
 		vmeList.add(vme);
-		List<VmeContainer> cList = xlsServiceTest.prepereListMock(vmeList);
+		List<VmeContainer> cList = workbookFactoryTest.prepereListMock(vmeList);
 		List<List<Object>> tabular = g.generate(cList, r);
 		for (List<Object> list : tabular) {
 			for (Object object : list) {

@@ -48,8 +48,9 @@ public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<
 
 	@Override
 	public void doThirdLevel(Empty p, List<Object> nextRecord) {
-		// TODO Auto-generated method stub
-
+		/*
+		 * Unusued method
+		 */
 	}
 
 	@Override

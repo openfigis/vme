@@ -51,13 +51,13 @@ public class InformationSourceRecord extends AbstractRecord implements RecordGen
 
 	@Override
 	public void doThirdLevel(Empty p, List<Object> nextRecord) {
-		// TODO Auto-generated method stub
-
+		/*
+		 * Unusued method
+		 */
 	}
 
 	@Override
 	public Method getThirdLevelMethod() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

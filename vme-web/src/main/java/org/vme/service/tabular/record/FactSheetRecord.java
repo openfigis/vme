@@ -34,6 +34,10 @@ public class FactSheetRecord extends AbstractRecord implements RecordGenerator<V
 	@Override
 	public void doThirdLevel(Empty p, List<Object> nextRecord) {
 
+		/*
+		 * Unusued method
+		 */
+		
 	}
 
 	@Override
