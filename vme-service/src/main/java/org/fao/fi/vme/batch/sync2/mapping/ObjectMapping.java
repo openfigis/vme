@@ -12,6 +12,7 @@ import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.batch.sync2.mapping.xml.DefaultObservationXml;
 import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilder;
 import org.fao.fi.vme.domain.model.Vme;
+import org.vme.dao.ReferenceDAO;
 import org.vme.dao.sources.figis.DefaultObservationDomain;
 import org.vme.dao.sources.figis.PrimaryRule;
 import org.vme.dao.sources.figis.PrimaryRuleValidator;
@@ -37,7 +38,7 @@ import org.vme.fimes.jaxb.JaxbMarshall;
  * 
  */
 public class ObjectMapping {
-
+	private ReferenceDAO refDao;
 	private final FigisDocBuilder figisDocBuilder = new FigisDocBuilder();
 	private final JaxbMarshall marshall = new JaxbMarshall();
 	private final PeriodGrouping grouping = new PeriodGrouping();
@@ -45,6 +46,11 @@ public class ObjectMapping {
 	private final PrimaryRule primaryRule = new PrimaryRule();
 	private final PrimaryRuleValidator primaryRuleValidator = new PrimaryRuleValidator();
 
+	public ObjectMapping(ReferenceDAO refDao) {
+		super();
+		this.refDao = refDao;
+	}
+	
 	public VmeObservationDomain mapVme2Figis2(Vme vme) {
 
 		List<DisseminationYearSlice> slices = grouping.collect(vme);
@@ -63,7 +69,7 @@ public class ObjectMapping {
 
 			FIGISDoc figisDoc = new FIGISDoc();
 			figisDocBuilder.dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
-			figisDocBuilder.vme(vme, disseminationYearSlice.getGeoRef(), disseminationYearSlice.getYear(), figisDoc);
+			figisDocBuilder.vme(this.refDao, vme, disseminationYearSlice.getGeoRef(), disseminationYearSlice.getYear(), figisDoc);
 			figisDocBuilder.fisheryArea(disseminationYearSlice.getFisheryAreasHistory(), figisDoc);
 			figisDocBuilder.vmesHistory(disseminationYearSlice.getVmesHistory(), figisDoc);
 			figisDocBuilder.specificMeasures(disseminationYearSlice.getSpecificMeasure(), figisDoc);

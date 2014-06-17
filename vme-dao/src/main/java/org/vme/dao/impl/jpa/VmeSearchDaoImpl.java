@@ -56,7 +56,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	private FigisDao figisDao;
 
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
-	private JqlDateUtil uj = new JqlDateUtil();
+	
 	private ValidityPeriodUtil vu = new ValidityPeriodUtil();
 
 	public VmeSearchDaoImpl() {
@@ -235,13 +235,49 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	}
 
 	private boolean containRelevantText(Vme vme, String text) {
-
-		if (StringUtils.containsIgnoreCase(vme.getAreaType().getName(), text)) {
-			return true;
+//		if (StringUtils.containsIgnoreCase(vme.getAreaType().getName(), text)) {
+//			return true;
+//		}
+		if(vme.getAreaType() != null) {
+			VmeType selected = null;
+			
+			try {
+				selected = referenceDAO.getReferenceByID(VmeType.class, vme.getAreaType());
+				
+				if(selected != null && selected.getName() != null) {
+					if(StringUtils.containsIgnoreCase(selected.getName(), text))
+						return true;
+				} else {
+					LOG.warn("Selected area type is either NULL or has a NULL name");
+				}
+			} catch (Exception e) {
+				LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeType.class, vme.getAreaType(), e.getMessage(), e);
+			}
 		}
-		if (StringUtils.containsIgnoreCase(vme.getCriteria(), text)) {
-			return true;
+				
+//		if (StringUtils.containsIgnoreCase(vme.getCriteria(), text)) {
+//			return true;
+//		}
+		
+		if(vme.getCriteria() != null && !vme.getCriteria().isEmpty()) {
+			VmeCriteria selected = null;
+			
+			for(Long criteriaId : vme.getCriteria()) {
+				try {
+					selected = referenceDAO.getReferenceByID(VmeCriteria.class, criteriaId);
+					
+					if(selected != null && selected.getName() != null) {
+						if(StringUtils.containsIgnoreCase(selected.getName(), text))
+							return true;
+					} else {
+						LOG.warn("Selected criteria is either NULL or has a NULL name");
+					}
+				} catch (Exception e) {
+					LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeCriteria.class, criteriaId, e.getMessage(), e);
+				}
+			}
 		}
+		
 		for (String element : vme.getGeoArea().getStringMap().values()) {
 			if (StringUtils.containsIgnoreCase(element, text)) {
 				return true;
@@ -467,7 +503,15 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		res.setGeoArea(u.getEnglish(vme.getGeoArea()));
 		res.setValidityPeriodFrom((new DateTime(vme.getValidityPeriod().getBeginDate())).getYear());
 		res.setValidityPeriodTo((new DateTime(vme.getValidityPeriod().getEndDate())).getYear());
-		res.setVmeType(vme.getAreaType().getName());
+//		res.setVmeType(vme.getAreaType().getName());
+		
+		if(vme.getAreaType() != null) {
+			try {
+				res.setVmeType(referenceDAO.getReferenceByID(VmeType.class, vme.getAreaType()).getName());
+			} catch(Exception e) {
+				LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeType.class, vme.getAreaType(), e.getMessage(), e);
+			}
+		}
 
 		if (!vme.getGeoRefList().isEmpty()) {
 			GeoRef first = vme.getGeoRefList().get(0);

@@ -76,7 +76,7 @@ public class VmeSearchDaoImplTest {
 		l1.add(g2);
 		g1.setVme(vme);
 		vme.setRfmo(r);
-		vme.setAreaType(VmeTypeMock.create());
+		vme.setAreaType(VmeTypeMock.create().getId());
 		vme.setGeoRefList(l1);
 		vme.setValidityPeriod(ValidityPeriodMock.create());
 

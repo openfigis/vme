@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import org.fao.fi.vme.domain.model.Criteria;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
@@ -753,12 +752,12 @@ public class VmeDao extends AbstractJPADao {
 			}
 		}
 
-		// Link the Criteria to the Vme
-		if (vme.getCriteriaList() != null) {
-			for (Criteria c : vme.getCriteriaList()) {
-				c.setVme(vme);
-			}
-		}
+//		// Link the Criteria to the Vme
+//		if (vme.getCriteriaList() != null) {
+//			for (Criteria c : vme.getCriteriaList()) {
+//				c.setVme(vme);
+//			}
+//		}
 
 		vme = this.doPersistAndFlush(em, vme);
 

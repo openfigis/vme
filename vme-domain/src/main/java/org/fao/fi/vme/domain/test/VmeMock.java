@@ -48,7 +48,7 @@ public class VmeMock {
 
 		VmeType vmeType = VmeTypeMock.create();
 
-		vme.setAreaType(vmeType);
+		vme.setAreaType(vmeType.getId());
 		return vme;
 	}
 
@@ -182,8 +182,16 @@ public class VmeMock {
 		vme.setGeoRefList(geoRefList);
 		ValidityPeriod vp = ValidityPeriodMock.create(startYear, endYear);
 		vme.setValidityPeriod(vp);
-		vme.setAreaType(VmeTypeMock.create());
-		vme.setCriteria("Uniqueness or rarity");
+		vme.setAreaType(VmeTypeMock.create().getId());
+		vme.setCriteria(
+			new ArrayList<Long>(
+				Arrays.asList(
+					VmeCriteriaMock.create().getId(),
+					VmeCriteriaMock.createAnother().getId(),
+					VmeCriteriaMock.createYetAnother().getId()
+				)
+			)
+		);
 		vme.setGeoArea(u.english("Southern Pacific Ocean"));
 
 		return vme;

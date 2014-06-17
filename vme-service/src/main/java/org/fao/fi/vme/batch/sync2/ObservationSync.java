@@ -2,12 +2,15 @@ package org.fao.fi.vme.batch.sync2;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.batch.sync2.mapping.ObjectMapping;
 import org.fao.fi.vme.domain.model.Vme;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
+import org.vme.dao.ReferenceDAO;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
@@ -28,8 +31,10 @@ public class ObservationSync implements Sync {
 
 	@Inject
 	private VmeDao vmeDao;
+	
+	@Inject @ConceptProvider private ReferenceDAO refDao;
 
-	private final ObjectMapping om = new ObjectMapping();
+	private ObjectMapping om;
 
 	@Override
 	public void sync() {
@@ -40,6 +45,11 @@ public class ObservationSync implements Sync {
 			sync(vme);
 
 		}
+	}
+	
+	@PostConstruct
+	public void postConstruct() {
+		this.om = new ObjectMapping(this.refDao);
 	}
 
 	@Override
