@@ -1,7 +1,5 @@
 package org.fao.fi.vme.domain.change2;
 
-import static org.junit.Assert.assertNotNull;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -35,9 +33,8 @@ public class VmeTypeChangeTest {
 	 */
 	@Test
 	public void test() {
-
-		assertNotNull(change);
 		change.migrate();
+
 	}
 
 }
