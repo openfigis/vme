@@ -39,10 +39,6 @@ import org.vme.dao.sources.vme.VmeDao;
 @ActivatedAlternatives({ SyncFactsheetChangeListener.class, FigisFactsheetUpdater.class,
 		VmeDataBaseProducerApplicationScope.class, VmeTestPersistenceUnitConfiguration.class,
 		FigisDataBaseProducer.class, FigisTestPersistenceUnitConfiguration.class })
-// VmePersistenceUnitConfiguration
-// VmeTestPersistenceUnitConfiguration
-// VmeDataBaseProducerApplicationScope
-// VmeDataBaseProducer
 public class FactsheetChangeListenerImplTest {
 
 	/**
