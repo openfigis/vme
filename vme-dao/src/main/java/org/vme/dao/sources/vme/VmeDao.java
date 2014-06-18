@@ -534,8 +534,8 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public Vme update(Vme updatedVME) throws Throwable {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
+//		EntityTransaction et = em.getTransaction();
+//		et.begin();
 
 		if (updatedVME == null) {
 			throw new IllegalArgumentException("Updated Vme cannot be NULL");
@@ -690,7 +690,7 @@ public class VmeDao extends AbstractJPADao {
 		// SpecificMeasures but not remove them.
 		Vme mergedVME = this.doMerge(em, updatedVME);
 
-		et.commit();
+//		et.commit();
 
 		return mergedVME;
 	}
