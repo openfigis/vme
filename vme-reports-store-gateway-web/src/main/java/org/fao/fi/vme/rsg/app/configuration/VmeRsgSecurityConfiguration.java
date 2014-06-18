@@ -25,7 +25,7 @@ public class VmeRsgSecurityConfiguration extends ResourceConfig {
 	 * Class constructor
 	 */
 	public VmeRsgSecurityConfiguration() {
-//		register(BandwidthLimitedResourceRequestValidatorFilter.class);
-//		register(IPRestrictedResourceRequestValidatorFilter.class);
+		register(BandwidthLimitedResourceRequestValidatorFilter.class);
+		register(IPRestrictedResourceRequestValidatorFilter.class);
 	}
 }

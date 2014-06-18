@@ -30,10 +30,10 @@ public class VmeRsgServicesConfiguration extends ResourceConfig {
 	 */
 	public VmeRsgServicesConfiguration() {
 		//Security interceptors and filters (server-side)
-//		register(EncryptedResourceWriterInterceptor.class);
-//		register(IPRestrictedResourceRequestValidatorFilter.class);
-//		register(VmeRsgPlainTokenSecuredResourceRequestValidatorFilter.class);
-//		register(VmeRsgEncryptedTokenSecuredResourceRequestValidatorFilter.class);
+		register(EncryptedResourceWriterInterceptor.class);
+		register(IPRestrictedResourceRequestValidatorFilter.class);
+		register(VmeRsgPlainTokenSecuredResourceRequestValidatorFilter.class);
+		register(VmeRsgEncryptedTokenSecuredResourceRequestValidatorFilter.class);
 		
 		//JAXB mappers
 		register(JAXBContextProvider.class);
