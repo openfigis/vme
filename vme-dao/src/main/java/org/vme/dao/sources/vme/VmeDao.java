@@ -52,7 +52,9 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public EntityTransaction begin() {
-		return this.em.getTransaction();
+		EntityTransaction et = this.em.getTransaction();
+		et.begin();
+		return et;
 	}
 
 	public void commit(EntityTransaction tx) {
