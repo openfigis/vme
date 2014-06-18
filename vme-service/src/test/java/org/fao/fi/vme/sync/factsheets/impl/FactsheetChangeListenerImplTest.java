@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
 import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.figis.FigisDao;
@@ -36,11 +36,18 @@ import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @AdditionalClasses({ ReferenceDaoImpl.class })
-@ActivatedAlternatives({ SyncFactsheetChangeListener.class, FigisFactsheetUpdater.class, VmeDataBaseProducer.class,
-		VmeTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
-		FigisTestPersistenceUnitConfiguration.class })
+@ActivatedAlternatives({ SyncFactsheetChangeListener.class, FigisFactsheetUpdater.class,
+		VmeDataBaseProducerApplicationScope.class, VmeTestPersistenceUnitConfiguration.class,
+		FigisDataBaseProducer.class, FigisTestPersistenceUnitConfiguration.class })
+// VmePersistenceUnitConfiguration
+// VmeTestPersistenceUnitConfiguration
+// VmeDataBaseProducerApplicationScope
+// VmeDataBaseProducer
 public class FactsheetChangeListenerImplTest {
 
+	/**
+	 * SyncFactsheetChangeListener will be injected here
+	 */
 	@Inject
 	FactsheetChangeListener l;
 
@@ -83,6 +90,8 @@ public class FactsheetChangeListenerImplTest {
 		vmeDao.update(vme);
 		l.VMEChanged(vme);
 		delegateCount();
+
+		System.out.println(figisDao.loadObjects(ObservationXml.class).get(0).getXml());
 
 		assertTrue(figisDao.loadObjects(ObservationXml.class).get(0).getXml().contains(after));
 	}
