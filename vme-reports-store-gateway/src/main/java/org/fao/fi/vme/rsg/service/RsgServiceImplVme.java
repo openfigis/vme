@@ -35,9 +35,9 @@ import org.gcube.application.rsg.service.RsgService;
 import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
 import org.gcube.application.rsg.service.dto.ReportType;
-import org.gcube.application.rsg.service.dto.response.Response;
-import org.gcube.application.rsg.service.dto.response.ResponseEntry;
-import org.gcube.application.rsg.service.dto.response.ResponseEntryCode;
+import org.gcube.application.rsg.service.dto.response.ServiceResponse;
+import org.gcube.application.rsg.service.dto.response.ServiceResponseCode;
+import org.gcube.application.rsg.service.dto.response.ServiceResponseMessage;
 import org.gcube.application.rsg.service.util.RsgServiceUtil;
 import org.gcube.application.rsg.support.builder.ReportBuilder;
 import org.gcube.application.rsg.support.builder.annotations.Builder;
@@ -167,14 +167,14 @@ public class RsgServiceImplVme implements RsgService {
 		PersistenceManager.readModel(file.getAbsolutePath());
 	}
 
-	final private Response handleRollback(Response current, EntityTransaction tx) {
+	final private ServiceResponse handleRollback(ServiceResponse current, EntityTransaction tx) {
 		try {
 			LOG.info("Rolling back transaction...");
 
 			if (current != null) {
 				if (current.getResponseMessageList() != null && !current.getResponseMessageList().isEmpty()) {
 					LOG.info("Current response info:");
-					for (ResponseEntry entry : current.getResponseMessageList()) {
+					for (ServiceResponseMessage entry : current.getResponseMessageList()) {
 						LOG.info("{} : {}", entry.getResponseCode(), entry.getResponseMessage());
 					}
 				} else {
@@ -192,7 +192,7 @@ public class RsgServiceImplVme implements RsgService {
 
 			LOG.error(message);
 
-			current.addEntry(new ResponseEntry(ResponseEntryCode.NOT_SUCCEEDED, message));
+			current.addEntry(new ServiceResponseMessage(ServiceResponseCode.NOT_SUCCEEDED, message));
 		}
 
 		return current;
@@ -613,10 +613,10 @@ public class RsgServiceImplVme implements RsgService {
 	 * .rsg.service.dto.ReportType, java.lang.Object)
 	 */
 	@Override
-	public Response deleteById(ReportType reportType, Object reportId) {
+	public ServiceResponse deleteById(ReportType reportType, Object reportId) {
 		LOG.info("Requesting deletion of {} report #{}", reportType.getTypeIdentifier(), reportId);
 
-		Response response = new Response();
+		ServiceResponse response = new ServiceResponse();
 
 		Class<?> entity = this.getEntityByReportType(reportType);
 
@@ -670,10 +670,10 @@ public class RsgServiceImplVme implements RsgService {
 	 * gcube.application.rsg.service.dto.ReportType, java.lang.Object)
 	 */
 	@Override
-	public Response deleteReferenceById(ReportType referenceReportType, Object refReportId) {
+	public ServiceResponse deleteReferenceById(ReportType referenceReportType, Object refReportId) {
 		LOG.info("Requesting deletion of {} reference report #{}", referenceReportType.getTypeIdentifier(), refReportId);
 
-		Response response = new Response();
+		ServiceResponse response = new ServiceResponse();
 
 		Class<?> entity = this.getEntityByReferenceReportType(referenceReportType);
 
@@ -766,7 +766,7 @@ public class RsgServiceImplVme implements RsgService {
 	 * .rsg.support.model.components.impl.CompiledReport)
 	 */
 	@Override
-	public Response update(CompiledReport report) {
+	public ServiceResponse update(CompiledReport report) {
 		this.vmeDao.getEm().clear();
 
 		boolean isNew = report.getId() == null;
@@ -783,7 +783,7 @@ public class RsgServiceImplVme implements RsgService {
 			LOG.warn("Unable to dump report to its XML format", t);
 		}
 
-		Response response = new Response();
+		ServiceResponse response = new ServiceResponse();
 
 		EntityManager em = this.vmeDao.getEm();
 		EntityTransaction tx = em.getTransaction();
@@ -870,7 +870,7 @@ public class RsgServiceImplVme implements RsgService {
 	 * .rsg.support.model.components.impl.CompiledReport)
 	 */
 	@Override
-	public Response updateRef(CompiledReport referenceReport) {
+	public ServiceResponse updateRef(CompiledReport referenceReport) {
 		boolean isNew = referenceReport.getId() == null;
 
 		String id = isNew ? "#NEW#" : "#" + referenceReport.getId();
@@ -885,7 +885,7 @@ public class RsgServiceImplVme implements RsgService {
 			LOG.warn("Unable to dump reference report to its XML format", t);
 		}
 
-		Response response = new Response();
+		ServiceResponse response = new ServiceResponse();
 
 		EntityManager em = this.vmeDao.getEm();
 		EntityTransaction tx = em.getTransaction();
@@ -998,12 +998,12 @@ public class RsgServiceImplVme implements RsgService {
 	 * .rsg.support.model.components.impl.CompiledReport)
 	 */
 	@Override
-	public Response validate(CompiledReport report) {
+	public ServiceResponse validate(CompiledReport report) {
 		String id = report.getId() == null ? "#NEW#" : "#" + report.getId();
 
 		LOG.info("Requesting validation of {} report {}", report.getType(), id);
 
-		Response response = new Response();
+		ServiceResponse response = new ServiceResponse();
 
 		try {
 			report.setEvaluated(true);
@@ -1028,12 +1028,12 @@ public class RsgServiceImplVme implements RsgService {
 	 * application.rsg.support.model.components.impl.CompiledReport)
 	 */
 	@Override
-	public Response validateRef(CompiledReport report) {
+	public ServiceResponse validateRef(CompiledReport report) {
 		String id = report.getId() == null ? "#NEW#" : "#" + report.getId();
 
 		LOG.info("Requesting validation of {} reference report {}", report.getType(), id);
 
-		Response response = new Response();
+		ServiceResponse response = new ServiceResponse();
 
 		try {
 			report.setEvaluated(true);
