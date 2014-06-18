@@ -14,7 +14,6 @@ import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.batch.sync2.mapping.xml.DefaultObservationXml;
 import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilder;
 import org.fao.fi.vme.domain.model.Vme;
-import org.vme.dao.ReferenceDAO;
 import org.vme.dao.sources.figis.DefaultObservationDomain;
 import org.vme.dao.sources.figis.PrimaryRule;
 import org.vme.dao.sources.figis.PrimaryRuleValidator;
@@ -40,9 +39,6 @@ import org.vme.fimes.jaxb.JaxbMarshall;
  * 
  */
 public class ObjectMapping {
-
-	@Inject
-	private ReferenceDAO refDao;
 
 	@Inject
 	private FigisDocBuilder figisDocBuilder;
