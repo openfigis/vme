@@ -20,7 +20,17 @@ import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.test.RfmoMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
+import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
+import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
+import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
 import org.vme.service.WritableWorkbookFactory;
 import org.vme.service.WritableWorkbookFactoryTest;
 import org.vme.service.XlsServiceTest;
@@ -34,24 +44,32 @@ import org.vme.service.tabular.record.VmeContainer;
 import org.vme.service.tabular.record.VmeProfileRecord;
 import org.vme.service.tabular.record.VmesHistoryRecord;
 
+@RunWith(CdiRunner.class)
+@AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
+@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
+		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
 public class TabularGeneratorTest {
-	
+
 	@Inject
 	XlsServiceTest xlsServiceTest = new XlsServiceTest();
-	
+
 	@Inject
 	WritableWorkbookFactoryTest workbookFactoryTest = new WritableWorkbookFactoryTest();
 
-	TabularGenerator g = new TabularGenerator();
-	private WritableWorkbookFactory f = new WritableWorkbookFactory();
-	
+	@Inject
+	TabularGenerator g;
+	@Inject
+	WritableWorkbookFactory f;
+
+	@Inject
+	VmeProfileRecord vmeProfileRecord;
+
 	@Test
 	public void testGenerateVmeProfile() {
 		Vme vme = VmeMock.generateVme(2);
 		List<Vme> vmeList = new ArrayList<Vme>();
 		vmeList.add(vme);
-		RecordGenerator<Vme, Profile, Empty> r = new VmeProfileRecord();
-		List<List<Object>> tabular = g.generate(vmeList, r);
+		List<List<Object>> tabular = g.generate(vmeList, vmeProfileRecord);
 		for (List<Object> list : tabular) {
 			for (Object object : list) {
 				System.out.print(object);
@@ -122,7 +140,7 @@ public class TabularGeneratorTest {
 
 		}
 	}
-	
+
 	@Test
 	public void testGenerateVmeHistory() {
 		Rfmo rfmo = RfmoMock.create();
@@ -175,9 +193,9 @@ public class TabularGeneratorTest {
 			System.out.println();
 
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testGenerateFactSheet() {
 		RecordGenerator<VmeContainer, VmeObservation, Empty> r = new FactSheetRecord();
@@ -196,7 +214,7 @@ public class TabularGeneratorTest {
 
 		}
 	}
-	
+
 	@Test
 	public void testGenerateVmeProfileNull() {
 		List<Vme> vmeList = new ArrayList<Vme>();
@@ -213,7 +231,7 @@ public class TabularGeneratorTest {
 		}
 
 	}
-	
+
 	@Test
 	public void testGenerateSpecificMeasureNull() {
 		List<Vme> vmeList = new ArrayList<Vme>();
@@ -229,7 +247,7 @@ public class TabularGeneratorTest {
 
 		}
 	}
-	
+
 	@Test
 	public void testGenerateGeneralMeasureNull() {
 		RecordGenerator<Rfmo, GeneralMeasure, InformationSource> r = new GeneralMeasureRecord();
@@ -245,7 +263,7 @@ public class TabularGeneratorTest {
 
 		}
 	}
-	
+
 	@Test
 	public void testGenerateFisheryAreaHistoryNull() {
 		RecordGenerator<Rfmo, FisheryAreasHistory, Empty> r = new FisheryAreasHistoryRecord();
@@ -277,7 +295,7 @@ public class TabularGeneratorTest {
 
 		}
 	}
-	
+
 	@Test
 	public void testGenerateInfoSourceNull() {
 		RecordGenerator<Rfmo, InformationSource, Empty> r = new InformationSourceRecord();
@@ -293,10 +311,10 @@ public class TabularGeneratorTest {
 
 		}
 	}
-	
+
 	@Test
 	public void testGenerateGeoRefNull() {
-		
+
 		List<Vme> vmeList = new ArrayList<Vme>();
 		RecordGenerator<Vme, GeoRef, Empty> r = new GeoReferenceRecord();
 		List<List<Object>> tabular = g.generate(vmeList, r);
@@ -309,16 +327,16 @@ public class TabularGeneratorTest {
 			System.out.println();
 
 		}
-		
+
 	}
-	
+
 	@Test
 	public void testGenerateFactSheetNull() {
 		RecordGenerator<VmeContainer, VmeObservation, Empty> r = new FactSheetRecord();
 		List<Vme> vmeList = new ArrayList<Vme>();
 		List<VmeContainer> cList = f.prepereList(vmeList);
 		List<List<Object>> tabular = g.generate(cList, r);
-		
+
 		for (List<Object> list : tabular) {
 			for (Object object : list) {
 				System.out.print(object);

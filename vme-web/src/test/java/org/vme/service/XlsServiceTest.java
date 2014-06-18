@@ -48,7 +48,6 @@ public class XlsServiceTest {
 	 */
 
 	@Test
-	@Ignore("Profile needed")
 	public void testCreateXlsFile() throws Exception {
 		InformationSourceType defaultIST = InformationSourceMock.createInformationSourceType();
 

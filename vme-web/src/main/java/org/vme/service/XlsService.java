@@ -28,10 +28,11 @@ public class XlsService {
 	@ConceptProvider
 	private ReferenceDaoImpl refDao;
 
-	private WritableWorkbookFactory f = new WritableWorkbookFactory();
+	@Inject
+	private WritableWorkbookFactory f;
 
 	public ByteArrayInputStream createXlsFile(String authorityAcronym) throws Exception {
-		
+
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 		/*
@@ -47,14 +48,14 @@ public class XlsService {
 				vmeListPerRfmo.add(v);
 			}
 		}
-		
+
 		WritableWorkbook ww = f.create(baos, vmeListPerRfmo);
 
 		/*
 		 * Note: this for block adds information and data to all worksheets of
 		 * the returning file
 		 */
-		
+
 		for (WritableSheet wSheet : ww.getSheets()) {
 			f.fillWorkSheet(wSheet);
 		}

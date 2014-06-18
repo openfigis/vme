@@ -138,7 +138,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<inherited>true</inherited>
 				<configuration>
-					<source>1.6</source>
+					<source>1.7</source>
 					<target>1.6</target>
 				</configuration>
 			</plugin>
