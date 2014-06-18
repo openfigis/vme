@@ -24,15 +24,6 @@
 			<version>[${rsg.version}]</version>
 		</dependency>
 		<dependency>
-			<groupId>org.vme</groupId>
-			<artifactId>vme-service</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.vme</groupId>
-			<artifactId>vme-reports-store-gateway-test</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-support-builder</artifactId>
 			<version>[${rsg.version}]</version>
@@ -42,6 +33,15 @@
 			<artifactId>reports-store-gateway-test</artifactId>
 			<version>[${rsg.version}]</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-service</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-reports-store-gateway-test</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.vme</groupId>
