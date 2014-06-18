@@ -485,9 +485,10 @@ public class RsgServiceImplVme implements RsgService {
 			Field id = ScanningUtils.getUniqueIdentifier(identifiedReport);
 			Class<?> idType = id.getType();
 
-			@SuppressWarnings("unchecked")
-			DataConverter<?> converter = ScanningUtils.isAnnotatedWith(id, RSGConverter.class) ? ScanningUtils
-					.getAnnotation(id, RSGConverter.class).value().newInstance() : null;
+			DataConverter<?> converter = 
+					ScanningUtils.isAnnotatedWith(id, RSGConverter.class) ? 
+							ScanningUtils.getAnnotation(id, RSGConverter.class).value().newInstance() : 
+							null;
 
 			if (converter != null)
 				reportId = converter.fromString((String) reportId);
@@ -542,9 +543,10 @@ public class RsgServiceImplVme implements RsgService {
 			Field id = ScanningUtils.getUniqueIdentifier(identifiedReport);
 			Class<?> idType = id.getType();
 
-			@SuppressWarnings("unchecked")
-			DataConverter<?> converter = ScanningUtils.isAnnotatedWith(id, RSGConverter.class) ? ScanningUtils
-					.getAnnotation(id, RSGConverter.class).value().newInstance() : null;
+			DataConverter<?> converter = 
+					ScanningUtils.isAnnotatedWith(id, RSGConverter.class) ? 
+						ScanningUtils.getAnnotation(id, RSGConverter.class).value().newInstance() : 
+						null;
 
 			if (converter != null)
 				refReportId = converter.fromString((String) refReportId);

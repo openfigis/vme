@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
+import javax.persistence.EntityTransaction;
 
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
@@ -83,12 +84,23 @@ public class FactsheetChangeListenerImplTest {
 		String after = "after";
 		vme.setName(u.english(after));
 
-		vmeDao.update(vme);
-		l.VMEChanged(vme);
-		delegateCount();
+		EntityTransaction et = vmeDao.begin();
+		
+		try {
+			vmeDao.update(vme);
+			vmeDao.commit(et);
 
-		System.out.println(figisDao.loadObjects(ObservationXml.class).get(0).getXml());
+			l.VMEChanged(vme);
+			delegateCount();
 
+			System.out.println(figisDao.loadObjects(ObservationXml.class).get(0).getXml());
+		} catch(Throwable t) {
+			System.err.println("An error occurred while attempting to update the Vme. Rolling back the transaction");
+			
+			if(et.isActive())
+				vmeDao.rollback(et);
+		}
+		
 		assertTrue(figisDao.loadObjects(ObservationXml.class).get(0).getXml().contains(after));
 	}
 
