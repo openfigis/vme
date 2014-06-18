@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,6 +23,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGManyAmong;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGOneAmong;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGSection;
@@ -78,12 +83,6 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@OneToMany(cascade = { CascadeType.ALL })
 	private List<GeoRef> geoRefList;
 
-	@RSGName("Vme Criteria")
-	@RSGWeight(6)
-	@RSGSection
-	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
-	private List<Criteria> criteriaList;
-
 	/**
 	 * This validity period on the level of the reference object and applies to
 	 * the VME itself. It has noting to do with the reporting year.
@@ -109,24 +108,25 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString geoArea;
 
-	// @RSGName("Area Type")
-	// @RSGMandatory
-	// @RSGOneAmong(concept = VmeType.class, label = ConceptData.NAME, value =
-	// ConceptData.NAME)
-	// @RSGConverter(StringDataConverter.class)
-	// @RSGWeight(2)
-	@OneToOne(cascade = { CascadeType.DETACH })
-	private VmeType areaType;
+	@RSGName("Area Type")
+	@RSGMandatory
+	@RSGOneAmong(concept = VmeType.class, label = ConceptData.NAME, value = ConceptData.ID)
+	@RSGConverter(LongDataConverter.class)
+	@RSGWeight(2)
+	private Long areaType;
 
 	/**
 	 *
 	 */
 	@RSGName("Criteria")
 	@RSGMandatory
-	@RSGOneAmong(concept = VmeCriteria.class, label = ConceptData.NAME, value = ConceptData.NAME)
-	@RSGConverter(StringDataConverter.class)
+	@RSGManyAmong(concept = VmeCriteria.class, label = ConceptData.NAME, value = ConceptData.ID)
+	@RSGConverter(LongDataConverter.class)
 	@RSGWeight(2)
-	private String criteria;
+	@ElementCollection
+	@CollectionTable(name="VME_TO_CRITERIA", joinColumns=@JoinColumn(name="VME_ID"))
+	@Column(name="CRITERIA_ID")
+	private List<Long> criteria;
 
 	// peparations for scope
 	// @OneToOne(cascade = { CascadeType.DETACH })
@@ -195,19 +195,31 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 		this.validityPeriod = validityPeriod;
 	}
 
-	public VmeType getAreaType() {
-		return areaType;
+	/**
+	 * @return the 'areaType' value
+	 */
+	public Long getAreaType() {
+		return this.areaType;
 	}
 
-	public void setAreaType(VmeType areaType) {
+	/**
+	 * @param areaType the 'areaType' value to set
+	 */
+	public void setAreaType(Long areaType) {
 		this.areaType = areaType;
 	}
 
-	public String getCriteria() {
-		return criteria;
+	/**
+	 * @return the 'criteria' value
+	 */
+	public List<Long> getCriteria() {
+		return this.criteria;
 	}
 
-	public void setCriteria(String criteria) {
+	/**
+	 * @param criteria the 'criteria' value to set
+	 */
+	public void setCriteria(List<Long> criteria) {
 		this.criteria = criteria;
 	}
 
@@ -234,104 +246,75 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 		this.specificMeasureList = YearComparator.sort(specificMeasureList);
 	}
 
-	public List<Criteria> getCriteriaList() {
-		return criteriaList;
-	}
-
-	public void setCriteriaList(List<Criteria> criteriaList) {
-		this.criteriaList = criteriaList;
-	}
-
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Vme other = (Vme) obj;
 		if (this.areaType == null) {
-			if (other.areaType != null) {
+			if (other.areaType != null)
 				return false;
-			}
-		} else if (!this.areaType.equals(other.areaType)) {
+		} else if (!this.areaType.equals(other.areaType))
 			return false;
-		}
 		if (this.criteria == null) {
-			if (other.criteria != null) {
+			if (other.criteria != null)
 				return false;
-			}
-		} else if (!this.criteria.equals(other.criteria)) {
+		} else if (!this.criteria.equals(other.criteria))
 			return false;
-		}
-		if (this.geoRefList == null) {
-			if (other.geoRefList != null) {
-				return false;
-			}
-		} else if (!this.geoRefList.equals(other.geoRefList)) {
-			return false;
-		}
 		if (this.geoArea == null) {
-			if (other.geoArea != null) {
+			if (other.geoArea != null)
 				return false;
-			}
-		} else if (!this.geoArea.equals(other.geoArea)) {
+		} else if (!this.geoArea.equals(other.geoArea))
 			return false;
-		}
+		if (this.geoRefList == null) {
+			if (other.geoRefList != null)
+				return false;
+		} else if (!this.geoRefList.equals(other.geoRefList))
+			return false;
 		if (this.id == null) {
-			if (other.id != null) {
+			if (other.id != null)
 				return false;
-			}
-		} else if (!this.id.equals(other.id)) {
+		} else if (!this.id.equals(other.id))
 			return false;
-		}
 		if (this.inventoryIdentifier == null) {
-			if (other.inventoryIdentifier != null) {
+			if (other.inventoryIdentifier != null)
 				return false;
-			}
-		} else if (!this.inventoryIdentifier.equals(other.inventoryIdentifier)) {
+		} else if (!this.inventoryIdentifier.equals(other.inventoryIdentifier))
 			return false;
-		}
 		if (this.name == null) {
-			if (other.name != null) {
+			if (other.name != null)
 				return false;
-			}
-		} else if (!this.name.equals(other.name)) {
+		} else if (!this.name.equals(other.name))
 			return false;
-		}
 		if (this.profileList == null) {
-			if (other.profileList != null) {
+			if (other.profileList != null)
 				return false;
-			}
-		} else if (!this.profileList.equals(other.profileList)) {
+		} else if (!this.profileList.equals(other.profileList))
 			return false;
-		}
 		if (this.rfmo == null) {
-			if (other.rfmo != null) {
+			if (other.rfmo != null)
 				return false;
-			}
-		} else if (!this.rfmo.equals(other.rfmo)) {
+		} else if (!this.rfmo.equals(other.rfmo))
 			return false;
-		}
 		if (this.specificMeasureList == null) {
-			if (other.specificMeasureList != null) {
+			if (other.specificMeasureList != null)
 				return false;
-			}
-		} else if (!this.specificMeasureList.equals(other.specificMeasureList)) {
+		} else if (!this.specificMeasureList.equals(other.specificMeasureList))
 			return false;
-		}
 		if (this.validityPeriod == null) {
-			if (other.validityPeriod != null) {
+			if (other.validityPeriod != null)
 				return false;
-			}
-		} else if (!this.validityPeriod.equals(other.validityPeriod)) {
+		} else if (!this.validityPeriod.equals(other.validityPeriod))
 			return false;
-		}
 		return true;
 	}
 
+	
 }

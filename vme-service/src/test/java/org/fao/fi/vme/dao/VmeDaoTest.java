@@ -137,9 +137,9 @@ public class VmeDaoTest {
 	public void testLoadVmes() {
 		assertNotNull(dao);
 
-		Vme vme = new Vme();
-		String criteria = "go";
-		vme.setCriteria(criteria);
+//		Vme vme = new Vme();
+//		String criteria = "go";
+//		vme.setCriteria(criteria);
 		dao.loadVmes();
 	}
 

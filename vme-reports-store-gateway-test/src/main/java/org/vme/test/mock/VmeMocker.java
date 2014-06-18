@@ -4,10 +4,12 @@
 package org.vme.test.mock;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.test.VmeCriteriaMock;
 import org.fao.fi.vme.domain.test.VmeTypeMock;
 
 /**
@@ -56,8 +58,14 @@ public class VmeMocker extends AbstractMocker {
 		addProfile(vme, ProfileMocker.getMock1());
 		addProfile(vme, ProfileMocker.getMock2());
 
-		vme.setCriteria("Functional significance of the habitat");
-		vme.setAreaType(VmeTypeMock.create());
+		vme.setCriteria(
+			new ArrayList<Long>(
+				Arrays.asList(new Long[] {
+					VmeCriteriaMock.create().getId()
+				})
+			)
+		);
+		vme.setAreaType(VmeTypeMock.create().getId());
 
 		return vme;
 	}
@@ -77,8 +85,14 @@ public class VmeMocker extends AbstractMocker {
 		addProfile(vme, ProfileMocker.getMock2());
 		addProfile(vme, ProfileMocker.getMock1());
 
-		vme.setCriteria("Fragility");
-		vme.setAreaType(VmeTypeMock.create());
+		vme.setCriteria(
+			new ArrayList<Long>(
+				Arrays.asList(new Long[] {
+					VmeCriteriaMock.createAnother().getId()
+				})
+			)
+		);
+		vme.setAreaType(VmeTypeMock.create().getId());
 
 		return vme;
 	}
@@ -98,8 +112,14 @@ public class VmeMocker extends AbstractMocker {
 
 		addProfile(vme, ProfileMocker.getMock2());
 
-		vme.setCriteria("Uniqueness or rarity");
-		vme.setAreaType(VmeTypeMock.create());
+		vme.setCriteria(
+			new ArrayList<Long>(
+				Arrays.asList(new Long[] {
+					VmeCriteriaMock.createYetAnother().getId()
+				})
+			)
+		);
+		vme.setAreaType(VmeTypeMock.create().getId());
 
 		return vme;
 	}

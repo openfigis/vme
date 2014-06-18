@@ -4,7 +4,6 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/test/resources"/>
         <dependent-module archiveName="vme-service-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-service/vme-service">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -23,7 +22,7 @@
         <dependent-module archiveName="vme-configuration-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/vme-configuration/vme-configuration">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <property name="context-root" value="vme-web"/>
         <property name="java-output-path" value="/vme-web/target/classes"/>
+        <property name="context-root" value="figis#ws#vme"/>
     </wb-module>
 </project-modules>

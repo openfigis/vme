@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import javax.inject.Inject;
+import javax.persistence.EntityTransaction;
 
 import org.fao.fi.figis.domain.Observation;
 import org.fao.fi.figis.domain.ObservationXml;
@@ -21,23 +22,29 @@ import org.fao.fi.vme.sync.factsheets.listeners.FactsheetChangeListener;
 import org.fao.fi.vme.sync.factsheets.listeners.impl.SyncFactsheetChangeListener;
 import org.fao.fi.vme.sync.factsheets.updaters.impl.FigisFactsheetUpdater;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
 import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ SyncFactsheetChangeListener.class, FigisFactsheetUpdater.class, VmeDataBaseProducer.class,
-		VmeTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
-		FigisTestPersistenceUnitConfiguration.class })
+@AdditionalClasses({ ReferenceDaoImpl.class })
+@ActivatedAlternatives({ SyncFactsheetChangeListener.class, FigisFactsheetUpdater.class,
+		VmeDataBaseProducerApplicationScope.class, VmeTestPersistenceUnitConfiguration.class,
+		FigisDataBaseProducer.class, FigisTestPersistenceUnitConfiguration.class })
 public class FactsheetChangeListenerImplTest {
 
+	/**
+	 * SyncFactsheetChangeListener will be injected here
+	 */
 	@Inject
 	FactsheetChangeListener l;
 
@@ -77,10 +84,23 @@ public class FactsheetChangeListenerImplTest {
 		String after = "after";
 		vme.setName(u.english(after));
 
-		vmeDao.update(vme);
-		l.VMEChanged(vme);
-		delegateCount();
+		EntityTransaction et = vmeDao.begin();
+		
+		try {
+			vmeDao.update(vme);
+			vmeDao.commit(et);
 
+			l.VMEChanged(vme);
+			delegateCount();
+
+			System.out.println(figisDao.loadObjects(ObservationXml.class).get(0).getXml());
+		} catch(Throwable t) {
+			System.err.println("An error occurred while attempting to update the Vme. Rolling back the transaction");
+			
+			if(et.isActive())
+				vmeDao.rollback(et);
+		}
+		
 		assertTrue(figisDao.loadObjects(ObservationXml.class).get(0).getXml().contains(after));
 	}
 

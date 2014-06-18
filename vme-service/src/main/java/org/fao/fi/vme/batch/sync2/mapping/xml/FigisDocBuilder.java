@@ -1,9 +1,11 @@
 package org.fao.fi.vme.batch.sync2.mapping.xml;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.xml.bind.JAXBElement;
 
 import org.fao.fi.figis.devcon.AdditionalValue;
@@ -51,11 +53,17 @@ import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.VmeCriteria;
+import org.fao.fi.vme.domain.model.VmeType;
 import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.purl.dc.elements._1.Title;
 import org.purl.dc.terms.Created;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.vme.dao.ReferenceDAO;
 
 /**
  * FigisDocBuilder, to build a FIGISDoc from VME Domain database
@@ -82,6 +90,11 @@ import org.purl.dc.terms.Created;
  * 
  */
 public class FigisDocBuilder {
+	static final private Logger LOG = LoggerFactory.getLogger(FigisDocBuilder.class);
+
+	@Inject
+	@ConceptProvider
+	private ReferenceDAO refDao;
 
 	private ObjectFactory f = new ObjectFactory();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
@@ -555,11 +568,43 @@ public class FigisDocBuilder {
 
 		// VME Type
 		VMEType vmeType = new VMEType();
-		vmeType.setValue(vmeDomain.getAreaType().getName());
+		VmeType refVmeType = null;
+
+		if (vmeDomain.getAreaType() != null) {
+			try {
+				refVmeType = vmeDomain.getAreaType() == null ? null : refDao.getReferenceByID(VmeType.class,
+						vmeDomain.getAreaType());
+			} catch (Exception e) {
+				LOG.error("Unable to retrieve reference {} with ID {}: {}", VmeType.class, vmeDomain.getAreaType(),
+						e.getMessage(), e);
+			}
+		}
+
+		if (refVmeType != null)
+			vmeType.setValue(refVmeType.getName());
 
 		// VME Criteria
-		VMECriteria vmeCriteria = new VMECriteria();
-		vmeCriteria.setValue(vmeDomain.getCriteria());
+		List<VMECriteria> vmeCriteria = new ArrayList<VMECriteria>();
+
+		if (vmeDomain.getCriteria() != null) {
+			VMECriteria criteria;
+			VmeCriteria refCriteria;
+			for (Long criteriaId : vmeDomain.getCriteria()) {
+				try {
+					refCriteria = criteriaId == null ? null : refDao.getReferenceByID(VmeCriteria.class, criteriaId);
+
+					if (refCriteria != null) {
+						criteria = new VMECriteria();
+						criteria.setValue(refCriteria.getName());
+
+						vmeCriteria.add(criteria);
+					}
+				} catch (Exception e) {
+					LOG.error("Unable to retrieve reference {} with ID {}: {}", VmeCriteria.class, criteriaId,
+							e.getMessage(), e);
+				}
+			}
+		}
 
 		// Order:
 		// dc:Title
@@ -596,6 +641,7 @@ public class FigisDocBuilder {
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
 
 		// fi:VMECriteria
+		// TODO: Fabio Fiorellato - CHECK WHETHER THIS IS CORRECT
 		new AddWhenContentRule<Object>().check(vmeDomain.getCriteria()).beforeAdding(vmeCriteria)
 				.to(vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves());
 

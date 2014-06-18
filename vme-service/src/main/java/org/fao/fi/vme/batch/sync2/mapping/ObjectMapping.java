@@ -3,6 +3,8 @@ package org.fao.fi.vme.batch.sync2.mapping;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.RelatedFisheries;
 import org.fao.fi.figis.domain.ObservationDomain;
@@ -38,7 +40,9 @@ import org.vme.fimes.jaxb.JaxbMarshall;
  */
 public class ObjectMapping {
 
-	private final FigisDocBuilder figisDocBuilder = new FigisDocBuilder();
+	@Inject
+	private FigisDocBuilder figisDocBuilder;
+
 	private final JaxbMarshall marshall = new JaxbMarshall();
 	private final PeriodGrouping grouping = new PeriodGrouping();
 	private final SliceDuplicateFilter filter = new SliceDuplicateFilter();

@@ -8,6 +8,8 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.batch.sync2.mapping.ObjectMapping;
 import org.fao.fi.vme.domain.model.Vme;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
+import org.vme.dao.ReferenceDAO;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
@@ -29,7 +31,12 @@ public class ObservationSync implements Sync {
 	@Inject
 	private VmeDao vmeDao;
 
-	private final ObjectMapping om = new ObjectMapping();
+	@Inject
+	@ConceptProvider
+	private ReferenceDAO refDao;
+
+	@Inject
+	private ObjectMapping om;
 
 	@Override
 	public void sync() {
