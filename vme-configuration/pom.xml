@@ -29,6 +29,7 @@
 
 	<profiles>
 		<profile>
+			<!-- env-dev must always be the default! -->
 			<!-- These properties are defined in order to be able to run the integration tests also with H2 with the env-dev profile -->
 			<activation>
 				<activeByDefault>true</activeByDefault>
