@@ -12,6 +12,7 @@ import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
+import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.vme.dao.ReferenceBatchDao;
 import org.vme.dao.sources.vme.VmeDao;
 
@@ -36,9 +37,13 @@ public class ReferenceDataHardcodedBatch {
 		createVmeCriterias();
 		createVmeTypes();
 		createInformationSourceTypes();
-		// createYears();
-
+		createVmeScopes();
 		synchAuthorityWithRfmo();
+	}
+
+	private void createVmeScopes() {
+		dao.syncStoreObject(new VmeScope(10l, "VME"));
+		dao.syncStoreObject(new VmeScope(20l, "Regulatory"));
 	}
 
 	/**
