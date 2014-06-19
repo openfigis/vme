@@ -1,6 +1,6 @@
 package org.fao.fi.vme.domain.test;
 
-import org.fao.fi.vme.domain.model.VmeType;
+import org.fao.fi.vme.domain.model.reference.VmeType;
 
 public class VmeTypeMock {
 

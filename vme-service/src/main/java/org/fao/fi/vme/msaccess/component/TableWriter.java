@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
-import org.fao.fi.vme.domain.model.InformationSourceType;
+import org.fao.fi.vme.domain.model.reference.InformationSourceType;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;

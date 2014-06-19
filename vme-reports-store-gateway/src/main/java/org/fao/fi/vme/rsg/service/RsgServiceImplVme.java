@@ -138,7 +138,6 @@ public class RsgServiceImplVme implements RsgService {
 		return path;
 	}
 
-	@SuppressWarnings("unused")
 	final private void dumpModel(CompiledReport report) throws ReportBuilderException {
 		String type = report.getType();
 		String reportId = report.getId();
@@ -467,7 +466,7 @@ public class RsgServiceImplVme implements RsgService {
 			template.setLastEditedBy("[ NOT SET ]");
 			template.setLastEditingDate(new Date());
 
-			// this.dumpModel(template);
+			this.dumpModel(template);
 
 			return template;
 		} catch (Throwable t) {
@@ -514,7 +513,7 @@ public class RsgServiceImplVme implements RsgService {
 			report.setLastEditedBy("[ NOT SET ]");
 			report.setLastEditingDate(new Date());
 
-			// this.dumpModel(report);
+			this.dumpModel(report);
 
 			return report;
 		} catch (Throwable t) {

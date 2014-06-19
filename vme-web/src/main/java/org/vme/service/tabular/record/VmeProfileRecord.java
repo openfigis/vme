@@ -8,7 +8,7 @@ import javax.inject.Inject;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.model.VmeCriteria;
+import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.vme.dao.ReferenceDAO;
 import org.vme.service.tabular.Empty;

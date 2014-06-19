@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.Calendar;
 
 import org.fao.fi.vme.domain.model.InformationSource;
-import org.fao.fi.vme.domain.model.InformationSourceType;
+import org.fao.fi.vme.domain.model.reference.InformationSourceType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class InformationSourceMock {

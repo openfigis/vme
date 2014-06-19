@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fao.fi.vme.domain.model;
+package org.fao.fi.vme.domain.model.reference;
 
 import java.io.Serializable;
 
@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
+import org.fao.fi.vme.domain.model.ReferenceDataObject;
 import org.fao.fi.vme.domain.util.SerializableConceptUtils;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.NamedReferenceConcept;

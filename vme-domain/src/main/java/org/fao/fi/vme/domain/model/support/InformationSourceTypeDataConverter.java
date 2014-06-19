@@ -3,7 +3,7 @@
  */
 package org.fao.fi.vme.domain.model.support;
 
-import org.fao.fi.vme.domain.model.InformationSourceType;
+import org.fao.fi.vme.domain.model.reference.InformationSourceType;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.AbstractSerializableConceptDataConverter;
 
 /**

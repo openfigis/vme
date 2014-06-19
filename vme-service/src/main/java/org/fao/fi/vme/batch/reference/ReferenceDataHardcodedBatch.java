@@ -8,11 +8,11 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.Authority;
-import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.Rfmo;
-import org.fao.fi.vme.domain.model.VmeCriteria;
-import org.fao.fi.vme.domain.model.VmeType;
+import org.fao.fi.vme.domain.model.reference.InformationSourceType;
+import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
+import org.fao.fi.vme.domain.model.reference.VmeType;
 import org.vme.dao.ReferenceBatchDao;
 import org.vme.dao.sources.vme.VmeDao;
 

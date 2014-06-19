@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.InformationSource;
-import org.fao.fi.vme.domain.model.InformationSourceType;
+import org.fao.fi.vme.domain.model.reference.InformationSourceType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.formatter.MeetingDateParser;
 import org.fao.fi.vme.msaccess.mapping.ReferenceDependentTableDomainMapper;

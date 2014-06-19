@@ -17,7 +17,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
+import org.fao.fi.vme.domain.model.reference.VmeType;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.fao.fi.vme.domain.util.YearComparator;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
@@ -87,16 +89,11 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	/**
 	 * This validity period on the level of the reference object and applies to
 	 * the VME itself. It has noting to do with the reporting year.
-	 * 
-	 * 
 	 */
 	@RSGName("Validity Period")
 	@RSGWeight(1)
 	private ValidityPeriod validityPeriod;
 
-	/**
-	 *
-	 */
 	@RSGName("VME Name")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGMandatory
@@ -109,24 +106,21 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString geoArea;
 
-	@RSGName("Area Type")
+	@RSGName(value="Vme Scope", hide=true)
+	@RSGMandatory
+	@RSGOneAmong(concept = VmeScope.class, label = ConceptData.NAME, value = ConceptData.ID)
+	@RSGConverter(LongDataConverter.class)
+	@RSGWeight(2)
+	private Long scope;
+	
+	@RSGName(value="Area Type", hide=true)
 	@RSGMandatory
 	@RSGOneAmong(concept = VmeType.class, label = ConceptData.NAME, value = ConceptData.ID)
 	@RSGConverter(LongDataConverter.class)
 	@RSGWeight(2)
 	private Long areaType;
 
-	@RSGName("Vme Scope")
-	@RSGMandatory
-	@RSGOneAmong(concept = VmeScope.class, label = ConceptData.NAME, value = ConceptData.ID)
-	@RSGConverter(LongDataConverter.class)
-	@RSGWeight(3)
-	private Long scope;
-
-	/**
-	 *
-	 */
-	@RSGName("Criteria")
+	@RSGName(value="Criteria", hide=true)
 	@RSGMandatory
 	@RSGManyAmong(concept = VmeCriteria.class, label = ConceptData.NAME, value = ConceptData.ID)
 	@RSGConverter(LongDataConverter.class)

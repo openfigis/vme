@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.domain.model.VmeCriteria;
+import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
