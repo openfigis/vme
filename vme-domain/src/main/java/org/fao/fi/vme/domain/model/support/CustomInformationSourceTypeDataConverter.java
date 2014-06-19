@@ -6,7 +6,7 @@ package org.fao.fi.vme.domain.model.support;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.fao.fi.vme.domain.model.InformationSourceType;
+import org.fao.fi.vme.domain.model.reference.InformationSourceType;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.AbstractDataConverter;
 
 /**

@@ -53,10 +53,10 @@ import org.vme.test.mock.VmeMocker;
  */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class, JEXLReportEvaluator.class,
-		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
+						 VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
 @AdditionalClasses({ AbstractDataConverter.class, DateDataConverter.class, DoubleDataConverter.class,
-		FloatDataConverter.class, IntegerDataConverter.class, LongDataConverter.class, StringDataConverter.class,
-		URLDataConverter.class, ReferenceDaoImpl.class })
+					 FloatDataConverter.class, IntegerDataConverter.class, LongDataConverter.class, StringDataConverter.class,
+					 URLDataConverter.class, ReferenceDaoImpl.class })
 public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 	@Inject
 	@Evaluator
@@ -182,8 +182,7 @@ public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
 		CompiledReport evaluated = this._reportEvaluator.evaluate(template, VmeMocker.getMock1());
 
-		Bound found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[0].informationSource.publicationYear",
-				LOOSE);
+		Bound found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[0].informationSource.publicationYear", LOOSE);
 
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());
@@ -191,12 +190,10 @@ public class ReportEvaluatorTest extends AbstractCompilerDependentTest {
 		found = CompiledReportUtils.find(template, "#.specificMeasureList[0].informationSource.publicationYear", LOOSE);
 		Assert.assertNull(found);
 
-		found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[0].informationSource.publicationYearZ",
-				LOOSE);
+		found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[0].informationSource.publicationYearZ", LOOSE);
 		Assert.assertNull(found);
 
-		found = CompiledReportUtils
-				.find(evaluated, "#.specificMeasureList[1].informationSource.publicationYear", LOOSE);
+		found = CompiledReportUtils.find(evaluated, "#.specificMeasureList[1].informationSource.publicationYear", LOOSE);
 
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());

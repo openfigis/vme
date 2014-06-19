@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fao.fi.vme.domain.model;
+package org.fao.fi.vme.domain.model.reference;
 
 import java.io.Serializable;
 
@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
+import org.fao.fi.vme.domain.model.ReferenceDataObject;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.NamedReferenceConcept;
 
@@ -19,13 +20,13 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Na
  */
 
 @Entity
-@Table(name = "VME_TYPE")
-@ReferenceConceptName("type")
-public class VmeType implements ReferenceDataObject<Long>, NamedReferenceConcept, Serializable {
+@Table(name = "VME_CRITERIA")
+@ReferenceConceptName("criteria")
+public class VmeCriteria implements ReferenceDataObject<Long>, NamedReferenceConcept, Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3182738315405156758L;
+	private static final long serialVersionUID = -2762787230973510513L;
 
 	/**
 	 * Identifier of the domain entity.
@@ -35,30 +36,20 @@ public class VmeType implements ReferenceDataObject<Long>, NamedReferenceConcept
 	private Long id;
 
 	/**
-	 * Name of the vme type
+	 * Name of the vme criteria
 	 */
 	private String name;
 
 	/**
-	 * The code for this VME type
+	 * 
 	 */
-	private String code;
-
-	public String getCode() {
-		return code;
+	public VmeCriteria() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public VmeType() {
-	}
-
-	public VmeType(Long id, String code, String name) {
+	public VmeCriteria(Long id, String name) {
 		super();
 		this.id = id;
-		this.code = code;
 		this.name = name;
 	}
 
@@ -122,7 +113,7 @@ public class VmeType implements ReferenceDataObject<Long>, NamedReferenceConcept
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		VmeType other = (VmeType) obj;
+		VmeCriteria other = (VmeCriteria) obj;
 		if (this.id == null) {
 			if (other.id != null) {
 				return false;
