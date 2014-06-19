@@ -77,7 +77,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		} else if (concept.equals(ReferenceYear.class)) {
 			return getYear(id);
 		} else if (concept.equals(VmeScope.class)) {
-			return getYear(id);
+			return getVmeScope(id);
 		} else {
 			throw new ReferenceServiceException("Undefined reference concept");
 		}
@@ -116,6 +116,11 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		return em.createQuery("from VmeScope").getResultList();
 	}
 
+	public VmeScope getVmeScope(Long key) {
+		List<?> res = em.createQuery("from VmeScope where id = " + key).getResultList();
+		return res.size() > 0 ? (VmeScope) res.get(0) : null;
+	}
+	
 	public Authority getAuthority(Long key) {
 		List<?> res = em.createQuery("from Authority where id = " + key).getResultList();
 		return res.size() > 0 ? (Authority) res.get(0) : null;
@@ -169,7 +174,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 	public List<InformationSourceType> getAllInformationSourceTypes() {
 		return em.createQuery("from InformationSourceType order by id asc").getResultList();
 	}
-
+	
 	public ReferenceYear getYear(Long key) {
 		return repYear.get(key);
 	}

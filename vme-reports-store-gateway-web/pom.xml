@@ -171,10 +171,13 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+				<!-- FF: These exclusions are *FUNDAMENTAL* otherwise PGP keys will be mangled during the filtering process!!! -->
+				<!-- FF: See http://stackoverflow.com/questions/5806792/how-to-avoid-utf-8-encoding-for-binary-with-maven-resources-plugin -->
+				<excludes>
+					<exclude>**/*.pkr</exclude>
+					<exclude>**/*.skr</exclude>
+				</excludes>
 			</resource>
 		</resources>
 	</build>
-
-
-
 </project>
