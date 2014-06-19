@@ -55,6 +55,7 @@ import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
+import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -565,6 +566,18 @@ public class FigisDocBuilder {
 		range.setType("Time");
 		range.getContent().add(minJAXBElement);
 		range.getContent().add(maxJAXBElement);
+
+		// VME Scope
+		if (vmeDomain.getAreaType() != null) {
+			try {
+				VmeScope scope = vmeDomain.getScope() == null ? null : refDao.getReferenceByID(VmeScope.class,
+						vmeDomain.getScope());
+				vmeIdent.setScope(scope.getName());
+			} catch (Exception e) {
+				LOG.error("Unable to retrieve reference {} with ID {}: {}", VmeType.class, vmeDomain.getAreaType(),
+						e.getMessage(), e);
+			}
+		}
 
 		// VME Type
 		VMEType vmeType = new VMEType();

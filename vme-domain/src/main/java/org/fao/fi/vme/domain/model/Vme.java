@@ -236,6 +236,14 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 		return geoArea;
 	}
 
+	public Long getScope() {
+		return scope;
+	}
+
+	public void setScope(Long scope) {
+		this.scope = scope;
+	}
+
 	/**
 	 * @param geoArea
 	 *            the geoarea to set
