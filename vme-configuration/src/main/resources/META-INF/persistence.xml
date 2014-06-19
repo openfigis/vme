@@ -12,14 +12,14 @@
 		<class>org.fao.fi.vme.domain.model.extended.FisheryAreasHistory</class>
 		<class>org.fao.fi.vme.domain.model.extended.VMEsHistory</class>
 		<class>org.fao.fi.vme.domain.model.InformationSource</class>
-		<class>org.fao.fi.vme.domain.model.InformationSourceType</class>
 		<class>org.fao.fi.vme.domain.model.MultiLingualString</class>
 		<class>org.fao.fi.vme.domain.model.Profile</class>
 		<class>org.fao.fi.vme.domain.model.Rfmo</class>
 		<class>org.fao.fi.vme.domain.model.SpecificMeasure</class>
 		<class>org.fao.fi.vme.domain.model.Vme</class>
-		<class>org.fao.fi.vme.domain.model.VmeType</class>
 		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
+		<class>org.fao.fi.vme.domain.model.reference.VmeType</class>
+		<class>org.fao.fi.vme.domain.model.reference.InformationSourceType</class>
 		<class>org.fao.fi.vme.domain.model.reference.VmeScope</class>
 		
 
@@ -70,14 +70,14 @@
 		<class>org.fao.fi.vme.domain.model.extended.FisheryAreasHistory</class>
 		<class>org.fao.fi.vme.domain.model.extended.VMEsHistory</class>
 		<class>org.fao.fi.vme.domain.model.InformationSource</class>
-		<class>org.fao.fi.vme.domain.model.InformationSourceType</class>
 		<class>org.fao.fi.vme.domain.model.MultiLingualString</class>
 		<class>org.fao.fi.vme.domain.model.Profile</class>
 		<class>org.fao.fi.vme.domain.model.Rfmo</class>
 		<class>org.fao.fi.vme.domain.model.SpecificMeasure</class>
 		<class>org.fao.fi.vme.domain.model.Vme</class>
-		<class>org.fao.fi.vme.domain.model.VmeType</class>
 		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
+		<class>org.fao.fi.vme.domain.model.reference.VmeType</class>
+		<class>org.fao.fi.vme.domain.model.reference.InformationSourceType</class>
 		<class>org.fao.fi.vme.domain.model.reference.VmeScope</class>
 		
 
