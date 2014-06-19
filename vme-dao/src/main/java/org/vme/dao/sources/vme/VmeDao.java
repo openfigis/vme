@@ -188,9 +188,6 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public void delete(Vme toDelete) {
-		EntityTransaction et = em.getTransaction();
-		et.begin();
-
 		if (toDelete == null) {
 			throw new IllegalArgumentException("The Vme to delete cannot be NULL");
 		}
@@ -222,7 +219,6 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		em.remove(toDelete);
-		et.commit();
 	}
 
 	public void delete(InformationSource toDelete) {
