@@ -12168,14 +12168,6 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 		</xs:sequence>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
-		<xs:attribute name="Type" use="optional">
-			<xs:simpleType>
-				<xs:restriction base="xs:token">
-					<xs:enumeration value="VME"/>
-					<xs:enumeration value="Regulatory"/>
-				</xs:restriction>
-			</xs:simpleType>
-		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="VMEIdent" mixed="false">
 		<xs:annotation>
@@ -12184,22 +12176,28 @@ of the outputs of assessment, providing a synthesis embracing the set of assessm
 				<Description>VMEIdent contains identity information about VME.</Description>
 			</xs:documentation>
 		</xs:annotation>
-		<xs:sequence>
-			<xs:choice maxOccurs="unbounded">
-				<xs:element name="FigisID" type="fi:FigisID"/>
-				<xs:element name="ForeignID" type="fi:ForeignID" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element name="WaterAreaRef" type="fi:WaterAreaRef"/>
-				<xs:element name="OrgRef" type="fi:OrgRef"/>
-				<xs:element ref="dc:Title" minOccurs="1" maxOccurs="6"/>
-				<xs:element name="VMEType" type="fi:VMEType"/>
-				<xs:element name="VMECriteria" type="fi:VMECriteria" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element name="ReportingYear" type="fi:ReportingYear" maxOccurs="1"/>
-				<xs:element name="Range" type="fi:Range" minOccurs="0"/>
-				<xs:element name="GeoReference" type="fi:GeoReference"/>
-			</xs:choice>
-		</xs:sequence>
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="FigisID" type="fi:FigisID"/>
+			<xs:element name="ForeignID" type="fi:ForeignID" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="WaterAreaRef" type="fi:WaterAreaRef"/>
+			<xs:element name="OrgRef" type="fi:OrgRef"/>
+			<xs:element ref="dc:Title" minOccurs="1" maxOccurs="6"/>
+			<xs:element name="VMEType" type="fi:VMEType"/>
+			<xs:element name="VMECriteria" type="fi:VMECriteria" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ReportingYear" type="fi:ReportingYear" maxOccurs="1"/>
+			<xs:element name="Range" type="fi:Range" minOccurs="0"/>
+			<xs:element name="GeoReference" type="fi:GeoReference"/>
+		</xs:choice>
 		<xs:attribute name="Factsheet" type="xs:boolean"/>
 		<xs:attributeGroup ref="fi:statusEnt"/>
+		<xs:attribute name="Scope" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:token">
+					<xs:enumeration value="VME"/>
+					<xs:enumeration value="Regulatory"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="VMERef" mixed="false">
 		<xs:annotation>
