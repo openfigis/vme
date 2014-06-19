@@ -20,6 +20,7 @@ import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
+import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.AcronymAwareReferenceConcept;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConcept;
@@ -51,6 +52,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		this.concepts.add(VmeType.class);
 		this.concepts.add(ReferenceYear.class);
 		this.concepts.add(InformationSourceType.class);
+		this.concepts.add(VmeScope.class);
 		repYear = this.createYears();
 	}
 
@@ -73,6 +75,8 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		} else if (concept.equals(InformationSourceType.class)) {
 			return this.getInformationSourceType(id);
 		} else if (concept.equals(ReferenceYear.class)) {
+			return getYear(id);
+		} else if (concept.equals(VmeScope.class)) {
 			return getYear(id);
 		} else {
 			throw new ReferenceServiceException("Undefined reference concept");
@@ -98,6 +102,8 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		} else if (concept.equals(InformationSourceType.class)) {
 			return (List<R>) getAllInformationSourceTypes();
 		} else if (concept.equals(ReferenceYear.class)) {
+			return (List<R>) getAllYears();
+		} else if (concept.equals(VmeScope.class)) {
 			return (List<R>) getAllYears();
 		} else {
 			throw new ReferenceServiceException("Undefined reference concept");
