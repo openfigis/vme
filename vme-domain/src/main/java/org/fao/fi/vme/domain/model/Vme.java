@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.fao.fi.vme.domain.util.YearComparator;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReport;
@@ -115,6 +116,13 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGWeight(2)
 	private Long areaType;
 
+	@RSGName("Vme Scope")
+	@RSGMandatory
+	@RSGOneAmong(concept = VmeScope.class, label = ConceptData.NAME, value = ConceptData.ID)
+	@RSGConverter(LongDataConverter.class)
+	@RSGWeight(3)
+	private Long scope;
+
 	/**
 	 *
 	 */
@@ -124,13 +132,9 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGConverter(LongDataConverter.class)
 	@RSGWeight(2)
 	@ElementCollection
-	@CollectionTable(name="VME_TO_CRITERIA", joinColumns=@JoinColumn(name="VME_ID"))
-	@Column(name="CRITERIA_ID")
+	@CollectionTable(name = "VME_TO_CRITERIA", joinColumns = @JoinColumn(name = "VME_ID"))
+	@Column(name = "CRITERIA_ID")
 	private List<Long> criteria;
-
-	// peparations for scope
-	// @OneToOne(cascade = { CascadeType.DETACH })
-	// private Scope scope;
 
 	@RSGName("Inventory identifier")
 	@RSGConverter(StringDataConverter.class)
@@ -203,7 +207,8 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	}
 
 	/**
-	 * @param areaType the 'areaType' value to set
+	 * @param areaType
+	 *            the 'areaType' value to set
 	 */
 	public void setAreaType(Long areaType) {
 		this.areaType = areaType;
@@ -217,7 +222,8 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	}
 
 	/**
-	 * @param criteria the 'criteria' value to set
+	 * @param criteria
+	 *            the 'criteria' value to set
 	 */
 	public void setCriteria(List<Long> criteria) {
 		this.criteria = criteria;
@@ -246,7 +252,9 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 		this.specificMeasureList = YearComparator.sort(specificMeasureList);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -316,5 +324,4 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 		return true;
 	}
 
-	
 }

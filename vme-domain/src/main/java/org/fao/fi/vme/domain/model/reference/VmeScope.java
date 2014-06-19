@@ -1,6 +1,12 @@
 package org.fao.fi.vme.domain.model.reference;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
 import org.fao.fi.vme.domain.model.ReferenceDataObject;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.NamedReferenceConcept;
 
 /**
@@ -14,15 +20,16 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Na
  * 
  */
 
-// @Entity
-// @ReferenceConceptName("scope")
-public class Scope implements ReferenceDataObject<Long>, NamedReferenceConcept {
+@Entity
+@Table(name = "VME_SCOPE")
+@ReferenceConceptName("scope")
+public class VmeScope implements ReferenceDataObject<Long>, NamedReferenceConcept {
 
 	/**
 	 * The code for the reference data object
 	 */
-	// @RSGIdentifier
-	// @Id
+	@RSGIdentifier
+	@Id
 	private Long id;
 
 	/**
@@ -30,6 +37,18 @@ public class Scope implements ReferenceDataObject<Long>, NamedReferenceConcept {
 	 * "Regulatory"
 	 */
 	private String name;
+
+	/**
+	 * Default constructor
+	 */
+	public VmeScope() {
+	}
+
+	public VmeScope(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;

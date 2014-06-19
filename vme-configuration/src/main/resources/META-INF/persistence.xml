@@ -19,8 +19,9 @@
 		<class>org.fao.fi.vme.domain.model.SpecificMeasure</class>
 		<class>org.fao.fi.vme.domain.model.Vme</class>
 		<class>org.fao.fi.vme.domain.model.VmeType</class>
-		<class>org.fao.fi.vme.domain.model.Criteria</class>
 		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
+		<class>org.fao.fi.vme.domain.model.reference.VmeScope</class>
+		
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.vme}" />
@@ -76,8 +77,9 @@
 		<class>org.fao.fi.vme.domain.model.SpecificMeasure</class>
 		<class>org.fao.fi.vme.domain.model.Vme</class>
 		<class>org.fao.fi.vme.domain.model.VmeType</class>
-		<class>org.fao.fi.vme.domain.model.Criteria</class>
 		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
+		<class>org.fao.fi.vme.domain.model.reference.VmeScope</class>
+		
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.vme.test}" />
