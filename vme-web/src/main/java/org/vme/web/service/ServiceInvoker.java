@@ -9,6 +9,7 @@ import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.InformationSourceType;
 import org.fao.fi.vme.domain.model.VmeCriteria;
 import org.fao.fi.vme.domain.model.VmeType;
+import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConcept;
 import org.vme.dao.ReferenceDAO;
 import org.vme.dao.VmeSearchDao;
@@ -47,6 +48,8 @@ public class ServiceInvoker {
 			result = new ServiceResponse<VmeCriteria>(request);
 		} else if (conceptClass.equals(VmeType.class)) {
 			result = new ServiceResponse<VmeType>(request);
+		} else if (conceptClass.equals(VmeScope.class)) {
+			result = new ServiceResponse<VmeScope>(request);
 		} else if (conceptClass.equals(InformationSourceType.class)) {
 			result = new ServiceResponse<InformationSourceType>(request);
 		} else if (conceptClass.equals(ReferenceYear.class)) {

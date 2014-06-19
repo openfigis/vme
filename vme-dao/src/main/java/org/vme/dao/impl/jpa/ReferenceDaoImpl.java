@@ -104,11 +104,16 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		} else if (concept.equals(ReferenceYear.class)) {
 			return (List<R>) getAllYears();
 		} else if (concept.equals(VmeScope.class)) {
-			return (List<R>) getAllYears();
+			return (List<R>) getAllVmeScopes();
 		} else {
 			throw new ReferenceServiceException("Undefined reference concept");
 		}
 
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<VmeScope> getAllVmeScopes() {
+		return em.createQuery("from VmeScope").getResultList();
 	}
 
 	public Authority getAuthority(Long key) {
