@@ -143,7 +143,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 	 * <option value="6">CD-ROM/DVD</option> <option VALUE="-1">Other </option>
 	 * 
 	 */
-	@RSGName("Source Type")
+	@RSGName(value="Source Type", hideHeading=true)
 	@RSGMandatory
 	@RSGOneAmong(concept = InformationSourceType.class, label = ConceptData.NAME, value = ConceptData.ID)
 	@RSGConverter(CustomInformationSourceTypeDataConverter.class)

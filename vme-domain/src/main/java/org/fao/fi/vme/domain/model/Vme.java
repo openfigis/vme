@@ -106,21 +106,21 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString geoArea;
 
-	@RSGName(value="Vme Scope", hide=true)
+	@RSGName(value="Vme Scope", hideHeading=true)
 	@RSGMandatory
 	@RSGOneAmong(concept = VmeScope.class, label = ConceptData.NAME, value = ConceptData.ID)
 	@RSGConverter(LongDataConverter.class)
 	@RSGWeight(2)
 	private Long scope;
 	
-	@RSGName(value="Area Type", hide=true)
+	@RSGName(value="Area Type", hideHeading=true)
 	@RSGMandatory
 	@RSGOneAmong(concept = VmeType.class, label = ConceptData.NAME, value = ConceptData.ID)
 	@RSGConverter(LongDataConverter.class)
 	@RSGWeight(2)
 	private Long areaType;
 
-	@RSGName(value="Criteria", hide=true)
+	@RSGName(value="Criteria", hideHeading=true)
 	@RSGMandatory
 	@RSGManyAmong(concept = VmeCriteria.class, label = ConceptData.NAME, value = ConceptData.ID)
 	@RSGConverter(LongDataConverter.class)
