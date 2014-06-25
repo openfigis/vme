@@ -13,7 +13,7 @@ import javax.enterprise.inject.Alternative;
 public class EmbeddedMsAccessConnectionProvider extends MsAccessConnectionProvider {
 	final static private String DEFAULT_MS_ACCESS_DB_RESOURCE = "VME_DB_production.accdb";
 
-	private String _resource = DEFAULT_MS_ACCESS_DB_RESOURCE;
+	private String resource = DEFAULT_MS_ACCESS_DB_RESOURCE;
 
 	public EmbeddedMsAccessConnectionProvider() {
 		super();
@@ -22,7 +22,7 @@ public class EmbeddedMsAccessConnectionProvider extends MsAccessConnectionProvid
 	public EmbeddedMsAccessConnectionProvider(String resource) {
 		super();
 
-		this._resource = resource;
+		this.resource = resource;
 	}
 
 	/*
@@ -38,13 +38,13 @@ public class EmbeddedMsAccessConnectionProvider extends MsAccessConnectionProvid
 		FileOutputStream fos = null;
 
 		try {
-			is = Thread.currentThread().getContextClassLoader().getResourceAsStream(this._resource);
+			is = Thread.currentThread().getContextClassLoader().getResourceAsStream(this.resource);
 
 			if (is == null) {
-				throw new FileNotFoundException("Resource " + this._resource + " is not available in current classpath");
+				throw new FileNotFoundException("Resource " + this.resource + " is not available in current classpath");
 			}
 			
-			File temp = new File(new File(System.getProperty("java.io.tmpdir")), this._resource);
+			File temp = new File(new File(System.getProperty("java.io.tmpdir")), this.resource);
 
 			boolean copy = true;
 
@@ -56,9 +56,9 @@ public class EmbeddedMsAccessConnectionProvider extends MsAccessConnectionProvid
 			}
 
 			if (copy) {
-				is = Thread.currentThread().getContextClassLoader().getResourceAsStream(this._resource);
+				is = Thread.currentThread().getContextClassLoader().getResourceAsStream(this.resource);
 
-				LOG.info("Copying embedded resource {} to {}...", this._resource, temp.getAbsolutePath());
+				LOG.info("Copying embedded resource {} to {}...", this.resource, temp.getAbsolutePath());
 
 				fos = new FileOutputStream(temp);
 
@@ -85,8 +85,8 @@ public class EmbeddedMsAccessConnectionProvider extends MsAccessConnectionProvid
 			}
 
 			return temp.getAbsolutePath();
-		} catch (FileNotFoundException FNFe) {
-			throw new RuntimeException(FNFe);
+		} catch (FileNotFoundException f) {
+			throw new RuntimeException(f);
 		} catch (Exception t) {
 			throw new RuntimeException("Unable to copy embedded VME access file " + DEFAULT_MS_ACCESS_DB_RESOURCE
 					+ " to temp file: " + t.getClass().getSimpleName() + " [ " + t.getMessage() + " ]", t);

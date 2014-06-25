@@ -12,98 +12,98 @@ import org.fao.fi.vme.msaccess.mapping.ValidityPeriodRule;
 
 public class Measures_VME_General implements TableDomainMapper {
 
-	private int ID;
-	private String RFB_ID;
-	private int Year_ID;
-	private String VME_GeneralMeasure_Validity_Start;
-	private String VME_GeneralMeasure_Validity_End;
-	private String RFB_FishingAreas_coord;
-	private String VME_Encounter;
-	private String VME_Indicator_Sp;
-	private String VME_Threshold;
+	private int iD;
+	private String rfbId;
+	private int yearId;
+	private String vmeGeneralMeasureValidityStart;
+	private String vmeGeneralMeasureValidityEnd;
+	private String rfbFishingAreasCoord;
+	private String vmeEncounter;
+	private String vmeIndicatorSp;
+	private String vmeThreshold;
 	// private String Link_CEM_Source;
-	private String RFB_Fishing_Areas;
-	private String RFB_Exploratory_Fishing_Protocol;
-	private int Source_ID;
+	private String rfbFishingAreas;
+	private String rfbExploratoryFishingProtocol;
+	private int sourceId;
 
 	public int getSource_ID() {
-		return Source_ID;
+		return sourceId;
 	}
 
-	public void setSource_ID(int source_ID) {
-		Source_ID = source_ID;
+	public void setSource_ID(int sourceId) {
+		this.sourceId = sourceId;
 	}
 
 	public int getID() {
-		return ID;
+		return iD;
 	}
 
 	public void setID(int iD) {
-		ID = iD;
+		this.iD = iD;
 	}
 
 	public String getRFB_ID() {
-		return RFB_ID;
+		return rfbId;
 	}
 
-	public void setRFB_ID(String rFB_ID) {
-		RFB_ID = rFB_ID;
+	public void setRFB_ID(String rfbId) {
+		this.rfbId = rfbId;
 	}
 
 	public int getYear_ID() {
-		return Year_ID;
+		return yearId;
 	}
 
-	public void setYear_ID(int year_ID) {
-		Year_ID = year_ID;
+	public void setYear_ID(int yearId) {
+		this.yearId = yearId;
 	}
 
 	public String getVME_GeneralMeasure_Validity_Start() {
-		return VME_GeneralMeasure_Validity_Start;
+		return vmeGeneralMeasureValidityStart;
 	}
 
-	public void setVME_GeneralMeasure_Validity_Start(String vME_GeneralMeasure_Validity_Start) {
-		VME_GeneralMeasure_Validity_Start = vME_GeneralMeasure_Validity_Start;
+	public void setVME_GeneralMeasure_Validity_Start(String vmeGeneralMeasureValidityStart) {
+		this.vmeGeneralMeasureValidityStart = vmeGeneralMeasureValidityStart;
 	}
 
 	public String getVME_GeneralMeasure_Validity_End() {
-		return VME_GeneralMeasure_Validity_End;
+		return vmeGeneralMeasureValidityEnd;
 	}
 
-	public void setVME_GeneralMeasure_Validity_End(String vME_GeneralMeasure_Validity_End) {
-		VME_GeneralMeasure_Validity_End = vME_GeneralMeasure_Validity_End;
+	public void setVME_GeneralMeasure_Validity_End(String vmeGeneralMeasureValidityEnd) {
+		this.vmeGeneralMeasureValidityEnd = vmeGeneralMeasureValidityEnd;
 	}
 
 	public String getRFB_FishingAreas_coord() {
-		return RFB_FishingAreas_coord;
+		return rfbFishingAreasCoord;
 	}
 
-	public void setRFB_FishingAreas_coord(String rFB_FishingAreas_coord) {
-		RFB_FishingAreas_coord = rFB_FishingAreas_coord;
+	public void setRFB_FishingAreas_coord(String rfbFishingAreasCoord) {
+		this.rfbFishingAreasCoord = rfbFishingAreasCoord;
 	}
 
 	public String getVME_Encounter() {
-		return VME_Encounter;
+		return vmeEncounter;
 	}
 
-	public void setVME_Encounter(String vME_Encounter) {
-		VME_Encounter = vME_Encounter;
+	public void setVME_Encounter(String vmeEncounter) {
+		this.vmeEncounter = vmeEncounter;
 	}
 
 	public String getVME_Indicator_Sp() {
-		return VME_Indicator_Sp;
+		return vmeIndicatorSp;
 	}
 
-	public void setVME_Indicator_Sp(String vME_Indicator_Sp) {
-		VME_Indicator_Sp = vME_Indicator_Sp;
+	public void setVME_Indicator_Sp(String vmeIndicatorSp) {
+		this.vmeIndicatorSp = vmeIndicatorSp;
 	}
 
 	public String getVME_Threshold() {
-		return VME_Threshold;
+		return vmeThreshold;
 	}
 
-	public void setVME_Threshold(String vME_Threshold) {
-		VME_Threshold = vME_Threshold;
+	public void setVME_Threshold(String vmeThreshold) {
+		this.vmeThreshold = vmeThreshold;
 	}
 
 	// public String getLink_CEM_Source() {
@@ -115,19 +115,19 @@ public class Measures_VME_General implements TableDomainMapper {
 	// }
 
 	public String getRFB_Fishing_Areas() {
-		return RFB_Fishing_Areas;
+		return rfbFishingAreas;
 	}
 
-	public void setRFB_Fishing_Areas(String rFB_Fishing_Areas) {
-		RFB_Fishing_Areas = rFB_Fishing_Areas;
+	public void setRFB_Fishing_Areas(String rfbFishingAreas) {
+		this.rfbFishingAreas = rfbFishingAreas;
 	}
 
 	public String getRFB_Exploratory_Fishing_Protocol() {
-		return RFB_Exploratory_Fishing_Protocol;
+		return rfbExploratoryFishingProtocol;
 	}
 
-	public void setRFB_Exploratory_Fishing_Protocol(String rFB_Exploratory_Fishing_Protocol) {
-		RFB_Exploratory_Fishing_Protocol = rFB_Exploratory_Fishing_Protocol;
+	public void setRFB_Exploratory_Fishing_Protocol(String rfbExploratoryFishingProtocol) {
+		this.rfbExploratoryFishingProtocol = rfbExploratoryFishingProtocol;
 	}
 
 	@Override
@@ -144,23 +144,23 @@ public class Measures_VME_General implements TableDomainMapper {
 		o.setFishingArea(u.english(this.getRFB_Fishing_Areas()));
 		o.setVmeThreshold(u.english(this.getVME_Threshold()));
 
-		if (this.Source_ID > 0) {
+		if (this.sourceId > 0) {
 			InformationSource is = new InformationSource();
-			is.setId(Long.valueOf(this.Source_ID));
+			is.setId(Long.valueOf(this.sourceId));
 			List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 			informationSourceList.add(is);
 			o.setInformationSourceList(informationSourceList);
 		}
 
-		ValidityPeriodRule r = new ValidityPeriodRule(this.VME_GeneralMeasure_Validity_Start,
-				VME_GeneralMeasure_Validity_End);
+		ValidityPeriodRule r = new ValidityPeriodRule(this.vmeGeneralMeasureValidityStart,
+				vmeGeneralMeasureValidityEnd);
 		ValidityPeriod vp = new ValidityPeriod();
 		// Intervention Erik van Ingen 5 June 2014. Commented because this logic
 		// is not used anymore and therefore does not need to be updated.
 		// vp.setBeginYear(r.getStart());
 		// vp.setEndYear(r.getEnd());
 		o.setValidityPeriod(vp);
-		o.setYear(this.Year_ID);
+		o.setYear(this.yearId);
 		return o;
 	}
 }

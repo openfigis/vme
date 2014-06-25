@@ -10,50 +10,50 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
-	private int ID;
-	private String RFB_ID;
-	private int Year_ID;
-	private String RFB_FishingAreas_GeneralText;
-	private String RFB_VMEs_GeneralText;
+	private int iD;
+	private String rfbId;
+	private int yearId;
+	private String rfbFishingAreasGeneralText;
+	private String rfbVmesGeneralText;
 
 	public int getID() {
-		return ID;
+		return iD;
 	}
 
 	public void setID(int iD) {
-		ID = iD;
+		this.iD = iD;
 	}
 
 	public String getRFB_ID() {
-		return RFB_ID;
+		return rfbId;
 	}
 
-	public void setRFB_ID(String rFB_ID) {
-		RFB_ID = rFB_ID;
+	public void setRFB_ID(String rfbId) {
+		this.rfbId = rfbId;
 	}
 
 	public int getYear_ID() {
-		return Year_ID;
+		return yearId;
 	}
 
-	public void setYear_ID(int year_ID) {
-		Year_ID = year_ID;
+	public void setYear_ID(int yearId) {
+		this.yearId = yearId;
 	}
 
 	public String getRFB_FishingAreas_GeneralText() {
-		return RFB_FishingAreas_GeneralText;
+		return rfbFishingAreasGeneralText;
 	}
 
-	public void setRFB_FishingAreas_GeneralText(String rFB_FishingAreas_GeneralText) {
-		RFB_FishingAreas_GeneralText = rFB_FishingAreas_GeneralText;
+	public void setRFB_FishingAreas_GeneralText(String rfbFishingAreasGeneralText) {
+		this.rfbFishingAreasGeneralText = rfbFishingAreasGeneralText;
 	}
 
 	public String getRFB_VMEs_GeneralText() {
-		return RFB_VMEs_GeneralText;
+		return rfbVmesGeneralText;
 	}
 
-	public void setRFB_VMEs_GeneralText(String rFB_VMEs_GeneralText) {
-		RFB_VMEs_GeneralText = rFB_VMEs_GeneralText;
+	public void setRFB_VMEs_GeneralText(String rfbVmesGeneralText) {
+		this.rfbVmesGeneralText = rfbVmesGeneralText;
 	}
 
 	@Override
@@ -68,8 +68,8 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 		fisheryAreasHistory.setHistory(u.english(this.getRFB_FishingAreas_GeneralText()));
 		vmesHistory.setHistory(u.english(this.getRFB_VMEs_GeneralText()));
 
-		fisheryAreasHistory.setYear(this.Year_ID);
-		vmesHistory.setYear(this.Year_ID);
+		fisheryAreasHistory.setYear(this.yearId);
+		vmesHistory.setYear(this.yearId);
 
 		HistoryHolder h = new HistoryHolder();
 		h.setFisheryAreasHistory(fisheryAreasHistory);

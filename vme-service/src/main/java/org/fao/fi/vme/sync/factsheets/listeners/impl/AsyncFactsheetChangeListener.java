@@ -29,7 +29,7 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 	//final private ExecutorCompletionService<Void> _executorQueue = new ExecutorCompletionService<Void>(Executors.newFixedThreadPool(MAX_THREADS_IN_POOL));
 
 	//Can't use multiple parallel threads because of transaction issues on the shared VmeDAO... Improve?
-	final private ExecutorCompletionService<Void> _executorQueue = new ExecutorCompletionService<Void>(Executors.newSingleThreadExecutor());
+	final private ExecutorCompletionService<Void> executorQueue = new ExecutorCompletionService<Void>(Executors.newSingleThreadExecutor());
 	
 	final protected AsyncFactsheetChangeListener $this = this;
 	
@@ -41,11 +41,11 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 			
 			for(final Long id : vmeIDs) {
 				if(id != null) {
-					this._executorQueue.submit(new Callable<Void>() {
+					this.executorQueue.submit(new Callable<Void>() {
 						@Override
 						public Void call() throws Exception {
 							try {
-								$this._updater.createFactsheets(id);
+								$this.updater.createFactsheets(id);
 							
 								LOG.info("Asynchronously created factsheet for VME with ID {}", id);
 							} catch (Throwable t) {
@@ -70,11 +70,11 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 			
 			for(final Long id : vmeIDs) {
 				if(id != null) {
-					this._executorQueue.submit(new Callable<Void>() {
+					this.executorQueue.submit(new Callable<Void>() {
 						@Override
 						public Void call() throws Exception {
 							try {
-								$this._updater.updateFactsheets(id);
+								$this.updater.updateFactsheets(id);
 							
 								LOG.info("Asynchronously updated factsheet for VME with ID {}", id);
 							} catch(Throwable t) {
@@ -99,11 +99,11 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 			
 			for(final Long id : vmeIDs) {
 				if(id != null) {
-					this._executorQueue.submit(new Callable<Void>() {
+					this.executorQueue.submit(new Callable<Void>() {
 						@Override
 						public Void call() throws Exception {
 							try {
-								$this._updater.deleteFactsheets(id);
+								$this.updater.deleteFactsheets(id);
 							
 								LOG.info("Asynchronously deleted factsheet for VME with ID {}", id);
 							} catch(Throwable t) {

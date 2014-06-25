@@ -31,7 +31,7 @@ public class DBCPConnectionProvider extends AbstractConnectionProvider {
 
 	private static final String CUSTOM_PREFIX = "hibernate.dbcp.";
 	
-	private BasicDataSource _ds;
+	private BasicDataSource ds;
 	
 	public DBCPConnectionProvider() {
 		super();
@@ -80,9 +80,9 @@ public class DBCPConnectionProvider extends AbstractConnectionProvider {
 		}
 
 		// Let the factory create the pool
-		_ds = (BasicDataSource) BasicDataSourceFactory.createDataSource(configuration);
+		ds = (BasicDataSource) BasicDataSourceFactory.createDataSource(configuration);
 
-		Connection conn = this._ds.getConnection();
+		Connection conn = this.ds.getConnection();
 		conn.close();
 
 		// Log pool statistics before continuing.
@@ -92,9 +92,9 @@ public class DBCPConnectionProvider extends AbstractConnectionProvider {
 	public Connection getConnection() throws SQLException {
 		Connection conn = null;
 		try {
-			conn = this._ds.getConnection();
-		} catch(SQLException SQLe) {
-			SQLe.printStackTrace();
+			conn = this.ds.getConnection();
+		} catch(SQLException e) {
+			e.printStackTrace();
 		} finally {
 			logStatistics();
 		}
@@ -105,18 +105,18 @@ public class DBCPConnectionProvider extends AbstractConnectionProvider {
 	 * @see org.vme.dao.util.AbstractConnectionProvider#cleanup()
 	 */
 	protected void cleanup() {
-		if(this._ds != null) {
+		if(this.ds != null) {
 			try {
-				this._ds.close();
+				this.ds.close();
 			} catch (Exception e2) {
 				// ignore
 			}
 			
-			this._ds = null;
+			this.ds = null;
 		}
 	}
 	
 	protected void logStatistics() {
-		LOG.debug("Active: {} (max: {}) - Idle: {} (max: {})", this._ds.getNumActive(), this._ds.getMaxActive(), this._ds.getNumIdle(), this._ds.getMaxIdle());
+		LOG.debug("Active: {} (max: {}) - Idle: {} (max: {})", this.ds.getNumActive(), this.ds.getMaxActive(), this.ds.getNumIdle(), this.ds.getMaxIdle());
 	}
 }

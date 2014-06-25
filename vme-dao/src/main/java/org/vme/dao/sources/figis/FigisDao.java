@@ -328,8 +328,8 @@ public class FigisDao extends AbstractJPADao {
 	public VmeObservationDomain findVod(Long vmeId) {
 		VmeObservationDomain vod = new VmeObservationDomain();
 		List<ObservationDomain> vodList = new ArrayList<ObservationDomain>();
-		List<VmeObservation> VmeObservationList = findVmeObservationByVme(vmeId);
-		for (VmeObservation vmeObservation : VmeObservationList) {
+		List<VmeObservation> vmeObservationList = findVmeObservationByVme(vmeId);
+		for (VmeObservation vmeObservation : vmeObservationList) {
 			Observation observation = em.find(Observation.class, vmeObservation.getId().getObservationId());
 			String reportingYear = vmeObservation.getId().getReportingYear();
 			ObservationXml xml = findEnglishXml(vmeObservation.getId().getObservationId());

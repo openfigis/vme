@@ -9,59 +9,59 @@ import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 
 public class RFB_MetaData implements TableDomainMapper {
 
-	private int ID;
-	private int Year_ID;
-	private String RFB_ID;
-	private String RFB_L;
-	private String RFB_www;
-	private String RFB_FAO_FactSheets;
+	private int iD;
+	private int yearId;
+	private String rfbId;
+	private String rfbL;
+	private String rfbWw;
+	private String rfbFAOFactSheets;
 
 	public int getID() {
-		return ID;
+		return iD;
 	}
 
 	public void setID(int iD) {
-		ID = iD;
+		this.iD = iD;
 	}
 
 	public int getYear_ID() {
-		return Year_ID;
+		return yearId;
 	}
 
-	public void setYear_ID(int year_ID) {
-		Year_ID = year_ID;
+	public void setYear_ID(int yearId) {
+		this.yearId = yearId;
 	}
 
 	public String getRFB_ID() {
-		return RFB_ID;
+		return rfbId;
 	}
 
-	public void setRFB_ID(String rFB_ID) {
-		RFB_ID = rFB_ID;
+	public void setRFB_ID(String rfbId) {
+		this.rfbId = rfbId;
 	}
 
 	public String getRFB_L() {
-		return RFB_L;
+		return rfbL;
 	}
 
-	public void setRFB_L(String rFB_L) {
-		RFB_L = rFB_L;
+	public void setRFB_L(String rfbL) {
+		this.rfbL = rfbL;
 	}
 
 	public String getRFB_www() {
-		return RFB_www;
+		return rfbWw;
 	}
 
-	public void setRFB_www(String rFB_www) {
-		RFB_www = rFB_www;
+	public void setRFB_www(String rfbWw) {
+		this.rfbWw = rfbWw;
 	}
 
 	public String getRFB_FAO_FactSheets() {
-		return RFB_FAO_FactSheets;
+		return rfbFAOFactSheets;
 	}
 
-	public void setRFB_FAO_FactSheets(String rFB_FAO_FactSheets) {
-		RFB_FAO_FactSheets = rFB_FAO_FactSheets;
+	public void setRFB_FAO_FactSheets(String rfbFAOFactSheets) {
+		this.rfbFAOFactSheets = rfbFAOFactSheets;
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class RFB_MetaData implements TableDomainMapper {
 		Rfmo o = new Rfmo();
 		// o.setFishingActivityList(fishingActivityList);
 		// o.setGeneralMeasuresList(generalMeasuresList)
-		o.setId(this.RFB_ID);
+		o.setId(this.rfbId);
 
 		o.setHasFisheryAreasHistory(new ArrayList<FisheryAreasHistory>());
 		o.setHasVmesHistory(new ArrayList<VMEsHistory>());

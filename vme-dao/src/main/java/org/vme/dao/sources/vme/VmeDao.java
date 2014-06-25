@@ -994,65 +994,65 @@ public class VmeDao extends AbstractJPADao {
 		return this.doPersistAndFlush(em, fisheryAreasHistory);
 	}
 
-	public VMEsHistory update(VMEsHistory VMEsHistory) throws Throwable {
+	public VMEsHistory update(VMEsHistory vmesHistory) throws Throwable {
 
-		if (VMEsHistory == null) {
+		if (vmesHistory == null) {
 			throw new IllegalArgumentException("The updated Regional History of VME cannot be NULL");
 		}
 
-		if (VMEsHistory.getId() == null) {
+		if (vmesHistory.getId() == null) {
 			throw new IllegalArgumentException("The updated Regional History of VME cannot have a NULL identifier");
 		}
 
-		if (VMEsHistory.getRfmo() == null) {
+		if (vmesHistory.getRfmo() == null) {
 			throw new IllegalArgumentException("The updated Regional History of VME cannot have a NULL Authority");
 		}
 
-		if (VMEsHistory.getRfmo().getId() == null) {
+		if (vmesHistory.getRfmo().getId() == null) {
 			throw new IllegalArgumentException(
 					"The updated Regional History of VME cannot have an Authority with a NULL identifier");
 		}
 
-		Rfmo parent = this.getEntityById(em, Rfmo.class, VMEsHistory.getRfmo().getId());
+		Rfmo parent = this.getEntityById(em, Rfmo.class, vmesHistory.getRfmo().getId());
 
 		// parent.getHasVmesHistory().add(VMEsHistory);
-		VMEsHistory.setRfmo(parent);
+		vmesHistory.setRfmo(parent);
 
 		// this.doMerge(em, parent);
 
-		return this.doMerge(em, VMEsHistory);
+		return this.doMerge(em, vmesHistory);
 	}
 
-	public VMEsHistory create(VMEsHistory VMEsHistory) throws Throwable {
+	public VMEsHistory create(VMEsHistory vmesHistory) throws Throwable {
 
-		if (VMEsHistory == null) {
+		if (vmesHistory == null) {
 			throw new IllegalArgumentException("The Regional History of VME to create cannot be NULL");
 		}
 
-		if (VMEsHistory.getRfmo() == null) {
+		if (vmesHistory.getRfmo() == null) {
 			throw new IllegalArgumentException("The Regional History of VME to create cannot have a NULL Authority");
 		}
 
-		if (VMEsHistory.getRfmo().getId() == null) {
+		if (vmesHistory.getRfmo().getId() == null) {
 			throw new IllegalArgumentException(
 					"The Regional History of VME to create cannot have an Authority with a NULL identifier");
 		}
 
-		Rfmo parent = this.getEntityById(em, Rfmo.class, VMEsHistory.getRfmo().getId());
+		Rfmo parent = this.getEntityById(em, Rfmo.class, vmesHistory.getRfmo().getId());
 
-		VMEsHistory.setRfmo(parent);
+		vmesHistory.setRfmo(parent);
 
 		if (parent.getHasVmesHistory() == null) {
 			parent.setHasVmesHistory(new ArrayList<VMEsHistory>());
 		}
 
-		parent.getHasVmesHistory().add(VMEsHistory);
+		parent.getHasVmesHistory().add(vmesHistory);
 
 		// It seems that merging the parent will cause TWO fishery areas history
 		// to be stored in the DB... Commenting this out
 		// this.doMerge(em, parent);
 
-		return this.doPersistAndFlush(em, VMEsHistory);
+		return this.doPersistAndFlush(em, vmesHistory);
 	}
 
 	public InformationSource update(InformationSource informationSource) throws Throwable {
@@ -1145,27 +1145,27 @@ public class VmeDao extends AbstractJPADao {
 
 		current.setRfmo(this.getEntityById(em, Rfmo.class, generalMeasure.getRfmo().getId()));
 
-		Set<Long> ISToUnlink = new HashSet<Long>();
+		Set<Long> is2Unlink = new HashSet<Long>();
 
 		if (current.getInformationSourceList() != null) {
 			for (InformationSource is : current.getInformationSourceList()) {
-				ISToUnlink.add(is.getId());
+				is2Unlink.add(is.getId());
 			}
 		}
 
 		if (generalMeasure.getInformationSourceList() != null) {
 			for (InformationSource is : generalMeasure.getInformationSourceList()) {
-				ISToUnlink.remove(is.getId());
+				is2Unlink.remove(is.getId());
 			}
 		}
 
-		if (!ISToUnlink.isEmpty()) {
+		if (!is2Unlink.isEmpty()) {
 			Iterator<InformationSource> isIterator = current.getInformationSourceList().iterator();
 
 			InformationSource toRemove;
 			while (isIterator.hasNext()) {
 				toRemove = isIterator.next();
-				if (ISToUnlink.contains(toRemove.getId())) {
+				if (is2Unlink.contains(toRemove.getId())) {
 					isIterator.remove();
 
 					toRemove.getGeneralMeasureList().remove(current);

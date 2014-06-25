@@ -44,14 +44,14 @@ public class RfmoMock {
 		vmeList.add(VmeMock.generateVme(2));
 		rfmo.setListOfManagedVmes(vmeList);
 
-		List<InformationSource> InfoSourceList = new ArrayList<InformationSource>();
-		InfoSourceList.add(InformationSourceMock.create());
-		rfmo.setInformationSourceList(InfoSourceList);
+		List<InformationSource> infoSourceList = new ArrayList<InformationSource>();
+		infoSourceList.add(InformationSourceMock.create());
+		rfmo.setInformationSourceList(infoSourceList);
 		
 		for (GeneralMeasure gm : gmList) {
-			List<InformationSource> InfoSourceList1 = new ArrayList<InformationSource>();
-			InfoSourceList1.add(InformationSourceMock.create());
-			gm.setInformationSourceList(InfoSourceList1);
+			List<InformationSource> infoSourceList1 = new ArrayList<InformationSource>();
+			infoSourceList1.add(InformationSourceMock.create());
+			gm.setInformationSourceList(infoSourceList1);
 		}
 
 		return rfmo;

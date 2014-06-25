@@ -50,16 +50,16 @@ abstract public class AbstractConnectionProvider implements ConnectionProvider, 
 	}
 	
 	class CommonConfiguration {
-		private String _driverClass;
-		private String _url;
-		private String _username;
-		private String _password;
+		private String driverClass;
+		private String url;
+		private String username;
+		private String password;
 		
-		private String _transactionIsolation;
-		private Boolean _defaultAutocommit;
-		private Integer _poolSize;
+		private String transactionIsolation;
+		private Boolean defaultAutocommit;
+		private Integer poolSize;
 		
-		private String _connectionProperties;
+		private String connectionProperties;
 		
 		/**
 		 * Class constructor
@@ -73,112 +73,112 @@ abstract public class AbstractConnectionProvider implements ConnectionProvider, 
 		 * @return the 'driverClass' value
 		 */
 		public String getDriverClass() {
-			return this._driverClass;
+			return this.driverClass;
 		}
 		
 		/**
 		 * @param driverClass the 'driverClass' value to set
 		 */
 		public void setDriverClass(String driverClass) {
-			this._driverClass = driverClass;
+			this.driverClass = driverClass;
 		}
 		
 		/**
 		 * @return the 'url' value
 		 */
 		public String getUrl() {
-			return this._url;
+			return this.url;
 		}
 		
 		/**
 		 * @param url the 'url' value to set
 		 */
 		public void setUrl(String url) {
-			this._url = url;
+			this.url = url;
 		}
 		
 		/**
 		 * @return the 'username' value
 		 */
 		public String getUsername() {
-			return this._username;
+			return this.username;
 		}
 		
 		/**
 		 * @param username the 'username' value to set
 		 */
 		public void setUsername(String username) {
-			this._username = username;
+			this.username = username;
 		}
 		
 		/**
 		 * @return the 'password' value
 		 */
 		public String getPassword() {
-			return this._password;
+			return this.password;
 		}
 		
 		/**
 		 * @param password the 'password' value to set
 		 */
 		public void setPassword(String password) {
-			this._password = password;
+			this.password = password;
 		}
 		
 		/**
 		 * @return the 'transactionIsolation' value
 		 */
 		public String getTransactionIsolation() {
-			return this._transactionIsolation;
+			return this.transactionIsolation;
 		}
 		
 		/**
 		 * @param transactionIsolation the 'transactionIsolation' value to set
 		 */
 		public void setTransactionIsolation(String transactionIsolation) {
-			this._transactionIsolation = transactionIsolation;
+			this.transactionIsolation = transactionIsolation;
 		}
 		
 		/**
 		 * @return the 'defaultAutocommit' value
 		 */
 		public Boolean getDefaultAutocommit() {
-			return this._defaultAutocommit;
+			return this.defaultAutocommit;
 		}
 		
 		/**
 		 * @param defaultAutocommit the 'defaultAutocommit' value to set
 		 */
 		public void setDefaultAutocommit(Boolean defaultAutocommit) {
-			this._defaultAutocommit = defaultAutocommit;
+			this.defaultAutocommit = defaultAutocommit;
 		}
 		
 		/**
 		 * @return the 'poolSize' value
 		 */
 		public Integer getPoolSize() {
-			return this._poolSize;
+			return this.poolSize;
 		}
 		
 		/**
 		 * @param poolSize the 'poolSize' value to set
 		 */
 		public void setPoolSize(Integer poolSize) {
-			this._poolSize = poolSize;
+			this.poolSize = poolSize;
 		}
 
 		/**
 		 * @return the 'connectionProperties' value
 		 */
 		public String getConnectionProperties() {
-			return this._connectionProperties;
+			return this.connectionProperties;
 		}
 
 		/**
 		 * @param driverProperties the 'connectionProperties' value to set
 		 */
 		public void setConnectionProperties(String connectionProperties) {
-			this._connectionProperties = connectionProperties;
+			this.connectionProperties = connectionProperties;
 		}
 	}
 	
@@ -260,32 +260,32 @@ abstract public class AbstractConnectionProvider implements ConnectionProvider, 
 		CommonConfiguration common = new CommonConfiguration();
 		
 		try {
-			common._driverClass = (String)props.get(JDBC_DRIVER_CLASS_PROP);
-			common._url = (String)props.get(JDBC_URL_PROP);
+			common.driverClass = (String)props.get(JDBC_DRIVER_CLASS_PROP);
+			common.url = (String)props.get(JDBC_URL_PROP);
 
 			// Username / password
-			common._username = (String)props.get(JDBC_USER_PROP);
-			common._password = (String)props.get(JDBC_PWD_PROP);
+			common.username = (String)props.get(JDBC_USER_PROP);
+			common.password = (String)props.get(JDBC_PWD_PROP);
 
 			// Isolation level
 			String isolationLevel = (String)props.get(Environment.ISOLATION);
 			
 			if ((isolationLevel != null) && (isolationLevel.trim().length() > 0)) {
-				common._transactionIsolation = isolationLevel;
+				common.transactionIsolation = isolationLevel;
 			}
 
 			// Turn off autocommit (unless autocommit property is set)
 			String autocommit = (String)props.get(AUTOCOMMIT);
 			if ((autocommit != null) && (autocommit.trim().length() > 0)) {
-				common._defaultAutocommit = Boolean.parseBoolean(autocommit);
+				common.defaultAutocommit = Boolean.parseBoolean(autocommit);
 			} else {
-				common._defaultAutocommit = Boolean.FALSE;
+				common.defaultAutocommit = Boolean.FALSE;
 			}
 
 			// Pool size
 			String poolSize = (String)props.get(Environment.POOL_SIZE);
 			if ((poolSize != null) && (poolSize.trim().length() > 0) && (Integer.parseInt(poolSize) > 0)) {
-				common._poolSize = Integer.parseInt(poolSize);
+				common.poolSize = Integer.parseInt(poolSize);
 			}
 			
 			Properties driverProps = ConnectionProviderInitiator.getConnectionProperties(props);

@@ -42,10 +42,10 @@ public class TableReader {
 		Statement stmt = null;
 
 		// SQL query command
-		String SQL = "SELECT * FROM " + table;
+		String sql = "SELECT * FROM " + table;
 		try {
 			stmt = connection.createStatement();
-			return stmt.executeQuery(SQL);
+			return stmt.executeQuery(sql);
 		} catch (SQLException e) {
 			throw new VmeException(e);
 		}

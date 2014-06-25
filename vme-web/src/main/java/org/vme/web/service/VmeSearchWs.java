@@ -6,12 +6,14 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.vme.dao.VmeSearchDao;
+import org.vme.service.SearchService;
 import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ServiceResponse;
 
@@ -21,27 +23,30 @@ public class VmeSearchWs {
 
 	@Inject
 	private VmeSearchDao vmeSearchDao;
+	
+	@Inject
+	private SearchService searchService;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response find(@QueryParam("text") String text, @QueryParam("authority") String id_authority,
-			@QueryParam("vme_type") String id_vme_type, @QueryParam("vme_criteria") String id_vme_criteria,
+	public Response find(@QueryParam("text") String text, @QueryParam("authority") String idAuthority,
+			@QueryParam("vme_type") String idVmeType, @QueryParam("vme_criteria") String idVmeCriteria,
 			@QueryParam("year") String year) throws Exception {
 
 		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
 		request.setText(text);
-		if ((id_authority != null) && !("*").equals(id_authority.trim())) {
-			request.setAuthority(Integer.parseInt(id_authority));
+		if ((idAuthority != null) && !("*").equals(idAuthority.trim())) {
+			request.setAuthority(Integer.parseInt(idAuthority));
 		} else {
 			request.setAuthority(0);
 		}
-		if ((id_vme_type != null) && !("*").equals(id_vme_type.trim())) {
-			request.setType(Integer.parseInt(id_vme_type));
+		if ((idVmeType != null) && !("*").equals(idVmeType.trim())) {
+			request.setType(Integer.parseInt(idVmeType));
 		} else {
 			request.setType(0);
 		}
-		if ((id_vme_criteria != null) && !("*").equals(id_vme_criteria.trim())) {
-			request.setCriteria(Integer.parseInt(id_vme_criteria));
+		if ((idVmeCriteria != null) && !("*").equals(idVmeCriteria.trim())) {
+			request.setCriteria(Integer.parseInt(idVmeCriteria));
 		} else {
 			request.setCriteria(0);
 		}
@@ -53,6 +58,19 @@ public class VmeSearchWs {
 		ServiceResponse<?> result = ServiceInvoker.invoke(vmeSearchDao, request);
 		return Response.status(200).entity(result).build();
 	}
+	
+	@GET
+	@Path("/{vmeIdentifier}/{vmeYear}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response find(@PathParam("vmeIdentifier") String vme_Identifier, @PathParam("vmeYear") String vme_Year) throws Exception {
+		
+		if(vme_Identifier != null && vme_Year != null){
+			return Response.status(200).entity(searchService.findByVmeIdentifier(vme_Identifier, vme_Year)).build();
+		} else if(vme_Identifier != null && vme_Year == null) {
+			return Response.status(200).entity(searchService.findByVmeIdentifier(vme_Identifier, null)).build();
+		} else return Response.status(500).build();		
+	}
+	
 
 	@SuppressWarnings("unused")
 	private String produceHtmlReport(ObservationsRequest dto) {

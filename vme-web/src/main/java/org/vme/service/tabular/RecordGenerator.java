@@ -5,16 +5,16 @@ import java.util.List;
 
 public interface RecordGenerator<F, S, T> {
 	
-	public void doFirstLevel(F p, List<Object> nextRecord);
+	void doFirstLevel(F p, List<Object> nextRecord);
 
-	public void doSecondLevel(S p, List<Object> nextRecord);
+	void doSecondLevel(S p, List<Object> nextRecord);
 
-	public void doThirdLevel(T p, List<Object> nextRecord);
+	void doThirdLevel(T p, List<Object> nextRecord);
 	
-	public Method getSecondLevelMethod();
+	Method getSecondLevelMethod();
 	
-	public Method getThirdLevelMethod();
+	Method getThirdLevelMethod();
 
-	public String[] getHeaders();
+	String[] getHeaders();
 
 }

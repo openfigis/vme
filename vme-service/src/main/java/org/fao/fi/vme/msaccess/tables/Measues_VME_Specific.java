@@ -7,13 +7,13 @@ import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 
 public class Measues_VME_Specific implements TableDomainMapper {
 
-	private int ID;
-	private String RFB_ID;
-	private String VME_ID;
-	private int Year_ID;
-	private String VME_SpecificMeasure_Validity_Start;
-	private String VME_SpecificMeasure_Validity_End;
-	private String VME_SpecificMeasure;
+	private int iD;
+	private String rfbId;
+	private String vmeId;
+	private int yearId;
+	private String vmeSpecificMeasureValidityStart;
+	private String vmeSpecificMeasureValidityEnd;
+	private String vmeSpecificMeasure;
 
 	private int Source_ID;
 
@@ -21,64 +21,64 @@ public class Measues_VME_Specific implements TableDomainMapper {
 		return Source_ID;
 	}
 
-	public void setSource_ID(int source_ID) {
-		Source_ID = source_ID;
+	public void setSource_ID(int sourceId) {
+		Source_ID = sourceId;
 	}
 
 	public int getID() {
-		return ID;
+		return iD;
 	}
 
 	public void setID(int iD) {
-		ID = iD;
+		this.iD = iD;
 	}
 
 	public String getRFB_ID() {
-		return RFB_ID;
+		return rfbId;
 	}
 
-	public void setRFB_ID(String rFB_ID) {
-		RFB_ID = rFB_ID;
+	public void setRFB_ID(String rfbId) {
+		this.rfbId = rfbId;
 	}
 
 	public String getVME_ID() {
-		return VME_ID;
+		return vmeId;
 	}
 
-	public void setVME_ID(String vME_ID) {
-		VME_ID = vME_ID;
+	public void setVME_ID(String vmeId) {
+		this.vmeId = vmeId;
 	}
 
 	public int getYear_ID() {
-		return Year_ID;
+		return yearId;
 	}
 
-	public void setYear_ID(int year_ID) {
-		Year_ID = year_ID;
+	public void setYear_ID(int yearId) {
+		this.yearId = yearId;
 	}
 
 	public String getVME_SpecificMeasure_Validity_Start() {
-		return VME_SpecificMeasure_Validity_Start;
+		return vmeSpecificMeasureValidityStart;
 	}
 
-	public void setVME_SpecificMeasure_Validity_Start(String vME_SpecificMeasure_Validity_Start) {
-		VME_SpecificMeasure_Validity_Start = vME_SpecificMeasure_Validity_Start;
+	public void setVME_SpecificMeasure_Validity_Start(String vmeSpecificMeasureValidityStart) {
+		this.vmeSpecificMeasureValidityStart = vmeSpecificMeasureValidityStart;
 	}
 
 	public String getVME_SpecificMeasure_Validity_End() {
-		return VME_SpecificMeasure_Validity_End;
+		return vmeSpecificMeasureValidityEnd;
 	}
 
-	public void setVME_SpecificMeasure_Validity_End(String vME_SpecificMeasure_Validity_End) {
-		VME_SpecificMeasure_Validity_End = vME_SpecificMeasure_Validity_End;
+	public void setVME_SpecificMeasure_Validity_End(String vmeSpecificMeasureValidityEnd) {
+		this.vmeSpecificMeasureValidityEnd = vmeSpecificMeasureValidityEnd;
 	}
 
 	public String getVME_SpecificMeasure() {
-		return VME_SpecificMeasure;
+		return vmeSpecificMeasure;
 	}
 
-	public void setVME_SpecificMeasure(String vME_SpecificMeasure) {
-		VME_SpecificMeasure = vME_SpecificMeasure;
+	public void setVME_SpecificMeasure(String vmeSpecificMeasure) {
+		this.vmeSpecificMeasure = vmeSpecificMeasure;
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class Measues_VME_Specific implements TableDomainMapper {
 		// o.getValidityPeriod().setBeginYear(Integer.valueOf(this.getVME_SpecificMeasure_Validity_Start()));
 		// o.getValidityPeriod().setEndYear(Integer.valueOf(this.getVME_SpecificMeasure_Validity_End()));
 		o.setYear(this.getYear_ID());
-		o.setVmeSpecificMeasure(u.english(this.VME_SpecificMeasure));
+		o.setVmeSpecificMeasure(u.english(this.vmeSpecificMeasure));
 
 		return o;
 	}
