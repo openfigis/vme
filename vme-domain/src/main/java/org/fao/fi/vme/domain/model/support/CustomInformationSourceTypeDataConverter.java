@@ -24,7 +24,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.Abstrac
  */
 @Deprecated //To actually remove this, we need to update the RM client libraries to the new versions of the RSG libs
 public class CustomInformationSourceTypeDataConverter extends AbstractDataConverter<InformationSourceType> {
-	final private Map<Long, InformationSourceType> MAP_BY_ID = new HashMap<Long, InformationSourceType>();
+	private final Map<Long, InformationSourceType> MAP_BY_ID = new HashMap<Long, InformationSourceType>();
 	
 	public CustomInformationSourceTypeDataConverter() {
 		MAP_BY_ID.put(1L, new InformationSourceType(1L, "Book", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT));

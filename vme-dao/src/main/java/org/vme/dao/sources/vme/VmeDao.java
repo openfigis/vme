@@ -39,7 +39,7 @@ public class VmeDao extends AbstractJPADao {
 	/**
 	 * @return the 'em' value
 	 */
-	final public EntityManager getEm() {
+	public final EntityManager getEm() {
 		return this.em;
 	}
 

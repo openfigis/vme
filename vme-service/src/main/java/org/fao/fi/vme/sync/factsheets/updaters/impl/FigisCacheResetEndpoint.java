@@ -28,7 +28,7 @@ public class FigisCacheResetEndpoint {
 	private static final String PROPERTY_PNAME_RESOURCE = "figis.web.cache.reset.paramtername.vme";
 	private static final String PROPERTY_PVALUE_RESOURCE = "figis.web.cache.reset.paramtervalue.vme";
 
-	final static private Logger LOG = LoggerFactory.getLogger(FigisCacheResetEndpoint.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FigisCacheResetEndpoint.class);
 
 	private String cacheResetServer;
 

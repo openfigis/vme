@@ -634,7 +634,7 @@ public class RsgServiceImplVme implements RsgService {
 
 				tx.commit();
 
-				this._fsChangeListener.VMEDeleted((Vme) toDelete);
+				this._fsChangeListener.vmeDeleted((Vme) toDelete);
 				aVmeModelChange.fire(new VmeModelChange());
 
 				response.succeeded(entity.getName() + " report #" + reportId + " has been deleted");
@@ -814,9 +814,9 @@ public class RsgServiceImplVme implements RsgService {
 
 			try {
 				if (isNew)
-					this._fsChangeListener.VMEAdded((Vme) updated);
+					this._fsChangeListener.vmeAdded((Vme) updated);
 				else
-					this._fsChangeListener.VMEChanged((Vme) updated);
+					this._fsChangeListener.vmeChanged((Vme) updated);
 				aVmeModelChange.fire(new VmeModelChange());
 			} catch (Throwable t) {
 				LOG.warn("Unable to update factsheet for {} report {}: {} [ {} ]", report.getType(), id, t.getClass()

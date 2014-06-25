@@ -21,14 +21,14 @@ import java.util.Collection;
  * @since 27 Feb 2014
  */
 public class SerializableConceptUtils {
-	final static public String SEPARATOR = ":";
-	final static public String NULL_REPLACEMENT = "$$__NULL__$$";
+	public static final String SEPARATOR = ":";
+	public static final String NULL_REPLACEMENT = "$$__NULL__$$";
 	
-	final static public String toString(Serializable toConvert) {
+	public static final String toString(Serializable toConvert) {
 		return ( toConvert == null ? NULL_REPLACEMENT : toConvert.toString() ).replaceAll("\\" + SEPARATOR, "$$__" + SEPARATOR + "__$$");
 	}
 	
-	final static public String toString(Serializable... toConvert) {
+	public static final String toString(Serializable... toConvert) {
 		StringBuilder builder = new StringBuilder();
 		
 		for(Serializable in : toConvert) {
@@ -38,7 +38,7 @@ public class SerializableConceptUtils {
 		return builder.toString().replaceAll("\\" + SEPARATOR + "$", "");
 	}
 	
-	final static public String[] parts(String toSplit) {
+	public static final String[] parts(String toSplit) {
 		Collection<String> parts = new ArrayList<String>();
 		
 		for(String in : toSplit.split("\\" + SEPARATOR, -1)) {

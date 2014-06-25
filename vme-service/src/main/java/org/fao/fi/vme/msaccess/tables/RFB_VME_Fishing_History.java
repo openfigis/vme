@@ -24,35 +24,35 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 		this.iD = iD;
 	}
 
-	public String getRFB_ID() {
+	public String getRfbId() {
 		return rfbId;
 	}
 
-	public void setRFB_ID(String rfbId) {
+	public void setRfbId(String rfbId) {
 		this.rfbId = rfbId;
 	}
 
-	public int getYear_ID() {
+	public int getYearId() {
 		return yearId;
 	}
 
-	public void setYear_ID(int yearId) {
+	public void setYearId(int yearId) {
 		this.yearId = yearId;
 	}
 
-	public String getRFB_FishingAreas_GeneralText() {
+	public String getRfbFishingAreasGeneralText() {
 		return rfbFishingAreasGeneralText;
 	}
 
-	public void setRFB_FishingAreas_GeneralText(String rfbFishingAreasGeneralText) {
+	public void setRfbFishingAreasGeneralText(String rfbFishingAreasGeneralText) {
 		this.rfbFishingAreasGeneralText = rfbFishingAreasGeneralText;
 	}
 
-	public String getRFB_VMEs_GeneralText() {
+	public String getRfbVmesGeneralText() {
 		return rfbVmesGeneralText;
 	}
 
-	public void setRFB_VMEs_GeneralText(String rfbVmesGeneralText) {
+	public void setRfbVmesGeneralText(String rfbVmesGeneralText) {
 		this.rfbVmesGeneralText = rfbVmesGeneralText;
 	}
 
@@ -65,8 +65,8 @@ public class RFB_VME_Fishing_History implements TableDomainMapper {
 		// fisheryAreasHistory.setId(new Long(this.ID));
 		// vmesHistory.setId(new Long(this.ID));
 
-		fisheryAreasHistory.setHistory(u.english(this.getRFB_FishingAreas_GeneralText()));
-		vmesHistory.setHistory(u.english(this.getRFB_VMEs_GeneralText()));
+		fisheryAreasHistory.setHistory(u.english(this.getRfbFishingAreasGeneralText()));
+		vmesHistory.setHistory(u.english(this.getRfbVmesGeneralText()));
 
 		fisheryAreasHistory.setYear(this.yearId);
 		vmesHistory.setYear(this.yearId);

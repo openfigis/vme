@@ -42,131 +42,131 @@ public class VME implements TableDomainMapper {
 		this.iD = iD;
 	}
 
-	public String getRFB_ID() {
+	public String getRfbId() {
 		return rfbId;
 	}
 
-	public void setRFB_ID(String rfbId) {
+	public void setRfbId(String rfbId) {
 		this.rfbId = rfbId;
 	}
 
-	public String getVME_ID() {
+	public String getVmeId() {
 		return vmeId;
 	}
 
-	public void setVME_ID(String vmeId) {
+	public void setVmeId(String vmeId) {
 		this.vmeId = vmeId;
 	}
 
-	public int getYear_ID() {
+	public int getYearID() {
 		return yearId;
 	}
 
-	public void setYear_ID(int yearId) {
+	public void setYearId(int yearId) {
 		this.yearId = yearId;
 	}
 
-	public String getVME_Inventory_Identifier() {
+	public String getVmeInventoryIdentifier() {
 		return vmeInventoryIdentifier;
 	}
 
-	public void setVME_Inventory_Identifier(String vmeInventoryIdentifier) {
+	public void setVmeInventoryIdentifier(String vmeInventoryIdentifier) {
 		this.vmeInventoryIdentifier = vmeInventoryIdentifier;
 	}
 
-	public String getVME_Feature_ID() {
+	public String getVmeFeatureId() {
 		return vmeFeatureId;
 	}
 
-	public void setVME_Feature_ID(String vmeFeatureId) {
+	public void setVmeFeatureId(String vmeFeatureId) {
 		this.vmeFeatureId = vmeFeatureId;
 	}
 
-	public int getVME_Validity_Start() {
+	public int getVmeValidityStart() {
 		return vmeValidityStart;
 	}
 
-	public void setVME_Validity_Start(int vmeValidityStart) {
+	public void setVmeValidityStart(int vmeValidityStart) {
 		this.vmeValidityStart = vmeValidityStart;
 	}
 
-	public int getVME_Validity_End() {
+	public int getVmeValidityEnd() {
 		return vmeValidityEnd;
 	}
 
-	public void setVME_Validity_End(int vmeValidityEnd) {
+	public void setVmeValidityEnd(int vmeValidityEnd) {
 		this.vmeValidityEnd = vmeValidityEnd;
 	}
 
-	public String getVME_Geoform() {
+	public String getVmeGeoform() {
 		return vmeGeoform;
 	}
 
-	public void setVME_Geoform(String vmeGeoform) {
+	public void setVmeGeoform(String vmeGeoform) {
 		this.vmeGeoform = vmeGeoform;
 	}
 
-	public String getVME_GeogArea1() {
+	public String getVmeGeogArea1() {
 		return vmeGeogArea1;
 	}
 
-	public void setVME_GeogArea1(String vmeGeogArea1) {
+	public void setVmeGeogArea1(String vmeGeogArea1) {
 		this.vmeGeogArea1 = vmeGeogArea1;
 	}
 
-	public String getVME_GeogArea2() {
+	public String getVmeGeogArea2() {
 		return vmeGeogArea2;
 	}
 
-	public void setVME_GeogArea2(String vmeGeogArea2) {
+	public void setVmeGeogArea2(String vmeGeogArea2) {
 		this.vmeGeogArea2 = vmeGeogArea2;
 	}
 
-	public String getVME_GeogAreaFAO() {
+	public String getVmeGeogAreaFAO() {
 		return vmeGeogAreaFAO;
 	}
 
-	public void setVME_GeogAreaFAO(String vmeGeogAreaFAO) {
+	public void setVmeGeogAreaFAO(String vmeGeogAreaFAO) {
 		this.vmeGeogAreaFAO = vmeGeogAreaFAO;
 	}
 
-	public String getVME_Coord() {
+	public String getVmeCoord() {
 		return vmeCoord;
 	}
 
-	public void setVME_Coord(String vmeCoord) {
+	public void setVmeCoord(String vmeCoord) {
 		this.vmeCoord = vmeCoord;
 	}
 
-	public String getVME_Area_Type() {
+	public String getVmeAreaType() {
 		return vmeAreaType;
 	}
 
-	public void setVME_Area_Type(String vmeAreaType) {
+	public void setVmeAreaType(String vmeAreaType) {
 		this.vmeAreaType = vmeAreaType;
 	}
 
-	public String getVME_Description_Physical() {
+	public String getVmeDescriptionPhysical() {
 		return vmeDescriptionPhysical;
 	}
 
-	public void setVME_Description_Physical(String vmeDescriptionPhysical) {
+	public void setVmeDescriptionPhysical(String vmeDescriptionPhysical) {
 		this.vmeDescriptionPhysical = vmeDescriptionPhysical;
 	}
 
-	public String getVME_Description_Biology() {
+	public String getVmeDescriptionBiology() {
 		return vmeDescriptionBiology;
 	}
 
-	public void setVME_Description_Biology(String vmeDescriptionBiology) {
+	public void setVmeDescriptionBiology(String vmeDescriptionBiology) {
 		this.vmeDescriptionBiology = vmeDescriptionBiology;
 	}
 
-	public String getVME_Description_Impact() {
+	public String getVmeDescriptionImpact() {
 		return vmeDescriptionImpact;
 	}
 
-	public void setVME_Description_Impact(String vmeDescriptionImpact) {
+	public void setVmeDescriptionImpact(String vmeDescriptionImpact) {
 		this.vmeDescriptionImpact = vmeDescriptionImpact;
 	}
 
@@ -177,7 +177,7 @@ public class VME implements TableDomainMapper {
 		MultiLingualStringUtil u = new MultiLingualStringUtil();
 		EnglishTextUtil etu = new EnglishTextUtil();
 
-		o.setName(u.english(this.getVME_ID()));
+		o.setName(u.english(this.getVmeId()));
 
 		// commented, ms access is not anymore supported..
 		// o.setAreaType(this.VME_Area_Type);
@@ -205,7 +205,7 @@ public class VME implements TableDomainMapper {
 		p.setDescriptionBiological(etu.english(this.vmeDescriptionBiology));
 		p.setDescriptionImpact(etu.english(this.vmeDescriptionImpact));
 		p.setDescriptionPhisical(etu.english(this.vmeDescriptionPhysical));
-		p.setGeoform(etu.english(this.getVME_Geoform()));
+		p.setGeoform(etu.english(this.getVmeGeoform()));
 		p.setYear(this.yearId);
 		p.setVme(o);
 
@@ -223,7 +223,7 @@ public class VME implements TableDomainMapper {
 
 		o.setInventoryIdentifier(this.vmeInventoryIdentifier);
 
-		if (this.getRFB_ID() == null) {
+		if (this.getRfbId() == null) {
 			throw new VmeException("found vme without reference to rfb. Vme = " + vmeId + ", RFMO is ");
 		}
 

@@ -38,15 +38,17 @@ import org.slf4j.LoggerFactory;
  */
 @Alternative
 public class SyncFactsheetChangeListener implements FactsheetChangeListener {
-	static final protected Logger LOG = LoggerFactory.getLogger(SyncFactsheetChangeListener.class);
+	protected static final Logger LOG = LoggerFactory.getLogger(SyncFactsheetChangeListener.class);
 	
-	protected @Inject FactsheetUpdater updater;
+	@Inject
+	protected FactsheetUpdater updater;
 	
 	/* (non-Javadoc)
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#VMEChanged(org.fao.fi.vme.domain.model.Vme[])
 	 */
+	
 	@Override
-	final public void VMEChanged(final Vme... changed) throws Exception {
+	public final void vmeChanged(final Vme... changed) throws Exception {
 		LOG.info("Notified of changes to {} elements of type Vme", ( changed == null ? "NULL" : changed.length));
 		
 		for(Vme in : changed) {
@@ -60,7 +62,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#VMEAdded(org.fao.fi.vme.domain.model.Vme[])
 	 */
 	@Override
-	final public void VMEAdded(final Vme... added) throws Exception {
+	public final void vmeAdded(final Vme... added) throws Exception {
 		LOG.info("Notified of additions of {} elements of type Vme", ( added == null ? "NULL" : added.length));	
 		
 		for(Vme in : added) {
@@ -74,7 +76,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#VMEDeleted(org.fao.fi.vme.domain.model.Vme[])
 	 */
 	@Override
-	final public void VMEDeleted(final Vme... deleted) throws Exception {
+	public final void vmeDeleted(final Vme... deleted) throws Exception {
 		LOG.info("Notified of deletions of {} elements of type Vme", ( deleted == null ? "NULL" : deleted.length));	
 				
 		this.deleteFactsheets(this.findVMEIDs(deleted));
@@ -84,7 +86,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#generalMeasureChanged(org.fao.fi.vme.domain.model.GeneralMeasure[])
 	 */
 	@Override
-	final public void generalMeasureChanged(final GeneralMeasure... changed) throws Exception {
+	public final void generalMeasureChanged(final GeneralMeasure... changed) throws Exception {
 		LOG.info("Notified of changes to {} elements of type GeneralMeasure", ( changed == null ? "NULL" : changed.length));
 		
 		for(GeneralMeasure in : changed) {
@@ -98,7 +100,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#generalMeasureAdded(org.fao.fi.vme.domain.model.GeneralMeasure[])
 	 */
 	@Override
-	final public void generalMeasureAdded(final GeneralMeasure... added) throws Exception {
+	public final void generalMeasureAdded(final GeneralMeasure... added) throws Exception {
 		LOG.info("Notified of additions of {} elements of type GeneralMeasure", ( added == null ? "NULL" : added.length));
 		
 		for(GeneralMeasure in : added) {
@@ -112,7 +114,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#generalMeasureDeleted(org.fao.fi.vme.domain.model.GeneralMeasure[])
 	 */
 	@Override
-	final public void generalMeasureDeleted(Rfmo owner, final GeneralMeasure... deleted) throws Exception {
+	public final void generalMeasureDeleted(Rfmo owner, final GeneralMeasure... deleted) throws Exception {
 		LOG.info("Notified of deletions of {} elements of type GeneralMeasure", ( deleted == null ? "NULL" : deleted.length));
 		
 		this.updateFactsheets(this.findVMEIDs(owner));
@@ -122,7 +124,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#informationSourceChanged(org.fao.fi.vme.domain.model.InformationSource[])
 	 */
 	@Override
-	final public void informationSourceChanged(final InformationSource... changed) throws Exception {
+	public final void informationSourceChanged(final InformationSource... changed) throws Exception {
 		LOG.info("Notifiying listeners of changes to {} elements of type InformationSource", ( changed == null ? "NULL" : changed.length));
 
 		for(InformationSource in : changed) {
@@ -138,7 +140,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#informationSourceAdded(org.fao.fi.vme.domain.model.InformationSource[])
 	 */
 	@Override
-	final public void informationSourceAdded(final InformationSource... added) throws Exception {
+	public final void informationSourceAdded(final InformationSource... added) throws Exception {
 		LOG.info("Notified of additions of {} elements of type InformationSource", ( added == null ? "NULL" : added.length));
 		
 		for(InformationSource in : added) {
@@ -152,7 +154,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#informationSourceDeleted(org.fao.fi.vme.domain.model.InformationSource[])
 	 */
 	@Override
-	final public void informationSourceDeleted(Rfmo owner, final InformationSource... deleted) throws Exception {
+	public final void informationSourceDeleted(Rfmo owner, final InformationSource... deleted) throws Exception {
 		LOG.info("Notified of deletions of {} elements of type InformationSource", ( deleted == null ? "NULL" : deleted.length));
 		
 		this.updateFactsheets(this.findVMEIDs(owner));
@@ -162,7 +164,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#fishingFootprintChanged(org.fao.fi.vme.domain.model.extended.FisheryAreasHistory[])
 	 */
 	@Override
-	final public void fishingFootprintChanged(final FisheryAreasHistory... changed) throws Exception {
+	public final void fishingFootprintChanged(final FisheryAreasHistory... changed) throws Exception {
 		LOG.info("Notified of changes to {} elements of type FisheryAreasHistory", ( changed == null ? "NULL" : changed.length));
 		
 		for(FisheryAreasHistory in : changed) {
@@ -176,7 +178,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#fishingFootprintAdded(org.fao.fi.vme.domain.model.extended.FisheryAreasHistory[])
 	 */
 	@Override
-	final public void fishingFootprintAdded(final FisheryAreasHistory... added) throws Exception {
+	public final void fishingFootprintAdded(final FisheryAreasHistory... added) throws Exception {
 		LOG.info("Notified of additions of {} elements of type FisheryAreasHistory", ( added == null ? "NULL" : added.length));
 		
 //		for(FisheryAreasHistory in : added)
@@ -189,7 +191,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#fishingFootprintDeleted(org.fao.fi.vme.domain.model.extended.FisheryAreasHistory[])
 	 */
 	@Override
-	final public void fishingFootprintDeleted(Rfmo owner, final FisheryAreasHistory... deleted) throws Exception {
+	public final void fishingFootprintDeleted(Rfmo owner, final FisheryAreasHistory... deleted) throws Exception {
 		LOG.info("Notified of deletions of {} elements of type FisheryAreasHistory", ( deleted == null ? "NULL" : deleted.length));
 		
 //		Long[] ids = this.findVMEIDs(owner);
@@ -206,7 +208,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#regionalHistoryChanged(org.fao.fi.vme.domain.model.extended.VMEsHistory[])
 	 */
 	@Override
-	final public void regionalHistoryChanged(final VMEsHistory... changed) throws Exception {
+	public final void regionalHistoryChanged(final VMEsHistory... changed) throws Exception {
 		LOG.info("Notified of changes to {} elements of type VMEsHistory", ( changed == null ? "NULL" : changed.length));
 
 		for(VMEsHistory in : changed) {
@@ -220,7 +222,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#regionalHistoryAdded(org.fao.fi.vme.domain.model.extended.VMEsHistory[])
 	 */
 	@Override
-	final public void regionalHistoryAdded(final VMEsHistory... added) throws Exception {
+	public final void regionalHistoryAdded(final VMEsHistory... added) throws Exception {
 		LOG.info("Notified of additions of {} elements of type VMEsHistory", ( added == null ? "NULL" : added.length));
 		
 		for(VMEsHistory in : added) {
@@ -234,7 +236,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#regionalHistoryDeleted(org.fao.fi.vme.domain.model.extended.VMEsHistory[])
 	 */
 	@Override
-	final public void regionalHistoryDeleted(Rfmo owner, final VMEsHistory... deleted) throws Exception {
+	public final void regionalHistoryDeleted(Rfmo owner, final VMEsHistory... deleted) throws Exception {
 		LOG.info("Notified of deletions of {} elements of type VMEsHistory", ( deleted == null ? "NULL" : deleted.length));	
 		
 		this.updateFactsheets(this.findVMEIDs(owner));
@@ -306,7 +308,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		}
 	}
 		
-	final protected Long[] findVMEIDs(Vme... vmes) {
+	protected final Long[] findVMEIDs(Vme... vmes) {
 		Collection<Long> idCollection = new HashSet<Long>();
 		
 		for(Vme in : vmes) {
@@ -318,23 +320,23 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		return idCollection.toArray(new Long[idCollection.size()]);
 	}
 	
-	final protected Long[] findVMEIDs(GeneralMeasure... generalMeasures) {
+	protected final Long[] findVMEIDs(GeneralMeasure... generalMeasures) {
 		return this.findVMEIDs(this.findRFMOs(generalMeasures));
 	}
 	
-	final protected Long[] findVMEIDs(InformationSource... informationSources) {
+	protected final Long[] findVMEIDs(InformationSource... informationSources) {
 		return this.findVMEIDs(this.findRFMOs(informationSources));
 	}
 	
-	final protected Long[] findVMEIDs(FisheryAreasHistory... fishingFootprints) {
+	protected final Long[] findVMEIDs(FisheryAreasHistory... fishingFootprints) {
 		return this.findVMEIDs(this.findRFMOs(fishingFootprints));
 	}
 	
-	final protected Long[] findVMEIDs(VMEsHistory... regionalHistories) {
+	protected final Long[] findVMEIDs(VMEsHistory... regionalHistories) {
 		return this.findVMEIDs(this.findRFMOs(regionalHistories));
 	}
 	
-	final protected Long[] findVMEIDs(Rfmo... rfmos) {
+	protected final Long[] findVMEIDs(Rfmo... rfmos) {
 		Collection<Long> idCollection = new HashSet<Long>();
 				
 		for(Rfmo authority : rfmos) {
@@ -351,7 +353,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		return idCollection.toArray(new Long[idCollection.size()]);
 	}
 	
-	final protected Rfmo[] findRFMOs(GeneralMeasure... generalMeasures) {
+	protected final Rfmo[] findRFMOs(GeneralMeasure... generalMeasures) {
 		Collection<Rfmo> rfmoCollection = new ArrayList<Rfmo>();
 		
 		for(GeneralMeasure gm : generalMeasures) {
@@ -365,7 +367,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		return rfmoCollection.toArray(new Rfmo[rfmoCollection.size()]);
 	}
 	
-	final protected Rfmo[] findRFMOs(InformationSource... informationSources) {
+	protected final Rfmo[] findRFMOs(InformationSource... informationSources) {
 		Collection<Rfmo> rfmoCollection = new ArrayList<Rfmo>();
 		
 		for(InformationSource is : informationSources) {
@@ -379,7 +381,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		return rfmoCollection.toArray(new Rfmo[rfmoCollection.size()]);
 	}
 	
-	final protected Rfmo[] findRFMOs(FisheryAreasHistory... fishingFootprints) {
+	protected final Rfmo[] findRFMOs(FisheryAreasHistory... fishingFootprints) {
 		Collection<Rfmo> rfmoCollection = new ArrayList<Rfmo>();
 		
 		for(FisheryAreasHistory ff : fishingFootprints) {
@@ -393,7 +395,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		return rfmoCollection.toArray(new Rfmo[rfmoCollection.size()]);
 	}
 	
-	final protected Rfmo[] findRFMOs(VMEsHistory... regionalHistories) {
+	protected final Rfmo[] findRFMOs(VMEsHistory... regionalHistories) {
 		Collection<Rfmo> rfmoCollection = new ArrayList<Rfmo>();
 		
 		for(VMEsHistory rh : regionalHistories) {
@@ -407,7 +409,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		return rfmoCollection.toArray(new Rfmo[rfmoCollection.size()]);
 	}
 	
-	final protected String serializeIDs(Object[] idArray) {
+	protected final String serializeIDs(Object[] idArray) {
 		StringBuilder result = new StringBuilder("[ ");
 		
 		for(Object in : idArray) {
@@ -419,7 +421,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		return result.toString().replaceAll("\\, \\]$", " ]");
 	}
 	
-	final protected String serializeIDs(ObjectId<?>[] objects) {
+	protected final String serializeIDs(ObjectId<?>[] objects) {
 		Collection<Object> idCollection = new HashSet<Object>();
 		
 		for(ObjectId<?> in : objects) {
@@ -431,7 +433,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		return this.serializeIDs(idCollection.toArray(new Object[idCollection.size()]));
 	}
 	
-	final protected String serializeIDs(Rfmo[] rfmos) {
+	protected final String serializeIDs(Rfmo[] rfmos) {
 		Collection<Object> idCollection = new HashSet<Object>();
 		
 		for(Rfmo in : rfmos) {

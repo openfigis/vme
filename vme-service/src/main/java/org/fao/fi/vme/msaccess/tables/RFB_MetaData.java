@@ -13,7 +13,7 @@ public class RFB_MetaData implements TableDomainMapper {
 	private int yearId;
 	private String rfbId;
 	private String rfbL;
-	private String rfbWw;
+	private String rfbWww;
 	private String rfbFAOFactSheets;
 
 	public int getID() {
@@ -24,43 +24,43 @@ public class RFB_MetaData implements TableDomainMapper {
 		this.iD = iD;
 	}
 
-	public int getYear_ID() {
+	public int getYearId() {
 		return yearId;
 	}
 
-	public void setYear_ID(int yearId) {
+	public void setYearId(int yearId) {
 		this.yearId = yearId;
 	}
 
-	public String getRFB_ID() {
+	public String getRfbId() {
 		return rfbId;
 	}
 
-	public void setRFB_ID(String rfbId) {
+	public void setRfbId(String rfbId) {
 		this.rfbId = rfbId;
 	}
 
-	public String getRFB_L() {
+	public String getRfbL() {
 		return rfbL;
 	}
 
-	public void setRFB_L(String rfbL) {
+	public void setRfbL(String rfbL) {
 		this.rfbL = rfbL;
 	}
 
-	public String getRFB_www() {
-		return rfbWw;
+	public String getRfbWww() {
+		return rfbWww;
 	}
 
-	public void setRFB_www(String rfbWw) {
-		this.rfbWw = rfbWw;
+	public void setRfbWww(String rfbWww) {
+		this.rfbWww = rfbWww;
 	}
 
-	public String getRFB_FAO_FactSheets() {
+	public String getRfbFAOFactSheets() {
 		return rfbFAOFactSheets;
 	}
 
-	public void setRFB_FAO_FactSheets(String rfbFAOFactSheets) {
+	public void setRfbFAOFactSheets(String rfbFAOFactSheets) {
 		this.rfbFAOFactSheets = rfbFAOFactSheets;
 	}
 

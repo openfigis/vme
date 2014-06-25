@@ -15,14 +15,14 @@ public class Measues_VME_Specific implements TableDomainMapper {
 	private String vmeSpecificMeasureValidityEnd;
 	private String vmeSpecificMeasure;
 
-	private int Source_ID;
+	private int sourceId;
 
-	public int getSource_ID() {
-		return Source_ID;
+	public int getSourceId() {
+		return sourceId;
 	}
 
-	public void setSource_ID(int sourceId) {
-		Source_ID = sourceId;
+	public void setSourceId(int sourceId) {
+		this.sourceId = sourceId;
 	}
 
 	public int getID() {
@@ -33,51 +33,51 @@ public class Measues_VME_Specific implements TableDomainMapper {
 		this.iD = iD;
 	}
 
-	public String getRFB_ID() {
+	public String getRfbId() {
 		return rfbId;
 	}
 
-	public void setRFB_ID(String rfbId) {
+	public void setRfbId(String rfbId) {
 		this.rfbId = rfbId;
 	}
 
-	public String getVME_ID() {
+	public String getVmeId() {
 		return vmeId;
 	}
 
-	public void setVME_ID(String vmeId) {
+	public void setVmeId(String vmeId) {
 		this.vmeId = vmeId;
 	}
 
-	public int getYear_ID() {
+	public int getYearId() {
 		return yearId;
 	}
 
-	public void setYear_ID(int yearId) {
+	public void setYearId(int yearId) {
 		this.yearId = yearId;
 	}
 
-	public String getVME_SpecificMeasure_Validity_Start() {
+	public String getVmeSpecificMeasureValidityStart() {
 		return vmeSpecificMeasureValidityStart;
 	}
 
-	public void setVME_SpecificMeasure_Validity_Start(String vmeSpecificMeasureValidityStart) {
+	public void setVmeSpecificMeasureValidityStart(String vmeSpecificMeasureValidityStart) {
 		this.vmeSpecificMeasureValidityStart = vmeSpecificMeasureValidityStart;
 	}
 
-	public String getVME_SpecificMeasure_Validity_End() {
+	public String getVmeSpecificMeasureValidityEnd() {
 		return vmeSpecificMeasureValidityEnd;
 	}
 
-	public void setVME_SpecificMeasure_Validity_End(String vmeSpecificMeasureValidityEnd) {
+	public void setVmeSpecificMeasureValidityEnd(String vmeSpecificMeasureValidityEnd) {
 		this.vmeSpecificMeasureValidityEnd = vmeSpecificMeasureValidityEnd;
 	}
 
-	public String getVME_SpecificMeasure() {
+	public String getVmeSpecificMeasure() {
 		return vmeSpecificMeasure;
 	}
 
-	public void setVME_SpecificMeasure(String vmeSpecificMeasure) {
+	public void setVmeSpecificMeasure(String vmeSpecificMeasure) {
 		this.vmeSpecificMeasure = vmeSpecificMeasure;
 	}
 
@@ -95,7 +95,7 @@ public class Measues_VME_Specific implements TableDomainMapper {
 		// // is not used anymore and therefore does not need to be updated.
 		// o.getValidityPeriod().setBeginYear(Integer.valueOf(this.getVME_SpecificMeasure_Validity_Start()));
 		// o.getValidityPeriod().setEndYear(Integer.valueOf(this.getVME_SpecificMeasure_Validity_End()));
-		o.setYear(this.getYear_ID());
+		o.setYear(this.getYearId());
 		o.setVmeSpecificMeasure(u.english(this.vmeSpecificMeasure));
 
 		return o;

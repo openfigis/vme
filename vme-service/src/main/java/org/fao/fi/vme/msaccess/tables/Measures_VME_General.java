@@ -26,11 +26,11 @@ public class Measures_VME_General implements TableDomainMapper {
 	private String rfbExploratoryFishingProtocol;
 	private int sourceId;
 
-	public int getSource_ID() {
+	public int getSourceId() {
 		return sourceId;
 	}
 
-	public void setSource_ID(int sourceId) {
+	public void setSourceId(int sourceId) {
 		this.sourceId = sourceId;
 	}
 
@@ -42,67 +42,67 @@ public class Measures_VME_General implements TableDomainMapper {
 		this.iD = iD;
 	}
 
-	public String getRFB_ID() {
+	public String getRfbId() {
 		return rfbId;
 	}
 
-	public void setRFB_ID(String rfbId) {
+	public void setRfbId(String rfbId) {
 		this.rfbId = rfbId;
 	}
 
-	public int getYear_ID() {
+	public int getYearId() {
 		return yearId;
 	}
 
-	public void setYear_ID(int yearId) {
+	public void setYearId(int yearId) {
 		this.yearId = yearId;
 	}
 
-	public String getVME_GeneralMeasure_Validity_Start() {
+	public String getVmeGeneralMeasureValidityStart() {
 		return vmeGeneralMeasureValidityStart;
 	}
 
-	public void setVME_GeneralMeasure_Validity_Start(String vmeGeneralMeasureValidityStart) {
+	public void setVmeGeneralMeasureValidityStart(String vmeGeneralMeasureValidityStart) {
 		this.vmeGeneralMeasureValidityStart = vmeGeneralMeasureValidityStart;
 	}
 
-	public String getVME_GeneralMeasure_Validity_End() {
+	public String getVmeGeneralMeasureValidityEnd() {
 		return vmeGeneralMeasureValidityEnd;
 	}
 
-	public void setVME_GeneralMeasure_Validity_End(String vmeGeneralMeasureValidityEnd) {
+	public void setVmeGeneralMeasureValidityEnd(String vmeGeneralMeasureValidityEnd) {
 		this.vmeGeneralMeasureValidityEnd = vmeGeneralMeasureValidityEnd;
 	}
 
-	public String getRFB_FishingAreas_coord() {
+	public String getRfbFishingAreasCoord() {
 		return rfbFishingAreasCoord;
 	}
 
-	public void setRFB_FishingAreas_coord(String rfbFishingAreasCoord) {
+	public void setRfbFishingAreasCoord(String rfbFishingAreasCoord) {
 		this.rfbFishingAreasCoord = rfbFishingAreasCoord;
 	}
 
-	public String getVME_Encounter() {
+	public String getVmeEncounter() {
 		return vmeEncounter;
 	}
 
-	public void setVME_Encounter(String vmeEncounter) {
+	public void setVmeEncounter(String vmeEncounter) {
 		this.vmeEncounter = vmeEncounter;
 	}
 
-	public String getVME_Indicator_Sp() {
+	public String getVmeIndicatorSp() {
 		return vmeIndicatorSp;
 	}
 
-	public void setVME_Indicator_Sp(String vmeIndicatorSp) {
+	public void setVmeIndicatorSp(String vmeIndicatorSp) {
 		this.vmeIndicatorSp = vmeIndicatorSp;
 	}
 
-	public String getVME_Threshold() {
+	public String getVmeThreshold() {
 		return vmeThreshold;
 	}
 
-	public void setVME_Threshold(String vmeThreshold) {
+	public void setVmeThreshold(String vmeThreshold) {
 		this.vmeThreshold = vmeThreshold;
 	}
 
@@ -114,19 +114,19 @@ public class Measures_VME_General implements TableDomainMapper {
 	// Link_CEM_Source = link_CEM_Source;
 	// }
 
-	public String getRFB_Fishing_Areas() {
+	public String getRfbFishingAreas() {
 		return rfbFishingAreas;
 	}
 
-	public void setRFB_Fishing_Areas(String rfbFishingAreas) {
+	public void setRfbFishingAreas(String rfbFishingAreas) {
 		this.rfbFishingAreas = rfbFishingAreas;
 	}
 
-	public String getRFB_Exploratory_Fishing_Protocol() {
+	public String getRfbExploratoryFishingProtocol() {
 		return rfbExploratoryFishingProtocol;
 	}
 
-	public void setRFB_Exploratory_Fishing_Protocol(String rfbExploratoryFishingProtocol) {
+	public void setRfbExploratoryFishingProtocol(String rfbExploratoryFishingProtocol) {
 		this.rfbExploratoryFishingProtocol = rfbExploratoryFishingProtocol;
 	}
 
@@ -138,11 +138,11 @@ public class Measures_VME_General implements TableDomainMapper {
 		GeneralMeasure o = new GeneralMeasure();
 
 		o.setId(Long.valueOf(this.getID()));
-		o.setVmeEncounterProtocol(u.english(this.getVME_Encounter()));
-		o.setVmeIndicatorSpecies(u.english(this.getVME_Indicator_Sp()));
-		o.setExplorataryFishingProtocol(u.english(this.getRFB_Exploratory_Fishing_Protocol()));
-		o.setFishingArea(u.english(this.getRFB_Fishing_Areas()));
-		o.setVmeThreshold(u.english(this.getVME_Threshold()));
+		o.setVmeEncounterProtocol(u.english(this.getVmeEncounter()));
+		o.setVmeIndicatorSpecies(u.english(this.getVmeIndicatorSp()));
+		o.setExplorataryFishingProtocol(u.english(this.getRfbExploratoryFishingProtocol()));
+		o.setFishingArea(u.english(this.getRfbFishingAreas()));
+		o.setVmeThreshold(u.english(this.getVmeThreshold()));
 
 		if (this.sourceId > 0) {
 			InformationSource is = new InformationSource();

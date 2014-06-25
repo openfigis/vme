@@ -38,8 +38,8 @@ public class InformationSourceType implements ReferenceDataObject<Long>, NamedRe
 	 * 
 	 */
 	private static final long serialVersionUID = -3051286652484467150L;
-	final static public Character IS_A_MEETING_DOCUMENT = 'Y';
-	final static public Character IS_NOT_A_MEETING_DOCUMENT = 'N';
+	public static final Character IS_A_MEETING_DOCUMENT = 'Y';
+	public static final Character IS_NOT_A_MEETING_DOCUMENT = 'N';
 
 	/**
 	 * Identifier of the domain entity.

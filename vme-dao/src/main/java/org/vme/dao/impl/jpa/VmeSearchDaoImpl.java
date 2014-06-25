@@ -42,7 +42,7 @@ import org.vme.dao.sources.figis.FigisDao;
  */
 
 public class VmeSearchDaoImpl implements VmeSearchDao {
-	static final private Logger LOG = LoggerFactory.getLogger(VmeSearchDaoImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(VmeSearchDaoImpl.class);
 
 	@Inject
 	@VmeDB

@@ -28,8 +28,8 @@ public class VmeWebSearchCacheClient {
 
 	public static final String MESSAGE = "VME_CACHE_DELETED_SUCCESS";
 
-	static final protected Logger LOG = LoggerFactory.getLogger(VmeWebSearchCacheClient.class);
-	static final private String errorMessage = "Did not manage to clear the cach in vme-web search properly";
+	protected static final Logger LOG = LoggerFactory.getLogger(VmeWebSearchCacheClient.class);
+	private static final String errorMessage = "Did not manage to clear the cach in vme-web search properly";
 
 	@Inject
 	VmeWebServer vmeWebServer;

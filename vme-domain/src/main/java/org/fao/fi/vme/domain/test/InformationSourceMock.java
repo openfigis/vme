@@ -12,7 +12,7 @@ public class InformationSourceMock {
 	public static final int YEAR = 2000;
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
-	static private InformationSourceType INSTANCE = null;
+	private static InformationSourceType INSTANCE = null;
 
 	public static InformationSource create() {
 		InformationSource is = new InformationSource();

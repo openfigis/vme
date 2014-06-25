@@ -5,9 +5,9 @@ import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 
 public class ValidityPeriodMock {
 
-	public final static int BEGIN_YEAR = 2000;
-	public final static int END_YEAR = 2003;
-	public final static int YEARS = END_YEAR - BEGIN_YEAR + 1;
+	public static final int BEGIN_YEAR = 2000;
+	public static final int END_YEAR = 2003;
+	public static final int YEARS = END_YEAR - BEGIN_YEAR + 1;
 
 	private static ValidityPeriodUtil u = new ValidityPeriodUtil();
 

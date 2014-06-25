@@ -11,7 +11,7 @@ import javax.enterprise.inject.Alternative;
 
 @Alternative
 public class EmbeddedMsAccessConnectionProvider extends MsAccessConnectionProvider {
-	final static private String DEFAULT_MS_ACCESS_DB_RESOURCE = "VME_DB_production.accdb";
+	private static final String DEFAULT_MS_ACCESS_DB_RESOURCE = "VME_DB_production.accdb";
 
 	private String resource = DEFAULT_MS_ACCESS_DB_RESOURCE;
 

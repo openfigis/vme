@@ -10,15 +10,15 @@ import org.fao.fi.vme.VmeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-abstract public class MsAccessConnectionProvider {
-	final static protected Logger LOG = LoggerFactory.getLogger(MsAccessConnectionProvider.class);
+public abstract class MsAccessConnectionProvider {
+	protected static final Logger LOG = LoggerFactory.getLogger(MsAccessConnectionProvider.class);
 
-	final static protected String JDBC_ODBC_DRIVER = "sun.jdbc.odbc.JdbcOdbcDriver";
-	final static protected String UCANACCESS_DRIVER = "net.ucanaccess.jdbc.UcanaccessDriver";
+	protected static final String JDBC_ODBC_DRIVER = "sun.jdbc.odbc.JdbcOdbcDriver";
+	protected static final String UCANACCESS_DRIVER = "net.ucanaccess.jdbc.UcanaccessDriver";
 
-	final static protected String JDBC_ODBC_URL = "jdbc:odbc:Driver={Microsoft Access Driver "
+	protected static final String JDBC_ODBC_URL = "jdbc:odbc:Driver={Microsoft Access Driver "
 			+ "(*.mdb, *.accdb)};DBQ=";
-	final static protected String UCANACCESS_URL = "jdbc:ucanaccess://";
+	protected static final String UCANACCESS_URL = "jdbc:ucanaccess://";
 
 	protected Connection connection;
 
@@ -27,7 +27,7 @@ abstract public class MsAccessConnectionProvider {
 	}
 
 	@PostConstruct
-	final public void postConstruct() {
+	public final void postConstruct() {
 		try {
 			String dbFilePath = this.getDBLocation();
 
@@ -42,7 +42,7 @@ abstract public class MsAccessConnectionProvider {
 		}
 	}
 
-	final public Connection getConnection() {
+	public final Connection getConnection() {
 		return connection;
 	}
 

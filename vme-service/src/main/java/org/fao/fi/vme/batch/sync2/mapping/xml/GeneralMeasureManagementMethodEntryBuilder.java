@@ -30,14 +30,14 @@ import org.purl.dc.elements._1.Title;
  */
 public class GeneralMeasureManagementMethodEntryBuilder {
 
-	public final static String TITLE_GM = "VME general measures";
-	public final static String FISHING_AREAS = "Fishing_areas";
-	public final static String EXPLORATORY_FISHING_PROTOCOL = "Exploratory_fishing_protocol";
-	public final static String VME_ENCOUNTER_PROTOCOLS = "VME_encounter_protocols";
-	public final static String VME_THRESHOLD = "VME_threshold";
-	public final static String VME_INDICATORSPECIES = "VME_indicatorspecies";
-	public final static String URI = "URI";
-	public final static String TIME = "Time";
+	public static final String TITLE_GM = "VME general measures";
+	public static final String FISHING_AREAS = "Fishing_areas";
+	public static final String EXPLORATORY_FISHING_PROTOCOL = "Exploratory_fishing_protocol";
+	public static final String VME_ENCOUNTER_PROTOCOLS = "VME_encounter_protocols";
+	public static final String VME_THRESHOLD = "VME_threshold";
+	public static final String VME_INDICATORSPECIES = "VME_indicatorspecies";
+	public static final String URI = "URI";
+	public static final String TIME = "Time";
 	private BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
 	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
 	private ObjectFactory f = new ObjectFactory();

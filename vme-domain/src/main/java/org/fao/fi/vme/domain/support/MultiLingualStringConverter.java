@@ -21,7 +21,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.Abstrac
  * @since 16/nov/2013
  */
 public class MultiLingualStringConverter extends AbstractDataConverter<MultiLingualString> {
-	static final private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
+	private static final MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
 	
 	/* (non-Javadoc)
 	 * @see org.gcube.application.rsg.support.converters.impl.AbstractDataConverter#doConvert(java.io.Serializable)

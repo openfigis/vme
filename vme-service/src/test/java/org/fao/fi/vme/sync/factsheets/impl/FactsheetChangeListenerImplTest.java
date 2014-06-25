@@ -90,7 +90,7 @@ public class FactsheetChangeListenerImplTest {
 			vmeDao.update(vme);
 			vmeDao.commit(et);
 
-			l.VMEChanged(vme);
+			l.vmeChanged(vme);
 			delegateCount();
 
 			System.out.println(figisDao.loadObjects(ObservationXml.class).get(0).getXml());
