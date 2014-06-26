@@ -10,8 +10,8 @@ import org.junit.Test;
 
 public class VmeTypeTest {
 
-	VmeType vType1 = new VmeType(150L, "TTH_FISH_RSCH", "Research fisheries");
-	VmeType vType2 = new VmeType(200L, "MPR_FISH_SRCH", "Something different from the previous");
+	private VmeType vType1 = new VmeType(150L, "TTH_FISH_RSCH", "Research fisheries");
+	private VmeType vType2 = new VmeType(200L, "MPR_FISH_SRCH", "Something different from the previous");
 	
 	@Test
 	public void testHashCode() {

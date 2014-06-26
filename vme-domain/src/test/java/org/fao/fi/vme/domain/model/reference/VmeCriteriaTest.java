@@ -10,8 +10,8 @@ import org.junit.Test;
 
 public class VmeCriteriaTest {
 
-	VmeCriteria criteria1 = new VmeCriteria(1001L, "Life-history traits");
-	VmeCriteria criteria2 = new VmeCriteria(1002L, "Structural complexity");
+	private VmeCriteria criteria1 = new VmeCriteria(1001L, "Life-history traits");
+	private VmeCriteria criteria2 = new VmeCriteria(1002L, "Structural complexity");
 	
 	@Test
 	public void testHashCode() {
