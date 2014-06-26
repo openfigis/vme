@@ -26,8 +26,7 @@ public class VmeCriteriaTest {
 
 	@Test
 	public void testVmeCriteriaLongString() {
-		VmeCriteria crit = new VmeCriteria(1003L, "Fragility");
-		assertNotNull(crit);
+		assertNotNull(criteria1);
 	}
 
 	@Test
