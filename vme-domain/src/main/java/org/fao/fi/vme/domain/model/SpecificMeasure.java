@@ -16,6 +16,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenc
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGRichInput;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
@@ -91,7 +92,7 @@ public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, S
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(2)
 	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString vmeSpecificMeasure;
+	private @RSGRichInput MultiLingualString vmeSpecificMeasure;
 
 	@Override
 	public Long getId() {

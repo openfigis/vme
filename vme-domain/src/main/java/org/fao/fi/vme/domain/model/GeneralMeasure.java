@@ -21,6 +21,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenc
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGRichInput;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGSimpleReference;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
@@ -96,7 +97,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString fishingArea;
+	private @RSGRichInput MultiLingualString fishingArea;
 
 	/**
 	 * 
@@ -105,7 +106,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString explorataryFishingProtocol;
+	private @RSGRichInput MultiLingualString explorataryFishingProtocol;
 
 	/**
 	 * 
@@ -114,7 +115,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString vmeEncounterProtocol;
+	private @RSGRichInput MultiLingualString vmeEncounterProtocol;
 
 	/**
 	 * 
@@ -123,7 +124,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString vmeIndicatorSpecies;
+	private @RSGRichInput MultiLingualString vmeIndicatorSpecies;
 
 	/**
 	 * 
@@ -132,7 +133,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString vmeThreshold;
+	private @RSGRichInput MultiLingualString vmeThreshold;
 
 	@Override
 	public Long getId() {

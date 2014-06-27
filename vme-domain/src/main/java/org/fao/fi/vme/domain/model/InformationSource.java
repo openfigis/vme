@@ -29,6 +29,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGI
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGOneAmong;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGRichInput;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGSimpleReference;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
@@ -115,6 +116,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 
 	/** */
 	@RSGName("Report Summary")
+	@RSGRichInput
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(2)
 	@OneToOne(cascade = { CascadeType.ALL })

@@ -17,6 +17,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGC
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGRichInput;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 
@@ -61,7 +62,7 @@ public class Profile implements ObjectId<Long>, Year<Profile>, Serializable {
 	@RSGName("VME Physical description")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString descriptionPhisical;
+	private @RSGRichInput MultiLingualString descriptionPhisical;
 
 	/**
 	 * 
@@ -70,7 +71,7 @@ public class Profile implements ObjectId<Long>, Year<Profile>, Serializable {
 	@RSGName("VME Biological description")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString descriptionBiological;
+	private @RSGRichInput MultiLingualString descriptionBiological;
 
 	/**
 	 * Description of the impact of this VME
@@ -78,7 +79,7 @@ public class Profile implements ObjectId<Long>, Year<Profile>, Serializable {
 	@RSGName("VME Impact description")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@OneToOne(cascade = { CascadeType.ALL })
-	private MultiLingualString descriptionImpact;
+	private @RSGRichInput MultiLingualString descriptionImpact;
 
 	@RSGName("Geoform")
 	@RSGConverter(MultiLingualStringConverter.class)
