@@ -32,8 +32,8 @@ public class BoneCPConnectionProvider extends AbstractConnectionProvider {
 
 	private static final String CUSTOM_PREFIX = "hibernate.bonecp.";
 	
-	private BoneCP _ds;
-	private Statistics _stats;
+	private BoneCP ds;
+	private Statistics stats;
 	
 	public BoneCPConnectionProvider() {
 		super();
@@ -85,13 +85,13 @@ public class BoneCPConnectionProvider extends AbstractConnectionProvider {
 		
 		BoneCPConfig config = new BoneCPConfig(configuration);
 
-		this._ds = new BoneCP(config);
+		this.ds = new BoneCP(config);
 		
 		if(config.isStatisticsEnabled()) {
-			this._stats = new Statistics(this._ds);
+			this.stats = new Statistics(this.ds);
 		}
 		
-		Connection conn = this._ds.getConnection();
+		Connection conn = this.ds.getConnection();
 		conn.close();
 
 		// Log pool statistics before continuing.
@@ -101,9 +101,9 @@ public class BoneCPConnectionProvider extends AbstractConnectionProvider {
 	public Connection getConnection() throws SQLException {
 		Connection conn = null;
 		try {
-			conn = this._ds.getConnection();
-		} catch(SQLException SQLe) {
-			SQLe.printStackTrace();
+			conn = this.ds.getConnection();
+		} catch(SQLException e) {
+			e.printStackTrace();
 		} finally {
 			logStatistics();
 		}
@@ -114,20 +114,20 @@ public class BoneCPConnectionProvider extends AbstractConnectionProvider {
 	 * @see org.vme.dao.util.AbstractConnectionProvider#cleanup()
 	 */
 	protected void cleanup() {
-		if(this._ds != null) {
+		if(this.ds != null) {
 			try {
-				this._ds.close();
+				this.ds.close();
 			} catch (Exception e2) {
 				// ignore
 			}
 			
-			this._ds = null;
+			this.ds = null;
 		}
 	}
 	
 	protected void logStatistics() {
-		if(this._stats != null) {
-			LOG.debug("Connections requested: {} - Connection wait time (avg): {}", this._stats.getConnectionsRequested(), this._stats.getConnectionWaitTimeAvg());
+		if(this.stats != null) {
+			LOG.debug("Connections requested: {} - Connection wait time (avg): {}", this.stats.getConnectionsRequested(), this.stats.getConnectionWaitTimeAvg());
 		}
 	}
 }

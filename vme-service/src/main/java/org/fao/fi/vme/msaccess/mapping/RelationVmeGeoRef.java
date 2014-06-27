@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RelationVmeGeoRef {
 
-	final static private Logger LOG = LoggerFactory.getLogger(RelationVmeGeoRef.class);
+	private static final Logger LOG = LoggerFactory.getLogger(RelationVmeGeoRef.class);
 
 	public void correct(List<ObjectCollection> objectCollectionList) {
 		for (ObjectCollection objectCollection : objectCollectionList) {

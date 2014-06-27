@@ -24,9 +24,9 @@ import org.fao.fi.vme.domain.model.extended.VMEsHistory;
  * @since 20 Feb 2014
  */
 public interface FactsheetChangeListener {
-	void VMEChanged(Vme... changed) throws Exception;
-	void VMEAdded(Vme... added) throws Exception;
-	void VMEDeleted(Vme... deleted) throws Exception;
+	void vmeChanged(Vme... changed) throws Exception;
+	void vmeAdded(Vme... added) throws Exception;
+	void vmeDeleted(Vme... deleted) throws Exception;
 	
 	void generalMeasureChanged(GeneralMeasure... changed) throws Exception;
 	void generalMeasureAdded(GeneralMeasure... added) throws Exception;

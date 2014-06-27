@@ -28,7 +28,7 @@ import org.vme.dao.config.PersistenceUnitConfiguration;
  */
 @Alternative
 public class VmeDataBaseProducer extends AbstractDataBaseProducer {
-	@Inject @VmeDB protected PersistenceUnitConfiguration _config;
+	@Inject @VmeDB protected PersistenceUnitConfiguration config;
 	
 	@Produces
 	@VmeDB
@@ -40,6 +40,6 @@ public class VmeDataBaseProducer extends AbstractDataBaseProducer {
 	// what type of beans it can produce.
 	@Produces 
 	public EntityManagerFactory create() {
-		return Persistence.createEntityManagerFactory(this._config.getPersistenceUnitName());
+		return Persistence.createEntityManagerFactory(this.config.getPersistenceUnitName());
 	}
 }

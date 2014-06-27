@@ -32,34 +32,34 @@ import org.slf4j.LoggerFactory;
  * @version 1.0
  * @since 25 Feb 2014
  */
-abstract public class AbstractConnectionProvider implements ConnectionProvider, Configurable {
+public abstract class AbstractConnectionProvider implements ConnectionProvider, Configurable {
 	/** Field serialVersionUID */
 	private static final long serialVersionUID = -1281741635401231503L;
 	
-	final static protected Logger LOG = LoggerFactory.getLogger(AbstractConnectionProvider.class);
+	protected static final Logger LOG = LoggerFactory.getLogger(AbstractConnectionProvider.class);
 	
-	final static protected String AUTOCOMMIT = "hibernate.connection.autocommit";
+	protected static final String AUTOCOMMIT = "hibernate.connection.autocommit";
 
-	final static protected String JDBC_DRIVER_CLASS_PROP = "javax.persistence.jdbc.driver";
-	final static protected String JDBC_URL_PROP = "javax.persistence.jdbc.url";
-	final static protected String JDBC_USER_PROP = "javax.persistence.jdbc.user";
-	final static protected String JDBC_PWD_PROP = "javax.persistence.jdbc.password";
+	protected static final String JDBC_DRIVER_CLASS_PROP = "javax.persistence.jdbc.driver";
+	protected static final String JDBC_URL_PROP = "javax.persistence.jdbc.url";
+	protected static final String JDBC_USER_PROP = "javax.persistence.jdbc.user";
+	protected static final String JDBC_PWD_PROP = "javax.persistence.jdbc.password";
 	
 	public AbstractConnectionProvider() {
 		super();
 	}
 	
 	class CommonConfiguration {
-		private String _driverClass;
-		private String _url;
-		private String _username;
-		private String _password;
+		private String driverClass;
+		private String url;
+		private String username;
+		private String password;
 		
-		private String _transactionIsolation;
-		private Boolean _defaultAutocommit;
-		private Integer _poolSize;
+		private String transactionIsolation;
+		private Boolean defaultAutocommit;
+		private Integer poolSize;
 		
-		private String _connectionProperties;
+		private String connectionProperties;
 		
 		/**
 		 * Class constructor
@@ -73,112 +73,112 @@ abstract public class AbstractConnectionProvider implements ConnectionProvider, 
 		 * @return the 'driverClass' value
 		 */
 		public String getDriverClass() {
-			return this._driverClass;
+			return this.driverClass;
 		}
 		
 		/**
 		 * @param driverClass the 'driverClass' value to set
 		 */
 		public void setDriverClass(String driverClass) {
-			this._driverClass = driverClass;
+			this.driverClass = driverClass;
 		}
 		
 		/**
 		 * @return the 'url' value
 		 */
 		public String getUrl() {
-			return this._url;
+			return this.url;
 		}
 		
 		/**
 		 * @param url the 'url' value to set
 		 */
 		public void setUrl(String url) {
-			this._url = url;
+			this.url = url;
 		}
 		
 		/**
 		 * @return the 'username' value
 		 */
 		public String getUsername() {
-			return this._username;
+			return this.username;
 		}
 		
 		/**
 		 * @param username the 'username' value to set
 		 */
 		public void setUsername(String username) {
-			this._username = username;
+			this.username = username;
 		}
 		
 		/**
 		 * @return the 'password' value
 		 */
 		public String getPassword() {
-			return this._password;
+			return this.password;
 		}
 		
 		/**
 		 * @param password the 'password' value to set
 		 */
 		public void setPassword(String password) {
-			this._password = password;
+			this.password = password;
 		}
 		
 		/**
 		 * @return the 'transactionIsolation' value
 		 */
 		public String getTransactionIsolation() {
-			return this._transactionIsolation;
+			return this.transactionIsolation;
 		}
 		
 		/**
 		 * @param transactionIsolation the 'transactionIsolation' value to set
 		 */
 		public void setTransactionIsolation(String transactionIsolation) {
-			this._transactionIsolation = transactionIsolation;
+			this.transactionIsolation = transactionIsolation;
 		}
 		
 		/**
 		 * @return the 'defaultAutocommit' value
 		 */
 		public Boolean getDefaultAutocommit() {
-			return this._defaultAutocommit;
+			return this.defaultAutocommit;
 		}
 		
 		/**
 		 * @param defaultAutocommit the 'defaultAutocommit' value to set
 		 */
 		public void setDefaultAutocommit(Boolean defaultAutocommit) {
-			this._defaultAutocommit = defaultAutocommit;
+			this.defaultAutocommit = defaultAutocommit;
 		}
 		
 		/**
 		 * @return the 'poolSize' value
 		 */
 		public Integer getPoolSize() {
-			return this._poolSize;
+			return this.poolSize;
 		}
 		
 		/**
 		 * @param poolSize the 'poolSize' value to set
 		 */
 		public void setPoolSize(Integer poolSize) {
-			this._poolSize = poolSize;
+			this.poolSize = poolSize;
 		}
 
 		/**
 		 * @return the 'connectionProperties' value
 		 */
 		public String getConnectionProperties() {
-			return this._connectionProperties;
+			return this.connectionProperties;
 		}
 
 		/**
 		 * @param driverProperties the 'connectionProperties' value to set
 		 */
 		public void setConnectionProperties(String connectionProperties) {
-			this._connectionProperties = connectionProperties;
+			this.connectionProperties = connectionProperties;
 		}
 	}
 	
@@ -218,7 +218,7 @@ abstract public class AbstractConnectionProvider implements ConnectionProvider, 
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	final protected Properties customConfiguration(Map configurationValues) {
+	protected final Properties customConfiguration(Map configurationValues) {
 		String property, value;
 		
 		Properties asProps = new Properties();
@@ -241,51 +241,51 @@ abstract public class AbstractConnectionProvider implements ConnectionProvider, 
 		return asProps;
 	}
 
-	abstract protected void cleanup() throws Throwable;
+	protected abstract void cleanup() throws Throwable;
 	
-	abstract protected Properties asProperties(CommonConfiguration common);
+	protected abstract Properties asProperties(CommonConfiguration common);
 
-	abstract protected String getCustomPrefix();
+	protected abstract String getCustomPrefix();
 
-	abstract protected void configurePool(Properties configuration) throws Throwable;
+	protected abstract void configurePool(Properties configuration) throws Throwable;
 
-	final protected void safePut(Properties props, String key, Object value) {
+	protected final void safePut(Properties props, String key, Object value) {
 		if(value != null) {
 			props.put(key, value.toString());
 		}
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	final protected CommonConfiguration commonConfiguration(Map props) {
+	protected final CommonConfiguration commonConfiguration(Map props) {
 		CommonConfiguration common = new CommonConfiguration();
 		
 		try {
-			common._driverClass = (String)props.get(JDBC_DRIVER_CLASS_PROP);
-			common._url = (String)props.get(JDBC_URL_PROP);
+			common.driverClass = (String)props.get(JDBC_DRIVER_CLASS_PROP);
+			common.url = (String)props.get(JDBC_URL_PROP);
 
 			// Username / password
-			common._username = (String)props.get(JDBC_USER_PROP);
-			common._password = (String)props.get(JDBC_PWD_PROP);
+			common.username = (String)props.get(JDBC_USER_PROP);
+			common.password = (String)props.get(JDBC_PWD_PROP);
 
 			// Isolation level
 			String isolationLevel = (String)props.get(Environment.ISOLATION);
 			
 			if ((isolationLevel != null) && (isolationLevel.trim().length() > 0)) {
-				common._transactionIsolation = isolationLevel;
+				common.transactionIsolation = isolationLevel;
 			}
 
 			// Turn off autocommit (unless autocommit property is set)
 			String autocommit = (String)props.get(AUTOCOMMIT);
 			if ((autocommit != null) && (autocommit.trim().length() > 0)) {
-				common._defaultAutocommit = Boolean.parseBoolean(autocommit);
+				common.defaultAutocommit = Boolean.parseBoolean(autocommit);
 			} else {
-				common._defaultAutocommit = Boolean.FALSE;
+				common.defaultAutocommit = Boolean.FALSE;
 			}
 
 			// Pool size
 			String poolSize = (String)props.get(Environment.POOL_SIZE);
 			if ((poolSize != null) && (poolSize.trim().length() > 0) && (Integer.parseInt(poolSize) > 0)) {
-				common._poolSize = Integer.parseInt(poolSize);
+				common.poolSize = Integer.parseInt(poolSize);
 			}
 			
 			Properties driverProps = ConnectionProviderInitiator.getConnectionProperties(props);
@@ -314,12 +314,12 @@ abstract public class AbstractConnectionProvider implements ConnectionProvider, 
 	/* (non-Javadoc)
 	 * @see org.hibernate.engine.jdbc.connections.spi.ConnectionProvider#getConnection()
 	 */
-	abstract public Connection getConnection() throws SQLException;
+	public abstract Connection getConnection() throws SQLException;
 
 	/* (non-Javadoc)
 	 * @see org.hibernate.engine.jdbc.connections.spi.ConnectionProvider#closeConnection(java.sql.Connection)
 	 */
-	final public void closeConnection(Connection conn) throws SQLException {
+	public final void closeConnection(Connection conn) throws SQLException {
 		try {
 			conn.close();
 		} finally {
@@ -327,12 +327,12 @@ abstract public class AbstractConnectionProvider implements ConnectionProvider, 
 		}
 	}
 	
-	abstract protected void logStatistics();
+	protected abstract void logStatistics();
 
 	/* (non-Javadoc)
 	 * @see org.hibernate.engine.jdbc.connections.spi.ConnectionProvider#supportsAggressiveRelease()
 	 */
-	final public boolean supportsAggressiveRelease() {
+	public final boolean supportsAggressiveRelease() {
 		return false;
 	}
 
@@ -341,7 +341,7 @@ abstract public class AbstractConnectionProvider implements ConnectionProvider, 
 	 */
 	@SuppressWarnings("rawtypes")
 	@Override
-	final public boolean isUnwrappableAs(Class unwrapType) {
+	public final boolean isUnwrappableAs(Class unwrapType) {
 		return false;
 	}
 
@@ -349,7 +349,7 @@ abstract public class AbstractConnectionProvider implements ConnectionProvider, 
 	 * @see org.hibernate.service.spi.Wrapped#unwrap(java.lang.Class)
 	 */
 	@Override
-	final public <T> T unwrap(Class<T> unwrapType) {
+	public final <T> T unwrap(Class<T> unwrapType) {
 		return null;
 	}
 }

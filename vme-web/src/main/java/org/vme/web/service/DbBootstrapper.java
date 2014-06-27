@@ -14,7 +14,7 @@ public class DbBootstrapper {
 	/**
 	 * Microsoft access database file
 	 */
-	public final static int EMBEDDED_ACCESS_DB = 0;
+	public static final int EMBEDDED_ACCESS_DB = 0;
 
 	private static boolean hasbooted = false;
 

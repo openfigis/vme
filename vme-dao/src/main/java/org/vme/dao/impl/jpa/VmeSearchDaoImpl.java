@@ -42,7 +42,7 @@ import org.vme.dao.sources.figis.FigisDao;
  */
 
 public class VmeSearchDaoImpl implements VmeSearchDao {
-	static final private Logger LOG = LoggerFactory.getLogger(VmeSearchDaoImpl.class);
+	private static final Logger LOG = LoggerFactory.getLogger(VmeSearchDaoImpl.class);
 
 	@Inject
 	@VmeDB
@@ -64,7 +64,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<VmeDto> searchVme(long authority_id, long type_id, long criteria_id, int year, String text)
+	public List<VmeDto> searchVme(long authorityId, long typeId, long criteriaId, int year, String text)
 			throws Exception {
 
 		// Intervention Erik van Ingen 4 April 2014
@@ -76,7 +76,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}
 
-		Query query = entityManager.createQuery(createHibernateSearchTextualQuery(authority_id, type_id, criteria_id,
+		Query query = entityManager.createQuery(createHibernateSearchTextualQuery(authorityId, typeId, criteriaId,
 				year));
 		Date date = vu.beginYear2BeginDate(year);
 		query.setParameter("beginDate", date, TemporalType.DATE);
@@ -88,11 +88,23 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	}
 
 	public List<VmeDto> getVmeById(long id, int year) {
-		String text_query;
+		String textQuery;
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}
-		text_query = "from Vme vme where vme.id = " + id;
+		textQuery = "from Vme vme where vme.id = " + id;
+		Query query = entityManager.createQuery(textQuery);
+		List<?> result = query.getResultList();
+		@SuppressWarnings("unchecked")
+		List<VmeDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
+		return res;
+	}
+
+	public List<VmeDto> getVmeByInventoryIdentifier(String invId, int year) {
+		if (year == 0) {
+			year = Calendar.getInstance().get(Calendar.YEAR);
+		}
+		String text_query = "from Vme vme where vme.inventoryIdentifier = '" + invId + "'";
 		Query query = entityManager.createQuery(text_query);
 		List<?> result = query.getResultList();
 		@SuppressWarnings("unchecked")
@@ -100,36 +112,24 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		return res;
 	}
 
-	public List<VmeDto> getVmeByInventoryIdentifier(String inv_id, int year) {
-		if (year == 0) {
-			year = Calendar.getInstance().get(Calendar.YEAR);
-		}
-		String text_query = "from Vme vme where vme.inventoryIdentifier = '" + inv_id + "'";
-		Query query = entityManager.createQuery(text_query);
-		List<?> result = query.getResultList();
-		@SuppressWarnings("unchecked")
-		List<VmeDto> res = convertPersistenceResult(year, (List<Vme>) result, null);
-		return res;
-	}
-
-	public List<VmeDto> getVmeByGeographicFeatureId(String geo_id, int year) {
+	public List<VmeDto> getVmeByGeographicFeatureId(String geoId, int year) {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}
 		// String text_query =
 		// "SELECT vme from Vme vme, GEO_REF gfl WHERE vme = gfl.vme and gfl IN (SELECT gfl from GEO_REF WHERE gfl.geographicFeatureID = '"
 		// + geo_id + "')";
-		String text_query = "select OBJECT(v) from Vme v join v.geoRefList g where g.geographicFeatureID =  '" + geo_id
+		String textQuery = "select OBJECT(v) from Vme v join v.geoRefList g where g.geographicFeatureID =  '" + geoId
 				+ "')";
 
 		@SuppressWarnings("unchecked")
-		List<Vme> result = entityManager.createQuery(text_query).getResultList();
+		List<Vme> result = entityManager.createQuery(textQuery).getResultList();
 
 		List<VmeDto> res = convertPersistenceResult(year, result, null);
 		return res;
 	}
 
-	private String createHibernateSearchTextualQuery(long authority_id, long type_id, long criteria_id, int year)
+	private String createHibernateSearchTextualQuery(long authorityId, long typeId, long criteriaId, int year)
 			throws Exception {
 		StringBuffer txtQuery = new StringBuffer(200);
 		String conjunction = " where";
@@ -140,8 +140,8 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		// conjunction = "";
 		// }
 
-		if (authority_id > 0) {
-			Authority vmeAuthority = (Authority) entityManager.find(Authority.class, authority_id);
+		if (authorityId > 0) {
+			Authority vmeAuthority = (Authority) entityManager.find(Authority.class, authorityId);
 			if (vmeAuthority != null) {
 				String authority = vmeAuthority.getAcronym();
 				txtQuery.append(conjunction);
@@ -152,8 +152,8 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			}
 		}
 
-		if (criteria_id > 0) {
-			VmeCriteria vmeCriteria = (VmeCriteria) entityManager.find(VmeCriteria.class, criteria_id);
+		if (criteriaId > 0) {
+			VmeCriteria vmeCriteria = (VmeCriteria) entityManager.find(VmeCriteria.class, criteriaId);
 			if (vmeCriteria != null) {
 				String criteria = vmeCriteria.getName();
 				txtQuery.append(conjunction);
@@ -164,8 +164,8 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			}
 		}
 
-		if (type_id > 0) {
-			VmeType vmeType = (VmeType) entityManager.find(VmeType.class, type_id);
+		if (typeId > 0) {
+			VmeType vmeType = (VmeType) entityManager.find(VmeType.class, typeId);
 			if (vmeType != null) {
 				String areaType = vmeType.getName();
 				txtQuery.append(conjunction);

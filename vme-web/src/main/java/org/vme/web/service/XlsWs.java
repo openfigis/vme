@@ -30,23 +30,23 @@ public class XlsWs {
 
 	private static final String ERROR_MESSAGE = "XML generation failed";
 
-	private Logger _log = LoggerFactory.getLogger(this.getClass());
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Inject
-	private XlsService _xlsService;
+	private XlsService xlsService;
 
 	public XlsWs() {
-		this._log.info("Initializing {} as a response handler", this.getClass().getSimpleName());
+		this.log.info("Initializing {} as a response handler", this.getClass().getSimpleName());
 	}
 
 	@GET
 	@Path("/{authority}")
 	@Produces("application/vnd.ms-excel")
-	public Response name(@PathParam("authority") String id_authority) {
+	public Response name(@PathParam("authority") String idAuthority) {
 
 		StreamingOutput stream = null;
 		try {
-			final ByteArrayInputStream in = this._xlsService.createXlsFile(id_authority);
+			final ByteArrayInputStream in = this.xlsService.createXlsFile(idAuthority);
 			stream = new StreamingOutput() {
 				public void write(OutputStream out) throws IOException, WebApplicationException {
 					try {
@@ -61,13 +61,13 @@ public class XlsWs {
 					}
 				}
 			};
-			return Response.ok(stream).header("content-disposition", "attachment; filename = "+ id_authority + "_VME-DataBase_Summary_"+_xlsService.dataString())
+			return Response.ok(stream).header("content-disposition", "attachment; filename = "+ idAuthority + "_VME-DataBase_Summary_"+xlsService.dataString())
 					.build();
 		} catch (RuntimeException t) {
-			this._log.error("Unexpected error caught: {}", t.getMessage(), t);
+			this.log.error("Unexpected error caught: {}", t.getMessage(), t);
 			return Response.status(500).entity(ERROR_MESSAGE).build();
 		} catch (Exception t) {
-			this._log.error("Unexpected error caught: {}", t.getMessage(), t);
+			this.log.error("Unexpected error caught: {}", t.getMessage(), t);
 			return Response.status(500).entity(ERROR_MESSAGE).build();
 		}
 

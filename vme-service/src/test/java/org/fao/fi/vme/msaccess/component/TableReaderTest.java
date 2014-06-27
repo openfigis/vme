@@ -43,7 +43,7 @@ public class TableReaderTest {
 		for (Object object : list) {
 			VME v = (VME) object;
 
-			assertNotNull(v.getRFB_ID());
+			assertNotNull(v.getRfbId());
 		}
 		assertTrue(list.size() > 0);
 		assertTrue(list.get(0) instanceof VME);

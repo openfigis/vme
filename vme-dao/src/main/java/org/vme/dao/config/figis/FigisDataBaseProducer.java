@@ -29,7 +29,7 @@ import org.vme.dao.config.PersistenceUnitConfiguration;
  */
 @Alternative
 public class FigisDataBaseProducer extends AbstractDataBaseProducer {
-	@Inject @FigisDB protected PersistenceUnitConfiguration _config;
+	@Inject @FigisDB protected PersistenceUnitConfiguration config;
 	
 	@Produces
 	@FigisDB
@@ -42,6 +42,6 @@ public class FigisDataBaseProducer extends AbstractDataBaseProducer {
 	// what type of beans it can produce.
 	@Produces
 	public EntityManagerFactory create() {
-		return Persistence.createEntityManagerFactory(this._config.getPersistenceUnitName());
+		return Persistence.createEntityManagerFactory(this.config.getPersistenceUnitName());
 	}
 }

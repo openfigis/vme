@@ -33,9 +33,9 @@ import org.vme.dao.sources.figis.FigisDao;
  */
 @Alternative
 public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
-	@Inject private SyncBatch2 _syncBatch;
+	@Inject private SyncBatch2 syncBatch;
 	
-	@Inject private FigisDao _figisDAO;
+	@Inject private FigisDao figisDAO;
 
 	/* (non-Javadoc)
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetUpdater#createFactsheets(java.lang.Long[])
@@ -47,7 +47,7 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 		for (Long vmeId : vmeIDs) {
 			LOG.info("Syncing FIGIS factsheets for VME with ID {}...", vmeId);
 			
-			_syncBatch.syncFigisWithVme(vmeDao.findVme(vmeId));
+			syncBatch.syncFigisWithVme(vmeDao.findVme(vmeId));
 			
 			this.updateCache(vmeId);
 			
@@ -67,7 +67,7 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 			
 			LOG.info("Syncing FIGIS factsheets for VME with ID {}...", vmeId);
 			
-			_syncBatch.syncFigisWithVme(vmeDao.findVme(vmeId));
+			syncBatch.syncFigisWithVme(vmeDao.findVme(vmeId));
 			
 			this.updateCache(vmeId);
 			
@@ -108,7 +108,7 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 		
 		try {
 			for (Long vmeId : vmeIDs) {
-				vmeObservations = _figisDAO.findVmeObservationByVme(vmeId);
+				vmeObservations = figisDAO.findVmeObservationByVme(vmeId);
 	
 				for(VmeObservation in : vmeObservations) {
 					observationId = in.getId();
@@ -138,7 +138,7 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 					removeObservation.executeUpdate();
 				
 					LOG.info("Removing observation with ID {}", observationId.getObservationId());
-					_figisDAO.remove(in);
+					figisDAO.remove(in);
 				}
 			}
 			

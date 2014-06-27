@@ -27,7 +27,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProv
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 public class MsAcces2DomainMapper {
-	@Inject @ConceptProvider private ReferenceDaoImpl _conceptProvider;
+	@Inject @ConceptProvider private ReferenceDaoImpl conceptProvider;
 	
 	static Map<Class<?>, Class<?>> map = new HashMap<Class<?>, Class<?>>();
 
@@ -50,7 +50,7 @@ public class MsAcces2DomainMapper {
 			TableDomainMapper m = (TableDomainMapper) tableRecord;
 
 			// map from table to domain
-			Object domainObject = m instanceof ReferenceDependentTableDomainMapper ? ((ReferenceDependentTableDomainMapper)m).map(this._conceptProvider) : m.map();
+			Object domainObject = m instanceof ReferenceDependentTableDomainMapper ? ((ReferenceDependentTableDomainMapper)m).map(this.conceptProvider) : m.map();
 
 			// adding the link 'for the record' in order to enable the Linker to
 			// do his work.

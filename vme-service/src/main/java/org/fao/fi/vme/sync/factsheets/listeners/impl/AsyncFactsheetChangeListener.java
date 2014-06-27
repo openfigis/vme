@@ -29,11 +29,11 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 	//final private ExecutorCompletionService<Void> _executorQueue = new ExecutorCompletionService<Void>(Executors.newFixedThreadPool(MAX_THREADS_IN_POOL));
 
 	//Can't use multiple parallel threads because of transaction issues on the shared VmeDAO... Improve?
-	final private ExecutorCompletionService<Void> _executorQueue = new ExecutorCompletionService<Void>(Executors.newSingleThreadExecutor());
+	private final ExecutorCompletionService<Void> executorQueue = new ExecutorCompletionService<Void>(Executors.newSingleThreadExecutor());
 	
-	final protected AsyncFactsheetChangeListener $this = this;
+	protected final AsyncFactsheetChangeListener $this = this;
 	
-	final protected void createFactsheets(final Long[] vmeIDs) {
+	protected final void createFactsheets(final Long[] vmeIDs) {
 		if(vmeIDs == null || vmeIDs.length == 0) {
 			LOG.warn("Unable to create factsheets for a NULL or empty set of VME IDs");
 		} else {
@@ -41,11 +41,11 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 			
 			for(final Long id : vmeIDs) {
 				if(id != null) {
-					this._executorQueue.submit(new Callable<Void>() {
+					this.executorQueue.submit(new Callable<Void>() {
 						@Override
 						public Void call() throws Exception {
 							try {
-								$this._updater.createFactsheets(id);
+								$this.updater.createFactsheets(id);
 							
 								LOG.info("Asynchronously created factsheet for VME with ID {}", id);
 							} catch (Throwable t) {
@@ -62,7 +62,7 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 		}
 	}
 	
-	final protected void updateFactsheets(final Long[] vmeIDs) {
+	protected final void updateFactsheets(final Long[] vmeIDs) {
 		if(vmeIDs == null || vmeIDs.length == 0) {
 			LOG.warn("Unable to update factsheets for a NULL or empty set of VME IDs");
 		} else {
@@ -70,11 +70,11 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 			
 			for(final Long id : vmeIDs) {
 				if(id != null) {
-					this._executorQueue.submit(new Callable<Void>() {
+					this.executorQueue.submit(new Callable<Void>() {
 						@Override
 						public Void call() throws Exception {
 							try {
-								$this._updater.updateFactsheets(id);
+								$this.updater.updateFactsheets(id);
 							
 								LOG.info("Asynchronously updated factsheet for VME with ID {}", id);
 							} catch(Throwable t) {
@@ -91,7 +91,7 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 		}
 	}
 	
-	final protected void deleteFactsheets(final Long[] vmeIDs) {
+	protected final void deleteFactsheets(final Long[] vmeIDs) {
 		if(vmeIDs == null || vmeIDs.length == 0) {
 			LOG.warn("Unable to delete factsheets for a NULL or empty set of VME IDs");
 		} else {
@@ -99,11 +99,11 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 			
 			for(final Long id : vmeIDs) {
 				if(id != null) {
-					this._executorQueue.submit(new Callable<Void>() {
+					this.executorQueue.submit(new Callable<Void>() {
 						@Override
 						public Void call() throws Exception {
 							try {
-								$this._updater.deleteFactsheets(id);
+								$this.updater.deleteFactsheets(id);
 							
 								LOG.info("Asynchronously deleted factsheet for VME with ID {}", id);
 							} catch(Throwable t) {

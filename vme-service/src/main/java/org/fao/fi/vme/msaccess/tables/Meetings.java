@@ -14,7 +14,7 @@ import org.fao.fi.vme.msaccess.mapping.ReferenceDependentTableDomainMapper;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
 
 public class Meetings implements ReferenceDependentTableDomainMapper {
-	final static private Long DEFAULT_INFORMATION_SOURCE_TYPE_ID = 2L; // Meeting
+	private static final Long DEFAULT_INFORMATION_SOURCE_TYPE_ID = 2L; // Meeting
 																		// documents
 
 	@PostConstruct
@@ -22,86 +22,86 @@ public class Meetings implements ReferenceDependentTableDomainMapper {
 		System.out.println("HEREIAM!");
 	}
 
-	private int ID;
-	private String RFB_ID;
-	private int Year_ID;
-	private String Meeting_Date;
-	private String Report_Summary;
-	private String Committee;
-	private String Citation;
-	private String Link_Source;
-	private int Source_Type;
+	private int iD;
+	private String rfbId;
+	private int yearId;
+	private String meetingDate;
+	private String reportSummary;
+	private String committee;
+	private String citation;
+	private String linkSource;
+	private int sourceType;
 
 	public int getID() {
-		return ID;
+		return iD;
 	}
 
 	public void setID(int iD) {
-		ID = iD;
+		this.iD = iD;
 	}
 
-	public String getRFB_ID() {
-		return RFB_ID;
+	public String getRfbId() {
+		return rfbId;
 	}
 
-	public void setRFB_ID(String rFB_ID) {
-		RFB_ID = rFB_ID;
+	public void setRfbId(String rfbId) {
+		this.rfbId = rfbId;
 	}
 
-	public int getYear_ID() {
-		return Year_ID;
+	public int getYearId() {
+		return yearId;
 	}
 
-	public void setYear_ID(int year_ID) {
-		Year_ID = year_ID;
+	public void setYearId(int yearId) {
+		this.yearId = yearId;
 	}
 
-	public String getMeeting_Date() {
-		return Meeting_Date;
+	public String getMeetingDate() {
+		return meetingDate;
 	}
 
-	public void setMeeting_Date(String meeting_Date) {
-		Meeting_Date = meeting_Date;
+	public void setMeetingDate(String meetingDate) {
+		this.meetingDate = meetingDate;
 	}
 
-	public String getReport_Summary() {
-		return Report_Summary;
+	public String getReportSummary() {
+		return reportSummary;
 	}
 
-	public void setReport_Summary(String report_Summary) {
-		Report_Summary = report_Summary;
+	public void setReportSummary(String reportSummary) {
+		this.reportSummary = reportSummary;
 	}
 
 	public String getCommittee() {
-		return Committee;
+		return committee;
 	}
 
 	public void setCommittee(String committee) {
-		Committee = committee;
+		this.committee = committee;
 	}
 
 	public String getCitation() {
-		return Citation;
+		return citation;
 	}
 
 	public void setCitation(String citation) {
-		Citation = citation;
+		this.citation = citation;
 	}
 
-	public String getLink_Source() {
-		return Link_Source;
+	public String getLinkSource() {
+		return linkSource;
 	}
 
-	public void setLink_Source(String link_Source) {
-		Link_Source = link_Source;
+	public void setLinkSource(String linkSource) {
+		this.linkSource = linkSource;
 	}
 
-	public int getSource_Type() {
-		return Source_Type;
+	public int getSourceType() {
+		return sourceType;
 	}
 
-	public void setSource_Type(int source_Type) {
-		Source_Type = source_Type;
+	public void setSourceType(int sourceType) {
+		this.sourceType = sourceType;
 	}
 
 	/*
@@ -128,27 +128,27 @@ public class Meetings implements ReferenceDependentTableDomainMapper {
 
 		is.setSourceType(defaultInformationSourceType);
 		MultiLingualStringUtil u = new MultiLingualStringUtil();
-		is.setCommittee(u.english(this.Committee));
+		is.setCommittee(u.english(this.committee));
 
-		if (this.Meeting_Date != null) {
-			MeetingDateParser p = new MeetingDateParser(this.Meeting_Date);
+		if (this.meetingDate != null) {
+			MeetingDateParser p = new MeetingDateParser(this.meetingDate);
 			is.setMeetingStartDate(p.getStart());
 			is.setMeetingEndDate(p.getEnd());
 		}
 
-		is.setId(Long.valueOf(this.ID));
-		is.setReportSummary(u.english(this.getReport_Summary()));
-		is.setPublicationYear(this.Year_ID);
+		is.setId(Long.valueOf(this.iD));
+		is.setReportSummary(u.english(this.getReportSummary()));
+		is.setPublicationYear(this.yearId);
 
 		try {
 			is.setSourceType((InformationSourceType) provider.getReferenceByID(InformationSourceType.class, new Long(
-					Source_Type)));
+					sourceType)));
 		} catch (Throwable t) {
 			throw new RuntimeException("Unable build information source type", t);
 		}
 
 		try {
-			URL url = new URL(this.getLink_Source());
+			URL url = new URL(this.getLinkSource());
 			is.setUrl(url);
 		} catch (MalformedURLException e) {
 			throw new VmeException(e);
@@ -157,7 +157,7 @@ public class Meetings implements ReferenceDependentTableDomainMapper {
 		is.setCitation(u.english(this.getCitation()));
 
 		if (is.getSourceType() == null || is.getSourceType().getId() == 0) {
-			throw new VmeException("Unable to retrieve default information source type" + this.Source_Type);
+			throw new VmeException("Unable to retrieve default information source type" + this.sourceType);
 		}
 
 		return is;

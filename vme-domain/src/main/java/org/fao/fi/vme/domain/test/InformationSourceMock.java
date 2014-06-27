@@ -11,8 +11,9 @@ public class InformationSourceMock {
 	public static final String CIT = "RFMO Conservation and Enforcement Measure  (Doc No. ####)";
 	public static final int YEAR = 2000;
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
+	public static long ID = 1000L;
 
-	static private InformationSourceType INSTANCE = null;
+	private static InformationSourceType INSTANCE = null;
 
 	public static InformationSource create() {
 		InformationSource is = new InformationSource();
@@ -21,7 +22,7 @@ public class InformationSourceMock {
 		is.setCitation(u.english(CIT));
 		is.setMeetingStartDate(Calendar.getInstance().getTime());
 		is.setMeetingEndDate(Calendar.getInstance().getTime());
-		// is.setId(Long.valueOf(1000));
+		is.setId(ID+1);
 		try {
 			is.setUrl(new URL("http://www.rfmo.org"));
 		} catch (Exception e) {

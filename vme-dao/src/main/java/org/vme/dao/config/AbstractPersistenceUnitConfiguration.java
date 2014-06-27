@@ -19,10 +19,10 @@ import org.slf4j.LoggerFactory;
  * @version 1.0
  * @since 19 Feb 2014
  */
-abstract public class AbstractPersistenceUnitConfiguration implements PersistenceUnitConfiguration {
-	static protected Logger LOG = LoggerFactory.getLogger(AbstractPersistenceUnitConfiguration.class);
+public abstract class AbstractPersistenceUnitConfiguration implements PersistenceUnitConfiguration {
+	protected static Logger LOG = LoggerFactory.getLogger(AbstractPersistenceUnitConfiguration.class);
 	
-	final public String getPersistenceUnitName() {
+	public final String getPersistenceUnitName() {
 		String persistanceUnitName = this.doGetPersistenceUnitName();
 		
 		LOG.info("Returning {} as persistance unit name for {}", persistanceUnitName, this.getClass().getSimpleName());
@@ -30,5 +30,5 @@ abstract public class AbstractPersistenceUnitConfiguration implements Persistenc
 		return persistanceUnitName;
 	}
 	
-	abstract protected String doGetPersistenceUnitName();
+	protected abstract String doGetPersistenceUnitName();
 }

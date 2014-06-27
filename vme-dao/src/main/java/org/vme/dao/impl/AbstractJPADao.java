@@ -26,7 +26,7 @@ import org.vme.dao.sources.vme.VmeDao;
  * 
  */
 public abstract class AbstractJPADao implements Dao {
-	static final protected Logger LOG = LoggerFactory.getLogger(VmeDao.class);
+	protected static final Logger LOG = LoggerFactory.getLogger(VmeDao.class);
 
 	public <E> E getEntityById(EntityManager em, Class<E> entity, Object id) {
 		Map<String, Object> idCriteria = new HashMap<String, Object>();

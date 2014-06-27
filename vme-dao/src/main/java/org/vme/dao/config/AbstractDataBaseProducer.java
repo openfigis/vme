@@ -19,6 +19,6 @@ import org.slf4j.LoggerFactory;
  * @version 1.0
  * @since 19 Feb 2014
  */
-abstract public class AbstractDataBaseProducer {
-	static protected Logger LOG = LoggerFactory.getLogger(AbstractDataBaseProducer.class);
+public abstract class AbstractDataBaseProducer {
+	protected static Logger LOG = LoggerFactory.getLogger(AbstractDataBaseProducer.class);
 }

@@ -23,13 +23,13 @@ import org.fao.fi.vme.domain.interfaces.Year;
  * @since 27 Feb 2014
  */
 public class YearComparator implements Comparator<Year<?>> {
-	final static private YearComparator INSTANCE = new YearComparator();
+	private static final YearComparator INSTANCE = new YearComparator();
 	
-	final static public YearComparator getInstance() {
+	public static final YearComparator getInstance() {
 		return INSTANCE;
 	}
 	
-	final static public <Y extends Year<?>> List<Y> sort(List<Y> toSort) {
+	public static final <Y extends Year<?>> List<Y> sort(List<Y> toSort) {
 		if(toSort == null) {
 			return null;
 		}

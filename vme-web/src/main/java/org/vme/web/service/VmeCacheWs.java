@@ -26,7 +26,7 @@ import org.vme.dao.config.vme.VmeDB;
 @Singleton
 public class VmeCacheWs {
 
-	static final private Logger LOG = LoggerFactory.getLogger(VmeCacheWs.class);
+	private static final Logger LOG = LoggerFactory.getLogger(VmeCacheWs.class);
 
 	private static String MESSAGE = "VME_CACHE_DELETED_SUCCESS";
 

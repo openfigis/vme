@@ -12,13 +12,13 @@ import org.fao.fi.vme.domain.dto.VmeDto;
  * 
  */
 public interface VmeSearchDao {
-	List<VmeDto> searchVme(long authority_id, long type_id, long criteria_id, int year, String text)
+	List<VmeDto> searchVme(long authorityId, long typeId, long criteriaId, int year, String text)
 			throws Exception;
 
 	List<VmeDto> getVmeById(long id, int year);
 
-	List<VmeDto> getVmeByInventoryIdentifier(String inv_id, int year);
+	List<VmeDto> getVmeByInventoryIdentifier(String invId, int year);
 
-	List<VmeDto> getVmeByGeographicFeatureId(String geo_id, int year);
+	List<VmeDto> getVmeByGeographicFeatureId(String geoId, int year);
 
 }

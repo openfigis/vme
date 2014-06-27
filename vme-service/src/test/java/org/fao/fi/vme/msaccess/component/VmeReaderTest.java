@@ -66,7 +66,7 @@ public class VmeReaderTest {
 				int countMeetingId = 0;
 				for (Object object : records) {
 					Measues_VME_Specific r = (Measues_VME_Specific) object;
-					if (r.getSource_ID() > 0) {
+					if (r.getSourceId() > 0) {
 						countMeetingId++;
 					}
 				}
