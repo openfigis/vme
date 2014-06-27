@@ -32,7 +32,7 @@
 				<hibernate.dialect.figis>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect.figis>
 				<hibernate.hbm2ddl.auto.figis>validate</hibernate.hbm2ddl.auto.figis>
 
-				<rsg.version>1.0.0-SNAPSHOT</rsg.version>
+				<rsg.version>1.0.1-SNAPSHOT</rsg.version>
 	</properties>
 
 	<repositories>
