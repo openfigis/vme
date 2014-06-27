@@ -9,11 +9,6 @@
 	<artifactId>vme-reports-store-gateway</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>org.gcube.application</groupId>
-			<artifactId>gcube-reporting-modeler</artifactId>
-			<version>1.1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-interface-dto</artifactId>
 			<version>[${rsg.version}]</version>
@@ -56,9 +51,7 @@
 	</dependencies>
 	<profiles>
 		<profile>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
+
 			<id>env-dev</id>
 			<properties>
 				<vme.web.server>http://localhost:8081/vme-web</vme.web.server>
@@ -72,6 +65,9 @@
 		</profile>
 		<profile>
 			<id>vme-fiqa</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<vme.web.server>http://figisapps.fao.org/figis/ws/vme</vme.web.server>
 			</properties>
