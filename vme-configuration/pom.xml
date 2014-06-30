@@ -11,7 +11,7 @@
 	<!-- Common properties for in-memory (H2) test databases -->
 	<properties>
 		<javax.persistence.jdbc.driver.vme.test>org.h2.Driver</javax.persistence.jdbc.driver.vme.test>
-		<javax.persistence.jdbc.url.vme.test>jdbc:h2:mem:db1;INIT=create schema IF NOT EXISTS VME</javax.persistence.jdbc.url.vme.test>
+		<javax.persistence.jdbc.url.vme.test>jdbc:h2:mem:db1;INIT=create schema IF NOT EXISTS VMETEST</javax.persistence.jdbc.url.vme.test>
 		<javax.persistence.jdbc.user.vme.test>sa</javax.persistence.jdbc.user.vme.test>
 		<javax.persistence.jdbc.password.vme.test></javax.persistence.jdbc.password.vme.test>
 		<hibernate.dialect.vme.test>org.hibernate.dialect.H2Dialect</hibernate.dialect.vme.test>
