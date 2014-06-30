@@ -17,7 +17,7 @@
 		<class>org.fao.fi.vme.domain.model.Rfmo</class>
 		<class>org.fao.fi.vme.domain.model.SpecificMeasure</class>
 		<class>org.fao.fi.vme.domain.model.Vme</class>
-		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
+		<class>org.fao.fi.vme.domain.model.reference.VmeCriteria</class>
 		<class>org.fao.fi.vme.domain.model.reference.VmeType</class>
 		<class>org.fao.fi.vme.domain.model.reference.InformationSourceType</class>
 		<class>org.fao.fi.vme.domain.model.reference.VmeScope</class>
@@ -75,7 +75,7 @@
 		<class>org.fao.fi.vme.domain.model.Rfmo</class>
 		<class>org.fao.fi.vme.domain.model.SpecificMeasure</class>
 		<class>org.fao.fi.vme.domain.model.Vme</class>
-		<class>org.fao.fi.vme.domain.model.VmeCriteria</class>
+		<class>org.fao.fi.vme.domain.model.reference.VmeCriteria</class>
 		<class>org.fao.fi.vme.domain.model.reference.VmeType</class>
 		<class>org.fao.fi.vme.domain.model.reference.InformationSourceType</class>
 		<class>org.fao.fi.vme.domain.model.reference.VmeScope</class>
