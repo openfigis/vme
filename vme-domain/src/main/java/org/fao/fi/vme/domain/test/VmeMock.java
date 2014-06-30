@@ -20,10 +20,11 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class VmeMock {
 
-	public static Long ID = 1000l;
+	public static Long ID = 1000L;
 	public static final int YEAR = 2000;
 	public static final String INVENTORY_ID = "VME_RFMO_1";
 	public static final String INVENTORY_ID_YEAR = INVENTORY_ID + "_" + YEAR;
+	public static final Long SCOPE = 10010L;
 
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
@@ -76,6 +77,9 @@ public class VmeMock {
 		int endYear = YEAR + nrOfyears - 1;
 
 		Vme vme = new Vme();
+		
+		vme.setId(ID);
+		vme.setScope(SCOPE);
 
 		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 		List<Profile> pList = new ArrayList<Profile>();

@@ -321,8 +321,18 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 		if (this.validityPeriod == null) {
 			if (other.validityPeriod != null)
 				return false;
-		} else if (!this.validityPeriod.equals(other.validityPeriod))
+		} else if (!this.validityPeriod.equals(other.validityPeriod)) {
 			return false;
+		}
+		
+		/*
+		 * Roberto`s note
+		 * is scope necessary to state if two vmes are different
+		 * } else if (!this.scope.equals(other.scope)){
+		 * return false;
+		 * }
+		 */
+		
 		return true;
 	}
 

@@ -12,8 +12,8 @@ import java.util.List;
  * 
  */
 
-public class ServiceResponse<T> {
 
+public class ServiceResponse<T> {
 	private ServiceRequest request;
 
 	private List<T> resultList;
