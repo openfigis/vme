@@ -66,21 +66,23 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 		RefVme refVme = RefVmeMock.create();
 		refVme.setId(vme.getId());
 
-		int totalR = dao.count(RefVme.class).intValue();
+		int totalRefVme = dao.count(RefVme.class).intValue();
 		syncBatch2.syncFigisWithVme();
-		totalR++;
 
 		// apparently the algorithm generates 1 observation, not validated
 		// further here.
-		int observations = 2;
 		int c[] = count();
+		System.out.println(c);
 
 		// More important, a subsequent synch should return the same numbers
 		syncBatch2.syncFigisWithVme();
 
-		assertEquals(totalR, dao.count(RefVme.class).intValue());
+		int difference = 0;
+		checkCount(c, difference);
 
-		checkCount(c, observations);
+		// checking also the number of ref vmes
+		totalRefVme++;
+		assertEquals(totalRefVme, dao.count(RefVme.class).intValue());
 
 	}
 

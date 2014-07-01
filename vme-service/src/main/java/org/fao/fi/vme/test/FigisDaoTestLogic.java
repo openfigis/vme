@@ -141,11 +141,10 @@ public abstract class FigisDaoTestLogic {
 		int[] sizes = { dao.count(ObservationXml.class).intValue(), dao.count(Observation.class).intValue(),
 				dao.count(VmeObservation.class).intValue() };
 
-		for (int i : sizes) {
-			System.out.println("ObservationXml= " + i);
-			System.out.println("Observation= " + i);
-			System.out.println("VmeObservation= " + i);
-		}
+		System.out.println("ObservationXml= " + sizes[0]);
+		System.out.println("Observation= " + sizes[1]);
+		System.out.println("VmeObservation= " + sizes[2]);
+		System.out.println("=================================================");
 
 		return sizes;
 	}
