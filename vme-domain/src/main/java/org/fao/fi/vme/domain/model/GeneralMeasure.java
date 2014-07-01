@@ -93,7 +93,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	/**
 	 * 
 	 */
-	@RSGName("RFB Fishing Areas")
+	@RSGName("Fishing areas")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
@@ -111,7 +111,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	/**
 	 * 
 	 */
-	@RSGName("VME Encounter")
+	@RSGName("Encounter protocols")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
@@ -120,7 +120,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	/**
 	 * 
 	 */
-	@RSGName("VME Indicator Species")
+	@RSGName("Indicator Species")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
@@ -129,7 +129,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	/**
 	 * 
 	 */
-	@RSGName("VME Threshold")
+	@RSGName("Threshold")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
 	@OneToOne(cascade = { CascadeType.ALL })
