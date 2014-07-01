@@ -92,8 +92,8 @@
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.vme.test}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.vme.test}" />
 			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.ejb.entitymanager_factory_name" value="vme_entitymanager_factory_name" />
-			<property name="hibernate.default_schema" value="VME" />
+			<property name="hibernate.ejb.entitymanager_factory_name" value="vme_entitymanager_factory_name_test" />
+			<property name="hibernate.default_schema" value="VMETEST" />
 			
 		</properties>
 	</persistence-unit>
@@ -168,7 +168,7 @@
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.figis.test}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.figis.test}" />
 			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
+			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name_test" />
 			<property name="hibernate.default_schema" value="FIGIS" />
 
 		</properties>

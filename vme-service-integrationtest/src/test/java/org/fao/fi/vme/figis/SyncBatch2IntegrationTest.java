@@ -33,7 +33,7 @@ import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmePersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,
-						 FigisDataBaseProducer.class, FigisPersistenceUnitConfiguration.class })
+		FigisDataBaseProducer.class, FigisPersistenceUnitConfiguration.class })
 @AdditionalClasses({ ReferenceDaoImpl.class })
 public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 
@@ -86,9 +86,7 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 
 	private void prepareDB() {
 
-		InformationSourceType defaultIST = InformationSourceMock.createInformationSourceType();
-
-		vmeDao.persist(defaultIST);
+		vmeDao.persist(InformationSourceMock.createInformationSourceType());
 
 		Vme vme = VmeMock.generateVme(3);
 		vmeDao.persist(vme.getRfmo());

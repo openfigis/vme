@@ -22,7 +22,9 @@ public class InformationSourceMock {
 		is.setCitation(u.english(CIT));
 		is.setMeetingStartDate(Calendar.getInstance().getTime());
 		is.setMeetingEndDate(Calendar.getInstance().getTime());
-		is.setId(ID+1);
+
+		// do not set the id because Hibernate wants to generate it.
+		// is.setId(ID+1);
 		try {
 			is.setUrl(new URL("http://www.rfmo.org"));
 		} catch (Exception e) {
