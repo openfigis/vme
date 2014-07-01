@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fao.fi.figis.devcon.ObjectFactory;
-import org.fao.fi.vme.batch.sync2.mapping.xml.AddWhenContentRule;
-import org.fao.fi.vme.batch.sync2.mapping.xml.EnglishTextUtil;
 import org.junit.Test;
 
 public class AddWhenContentRuleTest {

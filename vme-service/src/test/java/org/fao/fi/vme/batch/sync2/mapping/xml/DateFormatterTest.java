@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Calendar;
 
-import org.fao.fi.vme.batch.sync2.mapping.xml.DateFormatter;
 import org.junit.Test;
 
 public class DateFormatterTest {

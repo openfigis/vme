@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fao.fi.figis.devcon.ManagementMethodEntry;
-import org.fao.fi.vme.batch.sync2.mapping.xml.GeneralMeasureManagementMethodEntryBuilder;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.test.GeneralMeasureMock;

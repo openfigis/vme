@@ -55,14 +55,14 @@ import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.terms.Abstrakt;
 import org.purl.dc.terms.BibliographicCitation;
 import org.purl.dc.terms.Created;
-import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.fimes.jaxb.JaxbMarshall;
 
 @RunWith(CdiRunner.class)
 @AdditionalClasses({ ReferenceDaoImpl.class })
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducer.class })
+@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
 public class FigisDocBuilderTest {
 
 	@Inject

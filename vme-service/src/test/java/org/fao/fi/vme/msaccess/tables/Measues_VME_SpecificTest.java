@@ -10,6 +10,7 @@ import org.fao.fi.vme.msaccess.model.Table;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,7 +19,8 @@ import org.junit.runner.RunWith;
 public class Measues_VME_SpecificTest {
 
 	TableReader tr = new TableReader();
-	@Inject private MsAccessConnectionProvider cp;
+	@Inject
+	private MsAccessConnectionProvider cp;
 
 	@Before
 	public void before() {
@@ -26,6 +28,7 @@ public class Measues_VME_SpecificTest {
 	}
 
 	@Test
+	@Ignore("TODO delete MS acces related stuff")
 	public void testMap() {
 		Table table = tr.read(Measues_VME_Specific.class);
 		for (Object o : table.getObjectList()) {

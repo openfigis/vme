@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fao.fi.vme.batch.sync2.mapping.DisseminationYearSlice;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.test.GeneralMeasureMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;

@@ -2,7 +2,6 @@ package org.fao.fi.vme.batch.sync2.mapping.xml;
 
 import static org.junit.Assert.assertTrue;
 
-import org.fao.fi.vme.batch.sync2.mapping.xml.InformationSourceComparator;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.junit.Test;
 

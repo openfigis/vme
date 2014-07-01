@@ -41,7 +41,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
@@ -60,7 +60,7 @@ import org.vme.dao.sources.vme.VmeDao;
  */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, VmeTestPersistenceUnitConfiguration.class,
-		VmeDataBaseProducer.class, FilesystemMsAccessConnectionProvider.class })
+		VmeDataBaseProducerApplicationScope.class, FilesystemMsAccessConnectionProvider.class })
 @AdditionalClasses({ MsAcces2DomainMapper.class, ReferenceDaoImpl.class, VmeAccessDbImport.class })
 public class CRUDJpaDaoTest {
 	@Inject

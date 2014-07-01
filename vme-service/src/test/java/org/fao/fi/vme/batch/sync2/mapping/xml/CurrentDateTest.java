@@ -3,7 +3,6 @@ package org.fao.fi.vme.batch.sync2.mapping.xml;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.fao.fi.vme.batch.sync2.mapping.xml.CurrentDate;
 import org.junit.Test;
 
 public class CurrentDateTest {

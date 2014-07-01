@@ -18,12 +18,12 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FilesystemMsAccessConnectionProvider.class, VmeDataBaseProducer.class,
+@ActivatedAlternatives({ FilesystemMsAccessConnectionProvider.class, VmeDataBaseProducerApplicationScope.class,
 		VmeTestPersistenceUnitConfiguration.class })
 @AdditionalClasses({ ReferenceDaoImpl.class })
 public class TableDomainMapperTest {

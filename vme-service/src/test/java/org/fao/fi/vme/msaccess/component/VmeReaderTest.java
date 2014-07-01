@@ -20,6 +20,7 @@ import org.fao.fi.vme.msaccess.tables.RFB_MetaData;
 import org.fao.fi.vme.msaccess.tables.VME;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -38,6 +39,7 @@ public class VmeReaderTest {
 	}
 
 	@Test
+	@Ignore("TODO delete MS acces related stuff")
 	public void testReadObjects() throws SecurityException, NoSuchMethodException, IllegalArgumentException,
 			IllegalAccessException, InvocationTargetException {
 		List<Table> tables = reader.readObjects();

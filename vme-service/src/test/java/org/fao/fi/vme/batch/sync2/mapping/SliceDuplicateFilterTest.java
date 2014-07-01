@@ -5,9 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fao.fi.vme.batch.sync2.mapping.DisseminationYearSlice;
-import org.fao.fi.vme.batch.sync2.mapping.PeriodGrouping;
-import org.fao.fi.vme.batch.sync2.mapping.SliceDuplicateFilter;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
