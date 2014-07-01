@@ -12,7 +12,8 @@ import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.batch.sync2.mapping.xml.DefaultObservationXml;
-import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilder;
+import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilderRegolatory;
+import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilderVme;
 import org.fao.fi.vme.domain.model.Vme;
 import org.vme.dao.sources.figis.DefaultObservationDomain;
 import org.vme.dao.sources.figis.PrimaryRule;
@@ -35,13 +36,36 @@ import org.vme.fimes.jaxb.JaxbMarshall;
  * 
  * 
  * 
+ * ME data stored in the database will be exposed in XML format for being
+ * disseminated in form of FIGIS fact sheets. Here follows the list of db fields
+ * matching XPaths. VME fact sheets are of two types: VME and Regulatory (see
+ * Scope attribute in VMEIdent).
+ * 
+ * When Scope= VME, XML output will contain:
+ * 
+ * fi:HabitatBio, fi:Impacts, Specific Measure
+ * {fi:ManagementMethods/fi:ManagementMethodEntry
+ * 
+ * @Focus="Vulnerable Marine Ecosystems"/dc:Title[VME-specific measures]}
+ * 
+ *                    When Scope= Regulatory, XML output will contain:
+ * 
+ *                    General Measure
+ *                    {fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
+ *                    "Vulnerable Marine Ecosystems"/dc:Title[VME-specific
+ *                    measures]} , fi:FisheryArea, fi:History, fi:Sources
+ * 
+ * 
+ * 
  * @author Erik van Ingen
  * 
  */
 public class ObjectMapping {
 
 	@Inject
-	private FigisDocBuilder figisDocBuilder;
+	private FigisDocBuilderVme figisDocBuilderVme;
+	@Inject
+	private FigisDocBuilderRegolatory figisDocBuilderRegolatory;
 
 	private final JaxbMarshall marshall = new JaxbMarshall();
 	private final PeriodGrouping grouping = new PeriodGrouping();
@@ -66,16 +90,13 @@ public class ObjectMapping {
 			odList.add(od);
 
 			FIGISDoc figisDoc = new FIGISDoc();
-			figisDocBuilder.dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
-			figisDocBuilder.vme(vme, disseminationYearSlice.getGeoRef(), disseminationYearSlice.getYear(), figisDoc);
-			figisDocBuilder.fisheryArea(disseminationYearSlice.getFisheryAreasHistory(), figisDoc);
-			figisDocBuilder.vmesHistory(disseminationYearSlice.getVmesHistory(), figisDoc);
-			figisDocBuilder.specificMeasures(disseminationYearSlice.getSpecificMeasure(), figisDoc);
-			figisDocBuilder.profile(disseminationYearSlice.getProfile(), figisDoc);
-			figisDocBuilder.generalMeasures(disseminationYearSlice.getGeneralMeasure(), figisDoc,
-					disseminationYearSlice.getYear());
-			figisDocBuilder.informationSource(disseminationYearSlice.getInformationSourceList(),
-					disseminationYearSlice.getYear(), figisDoc);
+
+			if (vme.getScope() == 10) {
+				doVmeDoc(vme, disseminationYearSlice, figisDoc);
+			}
+			if (vme.getScope() == 20) {
+				doRegulatoryDoc(vme, disseminationYearSlice, figisDoc);
+			}
 
 			ObservationXml xml = new DefaultObservationXml().define();
 
@@ -96,6 +117,64 @@ public class ObjectMapping {
 		primaryRuleValidator.validate(vod);
 
 		return vod;
+	}
+
+	/**
+	 * ME data stored in the database will be exposed in XML format for being
+	 * disseminated in form of FIGIS fact sheets. Here follows the list of db
+	 * fields matching XPaths. VME fact sheets are of two types: VME and
+	 * Regulatory (see Scope attribute in VMEIdent).
+	 * 
+	 * When Scope= VME, XML output will contain:
+	 * 
+	 * fi:HabitatBio, fi:Impacts, Specific Measure
+	 * {fi:ManagementMethods/fi:ManagementMethodEntry
+	 * 
+	 * @Focus="Vulnerable Marine Ecosystems"/dc:Title[VME-specific measures]}
+	 * 
+	 * 
+	 * @param vme
+	 * @param disseminationYearSlice
+	 * @param figisDoc
+	 */
+	private void doVmeDoc(Vme vme, DisseminationYearSlice disseminationYearSlice, FIGISDoc figisDoc) {
+		figisDocBuilderVme.dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
+		figisDocBuilderVme.vme(vme, disseminationYearSlice.getGeoRef(), disseminationYearSlice.getYear(), figisDoc);
+		figisDocBuilderVme.specificMeasures(disseminationYearSlice.getSpecificMeasure(), figisDoc);
+		figisDocBuilderVme.profile(disseminationYearSlice.getProfile(), figisDoc);
+		figisDocBuilderVme.generalMeasures(disseminationYearSlice.getGeneralMeasure(), figisDoc,
+				disseminationYearSlice.getYear());
+
+	}
+
+	/**
+	 * ME data stored in the database will be exposed in XML format for being
+	 * disseminated in form of FIGIS fact sheets. Here follows the list of db
+	 * fields matching XPaths. VME fact sheets are of two types: VME and
+	 * Regulatory (see Scope attribute in VMEIdent).
+	 * 
+	 * When Scope= Regulatory, XML output will contain:
+	 * 
+	 * General Measure {fi:ManagementMethods/fi:ManagementMethodEntry@Focus=
+	 * "Vulnerable Marine Ecosystems"/dc:Title[VME-specific measures]} ,
+	 * fi:FisheryArea, fi:History, fi:Sources
+	 * 
+	 * @param vme
+	 * @param disseminationYearSlice
+	 * @param figisDoc
+	 */
+	private void doRegulatoryDoc(Vme vme, DisseminationYearSlice disseminationYearSlice, FIGISDoc figisDoc) {
+		figisDocBuilderRegolatory.dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
+		figisDocBuilderRegolatory.vme(vme, disseminationYearSlice.getGeoRef(), disseminationYearSlice.getYear(),
+				figisDoc);
+		figisDocBuilderRegolatory.fisheryArea(disseminationYearSlice.getFisheryAreasHistory(), figisDoc);
+		figisDocBuilderRegolatory.vmesHistory(disseminationYearSlice.getVmesHistory(), figisDoc);
+		figisDocBuilderRegolatory.profile(disseminationYearSlice.getProfile(), figisDoc);
+		figisDocBuilderRegolatory.generalMeasures(disseminationYearSlice.getGeneralMeasure(), figisDoc,
+				disseminationYearSlice.getYear());
+		figisDocBuilderRegolatory.informationSource(disseminationYearSlice.getInformationSourceList(),
+				disseminationYearSlice.getYear(), figisDoc);
+
 	}
 
 }

@@ -24,7 +24,7 @@ public class VmeMock {
 	public static final int YEAR = 2000;
 	public static final String INVENTORY_ID = "VME_RFMO_1";
 	public static final String INVENTORY_ID_YEAR = INVENTORY_ID + "_" + YEAR;
-	public static final Long SCOPE = 10010L;
+	public static final Long VME_SCOPE = 10L;
 
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
@@ -33,6 +33,7 @@ public class VmeMock {
 		vme.setValidityPeriod(ValidityPeriodMock.create());
 		vme.setName(u.english("Hard Corner Bugs "));
 		vme.setGeoArea(u.english("Southern Pacific Ocean"));
+		vme.setScope(VME_SCOPE);
 
 		List<GeoRef> l = new ArrayList<GeoRef>();
 
@@ -77,8 +78,8 @@ public class VmeMock {
 		int endYear = YEAR + nrOfyears - 1;
 
 		Vme vme = new Vme();
-		
-		vme.setScope(SCOPE);
+
+		vme.setScope(VME_SCOPE);
 
 		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 		List<Profile> pList = new ArrayList<Profile>();
@@ -177,15 +178,8 @@ public class VmeMock {
 		ValidityPeriod vp = ValidityPeriodMock.create(startYear, endYear);
 		vme.setValidityPeriod(vp);
 		vme.setAreaType(VmeTypeMock.create().getId());
-		vme.setCriteria(
-			new ArrayList<Long>(
-				Arrays.asList(
-					VmeCriteriaMock.create().getId(),
-					VmeCriteriaMock.createAnother().getId(),
-					VmeCriteriaMock.createYetAnother().getId()
-				)
-			)
-		);
+		vme.setCriteria(new ArrayList<Long>(Arrays.asList(VmeCriteriaMock.create().getId(), VmeCriteriaMock
+				.createAnother().getId(), VmeCriteriaMock.createYetAnother().getId())));
 		vme.setGeoArea(u.english("Southern Pacific Ocean"));
 
 		return vme;

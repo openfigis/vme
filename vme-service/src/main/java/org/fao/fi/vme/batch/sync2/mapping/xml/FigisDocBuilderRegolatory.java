@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.xml.bind.JAXBElement;
 
-import org.fao.fi.figis.devcon.AdditionalValue;
 import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.CollectionRef;
 import org.fao.fi.figis.devcon.CorporateCoverPage;
@@ -22,16 +20,11 @@ import org.fao.fi.figis.devcon.ForeignID;
 import org.fao.fi.figis.devcon.GeneralBiology;
 import org.fao.fi.figis.devcon.GeoForm;
 import org.fao.fi.figis.devcon.GeoReference;
-import org.fao.fi.figis.devcon.HabitatBio;
-import org.fao.fi.figis.devcon.Impacts;
 import org.fao.fi.figis.devcon.Management;
 import org.fao.fi.figis.devcon.ManagementMethodEntry;
 import org.fao.fi.figis.devcon.ManagementMethods;
 import org.fao.fi.figis.devcon.Max;
-import org.fao.fi.figis.devcon.Measure;
-import org.fao.fi.figis.devcon.MeasureType;
 import org.fao.fi.figis.devcon.Min;
-import org.fao.fi.figis.devcon.ObjectFactory;
 import org.fao.fi.figis.devcon.ObjectSource;
 import org.fao.fi.figis.devcon.OrgRef;
 import org.fao.fi.figis.devcon.Owner;
@@ -44,30 +37,23 @@ import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
-import org.fao.fi.vme.batch.sync2.mapping.BiblioEntryFromInformationSource;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.InformationSource;
-import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Profile;
-import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
-import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
-import org.fao.fi.vme.domain.util.Lang;
-import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.purl.dc.elements._1.Title;
 import org.purl.dc.terms.Created;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vme.dao.ReferenceDAO;
 
 /**
- * FigisDocBuilder, to build a FIGISDoc from VME Domain database
+ * FigisDocBuilder, to build a FIGISDoc from VME Domain database for regolatory
+ * factsheets.
  * 
  * 
  * Order for VMEIdent (/fi:FIGISDoc/fi:VME/fi:VMEIdent)
@@ -88,163 +74,11 @@ import org.vme.dao.ReferenceDAO;
  * 
  * @author Emmanuel Blondel
  * @author Erik van Ingen
- * @deprecated
  * 
  */
-public class FigisDocBuilder {
-	static final private Logger LOG = LoggerFactory.getLogger(FigisDocBuilder.class);
+public class FigisDocBuilderRegolatory extends FigisDocBuilderAbstract {
 
-	@Inject
-	@ConceptProvider
-	private ReferenceDAO refDao;
-
-	private ObjectFactory f = new ObjectFactory();
-	private MultiLingualStringUtil u = new MultiLingualStringUtil();
-	private EnglishTextUtil ut = new EnglishTextUtil();
-	private JAXBElementUtil uj = new JAXBElementUtil();
-	private GeneralMeasureManagementMethodEntryBuilder mmeBuilder = new GeneralMeasureManagementMethodEntryBuilder();
-	private CurrentDate currentDate = new CurrentDate();
-	private BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
-	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
-
-	public static final String VULNERABLE_MARINE_ECOSYSTEMS = "Vulnerable Marine Ecosystems";
-
-	public static final String VME_SPECIFIC_MEASURES = "VME-specific measures";
-
-	/**
-	 * Adds specificMeasures to a FIGISDoc
-	 * 
-	 * measureSummary fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:
-	 * ManagementMethodEntry@Focus=
-	 * "Vulnerable Marine Ecosystems"/fi:Measure/fi:Text
-	 * fi:FIGISDoc/fi:VME/fi:Management
-	 * /fi:ManagementMethods/fi:ManagementMethodEntry
-	 * 
-	 * @Focus="Vulnerable Marine Ecosystems"/dc:Title[VME-specific measures]
-	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 *                    /fi:ManagementMethodEntry@Focus=
-	 *                    "Vulnerable Marine Ecosystems"/fi:Measure/MeasureType
-	 *                    Value="vulnerable marine ecosystem"
-	 *                    fi:FIGISDoc/fi:VME/
-	 *                    fi:Management/fi:ManagementMethods/fi
-	 *                    :ManagementMethodEntry /fi:Measure/fi:Text
-	 * 
-	 *                    Source/url
-	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 *                    /fi:ManagementMethodEntry/fi:Measure /fi:Sources/fi
-	 *                    :BiblioEntry/dc:Identifier@Type="URI"
-	 * 
-	 *                    Source/citation
-	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 *                    /fi:ManagementMethodEntry/ fi:Measure/fi:Sources
-	 *                    /fi:BiblioEntry/dcterms:bibliographicCitation
-	 * 
-	 *                    ValidityPeriod/beginYear
-	 *                    fi:FIGISDoc/fi:VME/fi:Management
-	 *                    /fi:ManagementMethods/fi
-	 *                    :ManagementMethodEntry/fi:Measure
-	 *                    /fi:Range@Type="Time"/fi:Min
-	 * 
-	 *                    ValidityPeriod/endYear
-	 *                    fi:FIGISDoc/fi:VME/fi:Management
-	 *                    /fi:ManagementMethods/fi
-	 *                    :ManagementMethodEntry/fi:Measure/fi
-	 *                    :Range@Type="Time"/fi:Max
-	 * 
-	 * 
-	 * @param specificMeasure
-	 * @param figisDoc
-	 */
-	public void specificMeasures(SpecificMeasure specificMeasure, FIGISDoc figisDoc) {
-
-		// ManagementMethodEntry
-		if (specificMeasure != null) {
-
-			ManagementMethodEntry entry = f.createManagementMethodEntry();
-			entry.setFocus(VULNERABLE_MARINE_ECOSYSTEMS);
-
-			// title
-			Title entryTitle = new Title();
-			entryTitle.setContent(VME_SPECIFIC_MEASURES);
-			entry.setTitle(entryTitle);
-
-			// Measure
-			Measure measure = f.createMeasure();
-
-			// measureType
-			MeasureType measureType = f.createMeasureType();
-			measureType.setValue(VME_SPECIFIC_MEASURES);
-			measure.getTextsAndImagesAndTables().add(measureType);
-
-			// text
-
-			Text measureText = ut.getEnglishText(specificMeasure.getVmeSpecificMeasure());
-			measure.getTextsAndImagesAndTables().add(measureText);
-
-			// contentRule.add(content, measureType,
-			// measure.getTextsAndImagesAndTables())
-
-			// range (time)
-			Range range = f.createRange();
-			range.setType("Time");
-			measure.getTextsAndImagesAndTables().add(range);
-
-			if (specificMeasure.getValidityPeriod() != null) {
-				JAXBElement<Min> minJAXBElement = f.createRangeMin(f.createMin());
-				uj.fillObject(du.createUiString(specificMeasure.getValidityPeriod().getBeginDate()), minJAXBElement);
-
-				JAXBElement<Max> maxJAXBElement = f.createRangeMax(f.createMax());
-				uj.fillObject(du.createUiString(specificMeasure.getValidityPeriod().getEndDate()), maxJAXBElement);
-
-				uj.fillObject(du.createUiString(specificMeasure.getValidityPeriod().getEndDate()), maxJAXBElement);
-
-				range.getContent().add(minJAXBElement);
-				range.getContent().add(maxJAXBElement);
-			}
-
-			// review year
-			// fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry/fi:Measure/fi:Range@Type="Time"/fi:AdditionalValue
-			if (specificMeasure.getReviewYear() != null) {
-				JAXBElement<AdditionalValue> additionalValueJAXBElement = f.createRangeAdditionalValue(f
-						.createAdditionalValue());
-				uj.fillObject(specificMeasure.getReviewYear(), additionalValueJAXBElement);
-				range.getContent().add(additionalValueJAXBElement);
-			}
-
-			// sources
-			Sources sources = f.createSources();
-
-			// make a biblioEntry out of the InformationSource.
-			BiblioEntry biblioEntry = bu.transform(specificMeasure.getInformationSource());
-
-			if (specificMeasure.getInformationSource() != null) {
-
-				// add biblioEntry to sources
-				new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())
-						.check(specificMeasure.getInformationSource()).beforeAdding(biblioEntry)
-						.to(sources.getTextsAndImagesAndTables());
-
-				// add source to the measure (Sources are added to the
-				// SpecificMeasure, not to the entry)
-				new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())
-						.check(specificMeasure.getInformationSource().getUrl())
-						.check(specificMeasure.getInformationSource().getCitation()).beforeAdding(sources)
-						.to(measure.getTextsAndImagesAndTables());
-
-			}
-
-			// add measure to entry
-			new AddWhenContentRule<Object>().check(specificMeasure.getInformationSource())
-					.check(specificMeasure.getVmeSpecificMeasure()).beforeAdding(measure)
-					.to(entry.getTextsAndImagesAndTables());
-
-			ManagementMethods managementMethods = findManagementMethods(figisDoc);
-
-			managementMethods.getManagementMethodEntriesAndTextsAndImages().add(entry);
-
-		}
-
-	}
+	static final private Logger LOG = LoggerFactory.getLogger(FigisDocBuilderRegolatory.class);
 
 	private ManagementMethods findManagementMethods(FIGISDoc figisDoc) {
 		Management management = findManagement(figisDoc);
@@ -297,8 +131,6 @@ public class FigisDocBuilder {
 		if (profile != null) {
 
 			// • VMEIdent
-			// • HabitatBio
-			// • Impacts
 			// • Management
 			// • History
 			// • FisheryAreas
@@ -309,9 +141,6 @@ public class FigisDocBuilder {
 			GeneralBiology gb = f.createGeneralBiology();
 			Text text1 = ut.getEnglishText(profile.getDescriptionBiological());
 			gb.getTextsAndImagesAndTables().add(text1);
-			HabitatBio habitatBio = f.createHabitatBio();
-			new AddWhenContentRule<Object>().check(u.getEnglish(profile.getDescriptionBiological())).beforeAdding(gb)
-					.to(habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs());
 
 			// Physical profile
 			// terribe workaround because if there is no Text, profileEnglish
@@ -342,24 +171,6 @@ public class FigisDocBuilder {
 			} else {
 				geoform.setFreeValue(profileEnglish);
 			}
-
-			habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs().add(geoform); // geoForm
-																					// is
-																					// part
-																					// of
-																					// HabitatBio
-			// profile
-			new AddWhenContentRule<Object>().check(profile.getDescriptionPhisical())
-					.check(profile.getDescriptionImpact()).check(profile.getDescriptionBiological())
-					.check(profile.getGeoform()).beforeAdding(habitatBio)
-					.to(figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts());
-
-			// Impacts profile
-			Impacts impacts = f.createImpacts();
-			Text text3 = ut.getEnglishText(profile.getDescriptionImpact());
-			impacts.getTextsAndImagesAndTables().add(text3);
-			new AddWhenContentRule<Object>().check(text3).beforeAdding(impacts)
-					.to(figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts());
 
 		}
 
@@ -831,15 +642,4 @@ public class FigisDocBuilder {
 		}
 	}
 
-	protected String safeGetMultilingualString(MultiLingualString mls) {
-		return this.safeGetMultilingualString(mls, Lang.EN);
-	}
-
-	protected String safeGetMultilingualString(MultiLingualString mls, Integer lang) {
-		if (mls != null) {
-			return mls.getStringMap().get(lang);
-		}
-
-		return null;
-	}
 }
