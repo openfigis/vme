@@ -65,9 +65,9 @@ public class VmeSearchWs {
 	public Response find(@PathParam("vmeIdentifier") String vme_Identifier, @PathParam("vmeYear") String vme_Year) throws Exception {
 		
 		if(vme_Identifier != null && vme_Year != null){
-			return Response.status(200).entity(searchService.findByVmeIdentifier(vme_Identifier, vme_Year)).build();
+			return Response.status(200).entity(searchService.findByVmeIdentifier(vme_Identifier, Integer.valueOf(vme_Year))).build();
 		} else if(vme_Identifier != null && vme_Year == null) {
-			return Response.status(200).entity(searchService.findByVmeIdentifier(vme_Identifier, null)).build();
+			return Response.status(200).entity(searchService.findByVmeIdentifier(vme_Identifier, 0)).build();
 		} else return Response.status(500).build();		
 	}
 	

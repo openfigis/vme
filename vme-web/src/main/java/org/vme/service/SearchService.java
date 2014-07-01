@@ -1,7 +1,6 @@
 package org.vme.service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,15 +34,9 @@ public class SearchService {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
-	public Object findByVmeIdentifier(String vme_Identifier, String vme_Year){
-		List<VmeDto> vmeDtoList;
-
-		if (vme_Year == null){
-			vmeDtoList = vSearchDao.getVmeByInventoryIdentifier(vme_Identifier, Calendar.getInstance().get(Calendar.YEAR));
-		} else {
-			vmeDtoList = vSearchDao.getVmeByInventoryIdentifier(vme_Identifier, Integer.parseInt(vme_Year));
-		}
-
+	public Object findByVmeIdentifier(String vme_Identifier, int vme_Year){
+		
+		List<VmeDto> vmeDtoList = vSearchDao.getVmeByInventoryIdentifier(vme_Identifier, vme_Year);
 		List<SpecificMeasure> specMeasureList = new ArrayList<SpecificMeasure>();
 
 
@@ -61,7 +54,7 @@ public class SearchService {
 			jsonArray.put(getJSONObject(responseList.get(j)));
 		}
 
-		return responseList;
+		return jsonArray;
 	}
 	
 	public JSONObject getJSONObject(SpecificMeasure specificMeasure) {
