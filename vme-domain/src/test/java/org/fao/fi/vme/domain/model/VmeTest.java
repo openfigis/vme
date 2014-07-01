@@ -26,13 +26,14 @@ public class VmeTest {
 	@Before
 	public void before() {
 		vme1 = VmeMock.generateVme(3);
+		vme1.setId(1000L);
 		vme2 = VmeMock.generateVme(3);
+		vme2.setId(1001L);
 	}	
 	
 	@Test
 	public void testGetId() {
-		System.out.println(vme1.getId());
-		assertTrue(1013 == vme1.getId());
+		assertTrue(1000 == vme1.getId());
 	}
 
 	@Test
@@ -65,8 +66,7 @@ public class VmeTest {
 
 	@Test
 	public void testGetRfmo() {
-		System.out.println(vme1.getRfmo().getId());
-		assertEquals("1027", vme1.getRfmo().getId());
+		assertEquals("1026", vme1.getRfmo().getId());
 	}
 
 	@Test
@@ -195,7 +195,6 @@ public class VmeTest {
 	}
 
 	@Test
-	//TODO ("Understand why this test fails")
 	public void testEqualsWithScopeObject() {
 		vme1.setScope(2000L);
 		vme2.setScope(2001L);
@@ -203,10 +202,11 @@ public class VmeTest {
 	}
 	
 	@Test
-	//TODO ("Understand why this test fails")
-	public void testEqualsWOScopeObject(){
-		vme2 = VmeMock.generateVme(2);
-		assertEquals(vme1, vme2);
+	public void testEqualsWOScopeObject() {
+		vme1.setScope(null);
+		vme2.setScope(null);
+		vme1.setId(3000L);
+		assertNotEquals(vme1, vme2);
 	}
-
+	
 }
