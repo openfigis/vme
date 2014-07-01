@@ -78,7 +78,6 @@ public class VmeMock {
 
 		Vme vme = new Vme();
 		
-		vme.setId(ID);
 		vme.setScope(SCOPE);
 
 		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();

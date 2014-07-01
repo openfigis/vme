@@ -261,77 +261,101 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		
+		if (this == obj) {
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Vme other = (Vme) obj;
-		if (this.areaType == null) {
-			if (other.areaType != null)
-				return false;
-		} else if (!this.areaType.equals(other.areaType))
-			return false;
-		if (this.criteria == null) {
-			if (other.criteria != null)
-				return false;
-		} else if (!this.criteria.equals(other.criteria))
-			return false;
-		if (this.geoArea == null) {
-			if (other.geoArea != null)
-				return false;
-		} else if (!this.geoArea.equals(other.geoArea))
-			return false;
-		if (this.geoRefList == null) {
-			if (other.geoRefList != null)
-				return false;
-		} else if (!this.geoRefList.equals(other.geoRefList))
-			return false;
-		if (this.id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!this.id.equals(other.id))
-			return false;
-		if (this.inventoryIdentifier == null) {
-			if (other.inventoryIdentifier != null)
-				return false;
-		} else if (!this.inventoryIdentifier.equals(other.inventoryIdentifier))
-			return false;
-		if (this.name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!this.name.equals(other.name))
-			return false;
-		if (this.profileList == null) {
-			if (other.profileList != null)
-				return false;
-		} else if (!this.profileList.equals(other.profileList))
-			return false;
-		if (this.rfmo == null) {
-			if (other.rfmo != null)
-				return false;
-		} else if (!this.rfmo.equals(other.rfmo))
-			return false;
-		if (this.specificMeasureList == null) {
-			if (other.specificMeasureList != null)
-				return false;
-		} else if (!this.specificMeasureList.equals(other.specificMeasureList))
-			return false;
-		if (this.validityPeriod == null) {
-			if (other.validityPeriod != null)
-				return false;
-		} else if (!this.validityPeriod.equals(other.validityPeriod)) {
+		}
+		
+		if (obj == null) {
 			return false;
 		}
 		
-		/*
-		 * Roberto`s note
-		 * is scope necessary to state if two vmes are different
-		 * } else if (!this.scope.equals(other.scope)){
-		 * return false;
-		 * }
-		 */
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		
+		Vme other = (Vme) obj;
+		
+		if (this.geoRefList == null && other.geoRefList != null) {
+			return false;
+		}
+		else if (this.geoRefList.hashCode() != other.geoRefList.hashCode()) {
+			return false;
+		}
+		
+		if (this.id == null && other.id != null) {
+			return false;
+		} else if (!this.id.equals(other.id)) {
+			return false;
+		}
+		
+		if (this.scope == null && other.scope != null) {
+			return false;
+		} else if (this.scope != other.scope) {
+			return false;
+		}
+		
+		if (this.areaType == null && other.areaType != null) {
+			return false;
+		} else if (!this.areaType.equals(other.areaType)) {
+			return false;
+		}
+		
+		if (this.criteria == null && other.criteria != null) {
+			return false;
+		} else if (!this.criteria.equals(other.criteria)) {
+			return false;
+		}
+		
+		if (this.geoArea == null && other.geoArea != null) {
+			return false;
+		} else if (!this.geoArea.equals(other.geoArea)) {
+			return false;
+		}
+		
+//		if (this.geoRefList == null && other.geoRefList != null) {
+//			return false;
+//		} else if (!this.geoRefList.equals(other.geoRefList)) {
+//			return false;
+//		}
+
+		
+		
+		if (this.inventoryIdentifier == null && other.inventoryIdentifier != null) {
+			return false;
+		} else if (!this.inventoryIdentifier.equals(other.inventoryIdentifier)) {
+			return false;
+		}
+		
+		if (this.name == null && other.name != null) {
+			return false;
+		} else if (!this.name.equals(other.name)) {
+			return false;
+		}
+		
+		if (this.profileList == null && other.profileList != null) {
+			return false;
+		} else if (!this.profileList.equals(other.profileList)) {
+			return false;
+		}
+		
+		if (this.rfmo == null && other.rfmo != null) {
+			return false;
+		} else if (!this.rfmo.equals(other.rfmo)) {
+			return false;
+		}
+		
+		if (this.specificMeasureList == null && other.specificMeasureList != null) {
+			return false;
+		} else if (!this.specificMeasureList.equals(other.specificMeasureList)) {
+			return false;
+		}
+		
+		if (this.validityPeriod == null && other.validityPeriod != null) {
+			return false;
+		} else if (!this.validityPeriod.equals(other.validityPeriod)) {
+			return false;
+		}
 		
 		return true;
 	}
