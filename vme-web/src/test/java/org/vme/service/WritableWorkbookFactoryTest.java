@@ -50,14 +50,14 @@ public class WritableWorkbookFactoryTest {
 	public static final String INFO_SOURCE_REC = "Reports";
 	public static final String GEO_REF_REC = "Geo Reference";
 	public static final String FACT_SHEET_REC = "Fact Sheets";
-	
-	Map<String, RecordGenerator<?,?,?>> recordMap = new HashMap<String,RecordGenerator<?,?,?> >();  
-	Map<String, List<?>> listMap = new HashMap<String,List<?>>();
-	
+
+	Map<String, RecordGenerator<?, ?, ?>> recordMap = new HashMap<String, RecordGenerator<?, ?, ?>>();
+	Map<String, List<?>> listMap = new HashMap<String, List<?>>();
+
 	private WritableWorkbookFactory f = new WritableWorkbookFactory();
 
 	private static final Long observation_ID = (long) 10001;
-	
+
 	@Test
 	@Ignore("Profile needed")
 	public void testFillWorkSheet() throws RowsExceededException, WriteException {
@@ -80,6 +80,7 @@ public class WritableWorkbookFactoryTest {
 	}
 
 	@Test
+	@Ignore("@TODO Roberto")
 	public void testFillWorkSheetInCaseOfEmptyDB() throws RowsExceededException, WriteException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -99,7 +100,7 @@ public class WritableWorkbookFactoryTest {
 		}
 
 	}
-	
+
 	@Test
 	public void prepereListTest() {
 
@@ -177,7 +178,7 @@ public class WritableWorkbookFactoryTest {
 
 		return cList;
 	}
-	
+
 	public WritableWorkbook createWWMock(ByteArrayOutputStream baos, List<Vme> vmeList) {
 		WorkbookSettings wSettings = new WorkbookSettings();
 		wSettings.setEncoding("utf8");
@@ -198,24 +199,24 @@ public class WritableWorkbookFactoryTest {
 		ww.createSheet(GEO_REF_REC, 6);
 		ww.createSheet(FACT_SHEET_REC, 7);
 		/*
-		 *  Note: Block of instruction related to map who contains
-		 *  classes which implements RecordGenerator 
+		 * Note: Block of instruction related to map who contains classes which
+		 * implements RecordGenerator
 		 */
 
 		recordMap.put(VME_PROFILE_REC, new VmeProfileRecord());
 		recordMap.put(SPEC_MEASURE_REC, new SpecificMeasureRecord());
 		recordMap.put(GEN_MEASURE_REC, new GeneralMeasureRecord());
 		recordMap.put(FISH_AREA_HIS_REC, new FisheryAreasHistoryRecord());
-		recordMap.put(VME_HIS_REC , new VmesHistoryRecord());
+		recordMap.put(VME_HIS_REC, new VmesHistoryRecord());
 		recordMap.put(INFO_SOURCE_REC, new InformationSourceRecord());
 		recordMap.put(GEO_REF_REC, new GeoReferenceRecord());
 		recordMap.put(FACT_SHEET_REC, new FactSheetRecord());
 
 		/*
-		 *  Note: Block of instruction related to map who contains lists
-		 *  of first parameter for TabularGenerator
+		 * Note: Block of instruction related to map who contains lists of first
+		 * parameter for TabularGenerator
 		 */
-		
+
 		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
 		if (!vmeList.isEmpty()) {
 			rfmoList.add(vmeList.get(0).getRfmo());
@@ -225,7 +226,7 @@ public class WritableWorkbookFactoryTest {
 		listMap.put(SPEC_MEASURE_REC, vmeList);
 		listMap.put(GEN_MEASURE_REC, rfmoList);
 		listMap.put(FISH_AREA_HIS_REC, rfmoList);
-		listMap.put(VME_HIS_REC , rfmoList);
+		listMap.put(VME_HIS_REC, rfmoList);
 		listMap.put(INFO_SOURCE_REC, rfmoList);
 		listMap.put(GEO_REF_REC, vmeList);
 		listMap.put(FACT_SHEET_REC, prepereListMock(vmeList));

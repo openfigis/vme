@@ -16,8 +16,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 import org.vme.dao.sources.figis.FigisDao;
 
 @RunWith(CdiRunner.class)

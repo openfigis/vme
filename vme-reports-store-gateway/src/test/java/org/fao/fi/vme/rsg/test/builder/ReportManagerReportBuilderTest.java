@@ -56,8 +56,8 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 import org.vme.test.mock.VmeMocker;
@@ -82,7 +82,7 @@ import com.thoughtworks.xstream.XStream;
 						 ReportManagerReportBuilder.class,
 						 JEXLReportEvaluator.class,
 						 VmeTestPersistenceUnitConfiguration.class,
-						 VmeDataBaseProducer.class,
+						 VmeDataBaseProducerApplicationScope.class,
 						 EmbeddedMsAccessConnectionProvider.class })
 @AdditionalClasses({ AbstractDataConverter.class,
 					 DateDataConverter.class,

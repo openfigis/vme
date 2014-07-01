@@ -9,7 +9,7 @@ package org.vme.service;
  */
 
 // @RunWith(CdiRunner.class)
-// @ActivatedAlternatives({ VmeDataBaseProducer.class,
+// @ActivatedAlternatives({ VmeDataBaseProducerApplicationScope.class,
 // FilesystemMsAccessConnectionProvider.class })
 public class DbBootstrapperTest {
 	//

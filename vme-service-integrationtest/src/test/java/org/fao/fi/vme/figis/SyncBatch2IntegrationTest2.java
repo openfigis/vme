@@ -22,13 +22,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
 import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeDataBaseProducer;
+import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmePersistenceUnitConfiguration.class, VmeDataBaseProducer.class, FigisDataBaseProducer.class,
+@ActivatedAlternatives({ VmePersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class, FigisDataBaseProducer.class,
 		FigisPersistenceUnitConfiguration.class })
 public class SyncBatch2IntegrationTest2 {
 

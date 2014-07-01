@@ -27,8 +27,8 @@ import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 /**
@@ -48,7 +48,7 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class,
 						 JEXLReportEvaluator.class,
 						 VmeTestPersistenceUnitConfiguration.class,
-						 VmeDataBaseProducer.class })
+						 VmeDataBaseProducerApplicationScope.class })
 @AdditionalClasses({ AbstractDataConverter.class,
 					 DateDataConverter.class,
 					 DoubleDataConverter.class,

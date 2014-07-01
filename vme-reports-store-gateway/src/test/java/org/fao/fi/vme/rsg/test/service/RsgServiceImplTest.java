@@ -18,8 +18,8 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeDataBaseProducer;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 @RunWith(CdiRunner.class)
@@ -27,7 +27,7 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 						 JEXLReportEvaluator.class,
 						 ReportManagerReportBuilder.class,
 						 VmeTestPersistenceUnitConfiguration.class, 
-						 VmeDataBaseProducer.class,
+						 VmeDataBaseProducerApplicationScope.class,
 						 EmbeddedMsAccessConnectionProvider.class,
 						 RsgServiceImplVme.class,
 						 SyncFactsheetChangeListener.class, 
