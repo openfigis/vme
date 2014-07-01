@@ -2,12 +2,11 @@ package org.fao.fi.vme.domain.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.fao.fi.vme.domain.interfaces.Year;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenced;
@@ -51,9 +50,13 @@ public class GeoRef implements ObjectId<Long>, Year<GeoRef>, Serializable {
 	private String geographicFeatureID;
 
 	/**
+	 * Was @OneToOne(cascade = CascadeType.MERGE), was wrong, needs to be many
+	 * to one.
 	 * 
+	 * 97 of the 295 georefs do not have a defined vme (vme_id is null), not
+	 * clear why.
 	 */
-	@OneToOne(cascade = CascadeType.MERGE)
+	@ManyToOne
 	private Vme vme;
 
 	@Override
