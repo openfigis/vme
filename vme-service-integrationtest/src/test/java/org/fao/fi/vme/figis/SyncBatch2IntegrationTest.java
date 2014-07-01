@@ -50,6 +50,7 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 	public void testBefore() {
 		clean();
 		cleanVme();
+		cleanRefFigis();
 	}
 
 	@After
@@ -118,6 +119,15 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 		List<InformationSourceType> informationSourceTypeList = vmeDao.loadObjects(InformationSourceType.class);
 		for (InformationSourceType is : informationSourceTypeList) {
 			vmeDao.remove(is);
+		}
+
+	}
+
+	private void cleanRefFigis() {
+
+		List<RefVme> l = figisDao.loadObjects(RefVme.class);
+		for (RefVme r : l) {
+			figisDao.remove(r);
 		}
 
 	}
