@@ -23,6 +23,7 @@ public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<
 	@Override
 	public void doFirstLevel(Vme v, List<Object> nextRecord) {
 		nextRecord.add(u.getEnglish(v.getName()));
+		nextRecord.add(v.getScope());
 		nextRecord.add(v.getInventoryIdentifier());
 		nextRecord.add(v.getAreaType());
 		nextRecord.add(u.getEnglish(v.getGeoArea()));
@@ -67,7 +68,7 @@ public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<
 
 	@Override
 	public String[] getHeaders() {
-		return new String[] { "Vme Name", "Inventory Identifier", "Area Type", "Geographic Reference", "Criteria",
+		return new String[] { "Vme Name", "Scope", "Inventory Identifier", "Area Type", "Geographic Reference", "Criteria",
 				"Begin date", "End date", "Year", "Type of sea floor physiography",
 				"Physical description of the environment", "General Biology", "Impacts" };
 	}

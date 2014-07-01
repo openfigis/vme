@@ -13,9 +13,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.slf4j.Logger;
@@ -78,42 +75,42 @@ public class VmeSearchWs {
 	public Response find(@PathParam("vmeIdentifier") String vme_Identifier, @PathParam("vmeYear") String vme_Year) throws Exception {
 		
 		List<SpecificMeasure> responseList;
-		JSONArray jsonArray = new JSONArray();
+//		JSONArray jsonArray = new JSONArray();
 		
 		if(vme_Identifier != null && vme_Year != null){
 			responseList = (List<SpecificMeasure>) searchService.findByVmeIdentifier(vme_Identifier, Integer.valueOf(vme_Year));
 			
-			for (int j = 0; j< responseList.size(); j++) {
-				jsonArray.put(getJSONObject(responseList.get(j)));
-			}
+//			for (int j = 0; j< responseList.size(); j++) {
+//				jsonArray.put(getJSONObject(responseList.get(j)));
+//			}
 			
-			return Response.status(200).entity(jsonArray).build();
+			return Response.status(200).entity(responseList).build();
 			
 		} else if(vme_Identifier != null && vme_Year == null) {
 			responseList = (List<SpecificMeasure>) searchService.findByVmeIdentifier(vme_Identifier, 0);
 			
-			for (int j = 0; j< responseList.size(); j++) {
-				jsonArray.put(getJSONObject(responseList.get(j)));
-			}
+//			for (int j = 0; j< responseList.size(); j++) {
+//				jsonArray.put(getJSONObject(responseList.get(j)));
+//			}
 			
-			return Response.status(200).entity(jsonArray).build();
+			return Response.status(200).entity(responseList).build();
 			
 		} else return Response.status(500).build();		
 	}
 	
-	public JSONObject getJSONObject(SpecificMeasure specificMeasure) {
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put("Id", specificMeasure.getId());
-            obj.put("Text", u.getEnglish(specificMeasure.getVmeSpecificMeasure()));
-            obj.put("Year", specificMeasure.getYear());
-            obj.put("Validity period start", specificMeasure.getValidityPeriod().getBeginDate());
-            obj.put("Validity period end", specificMeasure.getValidityPeriod().getEndDate());
-        } catch (JSONException e) {
-        	this.log.error("DefaultListItem.toString JSONException: "+e.getMessage(), e);
-        }
-        return obj;
-    }
+//	public JSONObject getJSONObject(SpecificMeasure specificMeasure) {
+//        JSONObject obj = new JSONObject();
+//        try {
+//            obj.put("Id", specificMeasure.getId());
+//            obj.put("Text", u.getEnglish(specificMeasure.getVmeSpecificMeasure()));
+//            obj.put("Year", specificMeasure.getYear());
+//            obj.put("Validity period start", specificMeasure.getValidityPeriod().getBeginDate());
+//            obj.put("Validity period end", specificMeasure.getValidityPeriod().getEndDate());
+//        } catch (JSONException e) {
+//        	this.log.error("DefaultListItem.toString JSONException: "+e.getMessage(), e);
+//        }
+//        return obj;
+//    }
 
 	@SuppressWarnings("unused")
 	private String produceHtmlReport(ObservationsRequest dto) {

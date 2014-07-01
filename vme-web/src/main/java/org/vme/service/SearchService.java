@@ -34,8 +34,8 @@ public class SearchService {
 			specMeasureList.addAll(vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList());
 		}
 
-		ArrayList<SpecificMeasure> responseList = new ArrayList<SpecificMeasure>(); // list filled with objects
-
+		ArrayList<SpecificMeasure> responseList = new ArrayList<SpecificMeasure>(); 
+		
 		responseList.addAll(specMeasureList);
 
 		return responseList;
