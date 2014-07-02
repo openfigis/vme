@@ -11,10 +11,13 @@ public class InformationSourceMock {
 	public static final String CIT = "RFMO Conservation and Enforcement Measure  (Doc No. ####)";
 	public static final int YEAR = 2000;
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
-	public static long ID = 1000L;
 
 	private static InformationSourceType INSTANCE = null;
-
+	
+	/*
+	 *  Note: never set an ID for informationSource because hybernate wants to generate himself
+	 */
+	
 	public static InformationSource create() {
 		InformationSource is = new InformationSource();
 		is.setSourceType(createInformationSourceType());
@@ -23,8 +26,6 @@ public class InformationSourceMock {
 		is.setMeetingStartDate(Calendar.getInstance().getTime());
 		is.setMeetingEndDate(Calendar.getInstance().getTime());
 
-		// do not set the id because Hibernate wants to generate it.
-		// is.setId(ID+1);
 		try {
 			is.setUrl(new URL("http://www.rfmo.org"));
 		} catch (Exception e) {

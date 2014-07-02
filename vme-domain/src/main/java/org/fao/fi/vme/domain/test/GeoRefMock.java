@@ -17,11 +17,5 @@ public class GeoRefMock {
 
 		return vme.getGeoRefList().get(0);
 
-		// GeoRef geoRef = new GeoRef();
-		// // geoRef.setId(ID);
-		// geoRef.setYear(VmeMock.YEAR);
-		// geoRef.setGeographicFeatureID(geographicFeatureID);
-		// return geoRef;
-
 	}
 }

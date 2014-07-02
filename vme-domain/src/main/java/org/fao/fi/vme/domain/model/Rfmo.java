@@ -122,26 +122,26 @@ public class Rfmo implements ReferenceReport, Serializable {
 		this.hasVmesHistory = hasVmesHistory;
 	}
 
-	// /* (non-Javadoc)
-	// * @see java.lang.Object#hashCode()
-	// */
-	// @Override
-	// public int hashCode() {
-	// final int prime = 31;
-	// int result = 1;
-	// result = prime * result + ((this.generalMeasureList == null) ? 0 :
-	// this.generalMeasureList.hashCode());
-	// result = prime * result + ((this.hasFisheryAreasHistory == null) ? 0 :
-	// this.hasFisheryAreasHistory.hashCode());
-	// result = prime * result + ((this.hasVmesHistory == null) ? 0 :
-	// this.hasVmesHistory.hashCode());
-	// result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-	// result = prime * result + ((this.informationSourceList == null) ? 0 :
-	// this.informationSourceList.hashCode());
-	// result = prime * result + ((this.listOfManagedVmes == null) ? 0 :
-	// this.listOfManagedVmes.hashCode());
-	// return result;
-	// }
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.generalMeasureList == null) ? 0 :
+			this.generalMeasureList.hashCode());
+		result = prime * result + ((this.hasFisheryAreasHistory == null) ? 0 :
+			this.hasFisheryAreasHistory.hashCode());
+		result = prime * result + ((this.hasVmesHistory == null) ? 0 :
+			this.hasVmesHistory.hashCode());
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+		result = prime * result + ((this.informationSourceList == null) ? 0 :
+			this.informationSourceList.hashCode());
+		result = prime * result + ((this.listOfManagedVmes == null) ? 0 :
+			this.listOfManagedVmes.hashCode());
+		return result;
+	}
 
 	/*
 	 * (non-Javadoc)
