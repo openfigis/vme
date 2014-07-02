@@ -159,7 +159,8 @@ public class VmeTest {
 
 	@Test
 	public void testGetScope() {
-		assertTrue(10010 == vme1.getScope());
+		assertEquals(VmeMock.VME_SCOPE, vme1.getScope());
+
 	}
 
 	@Test
