@@ -13,7 +13,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,17 +67,16 @@ public class VmeSearchWs {
 		return Response.status(200).entity(result).build();
 	}
 	
-	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/{vmeIdentifier}/{vmeYear}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response find(@PathParam("vmeIdentifier") String vme_Identifier, @PathParam("vmeYear") String vme_Year) throws Exception {
 		
-		List<SpecificMeasure> responseList;
+		List<Object> responseList;
 //		JSONArray jsonArray = new JSONArray();
 		
 		if(vme_Identifier != null && vme_Year != null){
-			responseList = (List<SpecificMeasure>) searchService.findByVmeIdentifier(vme_Identifier, Integer.valueOf(vme_Year));
+			responseList = searchService.findByVmeIdentifier(vme_Identifier, Integer.valueOf(vme_Year));
 			
 //			for (int j = 0; j< responseList.size(); j++) {
 //				jsonArray.put(getJSONObject(responseList.get(j)));
@@ -87,7 +85,7 @@ public class VmeSearchWs {
 			return Response.status(200).entity(responseList).build();
 			
 		} else if(vme_Identifier != null && vme_Year == null) {
-			responseList = (List<SpecificMeasure>) searchService.findByVmeIdentifier(vme_Identifier, 0);
+			responseList = searchService.findByVmeIdentifier(vme_Identifier, 0);
 			
 //			for (int j = 0; j< responseList.size(); j++) {
 //				jsonArray.put(getJSONObject(responseList.get(j)));
