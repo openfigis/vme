@@ -18,6 +18,8 @@ drop table information_source_type;
 drop table multilingualstring_stringmap;
 drop table vme_type;
 drop table criteria;
+drop table vme_scope;
+drop table vme_to_criteria;
 
 
 

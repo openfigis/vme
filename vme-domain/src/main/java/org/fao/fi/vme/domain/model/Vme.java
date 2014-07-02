@@ -83,7 +83,7 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGName("VME Map Reference")
 	@RSGWeight(5)
 	@RSGSection
-	@OneToMany(cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
 	private List<GeoRef> geoRefList;
 
 	/**
@@ -106,21 +106,21 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString geoArea;
 
-	@RSGName(value="Vme Scope", hideHeading=true)
+	@RSGName(value = "Vme Scope", hideHeading = true)
 	@RSGMandatory
 	@RSGOneAmong(concept = VmeScope.class, label = ConceptData.NAME, value = ConceptData.ID)
 	@RSGConverter(LongDataConverter.class)
 	@RSGWeight(2)
 	private Long scope;
-	
-	@RSGName(value="Area Type", hideHeading=true)
+
+	@RSGName(value = "Area Type", hideHeading = true)
 	@RSGMandatory
 	@RSGOneAmong(concept = VmeType.class, label = ConceptData.NAME, value = ConceptData.ID)
 	@RSGConverter(LongDataConverter.class)
 	@RSGWeight(2)
 	private Long areaType;
 
-	@RSGName(value="Criteria", hideHeading=true)
+	@RSGName(value = "Criteria", hideHeading = true)
 	@RSGMandatory
 	@RSGManyAmong(concept = VmeCriteria.class, label = ConceptData.NAME, value = ConceptData.ID)
 	@RSGConverter(LongDataConverter.class)
@@ -261,102 +261,99 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		
+
 		if (this == obj) {
 			return true;
 		}
-		
+
 		if (obj == null) {
 			return false;
 		}
-		
+
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		
+
 		Vme other = (Vme) obj;
-		
+
 		if (this.geoRefList == null && other.geoRefList != null) {
 			return false;
-		}
-		else if (this.geoRefList.hashCode() != other.geoRefList.hashCode()) {
+		} else if (this.geoRefList.hashCode() != other.geoRefList.hashCode()) {
 			return false;
 		}
-		
+
 		if (this.id == null && other.id != null) {
 			return false;
 		} else if (!this.id.equals(other.id)) {
 			return false;
 		}
-		
+
 		if (this.scope == null && other.scope != null) {
 			return false;
 		} else if (this.scope != other.scope) {
 			return false;
 		}
-		
+
 		if (this.areaType == null && other.areaType != null) {
 			return false;
 		} else if (!this.areaType.equals(other.areaType)) {
 			return false;
 		}
-		
+
 		if (this.criteria == null && other.criteria != null) {
 			return false;
 		} else if (!this.criteria.equals(other.criteria)) {
 			return false;
 		}
-		
+
 		if (this.geoArea == null && other.geoArea != null) {
 			return false;
 		} else if (!this.geoArea.equals(other.geoArea)) {
 			return false;
 		}
-		
-//		if (this.geoRefList == null && other.geoRefList != null) {
-//			return false;
-//		} else if (!this.geoRefList.equals(other.geoRefList)) {
-//			return false;
-//		}
 
-		
-		
+		// if (this.geoRefList == null && other.geoRefList != null) {
+		// return false;
+		// } else if (!this.geoRefList.equals(other.geoRefList)) {
+		// return false;
+		// }
+
 		if (this.inventoryIdentifier == null && other.inventoryIdentifier != null) {
 			return false;
 		} else if (!this.inventoryIdentifier.equals(other.inventoryIdentifier)) {
 			return false;
 		}
-		
+
 		if (this.name == null && other.name != null) {
 			return false;
 		} else if (!this.name.equals(other.name)) {
 			return false;
 		}
-		
+
 		if (this.profileList == null && other.profileList != null) {
 			return false;
 		} else if (!this.profileList.equals(other.profileList)) {
 			return false;
 		}
-		
+
 		if (this.rfmo == null && other.rfmo != null) {
 			return false;
 		} else if (!this.rfmo.equals(other.rfmo)) {
 			return false;
 		}
-		
+
 		if (this.specificMeasureList == null && other.specificMeasureList != null) {
 			return false;
 		} else if (!this.specificMeasureList.equals(other.specificMeasureList)) {
 			return false;
 		}
-		
+
 		if (this.validityPeriod == null && other.validityPeriod != null) {
 			return false;
 		} else if (!this.validityPeriod.equals(other.validityPeriod)) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
