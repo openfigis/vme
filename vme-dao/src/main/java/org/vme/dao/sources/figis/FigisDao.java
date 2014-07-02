@@ -40,8 +40,6 @@ import org.vme.dao.impl.AbstractJPADao;
 @Singleton
 public class FigisDao extends AbstractJPADao {
 
-	// private final static Logger logger =
-	// LoggerFactory.getLogger(FigisDao.class);
 	private DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
 	private PrimaryRuleValidator v = new PrimaryRuleValidator();
 

@@ -532,8 +532,6 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public Vme update(Vme updatedVME) throws Throwable {
-//		EntityTransaction et = em.getTransaction();
-//		et.begin();
 
 		if (updatedVME == null) {
 			throw new IllegalArgumentException("Updated Vme cannot be NULL");
@@ -558,9 +556,6 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("Unable to update Vme with id #" + updatedVME.getId()
 					+ " as it doesn't exist");
 		}
-
-		// updatedVME.setInventoryIdentifier(currentVME.getInventoryIdentifier());
-		// updatedVME.setGeoArea(currentVME.getGeoArea());
 
 		// Build the list of IDs for GeoRef / Profile / SpecificMeasure for the
 		// Vme in its current status.
@@ -688,8 +683,6 @@ public class VmeDao extends AbstractJPADao {
 		// SpecificMeasures but not remove them.
 		Vme mergedVME = this.doMerge(em, updatedVME);
 
-//		et.commit();
-
 		return mergedVME;
 	}
 
@@ -719,8 +712,6 @@ public class VmeDao extends AbstractJPADao {
 					}
 
 					current.getSpecificMeasureList().add(specificMeasure);
-
-					// this.doMerge(em, current);
 
 					if (specificMeasure.getId() == null) {
 						this.doPersistAndFlush(em, specificMeasure);
@@ -954,10 +945,7 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		Rfmo parent = this.getEntityById(em, Rfmo.class, fisheryAreasHistory.getRfmo().getId());
-		// parent.getHasFisheryAreasHistory().add(fisheryAreasHistory);
 		fisheryAreasHistory.setRfmo(parent);
-
-		// this.doMerge(em, parent);
 
 		return this.doMerge(em, fisheryAreasHistory);
 	}
@@ -1015,10 +1003,7 @@ public class VmeDao extends AbstractJPADao {
 
 		Rfmo parent = this.getEntityById(em, Rfmo.class, vmesHistory.getRfmo().getId());
 
-		// parent.getHasVmesHistory().add(VMEsHistory);
 		vmesHistory.setRfmo(parent);
-
-		// this.doMerge(em, parent);
 
 		return this.doMerge(em, vmesHistory);
 	}
@@ -1106,11 +1091,6 @@ public class VmeDao extends AbstractJPADao {
 
 		Rfmo parent = this.getEntityById(em, Rfmo.class, informationSource.getRfmo().getId());
 		informationSource.setRfmo(parent);
-
-		// if(parent.getInformationSourceList() == null)
-		// parent.setInformationSourceList(new ArrayList<InformationSource>());
-		//
-		// parent.getInformationSourceList().add(informationSource);
 
 		return this.doPersistAndFlush(em, informationSource);
 	}
@@ -1261,11 +1241,6 @@ public class VmeDao extends AbstractJPADao {
 
 		Rfmo parent = this.getEntityById(em, Rfmo.class, generalMeasure.getRfmo().getId());
 		generalMeasure.setRfmo(parent);
-
-		// if(parent.getGeneralMeasureList() == null)
-		// parent.setGeneralMeasureList(new ArrayList<GeneralMeasure>());
-		//
-		// parent.getGeneralMeasureList().add(generalMeasure);
 
 		generalMeasure = this.doPersistAndFlush(em, generalMeasure);
 

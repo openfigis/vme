@@ -31,14 +31,7 @@ public abstract class AbstractJPADao implements Dao {
 	public <E> E getEntityById(EntityManager em, Class<E> entity, Object id) {
 		Map<String, Object> idCriteria = new HashMap<String, Object>();
 		idCriteria.put("id", id);
-		// try {
-		// return (E) this.generateFilteringTypedQuery(em, entity,
-		// idCriteria).getSingleResult();
-		// } catch (NoResultException NRe) {
-		// return null;
-		// }
-		// Sonar laments about the above (Exception handlers should provide some
-		// context and preserve the original exception ), therefore:
+		
 		E result = null;
 		if (this.generateFilteringTypedQuery(em, entity, idCriteria).getResultList().size() == 1) {
 			result = this.generateFilteringTypedQuery(em, entity, idCriteria).getSingleResult();
@@ -179,7 +172,6 @@ public abstract class AbstractJPADao implements Dao {
 	}
 
 	protected void zdoRefresh(EntityManager em, Object object) {
-		// em.refresh(object);
 		em.flush();
 	}
 

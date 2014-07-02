@@ -116,9 +116,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
 		}
-		// String text_query =
-		// "SELECT vme from Vme vme, GEO_REF gfl WHERE vme = gfl.vme and gfl IN (SELECT gfl from GEO_REF WHERE gfl.geographicFeatureID = '"
-		// + geo_id + "')";
+
 		String textQuery = "select OBJECT(v) from Vme v join v.geoRefList g where g.geographicFeatureID =  '" + geoId
 				+ "')";
 
@@ -135,10 +133,6 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		String conjunction = " where";
 
 		txtQuery.append("Select vme from Vme vme");
-		// if (authority_id > 0 || type_id > 0 || criteria_id > 0) {
-		// txtQuery.append(" where");
-		// conjunction = "";
-		// }
 
 		if (authorityId > 0) {
 			Authority vmeAuthority = (Authority) entityManager.find(Authority.class, authorityId);
@@ -235,9 +229,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	}
 
 	private boolean containRelevantText(Vme vme, String text) {
-//		if (StringUtils.containsIgnoreCase(vme.getAreaType().getName(), text)) {
-//			return true;
-//		}
+		
 		if(vme.getAreaType() != null) {
 			VmeType selected = null;
 			
@@ -254,10 +246,6 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 				LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeType.class, vme.getAreaType(), e.getMessage(), e);
 			}
 		}
-				
-//		if (StringUtils.containsIgnoreCase(vme.getCriteria(), text)) {
-//			return true;
-//		}
 		
 		if(vme.getCriteria() != null && !vme.getCriteria().isEmpty()) {
 			VmeCriteria selected = null;
@@ -283,8 +271,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 				return true;
 			}
 		}
-		// if (StringUtils.containsIgnoreCase(vme.getGeoform(), text))
-		// return true;
+
 		for (GeoRef geoRef : vme.getGeoRefList()) {
 			if (StringUtils.containsIgnoreCase(geoRef.getGeographicFeatureID(), text)) {
 				return true;
@@ -485,7 +472,6 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 						.getReferenceByAcronym(Authority.class, authority_acronym);
 
 				if (authority == null) {
-					// System.out.println("NULL auth");
 				} else
 					res.setOwner(authority.getName());
 			} catch (ReferenceServiceException e) {
@@ -504,7 +490,6 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		res.setGeoArea(u.getEnglish(vme.getGeoArea()));
 		res.setValidityPeriodFrom((new DateTime(vme.getValidityPeriod().getBeginDate())).getYear());
 		res.setValidityPeriodTo((new DateTime(vme.getValidityPeriod().getEndDate())).getYear());
-//		res.setVmeType(vme.getAreaType().getName());
 		
 		if(vme.getAreaType() != null) {
 			try {
@@ -528,14 +513,5 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	public void setEm(EntityManager em) {
 		this.entityManager = em;
 	}
-
-	/**
-	 * @param dao
-	 *            the dao to set
-	 */
-
-	/*
-	 * public void setDao(FigisDao dao) { this.dao = dao; }
-	 */
 
 }
