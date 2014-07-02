@@ -25,6 +25,7 @@ public class VmeMock {
 	public static final String INVENTORY_ID = "VME_RFMO_1";
 	public static final String INVENTORY_ID_YEAR = INVENTORY_ID + "_" + YEAR;
 	public static final Long VME_SCOPE = 10L;
+	public static final String VME_CODESYSTEM = "vme";
 
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 

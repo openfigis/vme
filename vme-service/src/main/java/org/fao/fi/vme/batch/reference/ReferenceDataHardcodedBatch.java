@@ -42,8 +42,8 @@ public class ReferenceDataHardcodedBatch {
 	}
 
 	private void createVmeScopes() {
-		dao.syncStoreObject(new VmeScope(10L, "VME"));
-		dao.syncStoreObject(new VmeScope(20L, "Regulatory"));
+		dao.syncStoreObject(new VmeScope(10L, "VME", "vme"));
+		dao.syncStoreObject(new VmeScope(20L, "Regulatory", "rfb_comp"));
 	}
 
 	/**
@@ -117,7 +117,8 @@ public class ReferenceDataHardcodedBatch {
 		// dao.syncStoreObject(new VmeType(30L,
 		// "Other types of closed/restricted area"));
 
-		//Changing VME Types (following a request by A. Gentile - June 20th 2014
+		// Changing VME Types (following a request by A. Gentile - June 20th
+		// 2014
 		dao.syncStoreObject(new VmeType(10L, "CLOS_AREA_BTMFISH", "Area closed to bottom fishing (SPRFMO)"));
 		dao.syncStoreObject(new VmeType(20L, "CLOS_VME", "VME closure (NEAFC)"));
 		dao.syncStoreObject(new VmeType(30L, "CLOS_AREA", "Closed area (SEAFO)"));
@@ -131,7 +132,8 @@ public class ReferenceDataHardcodedBatch {
 
 	private void createInformationSourceTypes() {
 		dao.syncStoreObject(new InformationSourceType(1L, "Book", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT));
-		dao.syncStoreObject(new InformationSourceType(2L, "Meeting documents", InformationSourceType.IS_A_MEETING_DOCUMENT));
+		dao.syncStoreObject(new InformationSourceType(2L, "Meeting documents",
+				InformationSourceType.IS_A_MEETING_DOCUMENT));
 		dao.syncStoreObject(new InformationSourceType(3L, "Journal", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT));
 		dao.syncStoreObject(new InformationSourceType(4L, "Project", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT));
 		dao.syncStoreObject(new InformationSourceType(6L, "CD-ROM/DVD", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT));

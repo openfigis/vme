@@ -16,6 +16,7 @@ import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.sync.factsheets.listeners.FactsheetChangeListener;
@@ -69,6 +70,7 @@ public class FactsheetChangeListenerImplTest {
 
 		vmeDao.persist(InformationSourceMock.createInformationSourceType());
 		vmeDao.persist(VmeTypeMock.create());
+		vmeDao.persist(VmeScopeMock.create());
 
 		String before = "before";
 		Vme vme = VmeMock.generateVme(1);
@@ -85,7 +87,7 @@ public class FactsheetChangeListenerImplTest {
 		vme.setName(u.english(after));
 
 		EntityTransaction et = vmeDao.begin();
-		
+
 		try {
 			vmeDao.update(vme);
 			vmeDao.commit(et);
@@ -94,13 +96,13 @@ public class FactsheetChangeListenerImplTest {
 			delegateCount();
 
 			System.out.println(figisDao.loadObjects(ObservationXml.class).get(0).getXml());
-		} catch(Throwable t) {
+		} catch (Throwable t) {
 			System.err.println("An error occurred while attempting to update the Vme. Rolling back the transaction");
-			
-			if(et.isActive())
+
+			if (et.isActive())
 				vmeDao.rollback(et);
 		}
-		
+
 		assertTrue(figisDao.loadObjects(ObservationXml.class).get(0).getXml().contains(after));
 	}
 

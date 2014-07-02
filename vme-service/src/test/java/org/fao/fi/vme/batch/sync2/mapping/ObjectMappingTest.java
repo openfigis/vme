@@ -19,6 +19,7 @@ import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
@@ -27,6 +28,7 @@ import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
+import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @AdditionalClasses({ ReferenceDaoImpl.class })
@@ -36,9 +38,16 @@ public class ObjectMappingTest {
 	@Inject
 	ObjectMapping om;
 
+	@Inject
+	VmeDao vmeDao;
+
 	@Test
 	public void testMapVme2Figis() {
+
 		int nrOfYears = 3;
+
+		vmeDao.persist(VmeScopeMock.create());
+
 		Vme vme = VmeMock.generateVme(nrOfYears);
 		vme.setId(456l);
 

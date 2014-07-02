@@ -13,6 +13,7 @@ import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -51,6 +52,7 @@ public class SyncBatch2Test {
 		rfmo.setId("RFMO");
 		vmeDao.persist(rfmo);
 		vmeDao.persist(VmeTypeMock.create());
+		vmeDao.persist(VmeScopeMock.create());
 
 		vme.setRfmo(rfmo);
 		vmeDao.persist(vme);

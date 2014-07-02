@@ -19,6 +19,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
@@ -67,6 +68,7 @@ public class ObservationSyncTest extends FigisDaoTestLogic {
 	public void generateVme() {
 		vmeDao.persist(VmeTypeMock.create());
 		vmeDao.persist(InformationSourceMock.createInformationSourceType());
+		vmeDao.persist(VmeScopeMock.create());
 
 		Vme vme = VmeMock.generateVme(NUMBER_OF_YEARS);
 		vmeDao.saveVme(vme);

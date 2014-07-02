@@ -14,6 +14,7 @@ import org.fao.fi.vme.batch.sync2.SyncBatch2;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
@@ -57,6 +58,8 @@ public class SyncBatch2IntegrationTest2 {
 	public void before() {
 		clean(Vme.class);
 		clean(Rfmo.class);
+		vmeDao.persist(VmeScopeMock.create());
+
 	}
 
 	private void clean(Class<?> class1) {

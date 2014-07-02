@@ -37,6 +37,15 @@ public class VmeScope implements ReferenceDataObject<Long>, NamedReferenceConcep
 	 * "Regulatory"
 	 */
 	private String name;
+	private String codeSystem;
+
+	public String getCodeSystem() {
+		return codeSystem;
+	}
+
+	public void setCodeSystem(String codeSystem) {
+		this.codeSystem = codeSystem;
+	}
 
 	/**
 	 * Default constructor
@@ -44,10 +53,11 @@ public class VmeScope implements ReferenceDataObject<Long>, NamedReferenceConcep
 	public VmeScope() {
 	}
 
-	public VmeScope(Long id, String name) {
+	public VmeScope(Long id, String name, String codeSystem) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.codeSystem = codeSystem;
 	}
 
 	public Long getId() {

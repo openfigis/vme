@@ -15,6 +15,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.InformationSourceType;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -51,6 +52,7 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 		clean();
 		cleanVme();
 		cleanRefFigis();
+		vmeDao.persist(VmeScopeMock.create());
 	}
 
 	@After
