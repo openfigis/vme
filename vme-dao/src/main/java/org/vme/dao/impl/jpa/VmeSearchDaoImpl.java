@@ -474,6 +474,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	private VmeDto getVmeSearchDto(Vme vme, int year) {
 		VmeDto res = new VmeDto();
 		res.setVmeId(vme.getId());
+		res.setScope(vme.getScope());
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
 		res.setLocalName(u.getEnglish(vme.getName()));
 		res.setEnvelope("");
