@@ -9,6 +9,7 @@ import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
+import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.vme.dao.ReferenceDAO;
 import org.vme.service.tabular.Empty;
@@ -23,7 +24,16 @@ public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<
 	@Override
 	public void doFirstLevel(Vme v, List<Object> nextRecord) {
 		nextRecord.add(u.getEnglish(v.getName()));
-		nextRecord.add(v.getScope());
+		
+		String scopeString = "";
+		try {
+			VmeScope scope = referenceDAO.getReferenceByID(VmeScope.class, v.getScope());
+			scopeString = scopeString + scope.getName();
+		} catch (Exception e) {
+			throw new VmeException(e);
+		}
+		
+		nextRecord.add(scopeString);
 		nextRecord.add(v.getInventoryIdentifier());
 		nextRecord.add(v.getAreaType());
 		nextRecord.add(u.getEnglish(v.getGeoArea()));

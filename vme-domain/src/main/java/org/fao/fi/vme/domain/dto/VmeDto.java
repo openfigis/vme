@@ -3,7 +3,7 @@ package org.fao.fi.vme.domain.dto;
 public class VmeDto {
 
 	private long vmeId;
-	private long scope;
+	private String scope;
 	private String localName;
 	private String inventoryIdentifier;
 	private String factsheetUrl;
@@ -54,11 +54,11 @@ public class VmeDto {
 		this.vmeId = vmeId;
 	}
 	
-	public long getScope(){
+	public String getScope(){
 		return this.scope;
 	}
 	
-	public void setScope(long scope){
+	public void setScope(String scope){
 		this.scope = scope;
 	}
 

@@ -12,6 +12,7 @@ import javax.persistence.TemporalType;
 
 import org.apache.commons.lang.StringUtils;
 import org.fao.fi.figis.domain.VmeObservation;
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
@@ -22,6 +23,7 @@ import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
+import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
 import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -461,7 +463,13 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	private VmeDto getVmeSearchDto(Vme vme, int year) {
 		VmeDto res = new VmeDto();
 		res.setVmeId(vme.getId());
-		res.setScope(vme.getScope());
+		
+		try {
+			res.setScope(referenceDAO.getReferenceByID(VmeScope.class, vme.getScope()).getName());
+		} catch (Exception e1) {
+			throw new VmeException(e1);
+		}
+		
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
 		res.setLocalName(u.getEnglish(vme.getName()));
 		res.setEnvelope("");
