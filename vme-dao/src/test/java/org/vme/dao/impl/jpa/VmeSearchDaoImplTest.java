@@ -79,6 +79,7 @@ public class VmeSearchDaoImplTest {
 		vme.setAreaType(VmeTypeMock.create().getId());
 		vme.setGeoRefList(l1);
 		vme.setValidityPeriod(ValidityPeriodMock.create());
+		vme.setScope(1000L);
 
 		List<Vme> listOfManagedVmes = new ArrayList<Vme>();
 		listOfManagedVmes.add(vme);
