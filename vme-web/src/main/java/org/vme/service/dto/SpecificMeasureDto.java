@@ -1,27 +1,64 @@
 package org.vme.service.dto;
 
-import org.fao.fi.vme.domain.model.SpecificMeasure;
-import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
-import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class SpecificMeasureDto {
-
-	private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
-	private ValidityPeriodUtil VUTIL = new ValidityPeriodUtil();
 	
 	public String text;
 	public int year;
-	public int vpStart;
-	public int vpEnd;
+	public int validityPeriodStart;
+	public int validityPeriodEnd;
 	public String sourceURL;
 	
+	public SpecificMeasureDto() {
+		
+	}
 	
-	public SpecificMeasureDto(SpecificMeasure sm) {
-		this.text = UTIL.getEnglish(sm.getVmeSpecificMeasure());
-		this.year = sm.getYear();
-		this.vpStart = VUTIL.getBeginYear(sm.getValidityPeriod());
-		this.vpEnd = VUTIL.getEndYear(sm.getValidityPeriod());
-		this.sourceURL = sm.getInformationSource().getUrl().toExternalForm();
+	public String getText() {
+		return text;
 	}
 
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+
+	public int getYear() {
+		return year;
+	}
+
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+
+	public int getValidityPeriodStart() {
+		return validityPeriodStart;
+	}
+
+
+	public void setValidityPeriodStart(int validityPeriodStart) {
+		this.validityPeriodStart = validityPeriodStart;
+	}
+
+
+	public int getValidityPeriodEnd() {
+		return validityPeriodEnd;
+	}
+
+
+	public void setValidityPeriodEnd(int validityPeriodEnd) {
+		this.validityPeriodEnd = validityPeriodEnd;
+	}
+
+
+	public String getSourceURL() {
+		return sourceURL;
+	}
+
+
+	public void setSourceURL(String sourceURL) {
+		this.sourceURL = sourceURL;
+	}
 }

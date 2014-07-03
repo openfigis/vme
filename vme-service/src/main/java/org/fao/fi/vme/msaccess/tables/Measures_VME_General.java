@@ -21,7 +21,6 @@ public class Measures_VME_General implements TableDomainMapper {
 	private String vmeEncounter;
 	private String vmeIndicatorSp;
 	private String vmeThreshold;
-	// private String Link_CEM_Source;
 	private String rfbFishingAreas;
 	private String rfbExploratoryFishingProtocol;
 	private int sourceId;
@@ -106,14 +105,6 @@ public class Measures_VME_General implements TableDomainMapper {
 		this.vmeThreshold = vmeThreshold;
 	}
 
-	// public String getLink_CEM_Source() {
-	// return Link_CEM_Source;
-	// }
-	//
-	// public void setLink_CEM_Source(String link_CEM_Source) {
-	// Link_CEM_Source = link_CEM_Source;
-	// }
-
 	public String getRfbFishingAreas() {
 		return rfbFishingAreas;
 	}
@@ -155,10 +146,6 @@ public class Measures_VME_General implements TableDomainMapper {
 		ValidityPeriodRule r = new ValidityPeriodRule(this.vmeGeneralMeasureValidityStart,
 				vmeGeneralMeasureValidityEnd);
 		ValidityPeriod vp = new ValidityPeriod();
-		// Intervention Erik van Ingen 5 June 2014. Commented because this logic
-		// is not used anymore and therefore does not need to be updated.
-		// vp.setBeginYear(r.getStart());
-		// vp.setEndYear(r.getEnd());
 		o.setValidityPeriod(vp);
 		o.setYear(this.yearId);
 		return o;

@@ -20,7 +20,6 @@ public class Observation implements Serializable {
 	public Observation(ObservationDomain od) {
 		this.collection = od.getCollection();
 		this.id = od.getId();
-		// this.observationsPerLanguage = od.getObservationsPerLanguage();
 		this.order = od.getOrder();
 		this.primary = od.isPrimary();
 		this.reference = od.isReference();

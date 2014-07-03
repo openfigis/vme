@@ -24,8 +24,6 @@ public class FimesNamespacePrefixMapper extends NamespacePrefixMapper {
 
 	@Override
 	public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
-		// System.out.println(namespaceUri);
-		// System.out.println(requirePrefix);
 		String namespaceUriLowerCase = namespaceUri.toLowerCase();
 		String prefix = prefixMap.get(namespaceUriLowerCase);
 		return prefix;

@@ -63,8 +63,6 @@ import org.purl.dc.terms.Created;
  * 
  */
 public class FigisDocBuilderVme extends FigisDocBuilderAbstract {
-	// static final private Logger LOG =
-	// LoggerFactory.getLogger(FigisDocBuilderVme.class);
 
 	@Override
 	public void docIt(Vme vme, DisseminationYearSlice disseminationYearSlice, FIGISDoc figisDoc) {
@@ -153,7 +151,6 @@ public class FigisDocBuilderVme extends FigisDocBuilderAbstract {
 			GeoForm geoform = f.createGeoForm();
 			new AddWhenContentRule<Serializable>().check(profile.getDescriptionPhisical())
 					.beforeAdding(geoformJAXBElement).to(geoform.getContent());
-			// geoform.getContent().add(geoformJAXBElement);
 
 			String profileEnglish = u.getEnglish(profile.getGeoform());
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value =

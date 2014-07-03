@@ -49,9 +49,6 @@ import org.purl.dc.terms.Created;
  */
 public class FigisDocBuilderRegolatory extends FigisDocBuilderAbstract {
 
-	// static final private Logger LOG =
-	// LoggerFactory.getLogger(FigisDocBuilderRegolatory.class);
-
 	@Override
 	public void docIt(Vme vme, DisseminationYearSlice disseminationYearSlice, FIGISDoc figisDoc) {
 		dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);

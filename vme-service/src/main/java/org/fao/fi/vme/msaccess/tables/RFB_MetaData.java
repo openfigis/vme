@@ -67,15 +67,11 @@ public class RFB_MetaData implements TableDomainMapper {
 	@Override
 	public Object map() {
 		Rfmo o = new Rfmo();
-		// o.setFishingActivityList(fishingActivityList);
-		// o.setGeneralMeasuresList(generalMeasuresList)
 		o.setId(this.rfbId);
 
 		o.setHasFisheryAreasHistory(new ArrayList<FisheryAreasHistory>());
 		o.setHasVmesHistory(new ArrayList<VMEsHistory>());
 
-		// o.setManagedVmeList(managedVmeList)
-		// o.setMeetingList(meetingList)
 		return o;
 	}
 

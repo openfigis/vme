@@ -326,7 +326,6 @@ public class FigisDocBuilder {
 			GeoForm geoform = f.createGeoForm();
 			new AddWhenContentRule<Serializable>().check(profile.getDescriptionPhisical())
 					.beforeAdding(geoformJAXBElement).to(geoform.getContent());
-			// geoform.getContent().add(geoformJAXBElement);
 
 			String profileEnglish = u.getEnglish(profile.getGeoform());
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value =

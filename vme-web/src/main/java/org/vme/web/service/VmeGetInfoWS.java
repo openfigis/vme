@@ -1,5 +1,7 @@
 package org.vme.web.service;
 
+import java.util.UUID;
+
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,16 +17,31 @@ import org.vme.service.dto.VmeSmResponse;
 @Singleton
 public class VmeGetInfoWS {
 
+ 	public VmeSmResponse vmeSmResponse;
+
 	@GET
-	@Path("/{vmeIdentifier}/specificmeasure/{vmeYear}")
+	@Path("/specificmeasure/{vmeIdentifier}/{vmeYear}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier, @PathParam("vmeYear") String vmeYear) throws Exception {
 		
-		if(vmeIdentifier != null && vmeYear == null){
-			return Response.status(200).entity(new VmeSmResponse(vmeIdentifier)).build();
-		} else if(vmeIdentifier != null && vmeYear != null) {
-			return Response.status(200).entity(new VmeSmResponse(vmeIdentifier, Integer.parseInt(vmeYear))).build();
-		} else return Response.status(500).build();		
+		vmeSmResponse = new VmeSmResponse(UUID.randomUUID());
+		vmeSmResponse.createResponse(vmeIdentifier, Integer.parseInt(vmeYear));
+		
+		return Response.status(200).entity(vmeSmResponse).build();
+		
 	}
+	
+	@GET
+	@Path("/specificmeasure/{vmeIdentifier}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier) throws Exception {
+		
+		vmeSmResponse = new VmeSmResponse(UUID.randomUUID());
+		vmeSmResponse.createResponse(vmeIdentifier);
+		
+		return Response.status(200).entity(vmeSmResponse).build();
+		
+	}
+	
 	
 }

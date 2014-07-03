@@ -53,9 +53,6 @@ public class Linker {
 		Rfmo rfmo = new Rfmo();
 		rfmo.getInformationSourceList();
 
-		// if (domainObject instanceof Rfmo) {
-		// linkRfmoObject(domainObject, objectCollectionList, tables);
-		// }
 		if (domainObject instanceof InformationSource) {
 			linkInformationSourceObject(domainObject, domainTableMap, objectCollectionList);
 		}

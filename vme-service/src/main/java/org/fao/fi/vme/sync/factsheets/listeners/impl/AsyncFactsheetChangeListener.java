@@ -24,11 +24,7 @@ import javax.enterprise.inject.Alternative;
  */
 @Alternative
 public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
-	//static final private int MAX_THREADS_IN_POOL = 64;
-
-	//final private ExecutorCompletionService<Void> _executorQueue = new ExecutorCompletionService<Void>(Executors.newFixedThreadPool(MAX_THREADS_IN_POOL));
-
-	//Can't use multiple parallel threads because of transaction issues on the shared VmeDAO... Improve?
+	
 	private final ExecutorCompletionService<Void> executorQueue = new ExecutorCompletionService<Void>(Executors.newSingleThreadExecutor());
 	
 	protected final AsyncFactsheetChangeListener $this = this;

@@ -179,26 +179,13 @@ public class VME implements TableDomainMapper {
 
 		o.setName(u.english(this.getVmeId()));
 
-		// commented, ms access is not anymore supported..
-		// o.setAreaType(this.VME_Area_Type);
-		// o.setCriteria(this.)
-		// o.setGeoform(this.VME_Geoform);
 		o.setGeoArea(u.english(this.vmeGeogArea1));
 
-		// o.setGeoArea(this.VME_GeogArea1);
-
-		// o.setGeographicLayerId(this.)
 		o.setId(new Long(this.iD));
-		// o.setName(this.get)
-		// o.setRfmo(rfmo)
 
 		ValidityPeriodRule r = new ValidityPeriodRule(this.vmeValidityStart, this.vmeValidityEnd);
 		ValidityPeriod vp = new ValidityPeriod();
 
-		// Intervention Erik van Ingen 5 June 2014. Commented because this logic
-		// is not used anymore and therefore does not need to be updated.
-		// vp.setBeginYear(r.getStart());
-		// vp.setEndYear(r.getEnd());
 		o.setValidityPeriod(vp);
 
 		Profile p = new Profile();
@@ -215,7 +202,6 @@ public class VME implements TableDomainMapper {
 
 		List<GeoRef> geoRefList = new ArrayList<GeoRef>();
 		GeoRef geoRef = new GeoRef();
-		// geoRef.setVme(o);
 		geoRef.setGeographicFeatureID(this.vmeFeatureId);
 		geoRef.setYear(this.yearId);
 		geoRefList.add(geoRef);

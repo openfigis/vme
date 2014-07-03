@@ -56,7 +56,6 @@ public class ReferenceDataHardcodedBatch {
 		createVmeCriterias();
 		createVmeTypes();
 		createInformationSourceTypes();
-		// createYears();
 
 	}
 
@@ -98,8 +97,6 @@ public class ReferenceDataHardcodedBatch {
 		dao.syncStoreObject(new Authority(22150L, "WECAFC", "Western Central Atlantic Fishery Commission"));
 		dao.syncStoreObject(new Authority(24558L, "SPRFMO", "South Pacific Regional Fisheries Management Organisation"));
 
-		// repAuthority.put((long)90010, new
-		// Authority(22140,"SIODFA","Southern Indian Ocean Deepsea Fishers' Association");
 	}
 
 	private void createVmeCriterias() {
@@ -112,13 +109,7 @@ public class ReferenceDataHardcodedBatch {
 	}
 
 	private void createVmeTypes() {
-		// dao.syncStoreObject(new VmeType(10L, "VME"));
-		// dao.syncStoreObject(new VmeType(20L, "Risk area"));
-		// dao.syncStoreObject(new VmeType(30L,
-		// "Other types of closed/restricted area"));
-
-		// Changing VME Types (following a request by A. Gentile - June 20th
-		// 2014
+		
 		dao.syncStoreObject(new VmeType(10L, "CLOS_AREA_BTMFISH", "Area closed to bottom fishing (SPRFMO)"));
 		dao.syncStoreObject(new VmeType(20L, "CLOS_VME", "VME closure (NEAFC)"));
 		dao.syncStoreObject(new VmeType(30L, "CLOS_AREA", "Closed area (SEAFO)"));
@@ -139,15 +130,4 @@ public class ReferenceDataHardcodedBatch {
 		dao.syncStoreObject(new InformationSourceType(6L, "CD-ROM/DVD", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT));
 		dao.syncStoreObject(new InformationSourceType(99L, "Other", InformationSourceType.IS_NOT_A_MEETING_DOCUMENT));
 	}
-
-	// private void createYears() {
-	// dao.syncStoreObject(new ReferenceYear(2013), 2013);
-	// dao.syncStoreObject(new ReferenceYear(2012), 2012);
-	// dao.syncStoreObject(new ReferenceYear(2011), 2011);
-	// dao.syncStoreObject(new ReferenceYear(2010), 2010);
-	// dao.syncStoreObject(new ReferenceYear(2009), 2009);
-	// dao.syncStoreObject(new ReferenceYear(2008), 2008);
-	// dao.syncStoreObject(new ReferenceYear(2007), 2007);
-	// dao.syncStoreObject(new ReferenceYear(2006), 2006);
-	// }
 }
