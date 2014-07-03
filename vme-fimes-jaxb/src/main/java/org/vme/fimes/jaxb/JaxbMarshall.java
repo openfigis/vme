@@ -14,8 +14,6 @@ import javax.xml.validation.SchemaFactory;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.xml.sax.SAXException;
 
-//import com.sun.xml.bind.v2.schemagen.xmlschema.Schema;
-
 /**
  * Convert the java jaxb xml to a string.
  * 

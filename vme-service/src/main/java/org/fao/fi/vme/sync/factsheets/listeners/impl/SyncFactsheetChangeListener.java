@@ -180,9 +180,6 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	@Override
 	public final void fishingFootprintAdded(final FisheryAreasHistory... added) throws Exception {
 		LOG.info("Notified of additions of {} elements of type FisheryAreasHistory", ( added == null ? "NULL" : added.length));
-		
-//		for(FisheryAreasHistory in : added)
-//			this._updater.refreshFishingFootprint(in.getId());
 
 		this.updateFactsheets(this.findVMEIDs(added));
 	}
@@ -193,13 +190,6 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	@Override
 	public final void fishingFootprintDeleted(Rfmo owner, final FisheryAreasHistory... deleted) throws Exception {
 		LOG.info("Notified of deletions of {} elements of type FisheryAreasHistory", ( deleted == null ? "NULL" : deleted.length));
-		
-//		Long[] ids = this.findVMEIDs(owner);
-		
-//		for(FisheryAreasHistory in : deleted) {
-//			this._updater.refreshRfmo(owner.getId());
-//			this._updater.refreshFishingFootprint(in.getId());
-//		}
 		
 		this.updateFactsheets(this.findVMEIDs(owner));
 	}

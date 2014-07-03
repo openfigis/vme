@@ -5,8 +5,6 @@ import org.fao.fi.vme.domain.model.Vme;
 
 public class GeoRefMock {
 
-	// public static final Long ID = 578l;
-
 	public static final String geographicFeatureID = "jfiopf7ye89wf6n2349";
 
 	public static GeoRef create() {

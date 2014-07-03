@@ -14,9 +14,6 @@ import org.vme.dao.config.vme.VmeDB;
 
 public class VmeDao4Msaccess {
 
-	// static final private Logger LOG =
-	// LoggerFactory.getLogger(VmeDao4Msaccess.class);
-
 	@Inject
 	@VmeDB
 	private EntityManager em;

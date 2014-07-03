@@ -34,9 +34,7 @@ import org.vme.dao.sources.vme.VmeDao;
  */
 public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 	protected static final Logger LOG = LoggerFactory.getLogger(FigisFactsheetUpdater.class);
-	// static final protected String CACHE_RESET_ENDPOINT =
-	// "http://figis02:8282/fiweb/servlet/CacheDeleteFactsheetDomain?domain=vme";
-
+	
 	@Inject
 	protected VmeDao vmeDao;
 

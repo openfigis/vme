@@ -30,16 +30,11 @@ public class RelationVmeGeoRef {
 		for (ObjectCollection objectCollection : objectCollectionList) {
 			if (objectCollection.getClazz().equals(Vme.class)) {
 
-				// report(objectCollection);
 				work(objectCollection);
 
-				// set the vme on the GeoRef;
 				setVme(objectCollection);
 
-				// checks
 				postConditionCheck(objectCollection);
-
-				// report(objectCollection);
 
 			}
 		}
@@ -147,19 +142,5 @@ public class RelationVmeGeoRef {
 		if (vme.getProfileList() != null) {
 			vmeTarget.getProfileList().add(vme.getProfileList().get(0));
 		}
-
-		// take the earliest start
-		// Intervention Erik van Ingen 5 June 2014. Commented because this logic
-		// is not used anymore and therefore does not need to be updated.
-		// if (vme.getValidityPeriod().getBeginYear() <
-		// vmeTarget.getValidityPeriod().getBeginYear()) {
-		// vmeTarget.getValidityPeriod().setBeginYear(vme.getValidityPeriod().getBeginYear());
-		// }
-		// // take the latest start
-		// if (vme.getValidityPeriod().getEndYear() >
-		// vmeTarget.getValidityPeriod().getEndYear()) {
-		// vmeTarget.getValidityPeriod().setEndYear(vme.getValidityPeriod().getEndYear());
-		// }
-
 	}
 }

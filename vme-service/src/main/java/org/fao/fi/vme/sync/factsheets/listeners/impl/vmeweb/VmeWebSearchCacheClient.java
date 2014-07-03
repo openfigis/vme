@@ -59,7 +59,6 @@ public class VmeWebSearchCacheClient {
 				}
 			});
 
-			// asyncHttpClient.close();
 			LOG.debug("VmeWebSearchCacheClient clear request launched!");
 		} catch (IOException e) {
 			LOG.error(errorMessage, e);

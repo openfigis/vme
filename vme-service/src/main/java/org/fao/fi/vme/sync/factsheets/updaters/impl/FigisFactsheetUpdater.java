@@ -63,7 +63,6 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 		LOG.info("Updating factsheets for {} VMEs with ID {}", vmeIDs.length, vmeIDs);
 		
 		for (Long vmeId : vmeIDs) {
-//			this.doDeleteFactsheets(vmeId);
 			
 			LOG.info("Syncing FIGIS factsheets for VME with ID {}...", vmeId);
 			
