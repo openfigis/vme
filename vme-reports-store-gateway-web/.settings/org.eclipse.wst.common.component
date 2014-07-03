@@ -26,6 +26,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/reports-store-gateway-web/target/classes"/>
-        <property name="context-root" value="figis#reports-store-gateway"/>
+        <property name="context-root" value="figis#secure-reports-store-gateway"/>
     </wb-module>
 </project-modules>
