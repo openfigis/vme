@@ -38,7 +38,6 @@ public class GetInfoService {
 	//	Once testing period ends this.UTIL will be removed
 	private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
 
-	@SuppressWarnings("finally")
 	public List<SpecificMeasureDto> findInfo(String vmeIdentifier){
 
 		List<SpecificMeasureDto> resultList = new ArrayList<SpecificMeasureDto>();
@@ -71,11 +70,12 @@ public class GetInfoService {
 			 * Note: end of test part
 			 */
 
-			return resultList;
+
 		}
+		
+		return resultList;
 	}
 
-	@SuppressWarnings("finally")
 	public List<SpecificMeasureDto> findInfo(String vmeIdentifier, int vmeYear) {
 
 		List<SpecificMeasureDto> resultList = new ArrayList<SpecificMeasureDto>();
@@ -109,7 +109,9 @@ public class GetInfoService {
 			 * Note: end of test part
 			 */
 
-			return resultList;
+
 		}
+		
+		return resultList;
 	}
 }
