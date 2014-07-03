@@ -1,23 +1,38 @@
 package org.vme.service.dto;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
+import java.util.UUID;
 
 import org.vme.service.GetInfoService;
 
 public class VmeSmResponse {
 
-	@Inject
-	public GetInfoService service;
+	private UUID uuid;
 	
-	public List<SpecificMeasureDto> responseList;
+	private GetInfoService service = new GetInfoService();
 	
-	public VmeSmResponse(String vme_Identifier) {
-		this.responseList = service.findInfo(vme_Identifier);
+	private List<SpecificMeasureDto> specificMeasure = new ArrayList<SpecificMeasureDto>();
+
+	public VmeSmResponse(UUID uuid){
+		super();
+		this.uuid = uuid;
 	}
 	
-	public VmeSmResponse(String vme_Identifier, int year){
-		this.responseList = service.findInfo(vme_Identifier, year);
+	public void createResponse(String vmeIdentifier, int year) {
+		this.specificMeasure = service.findInfo(vmeIdentifier, year);
 	}
+
+	public void createResponse(String vmeIdentifier) {
+		this.specificMeasure = service.findInfo(vmeIdentifier);
+	}
+	
+	public String getUuid() {
+		return uuid.toString();
+	}
+	
+	public List<SpecificMeasureDto> getResponseList(){
+		return this.specificMeasure;
+	}
+
 }
