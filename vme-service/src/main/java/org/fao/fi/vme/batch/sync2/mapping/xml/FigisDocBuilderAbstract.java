@@ -204,8 +204,9 @@ abstract class FigisDocBuilderAbstract {
 			}
 		}
 
-		if (refVmeType != null)
+		if (refVmeType != null) {
 			vmeType.setValue(refVmeType.getName());
+		}
 
 		// VME Criteria
 		List<VMECriteria> vmeCriteria = new ArrayList<VMECriteria>();

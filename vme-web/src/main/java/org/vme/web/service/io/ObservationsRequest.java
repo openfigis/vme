@@ -185,7 +185,7 @@ public class ObservationsRequest extends ServiceRequest {
 	 *         <code>false</code> otherwise
 	 */
 	public boolean hasText() {
-		return (text != null && !text.trim().equals("") && !text.trim().equals("*"));
+		return text != null && !text.trim().equals("") && !text.trim().equals("*");
 	}
 
 	/**

@@ -239,8 +239,9 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 				selected = referenceDAO.getReferenceByID(VmeType.class, vme.getAreaType());
 				
 				if(selected != null && selected.getName() != null) {
-					if(StringUtils.containsIgnoreCase(selected.getName(), text))
+					if(StringUtils.containsIgnoreCase(selected.getName(), text)) {
 						return true;
+					}
 				} else {
 					LOG.warn("Selected area type is either NULL or has a NULL name");
 				}
@@ -257,8 +258,9 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 					selected = referenceDAO.getReferenceByID(VmeCriteria.class, criteriaId);
 					
 					if(selected != null && selected.getName() != null) {
-						if(StringUtils.containsIgnoreCase(selected.getName(), text))
+						if(StringUtils.containsIgnoreCase(selected.getName(), text)) {
 							return true;
+						}
 					} else {
 						LOG.warn("Selected criteria is either NULL or has a NULL name");
 					}
