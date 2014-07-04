@@ -8,6 +8,8 @@ package org.fao.fi.vme.domain.util;
  * 
  */
 public class Lang {
+	
+	private Lang(){}
 
 	public static final Integer EN = 1;
 	public static final Integer FR = 2;

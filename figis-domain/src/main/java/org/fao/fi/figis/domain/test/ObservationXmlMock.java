@@ -8,6 +8,7 @@ import org.fao.fi.figis.domain.rule.Figis;
 import org.vme.fimes.jaxb.JaxbMarshall;
 
 public class ObservationXmlMock {
+	private ObservationXmlMock(){}
 	public static ObservationXml create() {
 
 		ObservationXml xml = new ObservationXml();

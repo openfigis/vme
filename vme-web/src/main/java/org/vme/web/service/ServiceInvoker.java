@@ -23,6 +23,8 @@ import org.vme.web.service.io.ServiceResponse;
  * 
  */
 public class ServiceInvoker {
+	
+	private ServiceInvoker(){}
 
 	public static ServiceResponse<?> invoke(VmeSearchDao service, ObservationsRequest request) throws Exception {
 		ServiceResponse<?> result = new ServiceResponse<VmeDto>(request);
