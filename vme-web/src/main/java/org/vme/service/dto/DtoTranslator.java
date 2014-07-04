@@ -72,8 +72,9 @@ public class DtoTranslator {
 						.getReferenceByAcronym(Authority.class, authority_acronym);
 
 				if (authority == null) {
-				} else
+				} else {
 					res.setOwner(authority.getName());
+				}
 			} catch (ReferenceServiceException e) {
 				res.setOwner(authority_acronym);
 				LOG.error(e.getMessage());

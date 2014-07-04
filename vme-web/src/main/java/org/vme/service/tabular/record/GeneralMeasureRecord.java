@@ -13,6 +13,9 @@ public class GeneralMeasureRecord extends AbstractRecord implements
 
 	@Override
 	public void doFirstLevel(Rfmo p, List<Object> nextRecord) {
+		/*
+		 * Unusued method
+		 */
 	}
 
 	@Override
