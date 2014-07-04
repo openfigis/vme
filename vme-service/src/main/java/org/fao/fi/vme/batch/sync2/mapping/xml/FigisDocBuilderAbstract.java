@@ -170,6 +170,10 @@ abstract class FigisDocBuilderAbstract {
 		ForeignID areaForeignID = new ForeignID();
 		areaForeignID.setCodeSystem(scope.getCodeSystem());
 
+		if (georef == null) {
+			System.out.println();
+		}
+
 		if (vmeDomain.getGeoRefList() != null && !vmeDomain.getGeoRefList().isEmpty()) {
 			// this is the bug.
 			areaForeignID.setCode(georef.getGeographicFeatureID());
@@ -192,20 +196,18 @@ abstract class FigisDocBuilderAbstract {
 
 		// VME Type
 		VMEType vmeType = new VMEType();
-		VmeType refVmeType = null;
+		VmeType vmeTypeRef = null;
 
 		if (vmeDomain.getAreaType() != null) {
 			try {
-				refVmeType = vmeDomain.getAreaType() == null ? null : refDao.getReferenceByID(VmeType.class,
+				vmeTypeRef = vmeDomain.getAreaType() == null ? null : refDao.getReferenceByID(VmeType.class,
 						vmeDomain.getAreaType());
+				vmeType.setValue(vmeTypeRef.getName());
 			} catch (Exception e) {
 				LOG.error("Unable to retrieve reference {} with ID {}: {}", VmeType.class, vmeDomain.getAreaType(),
 						e.getMessage(), e);
 			}
 		}
-
-		if (refVmeType != null)
-			vmeType.setValue(refVmeType.getName());
 
 		// VME Criteria
 		List<VMECriteria> vmeCriteria = new ArrayList<VMECriteria>();
@@ -262,10 +264,10 @@ abstract class FigisDocBuilderAbstract {
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(geoReference);
 
 		// fi:VMEType
-		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(vmeType);
+		new AddWhenContentRule<Object>().check(vmeTypeRef).beforeAdding(vmeType)
+				.to(vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves());
 
 		// fi:VMECriteria
-		// TODO: Fabio Fiorellato - CHECK WHETHER THIS IS CORRECT
 		new AddWhenContentRule<Object>().check(vmeDomain.getCriteria()).beforeAdding(vmeCriteria)
 				.to(vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves());
 

@@ -78,11 +78,16 @@ public class PeriodGrouping {
 		Year<?> history = null;
 		if (yearList != null) {
 			Collections.sort(yearList, new YearComparator());
-			for (Year<?> foundHistory : yearList) {
+			for (Year<?> yearObject : yearList) {
 				// take the first you can get. Otherwise the year of the object
 				// founds need to be equal or less.
-				if (disseminationYear >= foundHistory.getYear()) {
-					history = foundHistory;
+
+				if (yearObject == null || yearObject.getYear() == null) {
+					System.out.println();
+				}
+
+				if (disseminationYear >= yearObject.getYear()) {
+					history = yearObject;
 				}
 			}
 		}

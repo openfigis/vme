@@ -43,8 +43,11 @@ public class ObservationSync implements Sync {
 
 		List<Vme> objects = vmeDao.loadVmes();
 
+		System.out.println(objects.size());
 		for (Vme vme : objects) {
-			sync(vme);
+			if (vme.getId() != 28405l) {
+				sync(vme);
+			}
 
 		}
 	}

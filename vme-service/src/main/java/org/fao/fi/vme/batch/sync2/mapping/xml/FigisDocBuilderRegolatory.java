@@ -27,21 +27,7 @@ import org.purl.dc.terms.Created;
  * factsheets.
  * 
  * 
- * Order for VMEIdent (/fi:FIGISDoc/fi:VME/fi:VMEIdent)
  * 
- * dc:Title
- * 
- * fi:Range
- * 
- * fi:ReportingYear
- * 
- * fi:OrgRef
- * 
- * fi:GeoReference
- * 
- * fi:VMEType
- * 
- * fi:VMECriteria
  * 
  * @author Emmanuel Blondel
  * @author Erik van Ingen

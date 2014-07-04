@@ -91,6 +91,11 @@ public class ObjectMapping {
 
 			FIGISDoc figisDoc = new FIGISDoc();
 
+			if (disseminationYearSlice.getGeoRef() == null) {
+
+				System.out.println();
+			}
+
 			if (vme.getScope() == 10) {
 				figisDocBuilderVme.docIt(vme, disseminationYearSlice, figisDoc);
 			}

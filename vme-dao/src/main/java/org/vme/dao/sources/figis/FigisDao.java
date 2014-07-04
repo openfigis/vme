@@ -277,8 +277,13 @@ public class FigisDao extends AbstractJPADao {
 		query.setParameter("vmeId", vmeId);
 		query.setParameter("reportingYear", Integer.toString(reportingYear));
 		VmeObservation vo = null;
-		if (query.getResultList().size() == 1) {
+		System.out.println(query.toString());
+		List<?> result = query.getResultList();
+		if (result.size() == 1) {
 			vo = (VmeObservation) query.getSingleResult();
+		}
+		if (result.size() > 1) {
+			throw new VmeException("this query should give only 0 or 1 result");
 		}
 		return vo;
 	}
@@ -290,16 +295,7 @@ public class FigisDao extends AbstractJPADao {
 	 * @return
 	 */
 	public VmeObservation findFirstVmeObservation(Long vmeId, String year) {
-		Query query = em
-				.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear <= :year order by vo.id.reportingYear desc");
-		query.setParameter("vmeId", vmeId);
-		query.setParameter("year", year);
-		VmeObservation vo = null;
-		List<?> list = query.getResultList();
-		if (list.size() > 0) {
-			vo = (VmeObservation) list.get(0);
-		}
-		return vo;
+		return findVmeObservationByVme(vmeId, Integer.parseInt(year));
 	}
 
 	/**
