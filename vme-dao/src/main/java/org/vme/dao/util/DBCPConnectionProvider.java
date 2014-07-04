@@ -94,7 +94,7 @@ public class DBCPConnectionProvider extends AbstractConnectionProvider {
 		try {
 			conn = this.ds.getConnection();
 		} catch(SQLException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		} finally {
 			logStatistics();
 		}

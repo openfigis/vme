@@ -484,7 +484,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 					res.setOwner(authority.getName());
 			} catch (ReferenceServiceException e) {
 				res.setOwner(authority_acronym);
-				e.printStackTrace();
+				LOG.error(e.getMessage());
 			}
 		}
 
