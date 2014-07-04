@@ -47,10 +47,6 @@ public class DtoTranslator {
 		return smDto;
 	}
 	
-	/* TODO further implementation and refactoring for the VmeSearchWs.class
-	 * by implementing a Vme -> VmeDto translator's method
-	 */
-	
 	public VmeDto doTranslate4Vme(Vme vme, int year){
 		
 		if (year == 0) {

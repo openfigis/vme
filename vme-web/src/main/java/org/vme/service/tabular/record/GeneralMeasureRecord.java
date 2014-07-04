@@ -32,10 +32,6 @@ public class GeneralMeasureRecord extends AbstractRecord implements
 		nextRecord.add(u.getEnglish(p.getCitation()));
 		nextRecord.add("dd");
 		
-		/*TODO
-		 *  new Rule().process(p.getId, nextRecord);
-		 */
-		
 		if (p.getId() == null) {
 			nextRecord.add("");
 		} else {
