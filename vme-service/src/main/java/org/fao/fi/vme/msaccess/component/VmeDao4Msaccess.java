@@ -9,6 +9,8 @@ import javax.persistence.EntityTransaction;
 
 import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.dao.VmeDaoException;
 import org.vme.dao.config.vme.VmeDB;
 
@@ -17,6 +19,8 @@ public class VmeDao4Msaccess {
 	@Inject
 	@VmeDB
 	private EntityManager em;
+	
+	protected static final Logger LOG = LoggerFactory.getLogger(VmeDao4Msaccess.class);
 
 	public void persistObject(Object object) {
 		EntityTransaction et = em.getTransaction();
@@ -80,7 +84,7 @@ public class VmeDao4Msaccess {
 			}
 			et.commit();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 			throw new VmeDaoException(e);
 		}
 	}

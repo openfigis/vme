@@ -12,6 +12,9 @@ public class VmesHistoryRecord extends AbstractRecord implements RecordGenerator
 
 	@Override
 	public void doFirstLevel(Rfmo p, List<Object> nextRecord) {
+		/*
+		 * Unusued method
+		 */
 	}
 
 	@Override

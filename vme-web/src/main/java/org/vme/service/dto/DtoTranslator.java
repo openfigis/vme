@@ -47,10 +47,6 @@ public class DtoTranslator {
 		return smDto;
 	}
 	
-	/* TODO further implementation and refactoring for the VmeSearchWs.class
-	 * by implementing a Vme -> VmeDto translator's method
-	 */
-	
 	public VmeDto doTranslate4Vme(Vme vme, int year){
 		
 		if (year == 0) {
@@ -76,11 +72,12 @@ public class DtoTranslator {
 						.getReferenceByAcronym(Authority.class, authority_acronym);
 
 				if (authority == null) {
-				} else
+				} else {
 					res.setOwner(authority.getName());
+				}
 			} catch (ReferenceServiceException e) {
 				res.setOwner(authority_acronym);
-				e.printStackTrace();
+				LOG.error(e.getMessage());
 			}
 		}
 

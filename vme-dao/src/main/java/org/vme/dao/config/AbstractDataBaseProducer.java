@@ -21,4 +21,5 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractDataBaseProducer {
 	protected static Logger LOG = LoggerFactory.getLogger(AbstractDataBaseProducer.class);
+	protected AbstractDataBaseProducer(){}
 }

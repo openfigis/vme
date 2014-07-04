@@ -12,6 +12,9 @@ public class GeoReferenceRecord extends AbstractRecord implements RecordGenerato
 
 	@Override
 	public void doFirstLevel(Vme p, List<Object> nextRecord) {
+		/*
+		 * Unusued method
+		 */
 	}
 
 	@Override

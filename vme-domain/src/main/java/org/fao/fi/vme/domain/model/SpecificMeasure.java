@@ -175,43 +175,46 @@ public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, S
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		SpecificMeasure other = (SpecificMeasure) obj;
-		if (this.id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!this.id.equals(other.id))
+		if (this.id == null && other.id != null) {
 			return false;
-		if (this.informationSource == null) {
-			if (other.informationSource != null)
-				return false;
-		} else if (!this.informationSource.equals(other.informationSource))
+		} else if (!this.id.equals(other.id)) {
 			return false;
-		if (this.validityPeriod == null) {
-			if (other.validityPeriod != null)
+		}
+		if (this.informationSource == null && other.informationSource != null) {
 				return false;
-		} else if (!this.validityPeriod.equals(other.validityPeriod))
+		} else if (!this.informationSource.equals(other.informationSource)) {
 			return false;
-		if (this.vme == null) {
-			if (other.vme != null)
+		}
+		if (this.validityPeriod == null && other.validityPeriod != null) {
 				return false;
-		} else if (!this.vme.equals(other.vme))
+		} else if (!this.validityPeriod.equals(other.validityPeriod)) {
 			return false;
-		if (this.vmeSpecificMeasure == null) {
-			if (other.vmeSpecificMeasure != null)
+		}
+		if (this.vme == null && other.vme != null) {
 				return false;
-		} else if (!this.vmeSpecificMeasure.equals(other.vmeSpecificMeasure))
+		} else if (!this.vme.equals(other.vme)) {
 			return false;
-		if (this.year == null) {
-			if (other.year != null)
+		}
+		if (this.vmeSpecificMeasure == null && other.vmeSpecificMeasure != null) {
 				return false;
-		} else if (!this.year.equals(other.year))
+		} else if (!this.vmeSpecificMeasure.equals(other.vmeSpecificMeasure)) {
 			return false;
+		}
+		if (this.year == null && other.year != null) {
+				return false;
+		} else if (!this.year.equals(other.year)) {
+			return false;
+		}
 		return true;
 	}
 }

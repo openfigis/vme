@@ -12,6 +12,9 @@ public class FisheryAreasHistoryRecord extends AbstractRecord implements RecordG
 
 	@Override
 	public void doFirstLevel(Rfmo p, List<Object> nextRecord) {
+		/*
+		 * Unusued method
+		 */
 	}
 
 	@Override

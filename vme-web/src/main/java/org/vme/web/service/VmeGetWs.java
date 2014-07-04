@@ -11,6 +11,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.fao.fi.vme.VmeException;
 import org.vme.dao.VmeSearchDao;
 import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ServiceResponse;
@@ -26,7 +27,7 @@ public class VmeGetWs {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response find(@QueryParam("id") String id, @QueryParam("year") String year,
 			@QueryParam("inventoryIdentifier") String inventoryIdentifier,
-			@QueryParam("geographicFeatureId") String geographicFeatureId) throws Exception {
+			@QueryParam("geographicFeatureId") String geographicFeatureId) {
 
 		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
 
@@ -53,7 +54,14 @@ public class VmeGetWs {
 		} else {
 			request.setGeographicFeatureId(null);
 		}
-		ServiceResponse<?> result = ServiceInvoker.invoke(vmeSearchDao, request);
+		ServiceResponse<?> result;
+		
+		try {
+			result = ServiceInvoker.invoke(vmeSearchDao, request);
+		} catch (Exception e) {
+			throw new VmeException(e);
+		}
+		
 		return Response.status(200).entity(result).build();
 	}
 

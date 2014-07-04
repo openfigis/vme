@@ -12,6 +12,9 @@ public class InformationSourceRecord extends AbstractRecord implements RecordGen
 
 	@Override
 	public void doFirstLevel(Rfmo p, List<Object> nextRecord) {
+		/*
+		 * Unusued method
+		 */
 	}
 
 	@Override

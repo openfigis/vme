@@ -72,6 +72,9 @@ public class WritableWorkbookFactory {
 	public static final String INFO_SOURCE_REC = "Reports";
 	public static final String GEO_REF_REC = "Geo Reference";
 	public static final String FACT_SHEET_REC = "Fact Sheets";
+	
+	public static final String ERROR_DURING_CREATION = "Error during creation of Excell sheet";
+	public static final String ERROR_TYPE_NOT_FOUND = "Type not found:";
 
 	Map<String, RecordGenerator<?, ?, ?>> recordMap = new HashMap<String, RecordGenerator<?, ?, ?>>();
 	Map<String, List<?>> listMap = new HashMap<String, List<?>>();
@@ -195,18 +198,18 @@ public class WritableWorkbookFactory {
 						}
 
 						if (cell instanceof PersistentBag) {
-							throw new VmeException("Type not found:" + cell.getClass());
+							throw new VmeException(ERROR_TYPE_NOT_FOUND + cell.getClass());
 						}
 
 						if (problem) {
-							throw new VmeException("Type not found:" + cell.getClass());
+							throw new VmeException(ERROR_TYPE_NOT_FOUND + cell.getClass());
 						}
 					}
 				} catch (RowsExceededException e) {
-					log.error("Error during creation of Excell sheet", e);
+					log.error(ERROR_DURING_CREATION, e);
 					throw new VmeException(e);
 				} catch (WriteException e) {
-					log.error("Error during creation of Excell sheet", e);
+					log.error(ERROR_DURING_CREATION, e);
 				}
 			}
 		}

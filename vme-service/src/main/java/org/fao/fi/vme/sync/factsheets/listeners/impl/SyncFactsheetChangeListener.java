@@ -49,7 +49,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	
 	@Override
 	public final void vmeChanged(final Vme... changed) throws Exception {
-		LOG.info("Notified of changes to {} elements of type Vme", ( changed == null ? "NULL" : changed.length));
+		LOG.info("Notified of changes to {} elements of type Vme", changed == null ? "NULL" : changed.length);
 		
 		for(Vme in : changed) {
 			this.updater.refreshVme(in.getId());
@@ -63,7 +63,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void vmeAdded(final Vme... added) throws Exception {
-		LOG.info("Notified of additions of {} elements of type Vme", ( added == null ? "NULL" : added.length));	
+		LOG.info("Notified of additions of {} elements of type Vme", added == null ? "NULL" : added.length);	
 		
 		for(Vme in : added) {
 			this.updater.refreshVme(in.getId());
@@ -77,7 +77,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void vmeDeleted(final Vme... deleted) throws Exception {
-		LOG.info("Notified of deletions of {} elements of type Vme", ( deleted == null ? "NULL" : deleted.length));	
+		LOG.info("Notified of deletions of {} elements of type Vme", deleted == null ? "NULL" : deleted.length);	
 				
 		this.deleteFactsheets(this.findVMEIDs(deleted));
 	}
@@ -87,7 +87,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void generalMeasureChanged(final GeneralMeasure... changed) throws Exception {
-		LOG.info("Notified of changes to {} elements of type GeneralMeasure", ( changed == null ? "NULL" : changed.length));
+		LOG.info("Notified of changes to {} elements of type GeneralMeasure", changed == null ? "NULL" : changed.length);
 		
 		for(GeneralMeasure in : changed) {
 			this.updater.refreshGeneralMeasure(in.getId());
@@ -101,7 +101,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void generalMeasureAdded(final GeneralMeasure... added) throws Exception {
-		LOG.info("Notified of additions of {} elements of type GeneralMeasure", ( added == null ? "NULL" : added.length));
+		LOG.info("Notified of additions of {} elements of type GeneralMeasure", added == null ? "NULL" : added.length);
 		
 		for(GeneralMeasure in : added) {
 			this.updater.refreshGeneralMeasure(in.getId());
@@ -115,7 +115,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void generalMeasureDeleted(Rfmo owner, final GeneralMeasure... deleted) throws Exception {
-		LOG.info("Notified of deletions of {} elements of type GeneralMeasure", ( deleted == null ? "NULL" : deleted.length));
+		LOG.info("Notified of deletions of {} elements of type GeneralMeasure", deleted == null ? "NULL" : deleted.length);
 		
 		this.updateFactsheets(this.findVMEIDs(owner));
 	}
@@ -125,7 +125,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void informationSourceChanged(final InformationSource... changed) throws Exception {
-		LOG.info("Notifiying listeners of changes to {} elements of type InformationSource", ( changed == null ? "NULL" : changed.length));
+		LOG.info("Notifiying listeners of changes to {} elements of type InformationSource", changed == null ? "NULL" : changed.length);
 
 		for(InformationSource in : changed) {
 			this.updater.refreshInformationSource(in.getId());
@@ -133,7 +133,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		
 		this.updateFactsheets(this.findVMEIDs(changed));
 
-		LOG.info("Notified of changes to {} elements of type InformationSource", ( changed == null ? "NULL" : changed.length));
+		LOG.info("Notified of changes to {} elements of type InformationSource", changed == null ? "NULL" : changed.length);
 	}
 
 	/* (non-Javadoc)
@@ -141,7 +141,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void informationSourceAdded(final InformationSource... added) throws Exception {
-		LOG.info("Notified of additions of {} elements of type InformationSource", ( added == null ? "NULL" : added.length));
+		LOG.info("Notified of additions of {} elements of type InformationSource", added == null ? "NULL" : added.length);
 		
 		for(InformationSource in : added) {
 			this.updater.refreshInformationSource(in.getId());
@@ -155,7 +155,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void informationSourceDeleted(Rfmo owner, final InformationSource... deleted) throws Exception {
-		LOG.info("Notified of deletions of {} elements of type InformationSource", ( deleted == null ? "NULL" : deleted.length));
+		LOG.info("Notified of deletions of {} elements of type InformationSource", deleted == null ? "NULL" : deleted.length);
 		
 		this.updateFactsheets(this.findVMEIDs(owner));
 	}
@@ -165,7 +165,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void fishingFootprintChanged(final FisheryAreasHistory... changed) throws Exception {
-		LOG.info("Notified of changes to {} elements of type FisheryAreasHistory", ( changed == null ? "NULL" : changed.length));
+		LOG.info("Notified of changes to {} elements of type FisheryAreasHistory", changed == null ? "NULL" : changed.length);
 		
 		for(FisheryAreasHistory in : changed) {
 			this.updater.refreshFishingFootprint(in.getId());
@@ -179,7 +179,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void fishingFootprintAdded(final FisheryAreasHistory... added) throws Exception {
-		LOG.info("Notified of additions of {} elements of type FisheryAreasHistory", ( added == null ? "NULL" : added.length));
+		LOG.info("Notified of additions of {} elements of type FisheryAreasHistory", added == null ? "NULL" : added.length);
 
 		this.updateFactsheets(this.findVMEIDs(added));
 	}
@@ -189,7 +189,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void fishingFootprintDeleted(Rfmo owner, final FisheryAreasHistory... deleted) throws Exception {
-		LOG.info("Notified of deletions of {} elements of type FisheryAreasHistory", ( deleted == null ? "NULL" : deleted.length));
+		LOG.info("Notified of deletions of {} elements of type FisheryAreasHistory", deleted == null ? "NULL" : deleted.length);
 		
 		this.updateFactsheets(this.findVMEIDs(owner));
 	}
@@ -199,7 +199,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void regionalHistoryChanged(final VMEsHistory... changed) throws Exception {
-		LOG.info("Notified of changes to {} elements of type VMEsHistory", ( changed == null ? "NULL" : changed.length));
+		LOG.info("Notified of changes to {} elements of type VMEsHistory", changed == null ? "NULL" : changed.length);
 
 		for(VMEsHistory in : changed) {
 			this.updater.refreshRegionalHistory(in.getId());
@@ -213,7 +213,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void regionalHistoryAdded(final VMEsHistory... added) throws Exception {
-		LOG.info("Notified of additions of {} elements of type VMEsHistory", ( added == null ? "NULL" : added.length));
+		LOG.info("Notified of additions of {} elements of type VMEsHistory", added == null ? "NULL" : added.length);
 		
 		for(VMEsHistory in : added) {
 			this.updater.refreshRegionalHistory(in.getId());
@@ -227,7 +227,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	@Override
 	public final void regionalHistoryDeleted(Rfmo owner, final VMEsHistory... deleted) throws Exception {
-		LOG.info("Notified of deletions of {} elements of type VMEsHistory", ( deleted == null ? "NULL" : deleted.length));	
+		LOG.info("Notified of deletions of {} elements of type VMEsHistory", deleted == null ? "NULL" : deleted.length);	
 		
 		this.updateFactsheets(this.findVMEIDs(owner));
 	}
@@ -330,12 +330,13 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 		Collection<Long> idCollection = new HashSet<Long>();
 				
 		for(Rfmo authority : rfmos) {
-			if(authority != null && authority.getListOfManagedVmes() != null)
+			if(authority != null && authority.getListOfManagedVmes() != null) {
 				for(Vme vme : authority.getListOfManagedVmes()) {
 					if(vme.getId() != null) {
 						idCollection.add(vme.getId());
 					}
 				}
+			}
 		}
 		
 		LOG.info("IDs for VMEs belonging to {} are: {}", this.serializeIDs(rfmos), this.serializeIDs(idCollection.toArray(new Object[idCollection.size()])));

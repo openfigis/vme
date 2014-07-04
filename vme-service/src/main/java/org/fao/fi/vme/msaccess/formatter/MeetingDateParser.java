@@ -117,7 +117,7 @@ public class MeetingDateParser {
 
 	int convertString2Int(String value) {
 		value = value.trim();
-		return (Integer.valueOf(value));
+		return Integer.valueOf(value);
 	}
 
 	boolean isNumber(String string) {

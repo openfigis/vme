@@ -6,6 +6,8 @@ import java.util.Calendar;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.reference.InformationSourceType;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InformationSourceMock {
 	public static final String CIT = "RFMO Conservation and Enforcement Measure  (Doc No. ####)";
@@ -13,6 +15,8 @@ public class InformationSourceMock {
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	private static InformationSourceType INSTANCE = null;
+	
+	private static Logger LOG = LoggerFactory.getLogger(InformationSourceMock.class);
 	
 	/*
 	 *  Note: never set an ID for informationSource because hybernate wants to generate himself
@@ -29,7 +33,7 @@ public class InformationSourceMock {
 		try {
 			is.setUrl(new URL("http://www.rfmo.org"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 		is.setCommittee(u.english("Regional Fishery Management Organization (RFMO)"));
 		is.setReportSummary(u.english("This is an abstract (report summary)"));

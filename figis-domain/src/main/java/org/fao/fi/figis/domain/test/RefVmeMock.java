@@ -3,6 +3,8 @@ package org.fao.fi.figis.domain.test;
 import org.fao.fi.figis.domain.RefVme;
 
 public class RefVmeMock {
+	
+	private RefVmeMock(){}
 
 	public static RefVme create() {
 
