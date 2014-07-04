@@ -71,8 +71,8 @@ public class PeriodGrouping {
 		return l;
 	}
 
+	@SuppressWarnings("unchecked")
 	private <T> T findYearObject(List<T> list, int disseminationYear, DisseminationYearSlice slice) {
-		@SuppressWarnings("unchecked")
 		List<Year<?>> yearList = (List<Year<?>>) list;
 
 		Year<?> history = null;
@@ -86,7 +86,7 @@ public class PeriodGrouping {
 				}
 			}
 		}
-		@SuppressWarnings("unchecked")
+
 		T t = (T) history;
 		return t;
 
