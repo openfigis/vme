@@ -8,6 +8,11 @@ import javax.inject.Inject;
 import javax.xml.bind.JAXBElement;
 
 import org.fao.fi.figis.devcon.BiblioEntry;
+import org.fao.fi.figis.devcon.CollectionRef;
+import org.fao.fi.figis.devcon.CorporateCoverPage;
+import org.fao.fi.figis.devcon.CoverPage;
+import org.fao.fi.figis.devcon.DataEntry;
+import org.fao.fi.figis.devcon.Editor;
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.ForeignID;
@@ -15,7 +20,9 @@ import org.fao.fi.figis.devcon.GeoReference;
 import org.fao.fi.figis.devcon.Max;
 import org.fao.fi.figis.devcon.Min;
 import org.fao.fi.figis.devcon.ObjectFactory;
+import org.fao.fi.figis.devcon.ObjectSource;
 import org.fao.fi.figis.devcon.OrgRef;
+import org.fao.fi.figis.devcon.Owner;
 import org.fao.fi.figis.devcon.Range;
 import org.fao.fi.figis.devcon.Sources;
 import org.fao.fi.figis.devcon.SpatialScale;
@@ -38,6 +45,7 @@ import org.fao.fi.vme.domain.util.Lang;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.purl.dc.elements._1.Title;
+import org.purl.dc.terms.Created;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.ReferenceDAO;
@@ -59,6 +67,7 @@ abstract class FigisDocBuilderAbstract {
 	protected ReferenceDAO refDao;
 
 	protected ObjectFactory f = new ObjectFactory();
+	private org.purl.dc.terms.ObjectFactory fDc = new org.purl.dc.terms.ObjectFactory();
 	protected MultiLingualStringUtil u = new MultiLingualStringUtil();
 	protected EnglishTextUtil ut = new EnglishTextUtil();
 	protected JAXBElementUtil uj = new JAXBElementUtil();
@@ -336,4 +345,93 @@ abstract class FigisDocBuilderAbstract {
 		}
 	}
 
+	/**
+	 * <fi:DataEntry>
+	 * 
+	 * <fi:Editor>///RFMO Acronym///</fi:Editor>
+	 * 
+	 * <dcterms:Created>//// date of creation yyyy-mm-dd ////</dcterms:Created>
+	 * 
+	 * </fi:DataEntry>
+	 * 
+	 * <fi:ObjectSource>
+	 * 
+	 * <fi:Owner>
+	 * 
+	 * <fi:CollectionRef>
+	 * 
+	 * <fi:FigisID MetaID="267000">7300</fi:FigisID>
+	 * 
+	 * </fi:CollectionRef>
+	 * 
+	 * </fi:Owner>
+	 * 
+	 * <fi:CorporateCoverPage>
+	 * 
+	 * <fi:FigisID MetaID="280000">791</fi:FigisID>
+	 * 
+	 * </fi:CorporateCoverPage>
+	 * 
+	 * <fi:CoverPage>
+	 * 
+	 * <dcterms:Created>//// date of creation yyyy-mm-dd ////</dcterms:Created>
+	 * 
+	 * </fi:CoverPage>
+	 * 
+	 * </fi:ObjectSource>
+	 * 
+	 * 
+	 * @param figisDoc
+	 */
+	public void dataEntryObjectSource(String rfmo, FIGISDoc figisDoc) {
+
+		// dataEntry
+		Editor editor = f.createEditor();
+		editor.setContent(rfmo);
+
+		Created created = new Created();
+		created.setContent(currentDate.getCurrentDateYyyyMmDd());
+
+		DataEntry dataEntry = f.createDataEntry();
+		dataEntry.setEditor(editor);
+		dataEntry.setCreated(created);
+
+		figisDoc.setDataEntry(dataEntry);
+
+		// fi:ObjectSource (owner corporateCoverPage, coverPage)
+
+		// owner
+		FigisID figisID = new FigisID();
+		figisID.setContent("7300");
+		figisID.setMetaID("267000");
+
+		CollectionRef collectionRef = f.createCollectionRef();
+		collectionRef.getFigisIDsAndForeignIDs().add(figisID);
+
+		Owner owner = f.createOwner();
+		owner.setCollectionRef(collectionRef);
+
+		// corporateCoverPage <fi:FigisID MetaID="280000">791</fi:FigisID>
+		FigisID figisIDCC = new FigisID();
+		figisIDCC.setContent("791");
+		figisIDCC.setMetaID("280000");
+		CorporateCoverPage corporateCoverPage = f.createCorporateCoverPage();
+		corporateCoverPage.getFigisIDsAndForeignIDs().add(figisIDCC);
+
+		// coverPage <fi:CoverPage>
+		// <dcterms:Created>2014-07-04</dcterms:Created> </fi:CoverPage>
+
+		CoverPage coverPage = f.createCoverPage();
+		Created createdElement = fDc.createCreated();
+		createdElement.setContent(currentDate.getCurrentDateYyyyMmDd());
+		coverPage.getCreatorPersonalsAndCreatedsAndModifieds().add(createdElement);
+
+		ObjectSource objectSource = f.createObjectSource();
+		objectSource.setOwner(owner);
+		objectSource.setCoverPage(coverPage);
+		objectSource.setCorporateCoverPage(corporateCoverPage);
+
+		figisDoc.setObjectSource(objectSource);
+
+	}
 }

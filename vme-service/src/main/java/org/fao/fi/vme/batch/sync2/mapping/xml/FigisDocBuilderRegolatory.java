@@ -2,25 +2,16 @@ package org.fao.fi.vme.batch.sync2.mapping.xml;
 
 import java.util.List;
 
-import org.fao.fi.figis.devcon.CollectionRef;
-import org.fao.fi.figis.devcon.CorporateCoverPage;
-import org.fao.fi.figis.devcon.CoverPage;
-import org.fao.fi.figis.devcon.DataEntry;
-import org.fao.fi.figis.devcon.Editor;
 import org.fao.fi.figis.devcon.FIGISDoc;
-import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.FisheryArea;
 import org.fao.fi.figis.devcon.Management;
 import org.fao.fi.figis.devcon.ManagementMethodEntry;
 import org.fao.fi.figis.devcon.ManagementMethods;
-import org.fao.fi.figis.devcon.ObjectSource;
-import org.fao.fi.figis.devcon.Owner;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.vme.batch.sync2.mapping.DisseminationYearSlice;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.Vme;
-import org.purl.dc.terms.Created;
 
 /**
  * FigisDocBuilder, to build a FIGISDoc from VME Domain database for regolatory
@@ -184,92 +175,6 @@ public class FigisDocBuilderRegolatory extends FigisDocBuilderAbstract {
 		if (entry.getTextsAndImagesAndTables().size() > 0) {
 			methods.getManagementMethodEntriesAndTextsAndImages().add(entry);
 		}
-
-	}
-
-	/**
-	 * <fi:DataEntry>
-	 * 
-	 * <fi:Editor>///RFMO Acronym///</fi:Editor>
-	 * 
-	 * <dcterms:Created>//// date of creation yyyy-mm-dd ////</dcterms:Created>
-	 * 
-	 * </fi:DataEntry>
-	 * 
-	 * <fi:ObjectSource>
-	 * 
-	 * <fi:Owner>
-	 * 
-	 * <fi:CollectionRef>
-	 * 
-	 * <fi:FigisID MetaID="267000">7300</fi:FigisID>
-	 * 
-	 * </fi:CollectionRef>
-	 * 
-	 * </fi:Owner>
-	 * 
-	 * <fi:CorporateCoverPage>
-	 * 
-	 * <fi:FigisID MetaID="280000">791</fi:FigisID>
-	 * 
-	 * </fi:CorporateCoverPage>
-	 * 
-	 * <fi:CoverPage>
-	 * 
-	 * <dcterms:Created>//// date of creation yyyy-mm-dd ////</dcterms:Created>
-	 * 
-	 * </fi:CoverPage>
-	 * 
-	 * </fi:ObjectSource>
-	 * 
-	 * 
-	 * @param figisDoc
-	 */
-	public void dataEntryObjectSource(String rfmo, FIGISDoc figisDoc) {
-
-		// dataEntry
-		Editor editor = f.createEditor();
-		editor.setContent(rfmo);
-
-		Created created = new Created();
-		created.setContent(currentDate.getCurrentDateYyyyMmDd());
-
-		DataEntry dataEntry = f.createDataEntry();
-		dataEntry.setEditor(editor);
-		dataEntry.setCreated(created);
-
-		figisDoc.setDataEntry(dataEntry);
-
-		// fi:ObjectSource (owner corporateCoverPage, coverPage)
-
-		// owner
-		FigisID figisID = new FigisID();
-		figisID.setContent("7300");
-		figisID.setMetaID("267000");
-
-		CollectionRef collectionRef = f.createCollectionRef();
-		collectionRef.getFigisIDsAndForeignIDs().add(figisID);
-
-		Owner owner = f.createOwner();
-		owner.setCollectionRef(collectionRef);
-
-		// corporateCoverPage <fi:FigisID MetaID="280000">791</fi:FigisID>
-		FigisID figisIDCC = new FigisID();
-		figisIDCC.setContent("791");
-		figisIDCC.setMetaID("280000");
-		CorporateCoverPage corporateCoverPage = f.createCorporateCoverPage();
-		corporateCoverPage.getFigisIDsAndForeignIDs().add(figisIDCC);
-
-		// coverPage
-		CoverPage coverPage = f.createCoverPage();
-		coverPage.getCreatorPersonalsAndCreatedsAndModifieds().add(currentDate.getCurrentDateYyyyMmDd());
-
-		ObjectSource objectSource = f.createObjectSource();
-		objectSource.setOwner(owner);
-		objectSource.setCoverPage(coverPage);
-		objectSource.setCorporateCoverPage(corporateCoverPage);
-
-		figisDoc.setObjectSource(objectSource);
 
 	}
 
