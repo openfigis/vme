@@ -402,8 +402,17 @@ abstract class FigisDocBuilderAbstract {
 		figisID.setContent("7300");
 		figisID.setMetaID("267000");
 
+		// Not critical but making the file NOT valid vs FiMES:
+		// <fi:ForeignID Code="VME_FS" CodeSystem="acronym"/> should follow the
+		// FigisID in the <fi:CollectionRef> element
+
+		ForeignID foreignID = f.createForeignID();
+		foreignID.setCode("VME_FS");
+		foreignID.setCodeSystem("acronym");
+
 		CollectionRef collectionRef = f.createCollectionRef();
 		collectionRef.getFigisIDsAndForeignIDs().add(figisID);
+		collectionRef.getFigisIDsAndForeignIDs().add(foreignID);
 
 		Owner owner = f.createOwner();
 		owner.setCollectionRef(collectionRef);
