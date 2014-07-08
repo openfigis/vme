@@ -1,6 +1,8 @@
 package org.vme.fimes.jaxb;
 
+import java.io.IOException;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -13,6 +15,8 @@ import javax.xml.validation.SchemaFactory;
 
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.xml.sax.SAXException;
+
+import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
 
 /**
  * Convert the java jaxb xml to a string.
@@ -41,6 +45,15 @@ public class JaxbMarshall {
 			// is this one needed, since JAXB_SCHEMA_LOCATION is also set?
 			Schema schema = sf.newSchema(new URL("http://www.fao.org/figis/fimes/schema/3_6/fi.xsd"));
 			marshaller.setSchema(schema);
+
+			// avoid jaxb from escaping characters (nesessary to handle properly
+			// CDATA)
+			marshaller.setProperty(CharacterEscapeHandler.class.getName(), new CharacterEscapeHandler() {
+				@Override
+				public void escape(char[] ch, int start, int length, boolean isAttVal, Writer out) throws IOException {
+					out.write(ch, start, length);
+				}
+			});
 
 			// this property works fine with jdk1.6.0_16
 			marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new FimesNamespacePrefixMapper());
