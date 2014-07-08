@@ -44,6 +44,9 @@ public class DtoTranslator {
 		smDto.setValidityPeriodStart(VUTIL.getBeginYear(sm.getValidityPeriod()));
 		smDto.setValidityPeriodEnd(VUTIL.getEndYear(sm.getValidityPeriod()));
 		smDto.setSourceURL(sm.getInformationSource().getUrl().toExternalForm());
+		smDto.setFactsheetURL("http://figisapps.fao.org/fishery/vme/" + 
+		figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear()).getId().getVmeId() + "/"
+		+ figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear()).getId().getObservationId() + "/en");
 		return smDto;
 	}
 	

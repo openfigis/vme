@@ -8,11 +8,20 @@ public class SpecificMeasureDto {
 	public int validityPeriodStart;
 	public int validityPeriodEnd;
 	public String sourceURL;
+	public String factsheetURL;
 	
 	public SpecificMeasureDto() {
 		
 	}
 	
+	public String getFactsheetURL() {
+		return factsheetURL;
+	}
+
+	public void setFactsheetURL(String factsheetURL) {
+		this.factsheetURL = factsheetURL;
+	}
+
 	public String getText() {
 		return text;
 	}

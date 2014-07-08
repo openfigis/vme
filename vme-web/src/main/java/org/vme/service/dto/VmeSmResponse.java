@@ -7,6 +7,13 @@ import java.util.UUID;
 public class VmeSmResponse {
 
 	private UUID uuid;
+	private long vmeId;
+	private String localName;
+	private String inventoryIdentifier;
+	private String geoArea;
+	private String owner;
+	private String vmeType;
+	
 	
 	private List<SpecificMeasureDto> specificMeasure;
 
@@ -26,6 +33,54 @@ public class VmeSmResponse {
 	
 	public void setResponseList(List<SpecificMeasureDto> specList){
 		this.specificMeasure = specList;
+	}
+
+	public long getVmeId() {
+		return vmeId;
+	}
+
+	public void setVmeId(long vmeId) {
+		this.vmeId = vmeId;
+	}
+
+	public String getLocalName() {
+		return localName;
+	}
+
+	public void setLocalName(String localName) {
+		this.localName = localName;
+	}
+
+	public String getInventoryIdentifier() {
+		return inventoryIdentifier;
+	}
+
+	public void setInventoryIdentifier(String inventoryIdentifier) {
+		this.inventoryIdentifier = inventoryIdentifier;
+	}
+
+	public String getGeoArea() {
+		return geoArea;
+	}
+
+	public void setGeoArea(String geoArea) {
+		this.geoArea = geoArea;
+	}
+
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public String getVmeType() {
+		return vmeType;
+	}
+
+	public void setVmeType(String vmeType) {
+		this.vmeType = vmeType;
 	}
 
 }

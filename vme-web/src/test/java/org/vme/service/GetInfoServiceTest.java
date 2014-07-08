@@ -1,7 +1,6 @@
 package org.vme.service;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +48,7 @@ public class GetInfoServiceTest {
 	}
 	
 	@Test
-	public void testFindInfoString() {
+	public void testFindInfoStringInt() {
 		
 		List<SpecificMeasureDto> resultList = new ArrayList<SpecificMeasureDto>();
 
@@ -59,16 +58,14 @@ public class GetInfoServiceTest {
 
 		
 		for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
+			if(sm.getYear() == 2000){
 			resultList.add(translator.doTranslate4Sm(sm));
+			}
 		}
 		
-		assertTrue(vme.getSpecificMeasureList().size() == resultList.size());
-	}
-
-//	TODO ("Implement this test")
-	@Test
-	public void testFindInfoStringInt() {
-		fail("Not yet implemented");
+		assertTrue(vme.getSpecificMeasureList().size() != resultList.size());
+		assertTrue(3 == vme.getSpecificMeasureList().size());
+		assertTrue(1 == resultList.size());
 	}
 
 }
