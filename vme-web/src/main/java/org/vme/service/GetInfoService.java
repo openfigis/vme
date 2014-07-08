@@ -70,10 +70,10 @@ public class GetInfoService {
 			 * Note: end of test part
 			 */
 
+			return resultList;
 
 		}
-		
-		return resultList;
+
 	}
 
 	public List<SpecificMeasureDto> findInfo(String vmeIdentifier, int vmeYear) {
@@ -109,9 +109,9 @@ public class GetInfoService {
 			 * Note: end of test part
 			 */
 
+			return resultList;
 
 		}
-		
-		return resultList;
+	
 	}
 }
