@@ -4,27 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.vme.service.GetInfoService;
-
 public class VmeSmResponse {
 
 	private UUID uuid;
 	
-	private GetInfoService service = new GetInfoService();
-	
-	private List<SpecificMeasureDto> specificMeasure = new ArrayList<SpecificMeasureDto>();
+	private List<SpecificMeasureDto> specificMeasure;
 
 	public VmeSmResponse(UUID uuid){
 		super();
 		this.uuid = uuid;
-	}
-	
-	public void createResponse(String vmeIdentifier, int year) {
-		this.specificMeasure = service.findInfo(vmeIdentifier, year);
-	}
-
-	public void createResponse(String vmeIdentifier) {
-		this.specificMeasure = service.findInfo(vmeIdentifier);
+		this.specificMeasure = new ArrayList<SpecificMeasureDto>();
 	}
 	
 	public String getUuid() {
@@ -33,6 +22,10 @@ public class VmeSmResponse {
 	
 	public List<SpecificMeasureDto> getResponseList(){
 		return this.specificMeasure;
+	}
+	
+	public void setResponseList(List<SpecificMeasureDto> specList){
+		this.specificMeasure = specList;
 	}
 
 }
