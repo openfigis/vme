@@ -45,7 +45,7 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 	private EnglishTextUtil ut = new EnglishTextUtil();
 
 	public void initGM(ManagementMethodEntry entry) {
-		entry.setFocus(FigisDocBuilder.VULNERABLE_MARINE_ECOSYSTEMS);
+		entry.setFocus(FigisDocBuilderAbstract.VULNERABLE_MARINE_ECOSYSTEMS);
 		Title entryTitle = new Title();
 		entryTitle.setContent(TITLE_GM);
 		entry.setTitle(entryTitle);
