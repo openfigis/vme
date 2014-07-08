@@ -215,7 +215,7 @@ abstract class FigisDocBuilderAbstract {
 		}
 
 		// VME Criteria
-		List<VMECriteria> vmeCriteria = new ArrayList<VMECriteria>();
+		List<VMECriteria> vmeCriteriaList = new ArrayList<VMECriteria>();
 
 		if (vmeDomain.getCriteria() != null) {
 			VMECriteria criteria;
@@ -223,12 +223,10 @@ abstract class FigisDocBuilderAbstract {
 			for (Long criteriaId : vmeDomain.getCriteria()) {
 				try {
 					refCriteria = criteriaId == null ? null : refDao.getReferenceByID(VmeCriteria.class, criteriaId);
-
 					if (refCriteria != null) {
 						criteria = new VMECriteria();
 						criteria.setValue(refCriteria.getName());
-
-						vmeCriteria.add(criteria);
+						vmeCriteriaList.add(criteria);
 					}
 				} catch (Exception e) {
 					LOG.error("Unable to retrieve reference {} with ID {}: {}", VmeCriteria.class, criteriaId,
@@ -272,9 +270,12 @@ abstract class FigisDocBuilderAbstract {
 		new AddWhenContentRule<Object>().check(vmeDomain.getAreaType()).beforeAdding(vmeType)
 				.to(vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves());
 
-		// fi:VMECriteria
-		new AddWhenContentRule<Object>().check(vmeDomain.getCriteria()).beforeAdding(vmeCriteria)
-				.to(vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves());
+		for (VMECriteria vmeCriteria : vmeCriteriaList) {
+			// fi:VMECriteria
+			new AddWhenContentRule<Object>().check(vmeDomain.getCriteria()).beforeAdding(vmeCriteria)
+					.to(vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves());
+
+		}
 
 		VME vme = new VME();
 		vme.setVMEIdent(vmeIdent);
