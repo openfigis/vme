@@ -1,6 +1,7 @@
 package org.vme.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,7 +50,7 @@ public class GetInfoService {
 			vmeSmResponse.setOwner(vmeDto.getOwner());
 			
 			for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
-				if(sm.getYear() == vmeYear){
+				if(sm.getYear() == vmeYear || vmeYear == 0){
 					resultList.add(translator.doTranslate4Sm(sm));
 				}
 			}
@@ -61,7 +62,7 @@ public class GetInfoService {
 
 	}
 
-	public VmeResponse findInfo(String owner, String scope, int parseInt) {
+	public VmeResponse findInfo(String owner, String scope, int year) {
 		
 		VmeResponse vmeResponse = new VmeResponse(UUID.randomUUID());
 		
@@ -70,15 +71,20 @@ public class GetInfoService {
 		for (Authority aut : refDao.getAllAuthorities()) {
 			if(owner.equals(aut.getAcronym())){
 				try {
-					vmeDtoList = vSearchDao.searchVme(aut.getId(), 0, 0, parseInt, null);
-					vmeResponse.setVmeDto(vmeDtoList);
+					vmeDtoList = vSearchDao.searchVme(aut.getId(), 0, 0, year, null);
 				} catch (Exception e) {
 					throw new VmeException(e);
 				}
 			}
 		}
 		
-		
+		for (VmeDto vmeDto : vmeDtoList) {
+			if(vmeDto.getYear() == year){
+				vmeResponse.getVmeDto().add(vmeDto);
+			} else if(year == 0 && vmeDto.getYear() == Calendar.getInstance().get(Calendar.YEAR)){
+				vmeResponse.getVmeDto().add(vmeDto);
+			}
+		}
 		
 		return vmeResponse;
 	}

@@ -1,7 +1,5 @@
 package org.vme.web.service;
 
-import java.util.Calendar;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
@@ -63,7 +61,7 @@ public class VmeGetInfoWS {
 	public Response findByOwner(@PathParam("owner") String owner, @PathParam("scope") String scope,
 			@PathParam("year") String year) {
 		
-		return Response.status(200).entity(getInfoService.findInfo(owner, scope, Calendar.getInstance().get(Calendar.YEAR))).build();
+		return Response.status(200).entity(getInfoService.findInfo(owner, scope, 0)).build();
 		
 	}
 	
