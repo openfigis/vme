@@ -9,7 +9,6 @@ import static net.jadler.Jadler.verifyThatRequest;
 import javax.inject.Inject;
 
 import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.After;
 import org.junit.Before;
@@ -22,10 +21,9 @@ import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ ReferenceDaoImpl.class })
-@ActivatedAlternatives({ FigisFactsheetUpdater.class, FigisTestPersistenceUnitConfiguration.class,
-		FigisDataBaseProducer.class, VmeTestPersistenceUnitConfiguration.class,
-		VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisFactsheetUpdater.class,
+		FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
+		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
 public class FigisFactsheetUpdaterTest {
 
 	private static String RESPONSE = "FIGIS_FACTSHEET_DOMAIN_CACHE_DELETED_SUCCESS";

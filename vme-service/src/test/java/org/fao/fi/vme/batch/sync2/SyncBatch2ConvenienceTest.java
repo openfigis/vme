@@ -3,7 +3,6 @@ package org.fao.fi.vme.batch.sync2;
 import javax.inject.Inject;
 
 import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,9 +22,8 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
  * 
  */
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ ReferenceDaoImpl.class })
-@ActivatedAlternatives({ VmePersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,
-		FigisDataBaseProducer.class, FigisPersistenceUnitConfiguration.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, VmePersistenceUnitConfiguration.class,
+		VmeDataBaseProducerApplicationScope.class, FigisDataBaseProducer.class, FigisPersistenceUnitConfiguration.class })
 public class SyncBatch2ConvenienceTest {
 
 	@Inject

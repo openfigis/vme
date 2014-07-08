@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.inject.Alternative;
+
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
@@ -13,6 +15,7 @@ import org.vme.dao.ReferenceDAO;
 import org.vme.dao.ReferenceServiceException;
 
 @ConceptProvider
+@Alternative
 public class ReferenceDaoMockImpl implements ReferenceDAO {
 
 	private static Map<Class<?>, ReferenceConcept> refObjects = new HashMap<Class<?>, ReferenceConcept>();

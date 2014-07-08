@@ -1,6 +1,7 @@
 package org.fao.fi.vme.batch.sync2.mapping.xml;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 
@@ -20,14 +21,15 @@ public class EnglishTextUtilTest {
 	private EnglishTextUtil enUtil = new EnglishTextUtil();
 	private MultiLingualString mult = new MultiLingualString();
 	private HashMap<Integer, String> stringMap = new HashMap<Integer, String>();
-	
+
 	@Test
 	public void testGetEnglishText() {
 		stringMap.put(Lang.EN, "Hello world");
 		mult.setStringMap(stringMap);
 		Text text = enUtil.getEnglishText(mult);
 		assertEquals("en", text.getLang());
-		assertEquals("Hello world", text.getContent().get(0));
+
+		assertTrue(((String) text.getContent().get(0)).contains("Hello world"));
 	}
 
 	@Test
@@ -36,7 +38,7 @@ public class EnglishTextUtilTest {
 		stringMap.put(Lang.EN, "Hello world");
 		mult.setStringMap(stringMap);
 		assertEquals(multEn.getStringMap().get(Lang.EN), mult.getStringMap().get(Lang.EN));
-		
+
 	}
-	
+
 }

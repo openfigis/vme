@@ -12,7 +12,6 @@ import org.fao.fi.vme.msaccess.component.VmeReader;
 import org.fao.fi.vme.msaccess.model.Table;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -23,9 +22,8 @@ import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FilesystemMsAccessConnectionProvider.class, VmeDataBaseProducerApplicationScope.class,
-		VmeTestPersistenceUnitConfiguration.class })
-@AdditionalClasses({ ReferenceDaoImpl.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, FilesystemMsAccessConnectionProvider.class,
+		VmeDataBaseProducerApplicationScope.class, VmeTestPersistenceUnitConfiguration.class })
 public class TableDomainMapperTest {
 	TableReader tr = new TableReader();
 

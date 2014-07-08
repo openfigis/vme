@@ -59,9 +59,10 @@ import org.vme.dao.sources.vme.VmeDao;
  * @since 16 Jan 2014
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, VmeTestPersistenceUnitConfiguration.class,
-		VmeDataBaseProducerApplicationScope.class, FilesystemMsAccessConnectionProvider.class })
-@AdditionalClasses({ MsAcces2DomainMapper.class, ReferenceDaoImpl.class, VmeAccessDbImport.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class,
+		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,
+		FilesystemMsAccessConnectionProvider.class })
+@AdditionalClasses({ MsAcces2DomainMapper.class, VmeAccessDbImport.class })
 public class CRUDJpaDaoTest {
 	@Inject
 	private VmeAccessDbImport importer;
@@ -401,13 +402,7 @@ public class CRUDJpaDaoTest {
 
 		Vme vme = new Vme();
 		vme.setAreaType(VmeTypeMock.create().getId());
-		vme.setCriteria(
-			new ArrayList<Long>(
-				Arrays.asList(new Long[] {
-					VmeCriteriaMock.create().getId()
-				})
-			)
-		);
+		vme.setCriteria(new ArrayList<Long>(Arrays.asList(new Long[] { VmeCriteriaMock.create().getId() })));
 		vme.setName(MLSu.english("Foobazzi mountain"));
 		vme.setGeoArea(MLSu.english("GeoArea"));
 		// vme.setGeoform("GeoForm");
