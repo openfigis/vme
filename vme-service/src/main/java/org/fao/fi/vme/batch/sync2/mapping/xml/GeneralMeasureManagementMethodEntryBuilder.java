@@ -42,6 +42,7 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
 	private ObjectFactory f = new ObjectFactory();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
+	private EnglishTextUtil ut = new EnglishTextUtil();
 
 	public void initGM(ManagementMethodEntry entry) {
 		entry.setFocus(FigisDocBuilder.VULNERABLE_MARINE_ECOSYSTEMS);
@@ -58,8 +59,8 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			Measure measure1 = f.createMeasure();
 			MeasureType measureType1 = f.createMeasureType();
 			measureType1.setValue(FISHING_AREAS);
-			Text measureText1 = f.createText();
-			measureText1.getContent().add(u.getEnglish(gm.getFishingArea()));
+
+			Text measureText1 = ut.getEnglishText(gm.getFishingArea());
 
 			measure1.getTextsAndImagesAndTables().add(measureType1);
 
@@ -121,8 +122,7 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			Measure measure2 = f.createMeasure();
 			MeasureType measureType2 = f.createMeasureType();
 			measureType2.setValue(EXPLORATORY_FISHING_PROTOCOL);
-			Text measureText2 = f.createText();
-			measureText2.getContent().add(u.getEnglish(gm.getExplorataryFishingProtocol()));
+			Text measureText2 = ut.getEnglishText(gm.getExplorataryFishingProtocol());
 
 			measure2.getTextsAndImagesAndTables().add(measureType2);
 
@@ -140,8 +140,7 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			Measure measure3 = f.createMeasure();
 			MeasureType measureType3 = f.createMeasureType();
 			measureType3.setValue(VME_ENCOUNTER_PROTOCOLS);
-			Text measureText3 = f.createText();
-			measureText3.getContent().add(u.getEnglish(yearObject.getVmeEncounterProtocol()));
+			Text measureText3 = ut.getEnglishText(yearObject.getVmeEncounterProtocol());
 
 			measure3.getTextsAndImagesAndTables().add(measureType3);
 			measure3.getTextsAndImagesAndTables().add(measureText3);
