@@ -41,7 +41,7 @@ import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.jglue.cdiunit.AdditionalClasses;
+import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +55,7 @@ import org.vme.dao.test.ReferenceDaoMockImpl;
 import org.vme.fimes.jaxb.JaxbMarshall;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ ReferenceDaoMockImpl.class })
+@ActivatedAlternatives(ReferenceDaoMockImpl.class)
 public class FigisDocBuilderVmeTest {
 
 	@Inject

@@ -23,7 +23,6 @@ import org.fao.fi.vme.sync.factsheets.listeners.FactsheetChangeListener;
 import org.fao.fi.vme.sync.factsheets.listeners.impl.SyncFactsheetChangeListener;
 import org.fao.fi.vme.sync.factsheets.updaters.impl.FigisFactsheetUpdater;
 import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -37,8 +36,7 @@ import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ ReferenceDaoImpl.class })
-@ActivatedAlternatives({ SyncFactsheetChangeListener.class, FigisFactsheetUpdater.class,
+@ActivatedAlternatives({ ReferenceDaoImpl.class, SyncFactsheetChangeListener.class, FigisFactsheetUpdater.class,
 		VmeDataBaseProducerApplicationScope.class, VmeTestPersistenceUnitConfiguration.class,
 		FigisDataBaseProducer.class, FigisTestPersistenceUnitConfiguration.class })
 public class FactsheetChangeListenerImplTest {

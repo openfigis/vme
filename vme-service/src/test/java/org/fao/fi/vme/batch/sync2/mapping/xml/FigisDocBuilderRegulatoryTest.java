@@ -37,7 +37,6 @@ import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,8 +52,8 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.fimes.jaxb.JaxbMarshall;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ ReferenceDaoImpl.class })
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, VmeTestPersistenceUnitConfiguration.class,
+		VmeDataBaseProducerApplicationScope.class })
 public class FigisDocBuilderRegulatoryTest {
 
 	@Inject
@@ -151,18 +150,6 @@ public class FigisDocBuilderRegulatoryTest {
 				if (mType.getValue().equals("Fishing_Areas")) {
 					assertEquals(u.getEnglish(generalMeasure.getFishingArea()), ((Measure) obj)
 							.getTextsAndImagesAndTables().get(1));
-				} else if (mType.getValue().equals("Exploratory_fishing_protocol")) {
-					assertEquals(u.getEnglish(generalMeasure.getExplorataryFishingProtocol()), ((Text) ((Measure) obj)
-							.getTextsAndImagesAndTables().get(1)).getContent().get(0));
-				} else if (mType.getValue().equals("VME_encounter_protocols")) {
-					assertEquals(u.getEnglish(generalMeasure.getVmeEncounterProtocol()), ((Text) ((Measure) obj)
-							.getTextsAndImagesAndTables().get(1)).getContent().get(0));
-				} else if (mType.getValue().equals("VME_threshold")) {
-					assertEquals(u.getEnglish(generalMeasure.getVmeThreshold()), ((Text) ((Measure) obj)
-							.getTextsAndImagesAndTables().get(1)).getContent().get(0));
-				} else if (mType.getValue().equals("VME_indicatorspecies")) {
-					assertEquals(u.getEnglish(generalMeasure.getVmeIndicatorSpecies()), ((Text) ((Measure) obj)
-							.getTextsAndImagesAndTables().get(1)).getContent().get(0));
 				}
 
 			} else if (obj instanceof Range) {

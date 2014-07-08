@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
@@ -35,6 +36,7 @@ import org.vme.dao.config.vme.VmeDB;
  * 
  */
 @ConceptProvider
+@Alternative
 public class ReferenceDaoImpl implements ReferenceDAO {
 	protected static final Logger LOG = LoggerFactory.getLogger(ReferenceDaoImpl.class);
 
@@ -120,7 +122,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		List<?> res = em.createQuery("from VmeScope where id = " + key).getResultList();
 		return res.size() > 0 ? (VmeScope) res.get(0) : null;
 	}
-	
+
 	public Authority getAuthority(Long key) {
 		List<?> res = em.createQuery("from Authority where id = " + key).getResultList();
 		return res.size() > 0 ? (Authority) res.get(0) : null;
@@ -174,7 +176,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 	public List<InformationSourceType> getAllInformationSourceTypes() {
 		return em.createQuery("from InformationSourceType order by id asc").getResultList();
 	}
-	
+
 	public ReferenceYear getYear(Long key) {
 		return repYear.get(key);
 	}

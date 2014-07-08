@@ -21,7 +21,6 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,8 +30,8 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ ReferenceDaoImpl.class })
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, VmeTestPersistenceUnitConfiguration.class,
+		VmeDataBaseProducerApplicationScope.class })
 public class ObjectMappingTest {
 
 	@Inject

@@ -29,10 +29,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class, FilesystemMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, VmeTestPersistenceUnitConfiguration.class,
+		VmeDataBaseProducerApplicationScope.class, FilesystemMsAccessConnectionProvider.class })
 @AdditionalClasses({ MsAcces2DomainMapper.class })
 public class TableWriterTest {
 
@@ -42,35 +44,38 @@ public class TableWriterTest {
 	@Inject
 	TableWriter tableWriter;
 
-	@Inject MsAcces2DomainMapper mapper;
+	@Inject
+	MsAcces2DomainMapper mapper;
 
 	@Inject
 	VmeDao vmeDao;
 
 	@Test
-	public void testPersistNew() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+	public void testPersistNew() throws InstantiationException, IllegalAccessException, NoSuchMethodException,
+			InvocationTargetException {
 
-		Class<?> classes[] = { /*Authority.class,*/ GeneralMeasure.class, GeoRef.class, FisheryAreasHistory.class,
+		Class<?> classes[] = { /* Authority.class, */GeneralMeasure.class, GeoRef.class, FisheryAreasHistory.class,
 				VMEsHistory.class, InformationSource.class, MultiLingualString.class, Profile.class,
-				SpecificMeasure.class, Vme.class /*, VmeCriteria.class*/ };
+				SpecificMeasure.class, Vme.class /* , VmeCriteria.class */};
 		for (Class<?> clazz : classes) {
 			delegateTestPersistNew(clazz);
 		}
 
 	}
 
-	private void delegateTestPersistNew(Class<?> clazz) throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+	private void delegateTestPersistNew(Class<?> clazz) throws InstantiationException, IllegalAccessException,
+			NoSuchMethodException, InvocationTargetException {
 		ObjectCollection oc = new ObjectCollection();
 		oc.setClazz(clazz);
 		List<Object> objectList = new ArrayList<Object>();
 		oc.setObjectList(objectList);
-		
+
 		Object o = clazz.newInstance();
 		oc.getObjectList().add(o);
-		
+
 		try {
 			tableWriter.persistNew(oc);
-		} catch(Throwable t) {
+		} catch (Throwable t) {
 			throw new RuntimeException("Can't persist object collection " + oc, t);
 		}
 
