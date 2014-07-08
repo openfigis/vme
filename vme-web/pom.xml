@@ -83,6 +83,12 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 
 	<profiles>
@@ -92,9 +98,20 @@
 			</activation>
 			<id>env-dev</id>
 			<properties>
+				<host>http://figisapps.fao.org</host>
 			</properties>
-			<dependencies>
-			</dependencies>
+		</profile>
+		<profile>
+			<id>vme-fiqa</id>
+			<properties>
+				<host>http://figisapps.fao.org</host>
+			</properties>
+		</profile>
+		<profile>
+			<id>vme-prod</id>
+			<properties>
+				<host>http://www.fao.org/fisheries</host>
+			</properties>
 		</profile>
 	</profiles>
 
