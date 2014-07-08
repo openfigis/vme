@@ -264,7 +264,7 @@ abstract class FigisDocBuilderAbstract {
 		vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves().add(geoReference);
 
 		// fi:VMEType
-		new AddWhenContentRule<Object>().check(vmeTypeRef).beforeAdding(vmeType)
+		new AddWhenContentRule<Object>().check(vmeDomain.getAreaType()).beforeAdding(vmeType)
 				.to(vmeIdent.getFigisIDsAndForeignIDsAndWaterAreaReves());
 
 		// fi:VMECriteria
