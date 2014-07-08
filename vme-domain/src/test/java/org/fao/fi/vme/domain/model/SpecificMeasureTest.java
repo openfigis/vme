@@ -19,10 +19,12 @@ public class SpecificMeasureTest {
 	private static int YEAR = 2000;
 	private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
 	private ValidityPeriodUtil VUTIL = new ValidityPeriodUtil();
-	
+
 	@Before
-	public void before(){
+	public void before() {
 		sm1 = new SpecificMeasure();
+
+		sm1.setId(10l);
 
 		sm1.setYear(YEAR);
 		sm1.setVmeSpecificMeasure(UTIL.english("A specific measure for the year " + YEAR));
@@ -30,8 +32,9 @@ public class SpecificMeasureTest {
 		sm1.setInformationSource(InformationSourceMock.create());
 		sm1.setReviewYear(YEAR + 1);
 		sm1.setVme(VmeMock.create());
-		
+
 		sm2 = new SpecificMeasure();
+		sm1.setId(20l);
 
 		sm2.setYear(YEAR + 1);
 		sm2.setVmeSpecificMeasure(UTIL.english("A specific measure for the year " + YEAR++));
@@ -40,10 +43,10 @@ public class SpecificMeasureTest {
 		sm2.setReviewYear(YEAR + 2);
 		sm2.setVme(VmeMock.generateVme(3));
 	}
-	
+
 	@Test
 	public void testHashCode() {
-		assertTrue(sm1.hashCode()!=sm2.hashCode());
+		assertTrue(sm1.hashCode() != sm2.hashCode());
 	}
 
 	@Test
@@ -65,13 +68,15 @@ public class SpecificMeasureTest {
 
 	@Test
 	public void testGetInformationSource() {
-		assertEquals("This is an abstract (report summary)", UTIL.getEnglish(sm1.getInformationSource().getReportSummary()));
+		assertEquals("This is an abstract (report summary)",
+				UTIL.getEnglish(sm1.getInformationSource().getReportSummary()));
 	}
 
 	@Test
 	public void testSetInformationSource() {
 		sm2.setInformationSource(InformationSourceMock.create());
-		assertEquals("This is an abstract (report summary)", UTIL.getEnglish(sm1.getInformationSource().getReportSummary()));
+		assertEquals("This is an abstract (report summary)",
+				UTIL.getEnglish(sm1.getInformationSource().getReportSummary()));
 	}
 
 	@Test
@@ -100,13 +105,13 @@ public class SpecificMeasureTest {
 
 	@Test
 	public void testGetVmeSpecificMeasure() {
-		assertEquals("A specific measure for the year 2007",  UTIL.getEnglish(sm1.getVmeSpecificMeasure()));
+		assertEquals("A specific measure for the year 2007", UTIL.getEnglish(sm1.getVmeSpecificMeasure()));
 	}
 
 	@Test
 	public void testSetVmeSpecificMeasure() {
 		sm2.setVmeSpecificMeasure(UTIL.english("Foo specific measure for the year 2001"));
-		assertEquals("Foo specific measure for the year 2001",  UTIL.getEnglish(sm2.getVmeSpecificMeasure()));
+		assertEquals("Foo specific measure for the year 2001", UTIL.getEnglish(sm2.getVmeSpecificMeasure()));
 	}
 
 	@Test
