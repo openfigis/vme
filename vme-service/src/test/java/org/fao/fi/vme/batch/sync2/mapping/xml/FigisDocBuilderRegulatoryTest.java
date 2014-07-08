@@ -13,9 +13,7 @@ import javax.xml.bind.JAXBElement;
 
 import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.FIGISDoc;
-import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.FisheryArea;
-import org.fao.fi.figis.devcon.ForeignID;
 import org.fao.fi.figis.devcon.GeoForm;
 import org.fao.fi.figis.devcon.HabitatBio;
 import org.fao.fi.figis.devcon.History;
@@ -31,9 +29,7 @@ import org.fao.fi.figis.devcon.Range;
 import org.fao.fi.figis.devcon.Sources;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
-import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
-import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Vme;
@@ -194,44 +190,6 @@ public class FigisDocBuilderRegulatoryTest {
 
 		}
 
-	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public void testVme() {
-		FIGISDoc figisDoc = new FIGISDoc();
-
-		b.vme(vme, vme.getGeoRefList().get(0), VmeMock.YEAR, figisDoc);
-
-		assertNotNull(figisDoc.getVME());
-		assertNotNull(figisDoc.getVME().getVMEIdent());
-		assertNotNull(figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves());
-		assertTrue(figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves().size() > 0);
-
-		// test VMEIDent properties encoding
-		for (Object obj : figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves()) {
-			if (obj instanceof FigisID) {
-				assertEquals(Long.toString(vme.getId()), ((FigisID) obj).getContent());
-			} else if (obj instanceof ForeignID) {
-				assertEquals(vme.getInventoryIdentifier(), ((ForeignID) obj).getCode());
-			} else if (obj instanceof WaterAreaRef) {
-				assertEquals(vme.getGeoRefList().get(0).getGeographicFeatureID(), ((ForeignID) ((WaterAreaRef) obj)
-						.getFigisIDsAndForeignIDs().get(0)).getCode());
-				// } else if (obj instanceof VMEType) {
-				// assertEquals(vme.getAreaType().getName(), ((VMEType)
-				// obj).getValue());
-			} else if (obj instanceof VMECriteria) {
-				assertEquals(vme.getCriteria(), ((VMECriteria) obj).getValue());
-			} else if (obj instanceof Range) {
-				assertEquals("Time", ((Range) obj).getType());
-				JAXBElement<Min> min = (JAXBElement<Min>) ((Range) obj).getContent().get(0);
-
-				assertEquals(du.createUiString(vme.getValidityPeriod().getBeginDate()), min.getValue());
-
-				JAXBElement<Max> max = (JAXBElement<Max>) ((Range) obj).getContent().get(1);
-				assertEquals(du.createUiString(vme.getValidityPeriod().getEndDate()), max.getValue());
-			}
-		}
 	}
 
 	@Test

@@ -17,6 +17,7 @@ import org.fao.fi.figis.devcon.FIGISDoc;
 import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.ForeignID;
 import org.fao.fi.figis.devcon.GeoForm;
+import org.fao.fi.figis.devcon.GeoReference;
 import org.fao.fi.figis.devcon.HabitatBio;
 import org.fao.fi.figis.devcon.Management;
 import org.fao.fi.figis.devcon.ManagementMethodEntry;
@@ -40,7 +41,6 @@ import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
@@ -51,14 +51,11 @@ import org.purl.dc.elements._1.Identifier;
 import org.purl.dc.terms.Abstrakt;
 import org.purl.dc.terms.BibliographicCitation;
 import org.purl.dc.terms.Created;
-import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
-import org.vme.dao.impl.jpa.ReferenceDaoImpl;
+import org.vme.dao.test.ReferenceDaoMockImpl;
 import org.vme.fimes.jaxb.JaxbMarshall;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ ReferenceDaoImpl.class })
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
+@AdditionalClasses({ ReferenceDaoMockImpl.class })
 public class FigisDocBuilderVmeTest {
 
 	@Inject
@@ -189,6 +186,8 @@ public class FigisDocBuilderVmeTest {
 		assertNotNull(figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves());
 		assertTrue(figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves().size() > 0);
 
+		int countingGeoReference = 0;
+
 		// test VMEIDent properties encoding
 		for (Object obj : figisDoc.getVME().getVMEIdent().getFigisIDsAndForeignIDsAndWaterAreaReves()) {
 			if (obj instanceof FigisID) {
@@ -211,8 +210,11 @@ public class FigisDocBuilderVmeTest {
 
 				JAXBElement<Max> max = (JAXBElement<Max>) ((Range) obj).getContent().get(1);
 				assertEquals(du.createUiString(vme.getValidityPeriod().getEndDate()), max.getValue());
+			} else if (obj instanceof GeoReference) {
+				countingGeoReference++;
 			}
 		}
+		assertEquals(1, countingGeoReference);
 	}
 
 	@Test

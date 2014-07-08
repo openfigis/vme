@@ -179,10 +179,6 @@ abstract class FigisDocBuilderAbstract {
 		ForeignID areaForeignID = new ForeignID();
 		areaForeignID.setCodeSystem(scope.getCodeSystem());
 
-		if (georef == null) {
-			System.out.println();
-		}
-
 		if (vmeDomain.getGeoRefList() != null && !vmeDomain.getGeoRefList().isEmpty()) {
 			// this is the bug.
 			areaForeignID.setCode(georef.getGeographicFeatureID());
