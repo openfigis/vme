@@ -13,16 +13,16 @@ public class VmeResponse {
 
 	public VmeResponse(UUID uuid){
 		super();
-		this.setUuid(uuid);
-		this.setVmeDto(new ArrayList<VmeDto>());
+		this.uuid = uuid;
+		this.listOfVmes = new ArrayList<VmeDto>();
 	}
 
 	public List<VmeDto> getVmeDto() {
 		return listOfVmes;
 	}
 
-	public void setVmeDto(List<VmeDto> vmeDto) {
-		this.listOfVmes = vmeDto;
+	public void setVmeDto(List<VmeDto> listOfVmes) {
+		this.listOfVmes = listOfVmes;
 	}
 
 	public UUID getUuid() {
