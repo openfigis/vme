@@ -78,9 +78,9 @@ public class GetInfoService {
 		
 		for (Vme vme : vmeListPerRfmo) {
 			VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
-			if(vmeDto.getYear() == year){
+			if(vmeDto.getYear() == year && vmeDto.getScope().equals(scope)){
 				vmeDtoList.add(vmeDto);
-			} else if (year == 0 && vmeDto.getYear() == Calendar.getInstance().get(Calendar.YEAR)) {
+			} else if (year == 0 && vmeDto.getYear() == Calendar.getInstance().get(Calendar.YEAR) && vmeDto.getScope().equals(scope)) {
 				vmeDtoList.add(vmeDto);
 			}
 		}
