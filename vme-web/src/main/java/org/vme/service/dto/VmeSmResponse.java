@@ -23,8 +23,8 @@ public class VmeSmResponse {
 		this.specificMeasure = new ArrayList<SpecificMeasureDto>();
 	}
 	
-	public String getUuid() {
-		return uuid.toString();
+	public UUID getUuid() {
+		return this.uuid;
 	}
 	
 	public List<SpecificMeasureDto> getResponseList(){

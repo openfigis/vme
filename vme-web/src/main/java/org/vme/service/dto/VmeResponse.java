@@ -26,7 +26,7 @@ public class VmeResponse {
 	}
 
 	public UUID getUuid() {
-		return uuid;
+		return this.uuid;
 	}
 
 	public void setUuid(UUID uuid) {

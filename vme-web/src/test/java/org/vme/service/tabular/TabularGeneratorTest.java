@@ -9,7 +9,6 @@ import java.util.List;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.RfmoMock;
-import org.fao.fi.vme.domain.test.VmeMock;
 import org.junit.Before;
 import org.junit.Test;
 import org.vme.service.tabular.record.GeneralMeasureRecord;
@@ -19,17 +18,15 @@ public class TabularGeneratorTest {
 	
 	private VmeProfileRecord vmeProfRec;
 	private GeneralMeasureRecord genMeasureRec;
-	private List<Vme> vmeList;
 	private List<Vme> vmeListEmpty;
 	private Rfmo rfmo;
 	private List<Rfmo> rfmoList;
 	private TabularGenerator t = new TabularGenerator();
 	
 	@Before
-	public <F, S, T> void before(){
+	public void before(){
 		vmeProfRec = new VmeProfileRecord();
 		genMeasureRec = new GeneralMeasureRecord();
-		vmeList = VmeMock.create3();
 		vmeListEmpty = new ArrayList<Vme>();
 		rfmo = RfmoMock.create();
 		rfmoList = new ArrayList<Rfmo>();

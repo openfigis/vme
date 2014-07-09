@@ -2,22 +2,38 @@ package org.vme.service.dto;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
+import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
+import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.vme.dao.config.figis.FigisDataBaseProducer;
+import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
+import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
+import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
+import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
 
+@RunWith(CdiRunner.class)
+@AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
+@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
+		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
 public class DtoTranslatorTest {
 
 	private DtoTranslator translator = new DtoTranslator();
 	
 	private SpecificMeasureDto smDto;
 	private SpecificMeasure sm;
+	private Vme vme;
 	private static final int YEAR = 2000;
 	private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
 	
@@ -35,6 +51,8 @@ public class DtoTranslatorTest {
 		
 		smDto = new SpecificMeasureDto();
 		
+		vme = VmeMock.create();
+		
 	}
 	
 	@Test
@@ -47,10 +65,10 @@ public class DtoTranslatorTest {
 		assertTrue(2000 == smDto.getYear());
 	}
 
-//	TODO ("Implement this test")
 	@Test
 	public void testDoTranslate4Vme() {
-		fail("Not yet implemented");
+		VmeDto vmeDto = translator.doTranslate4Vme(vme, 2000);
+		
 	}
 
 }
