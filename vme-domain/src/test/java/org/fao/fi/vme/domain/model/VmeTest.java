@@ -201,5 +201,16 @@ public class VmeTest {
 		vme1.setId(3000L);
 		assertNotEquals(vme1, vme2);
 	}
+	
+	@Test
+	public void testEquals(){
+		Vme v1 = VmeMock.create();
+		Vme v2 = v1;
+		assertEquals(v1,v2);
+		v2 = VmeMock.generateVme(5);
+		v2.setScope(20L);
+		assertNotEquals(v1,v2);
+		v1.setScope(20L);
+	}
 
 }

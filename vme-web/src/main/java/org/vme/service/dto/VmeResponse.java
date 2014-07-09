@@ -9,20 +9,20 @@ import org.fao.fi.vme.domain.dto.VmeDto;
 public class VmeResponse {
 
 	private UUID uuid;
-	private List<VmeDto> listOfVmes;
+	private List<VmeDto> vmeDto;
 
 	public VmeResponse(UUID uuid){
 		super();
 		this.uuid = uuid;
-		this.listOfVmes = new ArrayList<VmeDto>();
+		this.vmeDto = new ArrayList<VmeDto>();
 	}
 
 	public List<VmeDto> getVmeDto() {
-		return listOfVmes;
+		return this.vmeDto;
 	}
 
-	public void setVmeDto(List<VmeDto> listOfVmes) {
-		this.listOfVmes = listOfVmes;
+	public void setVmeDto(List<VmeDto> vmeDto) {
+		this.vmeDto = vmeDto;
 	}
 
 	public UUID getUuid() {

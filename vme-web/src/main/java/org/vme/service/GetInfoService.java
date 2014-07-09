@@ -7,10 +7,9 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.dto.VmeDto;
-import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.Vme;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.vme.dao.VmeSearchDao;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
@@ -66,25 +65,27 @@ public class GetInfoService {
 		
 		VmeResponse vmeResponse = new VmeResponse(UUID.randomUUID());
 		
-		List<VmeDto> vmeDtoList = new ArrayList<VmeDto>();
+		List<Vme> vmeList = vDao.loadVmes();
+		List<Vme> vmeListPerRfmo = new ArrayList<Vme>();
 
-		for (Authority aut : refDao.getAllAuthorities()) {
-			if(owner.equals(aut.getAcronym())){
-				try {
-					vmeDtoList = vSearchDao.searchVme(aut.getId(), 0, 0, year, null);
-				} catch (Exception e) {
-					throw new VmeException(e);
-				}
+		for (Vme v : vmeList) {
+			if (v.getRfmo().getId().equals(owner)) {
+				vmeListPerRfmo.add(v);
 			}
 		}
 		
-		for (VmeDto vmeDto : vmeDtoList) {
+		List<VmeDto> vmeDtoList = new ArrayList<VmeDto>();
+		
+		for (Vme vme : vmeListPerRfmo) {
+			VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
 			if(vmeDto.getYear() == year){
-				vmeResponse.getVmeDto().add(vmeDto);
-			} else if(year == 0 && vmeDto.getYear() == Calendar.getInstance().get(Calendar.YEAR)){
-				vmeResponse.getVmeDto().add(vmeDto);
+				vmeDtoList.add(vmeDto);
+			} else if (year == 0 && vmeDto.getYear() == Calendar.getInstance().get(Calendar.YEAR)) {
+				vmeDtoList.add(vmeDto);
 			}
 		}
+		
+		vmeResponse.setVmeDto(vmeDtoList);
 		
 		return vmeResponse;
 	}

@@ -1,350 +1,65 @@
 package org.vme.service.tabular;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.vme.domain.model.GeneralMeasure;
-import org.fao.fi.vme.domain.model.GeoRef;
-import org.fao.fi.vme.domain.model.InformationSource;
-import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
-import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
-import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.domain.test.RfmoMock;
 import org.fao.fi.vme.domain.test.VmeMock;
-import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.AdditionalClasses;
-import org.jglue.cdiunit.CdiRunner;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.vme.dao.config.figis.FigisDataBaseProducer;
-import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
-import org.vme.dao.impl.jpa.ReferenceDaoImpl;
-import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
-import org.vme.service.WritableWorkbookFactory;
-import org.vme.service.WritableWorkbookFactoryTest;
-import org.vme.service.XlsServiceTest;
-import org.vme.service.tabular.record.FactSheetRecord;
-import org.vme.service.tabular.record.FisheryAreasHistoryRecord;
 import org.vme.service.tabular.record.GeneralMeasureRecord;
-import org.vme.service.tabular.record.GeoReferenceRecord;
-import org.vme.service.tabular.record.InformationSourceRecord;
-import org.vme.service.tabular.record.SpecificMeasureRecord;
-import org.vme.service.tabular.record.VmeContainer;
 import org.vme.service.tabular.record.VmeProfileRecord;
-import org.vme.service.tabular.record.VmesHistoryRecord;
 
-@RunWith(CdiRunner.class)
-@AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
-@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
-		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
 public class TabularGeneratorTest {
-
-	@Inject
-	XlsServiceTest xlsServiceTest = new XlsServiceTest();
-
-	@Inject
-	WritableWorkbookFactoryTest workbookFactoryTest = new WritableWorkbookFactoryTest();
-
-	@Inject
-	TabularGenerator g;
-	@Inject
-	WritableWorkbookFactory f;
-
-	@Inject
-	VmeProfileRecord vmeProfileRecord;
-
-	@Test
-	public void testGenerateVmeProfile() {
-		Vme vme = VmeMock.generateVme(2);
-		List<Vme> vmeList = new ArrayList<Vme>();
-		vmeList.add(vme);
-		List<List<Object>> tabular = g.generate(vmeList, vmeProfileRecord);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-		int l = new VmeProfileRecord().getHeaders().length;
-
-		assertEquals(l, tabular.get(0).size());
-		assertEquals(l, tabular.get(1).size());
-		assertEquals(l, tabular.get(2).size());
-
-	}
-
-	@Test
-	public void testGenerateSpecificMeasure() {
-		Vme vme = VmeMock.generateVme(2);
-		List<Vme> vmeList = new ArrayList<Vme>();
-		vmeList.add(vme);
-		RecordGenerator<Vme, SpecificMeasure, Empty> r = new SpecificMeasureRecord();
-		List<List<Object>> tabular = g.generate(vmeList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-	}
-
-	@Test
-	public void testGenerateGeneralMeasure() {
-		Rfmo rfmo = RfmoMock.create();
-		RecordGenerator<Rfmo, GeneralMeasure, InformationSource> r = new GeneralMeasureRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
+	
+	private VmeProfileRecord vmeProfRec;
+	private GeneralMeasureRecord genMeasureRec;
+	private List<Vme> vmeList;
+	private List<Vme> vmeListEmpty;
+	private Rfmo rfmo;
+	private List<Rfmo> rfmoList;
+	private TabularGenerator t = new TabularGenerator();
+	
+	@Before
+	public <F, S, T> void before(){
+		vmeProfRec = new VmeProfileRecord();
+		genMeasureRec = new GeneralMeasureRecord();
+		vmeList = VmeMock.create3();
+		vmeListEmpty = new ArrayList<Vme>();
+		rfmo = RfmoMock.create();
+		rfmoList = new ArrayList<Rfmo>();
 		rfmoList.add(rfmo);
-		List<List<Object>> tabular = g.generate(rfmoList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
 	}
-
+	
 	@Test
-	public void testGenerateFisheryAreaHistory() {
-		Rfmo rfmo = RfmoMock.create();
-		RecordGenerator<Rfmo, FisheryAreasHistory, Empty> r = new FisheryAreasHistoryRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		rfmoList.add(rfmo);
-		List<List<Object>> tabular = g.generate(rfmoList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
+	public void testGenerateOnlyHeaders() {
+		List<List<Object>> objectList = t.generate(vmeListEmpty, vmeProfRec);
+		assertEquals("Vme Name", objectList.get(0).get(0));
+		assertEquals("Scope", objectList.get(0).get(1));
+		assertEquals("Inventory Identifier", objectList.get(0).get(2));
+		assertEquals("Area Type", objectList.get(0).get(3));
+		assertEquals("Geographic Reference", objectList.get(0).get(4));
+		assertEquals("Criteria", objectList.get(0).get(5));
+		assertEquals("Begin date", objectList.get(0).get(6));
+		assertEquals("End date", objectList.get(0).get(7));
+		assertEquals("Year", objectList.get(0).get(8));
+		assertEquals("Type of sea floor physiography", objectList.get(0).get(9));
+		assertEquals("Physical description of the environment", objectList.get(0).get(10));
+		assertEquals("General Biology", objectList.get(0).get(11));
+		assertEquals("Impacts", objectList.get(0).get(12));
 	}
-
+	
 	@Test
-	public void testGenerateVmeHistory() {
-		Rfmo rfmo = RfmoMock.create();
-		RecordGenerator<Rfmo, VMEsHistory, Empty> r = new VmesHistoryRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		rfmoList.add(rfmo);
-		List<List<Object>> tabular = g.generate(rfmoList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
+	public void testGenerate(){
+		List<List<Object>> objectList = t.generate(rfmoList, genMeasureRec);
+			assertTrue(10 == objectList.get(0).size());
+			assertTrue(11 == objectList.get(1).size());
+			assertTrue(3 == objectList.size());
 		}
-	}
-
-	@Test
-	public void testGenerateInfoSource() {
-		Rfmo rfmo = RfmoMock.create();
-		RecordGenerator<Rfmo, InformationSource, Empty> r = new InformationSourceRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		rfmoList.add(rfmo);
-		List<List<Object>> tabular = g.generate(rfmoList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-	}
-
-	@Test
-	public void testGenerateGeoRef() {
-		Vme vme = VmeMock.generateVme(2);
-		List<Vme> vmeList = new ArrayList<Vme>();
-		vmeList.add(vme);
-		RecordGenerator<Vme, GeoRef, Empty> r = new GeoReferenceRecord();
-		List<List<Object>> tabular = g.generate(vmeList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-
-	}
-
-	@Test
-	public void testGenerateFactSheet() {
-		RecordGenerator<VmeContainer, VmeObservation, Empty> r = new FactSheetRecord();
-		Vme vme = VmeMock.generateVme(2);
-		List<Vme> vmeList = new ArrayList<Vme>();
-		vmeList.add(vme);
-		List<VmeContainer> cList = workbookFactoryTest.prepereListMock(vmeList);
-		List<List<Object>> tabular = g.generate(cList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-	}
-
-	@Test
-	public void testGenerateVmeProfileNull() {
-		List<Vme> vmeList = new ArrayList<Vme>();
-		RecordGenerator<Vme, Profile, Empty> r = new VmeProfileRecord();
-		List<List<Object>> tabular = g.generate(vmeList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-
-	}
-
-	@Test
-	public void testGenerateSpecificMeasureNull() {
-		List<Vme> vmeList = new ArrayList<Vme>();
-		RecordGenerator<Vme, SpecificMeasure, Empty> r = new SpecificMeasureRecord();
-		List<List<Object>> tabular = g.generate(vmeList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-	}
-
-	@Test
-	public void testGenerateGeneralMeasureNull() {
-		RecordGenerator<Rfmo, GeneralMeasure, InformationSource> r = new GeneralMeasureRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		List<List<Object>> tabular = g.generate(rfmoList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-	}
-
-	@Test
-	public void testGenerateFisheryAreaHistoryNull() {
-		RecordGenerator<Rfmo, FisheryAreasHistory, Empty> r = new FisheryAreasHistoryRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		List<List<Object>> tabular = g.generate(rfmoList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-	}
-
-	@Test
-	public void testGenerateVmeHistoryNull() {
-		RecordGenerator<Rfmo, VMEsHistory, Empty> r = new VmesHistoryRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		List<List<Object>> tabular = g.generate(rfmoList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-	}
-
-	@Test
-	public void testGenerateInfoSourceNull() {
-		RecordGenerator<Rfmo, InformationSource, Empty> r = new InformationSourceRecord();
-		List<Rfmo> rfmoList = new ArrayList<Rfmo>();
-		List<List<Object>> tabular = g.generate(rfmoList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-	}
-
-	@Test
-	public void testGenerateGeoRefNull() {
-
-		List<Vme> vmeList = new ArrayList<Vme>();
-		RecordGenerator<Vme, GeoRef, Empty> r = new GeoReferenceRecord();
-		List<List<Object>> tabular = g.generate(vmeList, r);
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-
-		}
-
-	}
-
-	@Test
-	public void testGenerateFactSheetNull() {
-		RecordGenerator<VmeContainer, VmeObservation, Empty> r = new FactSheetRecord();
-		List<Vme> vmeList = new ArrayList<Vme>();
-		List<VmeContainer> cList = f.prepereList(vmeList);
-		List<List<Object>> tabular = g.generate(cList, r);
-
-		for (List<Object> list : tabular) {
-			for (Object object : list) {
-				System.out.print(object);
-				System.out.print('\t');
-				assertNotNull(object);
-			}
-			System.out.println();
-		}
-	}
 
 }
