@@ -128,7 +128,7 @@
 				<finalName>figis#reports-store-gateway</finalName>
 			</build>
 			<properties>
-				<figis.web.cache.reset.server.vme>http://figis02:8282</figis.web.cache.reset.server.vme>
+				<figis.web.cache.reset.server.vme>http://hqlprfigis1:8231</figis.web.cache.reset.server.vme>
 			</properties>
 		</profile>
 	</profiles>
