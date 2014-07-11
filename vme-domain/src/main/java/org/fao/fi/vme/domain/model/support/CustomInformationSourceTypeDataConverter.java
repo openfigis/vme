@@ -22,7 +22,9 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.Abstrac
  * @version 1.0
  * @since 27 Feb 2014
  */
-@Deprecated //To actually remove this, we need to update the RM client libraries to the new versions of the RSG libs
+
+//To actually remove this, we need to update the RM client libraries to the new versions of the RSG libs
+@Deprecated
 public class CustomInformationSourceTypeDataConverter extends AbstractDataConverter<InformationSourceType> {
 	private final Map<Long, InformationSourceType> MAP_BY_ID = new HashMap<Long, InformationSourceType>();
 	

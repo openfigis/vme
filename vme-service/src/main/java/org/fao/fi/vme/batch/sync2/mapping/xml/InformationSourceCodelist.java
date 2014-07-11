@@ -12,7 +12,9 @@ import java.util.Map;
  * @author Erik van Ingen
  * 
  */
-@Deprecated //FFiorellato: Useless?
+
+//FFiorellato: Useless?
+@Deprecated
 public class InformationSourceCodelist {
 
 	private static String value1 = "Book";

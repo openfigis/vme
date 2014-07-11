@@ -1,7 +1,5 @@
 package org.fao.fi.vme.msaccess.mapping;
 
-import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
-
 /**
  * 
  * All MS-Access tables have an associated class. These classes all implement

@@ -36,6 +36,10 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 	@Inject private SyncBatch2 syncBatch;
 	
 	@Inject private FigisDao figisDAO;
+	
+	public static final String SYNCING = "Syncing FIGIS factsheets for VME with ID {}...";
+	public static final String FACTSHEET_SYNCED = "FIGIS factsheets for VME with ID {} has been synced";
+	public static final String REMOVE_WITH_ID = "Removing observation with ID {}";
 
 	/* (non-Javadoc)
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetUpdater#createFactsheets(java.lang.Long[])
@@ -45,13 +49,13 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 		LOG.info("Creating factsheets for {} VMEs with ID {}", vmeIDs.length, vmeIDs);
 		
 		for (Long vmeId : vmeIDs) {
-			LOG.info("Syncing FIGIS factsheets for VME with ID {}...", vmeId);
+			LOG.info(SYNCING, vmeId);
 			
 			syncBatch.syncFigisWithVme(vmeDao.findVme(vmeId));
 			
 			this.updateCache(vmeId);
 			
-			LOG.info("FIGIS factsheets for VME with ID {} has been synced", vmeId);
+			LOG.info(FACTSHEET_SYNCED, vmeId);
 		}
 	}
 
@@ -64,13 +68,13 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 		
 		for (Long vmeId : vmeIDs) {
 			
-			LOG.info("Syncing FIGIS factsheets for VME with ID {}...", vmeId);
+			LOG.info(SYNCING, vmeId);
 			
 			syncBatch.syncFigisWithVme(vmeDao.findVme(vmeId));
 			
 			this.updateCache(vmeId);
 			
-			LOG.info("FIGIS factsheets for VME with ID {} has been synced", vmeId);
+			LOG.info(FACTSHEET_SYNCED, vmeId);
 		}
 	}
 
@@ -133,10 +137,10 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 					LOG.info("Removing observation XML with ID {}", observationId.getObservationId());
 					removeObservationXml.executeUpdate();
 
-					LOG.info("Removing observation with ID {}", observationId.getObservationId());
+					LOG.info(REMOVE_WITH_ID, observationId.getObservationId());
 					removeObservation.executeUpdate();
 				
-					LOG.info("Removing observation with ID {}", observationId.getObservationId());
+					LOG.info(REMOVE_WITH_ID, observationId.getObservationId());
 					figisDAO.remove(in);
 				}
 			}

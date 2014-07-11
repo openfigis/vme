@@ -78,10 +78,18 @@ public class GetInfoService {
 		
 		for (Vme vme : vmeListPerRfmo) {
 			VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
-			if(vmeDto.getYear() == year && vmeDto.getScope().equals(scope)){
-				vmeDtoList.add(vmeDto);
-			} else if (year == 0 && vmeDto.getYear() == Calendar.getInstance().get(Calendar.YEAR) && vmeDto.getScope().equals(scope)) {
-				vmeDtoList.add(vmeDto);
+			if(scope.equals("VME")){
+				if(vmeDto.getYear() == year && vmeDto.getScope().equals(scope)){
+					vmeDtoList.add(vmeDto);
+				} else if (year == 0 && vmeDto.getYear() == Calendar.getInstance().get(Calendar.YEAR)) {
+					vmeDtoList.add(vmeDto);
+				}
+			} else if(scope.equals("Regulatory")){
+				if(vmeDto.getYear() == year && vmeDto.getScope().equals(scope)){
+					vmeDtoList.add(vmeDto);
+				} else if (year == 0) {
+					vmeDtoList.add(vmeDto);
+				}
 			}
 		}
 		
