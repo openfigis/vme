@@ -10,6 +10,7 @@ import java.util.HashSet;
 import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 
+import org.fao.fi.vme.FactSheetChangeException;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.ObjectId;
@@ -48,11 +49,15 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 */
 	
 	@Override
-	public final void vmeChanged(final Vme... changed) throws Exception {
+	public final void vmeChanged(final Vme... changed){
 		LOG.info("Notified of changes to {} elements of type Vme", changed == null ? "NULL" : changed.length);
 		
 		for(Vme in : changed) {
-			this.updater.refreshVme(in.getId());
+			try {
+				this.updater.refreshVme(in.getId());
+			} catch (Exception e) {
+				throw new FactSheetChangeException("Something fail on updating data" ,e);
+			}
 		}
 		
 		this.updateFactsheets(this.findVMEIDs(changed));
@@ -62,11 +67,15 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#VMEAdded(org.fao.fi.vme.domain.model.Vme[])
 	 */
 	@Override
-	public final void vmeAdded(final Vme... added) throws Exception {
+	public final void vmeAdded(final Vme... added){
 		LOG.info("Notified of additions of {} elements of type Vme", added == null ? "NULL" : added.length);	
 		
 		for(Vme in : added) {
-			this.updater.refreshVme(in.getId());
+			try {
+				this.updater.refreshVme(in.getId());
+			} catch (Exception e) {
+				throw new FactSheetChangeException("Something fail on adding data" ,e);
+			}
 		}
 			
 		this.createFactsheets(this.findVMEIDs(added));
@@ -76,7 +85,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#VMEDeleted(org.fao.fi.vme.domain.model.Vme[])
 	 */
 	@Override
-	public final void vmeDeleted(final Vme... deleted) throws Exception {
+	public final void vmeDeleted(final Vme... deleted){
 		LOG.info("Notified of deletions of {} elements of type Vme", deleted == null ? "NULL" : deleted.length);	
 				
 		this.deleteFactsheets(this.findVMEIDs(deleted));
@@ -86,11 +95,15 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#generalMeasureChanged(org.fao.fi.vme.domain.model.GeneralMeasure[])
 	 */
 	@Override
-	public final void generalMeasureChanged(final GeneralMeasure... changed) throws Exception {
+	public final void generalMeasureChanged(final GeneralMeasure... changed){
 		LOG.info("Notified of changes to {} elements of type GeneralMeasure", changed == null ? "NULL" : changed.length);
 		
 		for(GeneralMeasure in : changed) {
-			this.updater.refreshGeneralMeasure(in.getId());
+			try {
+				this.updater.refreshGeneralMeasure(in.getId());
+			} catch (Exception e) {
+				throw new FactSheetChangeException("Something fail on updating data" ,e);
+			}
 		}
 		
 		this.updateFactsheets(this.findVMEIDs(changed));
@@ -100,11 +113,15 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#generalMeasureAdded(org.fao.fi.vme.domain.model.GeneralMeasure[])
 	 */
 	@Override
-	public final void generalMeasureAdded(final GeneralMeasure... added) throws Exception {
+	public final void generalMeasureAdded(final GeneralMeasure... added){
 		LOG.info("Notified of additions of {} elements of type GeneralMeasure", added == null ? "NULL" : added.length);
 		
 		for(GeneralMeasure in : added) {
-			this.updater.refreshGeneralMeasure(in.getId());
+			try {
+				this.updater.refreshGeneralMeasure(in.getId());
+			} catch (Exception e) {
+				throw new FactSheetChangeException("Something fail on adding data" ,e);
+			}
 		}
 		
 		this.updateFactsheets(this.findVMEIDs(added));
@@ -114,7 +131,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#generalMeasureDeleted(org.fao.fi.vme.domain.model.GeneralMeasure[])
 	 */
 	@Override
-	public final void generalMeasureDeleted(Rfmo owner, final GeneralMeasure... deleted) throws Exception {
+	public final void generalMeasureDeleted(Rfmo owner, final GeneralMeasure... deleted){
 		LOG.info("Notified of deletions of {} elements of type GeneralMeasure", deleted == null ? "NULL" : deleted.length);
 		
 		this.updateFactsheets(this.findVMEIDs(owner));
@@ -124,11 +141,15 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#informationSourceChanged(org.fao.fi.vme.domain.model.InformationSource[])
 	 */
 	@Override
-	public final void informationSourceChanged(final InformationSource... changed) throws Exception {
+	public final void informationSourceChanged(final InformationSource... changed){
 		LOG.info("Notifiying listeners of changes to {} elements of type InformationSource", changed == null ? "NULL" : changed.length);
 
 		for(InformationSource in : changed) {
-			this.updater.refreshInformationSource(in.getId());
+			try {
+				this.updater.refreshInformationSource(in.getId());
+			} catch (Exception e) {
+				throw new FactSheetChangeException("Something fail on updating data" ,e);
+			}
 		}
 		
 		this.updateFactsheets(this.findVMEIDs(changed));
@@ -140,11 +161,15 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#informationSourceAdded(org.fao.fi.vme.domain.model.InformationSource[])
 	 */
 	@Override
-	public final void informationSourceAdded(final InformationSource... added) throws Exception {
+	public final void informationSourceAdded(final InformationSource... added){
 		LOG.info("Notified of additions of {} elements of type InformationSource", added == null ? "NULL" : added.length);
 		
 		for(InformationSource in : added) {
-			this.updater.refreshInformationSource(in.getId());
+			try {
+				this.updater.refreshInformationSource(in.getId());
+			} catch (Exception e) {
+				throw new FactSheetChangeException("Something fail on adding data" ,e);
+			}
 		}
 			
 		this.updateFactsheets(this.findVMEIDs(added));
@@ -154,7 +179,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#informationSourceDeleted(org.fao.fi.vme.domain.model.InformationSource[])
 	 */
 	@Override
-	public final void informationSourceDeleted(Rfmo owner, final InformationSource... deleted) throws Exception {
+	public final void informationSourceDeleted(Rfmo owner, final InformationSource... deleted){
 		LOG.info("Notified of deletions of {} elements of type InformationSource", deleted == null ? "NULL" : deleted.length);
 		
 		this.updateFactsheets(this.findVMEIDs(owner));
@@ -164,11 +189,15 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#fishingFootprintChanged(org.fao.fi.vme.domain.model.extended.FisheryAreasHistory[])
 	 */
 	@Override
-	public final void fishingFootprintChanged(final FisheryAreasHistory... changed) throws Exception {
+	public final void fishingFootprintChanged(final FisheryAreasHistory... changed){
 		LOG.info("Notified of changes to {} elements of type FisheryAreasHistory", changed == null ? "NULL" : changed.length);
 		
 		for(FisheryAreasHistory in : changed) {
-			this.updater.refreshFishingFootprint(in.getId());
+			try {
+				this.updater.refreshFishingFootprint(in.getId());
+			} catch (Exception e) {
+				throw new FactSheetChangeException("Something fail on updating data" ,e);
+			}
 		}
 			
 		this.updateFactsheets(this.findVMEIDs(changed));
@@ -178,7 +207,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#fishingFootprintAdded(org.fao.fi.vme.domain.model.extended.FisheryAreasHistory[])
 	 */
 	@Override
-	public final void fishingFootprintAdded(final FisheryAreasHistory... added) throws Exception {
+	public final void fishingFootprintAdded(final FisheryAreasHistory... added){
 		LOG.info("Notified of additions of {} elements of type FisheryAreasHistory", added == null ? "NULL" : added.length);
 
 		this.updateFactsheets(this.findVMEIDs(added));
@@ -188,7 +217,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#fishingFootprintDeleted(org.fao.fi.vme.domain.model.extended.FisheryAreasHistory[])
 	 */
 	@Override
-	public final void fishingFootprintDeleted(Rfmo owner, final FisheryAreasHistory... deleted) throws Exception {
+	public final void fishingFootprintDeleted(Rfmo owner, final FisheryAreasHistory... deleted){
 		LOG.info("Notified of deletions of {} elements of type FisheryAreasHistory", deleted == null ? "NULL" : deleted.length);
 		
 		this.updateFactsheets(this.findVMEIDs(owner));
@@ -198,11 +227,15 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#regionalHistoryChanged(org.fao.fi.vme.domain.model.extended.VMEsHistory[])
 	 */
 	@Override
-	public final void regionalHistoryChanged(final VMEsHistory... changed) throws Exception {
+	public final void regionalHistoryChanged(final VMEsHistory... changed){
 		LOG.info("Notified of changes to {} elements of type VMEsHistory", changed == null ? "NULL" : changed.length);
 
 		for(VMEsHistory in : changed) {
-			this.updater.refreshRegionalHistory(in.getId());
+			try {
+				this.updater.refreshRegionalHistory(in.getId());
+			} catch (Exception e) {
+				throw new FactSheetChangeException("Something fail on updating data" ,e);
+			}
 		}
 			
 		this.updateFactsheets(this.findVMEIDs(changed));
@@ -212,11 +245,15 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#regionalHistoryAdded(org.fao.fi.vme.domain.model.extended.VMEsHistory[])
 	 */
 	@Override
-	public final void regionalHistoryAdded(final VMEsHistory... added) throws Exception {
+	public final void regionalHistoryAdded(final VMEsHistory... added){
 		LOG.info("Notified of additions of {} elements of type VMEsHistory", added == null ? "NULL" : added.length);
 		
 		for(VMEsHistory in : added) {
-			this.updater.refreshRegionalHistory(in.getId());
+			try {
+				this.updater.refreshRegionalHistory(in.getId());
+			} catch (Exception e) {
+				throw new FactSheetChangeException("Something fail on adding data" ,e);
+			}
 		}
 		
 		this.updateFactsheets(this.findVMEIDs(added));
@@ -226,7 +263,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetChangeListener#regionalHistoryDeleted(org.fao.fi.vme.domain.model.extended.VMEsHistory[])
 	 */
 	@Override
-	public final void regionalHistoryDeleted(Rfmo owner, final VMEsHistory... deleted) throws Exception {
+	public final void regionalHistoryDeleted(Rfmo owner, final VMEsHistory... deleted){
 		LOG.info("Notified of deletions of {} elements of type VMEsHistory", deleted == null ? "NULL" : deleted.length);	
 		
 		this.updateFactsheets(this.findVMEIDs(owner));

@@ -24,23 +24,23 @@ import org.fao.fi.vme.domain.model.extended.VMEsHistory;
  * @since 20 Feb 2014
  */
 public interface FactsheetChangeListener {
-	void vmeChanged(Vme... changed) throws Exception;
-	void vmeAdded(Vme... added) throws Exception;
-	void vmeDeleted(Vme... deleted) throws Exception;
+	void vmeChanged(Vme... changed);
+	void vmeAdded(Vme... added);
+	void vmeDeleted(Vme... deleted);
 	
-	void generalMeasureChanged(GeneralMeasure... changed) throws Exception;
-	void generalMeasureAdded(GeneralMeasure... added) throws Exception;
-	void generalMeasureDeleted(Rfmo owner, GeneralMeasure... deleted) throws Exception;
+	void generalMeasureChanged(GeneralMeasure... changed);
+	void generalMeasureAdded(GeneralMeasure... added);
+	void generalMeasureDeleted(Rfmo owner, GeneralMeasure... deleted);
 	
-	void informationSourceChanged(InformationSource... changed) throws Exception;
-	void informationSourceAdded(InformationSource... added) throws Exception;
-	void informationSourceDeleted(Rfmo owner, InformationSource... deleted) throws Exception;
+	void informationSourceChanged(InformationSource... changed);
+	void informationSourceAdded(InformationSource... added);
+	void informationSourceDeleted(Rfmo owner, InformationSource... deleted);
 	
-	void fishingFootprintChanged(FisheryAreasHistory... changed) throws Exception;
-	void fishingFootprintAdded(FisheryAreasHistory... added) throws Exception;
-	void fishingFootprintDeleted(Rfmo owner, FisheryAreasHistory... deleted) throws Exception;
+	void fishingFootprintChanged(FisheryAreasHistory... changed);
+	void fishingFootprintAdded(FisheryAreasHistory... added);
+	void fishingFootprintDeleted(Rfmo owner, FisheryAreasHistory... deleted);
 	
-	void regionalHistoryChanged(VMEsHistory... changed) throws Exception;
-	void regionalHistoryAdded(VMEsHistory... added) throws Exception;
-	void regionalHistoryDeleted(Rfmo owner, VMEsHistory... deleted) throws Exception;
+	void regionalHistoryChanged(VMEsHistory... changed);
+	void regionalHistoryAdded(VMEsHistory... added);
+	void regionalHistoryDeleted(Rfmo owner, VMEsHistory... deleted);
 }
