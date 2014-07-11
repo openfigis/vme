@@ -23,7 +23,7 @@ public class VmeSmResponseTest {
 	@Test
 	public void testGetUuid() {
 		String s = vmeSmResp.getUuid().toString();
-		assertEquals(s, vmeSmResp.getUuid());
+		assertEquals(s, vmeSmResp.getUuid().toString());
 	}
 
 	@Test

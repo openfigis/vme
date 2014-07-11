@@ -27,8 +27,8 @@ import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ServiceResponse;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
-@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class, VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
+@AdditionalClasses({  VmeSearchDaoImpl.class })
+@ActivatedAlternatives({ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class, VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
 public class ServiceInvokerTest {
 
 	@Inject

@@ -1,5 +1,7 @@
 package org.vme.service;
 
+import static org.junit.Assert.assertNotNull;
+
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.Vme;
@@ -19,27 +21,27 @@ import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
 import org.vme.service.dto.VmeSmResponse;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ ReferenceDaoImpl.class, VmeSearchDaoImpl.class })
-@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
+@AdditionalClasses({  VmeSearchDaoImpl.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
 	VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
 public class GetInfoServiceTest {
 	
 	@Inject
 	GetInfoService service;
 	
-	private Vme vme;
+	private Vme vme = VmeMock.generateVme(3);;
 	
 	@Before
 	public void before(){
-		vme = VmeMock.generateVme(3);
 	}
 	
 	@Test
 	public void testFindInfoStringInt() {
 		
 		VmeSmResponse vmeSmResponse1 = service.findInfo(vme.getInventoryIdentifier(), 0);
-		System.out.println(vmeSmResponse1.getLocalName());
-	
+		System.out.println(vmeSmResponse1.toString());
+		assertNotNull(vmeSmResponse1.getUuid());
+		
 	}
 
 }

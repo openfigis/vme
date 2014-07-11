@@ -82,5 +82,13 @@ public class VmeSmResponse {
 	public void setVmeType(String vmeType) {
 		this.vmeType = vmeType;
 	}
+	
+	@Override
+	public String toString(){
+		String s = "Response: UUID - "+this.uuid.toString()+" - vmeId - "+this.vmeId+" - local name - "+this.localName+" - inventory Identifier - "+
+				this.inventoryIdentifier + " - geoArea - "+this.geoArea+" - owner - "+this.owner+" - vmeType -"+this.vmeType;
+		
+		return s;
+	}
 
 }
