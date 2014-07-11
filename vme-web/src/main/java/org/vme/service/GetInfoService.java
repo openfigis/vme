@@ -39,6 +39,10 @@ public class GetInfoService {
 
 		List<SpecificMeasureDto> resultList = new ArrayList<SpecificMeasureDto>();
 
+		if(vmeYear<= 2005){
+			vmeSmResponse.setNote("No observation available for "+vmeYear+", here follows the most recent one found from the selected year");
+		}
+
 		while(resultList.isEmpty() && vmeYear>2005 || vmeYear == 0){
 			for (VmeDto vmeDto : vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, vmeYear)) {
 				vmeSmResponse.setVmeId(vmeDto.getVmeId());
@@ -67,9 +71,9 @@ public class GetInfoService {
 	}
 
 	public VmeResponse findInfo(String owner, String scope, int year) {
-		
+
 		VmeResponse vmeResponse = new VmeResponse(UUID.randomUUID());
-		
+
 		List<Vme> vmeList = vDao.loadVmes();
 		List<Vme> vmeListPerRfmo = new ArrayList<Vme>();
 
@@ -78,27 +82,31 @@ public class GetInfoService {
 				vmeListPerRfmo.add(v);
 			}
 		}
-		
+
 		List<VmeDto> vmeDtoList = new ArrayList<VmeDto>();
-		
+
+		if(year<= 2005){
+			vmeResponse.setNote("No observation available for "+year+", here follows the most recent one found from the selected year");
+		}
+
 		while(vmeDtoList.isEmpty() && year>2005 || year == 0){
-		for (Vme vme : vmeListPerRfmo) {
-			VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
+			for (Vme vme : vmeListPerRfmo) {
+				VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
 				if(vmeDto.getYear() == year && vmeDto.getScope().equals(scope)){
 					vmeDtoList.add(vmeDto);
 				} else if (year == 0 && vmeDto.getScope().equals(scope)) {
 					vmeDtoList.add(vmeDto);
 				}
 			}
-		if(vmeDtoList.isEmpty() && vmeResponse.getNote() == null){
-			vmeResponse.setNote("No observation available for "+year+", here follows the most recent one found from the selected year");
+			if(vmeDtoList.isEmpty() && vmeResponse.getNote() == null){
+				vmeResponse.setNote("No observation available for "+year+", here follows the most recent one found from the selected year");
+			}
+			year--;
 		}
-		year--;
-		}
-		
+
 		vmeResponse.setVmeDto(vmeDtoList);
-		
+
 		return vmeResponse;
 	}
-	
+
 }
