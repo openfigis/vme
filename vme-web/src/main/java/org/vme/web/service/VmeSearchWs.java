@@ -11,7 +11,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.vme.dao.VmeSearchDao;
 import org.vme.web.service.io.ObservationsRequest;
 import org.vme.web.service.io.ServiceResponse;
@@ -22,8 +21,6 @@ public class VmeSearchWs {
 
 	@Inject
 	private VmeSearchDao vmeSearchDao;
-	
-	protected MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
