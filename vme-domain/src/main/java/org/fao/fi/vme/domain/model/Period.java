@@ -2,8 +2,8 @@ package org.fao.fi.vme.domain.model;
 
 public interface Period {
 
-	public ValidityPeriod getValidityPeriod();
+	ValidityPeriod getValidityPeriod();
 
-	public void setValidityPeriod(ValidityPeriod validityPeriod);
+	void setValidityPeriod(ValidityPeriod validityPeriod);
 
 }
