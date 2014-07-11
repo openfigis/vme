@@ -7,6 +7,7 @@ import java.util.UUID;
 public class VmeSmResponse {
 
 	private UUID uuid;
+	private String note;
 	private long vmeId;
 	private String localName;
 	private String inventoryIdentifier;
@@ -89,6 +90,14 @@ public class VmeSmResponse {
 				this.inventoryIdentifier + " - geoArea - "+this.geoArea+" - owner - "+this.owner+" - vmeType -"+this.vmeType;
 		
 		return s;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 }

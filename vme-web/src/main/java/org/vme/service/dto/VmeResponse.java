@@ -9,6 +9,7 @@ import org.fao.fi.vme.domain.dto.VmeDto;
 public class VmeResponse {
 
 	private UUID uuid;
+	private String note;
 	private List<VmeDto> vmeDto;
 
 	public VmeResponse(UUID uuid){
@@ -31,5 +32,13 @@ public class VmeResponse {
 
 	public void setUuid(UUID uuid) {
 		this.uuid = uuid;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 }

@@ -1,7 +1,6 @@
 package org.vme.service;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,20 +39,26 @@ public class GetInfoService {
 
 		List<SpecificMeasureDto> resultList = new ArrayList<SpecificMeasureDto>();
 
-		for (VmeDto vmeDto : vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, vmeYear)) {
-			vmeSmResponse.setVmeId(vmeDto.getVmeId());
-			vmeSmResponse.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
-			vmeSmResponse.setVmeType(vmeDto.getVmeType());
-			vmeSmResponse.setGeoArea(vmeDto.getGeoArea());
-			vmeSmResponse.setLocalName(vmeDto.getLocalName());
-			vmeSmResponse.setOwner(vmeDto.getOwner());
-			
-			for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
-				if(sm.getYear() == vmeYear || vmeYear == 0){
-					resultList.add(translator.doTranslate4Sm(sm));
+		while(resultList.isEmpty() && vmeYear>2005 || vmeYear == 0){
+			for (VmeDto vmeDto : vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, vmeYear)) {
+				vmeSmResponse.setVmeId(vmeDto.getVmeId());
+				vmeSmResponse.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
+				vmeSmResponse.setVmeType(vmeDto.getVmeType());
+				vmeSmResponse.setGeoArea(vmeDto.getGeoArea());
+				vmeSmResponse.setLocalName(vmeDto.getLocalName());
+				vmeSmResponse.setOwner(vmeDto.getOwner());
+
+				for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
+					if(sm.getYear() == vmeYear || vmeYear == 0){
+						resultList.add(translator.doTranslate4Sm(sm));
+					}
 				}
+
 			}
-			
+			if(resultList.isEmpty() && vmeSmResponse.getNote() == null){
+				vmeSmResponse.setNote("No observation available for "+vmeYear+", here follows the most recent one found from the selected year");
+			}
+			vmeYear--;
 		}
 
 		vmeSmResponse.setResponseList(resultList);
@@ -76,21 +81,19 @@ public class GetInfoService {
 		
 		List<VmeDto> vmeDtoList = new ArrayList<VmeDto>();
 		
+		while(vmeDtoList.isEmpty() && year>2005 || year == 0){
 		for (Vme vme : vmeListPerRfmo) {
 			VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
-			if(scope.equals("VME")){
 				if(vmeDto.getYear() == year && vmeDto.getScope().equals(scope)){
 					vmeDtoList.add(vmeDto);
-				} else if (year == 0 && vmeDto.getYear() == Calendar.getInstance().get(Calendar.YEAR)) {
-					vmeDtoList.add(vmeDto);
-				}
-			} else if(scope.equals("Regulatory")){
-				if(vmeDto.getYear() == year && vmeDto.getScope().equals(scope)){
-					vmeDtoList.add(vmeDto);
-				} else if (year == 0) {
+				} else if (year == 0 && vmeDto.getScope().equals(scope)) {
 					vmeDtoList.add(vmeDto);
 				}
 			}
+		if(vmeDtoList.isEmpty() && vmeResponse.getNote() == null){
+			vmeResponse.setNote("No observation available for "+year+", here follows the most recent one found from the selected year");
+		}
+		year--;
 		}
 		
 		vmeResponse.setVmeDto(vmeDtoList);

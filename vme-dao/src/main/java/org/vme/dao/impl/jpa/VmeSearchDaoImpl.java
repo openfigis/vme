@@ -467,7 +467,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		res.setVmeId(vme.getId());
 		
 		try {
-			res.setScope(referenceDAO.getReferenceByID(VmeScope.class, vme.getScope()).getName());
+			res.setScope(referenceDAO.getReferenceByID(VmeScope.class, vme.getScope()  ).getName());
 		} catch (Exception e1) {
 			throw new VmeException(e1);
 		}
