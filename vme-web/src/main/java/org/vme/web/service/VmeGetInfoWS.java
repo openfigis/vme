@@ -28,7 +28,7 @@ public class VmeGetInfoWS {
 	}
 	
 	@GET
-	@Path("/specificmeasure/{vmeIdentifier}/{vmeYear}")
+	@Path("/{vmeIdentifier}/year/{vmeYear}/specificmeasure/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier, @PathParam("vmeYear") String vmeYear) throws Exception {
 		
@@ -37,32 +37,11 @@ public class VmeGetInfoWS {
 	}
 	
 	@GET
-	@Path("/specificmeasure/{vmeIdentifier}")
+	@Path("/{vmeIdentifier}/specificmeasure/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier) throws Exception {
 		
 		return Response.status(200).entity(getInfoService.findInfo(vmeIdentifier, 0)).build();
 		
-	}
-	
-	@GET
-	@Path("/owner/{owner}/{scope}/{year}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response find(@PathParam("owner") String owner, @PathParam("scope") String scope,
-			@PathParam("year") String year) {
-		
-		return Response.status(200).entity(getInfoService.findInfo(owner, scope, Integer.parseInt(year))).build();
-		
-	}
-	
-	@GET
-	@Path("/owner/{owner}/{scope}/")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response findByOwner(@PathParam("owner") String owner, @PathParam("scope") String scope,
-			@PathParam("year") String year) {
-		
-		return Response.status(200).entity(getInfoService.findInfo(owner, scope, 0)).build();
-		
-	}
-	
+	}	
 }
