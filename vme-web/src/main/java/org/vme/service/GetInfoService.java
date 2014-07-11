@@ -39,7 +39,7 @@ public class GetInfoService {
 
 		List<SpecificMeasureDto> resultList = new ArrayList<SpecificMeasureDto>();
 
-		if(vmeYear<= 2005){
+		if(vmeYear<= 2005 && vmeYear != 0){
 			vmeSmResponse.setNote("No observation available for "+vmeYear+", here follows the most recent one found from the selected year");
 		}
 
@@ -85,7 +85,7 @@ public class GetInfoService {
 
 		List<VmeDto> vmeDtoList = new ArrayList<VmeDto>();
 
-		if(year<= 2005){
+		if(year<= 2005 && year != 0){
 			vmeResponse.setNote("No observation available for "+year+", here follows the most recent one found from the selected year");
 		}
 
