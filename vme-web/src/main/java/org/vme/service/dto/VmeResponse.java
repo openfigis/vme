@@ -10,20 +10,20 @@ public class VmeResponse {
 
 	private UUID uuid;
 	private String note;
-	private List<VmeDto> vmeDto;
+	private List<VmeDto> resultList;
 
 	public VmeResponse(UUID uuid){
 		super();
 		this.uuid = uuid;
-		this.vmeDto = new ArrayList<VmeDto>();
+		this.resultList = new ArrayList<VmeDto>();
 	}
 
 	public List<VmeDto> getVmeDto() {
-		return this.vmeDto;
+		return this.resultList;
 	}
 
 	public void setVmeDto(List<VmeDto> vmeDto) {
-		this.vmeDto = vmeDto;
+		this.resultList = vmeDto;
 	}
 
 	public UUID getUuid() {
