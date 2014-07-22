@@ -17,17 +17,14 @@ import javax.xml.bind.Unmarshaller;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.IgnoreTextAndAttributeValuesDifferenceListener;
 import org.custommonkey.xmlunit.XMLTestCase;
-import org.fao.fi.figis.devcon.JaxbValidationEventHandler;
-import org.fao.fi.figis.vme.webservice.SpecificMeasureList;
-import org.fao.fi.figis.vme.webservice.SpecificMeasureType;
 import org.junit.Test;
 import org.vme.fimes.jaxb.FimesNamespacePrefixMapper;
+import org.vme.fimes.jaxb.FimesValidationEventHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class SpecificMeasureListTest extends XMLTestCase {
 
-	File file = new File("src/test/resources/VMEFactSheet_XML_prototype.xml");
 	File fileShort = new File("src/test/resources/VmeShort.xml");
 
 	// SpecificMeasureList expectedResult = null;
@@ -85,17 +82,10 @@ public class SpecificMeasureListTest extends XMLTestCase {
 		JAXBContext context = JAXBContext.newInstance(clazz);
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 
-		JaxbValidationEventHandler handler = new JaxbValidationEventHandler();
+		FimesValidationEventHandler handler = new FimesValidationEventHandler();
 		unmarshaller.setEventHandler(handler);
 
-		Object object = unmarshaller.unmarshal(file);
-		if (!handler.getMessages().isEmpty()) {
-			String errorMessage = "XML parse errors:";
-			for (Object message : handler.getMessages()) {
-				errorMessage += "\n" + message;
-			}
-			throw new JAXBException(errorMessage);
-		}
+		Object object = unmarshaller.unmarshal(fileShort);
 
 		// test equality
 		// Equality cannot be tested like this because the equals of the jaxb
