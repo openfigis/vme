@@ -1,9 +1,8 @@
 package org.fao.fi.vme.dto.test;
 
-import java.util.GregorianCalendar;
-
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import org.fao.fi.vme.webservice.SpecificMeasureType;
 
@@ -22,14 +21,10 @@ public class SpecificMeasureTypeMock {
 		String text = "Text met <b>kippesoep<b> en aardbeien. ";
 		String cddataText = "<![CDATA[" + text + "]]>";
 		s1.setMeasureText(cddataText);
-
-		GregorianCalendar gcal = new GregorianCalendar();
-		try {
-			s1.setValidityPeriodEnd(DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal));
-			s1.setValidityPeriodStart(DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal));
-		} catch (DatatypeConfigurationException e) {
-			throw new RuntimeException(e);
-		}
+		DateFormat dateFormatFormal = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormatFormal.format(Calendar.getInstance());
+		s1.setValidityPeriodEnd(dateFormatFormal.format(Calendar.getInstance()));
+		s1.setValidityPeriodStart(dateFormatFormal.format(Calendar.getInstance()));
 
 		return s1;
 

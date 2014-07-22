@@ -17,8 +17,8 @@ elementFormDefault="qualified">
 		<attribute name="oid" type="int"></attribute>
 		<attribute name="id" type="int"></attribute>
 		<attribute name="lang" type="string"></attribute>
-		<attribute name="validityPeriodStart" type="date"></attribute>
-		<attribute name="validityPeriodEnd" type="date"></attribute>
+		<attribute name="validityPeriodStart" type="string"></attribute>
+		<attribute name="validityPeriodEnd" type="string"></attribute>
 		<attribute name="measureText" type="string"></attribute>
 		<attribute name="measureSourceUrl" type="anyURI"></attribute>
     </complexType>
