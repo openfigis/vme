@@ -3,7 +3,6 @@ package org.vme.service.dto;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
@@ -25,21 +24,22 @@ import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
 
 @RunWith(CdiRunner.class)
 @AdditionalClasses({ VmeSearchDaoImpl.class })
-@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
-		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class,
+		FigisDataBaseProducer.class, VmeTestPersistenceUnitConfiguration.class,
+		VmeDataBaseProducerApplicationScope.class })
 public class DtoTranslatorTest {
 
 	private DtoTranslator translator = new DtoTranslator();
-	
+
 	private SpecificMeasureDto smDto;
 	private SpecificMeasure sm;
 	private Vme vme;
 	private static final int YEAR = 2000;
 	private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
-	
+
 	@Before
-	public void before(){
-		
+	public void before() {
+
 		sm = new SpecificMeasure();
 
 		sm.setYear(YEAR);
@@ -48,13 +48,13 @@ public class DtoTranslatorTest {
 		sm.setInformationSource(InformationSourceMock.create());
 		sm.setReviewYear(YEAR + 1);
 		sm.setVme(VmeMock.create());
-		
+
 		smDto = new SpecificMeasureDto();
-		
+
 		vme = VmeMock.create();
-		
+
 	}
-	
+
 	@Test
 	public void testDoTranslate4Sm() {
 		smDto = translator.doTranslate4Sm(sm);
@@ -67,8 +67,8 @@ public class DtoTranslatorTest {
 
 	@Test
 	public void testDoTranslate4Vme() {
-		VmeDto vmeDto = translator.doTranslate4Vme(vme, 2000);
-		
+		translator.doTranslate4Vme(vme, 2000);
+
 	}
 
 }
