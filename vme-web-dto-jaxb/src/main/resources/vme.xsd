@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+xmlns:fivme="http://www.fao.org/fi/figis/vme/webservice" 
+targetNamespace="http://www.fao.org/fi/figis/vme/webservice" 
+elementFormDefault="qualified">
+	
+	<element name="SpecificMeasureList" type="fivme:SpecificMeasureListType"/>
+	<complexType name="SpecificMeasureListType">
+			<choice maxOccurs="unbounded">
+
+			<element name="SpecificMeasure" type="fivme:SpecificMeasureType" minOccurs="0" maxOccurs="unbounded"/>
+		</choice>
+	</complexType>
+
+	<complexType name="SpecificMeasureType">
+		<attribute name="year" type="int"></attribute>
+		<attribute name="oid" type="int"></attribute>
+		<attribute name="id" type="int"></attribute>
+		<attribute name="lang" type="int"></attribute>
+		<attribute name="validityPeriodStart" type="int"></attribute>
+		<attribute name="validityPeriodEnd" type="int"></attribute>
+		<attribute name="measureText" type="int"></attribute>
+		<attribute name="measureSourceUrl" type="int"></attribute>
+    </complexType>
+</schema>

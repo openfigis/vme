@@ -48,6 +48,7 @@
 		<!-- <module>vme-reports-store-gateway</module> -->
 		<!-- <module>vme-reports-store-gateway-test</module> -->
 		<!-- <module>vme-reports-store-gateway-web</module> -->
+		<module>vme-web-dto-jaxb</module>
 	</modules>
 
 	<dependencies>

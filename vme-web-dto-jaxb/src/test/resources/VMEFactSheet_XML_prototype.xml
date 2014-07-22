@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Aureliano Gentile December 2012 - June 2013 - VME XML fact sheet Prototype -->
+<fi:FIGISDoc xmlns:fi="http://www.fao.org/fi/figis/devcon/" xmlns:agls="http://www.naa.gov.au/recordkeeping/gov_online/agls/1.1"
+	xmlns:ags="http://www.purl.org/agmes/1.1/" xmlns:aida="http://www.idmlinitiative.org/resources/dtds/AIDA22.xsd"
+	xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xml:lang="en" xsi:schemaLocation="http://www.fao.org/fi/figis/devcon/ http://figisapps.fao.org/figis/fimes/schema/3_6/fi.xsd">
+	<fi:DataEntry>
+		<fi:Editor>Aureliano</fi:Editor>
+		<dcterms:Created>2012-06-22</dcterms:Created>
+	</fi:DataEntry>
+	<fi:ObjectSource>
+		<fi:Owner>
+			<fi:CollectionRef>
+				<fi:FigisID>7300</fi:FigisID>
+			</fi:CollectionRef>
+		</fi:Owner>
+		<fi:CorporateCoverPage>
+			<fi:FigisID>791</fi:FigisID>
+		</fi:CorporateCoverPage>
+		<fi:CoverPage>
+			<dcterms:Created>2012-12-18</dcterms:Created>
+		</fi:CoverPage>
+	</fi:ObjectSource>
+	<fi:VME>
+		<fi:VMEIdent>
+			<fi:FigisID>10</fi:FigisID>
+			<dc:Title>Corner Rise Seamounts</dc:Title>
+			<fi:ReportingYear>2012</fi:ReportingYear>
+			<fi:WaterAreaRef>
+				<fi:ForeignID CodeSystem="vme" Code="VME_5067" />
+			</fi:WaterAreaRef>
+			<fi:WaterAreaRef>
+				<fi:ForeignID CodeSystem="eez" Code="NOR"></fi:ForeignID>
+			</fi:WaterAreaRef>
+			<fi:WaterAreaRef>
+				<fi:ForeignID CodeSystem="iccat_smu" Code="BFT_E"></fi:ForeignID>
+			</fi:WaterAreaRef>
+			<fi:WaterAreaRef>
+				<fi:ForeignID CodeSystem="pac_tuna_rep" Code="NEPO"></fi:ForeignID>
+			</fi:WaterAreaRef>
+			<fi:WaterAreaRef>
+				<fi:ForeignID CodeSystem="fao_sub_area" Code="37.1"></fi:ForeignID>
+			</fi:WaterAreaRef>
+			<fi:WaterAreaRef>
+				<fi:ForeignID CodeSystem="gfcm_sub_area" Code="5"></fi:ForeignID>
+			</fi:WaterAreaRef>
+			<fi:WaterAreaRef>
+				<fi:ForeignID CodeSystem="rfb_comp" Code="NAFO"></fi:ForeignID>
+			</fi:WaterAreaRef>
+			<fi:WaterAreaRef>
+				<fi:ForeignID CodeSystem="fao_sub_div" Code="27.5.b.1"></fi:ForeignID>
+			</fi:WaterAreaRef>
+			<fi:OrgRef>
+				<fi:ForeignID CodeSystem="acronym" Code="NAFO" />
+			</fi:OrgRef>
+			<fi:VMEType Value="Established VME" />
+			<fi:VMECriteria Value="Fragility" />
+			<fi:Range Type="Time">
+				<fi:Min>2007</fi:Min>
+				<fi:Max>2015</fi:Max>
+			</fi:Range>
+		</fi:VMEIdent>
+		<fi:HabitatBio>
+			<fi:Text><![CDATA[Topographical features constituting mega-habitats and host or are likely to host VME habi-tats including corals, sponges and vulnerable fish species such as alfonsino spp., orange roughy and silver roughy, wreckfish and cardinal.]]></fi:Text>
+			<fi:GeoForm>
+				<fi:Text><![CDATA[A group of 19 extinct submarine volcanoes in the northwest Atlantic forming part of the Cor-ner Rise Seamount chain. Seabed at c. 5000–5500 m, seamounts rising to c. 1400-800 m. (SCR Doc 07/61).]]></fi:Text>
+			</fi:GeoForm>
+		</fi:HabitatBio>
+		<fi:Impacts>
+			<fi:Text><![CDATA[Fishing activity has existed on the Corner Seamounts for many years, and catches over 10 000 tons were re-moved in the 1970s by USSR vessels, on seamounts both inside and outside the NAFO Convention Area, using a combination of bottom and mid-water trawling. The main species in most of these fisheries was al-fonsino. Fishing since then has occurred sporadically, with reported catches being at much lower levels. There is evidence that fisheries which occurred in the past may not have been sustainable. SC Rep, 2007,p. 35).
+One seamount was repeatedly fished during 2003-2007 using demersal trawl gear. The most important species in the catches were alfonsino (Beryx splendens), black scabbardfish (Aphanopus carbo) and wreckfish (Polyprion americanus), comprising 98% of the total catch. (SCR Doc. 07/6, 07/26)
+Five of the Corner Rise Seamounts have been explored using an ROV and areas of pristine coral as well as evi-dence of large-scale trawling damage were found on the summits of Kukenthal Peak and Yukutat Seamount (Waller et al., 2007).]]></fi:Text>
+		</fi:Impacts>
+		<fi:History>
+			<fi:Text><![CDATA[VME History text text text]]></fi:Text>
+		</fi:History>
+		<fi:FisheryArea>
+			<fi:Text><![CDATA[Fishery history text text text]]></fi:Text>
+		</fi:FisheryArea>
+		<fi:Management>
+			<fi:ManagementMethods>
+				<fi:ManagementMethodEntry Focus="Vulnerable Marine Ecosystems">
+					<dc:Title>VME general measures</dc:Title>
+					<fi:Measure>
+						<fi:MeasureType Value="Fishing_areas" />
+						<fi:Text><![CDATA[2011: All bottom fishing activities in new bottom fishing areas or with bottom gear not previously used in the area concerned shall be considered as exploratory fisheries and shall be conducted in accordance with an Exploratory Bottom Fisheries Protocol [Article 3.8, CM 22-11] that requires harvest, mitigation, catch monitoring and data collection plans to be submited to Executive Secretary for forwardsing to CPs and SC [Annex 3, CM 22/11].]]></fi:Text>
+					</fi:Measure>
+					<fi:Measure>
+						<fi:MeasureType Value="Exploratory_fishing_protocol" />
+						<fi:Text><![CDATA[Exploratory fishing covers  all bottom fishing activities (a) outside of the existing bottom fishing area and (b) to fisheries within the existing bottom fishing area that show significant change. (Art 15.8). Exploratory fisheries  must be conducted according to an exploratory fisheries protocol (Art 18; Annex 1E.I-IV) and are subject to  review FC and SC. Exploritory fisheries will be allowed only if there are adequate  mitigation measures to prevent SAI to VMEs (Art 19). ]]></fi:Text>
+					</fi:Measure>
+					<fi:Measure>
+						<fi:MeasureType Value="VME_encounter_protocols" />
+						<fi:Text><![CDATA[In existing bottom fishing areas, encounters with VME indicator species above a threshold value are reported to the Executive Secretary and trigger a 2 nmile move on rule. In new fishing areas, such encounters also result in temporary closures of 2 nmile radius and require a more detailed report by the on-board observer. (Art 20.1-2)]]></fi:Text>
+					</fi:Measure>
+					<fi:Measure>
+						<fi:MeasureType Value="VME_threshold" />
+						<fi:Text><![CDATA[The threshold catch to trigger move on rules in existing bottom fishing areas was a catch per set of 60 kg live corals or 600 kg sponges. In new bottom fishing areas this was a catch of 60 kg live corals and/or 400 kg sponges. (Art 20.3)]]></fi:Text>
+					</fi:Measure>
+					<fi:Measure>
+						<fi:MeasureType Value="VME_indicatorspecies" />
+						<fi:Text><![CDATA[Live corals and sponges (Art 20.3)]]></fi:Text>
+					</fi:Measure>
+					<fi:Sources>
+						<fi:BiblioEntry>
+							<dcterms:bibliographicCitation>NAFO Conservation and Enforcement Measures 2012 (NAFO FC Doc. 12/1 Serial No.
+								N6001)</dcterms:bibliographicCitation>
+							<dc:Identifier Type="URI">http://archive.nafo.int/open/fc/2012/fcdoc12-01.pdf</dc:Identifier>
+						</fi:BiblioEntry>
+					</fi:Sources>
+					<fi:Range Type="Time">
+						<fi:Min>2008</fi:Min>
+						<fi:Max>2015</fi:Max>
+					</fi:Range>
+				</fi:ManagementMethodEntry>
+				<fi:ManagementMethodEntry Focus="Vulnerable Marine Ecosystems">
+					<dc:Title>VME-specific measures</dc:Title>
+					<fi:Measure>
+						<fi:MeasureType Value="VME-specific measures" />
+						<fi:Text><![CDATA[Area closed to bottom fishing until 31 Dec 2014, with exploratory fishing option. Vessels fishing this ares shall have a scientific observer onboard. (Art 16.1-3)]]></fi:Text>
+						<fi:Range Type="Time">
+							<fi:Min>2008</fi:Min>
+							<fi:Max>2015</fi:Max>
+						</fi:Range>
+						<fi:Sources>
+							<fi:BiblioEntry>
+								<dcterms:bibliographicCitation>NAFO Conservation and Enforcement Measures 2012 (NAFO FC Doc. 12/1 Serial No.
+									N6001)</dcterms:bibliographicCitation>
+								<dc:Identifier Type="URI">http://archive.nafo.int/open/fc/2012/fcdoc12-01.pdf</dc:Identifier>
+							</fi:BiblioEntry>
+						</fi:Sources>
+					</fi:Measure>
+				</fi:ManagementMethodEntry>
+			</fi:ManagementMethods>
+		</fi:Management>
+		<fi:Overview>
+			<fi:Text><![CDATA[Overview - addition al info text text text text]]></fi:Text>
+			<fi:Factsheet>
+				<fi:VMERef>
+					<fi:FigisID>10</fi:FigisID>
+				</fi:VMERef>
+				<fi:AqResRef>
+					<fi:FigisID>10545</fi:FigisID>
+				</fi:AqResRef>
+				<fi:AqResRef>
+					<fi:ForeignID Code="006:0027" CodeSystem="invid" />
+				</fi:AqResRef>
+				<fi:SpeciesRef>
+					<fi:ForeignID CodeSystem="scientific_name" Code="Octopus vulgaris" />
+				</fi:SpeciesRef>
+				<fi:FisheryRef>
+					<fi:ForeignID CodeSystem="invid" Code="ATA07" />
+				</fi:FisheryRef>
+			</fi:Factsheet>
+		</fi:Overview>
+		<fi:Sources>
+			<fi:BiblioEntry>
+				<ags:CreatorCorporate>Northwest Atlantic Fisheries Organization (NAFO)</ags:CreatorCorporate>
+				<dcterms:Created>2011-06-16</dcterms:Created>
+				<dcterms:Abstract>Abstract text text text</dcterms:Abstract>
+				<dcterms:bibliographicCitation>NAFO Conservation and Enforcement Measures 2012 (NAFO FC Doc. 12/1 Serial No. N6001)
+				</dcterms:bibliographicCitation>
+				<dc:Identifier Type="URI">http://archive.nafo.int/open/fc/2012/fcdoc12-01.pdf</dc:Identifier>
+			</fi:BiblioEntry>
+			<fi:BiblioEntry>
+				FAO Fisheries and Aquaculture Department
+				<dc:Identifier Type="URI">http://www.fao.org/fishery</dc:Identifier>
+			</fi:BiblioEntry>
+		</fi:Sources>
+	</fi:VME>
+</fi:FIGISDoc>
