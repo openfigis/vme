@@ -1,4 +1,4 @@
-package org.fao.fi.figis.vme.webservice;
+package org.fao.fi.vme.webservice;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -17,6 +17,8 @@ import javax.xml.bind.Unmarshaller;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.IgnoreTextAndAttributeValuesDifferenceListener;
 import org.custommonkey.xmlunit.XMLTestCase;
+import org.fao.fi.vme.webservice.SpecificMeasureList;
+import org.fao.fi.vme.webservice.SpecificMeasureType;
 import org.junit.Test;
 import org.vme.fimes.jaxb.FimesNamespacePrefixMapper;
 import org.vme.fimes.jaxb.FimesValidationEventHandler;

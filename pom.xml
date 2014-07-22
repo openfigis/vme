@@ -215,6 +215,11 @@
 				<artifactId>vme-fimes-jaxb</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.vme</groupId>
+				<artifactId>vme-web-dto-jaxb</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 </project>

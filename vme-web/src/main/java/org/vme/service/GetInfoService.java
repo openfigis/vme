@@ -12,6 +12,8 @@ import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
+import org.fao.fi.vme.webservice.SpecificMeasureList;
+import org.fao.fi.vme.webservice.SpecificMeasureType;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.vme.dao.ReferenceServiceException;
 import org.vme.dao.VmeSearchDao;
@@ -47,11 +49,12 @@ public class GetInfoService {
 
 		List<SpecificMeasureDto> resultList = new ArrayList<SpecificMeasureDto>();
 
-		if(vmeYear<= 2005 && vmeYear != 0){
-			vmeSmResponse.setNote("No observation available for "+vmeYear+", here follows the most recent one found from the selected year");
+		if (vmeYear <= 2005 && vmeYear != 0) {
+			vmeSmResponse.setNote("No observation available for " + vmeYear
+					+ ", here follows the most recent one found from the selected year");
 		}
 
-		while(resultList.isEmpty() && vmeYear>2005 || vmeYear == 0){
+		while (resultList.isEmpty() && vmeYear > 2005 || vmeYear == 0) {
 			for (VmeDto vmeDto : vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, vmeYear)) {
 				vmeSmResponse.setVmeId(vmeDto.getVmeId());
 				vmeSmResponse.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
@@ -61,14 +64,15 @@ public class GetInfoService {
 				vmeSmResponse.setOwner(vmeDto.getOwner());
 
 				for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
-					if(sm.getYear() == vmeYear || vmeYear == 0){
+					if (sm.getYear() == vmeYear || vmeYear == 0) {
 						resultList.add(translator.doTranslate4Sm(sm));
 					}
 				}
 
 			}
-			if(resultList.isEmpty() && vmeSmResponse.getNote() == null){
-				vmeSmResponse.setNote("No observation available for "+vmeYear+", here follows the most recent one found from the selected year");
+			if (resultList.isEmpty() && vmeSmResponse.getNote() == null) {
+				vmeSmResponse.setNote("No observation available for " + vmeYear
+						+ ", here follows the most recent one found from the selected year");
 			}
 			vmeYear--;
 		}
@@ -94,35 +98,37 @@ public class GetInfoService {
 
 		List<VmeDto> vmeDtoList = new ArrayList<VmeDto>();
 
-		if(year<= 2005 && year != 0){
-			vmeResponse.setNote("No observation available for "+year+", here follows the most recent one found from the selected year");
-		}		
+		if (year <= 2005 && year != 0) {
+			vmeResponse.setNote("No observation available for " + year
+					+ ", here follows the most recent one found from the selected year");
+		}
 
-		if(scope.equals("VME")){
+		if (scope.equals("VME")) {
 
-			while(vmeDtoList.isEmpty() && year>2005 || year == 0){
+			while (vmeDtoList.isEmpty() && year > 2005 || year == 0) {
 				for (Vme vme : vmeListPerRfmo) {
 					VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
-					if(vmeDto.getYear() == year){
+					if (vmeDto.getYear() == year) {
 						vmeDtoList.add(vmeDto);
 					} else if (year == 0) {
 						vmeDtoList.add(vmeDto);
 					}
 				}
-				if(vmeDtoList.isEmpty() && vmeResponse.getNote() == null){
-					vmeResponse.setNote("No observation available for "+year+", here follows the most recent one found from the selected year");
+				if (vmeDtoList.isEmpty() && vmeResponse.getNote() == null) {
+					vmeResponse.setNote("No observation available for " + year
+							+ ", here follows the most recent one found from the selected year");
 				}
 				year--;
 			}
 		}
 
 		int tempYear = year;
-		
-		if(scope.equals("Regulatory")){
 
-			for(Vme vme : vmeListPerRfmo) {
+		if (scope.equals("Regulatory")) {
+
+			for (Vme vme : vmeListPerRfmo) {
 				try {
-					if(refDao.getReferenceByID(VmeScope.class, vme.getScope()).getName().equals("Regulatory")){
+					if (refDao.getReferenceByID(VmeScope.class, vme.getScope()).getName().equals("Regulatory")) {
 						vmeListPerScope.add(vme);
 					}
 				} catch (ReferenceServiceException e) {
@@ -130,23 +136,24 @@ public class GetInfoService {
 				}
 			}
 
-			while(vmeDtoList.isEmpty() && year>2005 || year == 0){
+			while (vmeDtoList.isEmpty() && year > 2005 || year == 0) {
 
 				for (Vme vme : vmeListPerScope) {
 					VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
-					if(!fDao.findVmeObservationByVme(vme.getId()).isEmpty()){
+					if (!fDao.findVmeObservationByVme(vme.getId()).isEmpty()) {
 						VmeObservation last = getLastObservation(fDao.findVmeObservationByVme(vme.getId()), tempYear);
 						vmeDto.setFactsheetUrl(translator.factsheetURL(last));
 					}
-					if(vmeDto.getYear() == year){
+					if (vmeDto.getYear() == year) {
 						vmeDtoList.add(vmeDto);
 					} else if (year == 0) {
 						vmeDtoList.add(vmeDto);
 					}
 				}
 
-				if(vmeDtoList.isEmpty() && vmeResponse.getNote() == null){
-					vmeResponse.setNote("No observation available for "+year+", here follows the most recent one found from the selected year");
+				if (vmeDtoList.isEmpty() && vmeResponse.getNote() == null) {
+					vmeResponse.setNote("No observation available for " + year
+							+ ", here follows the most recent one found from the selected year");
 				}
 				year--;
 			}
@@ -158,13 +165,14 @@ public class GetInfoService {
 		return vmeResponse;
 	}
 
-	public VmeObservation getLastObservation(List<VmeObservation> voList, int year){
+	public VmeObservation getLastObservation(List<VmeObservation> voList, int year) {
 
 		VmeObservation resultObservation = new VmeObservation();
 		int temp = Integer.valueOf(voList.get(0).getId().getReportingYear());
-		if(year!=0){
+		if (year != 0) {
 			for (VmeObservation vo : voList) {
-				if(Integer.valueOf(vo.getId().getReportingYear()) > temp && Integer.valueOf(vo.getId().getReportingYear())<=year){
+				if (Integer.valueOf(vo.getId().getReportingYear()) > temp
+						&& Integer.valueOf(vo.getId().getReportingYear()) <= year) {
 					resultObservation = vo;
 					temp = Integer.valueOf(vo.getId().getReportingYear());
 					vo.getId().getVmeId();
@@ -172,7 +180,7 @@ public class GetInfoService {
 			}
 		} else {
 			for (VmeObservation vo : voList) {
-				if(Integer.valueOf(vo.getId().getReportingYear()) > temp){
+				if (Integer.valueOf(vo.getId().getReportingYear()) > temp) {
 					resultObservation = vo;
 					temp = Integer.valueOf(vo.getId().getReportingYear());
 					vo.getId().getVmeId();
@@ -181,6 +189,16 @@ public class GetInfoService {
 		}
 
 		return resultObservation;
+	}
+
+	public SpecificMeasureList vmeIdentifierSpecificmeasures(String vmeIdentifier) {
+		SpecificMeasureList l = new SpecificMeasureList();
+		SpecificMeasureType s1 = new SpecificMeasureType();
+		s1.setId(4);
+		s1.setYear(1985);
+		l.getSpecificMeasures().add(s1);
+
+		return l;
 	}
 
 }

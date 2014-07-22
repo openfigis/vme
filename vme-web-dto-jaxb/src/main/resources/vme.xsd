@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema" 
-xmlns:fivme="http://www.fao.org/fi/figis/vme/webservice" 
-targetNamespace="http://www.fao.org/fi/figis/vme/webservice" 
+xmlns:fivme="http://www.fao.org/fi/vme/webservice" 
+targetNamespace="http://www.fao.org/fi/vme/webservice" 
 elementFormDefault="qualified">
 	
 	<element name="SpecificMeasureList" type="fivme:SpecificMeasureListType"/>

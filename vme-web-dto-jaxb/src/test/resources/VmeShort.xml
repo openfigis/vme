@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<SpecificMeasureList xmlns="http://www.fao.org/fi/figis/vme/webservice">
+<SpecificMeasureList xmlns="http://www.fao.org/fi/vme/webservice">
     <SpecificMeasure id="32"/>
     <SpecificMeasure id="32"/>
 </SpecificMeasureList>
