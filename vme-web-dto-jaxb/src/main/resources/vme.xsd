@@ -16,10 +16,10 @@ elementFormDefault="qualified">
 		<attribute name="year" type="int"></attribute>
 		<attribute name="oid" type="int"></attribute>
 		<attribute name="id" type="int"></attribute>
-		<attribute name="lang" type="int"></attribute>
-		<attribute name="validityPeriodStart" type="int"></attribute>
-		<attribute name="validityPeriodEnd" type="int"></attribute>
-		<attribute name="measureText" type="int"></attribute>
-		<attribute name="measureSourceUrl" type="int"></attribute>
+		<attribute name="lang" type="string"></attribute>
+		<attribute name="validityPeriodStart" type="date"></attribute>
+		<attribute name="validityPeriodEnd" type="date"></attribute>
+		<attribute name="measureText" type="string"></attribute>
+		<attribute name="measureSourceUrl" type="anyURI"></attribute>
     </complexType>
 </schema>
