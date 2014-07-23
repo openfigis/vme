@@ -16,6 +16,7 @@ import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
 import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.fao.fi.vme.webservice.SpecificMeasureType;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -49,6 +50,21 @@ public class DtoTranslator {
 			smDto.setFactsheetURL(factsheetURL(figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear())));
 		}
 		return smDto;
+	}
+
+	public SpecificMeasureType doTranslate4SmType(SpecificMeasure sm){
+		SpecificMeasureType smt = new SpecificMeasureType();
+		smt.setId(sm.getId().intValue());
+		smt.setLang("en");
+		smt.setMeasureSourceUrl(sm.getInformationSource().getUrl().toExternalForm());
+		smt.setMeasureText(UTIL.getEnglish(sm.getVmeSpecificMeasure()));
+		if(figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear())!=null){
+			smt.setOid(figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear()).getId().getObservationId().intValue());
+		}
+		smt.setValidityPeriodEnd(String.valueOf(VUTIL.getEndYear(sm.getValidityPeriod())));
+		smt.setValidityPeriodStart(String.valueOf(VUTIL.getBeginYear(sm.getValidityPeriod())));
+		smt.setYear(sm.getYear());
+		return smt;
 	}
 
 	public VmeDto doTranslate4Vme(Vme vme, int year){
@@ -131,7 +147,7 @@ public class DtoTranslator {
 		}
 		return gmDto;
 	}
-	
+
 	public String factsheetURL(VmeObservation vo){
 		return "http://figisapps.fao.org/fishery/vme/" + vo.getId().getVmeId() + "/" + vo.getId().getObservationId() + "/en";
 	}

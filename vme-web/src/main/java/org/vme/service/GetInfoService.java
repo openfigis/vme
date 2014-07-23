@@ -12,7 +12,6 @@ import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
-import org.fao.fi.vme.dto.test.SpecificMeasureListMock;
 import org.fao.fi.vme.webservice.SpecificMeasureList;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.vme.dao.ReferenceServiceException;
@@ -190,9 +189,21 @@ public class GetInfoService {
 
 		return resultObservation;
 	}
-
-	public SpecificMeasureList vmeIdentifierSpecificmeasures(String vmeIdentifier) {
-		return SpecificMeasureListMock.create();
+	
+	public SpecificMeasureList vmeIdentifierSpecificmeasures(String vmeIdentifier, int year) {
+		
+		SpecificMeasureList smList = new SpecificMeasureList();
+		
+		for (VmeDto vmeDto : vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, year)) {
+			
+			for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
+				
+				smList.getSpecificMeasures().add(translator.doTranslate4SmType(sm));
+				
+			}
+		}
+		
+		return smList;
 	}
 
 }
