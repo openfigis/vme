@@ -74,6 +74,10 @@ public class GetInfoService {
 			vmeYear--;
 		}
 
+		if(resultList.isEmpty()){
+			resultList.add(new SpecificMeasureDto());
+		}
+		
 		vmeSmResponse.setResponseList(resultList);
 		return vmeSmResponse;
 

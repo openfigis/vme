@@ -7,6 +7,7 @@ public class SpecificMeasureDto {
 	private int year;
 	private int validityPeriodStart;
 	private int validityPeriodEnd;
+	private int reviewYear;
 	private String sourceURL;
 	private String factsheetURL;
 	
@@ -69,5 +70,13 @@ public class SpecificMeasureDto {
 
 	public void setSourceURL(String sourceURL) {
 		this.sourceURL = sourceURL;
+	}
+
+	public int getReviewYear() {
+		return reviewYear;
+	}
+
+	public void setReviewYear(int reviewYear) {
+		this.reviewYear = reviewYear;
 	}
 }

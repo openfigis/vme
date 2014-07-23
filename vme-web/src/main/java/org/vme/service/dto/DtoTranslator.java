@@ -45,6 +45,9 @@ public class DtoTranslator {
 		smDto.setYear(sm.getYear());
 		smDto.setValidityPeriodStart(VUTIL.getBeginYear(sm.getValidityPeriod()));
 		smDto.setValidityPeriodEnd(VUTIL.getEndYear(sm.getValidityPeriod()));
+		if(sm.getReviewYear()!=null){
+			smDto.setReviewYear(sm.getReviewYear());
+		}
 		smDto.setSourceURL(sm.getInformationSource().getUrl().toExternalForm());
 		if(figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear())!=null){
 			smDto.setFactsheetURL(factsheetURL(figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear())));
@@ -149,6 +152,9 @@ public class DtoTranslator {
 	}
 
 	public String factsheetURL(VmeObservation vo){
-		return "http://figisapps.fao.org/fishery/vme/" + vo.getId().getVmeId() + "/" + vo.getId().getObservationId() + "/en";
+		if(vo.getId()!= null){
+			return "http://figisapps.fao.org/fishery/vme/" + vo.getId().getVmeId() + "/" + vo.getId().getObservationId() + "/en";
+		} else return "";
 	}
+
 }
