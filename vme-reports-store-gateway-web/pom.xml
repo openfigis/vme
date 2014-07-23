@@ -125,10 +125,11 @@
 		<profile>
 			<id>vme-prod</id>
 			<build>
-				<finalName>figis#reports-store-gateway</finalName>
+				<finalName>figis#secure-reports-store-gateway</finalName>
 			</build>
 			<properties>
-				<figis.web.cache.reset.server.vme>http://hqlprfigis1:8231</figis.web.cache.reset.server.vme>
+				<!-- when really in production <figis.web.cache.reset.server.vme>http://hqlprfigis1:8231</figis.web.cache.reset.server.vme> -->
+				<figis.web.cache.reset.server.vme>http://figis02:8282</figis.web.cache.reset.server.vme>
 			</properties>
 		</profile>
 	</profiles>
@@ -179,8 +180,10 @@
 			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
-				<!-- now excluding filtering on ALL OTHER file types but still including them in the archive -->
-				<!-- FF, EI: These inclusions without filtering are *FUNDAMENTAL* otherwise PGP keys will be mangled during the filtering process!!! -->
+				<!-- now excluding filtering on ALL OTHER file types but still including 
+					them in the archive -->
+				<!-- FF, EI: These inclusions without filtering are *FUNDAMENTAL* otherwise 
+					PGP keys will be mangled during the filtering process!!! -->
 				<!-- FF: See http://stackoverflow.com/questions/5806792/how-to-avoid-utf-8-encoding-for-binary-with-maven-resources-plugin -->
 
 				<filtering>false</filtering>
