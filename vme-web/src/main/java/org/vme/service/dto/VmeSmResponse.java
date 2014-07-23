@@ -100,4 +100,8 @@ public class VmeSmResponse {
 		this.note = note;
 	}
 
+	public void setNoObsNote(int year) {
+		this.note = "No observation available for " + year
+				+ ", here follows the most recent one found from the selected year";
+	}
 }
