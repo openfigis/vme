@@ -18,7 +18,6 @@ import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.webservice.SpecificMeasureType;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.ReferenceServiceException;
@@ -43,8 +42,8 @@ public class DtoTranslator {
 		SpecificMeasureDto smDto = new SpecificMeasureDto();
 		smDto.setText(UTIL.getEnglish(sm.getVmeSpecificMeasure()));
 		smDto.setYear(sm.getYear());
-		smDto.setValidityPeriodStart(VUTIL.getBeginYear(sm.getValidityPeriod()));
-		smDto.setValidityPeriodEnd(VUTIL.getEndYear(sm.getValidityPeriod()));
+		smDto.setValidityPeriodStart(sm.getValidityPeriod().getBeginDate());
+		smDto.setValidityPeriodEnd(sm.getValidityPeriod().getEndDate());
 		if(sm.getReviewYear()!=null){
 			smDto.setReviewYear(sm.getReviewYear());
 		}
@@ -64,8 +63,8 @@ public class DtoTranslator {
 		if(figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear())!=null){
 			smt.setOid(figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear()).getId().getObservationId().intValue());
 		}
-		smt.setValidityPeriodEnd(String.valueOf(VUTIL.getEndYear(sm.getValidityPeriod())));
-		smt.setValidityPeriodStart(String.valueOf(VUTIL.getBeginYear(sm.getValidityPeriod())));
+		smt.setValidityPeriodEnd(String.valueOf(sm.getValidityPeriod().getBeginDate()));
+		smt.setValidityPeriodStart(String.valueOf(sm.getValidityPeriod().getEndDate()));
 		smt.setYear(sm.getYear());
 		return smt;
 	}
@@ -112,9 +111,10 @@ public class DtoTranslator {
 		}
 
 		res.setGeoArea(UTIL.getEnglish(vme.getGeoArea()));
-		res.setValidityPeriodFrom((new DateTime(vme.getValidityPeriod().getBeginDate())).getYear());
-		res.setValidityPeriodTo((new DateTime(vme.getValidityPeriod().getEndDate())).getYear());
 
+		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginDate());
+		res.setValidityPeriodTo(vme.getValidityPeriod().getEndDate());
+		
 		if(vme.getAreaType() != null) {
 			try {
 				res.setVmeType(referenceDAO.getReferenceByID(VmeType.class, vme.getAreaType()).getName());

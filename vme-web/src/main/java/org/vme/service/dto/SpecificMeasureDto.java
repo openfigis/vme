@@ -1,12 +1,14 @@
 package org.vme.service.dto;
 
+import java.util.Date;
+
 
 public class SpecificMeasureDto {
 	
 	private String text;
 	private int year;
-	private int validityPeriodStart;
-	private int validityPeriodEnd;
+	private Date validityPeriodStart;
+	private Date validityPeriodEnd;
 	private int reviewYear;
 	private String sourceURL;
 	private String factsheetURL;
@@ -43,22 +45,22 @@ public class SpecificMeasureDto {
 	}
 
 
-	public int getValidityPeriodStart() {
+	public Date getValidityPeriodStart() {
 		return validityPeriodStart;
 	}
 
 
-	public void setValidityPeriodStart(int validityPeriodStart) {
+	public void setValidityPeriodStart(Date validityPeriodStart) {
 		this.validityPeriodStart = validityPeriodStart;
 	}
 
 
-	public int getValidityPeriodEnd() {
+	public Date getValidityPeriodEnd() {
 		return validityPeriodEnd;
 	}
 
 
-	public void setValidityPeriodEnd(int validityPeriodEnd) {
+	public void setValidityPeriodEnd(Date validityPeriodEnd) {
 		this.validityPeriodEnd = validityPeriodEnd;
 	}
 

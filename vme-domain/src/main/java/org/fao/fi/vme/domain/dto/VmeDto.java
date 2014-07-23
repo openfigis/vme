@@ -1,5 +1,7 @@
 package org.fao.fi.vme.domain.dto;
 
+import java.util.Date;
+
 public class VmeDto {
 
 	private long vmeId;
@@ -13,8 +15,8 @@ public class VmeDto {
 	private String geographicFeatureId;
 	private int year;
 	private String envelope;
-	private int validityPeriodFrom;
-	private int validityPeriodTo;
+	private Date validityPeriodFrom;
+	private Date validityPeriodTo;
 
 	public String getLocalName() {
 		return localName;
@@ -170,7 +172,7 @@ public class VmeDto {
 	/**
 	 * @return the validityPeriodFrom
 	 */
-	public int getValidityPeriodFrom() {
+	public Date getValidityPeriodFrom() {
 		return validityPeriodFrom;
 	}
 
@@ -178,14 +180,14 @@ public class VmeDto {
 	 * @param validityPeriod
 	 *            the validityPeriodFrom to set
 	 */
-	public void setValidityPeriodFrom(int validityPeriodFrom) {
+	public void setValidityPeriodFrom(Date validityPeriodFrom) {
 		this.validityPeriodFrom = validityPeriodFrom;
 	}
 
 	/**
 	 * @return the validityPeriodTo
 	 */
-	public int getValidityPeriodTo() {
+	public Date getValidityPeriodTo() {
 		return validityPeriodTo;
 	}
 
@@ -193,7 +195,7 @@ public class VmeDto {
 	 * @param validityPeriod
 	 *            the validityPeriodTo to set
 	 */
-	public void setValidityPeriodTo(int validityPeriodTo) {
+	public void setValidityPeriodTo(Date validityPeriodTo) {
 		this.validityPeriodTo = validityPeriodTo;
 	}
 
@@ -208,8 +210,6 @@ public class VmeDto {
 		result = prime * result + ((inventoryIdentifier == null) ? 0 : inventoryIdentifier.hashCode());
 		result = prime * result + ((localName == null) ? 0 : localName.hashCode());
 		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
-		result = prime * result + validityPeriodFrom;
-		result = prime * result + validityPeriodTo;
 		result = prime * result + (int) (vmeId ^ (vmeId >>> 32));
 		result = prime * result + ((vmeType == null) ? 0 : vmeType.hashCode());
 		result = prime * result + year;

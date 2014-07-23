@@ -498,8 +498,10 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		}
 
 		res.setGeoArea(u.getEnglish(vme.getGeoArea()));
-		res.setValidityPeriodFrom((new DateTime(vme.getValidityPeriod().getBeginDate())).getYear());
-		res.setValidityPeriodTo((new DateTime(vme.getValidityPeriod().getEndDate())).getYear());
+		
+		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginDate());
+		res.setValidityPeriodTo(vme.getValidityPeriod().getEndDate());
+		
 		
 		if(vme.getAreaType() != null) {
 			try {
