@@ -21,10 +21,12 @@ public class SpecificMeasureTypeMock {
 		String text = "Text met <b>kippesoep<b> en aardbeien. ";
 		String cddataText = "<![CDATA[" + text + "]]>";
 		s1.setMeasureText(cddataText);
-		DateFormat dateFormatFormal = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormatFormal.format(Calendar.getInstance());
-		s1.setValidityPeriodEnd(dateFormatFormal.format(Calendar.getInstance()));
-		s1.setValidityPeriodStart(dateFormatFormal.format(Calendar.getInstance()));
+
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+		df.format(Calendar.getInstance());
+		// s1.setValidityPeriodEnd(dateFormatFormal.format(Calendar.getInstance()));
+		// s1.setValidityPeriodStart(dateFormatFormal.format(Calendar.getInstance()));
 
 		return s1;
 

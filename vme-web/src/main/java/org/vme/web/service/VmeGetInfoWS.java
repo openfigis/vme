@@ -56,6 +56,7 @@ public class VmeGetInfoWS {
 	@GET
 	@Path("/{vmeIdentifier}/specificmeasures/")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	// @Produces({ MediaType.APPLICATION_JSON })
 	public Response vmeIdentifierSpecificmeasures(@PathParam("vmeIdentifier") String vmeIdentifier) throws Exception {
 
 		return Response.status(200).entity(getInfoService.vmeIdentifierSpecificmeasures(vmeIdentifier)).build();
