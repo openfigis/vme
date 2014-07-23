@@ -3,15 +3,15 @@ package org.vme.service.dto;
 
 public class GeneralMeasureDto {
 
-	public int year;
-	public int validityPeriodStart;
-	public int validityPeriodEnd;
-	public String fishingArea;
-	public String exploratoryFishingProtocol;
-	public String vmeEncounterProtocol;
-	public String vmeIndicatorSpecies;
-	public String threshold;
-	public String factsheetURL;
+	private int year;
+	private int validityPeriodStart;
+	private int validityPeriodEnd;
+	private String fishingArea;
+	private String exploratoryFishingProtocol;
+	private String vmeEncounterProtocol;
+	private String vmeIndicatorSpecies;
+	private String threshold;
+	private String factsheetURL;
 	
 	public GeneralMeasureDto(){
 		

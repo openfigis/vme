@@ -59,7 +59,7 @@ public class VmeGetInfoWS {
 	// @Produces({ MediaType.APPLICATION_JSON })
 	public Response vmeIdentifierSpecificmeasures(@PathParam("vmeIdentifier") String vmeIdentifier) throws Exception {
 
-		return Response.status(200).entity(getInfoService.vmeIdentifierSpecificmeasures(vmeIdentifier)).build();
+		return Response.status(200).entity(getInfoService.vmeIdentifierSpecificmeasures(vmeIdentifier, 0)).build();
 
 	}
 

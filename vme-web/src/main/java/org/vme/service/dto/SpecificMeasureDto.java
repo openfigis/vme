@@ -3,12 +3,12 @@ package org.vme.service.dto;
 
 public class SpecificMeasureDto {
 	
-	public String text;
-	public int year;
-	public int validityPeriodStart;
-	public int validityPeriodEnd;
-	public String sourceURL;
-	public String factsheetURL;
+	private String text;
+	private int year;
+	private int validityPeriodStart;
+	private int validityPeriodEnd;
+	private String sourceURL;
+	private String factsheetURL;
 	
 	public SpecificMeasureDto() {
 		
