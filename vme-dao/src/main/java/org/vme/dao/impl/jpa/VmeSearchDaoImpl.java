@@ -12,7 +12,6 @@ import javax.persistence.TemporalType;
 
 import org.apache.commons.lang.StringUtils;
 import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
@@ -452,8 +451,8 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 	private List<VmeDto> convertPersistenceResult(int year, List<Vme> result, List<Vme> toRemove) {
 		List<VmeDto> res = new LinkedList<VmeDto>();
 		for (Vme vme : result) {
-			VmeDto dto = getVmeSearchDto(vme, year);
 			if (toRemove == null || toRemove != null && !toRemove.contains(vme)) {
+				VmeDto dto = getVmeSearchDto(vme, year);
 				if (!res.contains(dto)) {
 					res.add(dto);
 				}
@@ -469,7 +468,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		try {
 			res.setScope(referenceDAO.getReferenceByID(VmeScope.class, vme.getScope()  ).getName());
 		} catch (Exception e1) {
-			throw new VmeException(e1);
+			LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeScope.class, vme.getScope(), e1.getMessage(), e1);
 		}
 		
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
@@ -490,7 +489,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			}
 		}
 
-		VmeObservation vo = figisDao.findFirstVmeObservation(vme.getId(), Integer.toString(year));
+		VmeObservation vo = figisDao.findFirstVmeObservation(vme.getId(), year);
 		if (vo != null) {
 			res.setFactsheetUrl("fishery/vme/" + vo.getId().getVmeId() + "/" + vo.getId().getObservationId() + "/en");
 		} else {

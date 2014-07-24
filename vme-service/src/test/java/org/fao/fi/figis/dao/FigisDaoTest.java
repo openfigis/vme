@@ -113,7 +113,7 @@ public class FigisDaoTest extends FigisDaoTestLogic {
 			System.out.println(vmeObservation.getId().getReportingYear());
 		}
 
-		VmeObservation vo = dao.findVmeObservationByVme(vod.getRefVme().getId(), FigisDaoTestLogic.REPORTING_YEAR);
+		VmeObservation vo = dao.findExactVmeObservation(vod.getRefVme().getId(), FigisDaoTestLogic.REPORTING_YEAR);
 		assertEquals(vo.getId().getVmeId(), refVme.getId());
 		assertEquals(vo.getId().getReportingYear(), Integer.toString(FigisDaoTestLogic.REPORTING_YEAR));
 

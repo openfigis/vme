@@ -172,7 +172,7 @@ public abstract class FigisDaoTestLogic {
 		List<ObservationDomain> oList = vod.getObservationDomainList();
 		for (ObservationDomain od : oList) {
 			// find VmeObservation
-			VmeObservation vo = dao.findVmeObservationByVme(vod.getRefVme().getId(),
+			VmeObservation vo = dao.findExactVmeObservation(vod.getRefVme().getId(),
 					Integer.parseInt(od.getReportingYear()));
 			if (vo != null) {
 				Observation o = (Observation) dao.find(Observation.class, vo.getId().getObservationId());

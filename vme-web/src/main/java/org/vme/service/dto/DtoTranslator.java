@@ -5,7 +5,6 @@ import java.util.Calendar;
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
@@ -48,9 +47,7 @@ public class DtoTranslator {
 			smDto.setReviewYear(sm.getReviewYear());
 		}
 		smDto.setSourceURL(sm.getInformationSource().getUrl().toExternalForm());
-		if(figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear())!=null){
-			smDto.setFactsheetURL(factsheetURL(figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear())));
-		}
+		smDto.setFactsheetURL(factsheetURL(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear())));
 		return smDto;
 	}
 
@@ -60,8 +57,8 @@ public class DtoTranslator {
 		smt.setLang("en");
 		smt.setMeasureSourceUrl(sm.getInformationSource().getUrl().toExternalForm());
 		smt.setMeasureText("<![CDATA[" + UTIL.getEnglish(sm.getVmeSpecificMeasure()) + "]]>");
-		if(figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear())!=null){
-			smt.setOid(figisDao.findVmeObservationByVme(sm.getVme().getId(), sm.getYear()).getId().getObservationId().intValue());
+		if(figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear())!=null){
+			smt.setOid(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear()).getId().getObservationId().intValue());
 		}
 		smt.setValidityPeriodEnd(String.valueOf(sm.getValidityPeriod().getBeginDate()));
 		smt.setValidityPeriodStart(String.valueOf(sm.getValidityPeriod().getEndDate()));
@@ -81,7 +78,7 @@ public class DtoTranslator {
 		try {
 			res.setScope(referenceDAO.getReferenceByID(VmeScope.class, vme.getScope()).getName());
 		} catch (Exception e1) {
-			throw new VmeException(e1);
+			LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeScope.class, vme.getScope(), e1.getMessage(), e1);
 		}
 
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
@@ -103,9 +100,9 @@ public class DtoTranslator {
 			}
 		}
 
-		VmeObservation vo = figisDao.findFirstVmeObservation(vme.getId(), Integer.toString(year));
+		VmeObservation vo = figisDao.findFirstVmeObservation(vme.getId(), year);
 		if (vo != null) {
-			res.setFactsheetUrl("fishery/vme/" + vo.getId().getVmeId() + "/" + vo.getId().getObservationId() + "/en");
+			res.setFactsheetUrl(factsheetURL(vo));
 		} else {
 			res.setFactsheetUrl("");
 		}
@@ -114,7 +111,7 @@ public class DtoTranslator {
 
 		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginDate());
 		res.setValidityPeriodTo(vme.getValidityPeriod().getEndDate());
-		
+
 		if(vme.getAreaType() != null) {
 			try {
 				res.setVmeType(referenceDAO.getReferenceByID(VmeType.class, vme.getAreaType()).getName());
@@ -145,15 +142,14 @@ public class DtoTranslator {
 		gmDto.setVmeEncounterProtocol(UTIL.getEnglish(gm.getVmeEncounterProtocol()));
 		gmDto.setVmeIndicatorSpecies(UTIL.getEnglish(gm.getVmeIndicatorSpecies()));
 		gmDto.setThreshold(UTIL.getEnglish(gm.getVmeThreshold()));
-		if(figisDao.findVmeObservationByVme(gm.getRfmo().getListOfManagedVmes().get(0).getId(), gm.getYear())!=null){
-			gmDto.setFactsheetURL(factsheetURL(figisDao.findVmeObservationByVme(gm.getRfmo().getListOfManagedVmes().get(0).getId(), gm.getYear())));
-		}
+		gmDto.setFactsheetURL(factsheetURL(figisDao.findExactVmeObservation(gm.getRfmo().getListOfManagedVmes().get(0).getId(), gm.getYear())));
 		return gmDto;
+
 	}
 
 	public String factsheetURL(VmeObservation vo){
-		if(vo.getId()!= null){
-			return "http://figisapps.fao.org/fishery/vme/" + vo.getId().getVmeId() + "/" + vo.getId().getObservationId() + "/en";
+		if(vo!= null){
+			return "fishery/vme/" + vo.getId().getVmeId() + "/" + vo.getId().getObservationId() + "/en";
 		} else return "";
 	}
 

@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
@@ -17,7 +16,6 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProv
 import org.vme.dao.ReferenceServiceException;
 import org.vme.dao.VmeSearchDao;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
-import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 import org.vme.service.dto.DtoTranslator;
 import org.vme.service.dto.SpecificMeasureDto;
@@ -35,9 +33,6 @@ public class GetInfoService {
 	@Inject
 	@ConceptProvider
 	private ReferenceDaoImpl refDao;
-
-	@Inject
-	private FigisDao fDao;
 
 	@Inject
 	private DtoTranslator translator;
@@ -75,6 +70,13 @@ public class GetInfoService {
 		}
 
 		if(resultList.isEmpty()){
+			VmeDto vmeDto = vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, vmeYear).get(0);
+			vmeSmResponse.setVmeId(vmeDto.getVmeId());
+			vmeSmResponse.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
+			vmeSmResponse.setVmeType(vmeDto.getVmeType());
+			vmeSmResponse.setGeoArea(vmeDto.getGeoArea());
+			vmeSmResponse.setLocalName(vmeDto.getLocalName());
+			vmeSmResponse.setOwner(vmeDto.getOwner());
 			resultList.add(new SpecificMeasureDto());
 		}
 		
@@ -101,7 +103,6 @@ public class GetInfoService {
 		}
 
 		if (scope.equals("VME")) {
-
 			while (vmeDtoList.isEmpty() && year > 2005 || year == 0) {
 				for (Vme vme : vmeListPerRfmo) {
 					VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
@@ -118,8 +119,6 @@ public class GetInfoService {
 			}
 		}
 
-		int tempYear = year;
-
 		if (scope.equals("Regulatory")) {
 			for (Vme vme : vmeListPerRfmo) {
 				try {
@@ -133,10 +132,6 @@ public class GetInfoService {
 			while (vmeDtoList.isEmpty() && year > 2005 || year == 0) {
 				for (Vme vme : vmeListPerScope) {
 					VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
-					if (!fDao.findVmeObservationByVme(vme.getId()).isEmpty()) {
-						VmeObservation last = getLastObservation(fDao.findVmeObservationByVme(vme.getId()), tempYear);
-						vmeDto.setFactsheetUrl(translator.factsheetURL(last));
-					}
 					if (vmeDto.getYear() == year) {
 						vmeDtoList.add(vmeDto);
 					} else if (year == 0) {
@@ -152,32 +147,6 @@ public class GetInfoService {
 		
 		vmeResponse.setVmeDto(vmeDtoList);
 		return vmeResponse;
-	}
-
-	public VmeObservation getLastObservation(List<VmeObservation> voList, int year) {
-
-		VmeObservation resultObservation = new VmeObservation();
-		int temp = Integer.valueOf(voList.get(0).getId().getReportingYear());
-		if (year != 0) {
-			for (VmeObservation vo : voList) {
-				if (Integer.valueOf(vo.getId().getReportingYear()) > temp
-						&& Integer.valueOf(vo.getId().getReportingYear()) <= year) {
-					resultObservation = vo;
-					temp = Integer.valueOf(vo.getId().getReportingYear());
-					vo.getId().getVmeId();
-				}
-			}
-		} else {
-			for (VmeObservation vo : voList) {
-				if (Integer.valueOf(vo.getId().getReportingYear()) > temp) {
-					resultObservation = vo;
-					temp = Integer.valueOf(vo.getId().getReportingYear());
-					vo.getId().getVmeId();
-				}
-			}
-		}
-
-		return resultObservation;
 	}
 	
 	public SpecificMeasureList vmeIdentifierSpecificmeasures(String vmeIdentifier, int year) {

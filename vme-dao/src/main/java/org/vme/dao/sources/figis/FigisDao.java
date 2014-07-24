@@ -37,11 +37,15 @@ import org.vme.dao.impl.AbstractJPADao;
  * 
  */
 
+// Why is this a singleton?
 @Singleton
 public class FigisDao extends AbstractJPADao {
 
 	private DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
 	private PrimaryRuleValidator v = new PrimaryRuleValidator();
+
+	private final String QUERY_FIRST = "select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear <= :reportingYear order by vo.id.reportingYear desc";
+	private final String QUERY_EXACT = "select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear = :reportingYear";
 
 	/**
 	 * Hi Fabrizio,
@@ -69,7 +73,8 @@ public class FigisDao extends AbstractJPADao {
 	}
 
 	public List<RefVme> loadRefVmes() {
-		return (List<RefVme>) this.generateTypedQuery(em, RefVme.class).getResultList();
+		return (List<RefVme>) this.generateTypedQuery(em, RefVme.class)
+				.getResultList();
 	}
 
 	public <E> List<E> loadObjects(Class<E> clazz) {
@@ -131,7 +136,8 @@ public class FigisDao extends AbstractJPADao {
 		// precondition
 
 		if (vod.getRefVme().getId() == null) {
-			throw new VmeException("FigisDao Exception, detected a non registered RefVme.");
+			throw new VmeException(
+					"FigisDao Exception, detected a non registered RefVme.");
 		}
 		v.validate(vod);
 
@@ -144,7 +150,8 @@ public class FigisDao extends AbstractJPADao {
 		for (ObservationDomain od : oList) {
 
 			// find VmeObservation
-			VmeObservation vo = findVmeObservationByVme(vod.getRefVme().getId(),
+			VmeObservation vo = findExactVmeObservation(
+					vod.getRefVme().getId(),
 					Integer.parseInt(od.getReportingYear()));
 			if (vo == null) {
 				// create VmeObservation plus the derived objects.
@@ -166,12 +173,14 @@ public class FigisDao extends AbstractJPADao {
 			years.add(o.getReportingYear());
 		}
 		// get all years
-		List<VmeObservation> l = findVmeObservationByVme(vod.getRefVme().getId());
+		List<VmeObservation> l = findVmeObservationByVme(vod.getRefVme()
+				.getId());
 		for (VmeObservation vmeObservation : l) {
 			if (!years.contains(vmeObservation.getId().getReportingYear())) {
 				// if the year is out dated, remove it
 				em.remove(vmeObservation);
-				Observation o = em.find(Observation.class, vmeObservation.getId().getObservationId());
+				Observation o = em.find(Observation.class, vmeObservation
+						.getId().getObservationId());
 				List<ObservationXml> xs = o.getObservationsPerLanguage();
 				for (ObservationXml observationXml : xs) {
 					em.remove(observationXml);
@@ -189,7 +198,8 @@ public class FigisDao extends AbstractJPADao {
 	 * @param od
 	 * @param vmeId
 	 */
-	private void updateObservationDomain(ObservationDomain od, Long observationId) {
+	private void updateObservationDomain(ObservationDomain od,
+			Long observationId) {
 
 		Observation o = em.find(Observation.class, observationId);
 
@@ -207,7 +217,8 @@ public class FigisDao extends AbstractJPADao {
 		for (ObservationXml xml : xmlList) {
 			xml.setObservation(o);
 			rule.composeId(xml);
-			ObservationXml xmlFound = em.find(ObservationXml.class, xml.getId());
+			ObservationXml xmlFound = em
+					.find(ObservationXml.class, xml.getId());
 			if (xmlFound == null) {
 				xml.setObservation(o);
 				// genereate the id for the xml, based upon the id of the
@@ -265,37 +276,36 @@ public class FigisDao extends AbstractJPADao {
 		return count(em, clazz);
 	}
 
-	/**
-	 * find the VmeObservation by the vme id and reporting year.
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public VmeObservation findVmeObservationByVme(Long vmeId, int reportingYear) {
-		Query query = em
-				.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear = :reportingYear");
+	public VmeObservation findExactVmeObservation(Long vmeId, int reportingYear) {
+		Query query = em.createQuery(QUERY_EXACT);
+
 		query.setParameter("vmeId", vmeId);
 		query.setParameter("reportingYear", Integer.toString(reportingYear));
 		VmeObservation vo = null;
-		System.out.println(query.toString());
 		List<?> result = query.getResultList();
 		if (result.size() == 1) {
 			vo = (VmeObservation) query.getSingleResult();
 		}
 		if (result.size() > 1) {
-			throw new VmeException("this query should give only 0 or 1 result");
+			throw new VmeException("Only one element expected");
 		}
 		return vo;
 	}
 
-	/**
-	 * find the VmeObservation by the vme id and reporting year.
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public VmeObservation findFirstVmeObservation(Long vmeId, String year) {
-		return findVmeObservationByVme(vmeId, Integer.parseInt(year));
+	public VmeObservation findFirstVmeObservation(Long vmeId, int reportingYear) {
+		Query query = em.createQuery(QUERY_FIRST);
+
+		query.setParameter("vmeId", vmeId);
+		query.setParameter("reportingYear", Integer.toString(reportingYear));
+		VmeObservation vo = null;
+		List<?> result = query.getResultList();
+		if (result.size() == 1) {
+			vo = (VmeObservation) query.getSingleResult();
+		}
+		if (result.size() > 1) {
+			vo = (VmeObservation) query.getResultList().get(0);
+		}
+		return vo;
 	}
 
 	/**
@@ -311,7 +321,8 @@ public class FigisDao extends AbstractJPADao {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<VmeObservation> findVmeObservationByVme(Long vmeId) {
-		Query query = em.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId ");
+		Query query = em
+				.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId ");
 		query.setParameter("vmeId", vmeId);
 		List<VmeObservation> r = null;
 		r = query.getResultList();
@@ -324,12 +335,15 @@ public class FigisDao extends AbstractJPADao {
 		List<ObservationDomain> vodList = new ArrayList<ObservationDomain>();
 		List<VmeObservation> vmeObservationList = findVmeObservationByVme(vmeId);
 		for (VmeObservation vmeObservation : vmeObservationList) {
-			Observation observation = em.find(Observation.class, vmeObservation.getId().getObservationId());
+			Observation observation = em.find(Observation.class, vmeObservation
+					.getId().getObservationId());
 			String reportingYear = vmeObservation.getId().getReportingYear();
-			ObservationXml xml = findEnglishXml(vmeObservation.getId().getObservationId());
+			ObservationXml xml = findEnglishXml(vmeObservation.getId()
+					.getObservationId());
 			List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
 			observationsPerLanguage.add(xml);
-			ObservationDomain od = new ObservationDomain(observation, reportingYear, observationsPerLanguage);
+			ObservationDomain od = new ObservationDomain(observation,
+					reportingYear, observationsPerLanguage);
 			vodList.add(od);
 		}
 		RefVme refVme = em.find(RefVme.class, vmeId);
@@ -351,7 +365,8 @@ public class FigisDao extends AbstractJPADao {
 		em.getTransaction().begin();
 		List<VmeObservation> voList = findVmeObservationByVme(vmeId);
 		for (VmeObservation vo : voList) {
-			Observation o = (Observation) this.find(Observation.class, vo.getId().getObservationId());
+			Observation o = (Observation) this.find(Observation.class, vo
+					.getId().getObservationId());
 			ObservationXml xmlFound = findEnglishXml(o.getId());
 			if (xmlFound != null) {
 				em.remove(xmlFound);
@@ -366,14 +381,16 @@ public class FigisDao extends AbstractJPADao {
 	private ObservationXml findEnglishXml(Long id) {
 		DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
 		String xmlId = rule.composeId(id, Figis.EN);
-		ObservationXml xmlFound = (ObservationXml) this.find(ObservationXml.class, xmlId);
+		ObservationXml xmlFound = (ObservationXml) this.find(
+				ObservationXml.class, xmlId);
 		return xmlFound;
 	}
 
 	public void syncRefWaterArea(String externalId, RefWaterArea refWaterArea) {
 
 		if (refWaterArea.getExternalId() == null) {
-			throw new VmeException("The external id of refWaterArea is null, not correct. ");
+			throw new VmeException(
+					"The external id of refWaterArea is null, not correct. ");
 		}
 
 		EntityTransaction t = em.getTransaction();
@@ -389,14 +406,15 @@ public class FigisDao extends AbstractJPADao {
 			}
 		} catch (NonUniqueResultException e) {
 			// elements are not unique!
-			throw new VmeException(externalId + " is not unique, data is not consisten!");
+			throw new VmeException(externalId
+					+ " is not unique, data is not consisten!");
 		}
 		if (found != null) {
 			found.setName(refWaterArea.getName());
 			em.merge(found);
 		} else {
-			String queryString1 = " select max(id) from RefWaterArea  where id >= " + START_WATER_AREA_REF
-					+ " and id <= " + END_WATER_AREA_REF;
+			String queryString1 = " select max(id) from RefWaterArea  where id >= "
+					+ START_WATER_AREA_REF + " and id <= " + END_WATER_AREA_REF;
 			Object object = em.createQuery(queryString1).getSingleResult();
 			if (object == null) {
 				refWaterArea.setId(START_WATER_AREA_REF);

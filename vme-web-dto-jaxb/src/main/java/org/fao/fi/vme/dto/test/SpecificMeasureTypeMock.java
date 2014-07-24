@@ -2,7 +2,6 @@ package org.fao.fi.vme.dto.test;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import org.fao.fi.vme.webservice.SpecificMeasureType;
 
@@ -24,9 +23,9 @@ public class SpecificMeasureTypeMock {
 
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-		df.format(Calendar.getInstance());
-		s1.setValidityPeriodEnd(df.format(Calendar.getInstance()));
-		s1.setValidityPeriodStart(df.format(Calendar.getInstance()));
+//		df.format(Calendar.getInstance());
+//		s1.setValidityPeriodEnd(df.format(Calendar.getInstance()));
+//		s1.setValidityPeriodStart(df.format(Calendar.getInstance()));
 
 		return s1;
 

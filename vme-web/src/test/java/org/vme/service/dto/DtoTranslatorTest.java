@@ -3,6 +3,11 @@ package org.vme.service.dto;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import javax.inject.Inject;
+
+import org.fao.fi.figis.domain.VmeObservation;
+import org.fao.fi.figis.domain.VmeObservationPk;
+import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
@@ -21,6 +26,7 @@ import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
+import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @AdditionalClasses({ VmeSearchDaoImpl.class })
@@ -29,17 +35,25 @@ import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
 		VmeDataBaseProducerApplicationScope.class })
 public class DtoTranslatorTest {
 
-	private DtoTranslator translator = new DtoTranslator();
+	@Inject
+	private DtoTranslator translator;
 
 	private SpecificMeasureDto smDto;
 	private SpecificMeasure sm;
 	private Vme vme;
+	private VmeObservation vo;
+	private VmeObservationPk voPk;
 	private static final int YEAR = 2000;
 	private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
 
+	@Inject
+	private VmeDao vDao;
+	
 	@Before
 	public void before() {
 
+		vme = VmeMock.create();
+		
 		sm = new SpecificMeasure();
 
 		sm.setYear(YEAR);
@@ -47,27 +61,32 @@ public class DtoTranslatorTest {
 		sm.setValidityPeriod(ValidityPeriodMock.create(YEAR, YEAR + 1));
 		sm.setInformationSource(InformationSourceMock.create());
 		sm.setReviewYear(YEAR + 1);
-		sm.setVme(VmeMock.create());
+		sm.setVme(vme);
 
 		smDto = new SpecificMeasureDto();
-
-		vme = VmeMock.create();
-
+		vDao.saveVme(vme);
+		
+		vo = new VmeObservation();
+		voPk = new VmeObservationPk();
+		voPk.setVmeId(vme.getId());
+		vo.setId(voPk);
+		voPk.setObservationId(1000L);
+		voPk.setReportingYear(String.valueOf(YEAR));
+		
 	}
 
 	@Test
 	public void testDoTranslate4Sm() {
 		smDto = translator.doTranslate4Sm(sm);
 		assertEquals("A specific measure for the year 2000", smDto.getText());
-//		assertTrue(2001 == smDto.getValidityPeriodEnd());
-//		assertTrue(2000 == smDto.getValidityPeriodStart());
 		assertEquals("http://www.rfmo.org", smDto.getSourceURL());
 		assertTrue(2000 == smDto.getYear());
 	}
 
 	@Test
 	public void testDoTranslate4Vme() {
-		translator.doTranslate4Vme(vme, 2000);
+		VmeDto vmeDto = translator.doTranslate4Vme(vme, 2000);
+		assertTrue(1 == vmeDto.getVmeId());
 
 	}
 
