@@ -114,7 +114,7 @@ public class GetInfoService extends AbstractService {
 		return vmeResponse;
 	}
 
-	public SpecificMeasureList vmeIdentifierSpecificmeasures(String vmeIdentifier, int year) {
+	public SpecificMeasureList vmeIdentifier2SpecificmeasureXML(String vmeIdentifier, int year) {
 
 		SpecificMeasureList smList = new SpecificMeasureList();
 

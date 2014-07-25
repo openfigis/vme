@@ -152,5 +152,4 @@ public class DtoTranslator {
 			return "fishery/vme/" + vo.getId().getVmeId() + "/" + vo.getId().getObservationId() + "/en";
 		} else return "";
 	}
-
 }
