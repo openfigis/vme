@@ -22,7 +22,7 @@ import org.vme.service.dto.SpecificMeasureDto;
 import org.vme.service.dto.VmeResponse;
 import org.vme.service.dto.VmeSmResponse;
 
-public class GetInfoService {
+public class GetInfoService extends AbstractService {
 
 	@Inject
 	private VmeDao vDao;
@@ -84,17 +84,21 @@ public class GetInfoService {
 		return vmeSmResponse;
 	}
 
+//	public VmeResponse ownerScope2Vmes(String owner, String scope, int year){
+//		
+//		VmeResponse vmeResponse = new VmeResponse(UUID.randomUUID());
+//		
+//		return vmeResponse;
+//	}
+	
 	public VmeResponse findInfo(String owner, String scope, int year) {
 
 		VmeResponse vmeResponse = new VmeResponse(UUID.randomUUID());
-		List<Vme> vmeList = vDao.loadVmes();
-		List<Vme> vmeListPerRfmo = new ArrayList<Vme>();
+		
+		List<Vme> vmeListPerRfmo = filterVmePerRfmo(vDao.loadVmes(), owner);
+		
 		List<Vme> vmeListPerScope = new ArrayList<Vme>();
-		for (Vme v : vmeList) {
-			if (v.getRfmo().getId().equals(owner)) {
-				vmeListPerRfmo.add(v);
-			}
-		}
+		
 		List<VmeDto> vmeDtoList = new ArrayList<VmeDto>();
 
 		if (year <= 2005 && year != 0) {
