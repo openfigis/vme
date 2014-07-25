@@ -38,7 +38,7 @@ public class GetInfoServiceTest {
 	@Test
 	public void testFindInfoStringInt() {
 		
-		VmeSmResponse vmeSmResponse1 = service.findInfo(vme.getInventoryIdentifier(), 0);
+		VmeSmResponse vmeSmResponse1 = service.vmeIdentifier2SpecificMeasure(vme.getInventoryIdentifier(), 0);
 		System.out.println(vmeSmResponse1.toString());
 		assertNotNull(vmeSmResponse1.getUuid());
 		

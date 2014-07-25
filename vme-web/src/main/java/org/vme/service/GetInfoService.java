@@ -37,52 +37,51 @@ public class GetInfoService {
 	@Inject
 	private DtoTranslator translator;
 
-	public VmeSmResponse findInfo(String vmeIdentifier, int vmeYear) {
+	public VmeSmResponse vmeIdentifier2SpecificMeasure(String vmeIdentifier, int vmeYear){
 
 		VmeSmResponse vmeSmResponse = new VmeSmResponse(UUID.randomUUID());
+		List<SpecificMeasureDto> specificMeasureList = new ArrayList<SpecificMeasureDto>();
+		VmeDto vmeDto = vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, vmeYear).get(0);
 
-		List<SpecificMeasureDto> resultList = new ArrayList<SpecificMeasureDto>();
+		vmeSmResponse.setVmeId(vmeDto.getVmeId());
+		vmeSmResponse.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
+		vmeSmResponse.setVmeType(vmeDto.getVmeType());
+		vmeSmResponse.setGeoArea(vmeDto.getGeoArea());
+		vmeSmResponse.setLocalName(vmeDto.getLocalName());
+		vmeSmResponse.setOwner(vmeDto.getOwner());
 
-		if (vmeYear <= 2005 && vmeYear != 0) {
+		if (vmeYear <= 2004 && vmeYear != 0) {
 			vmeSmResponse.setNoObsNote(vmeYear);
 		}
 
-		while (resultList.isEmpty() && vmeYear > 2005 || vmeYear == 0) {
-			for (VmeDto vmeDto : vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, vmeYear)) {
-				vmeSmResponse.setVmeId(vmeDto.getVmeId());
-				vmeSmResponse.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
-				vmeSmResponse.setVmeType(vmeDto.getVmeType());
-				vmeSmResponse.setGeoArea(vmeDto.getGeoArea());
-				vmeSmResponse.setLocalName(vmeDto.getLocalName());
-				vmeSmResponse.setOwner(vmeDto.getOwner());
+		if(vmeYear == 0){
+			vmeSmResponse.setNote("These are all the Specific Measure for the Vme");
+			for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
+				specificMeasureList.add(translator.doTranslate4Sm(sm));
+			}
+		}
 
+		if(vmeYear > 2004){
+			while (specificMeasureList.isEmpty() && vmeYear > 2004){
 				for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
-					if (sm.getYear() == vmeYear || vmeYear == 0) {
-						resultList.add(translator.doTranslate4Sm(sm));
+					if (sm.getYear() == vmeYear){
+						specificMeasureList.add(translator.doTranslate4Sm(sm));
 					}
 				}
 
+				if(specificMeasureList.isEmpty() && vmeSmResponse.getNote() == null){
+					vmeSmResponse.setNoObsNote(vmeYear);
+				}
+				vmeYear--;
 			}
-			if (resultList.isEmpty() && vmeSmResponse.getNote() == null) {
-				vmeSmResponse.setNoObsNote(vmeYear);
-			}
-			vmeYear--;
-		}
-
-		if(resultList.isEmpty()){
-			VmeDto vmeDto = vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, vmeYear).get(0);
-			vmeSmResponse.setVmeId(vmeDto.getVmeId());
-			vmeSmResponse.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
-			vmeSmResponse.setVmeType(vmeDto.getVmeType());
-			vmeSmResponse.setGeoArea(vmeDto.getGeoArea());
-			vmeSmResponse.setLocalName(vmeDto.getLocalName());
-			vmeSmResponse.setOwner(vmeDto.getOwner());
-			resultList.add(new SpecificMeasureDto());
 		}
 		
-		vmeSmResponse.setResponseList(resultList);
+		if(specificMeasureList.isEmpty()){
+			specificMeasureList.add(new SpecificMeasureDto());
+		}
+		
+		vmeSmResponse.setResponseList(specificMeasureList);
 		return vmeSmResponse;
-
 	}
 
 	public VmeResponse findInfo(String owner, String scope, int year) {
@@ -103,7 +102,7 @@ public class GetInfoService {
 		}
 
 		if (scope.equals("VME")) {
-			while (vmeDtoList.isEmpty() && year > 2005 || year == 0) {
+			while (vmeDtoList.isEmpty() && year > 2004 || year == 0) {
 				for (Vme vme : vmeListPerRfmo) {
 					VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
 					if (vmeDto.getYear() == year) {
@@ -129,7 +128,7 @@ public class GetInfoService {
 					throw new VmeException(e);
 				}
 			}
-			while (vmeDtoList.isEmpty() && year > 2005 || year == 0) {
+			while (vmeDtoList.isEmpty() && year > 2004 || year == 0) {
 				for (Vme vme : vmeListPerScope) {
 					VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
 					if (vmeDto.getYear() == year) {
@@ -144,24 +143,24 @@ public class GetInfoService {
 				year--;
 			}
 		}
-		
+
 		vmeResponse.setVmeDto(vmeDtoList);
 		return vmeResponse;
 	}
-	
+
 	public SpecificMeasureList vmeIdentifierSpecificmeasures(String vmeIdentifier, int year) {
-		
+
 		SpecificMeasureList smList = new SpecificMeasureList();
-		
+
 		for (VmeDto vmeDto : vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, year)) {
-			
+
 			for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
-				
+
 				smList.getSpecificMeasures().add(translator.doTranslate4SmType(sm));
-				
+
 			}
 		}
-		
+
 		return smList;
 	}
 

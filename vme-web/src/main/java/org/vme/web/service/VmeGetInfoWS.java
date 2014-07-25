@@ -32,7 +32,7 @@ public class VmeGetInfoWS {
 	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier, @PathParam("vmeYear") String vmeYear)
 			throws Exception {
 
-		return Response.status(200).entity(getInfoService.findInfo(vmeIdentifier, Integer.parseInt(vmeYear))).build();
+		return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificMeasure(vmeIdentifier, Integer.parseInt(vmeYear))).build();
 
 	}
 
@@ -41,7 +41,7 @@ public class VmeGetInfoWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier) throws Exception {
 
-		return Response.status(200).entity(getInfoService.findInfo(vmeIdentifier, 0)).build();
+		return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificMeasure(vmeIdentifier, 0)).build();
 
 	}
 
@@ -54,7 +54,7 @@ public class VmeGetInfoWS {
 	 */
 
 	@GET
-	@Path("/{vmeIdentifier}/specificmeasures/")
+	@Path("/{vmeIdentifier}/specificmeasure.xml/")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	// @Produces({ MediaType.APPLICATION_JSON })
 	public Response vmeIdentifierSpecificmeasures(@PathParam("vmeIdentifier") String vmeIdentifier) throws Exception {
