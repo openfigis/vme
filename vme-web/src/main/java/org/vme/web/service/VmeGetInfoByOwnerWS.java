@@ -32,7 +32,7 @@ public class VmeGetInfoByOwnerWS {
 	public Response find(@PathParam("owner") String owner, @PathParam("scope") String scope,
 			@PathParam("year") String year) {
 
-		return Response.status(200).entity(getInfoService.findInfo(owner, scope, Integer.parseInt(year))).build();
+		return Response.status(200).entity(getInfoService.ownerScope2Vmes(owner, scope, Integer.parseInt(year))).build();
 
 	}
 
@@ -42,7 +42,7 @@ public class VmeGetInfoByOwnerWS {
 	public Response findByOwner(@PathParam("owner") String owner, @PathParam("scope") String scope,
 			@PathParam("year") String year) {
 
-		return Response.status(200).entity(getInfoService.findInfo(owner, scope, 0)).build();
+		return Response.status(200).entity(getInfoService.ownerScope2Vmes(owner, scope, 0)).build();
 
 	}
 }

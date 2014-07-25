@@ -8,9 +8,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
+import org.vme.dao.ReferenceServiceException;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 public class AbstractService {
@@ -29,6 +32,21 @@ public class AbstractService {
 		}
 		
 		return vmeListPerRfmo;
+	}
+	
+	public List<Vme> filterVmePerScope(List<Vme> vmeList, String scope){
+		List<Vme> vmeListPerScope = new ArrayList<Vme>();
+		for (Vme vme : vmeList) {
+			try {
+				if (refDao.getReferenceByID(VmeScope.class, vme.getScope()).getName().equals(scope)) {
+					vmeListPerScope.add(vme);
+				}
+			} catch (ReferenceServiceException e) {
+				throw new VmeException(e);
+			}
+		}
+		return vmeListPerScope;
+		
 	}
 	
 	public long getAuthorityIdByAcronym(String authorityAcronym) {
