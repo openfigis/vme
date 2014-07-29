@@ -43,6 +43,8 @@ import org.vme.dao.sources.figis.FigisDao;
  */
 
 public class VmeSearchDaoImpl implements VmeSearchDao {
+	
+	private static final String UNABLE2RETRIVE = "Unable to retrieve reference {} by ID {}: {}";
 	private static final Logger LOG = LoggerFactory.getLogger(VmeSearchDaoImpl.class);
 
 	@Inject
@@ -245,7 +247,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 					LOG.warn("Selected area type is either NULL or has a NULL name");
 				}
 			} catch (Exception e) {
-				LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeType.class, vme.getAreaType(), e.getMessage(), e);
+				LOG.error(UNABLE2RETRIVE, VmeType.class, vme.getAreaType(), e.getMessage(), e);
 			}
 		}
 		
@@ -264,7 +266,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 						LOG.warn("Selected criteria is either NULL or has a NULL name");
 					}
 				} catch (Exception e) {
-					LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeCriteria.class, criteriaId, e.getMessage(), e);
+					LOG.error(UNABLE2RETRIVE, VmeCriteria.class, criteriaId, e.getMessage(), e);
 				}
 			}
 		}
@@ -468,7 +470,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 		try {
 			res.setScope(referenceDAO.getReferenceByID(VmeScope.class, vme.getScope()  ).getName());
 		} catch (Exception e1) {
-			LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeScope.class, vme.getScope(), e1.getMessage(), e1);
+			LOG.error(UNABLE2RETRIVE, VmeScope.class, vme.getScope(), e1.getMessage(), e1);
 		}
 		
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
@@ -506,7 +508,7 @@ public class VmeSearchDaoImpl implements VmeSearchDao {
 			try {
 				res.setVmeType(referenceDAO.getReferenceByID(VmeType.class, vme.getAreaType()).getName());
 			} catch(Exception e) {
-				LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeType.class, vme.getAreaType(), e.getMessage(), e);
+				LOG.error(UNABLE2RETRIVE, VmeType.class, vme.getAreaType(), e.getMessage(), e);
 			}
 		}
 

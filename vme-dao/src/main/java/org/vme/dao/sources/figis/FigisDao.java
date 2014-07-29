@@ -46,7 +46,9 @@ public class FigisDao extends AbstractJPADao {
 
 	private final String QUERY_FIRST = "select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear <= :reportingYear order by vo.id.reportingYear desc";
 	private final String QUERY_EXACT = "select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear = :reportingYear";
-
+	private static final String QUERY_PARAM_VMEID = "vmeId";
+	private static final String QUERY_PARAM_REPYEAR = "reportingYear";
+	
 	/**
 	 * Hi Fabrizio,
 	 * 
@@ -279,8 +281,8 @@ public class FigisDao extends AbstractJPADao {
 	public VmeObservation findExactVmeObservation(Long vmeId, int reportingYear) {
 		Query query = em.createQuery(QUERY_EXACT);
 
-		query.setParameter("vmeId", vmeId);
-		query.setParameter("reportingYear", Integer.toString(reportingYear));
+		query.setParameter(QUERY_PARAM_VMEID, vmeId);
+		query.setParameter(QUERY_PARAM_REPYEAR, Integer.toString(reportingYear));
 		VmeObservation vo = null;
 		List<?> result = query.getResultList();
 		if (result.size() == 1) {
@@ -295,8 +297,8 @@ public class FigisDao extends AbstractJPADao {
 	public VmeObservation findFirstVmeObservation(Long vmeId, int reportingYear) {
 		Query query = em.createQuery(QUERY_FIRST);
 
-		query.setParameter("vmeId", vmeId);
-		query.setParameter("reportingYear", Integer.toString(reportingYear));
+		query.setParameter(QUERY_PARAM_VMEID, vmeId);
+		query.setParameter(QUERY_PARAM_REPYEAR, Integer.toString(reportingYear));
 		VmeObservation vo = null;
 		List<?> result = query.getResultList();
 		if (result.size() == 1) {
@@ -323,7 +325,7 @@ public class FigisDao extends AbstractJPADao {
 	public List<VmeObservation> findVmeObservationByVme(Long vmeId) {
 		Query query = em
 				.createQuery("select vo from VmeObservation vo where vo.id.vmeId = :vmeId ");
-		query.setParameter("vmeId", vmeId);
+		query.setParameter(QUERY_PARAM_VMEID, vmeId);
 		List<VmeObservation> r = null;
 		r = query.getResultList();
 

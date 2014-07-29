@@ -26,6 +26,11 @@ import org.vme.dao.sources.vme.VmeDao;
  * 
  */
 public abstract class AbstractJPADao implements Dao {
+	
+	private static final String UNABLE2BUILD = "Unable to build query for ";
+	private static final String OBJECTREMOVED = "Object {} has been stored into persistence";
+	private static final String UNABLE2REMOVE = "Unable to remove object {} from persistence: {} [ {} ]";
+	
 	protected static final Logger LOG = LoggerFactory.getLogger(VmeDao.class);
 
 	public <E> E getEntityById(EntityManager em, Class<E> entity, Object id) {
@@ -97,15 +102,15 @@ public abstract class AbstractJPADao implements Dao {
 					tq.setParameter(parameter.getKey(), value);
 				}
 			} catch (SecurityException e) {
-				throw new VmeDaoException("Unable to build query for " + entity.getSimpleName(), e);
+				throw new VmeDaoException(UNABLE2BUILD + entity.getSimpleName(), e);
 			} catch (NoSuchFieldException e) {
-				throw new VmeDaoException("Unable to build query for " + entity.getSimpleName(), e);
+				throw new VmeDaoException(UNABLE2BUILD + entity.getSimpleName(), e);
 			} catch (IllegalArgumentException e) {
-				throw new VmeDaoException("Unable to build query for " + entity.getSimpleName(), e);
+				throw new VmeDaoException(UNABLE2BUILD + entity.getSimpleName(), e);
 			} catch (InstantiationException e) {
-				throw new VmeDaoException("Unable to build query for " + entity.getSimpleName(), e);
+				throw new VmeDaoException(UNABLE2BUILD + entity.getSimpleName(), e);
 			} catch (IllegalAccessException e) {
-				throw new VmeDaoException("Unable to build query for " + entity.getSimpleName(), e);
+				throw new VmeDaoException(UNABLE2BUILD + entity.getSimpleName(), e);
 			}
 		}
 
@@ -141,9 +146,9 @@ public abstract class AbstractJPADao implements Dao {
 			em.flush();
 			et.commit();
 
-			LOG.debug("Object {} has been removed from persistence", object);
+			LOG.debug(OBJECTREMOVED, object);
 		} catch (Throwable t) {
-			LOG.error("Unable to remove object {} from persistence: {} [ {} ]", object, t.getClass().getSimpleName(),
+			LOG.error(UNABLE2REMOVE, object, t.getClass().getSimpleName(),
 					t.getMessage(), t);
 
 			et.rollback();
@@ -182,7 +187,7 @@ public abstract class AbstractJPADao implements Dao {
 			et.begin();
 			merged = this.doMerge(em, object);
 			et.commit();
-			LOG.debug("Object {} has been merged into persistence", object);
+			LOG.debug(OBJECTREMOVED, object);
 			return merged;
 		} catch (Exception e) {
 			LOG.error("Unable to merge object {} into persistence: {} [ {} ]", object, e.getClass().getSimpleName(),
@@ -199,7 +204,7 @@ public abstract class AbstractJPADao implements Dao {
 			em.persist(object);
 			em.flush();
 			et.commit();
-			LOG.debug("Object {} has been stored into persistence", object);
+			LOG.debug(OBJECTREMOVED, object);
 		} catch (Exception e) {
 			LOG.error("Unable to store object {} into persistence: {} [ {} ]", object, e.getClass().getSimpleName(),
 					e.getMessage());
@@ -246,9 +251,9 @@ public abstract class AbstractJPADao implements Dao {
 			this.doRemove(em, object);
 			em.flush();
 			et.commit();
-			LOG.debug("Object {} has been removed from persistence", object);
+			LOG.debug(OBJECTREMOVED, object);
 		} catch (Throwable t) {
-			LOG.error("Unable to remove object {} from persistence: {} [ {} ]", object, t.getClass().getSimpleName(),
+			LOG.error(UNABLE2REMOVE, object, t.getClass().getSimpleName(),
 					t.getMessage(), t);
 			et.rollback();
 			throw new VmeDaoException(t);

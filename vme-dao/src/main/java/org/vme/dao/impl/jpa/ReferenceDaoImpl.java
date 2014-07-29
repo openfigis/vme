@@ -38,6 +38,10 @@ import org.vme.dao.config.vme.VmeDB;
 @ConceptProvider
 @Alternative
 public class ReferenceDaoImpl implements ReferenceDAO {
+	
+	private static final String UNDEFINED = "Undefined reference concept";
+	private static final String INTERNALERR = "Internal error";
+	
 	protected static final Logger LOG = LoggerFactory.getLogger(ReferenceDaoImpl.class);
 
 	@VmeDB
@@ -81,7 +85,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		} else if (concept.equals(VmeScope.class)) {
 			return getVmeScope(id);
 		} else {
-			throw new ReferenceServiceException("Undefined reference concept");
+			throw new ReferenceServiceException(UNDEFINED);
 		}
 	}
 
@@ -108,7 +112,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		} else if (concept.equals(VmeScope.class)) {
 			return (List<R>) getAllVmeScopes();
 		} else {
-			throw new ReferenceServiceException("Undefined reference concept");
+			throw new ReferenceServiceException(UNDEFINED);
 		}
 
 	}
@@ -231,13 +235,13 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 					return concept;
 				}
 			} catch (Exception e) {
-				LOG.warn("Internal error", e);
+				LOG.warn(INTERNALERR, e);
 
-				throw new ReferenceServiceException("Internal error");
+				throw new ReferenceServiceException(INTERNALERR);
 			}
 		}
 
-		throw new ReferenceServiceException("Undefined reference ReferenceConcept");
+		throw new ReferenceServiceException(UNDEFINED);
 	}
 
 	/*

@@ -36,6 +36,7 @@ public class DtoTranslator {
 	private ValidityPeriodUtil VUTIL = new ValidityPeriodUtil();
 
 	private Logger LOG = LoggerFactory.getLogger(this.getClass());
+	private static final String UNABLE2RETRIVE = "Unable to retrieve reference {} by ID {}: {}";
 
 	public SpecificMeasureDto doTranslate4Sm(SpecificMeasure sm){
 		SpecificMeasureDto smDto = new SpecificMeasureDto();
@@ -78,7 +79,7 @@ public class DtoTranslator {
 		try {
 			res.setScope(referenceDAO.getReferenceByID(VmeScope.class, vme.getScope()).getName());
 		} catch (Exception e1) {
-			LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeScope.class, vme.getScope(), e1.getMessage(), e1);
+			LOG.error(UNABLE2RETRIVE, VmeScope.class, vme.getScope(), e1.getMessage(), e1);
 		}
 
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
@@ -116,7 +117,7 @@ public class DtoTranslator {
 			try {
 				res.setVmeType(referenceDAO.getReferenceByID(VmeType.class, vme.getAreaType()).getName());
 			} catch(Exception e) {
-				LOG.error("Unable to retrieve reference {} by ID {}: {}", VmeType.class, vme.getAreaType(), e.getMessage(), e);
+				LOG.error(UNABLE2RETRIVE, VmeType.class, vme.getAreaType(), e.getMessage(), e);
 			}
 		}
 
