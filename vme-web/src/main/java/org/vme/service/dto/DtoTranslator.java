@@ -54,15 +54,15 @@ public class DtoTranslator {
 
 	public SpecificMeasureType doTranslate4SmType(SpecificMeasure sm){
 		SpecificMeasureType smt = new SpecificMeasureType();
-		smt.setId(sm.getId().intValue());
+		smt.setId(sm.getVme().getId().intValue());
 		smt.setLang("en");
 		smt.setMeasureSourceUrl(sm.getInformationSource().getUrl().toExternalForm());
 		smt.setMeasureText(UTIL.getEnglish(sm.getVmeSpecificMeasure()));
 		if(figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear())!=null){
 			smt.setOid(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear()).getId().getObservationId().intValue());
 		}
-		smt.setValidityPeriodEnd(String.valueOf(sm.getValidityPeriod().getBeginDate()));
-		smt.setValidityPeriodStart(String.valueOf(sm.getValidityPeriod().getEndDate()));
+		smt.setValidityPeriodStart(String.valueOf(sm.getValidityPeriod().getBeginDate()));
+		smt.setValidityPeriodEnd(String.valueOf(sm.getValidityPeriod().getEndDate()));
 		smt.setYear(sm.getYear());
 		return smt;
 	}
