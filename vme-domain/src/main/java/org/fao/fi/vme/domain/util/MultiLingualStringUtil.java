@@ -21,6 +21,10 @@ public class MultiLingualStringUtil {
 		l.setStringMap(stringMap);
 		return l;
 	}
+	
+	public void addFrench(MultiLingualString u, String text) {
+		u.getStringMap().put(Lang.FR, text);
+	}
 
 	/**
 	 * Return english string if there is, else null.

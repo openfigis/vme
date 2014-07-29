@@ -56,7 +56,7 @@ public class DtoTranslator {
 		smt.setId(sm.getId().intValue());
 		smt.setLang("en");
 		smt.setMeasureSourceUrl(sm.getInformationSource().getUrl().toExternalForm());
-		smt.setMeasureText("<![CDATA[" + UTIL.getEnglish(sm.getVmeSpecificMeasure()) + "]]>");
+		smt.setMeasureText(UTIL.getEnglish(sm.getVmeSpecificMeasure()));
 		if(figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear())!=null){
 			smt.setOid(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear()).getId().getObservationId().intValue());
 		}

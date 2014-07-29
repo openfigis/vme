@@ -16,7 +16,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProv
 import org.vme.dao.ReferenceServiceException;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
-public class AbstractService {
+abstract class AbstractService {
 
 	@Inject
 	@ConceptProvider

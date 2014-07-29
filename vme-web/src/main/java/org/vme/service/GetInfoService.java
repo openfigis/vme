@@ -113,7 +113,7 @@ public class GetInfoService extends AbstractService {
 		vmeResponse.setVmeDto(vmeDtoList);
 		return vmeResponse;
 	}
-
+	
 	public SpecificMeasureList vmeIdentifier2SpecificmeasureXML(String vmeIdentifier, int year) {
 
 		SpecificMeasureList smList = new SpecificMeasureList();
