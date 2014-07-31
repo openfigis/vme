@@ -16,8 +16,8 @@ import javax.ws.rs.core.Response;
 import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.vme.dao.ReferenceDAO;
-import org.vme.web.service.io.ReferencesRequest;
-import org.vme.web.service.io.ServiceResponse;
+import org.vme.web.service.search.ReferencesRequest;
+import org.vme.web.service.search.ServiceResponse;
 
 /**
  * 

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.vme.web.service.io;
+package org.vme.web.service.search;
 
 import java.util.Collection;
 import java.util.LinkedList;

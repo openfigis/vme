@@ -11,20 +11,57 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.vme.dao.VmeSearchDao;
-import org.vme.web.service.io.ObservationsRequest;
-import org.vme.web.service.io.ServiceResponse;
+import org.vme.service.SearchService;
+import org.vme.web.service.search.ObservationsRequest;
+import org.vme.web.service.search.ServiceResponse;
 
 @Path("/search")
 @Singleton
 public class VmeSearchWs {
 
+//	@Inject
+//	private VmeSearchDao vmeSearchDao;
+	
 	@Inject
-	private VmeSearchDao vmeSearchDao;
+	private SearchService service;
 
+//	@GET
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response find(@QueryParam("text") String text, @QueryParam("authority") String idAuthority,
+//			@QueryParam("vme_type") String idVmeType, @QueryParam("vme_criteria") String idVmeCriteria,
+//			@QueryParam("year") String year) throws Exception {
+//
+//		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
+//		request.setText(text);
+//		if ((idAuthority != null) && !("*").equals(idAuthority.trim())) {
+//			request.setAuthority(Integer.parseInt(idAuthority));
+//		} else {
+//			request.setAuthority(0);
+//		}
+//		if ((idVmeType != null) && !("*").equals(idVmeType.trim())) {
+//			request.setType(Integer.parseInt(idVmeType));
+//		} else {
+//			request.setType(0);
+//		}
+//		if ((idVmeCriteria != null) && !("*").equals(idVmeCriteria.trim())) {
+//			request.setCriteria(Integer.parseInt(idVmeCriteria));
+//		} else {
+//			request.setCriteria(0);
+//		}
+//		if ((year != null) && !("*").equals(year.trim())) {
+//			request.setYear(Integer.parseInt(year));
+//		} else {
+//			request.setYear(0);
+//		}
+//		ServiceResponse<?> result = ServiceInvoker.invoke(vmeSearchDao, request);
+//		return Response.status(200).entity(result).build();
+//	}
+	
+	
 	@GET
+//	@Path("/2")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response find(@QueryParam("text") String text, @QueryParam("authority") String idAuthority,
+	public Response findblabla(@QueryParam("text") String text, @QueryParam("authority") String idAuthority,
 			@QueryParam("vme_type") String idVmeType, @QueryParam("vme_criteria") String idVmeCriteria,
 			@QueryParam("year") String year) throws Exception {
 
@@ -50,7 +87,7 @@ public class VmeSearchWs {
 		} else {
 			request.setYear(0);
 		}
-		ServiceResponse<?> result = ServiceInvoker.invoke(vmeSearchDao, request);
+		ServiceResponse<?> result = service.invoke(request);
 		return Response.status(200).entity(result).build();
 	}
 

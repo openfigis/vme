@@ -12,7 +12,6 @@ import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,11 +20,10 @@ import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
-import org.vme.dao.impl.jpa.VmeSearchDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@AdditionalClasses({ VmeSearchDaoImpl.class })
+//@AdditionalClasses({ VmeSearchDaoImpl.class })
 @ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
 		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
 public class XlsServiceTest {

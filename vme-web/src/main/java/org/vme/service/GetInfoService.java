@@ -10,7 +10,6 @@ import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.webservice.SpecificMeasureList;
-import org.vme.dao.VmeSearchDao;
 import org.vme.dao.sources.vme.VmeDao;
 import org.vme.service.dto.DtoTranslator;
 import org.vme.service.dto.SpecificMeasureDto;
@@ -22,8 +21,8 @@ public class GetInfoService extends AbstractService {
 	@Inject
 	private VmeDao vDao;
 
-	@Inject
-	private VmeSearchDao vSearchDao;
+//	@Inject
+//	private VmeSearchDao vSearchDao;
 
 	@Inject
 	private DtoTranslator translator;
@@ -32,7 +31,11 @@ public class GetInfoService extends AbstractService {
 
 		VmeSmResponse vmeSmResponse = new VmeSmResponse(UUID.randomUUID());
 		List<SpecificMeasureDto> specificMeasureList = new ArrayList<SpecificMeasureDto>();
-		VmeDto vmeDto = vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, vmeYear).get(0);
+		List<Vme> vmeList = vDao.loadVmes();
+		filterVmePerInventoryIdentifier(vmeList, vmeIdentifier);
+		VmeDto vmeDto = translator.doTranslate4Vme(vmeList.get(0), vmeYear);
+		
+//		VmeDto vmeDto = vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, vmeYear).get(0);
 
 		vmeSmResponse.setVmeId(vmeDto.getVmeId());
 		vmeSmResponse.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
@@ -117,15 +120,24 @@ public class GetInfoService extends AbstractService {
 	public SpecificMeasureList vmeIdentifier2SpecificmeasureXML(String vmeIdentifier, int year) {
 
 		SpecificMeasureList smList = new SpecificMeasureList();
-
-		for (VmeDto vmeDto : vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, year)) {
-
-			for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
-
+		
+		List<Vme> vmeList = vDao.loadVmes();
+		filterVmePerInventoryIdentifier(vmeList, vmeIdentifier);
+		
+		for (Vme vme : vmeList) {
+			for (SpecificMeasure sm : vme.getSpecificMeasureList()) {
 				smList.getSpecificMeasures().add(translator.doTranslate4SmType(sm));
-
 			}
 		}
+		
+//		for (VmeDto vmeDto : vSearchDao.getVmeByInventoryIdentifier(vmeIdentifier, year)) {
+//
+//			for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
+//
+//				smList.getSpecificMeasures().add(translator.doTranslate4SmType(sm));
+//
+//			}
+//		}
 
 		return smList;
 	}
