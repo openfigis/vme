@@ -10,4 +10,4 @@
  * @version 1.1
  */
 
-package org.vme.web.service.search;
+package org.vme.service.search;

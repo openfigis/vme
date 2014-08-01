@@ -3,6 +3,10 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
 	<alternatives>
 		<class>org.fao.fi.vme.msaccess.component.EmptyMsAccessConnectionProvider</class>
+
+<!-- 		<class>org.vme.web.service.Erik</class> -->
 		<class>org.vme.dao.impl.jpa.ReferenceDaoImpl</class>
 	</alternatives>
+	
+	
 </beans>

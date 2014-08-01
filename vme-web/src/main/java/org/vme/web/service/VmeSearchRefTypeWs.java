@@ -14,14 +14,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
-import org.vme.dao.ReferenceDAO;
-import org.vme.web.service.search.ReferencesRequest;
-import org.vme.web.service.search.ServiceResponse;
+import org.vme.service.SearchService;
+import org.vme.service.search.ReferencesRequest;
+import org.vme.service.search.ServiceResponse;
 
 /**
  * 
- * @author Fabrizio Sibeni, Erik van Ingen
+ * @author Fabrizio Sibeni, Erik van Ingen, Roberto Empiri
  * 
  */
 @Path("/references/{concept}/{lang}/")
@@ -30,9 +29,12 @@ public class VmeSearchRefTypeWs {
 
 	@Inject
 	private ReferenceDataHardcodedBatch batch;
+	
+	@Inject
+	private SearchService service;
 
-	@Inject @ConceptProvider
-	private ReferenceDAO referenceDAO;
+//	@Inject @ConceptProvider
+//	private ReferenceDAO referenceDAO;
 
 	@PostConstruct
 	public void postConstructBatch() {
@@ -47,7 +49,7 @@ public class VmeSearchRefTypeWs {
 			ReferencesRequest refRequest = new ReferencesRequest(UUID.randomUUID());
 			refRequest.setConcept(concept);
 			ServiceResponse<?> result;
-			result = ServiceInvoker.invoke(referenceDAO, refRequest);
+			result = service.invoke(/*referenceDAO,*/ refRequest);
 			return Response.status(200).entity(result).build();
 		} catch (Exception t) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);

@@ -4,13 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 import org.fao.fi.vme.domain.dto.VmeDto;
+import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
+import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.reference.InformationSourceType;
+import org.fao.fi.vme.domain.model.reference.VmeCriteria;
+import org.fao.fi.vme.domain.model.reference.VmeScope;
+import org.fao.fi.vme.domain.model.reference.VmeType;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConcept;
 import org.vme.dao.sources.vme.VmeDao;
 import org.vme.service.dto.DtoTranslator;
-import org.vme.web.service.search.ObservationsRequest;
-import org.vme.web.service.search.ServiceResponse;
+import org.vme.service.search.ObservationsRequest;
+import org.vme.service.search.ReferencesRequest;
+import org.vme.service.search.ServiceResponse;
 
 public class SearchService extends AbstractService {
 
@@ -21,7 +31,6 @@ public class SearchService extends AbstractService {
 	private DtoTranslator translator;
 	
 	public ServiceResponse<?> invoke(ObservationsRequest request) throws Exception {
-		
 		ServiceResponse<?> result = new ServiceResponse<VmeDto>(request);
 		
 		List<Vme> vmeList = vDao.loadVmes();
@@ -44,6 +53,52 @@ public class SearchService extends AbstractService {
 		result.addElements(vmeDtoList);
 		
 		return result;
-		
 	}	
+	
+//	public static ServiceResponse<?> invoke(ReferenceDAO service, ReferencesRequest request) throws Exception {
+//		Class<? extends ReferenceConcept> conceptClass = service.getConcept(request.getConcept());
+//		ServiceResponse<?> result = null;
+//		if (conceptClass.equals(Authority.class)) {
+//			result = new ServiceResponse<Authority>(request);
+//		} else if (conceptClass.equals(VmeCriteria.class)) {
+//			result = new ServiceResponse<VmeCriteria>(request);
+//		} else if (conceptClass.equals(VmeType.class)) {
+//			result = new ServiceResponse<VmeType>(request);
+//		} else if (conceptClass.equals(VmeScope.class)) {
+//			result = new ServiceResponse<VmeScope>(request);
+//		} else if (conceptClass.equals(InformationSourceType.class)) {
+//			result = new ServiceResponse<InformationSourceType>(request);
+//		} else if (conceptClass.equals(ReferenceYear.class)) {
+//			result = new ServiceResponse<ReferenceYear>(request);
+//		} else {
+//			throw new WebApplicationException(Response.Status.BAD_REQUEST);
+//		}
+//		result.addElements(service.getAllReferences(conceptClass));
+//		return result;
+//	}
+	
+	public ServiceResponse<?> invoke(ReferencesRequest request) throws Exception {
+		Class<? extends ReferenceConcept> conceptClass = this.refDao.getConcept(request.getConcept());
+		ServiceResponse<?> result = null;
+		if (conceptClass.equals(Authority.class)) {
+			result = new ServiceResponse<Authority>(request);
+		} else if (conceptClass.equals(VmeCriteria.class)) {
+			result = new ServiceResponse<VmeCriteria>(request);
+		} else if (conceptClass.equals(VmeType.class)) {
+			result = new ServiceResponse<VmeType>(request);
+		} else if (conceptClass.equals(VmeScope.class)) {
+			result = new ServiceResponse<VmeScope>(request);
+		} else if (conceptClass.equals(InformationSourceType.class)) {
+			result = new ServiceResponse<InformationSourceType>(request);
+		} else if (conceptClass.equals(ReferenceYear.class)) {
+			result = new ServiceResponse<ReferenceYear>(request);
+		} else {
+			throw new WebApplicationException(Response.Status.BAD_REQUEST);
+		}
+		result.addElements(this.refDao.getAllReferences(conceptClass));
+		
+		return result;		
+	}
+	
+	
 }

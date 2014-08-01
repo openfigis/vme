@@ -31,7 +31,7 @@ abstract class AbstractService {
 
 	@Inject
 	@ConceptProvider
-	private ReferenceDaoImpl refDao;
+	ReferenceDaoImpl refDao;
 
 	private static final Logger LOG = LoggerFactory.getLogger(VmeDao.class);
 	private static final String UNABLE2RETRIVE = "Unable to retrieve reference {} by ID {}: {}";

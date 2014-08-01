@@ -24,8 +24,8 @@ import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
-import org.vme.web.service.search.ObservationsRequest;
-import org.vme.web.service.search.ServiceResponse;
+import org.vme.service.search.ObservationsRequest;
+import org.vme.service.search.ServiceResponse;
 
 @RunWith(CdiRunner.class)
 //@AdditionalClasses({  VmeSearchDaoImpl.class })

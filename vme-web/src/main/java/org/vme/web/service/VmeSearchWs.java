@@ -12,8 +12,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.vme.service.SearchService;
-import org.vme.web.service.search.ObservationsRequest;
-import org.vme.web.service.search.ServiceResponse;
+import org.vme.service.search.ObservationsRequest;
+import org.vme.service.search.ServiceResponse;
 
 @Path("/search")
 @Singleton
@@ -61,7 +61,7 @@ public class VmeSearchWs {
 	@GET
 //	@Path("/2")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findblabla(@QueryParam("text") String text, @QueryParam("authority") String idAuthority,
+	public Response find(@QueryParam("text") String text, @QueryParam("authority") String idAuthority,
 			@QueryParam("vme_type") String idVmeType, @QueryParam("vme_criteria") String idVmeCriteria,
 			@QueryParam("year") String year) throws Exception {
 
@@ -90,13 +90,15 @@ public class VmeSearchWs {
 		ServiceResponse<?> result = service.invoke(request);
 		return Response.status(200).entity(result).build();
 	}
+	
 
-	@SuppressWarnings("unused")
-	private String produceHtmlReport(ObservationsRequest dto) {
-		return "<html> " + "<title>" + "Hello Jersey" + "</title>" + "<body><h1>" + "Hello Jersey" + "</body></h1>"
-				+ dto.getUuid() + "</br>" + "ObjectId Authority....:" + dto.getAuthority() + "</br>"
-				+ "ObjectId areatype.....:" + dto.getType() + "</br>" + "ObjectId criteria.....:" + dto.getCriteria()
-				+ "</br>" + "Year............:" + dto.getYear() + "</br>" + "</html> ";
-	}
+
+//	@SuppressWarnings("unused")
+//	private String produceHtmlReport(ObservationsRequest dto) {
+//		return "<html> " + "<title>" + "Hello Jersey" + "</title>" + "<body><h1>" + "Hello Jersey" + "</body></h1>"
+//				+ dto.getUuid() + "</br>" + "ObjectId Authority....:" + dto.getAuthority() + "</br>"
+//				+ "ObjectId areatype.....:" + dto.getType() + "</br>" + "ObjectId criteria.....:" + dto.getCriteria()
+//				+ "</br>" + "Year............:" + dto.getYear() + "</br>" + "</html> ";
+//	}
 
 }

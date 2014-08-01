@@ -11,8 +11,8 @@ import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConcept;
 import org.vme.dao.ReferenceDAO;
-import org.vme.web.service.search.ReferencesRequest;
-import org.vme.web.service.search.ServiceResponse;
+import org.vme.service.search.ReferencesRequest;
+import org.vme.service.search.ServiceResponse;
 
 /**
  * 
