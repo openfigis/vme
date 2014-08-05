@@ -11,6 +11,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.service.SearchService;
 import org.vme.service.search.ObservationsRequest;
 import org.vme.service.search.ServiceResponse;
@@ -21,6 +23,9 @@ public class VmeSearchWs {
 
 	@Inject
 	private SearchService service;
+
+	private Logger log = LoggerFactory.getLogger(this.getClass());
+	private static final String ERROR = "Unable to retrieve the requested information, please contact technical support";
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -51,6 +56,11 @@ public class VmeSearchWs {
 			request.setYear(0);
 		}
 		ServiceResponse<?> result = service.invoke(request);
-		return Response.status(200).entity(result).build();
+		try{
+			return Response.status(200).entity(result).build();
+		} catch (Exception e){
+			log.error(ERROR, e.getMessage(), e);
+			return Response.status(500).entity(ERROR).build();
+		}
 	}
 }

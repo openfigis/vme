@@ -27,6 +27,7 @@ public class VmeGetInfoWS {
 	public GetInfoService getInfoService;
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
+	private static final String ERROR = "Unable to retrieve the requested information, please contact technical support";
 
 	public VmeGetInfoWS() {
 		this.log.info("Initializing {} as a response handler", this.getClass().getSimpleName());
@@ -35,20 +36,28 @@ public class VmeGetInfoWS {
 	@GET
 	@Path("/{vmeIdentifier}/year/{vmeYear}/specificmeasure/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier, @PathParam("vmeYear") String vmeYear)
-			throws Exception {
+	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier, @PathParam("vmeYear") String vmeYear) {
 
-		return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificMeasure(vmeIdentifier, Integer.parseInt(vmeYear))).build();
+		try{
+			return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificMeasure(vmeIdentifier, Integer.parseInt(vmeYear))).build();
+		} catch (Exception e){
+			log.error(ERROR, e.getMessage(), e);
+			return Response.status(500).entity(ERROR).build();
+		}
+
 
 	}
 
 	@GET
 	@Path("/{vmeIdentifier}/specificmeasure/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier) throws Exception {
-
-		return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificMeasure(vmeIdentifier, 0)).build();
-
+	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier) {
+		try{
+			return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificMeasure(vmeIdentifier, 0)).build();
+		} catch (Exception e){
+			log.error(ERROR, e.getMessage(), e);
+			return Response.status(500).entity(ERROR).build();
+		}
 	}
 
 	/**
@@ -63,10 +72,13 @@ public class VmeGetInfoWS {
 	@Path("/{vmeIdentifier}/specificmeasure.xml/")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 	// @Produces({ MediaType.APPLICATION_JSON })
-	public Response vmeIdentifierSpecificmeasures(@PathParam("vmeIdentifier") String vmeIdentifier) throws Exception {
-
-		return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificmeasureXML(vmeIdentifier, 0)).build();
-
+	public Response vmeIdentifierSpecificmeasures(@PathParam("vmeIdentifier") String vmeIdentifier) {
+		try{
+			return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificmeasureXML(vmeIdentifier, 0)).build();
+		} catch (Exception e){
+			log.error(ERROR, e.getMessage(), e);
+			return Response.status(500).entity(ERROR).build();
+		}
 	}
 
 }
