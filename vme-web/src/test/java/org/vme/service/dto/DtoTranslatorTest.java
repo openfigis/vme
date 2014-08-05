@@ -99,6 +99,11 @@ public class DtoTranslatorTest {
 	public void testDoTranslate4Vme() {
 		VmeDto vmeDto = translator.doTranslate4Vme(vme, 2000);
 		assertTrue(1 == vmeDto.getVmeId());
+		assertEquals("Southern Pacific Ocean", vmeDto.getGeoArea());
+		assertEquals("VME_RFMO_1_2000", vmeDto.getgeographicFeatureId());
+		assertEquals("VME_RFMO_1", vmeDto.getInventoryIdentifier());
+		assertEquals("Hard Corner Bugs ", vmeDto.getLocalName());
+		assertTrue(2002 == vmeDto.getYear());
 
 	}
 	
