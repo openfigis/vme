@@ -1,29 +1,29 @@
-package org.vme.service;
-
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
-import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.test.VmeMock;
-import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.jglue.cdiunit.ActivatedAlternatives;
-import org.jglue.cdiunit.CdiRunner;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.vme.dao.config.figis.FigisDataBaseProducer;
-import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
-import org.vme.dao.impl.jpa.ReferenceDaoImpl;
-import org.vme.dao.sources.vme.VmeDao;
-
-@RunWith(CdiRunner.class)
-@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
-	VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,})
+//package org.vme.service;
+//
+//import static org.junit.Assert.assertTrue;
+//
+//import java.util.List;
+//
+//import javax.inject.Inject;
+//
+//import org.fao.fi.vme.domain.model.Vme;
+//import org.fao.fi.vme.domain.test.VmeMock;
+//import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+//import org.jglue.cdiunit.ActivatedAlternatives;
+//import org.jglue.cdiunit.CdiRunner;
+//import org.junit.Before;
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+//import org.vme.dao.config.figis.FigisDataBaseProducer;
+//import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
+//import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
+//import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+//import org.vme.dao.impl.jpa.ReferenceDaoImpl;
+//import org.vme.dao.sources.vme.VmeDao;
+//
+//@RunWith(CdiRunner.class)
+//@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
+//	VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,})
 //public class AbstractServiceTest {
 //
 //	@Inject
