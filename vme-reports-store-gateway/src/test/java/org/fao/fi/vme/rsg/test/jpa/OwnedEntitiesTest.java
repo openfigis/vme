@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 
 /**
@@ -27,29 +28,31 @@ import org.vme.dao.sources.vme.VmeDao;
  *
  * History:
  *
- * ------------- --------------- -----------------------
- * Date			 Author			 Comment
- * ------------- --------------- -----------------------
- * 11 Dec 2013   Fiorellato     Creation.
+ * ------------- --------------- ----------------------- Date Author Comment
+ * ------------- --------------- ----------------------- 11 Dec 2013 Fiorellato
+ * Creation.
  *
  * @version 1.0
  * @since 11 Dec 2013
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class, EmbeddedMsAccessConnectionProvider.class })
+@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,
+		EmbeddedMsAccessConnectionProvider.class, ReferenceDaoImpl.class })
 public class OwnedEntitiesTest {
-	@Inject VmeAccessDbImport _importer;
-	@Inject VmeDao _vmeDao;
-	
+	@Inject
+	VmeAccessDbImport _importer;
+	@Inject
+	VmeDao _vmeDao;
+
 	@Before
 	public void setup() throws Throwable {
 		this._importer.importMsAccessData();
 	}
-	
+
 	@Test
 	public void testCheckVME() throws Throwable {
 		Vme vme = this._vmeDao.getEntityById(this._vmeDao.getEm(), Vme.class, new Long(1));
-		
+
 		Assert.assertNotNull(vme);
 		Assert.assertNotNull(vme.getRfmo());
 	}
@@ -57,33 +60,34 @@ public class OwnedEntitiesTest {
 	@Test
 	public void testCheckGeneralMeasure() throws Throwable {
 		GeneralMeasure gm = this._vmeDao.getEntityById(this._vmeDao.getEm(), GeneralMeasure.class, new Long(1));
-		
+
 		Assert.assertNotNull(gm);
 		Assert.assertNotNull(gm.getRfmo());
 	}
 
 	@Test
 	public void testCheckFisheryAreasHistory() throws Throwable {
-		FisheryAreasHistory fah = this._vmeDao.getEntityById(this._vmeDao.getEm(), FisheryAreasHistory.class, new Long(1));
-		
+		FisheryAreasHistory fah = this._vmeDao.getEntityById(this._vmeDao.getEm(), FisheryAreasHistory.class, new Long(
+				1));
+
 		Assert.assertNotNull(fah);
 		Assert.assertNotNull(fah.getRfmo());
 	}
-	
+
 	@Test
 	public void testCheckVMEsHistory() throws Throwable {
 		VMEsHistory vmh = this._vmeDao.getEntityById(this._vmeDao.getEm(), VMEsHistory.class, new Long(1));
-		
+
 		Assert.assertNotNull(vmh);
 		Assert.assertNotNull(vmh.getRfmo());
 	}
-	
+
 	@Test
 	public void testCheckInformationSources() throws Throwable {
 		InformationSource is = this._vmeDao.getEntityById(this._vmeDao.getEm(), InformationSource.class, new Long(1));
-		
+
 		Assert.assertNotNull(is.getRfmo());
-		
+
 		System.out.println(is.getRfmo());
 	}
 }
