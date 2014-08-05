@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
@@ -19,8 +18,6 @@ import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.extended.VMEsHistory;
-import org.fao.fi.vme.msaccess.VmeAccessDbImport;
-import org.fao.fi.vme.msaccess.component.EmbeddedMsAccessConnectionProvider;
 import org.fao.fi.vme.rsg.test.AbstractCompilerDependentTest;
 import org.gcube.application.reporting.persistence.PersistenceManager;
 import org.gcube.application.reporting.reader.ModelReader;
@@ -54,6 +51,8 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
@@ -79,13 +78,12 @@ import com.thoughtworks.xstream.XStream;
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class, ReportManagerReportBuilder.class,
 		JEXLReportEvaluator.class, VmeTestPersistenceUnitConfiguration.class,
-		VmeDataBaseProducerApplicationScope.class, EmbeddedMsAccessConnectionProvider.class, ReferenceDaoImpl.class })
+		VmeDataBaseProducerApplicationScope.class, ReferenceDaoImpl.class })
 @AdditionalClasses({ AbstractDataConverter.class, DateDataConverter.class, DoubleDataConverter.class,
 		FloatDataConverter.class, IntegerDataConverter.class, LongDataConverter.class, StringDataConverter.class,
 		URLDataConverter.class })
 public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTest {
-	@Inject
-	private VmeAccessDbImport _importer;
+
 	@Inject
 	private VmeDao _vmeDao;
 
@@ -96,9 +94,9 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 	@Evaluator
 	private ReportEvaluator _reportEvaluator;
 
-	@PostConstruct
-	public void postConstruct() {
-		this._importer.importMsAccessData();
+	@Before
+	public void before() {
+
 	}
 
 	private String readFile(String file) throws Throwable {
@@ -118,6 +116,7 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		return result.toString();
 	}
 
+	@Ignore
 	@Test
 	public void testReadGMFromXML() throws Throwable {
 		String xml = this.readFile("./compiled/xml/GM_1_upd.xml");
@@ -136,6 +135,7 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		PersistenceManager.writeModel(model, new File("./compiled/models/gm/foo.d4st"));
 	}
 
+	@Ignore
 	@Test
 	public void testReadVmeReport() throws Throwable {
 		Model model = PersistenceManager.readModel("./compiled/reports/VME_1.d4st");
@@ -199,6 +199,7 @@ public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTes
 		System.out.println(rebuilt);// CompiledReportUtils.toXML(extracted));
 	}
 
+	@Ignore
 	@Test
 	public void testBuildAndExtractVmeReport() throws Throwable {
 		CompiledReport report, template = this._reportCompiler.compile(Vme.class);
