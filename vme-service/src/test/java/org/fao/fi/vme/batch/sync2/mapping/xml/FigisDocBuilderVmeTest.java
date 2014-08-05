@@ -30,7 +30,6 @@ import org.fao.fi.figis.devcon.Range;
 import org.fao.fi.figis.devcon.Sources;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
-import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.WaterAreaRef;
 import org.fao.fi.vme.domain.model.InformationSource;
@@ -200,8 +199,6 @@ public class FigisDocBuilderVmeTest {
 				// } else if (obj instanceof VMEType) {
 				// assertEquals(vme.getAreaType().getName(), ((VMEType)
 				// obj).getValue());
-			} else if (obj instanceof VMECriteria) {
-				assertEquals(vme.getCriteria(), ((VMECriteria) obj).getValue());
 			} else if (obj instanceof Range) {
 				assertEquals("Time", ((Range) obj).getType());
 				JAXBElement<Min> min = (JAXBElement<Min>) ((Range) obj).getContent().get(0);
