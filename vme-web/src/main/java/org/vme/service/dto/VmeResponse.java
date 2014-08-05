@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.fao.fi.vme.domain.dto.VmeDto;
-
 public class VmeResponse {
 
 	private UUID uuid;

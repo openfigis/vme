@@ -7,9 +7,8 @@ import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-import org.fao.fi.vme.domain.dto.VmeDto;
-import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
+import org.fao.fi.vme.domain.model.ReferenceYear;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.InformationSourceType;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
@@ -18,6 +17,7 @@ import org.fao.fi.vme.domain.model.reference.VmeType;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConcept;
 import org.vme.dao.sources.vme.VmeDao;
 import org.vme.service.dto.DtoTranslator;
+import org.vme.service.dto.VmeDto;
 import org.vme.service.search.ObservationsRequest;
 import org.vme.service.search.ReferencesRequest;
 import org.vme.service.search.ServiceResponse;

@@ -10,7 +10,6 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -24,6 +23,7 @@ import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
+import org.vme.service.dto.VmeDto;
 import org.vme.service.search.ObservationsRequest;
 import org.vme.service.search.ServiceResponse;
 

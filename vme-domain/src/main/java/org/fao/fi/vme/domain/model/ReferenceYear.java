@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.fao.fi.vme.domain.dto.ref;
+package org.fao.fi.vme.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

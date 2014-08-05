@@ -5,7 +5,6 @@ import java.util.Calendar;
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.VmeObservation;
-import org.fao.fi.vme.domain.dto.VmeDto;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;

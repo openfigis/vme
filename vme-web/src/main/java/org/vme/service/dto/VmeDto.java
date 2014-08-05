@@ -1,4 +1,4 @@
-package org.fao.fi.vme.domain.dto;
+package org.vme.service.dto;
 
 import java.util.Date;
 

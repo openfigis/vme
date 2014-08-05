@@ -16,8 +16,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
-import org.fao.fi.vme.domain.dto.ref.ReferenceYear;
 import org.fao.fi.vme.domain.model.Authority;
+import org.fao.fi.vme.domain.model.ReferenceYear;
 import org.fao.fi.vme.domain.model.reference.InformationSourceType;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
