@@ -3,11 +3,15 @@ package org.vme.service.dto;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationPk;
 import org.fao.fi.vme.domain.dto.VmeDto;
+import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
@@ -37,11 +41,13 @@ public class DtoTranslatorTest {
 
 	private SpecificMeasureDto smDto;
 	private SpecificMeasure sm;
+	private GeneralMeasureDto gmDto = new GeneralMeasureDto();
 	private Vme vme;
 	private VmeObservation vo;
 	private VmeObservationPk voPk;
+	
 	private static final int YEAR = 2000;
-	private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
+	private static final MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
 
 	@Inject
 	private VmeDao vDao;
@@ -49,7 +55,14 @@ public class DtoTranslatorTest {
 	@Before
 	public void before() {
 
-		vme = VmeMock.create();
+		vme = VmeMock.generateVme(3);
+		for (GeneralMeasure gm : vme.getRfmo().getGeneralMeasureList()) {
+			gm.setRfmo(vme.getRfmo());
+		}
+		List<Vme> vmeList = new ArrayList<Vme>();
+		vmeList.add(vme);
+		vme.getRfmo().setListOfManagedVmes(vmeList);
+		
 		
 		sm = new SpecificMeasure();
 
@@ -70,13 +83,16 @@ public class DtoTranslatorTest {
 		voPk.setObservationId(1000L);
 		voPk.setReportingYear(String.valueOf(YEAR));
 		
+
+		
+		
 	}
 
 	@Test
 	public void testDoTranslate4Sm() {
 		smDto = translator.doTranslate4Sm(sm);
 		assertEquals("A specific measure for the year 2000", smDto.getText());
-		assertEquals("http://www.rfmo.org", smDto.getSourceURL());
+		assertEquals("http://www.rfmo.org", smDto.getSourceURL());		
 		assertTrue(2000 == smDto.getYear());
 	}
 
@@ -85,6 +101,19 @@ public class DtoTranslatorTest {
 		VmeDto vmeDto = translator.doTranslate4Vme(vme, 2000);
 		assertTrue(1 == vmeDto.getVmeId());
 
+	}
+	
+	@Test
+	public void testDoTranslate4Gm() {
+		gmDto = translator.doTranslate4Gm(vme.getRfmo().getGeneralMeasureList().get(0));
+		assertEquals("an [ExploratoryFishingProtocol] general measure", gmDto.getExploratoryFishingProtocol());
+		assertEquals("a [FishingArea] general measure", gmDto.getFishingArea());
+		assertEquals("a [VmeThreshold] general measure", gmDto.getThreshold());
+		assertEquals("a [VmeEncounterProtocols] general measure", gmDto.getVmeEncounterProtocol());
+		assertEquals("a [VmeIndicatorSpecies] general measure", gmDto.getVmeIndicatorSpecies());
+		assertTrue(2000 == gmDto.getYear());
+		assertTrue(2000 == gmDto.getValidityPeriodStart());
+		assertTrue(2000 == gmDto.getValidityPeriodEnd());
 	}
 
 }
