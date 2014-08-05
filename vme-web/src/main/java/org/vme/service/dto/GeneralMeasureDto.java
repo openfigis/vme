@@ -18,7 +18,7 @@ public class GeneralMeasureDto {
 	}	
 
 	public int getYear() {
-		return year;
+		return this.year;
 	}
 
 	public void setYear(int year) {
@@ -26,7 +26,7 @@ public class GeneralMeasureDto {
 	}
 
 	public int getValidityPeriodStart() {
-		return validityPeriodStart;
+		return this.validityPeriodStart;
 	}
 
 	public void setValidityPeriodStart(int validityPeriodStart) {
@@ -34,7 +34,7 @@ public class GeneralMeasureDto {
 	}
 
 	public int getValidityPeriodEnd() {
-		return validityPeriodEnd;
+		return this.validityPeriodEnd;
 	}
 
 	public void setValidityPeriodEnd(int validityPeriodEnd) {
@@ -42,7 +42,7 @@ public class GeneralMeasureDto {
 	}
 
 	public String getFishingArea() {
-		return fishingArea;
+		return this.fishingArea;
 	}
 
 	public void setFishingArea(String fishingArea) {
@@ -50,7 +50,7 @@ public class GeneralMeasureDto {
 	}
 
 	public String getExploratoryFishingProtocol() {
-		return exploratoryFishingProtocol;
+		return this.exploratoryFishingProtocol;
 	}
 
 	public void setExploratoryFishingProtocol(String exploratoryFishingProtocol) {
@@ -58,7 +58,7 @@ public class GeneralMeasureDto {
 	}
 
 	public String getVmeEncounterProtocol() {
-		return vmeEncounterProtocol;
+		return this.vmeEncounterProtocol;
 	}
 
 	public void setVmeEncounterProtocol(String vmeEncounterProtocol) {
@@ -66,7 +66,7 @@ public class GeneralMeasureDto {
 	}
 
 	public String getVmeIndicatorSpecies() {
-		return vmeIndicatorSpecies;
+		return this.vmeIndicatorSpecies;
 	}
 
 	public void setVmeIndicatorSpecies(String vmeIndicatorSpecies) {
@@ -74,7 +74,7 @@ public class GeneralMeasureDto {
 	}
 
 	public String getThreshold() {
-		return threshold;
+		return this.threshold;
 	}
 
 	public void setThreshold(String threshold) {
@@ -82,7 +82,7 @@ public class GeneralMeasureDto {
 	}
 
 	public String getFactsheetURL() {
-		return factsheetURL;
+		return this.factsheetURL;
 	}
 
 	public void setFactsheetURL(String factsheetURL) {

@@ -19,7 +19,7 @@ public class VmeDto {
 	private Date validityPeriodTo;
 
 	public String getLocalName() {
-		return localName;
+		return this.localName;
 	}
 
 	public void setLocalName(String localName) {
@@ -30,7 +30,7 @@ public class VmeDto {
 	 * @return the factsheetUrl
 	 */
 	public String getFactsheetUrl() {
-		return factsheetUrl;
+		return this.factsheetUrl;
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class VmeDto {
 	 * @return the vmeId
 	 */
 	public long getVmeId() {
-		return vmeId;
+		return this.vmeId;
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class VmeDto {
 	 * @return the inventoryIdentifier
 	 */
 	public String getInventoryIdentifier() {
-		return inventoryIdentifier;
+		return this.inventoryIdentifier;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class VmeDto {
 	 * @return the geographicLayerId
 	 */
 	public String getgeographicFeatureId() {
-		return geographicFeatureId;
+		return this.geographicFeatureId;
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class VmeDto {
 	 * @return the geoArea
 	 */
 	public String getGeoArea() {
-		return geoArea;
+		return this.geoArea;
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class VmeDto {
 	 * @return the owner
 	 */
 	public String getOwner() {
-		return owner;
+		return this.owner;
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class VmeDto {
 	 * @return the vmeType
 	 */
 	public String getVmeType() {
-		return vmeType;
+		return this.vmeType;
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class VmeDto {
 	 * @return the year
 	 */
 	public int getYear() {
-		return year;
+		return this.year;
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class VmeDto {
 	 * @return the envelope
 	 */
 	public String getEnvelope() {
-		return envelope;
+		return this.envelope;
 	}
 
 	/**
@@ -173,7 +173,7 @@ public class VmeDto {
 	 * @return the validityPeriodFrom
 	 */
 	public Date getValidityPeriodFrom() {
-		return validityPeriodFrom;
+		return this.validityPeriodFrom;
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class VmeDto {
 	 * @return the validityPeriodTo
 	 */
 	public Date getValidityPeriodTo() {
-		return validityPeriodTo;
+		return this.validityPeriodTo;
 	}
 
 	/**

@@ -14,14 +14,6 @@ public class FactSheetRecord extends AbstractRecord implements RecordGenerator<V
 		nextRecord.add(u.getEnglish(p.getName()));
 	}
 
-	/**
-	 * TODO http://figisapps.fao.org/fishery/vme/ is environment dependent,
-	 * therefore needs to be populated through a prop file and placaholder,
-	 * according the same methodology as in
-	 * /vme-service/src/test/resources/vme-web.properties Add to vme-web/pom.xml
-	 * the profiles, like in /vme-reports-store-gateway/pom.xml
-	 */
-	
 	@Override
 	public void doSecondLevel(VmeObservation p, List<Object> nextRecord) {
 		nextRecord.add(Integer.valueOf(p.getId().getReportingYear()));

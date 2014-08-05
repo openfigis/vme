@@ -18,7 +18,7 @@ public class SpecificMeasureDto {
 	}
 	
 	public String getFactsheetURL() {
-		return factsheetURL;
+		return this.factsheetURL;
 	}
 
 	public void setFactsheetURL(String factsheetURL) {
@@ -26,7 +26,7 @@ public class SpecificMeasureDto {
 	}
 
 	public String getText() {
-		return text;
+		return this.text;
 	}
 
 
@@ -36,7 +36,7 @@ public class SpecificMeasureDto {
 
 
 	public int getYear() {
-		return year;
+		return this.year;
 	}
 
 
@@ -46,7 +46,7 @@ public class SpecificMeasureDto {
 
 
 	public Date getValidityPeriodStart() {
-		return validityPeriodStart;
+		return this.validityPeriodStart;
 	}
 
 
@@ -56,7 +56,7 @@ public class SpecificMeasureDto {
 
 
 	public Date getValidityPeriodEnd() {
-		return validityPeriodEnd;
+		return this.validityPeriodEnd;
 	}
 
 
@@ -66,7 +66,7 @@ public class SpecificMeasureDto {
 
 
 	public String getSourceURL() {
-		return sourceURL;
+		return this.sourceURL;
 	}
 
 
@@ -75,7 +75,7 @@ public class SpecificMeasureDto {
 	}
 
 	public int getReviewYear() {
-		return reviewYear;
+		return this.reviewYear;
 	}
 
 	public void setReviewYear(int reviewYear) {
