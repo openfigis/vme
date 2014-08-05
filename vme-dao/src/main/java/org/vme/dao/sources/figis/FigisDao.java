@@ -381,8 +381,8 @@ public class FigisDao extends AbstractJPADao {
 	}
 
 	private ObservationXml findEnglishXml(Long id) {
-		DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
-		String xmlId = rule.composeId(id, Figis.EN);
+		DomainRule4ObservationXmlId rulez = new DomainRule4ObservationXmlId();
+		String xmlId = rulez.composeId(id, Figis.EN);
 		ObservationXml xmlFound = (ObservationXml) this.find(
 				ObservationXml.class, xmlId);
 		return xmlFound;

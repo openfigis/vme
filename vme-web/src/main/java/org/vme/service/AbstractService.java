@@ -72,10 +72,10 @@ abstract class AbstractService {
 		vmeList.addAll(temp);
 	}
 
-	public void filterVmePerInventoryIdentifier(List<Vme> vmeList, String InventoryIdentifier){
+	public void filterVmePerInventoryIdentifier(List<Vme> vmeList, String inventoryIdentifier){
 		List<Vme> temp = new ArrayList<Vme>();
 		for (Vme vme : vmeList) {
-			if(vme.getInventoryIdentifier().equals(InventoryIdentifier)){
+			if(vme.getInventoryIdentifier().equals(inventoryIdentifier)){
 				temp.add(vme);
 			}
 		}
@@ -116,12 +116,12 @@ abstract class AbstractService {
 		vmeList.addAll(temp);
 	}
 
-	public void filterVmePerGeographFeatureId(List<Vme> vmeList, String GeographicFeatureId){
+	public void filterVmePerGeographFeatureId(List<Vme> vmeList, String geographicFeatureId){
 		List<Vme> temp = new ArrayList<Vme>();
 		for (Vme vme : vmeList) {
 			boolean found = false;
 			for (GeoRef gr : vme.getGeoRefList()) {
-				if(gr.getGeographicFeatureID().equals(GeographicFeatureId)){
+				if(gr.getGeographicFeatureID().equals(geographicFeatureId)){
 					found = true;
 				}
 			}

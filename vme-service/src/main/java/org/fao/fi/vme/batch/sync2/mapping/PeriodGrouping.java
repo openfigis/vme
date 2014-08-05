@@ -91,9 +91,8 @@ public class PeriodGrouping {
 				}
 			}
 		}
-
-		T t = (T) history;
-		return t;
+		
+		return (T) history;
 
 	}
 }

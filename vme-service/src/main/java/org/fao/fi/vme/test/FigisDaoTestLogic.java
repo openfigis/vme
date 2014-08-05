@@ -112,9 +112,9 @@ public abstract class FigisDaoTestLogic {
 	protected RefVme createRefVme() {
 
 		Long id = new Long(4354);
-		RefVme r = new RefVme();
-		r.setId(id);
-		return r;
+		RefVme r1 = new RefVme();
+		r1.setId(id);
+		return r1;
 	}
 
 	protected VmeObservationDomain createVmeObservationDomain(int number) {
@@ -163,9 +163,9 @@ public abstract class FigisDaoTestLogic {
 
 	protected RefVme registerRefVme() {
 		// pre-register RefVme
-		RefVme r = createRefVme();
-		dao.syncRefVme(r);
-		return r;
+		RefVme r2 = createRefVme();
+		dao.syncRefVme(r2);
+		return r2;
 	}
 
 	protected void clean() {

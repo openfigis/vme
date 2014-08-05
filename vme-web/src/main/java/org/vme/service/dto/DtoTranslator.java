@@ -86,17 +86,17 @@ public class DtoTranslator {
 		res.setLocalName(UTIL.getEnglish(vme.getName()));
 		res.setEnvelope("");
 		if (vme.getRfmo() != null) {
-			String authority_acronym = vme.getRfmo().getId();
+			String authorityAcronym = vme.getRfmo().getId();
 			try {
 				Authority authority = (Authority) referenceDAO
-						.getReferenceByAcronym(Authority.class, authority_acronym);
+						.getReferenceByAcronym(Authority.class, authorityAcronym);
 
 				if (authority == null) {
 				} else {
 					res.setOwner(authority.getName());
 				}
 			} catch (ReferenceServiceException e) {
-				res.setOwner(authority_acronym);
+				res.setOwner(authorityAcronym);
 				LOG.error(e.getMessage());
 			}
 		}
