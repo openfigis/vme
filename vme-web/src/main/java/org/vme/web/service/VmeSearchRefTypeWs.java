@@ -33,9 +33,6 @@ public class VmeSearchRefTypeWs {
 	@Inject
 	private SearchService service;
 
-//	@Inject @ConceptProvider
-//	private ReferenceDAO referenceDAO;
-
 	@PostConstruct
 	public void postConstructBatch() {
 		batch.run();
@@ -49,7 +46,7 @@ public class VmeSearchRefTypeWs {
 			ReferencesRequest refRequest = new ReferencesRequest(UUID.randomUUID());
 			refRequest.setConcept(concept);
 			ServiceResponse<?> result;
-			result = service.invoke(/*referenceDAO,*/ refRequest);
+			result = service.invoke(refRequest);
 			return Response.status(200).entity(result).build();
 		} catch (Exception t) {
 			throw new WebApplicationException(Response.Status.NOT_FOUND);

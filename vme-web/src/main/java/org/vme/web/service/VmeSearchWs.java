@@ -19,47 +19,10 @@ import org.vme.service.search.ServiceResponse;
 @Singleton
 public class VmeSearchWs {
 
-//	@Inject
-//	private VmeSearchDao vmeSearchDao;
-	
 	@Inject
 	private SearchService service;
 
-//	@GET
-//	@Produces(MediaType.APPLICATION_JSON)
-//	public Response find(@QueryParam("text") String text, @QueryParam("authority") String idAuthority,
-//			@QueryParam("vme_type") String idVmeType, @QueryParam("vme_criteria") String idVmeCriteria,
-//			@QueryParam("year") String year) throws Exception {
-//
-//		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
-//		request.setText(text);
-//		if ((idAuthority != null) && !("*").equals(idAuthority.trim())) {
-//			request.setAuthority(Integer.parseInt(idAuthority));
-//		} else {
-//			request.setAuthority(0);
-//		}
-//		if ((idVmeType != null) && !("*").equals(idVmeType.trim())) {
-//			request.setType(Integer.parseInt(idVmeType));
-//		} else {
-//			request.setType(0);
-//		}
-//		if ((idVmeCriteria != null) && !("*").equals(idVmeCriteria.trim())) {
-//			request.setCriteria(Integer.parseInt(idVmeCriteria));
-//		} else {
-//			request.setCriteria(0);
-//		}
-//		if ((year != null) && !("*").equals(year.trim())) {
-//			request.setYear(Integer.parseInt(year));
-//		} else {
-//			request.setYear(0);
-//		}
-//		ServiceResponse<?> result = ServiceInvoker.invoke(vmeSearchDao, request);
-//		return Response.status(200).entity(result).build();
-//	}
-	
-	
 	@GET
-//	@Path("/2")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response find(@QueryParam("text") String text, @QueryParam("authority") String idAuthority,
 			@QueryParam("vme_type") String idVmeType, @QueryParam("vme_criteria") String idVmeCriteria,
@@ -90,15 +53,4 @@ public class VmeSearchWs {
 		ServiceResponse<?> result = service.invoke(request);
 		return Response.status(200).entity(result).build();
 	}
-	
-
-
-//	@SuppressWarnings("unused")
-//	private String produceHtmlReport(ObservationsRequest dto) {
-//		return "<html> " + "<title>" + "Hello Jersey" + "</title>" + "<body><h1>" + "Hello Jersey" + "</body></h1>"
-//				+ dto.getUuid() + "</br>" + "ObjectId Authority....:" + dto.getAuthority() + "</br>"
-//				+ "ObjectId areatype.....:" + dto.getType() + "</br>" + "ObjectId criteria.....:" + dto.getCriteria()
-//				+ "</br>" + "Year............:" + dto.getYear() + "</br>" + "</html> ";
-//	}
-
 }

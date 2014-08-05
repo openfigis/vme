@@ -53,29 +53,7 @@ public class SearchService extends AbstractService {
 		result.addElements(vmeDtoList);
 		
 		return result;
-	}	
-	
-//	public static ServiceResponse<?> invoke(ReferenceDAO service, ReferencesRequest request) throws Exception {
-//		Class<? extends ReferenceConcept> conceptClass = service.getConcept(request.getConcept());
-//		ServiceResponse<?> result = null;
-//		if (conceptClass.equals(Authority.class)) {
-//			result = new ServiceResponse<Authority>(request);
-//		} else if (conceptClass.equals(VmeCriteria.class)) {
-//			result = new ServiceResponse<VmeCriteria>(request);
-//		} else if (conceptClass.equals(VmeType.class)) {
-//			result = new ServiceResponse<VmeType>(request);
-//		} else if (conceptClass.equals(VmeScope.class)) {
-//			result = new ServiceResponse<VmeScope>(request);
-//		} else if (conceptClass.equals(InformationSourceType.class)) {
-//			result = new ServiceResponse<InformationSourceType>(request);
-//		} else if (conceptClass.equals(ReferenceYear.class)) {
-//			result = new ServiceResponse<ReferenceYear>(request);
-//		} else {
-//			throw new WebApplicationException(Response.Status.BAD_REQUEST);
-//		}
-//		result.addElements(service.getAllReferences(conceptClass));
-//		return result;
-//	}
+	}
 	
 	public ServiceResponse<?> invoke(ReferencesRequest request) throws Exception {
 		Class<? extends ReferenceConcept> conceptClass = this.refDao.getConcept(request.getConcept());
@@ -99,6 +77,4 @@ public class SearchService extends AbstractService {
 		
 		return result;		
 	}
-	
-	
 }

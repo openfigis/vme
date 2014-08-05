@@ -28,7 +28,6 @@ import org.vme.service.search.ObservationsRequest;
 import org.vme.service.search.ServiceResponse;
 
 @RunWith(CdiRunner.class)
-//@AdditionalClasses({  VmeSearchDaoImpl.class })
 @ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
 	VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
 public class SearchServiceTest {

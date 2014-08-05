@@ -22,11 +22,7 @@ public class SpecificMeasureTypeMock {
 		s1.setMeasureText(cddataText);
 
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
-//		df.format(Calendar.getInstance());
-//		s1.setValidityPeriodEnd(df.format(Calendar.getInstance()));
-//		s1.setValidityPeriodStart(df.format(Calendar.getInstance()));
-
+		
 		return s1;
 
 	}

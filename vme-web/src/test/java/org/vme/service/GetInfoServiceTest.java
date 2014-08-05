@@ -29,7 +29,6 @@ import org.vme.dao.sources.vme.VmeDao;
 import org.vme.service.dto.VmeSmResponse;
 
 @RunWith(CdiRunner.class)
-//@AdditionalClasses({  VmeSearchDaoImpl.class })
 @ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
 	VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
 public class GetInfoServiceTest {

@@ -27,7 +27,6 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-//@AdditionalClasses({ VmeSearchDaoImpl.class })
 @ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class,
 		FigisDataBaseProducer.class, VmeTestPersistenceUnitConfiguration.class,
 		VmeDataBaseProducerApplicationScope.class })
