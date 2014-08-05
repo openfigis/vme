@@ -181,7 +181,7 @@ public class VME implements TableDomainMapper {
 
 		o.setGeoArea(u.english(this.vmeGeogArea1));
 
-		o.setId(new Long(this.iD));
+		o.setId(Long.valueOf(this.iD));
 
 		ValidityPeriodRule r = new ValidityPeriodRule(this.vmeValidityStart, this.vmeValidityEnd);
 		ValidityPeriod vp = new ValidityPeriod();

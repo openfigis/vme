@@ -19,6 +19,8 @@ import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
 import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.dao.sources.figis.DefaultObservationDomain;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.figis.PrimaryRule;
@@ -27,6 +29,7 @@ public abstract class FigisDaoTestLogic {
 
 	public static int REPORTING_YEAR = 2014;
 	PrimaryRule r = new PrimaryRule();
+	private static final Logger log = LoggerFactory.getLogger(FigisDaoTestLogic.class);
 
 	@Inject
 	protected FigisDao dao;
@@ -141,10 +144,10 @@ public abstract class FigisDaoTestLogic {
 		int[] sizes = { dao.count(ObservationXml.class).intValue(), dao.count(Observation.class).intValue(),
 				dao.count(VmeObservation.class).intValue() };
 
-		System.out.println("ObservationXml= " + sizes[0]);
-		System.out.println("Observation= " + sizes[1]);
-		System.out.println("VmeObservation= " + sizes[2]);
-		System.out.println("=================================================");
+		log.info("ObservationXml= " + sizes[0]);
+		log.info("Observation= " + sizes[1]);
+		log.info("VmeObservation= " + sizes[2]);
+		log.info("=================================================");
 
 		return sizes;
 	}

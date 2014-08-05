@@ -27,7 +27,7 @@ public class MultiLingualStringConverter extends AbstractDataConverter<MultiLing
 	 * @see org.gcube.application.rsg.support.converters.impl.AbstractDataConverter#doConvert(java.io.Serializable)
 	 */
 	@Override
-	protected String doConvert(MultiLingualString element) throws IllegalArgumentException {
+	protected String doConvert(MultiLingualString element) {
 		return UTIL.getEnglish(element);
 	}
 
@@ -35,7 +35,7 @@ public class MultiLingualStringConverter extends AbstractDataConverter<MultiLing
 	 * @see org.gcube.application.rsg.support.converters.impl.AbstractDataConverter#doParse(java.lang.String)
 	 */
 	@Override
-	protected MultiLingualString doParse(String value) throws IllegalArgumentException {
+	protected MultiLingualString doParse(String value) {
 		return UTIL.english(value);
 	}
 }

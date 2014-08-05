@@ -165,8 +165,7 @@ public class VmeMock {
 		}
 
 		Rfmo rfmo = new Rfmo();
-		String rfmoId = new Long(ID++).toString();
-		rfmo.setId(rfmoId);
+		rfmo.setId(Long.valueOf(ID++).toString());
 		rfmo.setHasFisheryAreasHistory(fishingHistoryList);
 		rfmo.setHasVmesHistory(hasVmesHistory);
 		rfmo.setInformationSourceList(informationSourceList);

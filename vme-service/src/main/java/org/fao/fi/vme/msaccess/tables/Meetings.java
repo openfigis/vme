@@ -12,14 +12,17 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.formatter.MeetingDateParser;
 import org.fao.fi.vme.msaccess.mapping.ReferenceDependentTableDomainMapper;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConceptProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Meetings implements ReferenceDependentTableDomainMapper {
 	private static final Long DEFAULT_INFORMATION_SOURCE_TYPE_ID = 2L; // Meeting
 																		// documents
-
+	private static final Logger log = LoggerFactory.getLogger(Meetings.class);
+	
 	@PostConstruct
 	public void foobaz() {
-		System.out.println("HEREIAM!");
+		log.info("HEREIAM!");
 	}
 
 	private int iD;
@@ -141,7 +144,7 @@ public class Meetings implements ReferenceDependentTableDomainMapper {
 		is.setPublicationYear(this.yearId);
 
 		try {
-			is.setSourceType((InformationSourceType) provider.getReferenceByID(InformationSourceType.class, new Long(
+			is.setSourceType((InformationSourceType) provider.getReferenceByID(InformationSourceType.class, Long.valueOf(
 					sourceType)));
 		} catch (Throwable t) {
 			throw new RuntimeException("Unable build information source type", t);

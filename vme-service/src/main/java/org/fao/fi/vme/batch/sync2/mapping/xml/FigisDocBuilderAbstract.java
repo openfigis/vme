@@ -329,7 +329,7 @@ abstract class FigisDocBuilderAbstract {
 				if (infoSource != null
 						&& infoSource.getSourceType() != null
 						&& infoSource.getSourceType().isAMeetingDocument()
-						&& (new Integer(disseminationYear).equals(infoSource.getPublicationYear()) || oneBefore
+						&& (Integer.valueOf(disseminationYear).equals(infoSource.getPublicationYear()) || oneBefore
 								.equals(infoSource.getPublicationYear()))) {
 					BiblioEntry biblioEntry = bu.transform(infoSource);
 

@@ -1,8 +1,5 @@
 package org.fao.fi.vme.dto.test;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import org.fao.fi.vme.webservice.SpecificMeasureType;
 
 public class SpecificMeasureTypeMock {
@@ -20,8 +17,6 @@ public class SpecificMeasureTypeMock {
 		String text = "Text met <b>kippesoep<b> en aardbeien. ";
 		String cddataText = "<![CDATA[" + text + "]]>";
 		s1.setMeasureText(cddataText);
-
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
 		return s1;
 
