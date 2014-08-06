@@ -36,71 +36,64 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
  *
  * History:
  *
- * ------------- --------------- -----------------------
- * Date			 Author			 Comment
- * ------------- --------------- -----------------------
- * 24/nov/2013   Fabio     Creation.
+ * ------------- --------------- ----------------------- Date Author Comment
+ * ------------- --------------- ----------------------- 24/nov/2013 Fabio
+ * Creation.
  *
  * @version 1.0
  * @since 24/nov/2013
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ AnnotationBasedReportCompiler.class,
-						 JEXLReportEvaluator.class,
-						 VmeTestPersistenceUnitConfiguration.class,
-						 VmeDataBaseProducerApplicationScope.class })
-@AdditionalClasses({ AbstractDataConverter.class,
-					 DateDataConverter.class,
-					 DoubleDataConverter.class,
-					 FloatDataConverter.class,
-					 IntegerDataConverter.class,
-					 LongDataConverter.class,
-					 StringDataConverter.class,
-					 URLDataConverter.class,
-					 ReferenceDaoImpl.class })
+@ActivatedAlternatives({ AnnotationBasedReportCompiler.class, JEXLReportEvaluator.class,
+		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class, ReferenceDaoImpl.class })
+@AdditionalClasses({ AbstractDataConverter.class, DateDataConverter.class, DoubleDataConverter.class,
+		FloatDataConverter.class, IntegerDataConverter.class, LongDataConverter.class, StringDataConverter.class,
+		URLDataConverter.class })
 public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependentTest {
 	@Test
 	public void testCompileReport() throws Throwable {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
 
-		String xml = CompiledReportUtils.toXML(template); 
-		
-		CompiledReport nTemplate = (CompiledReport)CompiledReportUtils.fromXML(xml);
-		
+		String xml = CompiledReportUtils.toXML(template);
+
+		CompiledReport nTemplate = (CompiledReport) CompiledReportUtils.fromXML(xml);
+
 		String nXml = CompiledReportUtils.toXML(nTemplate);
-		
+
 		Assert.assertEquals(xml, nXml);
 		Assert.assertEquals(template, nTemplate);
-		
+
 		System.out.println(xml);
 	}
-	
+
 	@Test
 	public void testFindBindingsInTemplate() throws Throwable {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
-		
-		Bound found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSource.publicationYear", LOOSE);
-		
+
+		Bound found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSource.publicationYear",
+				LOOSE);
+
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());
-		
+
 		found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSourceZ", LOOSE);
 		Assert.assertNull(found);
 	}
-	
+
 	@Test
 	public void testFindBindingsInReport() throws Throwable {
 		CompiledReport template = this._reportCompiler.compile(Vme.class);
-		
-		Bound found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSource.publicationYear", LOOSE);
-		
+
+		Bound found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSource.publicationYear",
+				LOOSE);
+
 		Assert.assertNotNull(found);
 		Assert.assertEquals(InputComponent.class, found.getClass());
-		
+
 		found = CompiledReportUtils.find(template, "#.specificMeasureList[0].informationSource.publicationYear", LOOSE);
-		
+
 		Assert.assertNull(found);
-		
+
 		found = CompiledReportUtils.find(template, "#.specificMeasureList.informationSourceZ", LOOSE);
 		Assert.assertNull(found);
 	}
