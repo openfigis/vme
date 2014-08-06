@@ -78,7 +78,7 @@ public class DBCPConnectionProvider extends AbstractConnectionProvider {
 	 * Properties)
 	 */
 	@Override
-	protected void configurePool(Properties configuration) throws Throwable {
+	protected void configurePool(Properties configuration) throws Exception {
 		if (LOG.isDebugEnabled()) {
 			StringWriter sw = new StringWriter();
 
