@@ -1,4 +1,4 @@
-package org.fao.fi.vme.dao;
+package org.vme.dao.sources.vme;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

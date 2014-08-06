@@ -15,13 +15,13 @@ import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
 import org.fao.fi.figis.domain.test.ObservationMock;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
 import org.fao.fi.figis.domain.test.RefVmeMock;
-import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
 import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
+import org.vme.dao.test.FigisDaoTestLogic;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class })

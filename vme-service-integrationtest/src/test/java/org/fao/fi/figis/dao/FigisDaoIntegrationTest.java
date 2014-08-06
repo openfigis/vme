@@ -9,7 +9,6 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationPk;
 import org.fao.fi.figis.domain.rule.Figis;
-import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.After;
@@ -19,6 +18,7 @@ import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
 import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 import org.vme.dao.sources.figis.FigisDao;
+import org.vme.dao.test.FigisDaoTestLogic;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ FigisDataBaseProducer.class, FigisPersistenceUnitConfiguration.class })

@@ -1,4 +1,4 @@
-package org.fao.fi.vme.test;
+package org.vme.dao.test;
 
 public class VmeDaoTestLogic {
 

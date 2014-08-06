@@ -22,7 +22,6 @@ import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
-import org.fao.fi.vme.test.FigisDaoTestLogic;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
@@ -35,6 +34,7 @@ import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
+import org.vme.dao.test.FigisDaoTestLogic;
 
 /**
  * 
