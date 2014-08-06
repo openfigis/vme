@@ -364,7 +364,7 @@ public class FigisDao extends AbstractJPADao {
 	 * @param vmeId
 	 */
 	public void removeVme(Long vmeId) {
-		em.getTransaction().begin();
+		EntityTransaction t = em.getTransaction();
 		List<VmeObservation> voList = findVmeObservationByVme(vmeId);
 		for (VmeObservation vo : voList) {
 			Observation o = (Observation) this.find(Observation.class, vo
@@ -376,8 +376,7 @@ public class FigisDao extends AbstractJPADao {
 				em.remove(vo);
 			}
 		}
-		em.getTransaction().commit();
-
+		t.commit();
 	}
 
 	private ObservationXml findEnglishXml(Long id) {
