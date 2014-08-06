@@ -42,8 +42,10 @@ public class SearchService extends AbstractService {
 			filterVmePerInventoryIdentifier(vmeList, request.getInventoryIdentifier());
 		} else if (request.hasGeographicFeatureId()) {
 			filterVmePerGeographFeatureId(vmeList, request.getGeographicFeatureId());
-		} else {
+		} else if(!"".equals(request.getText())) {
 			filterByRequestParam(vmeList, request.getAuthority(), request.getType(), request.getCriteria(), request.getText());
+		} else {
+			vmeList.clear();
 		}
 		
 		for (Vme vme : vmeList) {
