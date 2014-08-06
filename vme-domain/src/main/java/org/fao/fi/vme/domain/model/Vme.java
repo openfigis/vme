@@ -255,36 +255,6 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((areaType == null) ? 0 : areaType.hashCode());
-		result = prime * result
-				+ ((criteria == null) ? 0 : criteria.hashCode());
-		result = prime * result + ((geoArea == null) ? 0 : geoArea.hashCode());
-		result = prime * result
-				+ ((geoRefList == null) ? 0 : geoRefList.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime
-				* result
-				+ ((inventoryIdentifier == null) ? 0 : inventoryIdentifier
-						.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((profileList == null) ? 0 : profileList.hashCode());
-		result = prime * result + ((rfmo == null) ? 0 : rfmo.hashCode());
-		result = prime * result + ((scope == null) ? 0 : scope.hashCode());
-		result = prime
-				* result
-				+ ((specificMeasureList == null) ? 0 : specificMeasureList
-						.hashCode());
-		result = prime * result
-				+ ((validityPeriod == null) ? 0 : validityPeriod.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 
 		if (this == obj) {
