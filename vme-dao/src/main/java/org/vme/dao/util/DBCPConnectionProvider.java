@@ -9,18 +9,17 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.commons.dbcp.BasicDataSourceFactory;
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSourceFactory;
 
 /**
  * Place your class / interface description here.
  *
  * History:
  *
- * ------------- --------------- -----------------------
- * Date			 Author			 Comment
- * ------------- --------------- -----------------------
- * 25 Feb 2014   Fiorellato     Creation.
+ * ------------- --------------- ----------------------- Date Author Comment
+ * ------------- --------------- ----------------------- 25 Feb 2014 Fiorellato
+ * Creation.
  *
  * @version 1.0
  * @since 25 Feb 2014
@@ -30,14 +29,16 @@ public class DBCPConnectionProvider extends AbstractConnectionProvider {
 	private static final long serialVersionUID = -1281741635401231503L;
 
 	private static final String CUSTOM_PREFIX = "hibernate.dbcp.";
-	
+
 	private BasicDataSource ds;
-	
+
 	public DBCPConnectionProvider() {
 		super();
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.vme.dao.util.AbstractConnectionProvider#getCustomPrefix()
 	 */
 	@Override
@@ -45,14 +46,18 @@ public class DBCPConnectionProvider extends AbstractConnectionProvider {
 		return CUSTOM_PREFIX;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.vme.dao.util.AbstractConnectionProvider#asProperties(org.vme.dao.util.AbstractConnectionProvider.CommonConfiguration)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.vme.dao.util.AbstractConnectionProvider#asProperties(org.vme.dao.
+	 * util.AbstractConnectionProvider.CommonConfiguration)
 	 */
 	@Override
 	protected Properties asProperties(CommonConfiguration common) {
 		Properties dbcpProperties = new Properties();
-		
-		if(common != null) {
+
+		if (common != null) {
 			this.safePut(dbcpProperties, "driverClassName", common.getDriverClass());
 			this.safePut(dbcpProperties, "url", common.getUrl());
 			this.safePut(dbcpProperties, "username", common.getUsername());
@@ -62,18 +67,21 @@ public class DBCPConnectionProvider extends AbstractConnectionProvider {
 			this.safePut(dbcpProperties, "maxActive", common.getPoolSize());
 			this.safePut(dbcpProperties, "connectionProperties", common.getConnectionProperties());
 		}
-		
+
 		return dbcpProperties;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.vme.dao.util.AbstractConnectionProvider#configurePool(java.util.Properties)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.vme.dao.util.AbstractConnectionProvider#configurePool(java.util.
+	 * Properties)
 	 */
 	@Override
 	protected void configurePool(Properties configuration) throws Throwable {
 		if (LOG.isDebugEnabled()) {
 			StringWriter sw = new StringWriter();
-			
+
 			configuration.list(new PrintWriter(sw, true));
 
 			LOG.debug(sw.toString());
@@ -93,7 +101,7 @@ public class DBCPConnectionProvider extends AbstractConnectionProvider {
 		Connection conn = null;
 		try {
 			conn = this.ds.getConnection();
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			LOG.error(e.getMessage(), e);
 		} finally {
 			logStatistics();
@@ -101,22 +109,25 @@ public class DBCPConnectionProvider extends AbstractConnectionProvider {
 		return conn;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.vme.dao.util.AbstractConnectionProvider#cleanup()
 	 */
 	protected void cleanup() {
-		if(this.ds != null) {
+		if (this.ds != null) {
 			try {
 				this.ds.close();
 			} catch (Exception e2) {
 				LOG.error(e2.getMessage(), e2);
 			}
-			
+
 			this.ds = null;
 		}
 	}
-	
+
 	protected void logStatistics() {
-		LOG.debug("Active: {} (max: {}) - Idle: {} (max: {})", this.ds.getNumActive(), this.ds.getMaxActive(), this.ds.getNumIdle(), this.ds.getMaxIdle());
+		LOG.debug("Active: {} (maxTotal: {}) - Idle: {} (maxIdle: {})", this.ds.getNumActive(), this.ds.getMaxTotal(),
+				this.ds.getNumIdle(), this.ds.getMaxIdle());
 	}
 }
