@@ -9,6 +9,11 @@
 	<artifactId>vme-dao</artifactId>
 	<dependencies>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>figis-domain</artifactId>
 			<version>${project.version}</version>
@@ -16,7 +21,6 @@
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-domain</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
