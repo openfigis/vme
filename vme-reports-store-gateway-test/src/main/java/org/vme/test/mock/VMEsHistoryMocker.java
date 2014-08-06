@@ -3,7 +3,7 @@
  */
 package org.vme.test.mock;
 
-import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.fao.fi.vme.domain.model.VMEsHistory;
 
 /**
  * Place your class / interface description here.

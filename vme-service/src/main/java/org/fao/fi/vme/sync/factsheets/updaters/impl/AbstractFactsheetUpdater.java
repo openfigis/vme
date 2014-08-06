@@ -9,12 +9,12 @@ import java.net.URL;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.fao.fi.vme.domain.model.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.VMEsHistory;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
-import org.fao.fi.vme.domain.model.extended.VMEsHistory;
 import org.fao.fi.vme.sync.factsheets.updaters.FactsheetUpdater;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 /**
  * (c) 2013 FAO / UN (project: vme-domain)
  */
-package org.fao.fi.vme.domain.model.extended;
+package org.fao.fi.vme.domain.model;
 
 import java.io.Serializable;
 
@@ -15,10 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.interfaces.Year;
-import org.fao.fi.vme.domain.model.History;
-import org.fao.fi.vme.domain.model.MultiLingualString;
-import org.fao.fi.vme.domain.model.ObjectId;
-import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
@@ -43,14 +39,13 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
  * @version 1.0
  * @since 13 Nov 2013
  */
-@RSGReferenceReport(name = "Regional History of VMEs")
-@Entity(name = "VMES_HISTORY")
-public class VMEsHistory implements ObjectId<Long>, History, Year<History>, ReferenceReport, Serializable {
-
+@RSGReferenceReport(name = "Fishing Footprint")
+@Entity(name = "FISHERY_AREAS_HISTORY")
+public class FisheryAreasHistory implements ObjectId<Long>, History, Year<History>, ReferenceReport, Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -83401529380589245L;
+	private static final long serialVersionUID = -1222341068833710991L;
 
 	/** 
 	 * 
@@ -62,7 +57,7 @@ public class VMEsHistory implements ObjectId<Long>, History, Year<History>, Refe
 	private Long id;
 
 	/**
-	 * VMEsHistory has 0,1 Rfmo
+	 * FisheryAreasHistory has 0,1 Rfmo
 	 */
 	@RSGName("Authority")
 	@RSGSimpleReference
@@ -75,8 +70,8 @@ public class VMEsHistory implements ObjectId<Long>, History, Year<History>, Refe
 	 *  
 	 */
 	@RSGName("Year")
-	@RSGWeight(1)
 	@RSGConverter(IntegerDataConverter.class)
+	@RSGWeight(1)
 	private Integer year;
 
 	/**
@@ -96,21 +91,6 @@ public class VMEsHistory implements ObjectId<Long>, History, Year<History>, Refe
 	@Override
 	public Long getId() {
 		return id;
-	}
-
-	/**
-	 * @return the 'rfmo' value
-	 */
-	public Rfmo getRfmo() {
-		return this.rfmo;
-	}
-
-	/**
-	 * @param rfmo
-	 *            the 'rfmo' value to set
-	 */
-	public void setRfmo(Rfmo rfmo) {
-		this.rfmo = rfmo;
 	}
 
 	/*
@@ -151,6 +131,14 @@ public class VMEsHistory implements ObjectId<Long>, History, Year<History>, Refe
 	@Override
 	public MultiLingualString getHistory() {
 		return history;
+	}
+
+	public Rfmo getRfmo() {
+		return rfmo;
+	}
+
+	public void setRfmo(Rfmo rfmo) {
+		this.rfmo = rfmo;
 	}
 
 	/*
@@ -196,7 +184,7 @@ public class VMEsHistory implements ObjectId<Long>, History, Year<History>, Refe
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		VMEsHistory other = (VMEsHistory) obj;
+		FisheryAreasHistory other = (FisheryAreasHistory) obj;
 		if (this.history == null) {
 			if (other.history != null) {
 				return false;

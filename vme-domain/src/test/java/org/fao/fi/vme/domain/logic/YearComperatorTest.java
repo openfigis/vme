@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.fao.fi.vme.domain.model.VMEsHistory;
 import org.junit.Test;
 
 public class YearComperatorTest {

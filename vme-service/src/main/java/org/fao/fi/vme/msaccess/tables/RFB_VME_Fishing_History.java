@@ -1,7 +1,7 @@
 package org.fao.fi.vme.msaccess.tables;
 
-import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
-import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.fao.fi.vme.domain.model.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.VMEsHistory;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.msaccess.mapping.TableDomainMapper;
 import org.fao.fi.vme.msaccess.tableextension.HistoryHolder;

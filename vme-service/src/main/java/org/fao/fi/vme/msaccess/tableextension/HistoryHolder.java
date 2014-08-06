@@ -1,7 +1,7 @@
 package org.fao.fi.vme.msaccess.tableextension;
 
-import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
-import org.fao.fi.vme.domain.model.extended.VMEsHistory;
+import org.fao.fi.vme.domain.model.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.VMEsHistory;
 
 /**
  * The pattern is that every table in MS-Acces can be mapped to one domain

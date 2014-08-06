@@ -3,7 +3,7 @@
  */
 package org.vme.test.mock;
 
-import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
+import org.fao.fi.vme.domain.model.FisheryAreasHistory;
 
 /**
  * Place your class / interface description here.

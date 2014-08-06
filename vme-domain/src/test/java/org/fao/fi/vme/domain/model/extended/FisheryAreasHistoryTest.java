@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.fao.fi.vme.domain.model.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.test.RfmoMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;

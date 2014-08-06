@@ -3,8 +3,8 @@ package org.vme.service.tabular.record;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import org.fao.fi.vme.domain.model.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.Rfmo;
-import org.fao.fi.vme.domain.model.extended.FisheryAreasHistory;
 import org.vme.service.tabular.Empty;
 import org.vme.service.tabular.RecordGenerator;
 
