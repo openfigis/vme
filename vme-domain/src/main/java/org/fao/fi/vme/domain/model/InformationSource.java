@@ -268,11 +268,39 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 		this.publicationYear = publicationYear;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((citation == null) ? 0 : citation.hashCode());
+		result = prime * result
+				+ ((committee == null) ? 0 : committee.hashCode());
+		result = prime
+				* result
+				+ ((generalMeasureList == null) ? 0 : generalMeasureList
+						.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((meetingEndDate == null) ? 0 : meetingEndDate.hashCode());
+		result = prime
+				* result
+				+ ((meetingStartDate == null) ? 0 : meetingStartDate.hashCode());
+		result = prime * result
+				+ ((publicationYear == null) ? 0 : publicationYear.hashCode());
+		result = prime * result
+				+ ((reportSummary == null) ? 0 : reportSummary.hashCode());
+		result = prime * result + ((rfmo == null) ? 0 : rfmo.hashCode());
+		result = prime * result
+				+ ((sourceType == null) ? 0 : sourceType.hashCode());
+		result = prime
+				* result
+				+ ((specificMeasureList == null) ? 0 : specificMeasureList
+						.hashCode());
+		result = prime * result + ((url == null) ? 0 : url.hashCode());
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 
@@ -384,4 +412,5 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 		}
 		return true;
 	}
+	
 }
