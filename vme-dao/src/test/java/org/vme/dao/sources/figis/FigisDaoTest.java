@@ -1,4 +1,4 @@
-package org.fao.fi.figis.dao;
+package org.vme.dao.sources.figis;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
