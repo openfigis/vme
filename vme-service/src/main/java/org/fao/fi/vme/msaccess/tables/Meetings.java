@@ -125,7 +125,7 @@ public class Meetings implements ReferenceDependentTableDomainMapper {
 		try {
 			defaultInformationSourceType = (InformationSourceType) provider.getReferenceByID(
 					InformationSourceType.class, DEFAULT_INFORMATION_SOURCE_TYPE_ID);
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			throw new RuntimeException("Unable to retrieve default information source type", t);
 		}
 
@@ -146,7 +146,7 @@ public class Meetings implements ReferenceDependentTableDomainMapper {
 		try {
 			is.setSourceType((InformationSourceType) provider.getReferenceByID(InformationSourceType.class, Long.valueOf(
 					sourceType)));
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			throw new RuntimeException("Unable build information source type", t);
 		}
 

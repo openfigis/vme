@@ -70,7 +70,7 @@ public abstract class AbstractJPADao implements Dao {
 		for (String key : criteria.keySet()) {
 			try {
 				field = entity.getDeclaredField(key);
-			} catch (Throwable t) {
+			} catch (Exception t) {
 				throw new RuntimeException("Unexpected " + t.getClass().getSimpleName() + " caught: " + t.getMessage(),
 						t);
 			}
@@ -147,7 +147,7 @@ public abstract class AbstractJPADao implements Dao {
 			et.commit();
 
 			LOG.debug(OBJECTREMOVED, object);
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			LOG.error(UNABLE2REMOVE, object, t.getClass().getSimpleName(),
 					t.getMessage(), t);
 
@@ -252,7 +252,7 @@ public abstract class AbstractJPADao implements Dao {
 			//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
 			et.commit();
 			LOG.debug(OBJECTREMOVED, object);
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			LOG.error(UNABLE2REMOVE, object, t.getClass().getSimpleName(),
 					t.getMessage(), t);
 			et.rollback();
