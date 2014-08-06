@@ -297,7 +297,6 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 				* result
 				+ ((specificMeasureList == null) ? 0 : specificMeasureList
 						.hashCode());
-		result = prime * result + ((url == null) ? 0 : url.hashCode());
 		return result;
 	}
 
