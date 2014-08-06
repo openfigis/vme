@@ -264,9 +264,7 @@ public class SearchServiceTest {
 		assertTrue(1 == response.getTotalResult());
 		
 		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(2));
-		assertTrue(2 == response.getTotalResult());
-		assertEquals(1, response.getResultList().get(0).getVmeId());
-		assertEquals(2, response.getResultList().get(1).getVmeId());
+		assertTrue(0 == response.getTotalResult());
 		
 		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(3));
 		String expected = response.getResultList().get(0).getFactsheetUrl();
