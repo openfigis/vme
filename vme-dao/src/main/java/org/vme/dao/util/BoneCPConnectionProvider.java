@@ -103,7 +103,7 @@ public class BoneCPConnectionProvider extends AbstractConnectionProvider {
 		try {
 			conn = this.ds.getConnection();
 		} catch(SQLException e) {
-			LOG.error(e.getMessage());
+			LOG.error(e.getMessage(), e);
 		} finally {
 			logStatistics();
 		}
@@ -118,7 +118,7 @@ public class BoneCPConnectionProvider extends AbstractConnectionProvider {
 			try {
 				this.ds.close();
 			} catch (Exception e2) {
-				// ignore
+				LOG.error(e2.getMessage(), e2);
 			}
 			
 			this.ds = null;

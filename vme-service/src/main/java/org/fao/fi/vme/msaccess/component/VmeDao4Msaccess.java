@@ -32,7 +32,7 @@ public class VmeDao4Msaccess {
 		} catch(Throwable t) {
 			et.rollback();
 			
-			throw new RuntimeException(t);
+			throw new RuntimeException(t.getMessage(), t);
 		}
 	}
 	
@@ -84,7 +84,7 @@ public class VmeDao4Msaccess {
 			}
 			et.commit();
 		} catch (Exception e) {
-			LOG.error(e.getMessage());
+			LOG.error(e.getMessage(), e);
 			throw new VmeDaoException(e);
 		}
 	}

@@ -49,7 +49,7 @@ public class VmeSearchRefTypeWs {
 			result = service.invoke(refRequest);
 			return Response.status(200).entity(result).build();
 		} catch (Exception t) {
-			throw new WebApplicationException(Response.Status.NOT_FOUND);
+			throw new WebApplicationException(t, Response.Status.NOT_FOUND);
 		}
 
 	}
@@ -62,7 +62,7 @@ public class VmeSearchRefTypeWs {
 			batch.run();
 			return Response.status(200).entity("ReferenceDataHardcodedBatch run successfully").build();
 		} catch (Exception t) {
-			throw new WebApplicationException(Response.Status.NOT_FOUND);
+			throw new WebApplicationException(t, Response.Status.NOT_FOUND);
 		}
 	}
 

@@ -409,7 +409,7 @@ public class FigisDao extends AbstractJPADao {
 		} catch (NonUniqueResultException e) {
 			// elements are not unique!
 			throw new VmeException(externalId
-					+ " is not unique, data is not consisten!");
+					+ " is not unique, data is not consisten!", e);
 		}
 		if (found != null) {
 			found.setName(refWaterArea.getName());

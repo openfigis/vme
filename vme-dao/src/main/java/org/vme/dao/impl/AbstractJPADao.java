@@ -193,7 +193,7 @@ public abstract class AbstractJPADao implements Dao {
 			LOG.error("Unable to merge object {} into persistence: {} [ {} ]", object, e.getClass().getSimpleName(),
 					e.getMessage());
 			et.rollback();
-			throw new VmeDaoException(e);
+			throw new VmeDaoException(e.getMessage(), e);
 		}
 	}
 
@@ -208,7 +208,7 @@ public abstract class AbstractJPADao implements Dao {
 		} catch (Exception e) {
 			LOG.error("Unable to store object {} into persistence: {} [ {} ]", object, e.getClass().getSimpleName(),
 					e.getMessage());
-			throw new VmeDaoException(e);
+			throw new VmeDaoException(e.getMessage(), e);
 		}
 
 		return object;
@@ -239,7 +239,7 @@ public abstract class AbstractJPADao implements Dao {
 			LOG.error("Unable to store object list {} into persistence: {} [ {} ]", objectList, e.getClass()
 					.getSimpleName(), e.getMessage());
 
-			throw new VmeDaoException(e);
+			throw new VmeDaoException(e.getMessage(), e);
 		}
 	}
 

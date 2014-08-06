@@ -21,6 +21,10 @@ public class FimesSchemaException extends RuntimeException {
 	public FimesSchemaException(String message) {
 		super(message);
 	}
+	
+	public FimesSchemaException(String message, Exception e) {
+		super(message, e);
+	}
 
 	/**
 	 * 

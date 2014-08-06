@@ -96,7 +96,7 @@ public class DtoTranslator {
 				}
 			} catch (ReferenceServiceException e) {
 				res.setOwner(authorityAcronym);
-				LOG.error(e.getMessage());
+				LOG.error(e.getMessage(), e);
 			}
 		}
 

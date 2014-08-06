@@ -60,13 +60,13 @@ public class JaxbMarshall {
 
 		} catch (JAXBException e) {
 			throw new FimesSchemaException(
-					"There was a problem creating a JAXBContext object for serializing the object to XML.");
+					"There was a problem creating a JAXBContext object for serializing the object to XML.", e);
 		} catch (MalformedURLException e) {
 			throw new FimesSchemaException(
-					"There was a problem creating a JAXBContext object for serializing the object to XML.");
+					"There was a problem creating a JAXBContext object for serializing the object to XML.", e);
 		} catch (SAXException e) {
 			throw new FimesSchemaException(
-					"There was a problem creating a JAXBContext object for serializing the object to XML.");
+					"There was a problem creating a JAXBContext object for serializing the object to XML.", e);
 		}
 	}
 

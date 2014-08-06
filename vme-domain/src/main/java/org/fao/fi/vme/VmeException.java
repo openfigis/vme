@@ -21,6 +21,10 @@ public class VmeException extends RuntimeException {
 	public VmeException(String message) {
 		super(message);
 	}
+	
+	public VmeException(String message, Exception e){
+		super(message, e);
+	}
 
 	/**
 	 * 

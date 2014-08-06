@@ -105,8 +105,6 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 		
 		tx.begin();
 		
-		Observation o;
-		
 		Query removeObservationXml, removeObservation;
 		
 		try {
@@ -117,19 +115,6 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 					observationId = in.getId();
 		
 					LOG.info("Removing VME observation with ID {} for VME with ID {} @ {}", observationId.getObservationId(), observationId.getVmeId(), observationId.getReportingYear());
-
-//					//Rather clumsy, I know... ObservationXmls can't be loaded by ID as it is composite... Fix?
-//					for(ObservationXml ox : _figisDAO.loadObjects(ObservationXml.class))
-//						if(ox.getObservation().getId().equals(observationId.getObservationId())) {
-//							LOG.info("Removing observation XML with ID {}", observationId.getObservationId());
-//
-//							_figisDAO.remove(ox);
-//						}
-//					
-//					o = _figisDAO.getEntityById(_figisDAO.getEm(), Observation.class, observationId.getObservationId());
-//
-//					LOG.info("Removing observation with ID {}", observationId.getObservationId());
-//					_figisDAO.remove(o);
 
 					removeObservationXml = em.createQuery("delete from " + ObservationXml.class.getName() + " where id  = " + observationId.getObservationId());
 					removeObservation = em.createQuery("delete from " + Observation.class.getName() + " where id = " + observationId.getObservationId());
@@ -148,7 +133,7 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 			tx.commit();
 		} catch (Exception e) {
 			tx.rollback();
-			
+			LOG.error(e.getMessage(), e);
 			throw e;
 		}
 	}

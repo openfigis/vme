@@ -33,7 +33,7 @@ public class InformationSourceMock {
 		try {
 			is.setUrl(new URL("http://www.rfmo.org"));
 		} catch (Exception e) {
-			LOG.error(e.getMessage());
+			LOG.error(e.getMessage(), e);
 		}
 		is.setCommittee(u.english("Regional Fishery Management Organization (RFMO)"));
 		is.setReportSummary(u.english("This is an abstract (report summary)"));

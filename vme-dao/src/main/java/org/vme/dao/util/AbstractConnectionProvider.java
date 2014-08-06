@@ -210,7 +210,7 @@ public abstract class AbstractConnectionProvider implements ConnectionProvider, 
 			try {
 				this.cleanup();
 			} catch (Throwable tt) {
-				//Suffocate
+				LOG.error(tt.getMessage(), tt);
 			}
 			
 			throw new HibernateException(message, t);
