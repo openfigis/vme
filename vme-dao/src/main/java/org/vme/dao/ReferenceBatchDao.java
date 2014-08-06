@@ -4,7 +4,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import org.fao.fi.vme.domain.model.ReferenceDataObject;
+import org.fao.fi.vme.domain.model.reference.ReferenceDataObject;
 import org.vme.dao.config.vme.VmeDB;
 import org.vme.dao.impl.AbstractJPADao;
 

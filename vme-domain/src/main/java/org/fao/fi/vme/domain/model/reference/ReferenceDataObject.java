@@ -1,4 +1,4 @@
-package org.fao.fi.vme.domain.model;
+package org.fao.fi.vme.domain.model.reference;
 
 /**
  * 
