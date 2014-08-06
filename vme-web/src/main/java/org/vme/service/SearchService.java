@@ -42,9 +42,9 @@ public class SearchService extends AbstractService {
 			filterVmePerInventoryIdentifier(vmeList, request.getInventoryIdentifier());
 		} else if (request.hasGeographicFeatureId()) {
 			filterVmePerGeographFeatureId(vmeList, request.getGeographicFeatureId());
-		} else if(!"".equals(request.getText())) {
+		} else if(request.hasText() || request.hasAuthority() || request.hasType() || request.hasCriteria()) {
 			filterByRequestParam(vmeList, request.getAuthority(), request.getType(), request.getCriteria(), request.getText());
-		} else {
+		} else if(!request.hasText() && !request.hasAuthority() && !request.hasType() && !request.hasCriteria()) {
 			vmeList.clear();
 		}
 		

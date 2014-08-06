@@ -26,7 +26,6 @@ public class VmeSearchWs {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private static final String ERROR = "Unable to retrieve the requested information, please contact technical support";
-	private String INVALIDTEXT = "";
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
