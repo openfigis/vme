@@ -116,7 +116,7 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		em.persist(vme);
-		em.flush();
+		//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
 
 		et.commit();
 
@@ -1217,7 +1217,7 @@ public class VmeDao extends AbstractJPADao {
 
 		// This is needed in order to let changes in the IS list be persisted
 		// correctly
-		em.flush();
+		//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
 
 		em.refresh(current);
 

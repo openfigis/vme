@@ -143,7 +143,7 @@ public abstract class AbstractJPADao implements Dao {
 		try {
 			et.begin();
 			em.detach(object);
-			em.flush();
+			//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
 			et.commit();
 
 			LOG.debug(OBJECTREMOVED, object);
@@ -167,7 +167,7 @@ public abstract class AbstractJPADao implements Dao {
 
 	protected <E extends ObjectId<? extends Serializable>> E doPersistAndFlush(EntityManager em, E object) {
 		em.persist(object);
-		em.flush();
+		//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
 
 		return object;
 	}
@@ -177,7 +177,7 @@ public abstract class AbstractJPADao implements Dao {
 	}
 
 	protected void zdoRefresh(EntityManager em, Object object) {
-		em.flush();
+		//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
 	}
 
 	public <E> E merge(EntityManager em, E object) {
@@ -202,7 +202,7 @@ public abstract class AbstractJPADao implements Dao {
 			EntityTransaction et = em.getTransaction();
 			et.begin();
 			em.persist(object);
-			em.flush();
+			//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
 			et.commit();
 			LOG.debug(OBJECTREMOVED, object);
 		} catch (Exception e) {
@@ -216,7 +216,7 @@ public abstract class AbstractJPADao implements Dao {
 
 	public <E> E persistNoTx(EntityManager em, E object) {
 		em.persist(object);
-		em.flush();
+		//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
 
 		return object;
 	}
@@ -249,7 +249,7 @@ public abstract class AbstractJPADao implements Dao {
 		try {
 			et.begin();
 			this.doRemove(em, object);
-			em.flush();
+			//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
 			et.commit();
 			LOG.debug(OBJECTREMOVED, object);
 		} catch (Throwable t) {
