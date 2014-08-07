@@ -17,6 +17,7 @@ import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.After;
 import org.junit.Before;
@@ -32,8 +33,9 @@ import org.vme.dao.sources.vme.VmeDao;
 import org.vme.dao.test.FigisDaoTestLogic;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ReferenceDaoImpl.class, VmePersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,
-		FigisDataBaseProducer.class, FigisPersistenceUnitConfiguration.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, VmePersistenceUnitConfiguration.class,
+		FigisPersistenceUnitConfiguration.class })
+@AdditionalClasses({ FigisDataBaseProducer.class, VmeDataBaseProducerApplicationScope.class })
 public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 
 	@Inject

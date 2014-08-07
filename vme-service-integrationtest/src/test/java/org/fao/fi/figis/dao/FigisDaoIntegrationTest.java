@@ -10,6 +10,7 @@ import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationPk;
 import org.fao.fi.figis.domain.rule.Figis;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.After;
 import org.junit.Before;
@@ -21,7 +22,8 @@ import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.test.FigisDaoTestLogic;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FigisDataBaseProducer.class, FigisPersistenceUnitConfiguration.class })
+@ActivatedAlternatives(FigisPersistenceUnitConfiguration.class)
+@AdditionalClasses(FigisDataBaseProducer.class)
 public class FigisDaoIntegrationTest extends FigisDaoTestLogic {
 
 	@Inject

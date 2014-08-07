@@ -13,6 +13,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.msaccess.VmeClean;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.After;
 import org.junit.Before;
@@ -23,7 +24,8 @@ import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmePersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives(VmePersistenceUnitConfiguration.class)
+@AdditionalClasses(VmeDataBaseProducerApplicationScope.class)
 public class VmeProfileRelationTest {
 
 	@Inject

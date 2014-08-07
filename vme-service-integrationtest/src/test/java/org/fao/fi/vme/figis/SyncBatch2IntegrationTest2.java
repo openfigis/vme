@@ -31,9 +31,9 @@ import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmePersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,
-		FigisDataBaseProducer.class, FigisPersistenceUnitConfiguration.class })
-@AdditionalClasses({ ReferenceDaoImpl.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, VmePersistenceUnitConfiguration.class,
+		FigisPersistenceUnitConfiguration.class })
+@AdditionalClasses({ FigisDataBaseProducer.class, VmeDataBaseProducerApplicationScope.class })
 public class SyncBatch2IntegrationTest2 {
 
 	@Inject
