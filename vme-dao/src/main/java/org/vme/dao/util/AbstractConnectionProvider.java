@@ -202,14 +202,14 @@ public abstract class AbstractConnectionProvider implements ConnectionProvider, 
 		try {
 			this.configurePool(asProp);
 			
-		} catch (Throwable t) {
+		} catch (Exception t) {
 			String message = "Could not create connection pool of type " + this.getClass().getSimpleName() + ": " + t.getMessage();
 			
 			LOG.error(message, t);
 			
 			try {
 				this.cleanup();
-			} catch (Throwable tt) {
+			} catch (Exception tt) {
 				LOG.error(tt.getMessage(), tt);
 			}
 			
@@ -241,13 +241,13 @@ public abstract class AbstractConnectionProvider implements ConnectionProvider, 
 		return asProps;
 	}
 
-	protected abstract void cleanup() throws Throwable;
+	protected abstract void cleanup() throws Exception;
 	
 	protected abstract Properties asProperties(CommonConfiguration common);
 
 	protected abstract String getCustomPrefix();
 
-	protected abstract void configurePool(Properties configuration) throws Throwable;
+	protected abstract void configurePool(Properties configuration) throws Exception;
 
 	protected final void safePut(Properties props, String key, Object value) {
 		if(value != null) {
@@ -304,7 +304,7 @@ public abstract class AbstractConnectionProvider implements ConnectionProvider, 
 				common.setConnectionProperties(connectionProperties.toString());
 			}
 
-		} catch (Throwable t) { 
+		} catch (Exception t) { 
 			LOG.error("Cannot configure {}: {}", this.getClass().getSimpleName(), t.getMessage(), t);
 		}
 		

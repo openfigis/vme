@@ -281,7 +281,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 						this.updater.createFactsheets(id);
 						
 						LOG.info("Synchronously created factsheet for VME with ID {}", id);
-					} catch(Throwable t) {
+					} catch(Exception t) {
 						LOG.error("Unable to synchronously create factsheet for VME with ID {}: {}", id, t.getMessage(), t);
 					}
 				} else {
@@ -303,7 +303,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 						this.updater.updateFactsheets(id);
 						
 						LOG.info("Synchronously updated factsheet for VME with ID {}", id);
-					} catch(Throwable t) {
+					} catch(Exception t) {
 						LOG.error("Unable to synchronously update factsheet for VME with ID {}: {}", id, t.getMessage(), t);
 					}
 				} else {
@@ -325,7 +325,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 						this.updater.deleteFactsheets(id);
 						
 						LOG.info("Synchronously deleted factsheet for VME with ID {}", id);
-					} catch(Throwable t) {
+					} catch(Exception t) {
 						LOG.error("Unable to synchronously delete factsheet for VME with ID {}: {}", id, t.getMessage(), t);
 					}
 				} else {

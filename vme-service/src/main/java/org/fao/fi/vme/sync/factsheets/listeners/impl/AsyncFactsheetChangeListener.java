@@ -44,7 +44,7 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 								$this.updater.createFactsheets(id);
 							
 								LOG.info("Asynchronously created factsheet for VME with ID {}", id);
-							} catch (Throwable t) {
+							} catch (Exception t) {
 								LOG.error("Unable to asynchronously create factsheet for VME with ID {}", id, t);
 							}
 							
@@ -73,7 +73,7 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 								$this.updater.updateFactsheets(id);
 							
 								LOG.info("Asynchronously updated factsheet for VME with ID {}", id);
-							} catch(Throwable t) {
+							} catch(Exception t) {
 								LOG.error("Unable to asynchronously update factsheet for VME with ID {}", id, t);
 							}
 							
@@ -102,7 +102,7 @@ public class AsyncFactsheetChangeListener extends SyncFactsheetChangeListener {
 								$this.updater.deleteFactsheets(id);
 							
 								LOG.info("Asynchronously deleted factsheet for VME with ID {}", id);
-							} catch(Throwable t) {
+							} catch(Exception t) {
 								LOG.error("Unable to asynchronously delete factsheet for VME with ID {}", id, t);
 							}
 							

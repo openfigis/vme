@@ -29,7 +29,7 @@ public class VmeDao4Msaccess {
 			et.begin();
 			em.persist(object);
 			et.commit();
-		} catch(Throwable t) {
+		} catch(Exception t) {
 			et.rollback();
 			
 			throw new RuntimeException(t.getMessage(), t);

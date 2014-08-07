@@ -170,7 +170,7 @@ public abstract class AbstractFactsheetUpdater implements FactsheetUpdater {
 				if (is != null) {
 					try {
 						is.close();
-					} catch (Throwable t) {
+					} catch (Exception t) {
 						LOG.warn("Unable to close remote stream", t);
 					}
 				}

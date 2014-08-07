@@ -31,10 +31,10 @@ public class DtoTranslator {
 	@Inject
 	private FigisDao figisDao;
 
-	private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
-	private ValidityPeriodUtil VUTIL = new ValidityPeriodUtil();
+	private static final MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
+	private static final ValidityPeriodUtil VUTIL = new ValidityPeriodUtil();
 
-	private Logger LOG = LoggerFactory.getLogger(this.getClass());
+	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private static final String UNABLE2RETRIVE = "Unable to retrieve reference {} by ID {}: {}";
 
 	public SpecificMeasureDto doTranslate4Sm(SpecificMeasure sm){
@@ -78,7 +78,7 @@ public class DtoTranslator {
 		try {
 			res.setScope(referenceDAO.getReferenceByID(VmeScope.class, vme.getScope()).getName());
 		} catch (Exception e1) {
-			LOG.error(UNABLE2RETRIVE, VmeScope.class, vme.getScope(), e1.getMessage(), e1);
+			log.error(UNABLE2RETRIVE, VmeScope.class, vme.getScope(), e1.getMessage(), e1);
 		}
 
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
@@ -96,7 +96,7 @@ public class DtoTranslator {
 				}
 			} catch (ReferenceServiceException e) {
 				res.setOwner(authorityAcronym);
-				LOG.error(e.getMessage(), e);
+				log.error(e.getMessage(), e);
 			}
 		}
 
@@ -116,7 +116,7 @@ public class DtoTranslator {
 			try {
 				res.setVmeType(referenceDAO.getReferenceByID(VmeType.class, vme.getAreaType()).getName());
 			} catch(Exception e) {
-				LOG.error(UNABLE2RETRIVE, VmeType.class, vme.getAreaType(), e.getMessage(), e);
+				log.error(UNABLE2RETRIVE, VmeType.class, vme.getAreaType(), e.getMessage(), e);
 			}
 		}
 
