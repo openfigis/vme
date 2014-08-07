@@ -16,6 +16,7 @@ import org.fao.fi.figis.domain.test.ObservationMock;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
 import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +25,8 @@ import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
 import org.vme.dao.test.FigisDaoTestLogic;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ FigisTestPersistenceUnitConfiguration.class, FigisDataBaseProducer.class })
+@ActivatedAlternatives(FigisTestPersistenceUnitConfiguration.class)
+@AdditionalClasses(FigisDataBaseProducer.class)
 public class FigisDaoTest extends FigisDaoTestLogic {
 
 	/**
