@@ -41,6 +41,7 @@ public class VmeWebSearchCacheClient {
 		final AsyncHttpClient asyncHttpClient = new AsyncHttpClient();
 		try {
 			String get = vmeWebServer.getServer() + RESOURCE;
+			LOG.info("About to launch async request to clear the cache on " + get);
 			asyncHttpClient.prepareGet(get).execute(new AsyncCompletionHandler<Response>() {
 				@Override
 				public Response onCompleted(Response response) throws Exception {
