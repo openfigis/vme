@@ -7,15 +7,18 @@ import javax.persistence.EntityManager;
 
 import org.fao.fi.vme.domain.model.Authority;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDB;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, VmeTestPersistenceUnitConfiguration.class, })
+@AdditionalClasses(VmeDataBaseProducerApplicationScope.class)
 public class ReferenceBatchDaoTest {
 
 	@Inject

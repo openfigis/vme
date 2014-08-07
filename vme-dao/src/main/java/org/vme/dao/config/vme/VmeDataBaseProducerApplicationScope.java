@@ -1,14 +1,14 @@
 package org.vme.dao.config.vme;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.vme.dao.config.AbstractDataBaseProducer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.dao.config.PersistenceUnitConfiguration;
 
 /**
@@ -18,10 +18,12 @@ import org.vme.dao.config.PersistenceUnitConfiguration;
  * @author Erik van Ingen
  * 
  */
-@Alternative
-public class VmeDataBaseProducerApplicationScope extends AbstractDataBaseProducer {
-	@Inject @VmeDB protected PersistenceUnitConfiguration config;
-	
+
+public class VmeDataBaseProducerApplicationScope {
+	@Inject
+	@VmeDB
+	protected PersistenceUnitConfiguration config;
+
 	// Marks create() as a producer methods using its return type to determine
 	// what type of beans it can produce.
 	// The scope of the produced bean, in our case since we want to have only
@@ -39,4 +41,7 @@ public class VmeDataBaseProducerApplicationScope extends AbstractDataBaseProduce
 	public EntityManager produceEntityManager() {
 		return create().createEntityManager();
 	}
+
+	protected static Logger LOG = LoggerFactory.getLogger(VmeDataBaseProducerApplicationScope.class);
+
 }

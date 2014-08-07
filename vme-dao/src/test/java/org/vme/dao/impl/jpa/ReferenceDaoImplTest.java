@@ -8,6 +8,7 @@ import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +18,8 @@ import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ ReferenceDaoImpl.class, VmeTestPersistenceUnitConfiguration.class,
-		VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, VmeTestPersistenceUnitConfiguration.class, })
+@AdditionalClasses(VmeDataBaseProducerApplicationScope.class)
 public class ReferenceDaoImplTest {
 
 	@Inject
