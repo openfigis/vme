@@ -20,15 +20,17 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.msaccess.model.ObjectCollection;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDB;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives(VmePersistenceUnitConfiguration.class)
+@AdditionalClasses(VmeDataBaseProducerApplicationScope.class)
 public class VmeWriterTest {
 
 	@Inject
@@ -52,16 +54,16 @@ public class VmeWriterTest {
 		authority.setAcronym("FOO");
 		authority.setName("FOO");
 		authority.setDescription("Fishery Oceans Organization");
-		
+
 		GeneralMeasure generalMeasure = new GeneralMeasure();
 		GeoRef geoRef = new GeoRef();
 		FisheryAreasHistory fisheryAreasHistory = new FisheryAreasHistory();
 		VMEsHistory vmesHistory = new VMEsHistory();
 		InformationSource informationSource = new InformationSource();
 		informationSource.setSourceType(InformationSourceMock.createInformationSourceType());
-		
+
 		this.vmeWriter.persistNew(informationSource.getSourceType());
-		
+
 		Profile profile = new Profile();
 		Rfmo rfmo = new Rfmo();
 		rfmo.setId("10");
@@ -77,7 +79,7 @@ public class VmeWriterTest {
 
 		// add profile to Vme
 		specificMeasure.setVme(vme);
-		
+
 		List<SpecificMeasure> specificMeasureList = new ArrayList<SpecificMeasure>();
 		specificMeasureList.add(specificMeasure);
 		vme.setSpecificMeasureList(specificMeasureList);
@@ -100,7 +102,8 @@ public class VmeWriterTest {
 
 		// add InformationSource to SpecificMeasure
 		InformationSource is = new InformationSource();
-		is.setSpecificMeasureList(new ArrayList<SpecificMeasure>(Arrays.asList(new SpecificMeasure[] { specificMeasure })));
+		is.setSpecificMeasureList(new ArrayList<SpecificMeasure>(Arrays
+				.asList(new SpecificMeasure[] { specificMeasure })));
 		specificMeasure.setInformationSource(is);
 		// bidirectional
 		specificMeasure.setInformationSource(informationSource);
@@ -131,7 +134,8 @@ public class VmeWriterTest {
 		informationSourceList.add(informationSource);
 		generalMeasure.setInformationSourceList(informationSourceList);
 		// bidirectional
-		informationSource.setGeneralMeasureList(new ArrayList<GeneralMeasure>(Arrays.asList(new GeneralMeasure[] { generalMeasure })));
+		informationSource.setGeneralMeasureList(new ArrayList<GeneralMeasure>(Arrays
+				.asList(new GeneralMeasure[] { generalMeasure })));
 
 		List<ObjectCollection> l = new ArrayList<ObjectCollection>();
 		l.add(createObjectCollection(authority));
@@ -155,9 +159,9 @@ public class VmeWriterTest {
 		List<Object> objectList = new ArrayList<Object>();
 		oc.setObjectList(objectList);
 		oc.getObjectList().add(o);
-		
-		if(o instanceof InformationSource) {
-			((InformationSource)o).setSourceType(InformationSourceMock.createInformationSourceType());
+
+		if (o instanceof InformationSource) {
+			((InformationSource) o).setSourceType(InformationSourceMock.createInformationSourceType());
 		}
 		return oc;
 	}

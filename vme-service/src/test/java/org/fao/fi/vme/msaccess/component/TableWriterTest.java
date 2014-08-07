@@ -34,8 +34,8 @@ import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ ReferenceDaoImpl.class, VmeTestPersistenceUnitConfiguration.class,
-		VmeDataBaseProducerApplicationScope.class, FilesystemMsAccessConnectionProvider.class })
-@AdditionalClasses({ MsAcces2DomainMapper.class })
+		FilesystemMsAccessConnectionProvider.class })
+@AdditionalClasses({ VmeDataBaseProducerApplicationScope.class, MsAcces2DomainMapper.class })
 public class TableWriterTest {
 
 	@Inject

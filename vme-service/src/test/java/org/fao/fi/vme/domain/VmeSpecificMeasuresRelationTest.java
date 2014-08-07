@@ -11,15 +11,17 @@ import javax.inject.Inject;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives(VmePersistenceUnitConfiguration.class)
+@AdditionalClasses(VmeDataBaseProducerApplicationScope.class)
 public class VmeSpecificMeasuresRelationTest {
 
 	@Inject
@@ -51,14 +53,14 @@ public class VmeSpecificMeasuresRelationTest {
 
 	private SpecificMeasure generateSpecificMeasures(Vme vme) {
 		SpecificMeasure s = new SpecificMeasure();
-		
+
 		s.setVme(vme);
 		if (vme.getSpecificMeasureList() == null) {
 			List<SpecificMeasure> sl = new ArrayList<SpecificMeasure>();
 			vme.setSpecificMeasureList(sl);
 		}
 		vme.getSpecificMeasureList().add(s);
-		
+
 		return s;
 	}
 

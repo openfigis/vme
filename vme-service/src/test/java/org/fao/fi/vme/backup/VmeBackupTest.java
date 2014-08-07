@@ -13,6 +13,7 @@ import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.msaccess.VmeAccessDbImport;
 import org.fao.fi.vme.msaccess.component.FilesystemMsAccessConnectionProvider;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -25,7 +26,8 @@ import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ ReferenceDaoImpl.class, VmeTestPersistenceUnitConfiguration.class,
-		VmeDataBaseProducerApplicationScope.class, FilesystemMsAccessConnectionProvider.class })
+		FilesystemMsAccessConnectionProvider.class })
+@AdditionalClasses({ VmeDataBaseProducerApplicationScope.class })
 public class VmeBackupTest {
 
 	VmeBackup b = new VmeBackup();
