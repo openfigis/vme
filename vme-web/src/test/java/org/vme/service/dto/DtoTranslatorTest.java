@@ -18,21 +18,22 @@ import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
-import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
+import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class,
-		FigisDataBaseProducer.class, VmeTestPersistenceUnitConfiguration.class,
-		VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, VmePersistenceUnitConfiguration.class,
+		FigisPersistenceUnitConfiguration.class })
+@AdditionalClasses({ FigisDataBaseProducer.class, VmeDataBaseProducerApplicationScope.class })
 public class DtoTranslatorTest {
 
 	@Inject
@@ -44,13 +45,13 @@ public class DtoTranslatorTest {
 	private Vme vme;
 	private VmeObservation vo;
 	private VmeObservationPk voPk;
-	
+
 	private static final int YEAR = 2000;
 	private static final MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
 
 	@Inject
 	private VmeDao vDao;
-	
+
 	@Before
 	public void before() {
 
@@ -61,8 +62,7 @@ public class DtoTranslatorTest {
 		List<Vme> vmeList = new ArrayList<Vme>();
 		vmeList.add(vme);
 		vme.getRfmo().setListOfManagedVmes(vmeList);
-		
-		
+
 		sm = new SpecificMeasure();
 
 		sm.setYear(YEAR);
@@ -74,24 +74,21 @@ public class DtoTranslatorTest {
 
 		smDto = new SpecificMeasureDto();
 		vDao.saveVme(vme);
-		
+
 		vo = new VmeObservation();
 		voPk = new VmeObservationPk();
 		voPk.setVmeId(vme.getId());
 		vo.setId(voPk);
 		voPk.setObservationId(1000L);
 		voPk.setReportingYear(String.valueOf(YEAR));
-		
 
-		
-		
 	}
 
 	@Test
 	public void testDoTranslate4Sm() {
 		smDto = translator.doTranslate4Sm(sm);
 		assertEquals("A specific measure for the year 2000", smDto.getText());
-		assertEquals("http://www.rfmo.org", smDto.getSourceURL());		
+		assertEquals("http://www.rfmo.org", smDto.getSourceURL());
 		assertTrue(2000 == smDto.getYear());
 	}
 
@@ -106,7 +103,7 @@ public class DtoTranslatorTest {
 		assertTrue(2002 == vmeDto.getYear());
 
 	}
-	
+
 	@Test
 	public void testDoTranslate4Gm() {
 		gmDto = translator.doTranslate4Gm(vme.getRfmo().getGeneralMeasureList().get(0));
