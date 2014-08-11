@@ -271,13 +271,13 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 
 		Vme other = (Vme) obj;
 
-		if (this.geoRefList == null && other.geoRefList != null) {
+		if (this.geoRefList == null && other.geoRefList != null || this.geoRefList != null && other.geoRefList == null) {
 			return false;
 		} else if (this.geoRefList.hashCode() != other.geoRefList.hashCode()) {
 			return false;
 		}
 
-		if (this.id == null && other.id != null) {
+		if (this.id == null && other.id != null || this.id != null && other.id == null) {
 			return false;
 		} else if (!this.id.equals(other.id)) {
 			return false;
@@ -289,31 +289,31 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 			return false;
 		}
 
-		if (this.areaType == null && other.areaType != null) {
+		if (this.areaType == null && other.areaType != null || this.areaType != null && other.areaType == null) {
 			return false;
 		} else if (!this.areaType.equals(other.areaType)) {
 			return false;
 		}
 
-		if (this.criteria == null && other.criteria != null) {
+		if (this.criteria == null && other.criteria != null || this.criteria != null && other.criteria == null) {
 			return false;
 		} else if (!this.criteria.equals(other.criteria)) {
 			return false;
 		}
 
-		if (this.geoArea == null && other.geoArea != null) {
+		if (this.geoArea == null && other.geoArea != null || this.geoArea != null && other.geoArea == null) {
 			return false;
 		} else if (!this.geoArea.equals(other.geoArea)) {
 			return false;
 		}
 
-		if (this.inventoryIdentifier == null && other.inventoryIdentifier != null) {
+		if (this.inventoryIdentifier == null && other.inventoryIdentifier != null || this.inventoryIdentifier != null && other.inventoryIdentifier == null) {
 			return false;
 		} else if (!this.inventoryIdentifier.equals(other.inventoryIdentifier)) {
 			return false;
 		}
 
-		if (this.name == null && other.name != null) {
+		if (this.name == null && other.name != null || this.name != null && other.name == null) {
 			return false;
 		} else if (!this.name.equals(other.name)) {
 			return false;
@@ -325,19 +325,19 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 			return false;
 		}
 
-		if (this.rfmo == null && other.rfmo != null) {
+		if (this.rfmo == null && other.rfmo != null || this.rfmo != null && other.rfmo == null) {
 			return false;
 		} else if (!this.rfmo.equals(other.rfmo)) {
 			return false;
 		}
 
-		if (this.specificMeasureList == null && other.specificMeasureList != null) {
+		if (this.specificMeasureList == null && other.specificMeasureList != null || this.specificMeasureList != null && other.specificMeasureList == null) {
 			return false;
 		} else if (!this.specificMeasureList.equals(other.specificMeasureList)) {
 			return false;
 		}
 
-		if (this.validityPeriod == null && other.validityPeriod != null) {
+		if (this.validityPeriod == null && other.validityPeriod != null || this.validityPeriod != null && other.validityPeriod == null) {
 			return false;
 		} else if (!this.validityPeriod.equals(other.validityPeriod)) {
 			return false;
