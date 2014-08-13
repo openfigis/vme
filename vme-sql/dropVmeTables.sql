@@ -15,7 +15,7 @@ drop table vme_criteria CASCADE CONSTRAINTS;;
 drop table georef CASCADE CONSTRAINTS;
 drop table vme_georef CASCADE CONSTRAINTS;;
 drop table information_source_type CASCADE CONSTRAINTS;;
-drop table multilingual_string_stringmap CASCADE CONSTRAINTS;;
+drop table multilingualstring_stringmap CASCADE CONSTRAINTS;;
 drop table vme_type CASCADE CONSTRAINTS;;
 drop table criteria CASCADE CONSTRAINTS;;
 drop table vme_scope CASCADE CONSTRAINTS;;

@@ -3,6 +3,9 @@
 	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
+	<!-- maximumPoolSize is 2 because the integration tests with above 3 do 
+		not run because Oracle starts complaining. This could however be different 
+		in qa or prod. -->
 
 
 	<persistence-unit name="vme-persistence">
@@ -39,31 +42,11 @@
 				value="vme_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="${hibernate.default.schema.vme}" />
 
-			<!-- Shared among all possible (custom) connection providers -->
-			<property name="hibernate.connection.pool_size" value="5" />
-
-			<!-- BoneCP custom properties -->
-			<!-- <property name="hibernate.bonecp.statisticsEnabled" value="true"/> 
-				<property name="hibernate.bonecp.partitionCount" value="1"/> -->
-
-			<!-- Commons DBCP custom properties <property name="hibernate.dbcp.initialSize" 
-				value="5" /> <property name="hibernate.dbcp.maxIdle" value="5" /> <property 
-				name="hibernate.dbcp.minIdle" value="0" /> <property name="hibernate.dbcp.validationQuery" 
-				value="select 1 from dual" /> <property name="hibernate.dbcp.testWhileIdle" 
-				value="true" /> <property name="hibernate.dbcp.testOnBorrow" value="true" 
-				/> <property name="hibernate.dbcp.testOnReturn" value="true" /> <property 
-				name="hibernate.dbcp.timeBetweenEvictionRunsMillis" value="1800000" /> <property 
-				name="hibernate.dbcp.numTestsPerEvictionRun" value="3" /> <property name="hibernate.dbcp.minEvictableIdleTimeMillis" 
-				value="1800000" /> <property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider" 
-				/> -->
 
 			<!-- HikariCP custom properties -->
 			<property name="hibernate.connection.provider_class"
 				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
 			<property name="hibernate.hikari.maximumPoolSize" value="2" />
-			<property name="hibernate.hikari.idleTimeout" value="1000" />
-
-
 
 		</properties>
 	</persistence-unit>
@@ -107,8 +90,6 @@
 			<property name="hibernate.connection.provider_class"
 				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
 			<property name="hibernate.hikari.maximumPoolSize" value="2" />
-			<property name="hibernate.hikari.idleTimeout" value="1000" />
-
 
 		</properties>
 	</persistence-unit>
@@ -138,29 +119,11 @@
 				value="figis_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="FIGIS" />
 
-			<!-- Shared among all possible (custom) connection providers -->
-			<property name="hibernate.connection.pool_size" value="5" />
-
-			<!-- BoneCP custom properties -->
-			<!-- <property name="hibernate.bonecp.statisticsEnabled" value="true"/> 
-				<property name="hibernate.bonecp.partitionCount" value="1"/> -->
-
-			<!-- Commons DBCP custom properties <property name="hibernate.dbcp.initialSize" 
-				value="2" /> <property name="hibernate.dbcp.maxIdle" value="2" /> <property 
-				name="hibernate.dbcp.minIdle" value="0" /> <property name="hibernate.dbcp.validationQuery" 
-				value="select 1 from dual" /> <property name="hibernate.dbcp.testWhileIdle" 
-				value="true" /> <property name="hibernate.dbcp.testOnBorrow" value="true" 
-				/> <property name="hibernate.dbcp.testOnReturn" value="true" /> <property 
-				name="hibernate.dbcp.timeBetweenEvictionRunsMillis" value="1800000" /> <property 
-				name="hibernate.dbcp.numTestsPerEvictionRun" value="3" /> <property name="hibernate.dbcp.minEvictableIdleTimeMillis" 
-				value="1800000" /> <property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider" 
-				/> -->
 
 			<!-- HikariCP custom properties -->
 			<property name="hibernate.connection.provider_class"
 				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
 			<property name="hibernate.hikari.maximumPoolSize" value="2" />
-			<property name="hibernate.hikari.idleTimeout" value="1000" />
 
 
 		</properties>
@@ -196,8 +159,6 @@
 			<property name="hibernate.connection.provider_class"
 				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
 			<property name="hibernate.hikari.maximumPoolSize" value="2" />
-			<property name="hibernate.hikari.idleTimeout" value="1000" />
-
 
 		</properties>
 	</persistence-unit>
