@@ -13,6 +13,7 @@ import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.InformationSourceType;
+import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.test.VmeScopeMock;
@@ -122,7 +123,10 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 		for (InformationSourceType is : informationSourceTypeList) {
 			vmeDao.remove(is);
 		}
-
+		List<VmeScope> l = vmeDao.loadObjects(VmeScope.class);
+		for (VmeScope o : l) {
+			vmeDao.remove(o);
+		}
 	}
 
 	private void cleanRefFigis() {

@@ -45,10 +45,10 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
  */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class, JEXLReportEvaluator.class,
-		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class, ReferenceDaoImpl.class })
+		VmeTestPersistenceUnitConfiguration.class, ReferenceDaoImpl.class })
 @AdditionalClasses({ AbstractDataConverter.class, DateDataConverter.class, DoubleDataConverter.class,
 		FloatDataConverter.class, IntegerDataConverter.class, LongDataConverter.class, StringDataConverter.class,
-		URLDataConverter.class })
+		URLDataConverter.class, VmeDataBaseProducerApplicationScope.class })
 public class AnnotationBasedReportCompilerTest extends AbstractCompilerDependentTest {
 	@Test
 	public void testCompileReport() throws Throwable {

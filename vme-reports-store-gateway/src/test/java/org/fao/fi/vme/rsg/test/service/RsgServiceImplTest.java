@@ -25,9 +25,9 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class, JEXLReportEvaluator.class,
 		ReportManagerReportBuilder.class, VmeTestPersistenceUnitConfiguration.class,
-		VmeDataBaseProducerApplicationScope.class, EmbeddedMsAccessConnectionProvider.class, RsgServiceImplVme.class,
-		SyncFactsheetChangeListener.class, DummyFactsheetUpdater.class, ReferenceDaoImpl.class })
+		EmbeddedMsAccessConnectionProvider.class, RsgServiceImplVme.class, SyncFactsheetChangeListener.class,
+		DummyFactsheetUpdater.class, ReferenceDaoImpl.class })
 @AdditionalClasses({ Vme.class, Rfmo.class, GeneralMeasure.class, InformationSource.class, FisheryAreasHistory.class,
-		VMEsHistory.class, })
+		VMEsHistory.class, VmeDataBaseProducerApplicationScope.class })
 public class RsgServiceImplTest extends RsgAbstractServiceTest {
 }

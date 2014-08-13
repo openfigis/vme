@@ -21,7 +21,7 @@
 			<plugin>
 				<groupId>org.jvnet.jaxb2.maven2</groupId>
 				<artifactId>maven-jaxb2-plugin</artifactId>
-				<version>0.8.3</version>
+				<version>0.9.0</version>
 				<executions>
 					<execution>
 						<configuration>
@@ -35,6 +35,10 @@
 			</plugin>
 		</plugins>
 	</build>
+
+
+
+
 	<dependencies>
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>

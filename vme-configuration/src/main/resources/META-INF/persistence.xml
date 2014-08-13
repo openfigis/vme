@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
 
 
-	<persistence-unit name="vme-persistence" >
+	<persistence-unit name="vme-persistence">
 		<class>org.fao.fi.vme.domain.model.Authority</class>
 		<class>org.fao.fi.vme.domain.model.GeneralMeasure</class>
 		<class>org.fao.fi.vme.domain.model.GeoRef</class>
@@ -21,47 +22,52 @@
 		<class>org.fao.fi.vme.domain.model.reference.VmeType</class>
 		<class>org.fao.fi.vme.domain.model.reference.InformationSourceType</class>
 		<class>org.fao.fi.vme.domain.model.reference.VmeScope</class>
-		
+
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.vme}" />
 			<property name="javax.persistence.jdbc.url" value="${javax.persistence.jdbc.url.vme}" />
 			<property name="javax.persistence.jdbc.user" value="${javax.persistence.jdbc.user.vme}" />
 			<property name="javax.persistence.jdbc.password" value="${javax.persistence.jdbc.password.vme}" />
-			
+
 			<property name="show_sql" value="false" />
-			
+
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.vme}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.vme}" />
 			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.ejb.entitymanager_factory_name" value="vme_entitymanager_factory_name" />
+			<property name="hibernate.ejb.entitymanager_factory_name"
+				value="vme_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="${hibernate.default.schema.vme}" />
 
 			<!-- Shared among all possible (custom) connection providers -->
-			<property name="hibernate.connection.pool_size" value="5"/>
+			<property name="hibernate.connection.pool_size" value="5" />
 
 			<!-- BoneCP custom properties -->
-			<!-- 
-			<property name="hibernate.bonecp.statisticsEnabled" value="true"/>
-			<property name="hibernate.bonecp.partitionCount" value="1"/>
-			-->
-			
-			<!-- Commons DBCP custom properties -->
-			<property name="hibernate.dbcp.initialSize" value="5"/>
-			<property name="hibernate.dbcp.maxIdle" value="5"/>
-			<property name="hibernate.dbcp.minIdle" value="0"/>
-			<property name="hibernate.dbcp.validationQuery" value="select 1 from dual"/>
-			<property name="hibernate.dbcp.testWhileIdle" value="true"/>
-			<property name="hibernate.dbcp.testOnBorrow" value="true"/>
-			<property name="hibernate.dbcp.testOnReturn" value="true"/>
-			<property name="hibernate.dbcp.timeBetweenEvictionRunsMillis" value="1800000"/>
-			<property name="hibernate.dbcp.numTestsPerEvictionRun" value="3"/>
-			<property name="hibernate.dbcp.minEvictableIdleTimeMillis" value="1800000"/>
-			
-			<property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider"/>
+			<!-- <property name="hibernate.bonecp.statisticsEnabled" value="true"/> 
+				<property name="hibernate.bonecp.partitionCount" value="1"/> -->
+
+			<!-- Commons DBCP custom properties <property name="hibernate.dbcp.initialSize" 
+				value="5" /> <property name="hibernate.dbcp.maxIdle" value="5" /> <property 
+				name="hibernate.dbcp.minIdle" value="0" /> <property name="hibernate.dbcp.validationQuery" 
+				value="select 1 from dual" /> <property name="hibernate.dbcp.testWhileIdle" 
+				value="true" /> <property name="hibernate.dbcp.testOnBorrow" value="true" 
+				/> <property name="hibernate.dbcp.testOnReturn" value="true" /> <property 
+				name="hibernate.dbcp.timeBetweenEvictionRunsMillis" value="1800000" /> <property 
+				name="hibernate.dbcp.numTestsPerEvictionRun" value="3" /> <property name="hibernate.dbcp.minEvictableIdleTimeMillis" 
+				value="1800000" /> <property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider" 
+				/> -->
+
+			<!-- HikariCP custom properties -->
+			<property name="hibernate.connection.provider_class"
+				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
+			<property name="hibernate.hikari.maximumPoolSize" value="2" />
+			<property name="hibernate.hikari.idleTimeout" value="1000" />
+
+
+
 		</properties>
 	</persistence-unit>
-	
+
 	<persistence-unit name="vme-persistence-test">
 		<class>org.fao.fi.vme.domain.model.Authority</class>
 		<class>org.fao.fi.vme.domain.model.GeneralMeasure</class>
@@ -79,22 +85,31 @@
 		<class>org.fao.fi.vme.domain.model.reference.VmeType</class>
 		<class>org.fao.fi.vme.domain.model.reference.InformationSourceType</class>
 		<class>org.fao.fi.vme.domain.model.reference.VmeScope</class>
-		
+
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.vme.test}" />
 			<property name="javax.persistence.jdbc.url" value="${javax.persistence.jdbc.url.vme.test}" />
 			<property name="javax.persistence.jdbc.user" value="${javax.persistence.jdbc.user.vme.test}" />
 			<property name="javax.persistence.jdbc.password" value="${javax.persistence.jdbc.password.vme.test}" />
-			
+
 			<property name="show_sql" value="true" />
-			
+
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.vme.test}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.vme.test}" />
 			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.ejb.entitymanager_factory_name" value="vme_entitymanager_factory_name_test" />
+			<property name="hibernate.ejb.entitymanager_factory_name"
+				value="vme_entitymanager_factory_name_test" />
 			<property name="hibernate.default_schema" value="VMETEST" />
-			
+
+
+			<!-- HikariCP custom properties -->
+			<property name="hibernate.connection.provider_class"
+				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
+			<property name="hibernate.hikari.maximumPoolSize" value="2" />
+			<property name="hibernate.hikari.idleTimeout" value="1000" />
+
+
 		</properties>
 	</persistence-unit>
 
@@ -119,34 +134,38 @@
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.figis}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.figis}" />
 			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
+			<property name="hibernate.ejb.entitymanager_factory_name"
+				value="figis_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="FIGIS" />
 
 			<!-- Shared among all possible (custom) connection providers -->
-			<property name="hibernate.connection.pool_size" value="2"/>
+			<property name="hibernate.connection.pool_size" value="5" />
 
 			<!-- BoneCP custom properties -->
-			<!--
-			<property name="hibernate.bonecp.statisticsEnabled" value="true"/>
-			<property name="hibernate.bonecp.partitionCount" value="1"/>
-			-->
-			
-			<!-- Commons DBCP custom properties -->
-			<property name="hibernate.dbcp.initialSize" value="2"/>
-			<property name="hibernate.dbcp.maxIdle" value="2"/>
-			<property name="hibernate.dbcp.minIdle" value="0"/>
-			<property name="hibernate.dbcp.validationQuery" value="select 1 from dual"/>
-			<property name="hibernate.dbcp.testWhileIdle" value="true"/>
-            <property name="hibernate.dbcp.testOnBorrow" value="true"/>
-            <property name="hibernate.dbcp.testOnReturn" value="true"/>
-            <property name="hibernate.dbcp.timeBetweenEvictionRunsMillis" value="1800000"/>
-            <property name="hibernate.dbcp.numTestsPerEvictionRun" value="3"/>
-            <property name="hibernate.dbcp.minEvictableIdleTimeMillis" value="1800000"/>
-		
-			<property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider"/>
+			<!-- <property name="hibernate.bonecp.statisticsEnabled" value="true"/> 
+				<property name="hibernate.bonecp.partitionCount" value="1"/> -->
+
+			<!-- Commons DBCP custom properties <property name="hibernate.dbcp.initialSize" 
+				value="2" /> <property name="hibernate.dbcp.maxIdle" value="2" /> <property 
+				name="hibernate.dbcp.minIdle" value="0" /> <property name="hibernate.dbcp.validationQuery" 
+				value="select 1 from dual" /> <property name="hibernate.dbcp.testWhileIdle" 
+				value="true" /> <property name="hibernate.dbcp.testOnBorrow" value="true" 
+				/> <property name="hibernate.dbcp.testOnReturn" value="true" /> <property 
+				name="hibernate.dbcp.timeBetweenEvictionRunsMillis" value="1800000" /> <property 
+				name="hibernate.dbcp.numTestsPerEvictionRun" value="3" /> <property name="hibernate.dbcp.minEvictableIdleTimeMillis" 
+				value="1800000" /> <property name="hibernate.connection.provider_class" value="org.vme.dao.util.DBCPConnectionProvider" 
+				/> -->
+
+			<!-- HikariCP custom properties -->
+			<property name="hibernate.connection.provider_class"
+				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
+			<property name="hibernate.hikari.maximumPoolSize" value="2" />
+			<property name="hibernate.hikari.idleTimeout" value="1000" />
+
+
 		</properties>
 	</persistence-unit>
-	
+
 	<persistence-unit name="figis-persistence-test">
 		<!-- reference tables -->
 		<class>org.fao.fi.figis.domain.RefVme</class>
@@ -161,15 +180,24 @@
 			<property name="javax.persistence.jdbc.driver" value="${javax.persistence.jdbc.driver.figis.test}" />
 			<property name="javax.persistence.jdbc.url" value="${javax.persistence.jdbc.url.figis.test}" />
 			<property name="javax.persistence.jdbc.user" value="${javax.persistence.jdbc.user.figis.test}" />
-			<property name="javax.persistence.jdbc.password" value="${javax.persistence.jdbc.password.figis.test}" />
+			<property name="javax.persistence.jdbc.password"
+				value="${javax.persistence.jdbc.password.figis.test}" />
 
 			<property name="show_sql" value="true" />
 
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.figis.test}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.figis.test}" />
 			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name_test" />
+			<property name="hibernate.ejb.entitymanager_factory_name"
+				value="figis_entitymanager_factory_name_test" />
 			<property name="hibernate.default_schema" value="FIGIS" />
+
+			<!-- HikariCP custom properties -->
+			<property name="hibernate.connection.provider_class"
+				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
+			<property name="hibernate.hikari.maximumPoolSize" value="2" />
+			<property name="hibernate.hikari.idleTimeout" value="1000" />
+
 
 		</properties>
 	</persistence-unit>

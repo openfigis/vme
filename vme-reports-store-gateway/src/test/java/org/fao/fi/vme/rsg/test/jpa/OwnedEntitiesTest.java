@@ -12,6 +12,7 @@ import org.fao.fi.vme.domain.model.VMEsHistory;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Assert;
 import org.junit.Before;
@@ -36,8 +37,8 @@ import org.vme.dao.sources.vme.VmeDao;
  * @since 11 Dec 2013
  */
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,
-		ReferenceDaoImpl.class })
+@ActivatedAlternatives({ VmeTestPersistenceUnitConfiguration.class, ReferenceDaoImpl.class })
+@AdditionalClasses(VmeDataBaseProducerApplicationScope.class)
 public class OwnedEntitiesTest {
 	@Inject
 	VmeDao _vmeDao;

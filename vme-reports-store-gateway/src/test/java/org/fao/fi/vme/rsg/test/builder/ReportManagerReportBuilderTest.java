@@ -77,11 +77,10 @@ import com.thoughtworks.xstream.XStream;
  */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class, ReportManagerReportBuilder.class,
-		JEXLReportEvaluator.class, VmeTestPersistenceUnitConfiguration.class,
-		VmeDataBaseProducerApplicationScope.class, ReferenceDaoImpl.class })
+		JEXLReportEvaluator.class, VmeTestPersistenceUnitConfiguration.class, ReferenceDaoImpl.class })
 @AdditionalClasses({ AbstractDataConverter.class, DateDataConverter.class, DoubleDataConverter.class,
 		FloatDataConverter.class, IntegerDataConverter.class, LongDataConverter.class, StringDataConverter.class,
-		URLDataConverter.class })
+		URLDataConverter.class, VmeDataBaseProducerApplicationScope.class })
 public class ReportManagerReportBuilderTest extends AbstractCompilerDependentTest {
 
 	@Inject
