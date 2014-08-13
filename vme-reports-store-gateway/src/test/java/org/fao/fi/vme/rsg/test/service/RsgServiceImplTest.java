@@ -6,7 +6,6 @@ import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.VMEsHistory;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.msaccess.component.EmbeddedMsAccessConnectionProvider;
 import org.fao.fi.vme.rsg.service.RsgServiceImplVme;
 import org.fao.fi.vme.sync.factsheets.listeners.impl.SyncFactsheetChangeListener;
 import org.fao.fi.vme.sync.factsheets.updaters.impl.DummyFactsheetUpdater;
@@ -24,9 +23,8 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class, JEXLReportEvaluator.class,
-		ReportManagerReportBuilder.class, VmeTestPersistenceUnitConfiguration.class,
-		EmbeddedMsAccessConnectionProvider.class, RsgServiceImplVme.class, SyncFactsheetChangeListener.class,
-		DummyFactsheetUpdater.class, ReferenceDaoImpl.class })
+		ReportManagerReportBuilder.class, VmeTestPersistenceUnitConfiguration.class, RsgServiceImplVme.class,
+		SyncFactsheetChangeListener.class, DummyFactsheetUpdater.class, ReferenceDaoImpl.class })
 @AdditionalClasses({ Vme.class, Rfmo.class, GeneralMeasure.class, InformationSource.class, FisheryAreasHistory.class,
 		VMEsHistory.class, VmeDataBaseProducerApplicationScope.class })
 public class RsgServiceImplTest extends RsgAbstractServiceTest {
