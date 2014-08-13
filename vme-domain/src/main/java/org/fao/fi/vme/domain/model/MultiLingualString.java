@@ -3,6 +3,7 @@ package org.fao.fi.vme.domain.model;
 import java.io.Serializable;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,9 +41,9 @@ public class MultiLingualString implements ObjectId<Long>, Serializable {
 	 * map of descriptions per language
 	 * 
 	 */
-
 	@ElementCollection
 	@Lob
+	@CollectionTable(name = "MULTILINGUALSTRING_STRINGMAP")
 	private Map<Integer, String> stringMap;
 
 	@Override
