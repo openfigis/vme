@@ -56,7 +56,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 import org.vme.test.mock.VmeMocker;
@@ -77,7 +77,7 @@ import com.thoughtworks.xstream.XStream;
  */
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class, ReportManagerReportBuilder.class,
-		JEXLReportEvaluator.class, VmeTestPersistenceUnitConfiguration.class, ReferenceDaoImpl.class })
+		JEXLReportEvaluator.class, VmePersistenceUnitConfiguration.class, ReferenceDaoImpl.class })
 @AdditionalClasses({ AbstractDataConverter.class, DateDataConverter.class, DoubleDataConverter.class,
 		FloatDataConverter.class, IntegerDataConverter.class, LongDataConverter.class, StringDataConverter.class,
 		URLDataConverter.class, VmeDataBaseProducerApplicationScope.class })

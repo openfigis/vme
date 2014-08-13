@@ -40,9 +40,9 @@
 //import org.junit.Ignore;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
-//import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
+//import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 //import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-//import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+//import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 //import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 //import org.vme.dao.sources.vme.VmeDao;
 //
@@ -59,8 +59,8 @@
 // * @since 16 Jan 2014
 // */
 //@RunWith(CdiRunner.class)
-//@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisTestPersistenceUnitConfiguration.class,
-//		VmeTestPersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,
+//@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisPersistenceUnitConfiguration.class,
+//		VmePersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,
 //		FilesystemMsAccessConnectionProvider.class })
 //@AdditionalClasses({ MsAcces2DomainMapper.class, VmeAccessDbImport.class })
 //public class CRUDJpaDaoTest {

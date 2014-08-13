@@ -15,10 +15,10 @@ import org.junit.runner.RunWith;
 import org.vme.dao.ReferenceDAO;
 import org.vme.dao.ReferenceServiceException;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ ReferenceDaoImpl.class, VmeTestPersistenceUnitConfiguration.class, })
+@ActivatedAlternatives({ ReferenceDaoImpl.class, VmePersistenceUnitConfiguration.class, })
 @AdditionalClasses(VmeDataBaseProducerApplicationScope.class)
 public class ReferenceDaoImplTest {
 

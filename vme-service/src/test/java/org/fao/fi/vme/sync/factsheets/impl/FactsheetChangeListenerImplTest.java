@@ -29,16 +29,16 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
-import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
+import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ ReferenceDaoImpl.class, SyncFactsheetChangeListener.class, FigisFactsheetUpdater.class,
-		VmeTestPersistenceUnitConfiguration.class, FigisTestPersistenceUnitConfiguration.class })
+		VmePersistenceUnitConfiguration.class, FigisPersistenceUnitConfiguration.class })
 @AdditionalClasses({ VmeDataBaseProducerApplicationScope.class, FigisDataBaseProducer.class })
 public class FactsheetChangeListenerImplTest {
 

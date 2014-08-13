@@ -16,14 +16,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.figis.FigisDataBaseProducer;
-import org.vme.dao.config.figis.FigisTestPersistenceUnitConfiguration;
+import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ ReferenceDaoImpl.class, FigisFactsheetUpdater.class,
-		FigisTestPersistenceUnitConfiguration.class, VmeTestPersistenceUnitConfiguration.class })
+		FigisPersistenceUnitConfiguration.class, VmePersistenceUnitConfiguration.class })
 @AdditionalClasses({ VmeDataBaseProducerApplicationScope.class, FigisDataBaseProducer.class })
 public class FigisFactsheetUpdaterTest {
 

@@ -1,5 +1,6 @@
 package org.fao.fi.figis.dao;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -15,7 +16,9 @@ import org.junit.Test;
 
 public class AIntegrationConfigurationTest {
 
-	private static final String INT_DB = "jdbc:oracle:thin:@LDVDBWO1:1521:WDV01";
+	private static final String FIGIS_INT = "jdbc:oracle:thin:@LDVDBWO1:1521:WDV01";
+	private static final String VME_INT = "vme_int";
+	private static final String FISP = "FISP";
 
 	@Test
 	public void testVmeConfig() {
@@ -30,23 +33,17 @@ public class AIntegrationConfigurationTest {
 			String text = IOUtils.toString(inputStream, "UTF-8");
 			System.out.println(text);
 
-			// make sure that the devel DB is never used for integration testing
-
-			// Intervention Erik van Ingen. Now temporarily the devel DB is used
-			// also for integration testing.
-
-			// assertFalse("devel DB should not be used for integration testing",
-			// text.contains("figis>jdbc:oracle:thin:@LDVDBWO1:1521:WDV01"));
-
 			// make sure that either the integration DB or only H2 is used.
-			Pattern p = Pattern.compile("jdbc:h2:mem:db2;INIT=create schema IF NOT EXISTS FIGIS");
+			Pattern p = Pattern.compile("jdbc:h2:mem:db");
 			Matcher m = p.matcher(text);
 			int count = 0;
 			while (m.find()) {
 				count += 1;
 			}
 
-			assertTrue("no 2 H2 or no integration DB found", count == 2 || text.contains(INT_DB));
+			assertTrue("no  H2 or no integration DB found", count == 2 || text.contains(FIGIS_INT));
+			assertTrue("no  H2 or no integration DB found", count == 2 || text.contains(VME_INT));
+			assertFalse(text.contains(FISP));
 
 		} catch (IOException e) {
 			fail();

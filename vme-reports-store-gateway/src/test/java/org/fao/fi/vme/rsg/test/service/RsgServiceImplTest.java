@@ -18,12 +18,12 @@ import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
-import org.vme.dao.config.vme.VmeTestPersistenceUnitConfiguration;
+import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ AnnotationBasedReportCompiler.class, JEXLReportEvaluator.class,
-		ReportManagerReportBuilder.class, VmeTestPersistenceUnitConfiguration.class, RsgServiceImplVme.class,
+		ReportManagerReportBuilder.class, VmePersistenceUnitConfiguration.class, RsgServiceImplVme.class,
 		SyncFactsheetChangeListener.class, DummyFactsheetUpdater.class, ReferenceDaoImpl.class })
 @AdditionalClasses({ Vme.class, Rfmo.class, GeneralMeasure.class, InformationSource.class, FisheryAreasHistory.class,
 		VMEsHistory.class, VmeDataBaseProducerApplicationScope.class })
