@@ -48,7 +48,7 @@
 			<!-- HikariCP custom properties -->
 			<property name="hibernate.connection.provider_class"
 				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
-			<property name="hibernate.hikari.maximumPoolSize" value="5" />
+			<property name="hibernate.hikari.maximumPoolSize" value="2" />
 
 		</properties>
 	</persistence-unit>
@@ -75,7 +75,7 @@
 
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.figis}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.figis}" />
-			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.ejb.entitymanager_factory_name"
 				value="figis_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="FIGIS" />
