@@ -3,10 +3,14 @@ package org.fao.fi.vme.dto.test;
 import org.fao.fi.vme.webservice.SpecificMeasureType;
 
 public class SpecificMeasureTypeMock {
-
+	
 	private static final int ID = 10;
 	private static int OID = 958;
 
+	private SpecificMeasureTypeMock() {
+		
+	}
+	
 	public static SpecificMeasureType create() {
 		SpecificMeasureType s1 = new SpecificMeasureType();
 		s1.setOid(OID++);

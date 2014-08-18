@@ -33,6 +33,10 @@ public class VmeMock {
 	
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
+	private VmeMock(){
+		
+	}
+	
 	public static Vme create() {
 		Vme vme = new Vme();
 		vme.setValidityPeriod(ValidityPeriodMock.create());

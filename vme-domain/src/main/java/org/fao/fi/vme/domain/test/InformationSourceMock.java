@@ -18,6 +18,10 @@ public class InformationSourceMock {
 	
 	private static Logger LOG = LoggerFactory.getLogger(InformationSourceMock.class);
 	
+	private InformationSourceMock(){
+		
+	}
+	
 	/*
 	 *  Note: never set an ID for informationSource because hybernate wants to generate himself
 	 */

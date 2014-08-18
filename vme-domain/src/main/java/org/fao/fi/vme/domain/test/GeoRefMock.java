@@ -7,6 +7,10 @@ public class GeoRefMock {
 
 	public static final String GEOGRAPHICFEATUREID = "jfiopf7ye89wf6n2349";
 
+	private GeoRefMock(){
+		
+	}
+	
 	public static GeoRef create() {
 
 		Vme vme = VmeMock.create();

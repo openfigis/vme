@@ -31,5 +31,9 @@ public class Figis {
 	public static final Integer LANG = 1;
 	public static final String CODE_SYSTEM = "vme";
 	public static final String EN = "en";
+	
+	private Figis(){
+		
+	}
 
 }

@@ -16,6 +16,10 @@ public class RfmoMock {
 	static MultiLingualStringUtil u = new MultiLingualStringUtil();
 	static final String ID = String.valueOf(1000);
 
+	private RfmoMock(){
+		
+	}
+	
 	public static Rfmo create() {
 
 		Rfmo rfmo = new Rfmo();

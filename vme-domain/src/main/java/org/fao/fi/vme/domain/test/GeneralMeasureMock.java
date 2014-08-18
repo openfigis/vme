@@ -11,6 +11,10 @@ public class GeneralMeasureMock {
 
 	static ValidityPeriodUtil vu = new ValidityPeriodUtil();
 
+	private GeneralMeasureMock(){
+		
+	}
+	
 	public static GeneralMeasure create() {
 		GeneralMeasure gm = new GeneralMeasure();
 		MultiLingualStringUtil u = new MultiLingualStringUtil();

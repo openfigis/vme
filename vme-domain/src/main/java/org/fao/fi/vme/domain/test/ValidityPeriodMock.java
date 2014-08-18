@@ -11,6 +11,10 @@ public class ValidityPeriodMock {
 
 	private static ValidityPeriodUtil u = new ValidityPeriodUtil();
 
+	private ValidityPeriodMock(){
+		
+	}
+	
 	public static ValidityPeriod create() {
 		ValidityPeriod vp = new ValidityPeriod();
 		vp.setBeginDate(u.beginYear2BeginDate(BEGIN_YEAR));

@@ -4,6 +4,10 @@ import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 
 public class VmeCriteriaMock {
 
+	private VmeCriteriaMock(){
+		
+	}
+	
 	public static VmeCriteria create() {
 
 		return new VmeCriteria(40L, "Life-history traits");
