@@ -79,7 +79,7 @@ public class WritableWorkbookFactory {
 	Map<String, RecordGenerator<?, ?, ?>> recordMap = new HashMap<String, RecordGenerator<?, ?, ?>>();
 	Map<String, List<?>> listMap = new HashMap<String, List<?>>();
 
-	private Logger log = LoggerFactory.getLogger(this.getClass());
+	private static final Logger LOG = LoggerFactory.getLogger(WritableWorkbookFactory.class);
 
 	private TabularGenerator g = new TabularGenerator();
 
@@ -102,11 +102,11 @@ public class WritableWorkbookFactory {
 		ww.createSheet(INFO_SOURCE_REC, 5);
 		ww.createSheet(GEO_REF_REC, 6);
 		ww.createSheet(FACT_SHEET_REC, 7);
-		generateMaps(ww.getSheets(), vmeList);
+		generateMaps(vmeList);
 		return ww;
 	}
 
-	private void generateMaps(WritableSheet[] sheets, List<Vme> vmeList) {
+	private void generateMaps(List<Vme> vmeList) {
 
 		/*
 		 * Note: Block of instruction related to map who contains classes which
@@ -152,7 +152,7 @@ public class WritableWorkbookFactory {
 
 	public void fillCells(List<List<Object>> tabular, WritableSheet wSheet) {
 		// precondition
-		if (tabular.size() == 0) {
+		if (tabular.isEmpty()) {
 			throw new VmeException("no first row found");
 		}
 
@@ -206,10 +206,10 @@ public class WritableWorkbookFactory {
 						}
 					}
 				} catch (RowsExceededException e) {
-					log.error(ERROR_DURING_CREATION, e);
+					LOG.error(ERROR_DURING_CREATION, e);
 					throw new VmeException(e);
 				} catch (WriteException e) {
-					log.error(ERROR_DURING_CREATION, e);
+					LOG.error(ERROR_DURING_CREATION, e);
 				}
 			}
 		}

@@ -46,7 +46,6 @@ public class Authority implements ReferenceDataObject<Long>, NamedReferenceConce
 	private String description;
 
 	public Authority() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Authority(Long id, String acronym, String name) {

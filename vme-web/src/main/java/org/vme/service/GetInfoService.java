@@ -30,8 +30,9 @@ public class GetInfoService extends AbstractService {
 		List<SpecificMeasureDto> specificMeasureList = new ArrayList<SpecificMeasureDto>();
 		List<Vme> vmeList = vDao.loadVmes();
 		filterVmePerInventoryIdentifier(vmeList, vmeIdentifier);
+		if(!vmeList.isEmpty()){
 		VmeDto vmeDto = translator.doTranslate4Vme(vmeList.get(0), vmeYear);
-
+		
 		vmeSmResponse.setVmeId(vmeDto.getVmeId());
 		vmeSmResponse.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
 		vmeSmResponse.setVmeType(vmeDto.getVmeType());
@@ -65,6 +66,7 @@ public class GetInfoService extends AbstractService {
 			}
 		}
 
+		}
 		if(specificMeasureList.isEmpty()){
 			specificMeasureList.add(new SpecificMeasureDto());
 		}

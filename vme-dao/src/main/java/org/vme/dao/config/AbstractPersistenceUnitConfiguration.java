@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * @since 19 Feb 2014
  */
 public abstract class AbstractPersistenceUnitConfiguration implements PersistenceUnitConfiguration {
-	protected static Logger LOG = LoggerFactory.getLogger(AbstractPersistenceUnitConfiguration.class);
+	protected static final Logger LOG = LoggerFactory.getLogger(AbstractPersistenceUnitConfiguration.class);
 	
 	public final String getPersistenceUnitName() {
 		String persistanceUnitName = this.doGetPersistenceUnitName();

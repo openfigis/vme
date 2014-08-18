@@ -20,32 +20,28 @@ public class ReferenceServiceException extends Exception {
 	 * 
 	 */
 	public ReferenceServiceException() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @param arg0
+	 * @param message
 	 */
-	public ReferenceServiceException(String arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public ReferenceServiceException(String message) {
+		super(message);
 	}
 
 	/**
-	 * @param arg0
+	 * @param t
 	 */
-	public ReferenceServiceException(Throwable arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public ReferenceServiceException(Throwable t) {
+		super(t);
 	}
 
 	/**
-	 * @param arg0
-	 * @param arg1
+	 * @param message
+	 * @param t
 	 */
-	public ReferenceServiceException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
+	public ReferenceServiceException(String message, Throwable t) {
+		super(message, t);
 	}
 
 }

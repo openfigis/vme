@@ -20,7 +20,7 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class VmeMock {
 
-	public static Long ID = 1000L;
+	protected static Long ID = 1000L;
 	public static final int YEAR = 2000;
 	public static final String INVENTORY_ID = "VME_RFMO_1";
 	public static final String INVENTORY_ID_YEAR = INVENTORY_ID + "_" + YEAR;
@@ -28,6 +28,8 @@ public class VmeMock {
 	public static final String VME_CODESYSTEM = "vme";
 	public static final String NAME = "Hard Corner Bugs ";
 	public static final String GEO_AREA = "Southern Pacific Ocean";
+	public static final String HISTORY = "History repeating";
+	public static final String SPEC_MEASURE_CIT = "This is a citation for a SpecificMeasure";
 	
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
@@ -106,15 +108,15 @@ public class VmeMock {
 			// this one is used for the specificMeasure
 			InformationSource isSm = InformationSourceMock.create();
 			isSm.setPublicationYear(year);
-			isSm.setCitation(u.english("This is a citation for a SpecificMeasure"));
+			isSm.setCitation(u.english(SPEC_MEASURE_CIT));
 
 			FisheryAreasHistory fahistory = new FisheryAreasHistory();
 			fahistory.setYear(year);
-			fahistory.setHistory(u.english("History repeating"));
+			fahistory.setHistory(u.english(HISTORY));
 
 			VMEsHistory vmehistory = new VMEsHistory();
 			vmehistory.setYear(year);
-			vmehistory.setHistory(u.english("History repeating"));
+			vmehistory.setHistory(u.english(HISTORY));
 
 			fishingHistoryList.add(fahistory);
 			hasVmesHistory.add(vmehistory);
@@ -158,14 +160,14 @@ public class VmeMock {
 			gm.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
 			gm.setInformationSourceList(Arrays.asList(is));
 			for (InformationSource is1 : gm.getInformationSourceList()) {
-				is1.setCitation(u.english("This is a citation for a SpecificMeasure"));
+				is1.setCitation(u.english(SPEC_MEASURE_CIT));
 			}
 			generalMeasureList.add(gm);
 
 		}
 
 		Rfmo rfmo = new Rfmo();
-		rfmo.setId(Long.valueOf(ID++).toString());
+		rfmo.setId((ID++).toString());
 		rfmo.setHasFisheryAreasHistory(fishingHistoryList);
 		rfmo.setHasVmesHistory(hasVmesHistory);
 		rfmo.setInformationSourceList(informationSourceList);

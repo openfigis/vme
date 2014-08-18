@@ -28,6 +28,7 @@ import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
 public class JaxbMarshall {
 
 	private static Marshaller marshaller = null;
+	private static final String ERROR = "There was a problem creating a JAXBContext object for serializing the object to XML.";
 
 	static {
 		try {
@@ -59,14 +60,11 @@ public class JaxbMarshall {
 			marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new FimesNamespacePrefixMapper());
 
 		} catch (JAXBException e) {
-			throw new FimesSchemaException(
-					"There was a problem creating a JAXBContext object for serializing the object to XML.", e);
+			throw new FimesSchemaException(ERROR, e);
 		} catch (MalformedURLException e) {
-			throw new FimesSchemaException(
-					"There was a problem creating a JAXBContext object for serializing the object to XML.", e);
+			throw new FimesSchemaException(ERROR, e);
 		} catch (SAXException e) {
-			throw new FimesSchemaException(
-					"There was a problem creating a JAXBContext object for serializing the object to XML.", e);
+			throw new FimesSchemaException(ERROR, e);
 		}
 	}
 

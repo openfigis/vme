@@ -24,7 +24,9 @@ public class SerializableConceptUtils {
 	public static final String SEPARATOR = ":";
 	public static final String NULL_REPLACEMENT = "$$__NULL__$$";
 	
-	private SerializableConceptUtils(){}
+	private SerializableConceptUtils(){
+		
+	}
 	
 	public static final String toString(Serializable toConvert) {
 		return ( toConvert == null ? NULL_REPLACEMENT : toConvert.toString() ).replaceAll("\\" + SEPARATOR, "$$__" + SEPARATOR + "__$$");

@@ -38,10 +38,10 @@ import org.vme.dao.config.vme.VmeDB;
 @ConceptProvider
 @Alternative
 public class ReferenceDaoImpl implements ReferenceDAO {
-	
+
 	private static final String UNDEFINED = "Undefined reference concept";
 	private static final String INTERNALERR = "Internal error";
-	
+
 	protected static final Logger LOG = LoggerFactory.getLogger(ReferenceDaoImpl.class);
 
 	@VmeDB
@@ -124,12 +124,12 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 	public VmeScope getVmeScope(Long key) {
 		List<?> res = em.createQuery("from VmeScope where id = " + key).getResultList();
-		return res.size() > 0 ? (VmeScope) res.get(0) : null;
+		return !res.isEmpty() ? (VmeScope) res.get(0) : null;
 	}
 
 	public Authority getAuthority(Long key) {
 		List<?> res = em.createQuery("from Authority where id = " + key).getResultList();
-		return res.size() > 0 ? (Authority) res.get(0) : null;
+		return !res.isEmpty() ? (Authority) res.get(0) : null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -141,7 +141,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		// security
 		Authority found = null;
 		for (Authority authority : list) {
-			if (authority.getAcronym().equals("NPFC")) {
+			if ("NPFC".equals(authority.getAcronym())) {
 				found = authority;
 			}
 		}
@@ -153,7 +153,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 	public VmeCriteria getVmeCriteria(Long key) {
 		List<?> res = em.createQuery("from VmeCriteria where id = " + key).getResultList();
-		return res.size() > 0 ? (VmeCriteria) res.get(0) : null;
+		return !res.isEmpty() ? (VmeCriteria) res.get(0) : null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -163,7 +163,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 	public VmeType getVmeType(Long key) {
 		List<?> res = em.createQuery("from VmeType where id = " + key).getResultList();
-		return res.size() > 0 ? (VmeType) res.get(0) : null;
+		return !res.isEmpty() ? (VmeType) res.get(0) : null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -173,7 +173,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 	public InformationSourceType getInformationSourceType(Long key) {
 		List<?> res = em.createQuery("from InformationSourceType where id = " + key).getResultList();
-		return res.size() > 0 ? (InformationSourceType) res.get(0) : null;
+		return !res.isEmpty() ? (InformationSourceType) res.get(0) : null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -259,10 +259,8 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 			Collection<AcronymAwareReferenceConcept> allReferenceObjects = (Collection<AcronymAwareReferenceConcept>) getAllReferences(concept);
 
 			for (ReferenceConcept reference : allReferenceObjects) {
-				if (reference instanceof AcronymAwareReferenceConcept) {
-					if (acronym.equals(((AcronymAwareReferenceConcept) reference).getAcronym())) {
-						return (AcronymAwareReferenceConcept) reference;
-					}
+				if (reference instanceof AcronymAwareReferenceConcept && acronym.equals(((AcronymAwareReferenceConcept) reference).getAcronym())) {
+					return (AcronymAwareReferenceConcept) reference;
 				}
 			}
 

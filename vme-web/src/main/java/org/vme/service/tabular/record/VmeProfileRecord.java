@@ -11,6 +11,8 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.dao.ReferenceDAO;
 import org.vme.service.tabular.Empty;
 import org.vme.service.tabular.RecordGenerator;
@@ -20,6 +22,7 @@ public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<
 	@Inject
 	@ConceptProvider
 	private ReferenceDAO referenceDAO;
+	private static final Logger LOG = LoggerFactory.getLogger(VmeProfileRecord.class);
 
 	@Override
 	public void doFirstLevel(Vme v, List<Object> nextRecord) {
@@ -51,7 +54,7 @@ public class VmeProfileRecord extends AbstractRecord implements RecordGenerator<
 				throw new VmeException(e);
 			}
 		}
-		System.out.println(criteriaString);
+		LOG.info(criteriaString);
 		nextRecord.add(criteriaString);
 
 		if (v.getValidityPeriod() == null) {

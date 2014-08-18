@@ -14,6 +14,9 @@ import java.util.Map;
  */
 
 //FFiorellato: Useless?
+/**
+ * @deprecated
+ */
 @Deprecated
 public class InformationSourceCodelist {
 
@@ -24,17 +27,17 @@ public class InformationSourceCodelist {
 	private static String value6 = "CD-ROM/DVD";
 	private static String value99 = "Other";
 
-	private static final Map<Long, String> map = new HashMap<Long, String>();
+	private static final Map<Long, String> MAP = new HashMap<Long, String>();
 	static {
-		map.put(Long.valueOf(1), value1);
-		map.put(Long.valueOf(2), value2);
-		map.put(Long.valueOf(3), value3);
-		map.put(Long.valueOf(4), value4);
-		map.put(Long.valueOf(6), value6);
-		map.put(Long.valueOf(99), value99);
+		MAP.put(Long.valueOf(1), value1);
+		MAP.put(Long.valueOf(2), value2);
+		MAP.put(Long.valueOf(3), value3);
+		MAP.put(Long.valueOf(4), value4);
+		MAP.put(Long.valueOf(6), value6);
+		MAP.put(Long.valueOf(99), value99);
 	}
 
 	public String getDescription(Long informationSourceType) {
-		return map.get(informationSourceType);
+		return MAP.get(informationSourceType);
 	}
 }

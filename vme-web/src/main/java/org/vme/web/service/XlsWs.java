@@ -27,9 +27,6 @@ import org.vme.service.XlsService;
 @Singleton
 public class XlsWs {
 
-	private static final String ERROR_MESSAGE = "XML generation failed";
-	private static final String ERROR_MESSAGE2 = "Unexpected error caught: {}";
-
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Inject
@@ -45,7 +42,6 @@ public class XlsWs {
 	public Response name(@PathParam("authority") String idAuthority) {
 
 		StreamingOutput stream = null;
-		try {
 			final ByteArrayInputStream in = this.xlsService.createXlsFile(idAuthority);
 			stream = new StreamingOutput() {
 				public void write(OutputStream out) {
@@ -63,13 +59,5 @@ public class XlsWs {
 			};
 			return Response.ok(stream).header("content-disposition", "attachment; filename = "+ idAuthority + "_VME-DataBase_Summary_"+xlsService.dataString())
 					.build();
-		} catch (RuntimeException t) {
-			this.log.error(ERROR_MESSAGE2, t.getMessage(), t);
-			return Response.status(500).entity(ERROR_MESSAGE).build();
-		} catch (Exception t) {
-			this.log.error(ERROR_MESSAGE2, t.getMessage(), t);
-			return Response.status(500).entity(ERROR_MESSAGE).build();
-		}
-
 	}
 }

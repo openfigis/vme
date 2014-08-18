@@ -91,6 +91,7 @@ public class DtoTranslator {
 						.getReferenceByAcronym(Authority.class, authorityAcronym);
 
 				if (authority == null) {
+					log.warn("authority == null");
 				} else {
 					res.setOwner(authority.getName());
 				}
@@ -152,6 +153,8 @@ public class DtoTranslator {
 	public String factsheetURL(VmeObservation vo){
 		if(vo!= null){
 			return "fishery/vme/" + vo.getId().getVmeId() + "/" + vo.getId().getObservationId() + "/en";
-		} else return "";
+		} else {
+			return "";
+		}
 	}
 }

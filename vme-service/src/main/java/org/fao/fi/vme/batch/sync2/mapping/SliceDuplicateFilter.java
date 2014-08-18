@@ -24,11 +24,9 @@ public class SliceDuplicateFilter {
 		for (int i = 0; i < slices.size(); i++) {
 
 			int previousElement = i - 1;
-			if (previousElement >= 0) {
-				if (slices.get(previousElement).equals(slices.get(i))) {
-					slices.remove(i);
-					i--;
-				}
+			if (previousElement >= 0 && slices.get(previousElement).equals(slices.get(i))) {
+				slices.remove(i);
+				i--;
 			}
 		}
 	}

@@ -40,6 +40,8 @@ import org.slf4j.LoggerFactory;
 @Alternative
 public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 	protected static final Logger LOG = LoggerFactory.getLogger(SyncFactsheetChangeListener.class);
+	private static final String UPDATE_ERROR = "Something fail on updating data";
+	private static final String ADD_ERROR = "Something fail on adding data" ;
 	
 	@Inject
 	protected FactsheetUpdater updater;
@@ -56,7 +58,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 			try {
 				this.updater.refreshVme(in.getId());
 			} catch (Exception e) {
-				throw new FactSheetChangeException("Something fail on updating data" ,e);
+				throw new FactSheetChangeException(UPDATE_ERROR ,e);
 			}
 		}
 		
@@ -74,7 +76,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 			try {
 				this.updater.refreshVme(in.getId());
 			} catch (Exception e) {
-				throw new FactSheetChangeException("Something fail on adding data" ,e);
+				throw new FactSheetChangeException(ADD_ERROR ,e);
 			}
 		}
 			
@@ -102,7 +104,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 			try {
 				this.updater.refreshGeneralMeasure(in.getId());
 			} catch (Exception e) {
-				throw new FactSheetChangeException("Something fail on updating data" ,e);
+				throw new FactSheetChangeException(UPDATE_ERROR ,e);
 			}
 		}
 		
@@ -120,7 +122,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 			try {
 				this.updater.refreshGeneralMeasure(in.getId());
 			} catch (Exception e) {
-				throw new FactSheetChangeException("Something fail on adding data" ,e);
+				throw new FactSheetChangeException(ADD_ERROR ,e);
 			}
 		}
 		
@@ -148,7 +150,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 			try {
 				this.updater.refreshInformationSource(in.getId());
 			} catch (Exception e) {
-				throw new FactSheetChangeException("Something fail on updating data" ,e);
+				throw new FactSheetChangeException(UPDATE_ERROR ,e);
 			}
 		}
 		
@@ -168,7 +170,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 			try {
 				this.updater.refreshInformationSource(in.getId());
 			} catch (Exception e) {
-				throw new FactSheetChangeException("Something fail on adding data" ,e);
+				throw new FactSheetChangeException(ADD_ERROR ,e);
 			}
 		}
 			
@@ -196,7 +198,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 			try {
 				this.updater.refreshFishingFootprint(in.getId());
 			} catch (Exception e) {
-				throw new FactSheetChangeException("Something fail on updating data" ,e);
+				throw new FactSheetChangeException(UPDATE_ERROR ,e);
 			}
 		}
 			
@@ -234,7 +236,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 			try {
 				this.updater.refreshRegionalHistory(in.getId());
 			} catch (Exception e) {
-				throw new FactSheetChangeException("Something fail on updating data" ,e);
+				throw new FactSheetChangeException(UPDATE_ERROR ,e);
 			}
 		}
 			
@@ -252,7 +254,7 @@ public class SyncFactsheetChangeListener implements FactsheetChangeListener {
 			try {
 				this.updater.refreshRegionalHistory(in.getId());
 			} catch (Exception e) {
-				throw new FactSheetChangeException("Something fail on adding data" ,e);
+				throw new FactSheetChangeException(ADD_ERROR ,e);
 			}
 		}
 		

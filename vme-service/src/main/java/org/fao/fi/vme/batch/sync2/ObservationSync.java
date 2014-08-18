@@ -8,8 +8,8 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.batch.sync2.mapping.ObjectMapping;
 import org.fao.fi.vme.domain.model.Vme;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
-import org.vme.dao.ReferenceDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.vme.VmeDao;
 
@@ -32,20 +32,18 @@ public class ObservationSync implements Sync {
 	private VmeDao vmeDao;
 
 	@Inject
-	@ConceptProvider
-	private ReferenceDAO refDao;
-
-	@Inject
 	private ObjectMapping om;
+	
+	private static final Logger LOG = LoggerFactory.getLogger(ObservationSync.class);
 
 	@Override
 	public void sync() {
 
 		List<Vme> objects = vmeDao.loadVmes();
 
-		System.out.println(objects.size());
+		LOG.info(String.valueOf(objects.size()));
 		for (Vme vme : objects) {
-			if (vme.getId() != 28405l) {
+			if (vme.getId() != 28405L) {
 				sync(vme);
 			}
 

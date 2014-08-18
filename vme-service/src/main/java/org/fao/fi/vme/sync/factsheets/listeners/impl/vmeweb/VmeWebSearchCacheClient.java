@@ -24,12 +24,12 @@ import com.ning.http.client.Response;
 @Dependent
 public class VmeWebSearchCacheClient {
 
-	public static String RESOURCE = "/webservice/cache-delete/";
+	public static final String RESOURCE = "/webservice/cache-delete/";
 
 	public static final String MESSAGE = "VME_CACHE_DELETED_SUCCESS";
 
 	protected static final Logger LOG = LoggerFactory.getLogger(VmeWebSearchCacheClient.class);
-	private static final String errorMessage = "Did not manage to clear the cach in vme-web search properly";
+	private static final String ERRORMESSAGE = "Did not manage to clear the cach in vme-web search properly";
 
 	@Inject
 	VmeWebServer vmeWebServer;
@@ -62,7 +62,7 @@ public class VmeWebSearchCacheClient {
 
 			LOG.debug("VmeWebSearchCacheClient clear request launched!");
 		} catch (IOException e) {
-			LOG.error(errorMessage, e);
+			LOG.error(ERRORMESSAGE, e);
 		}
 	}
 

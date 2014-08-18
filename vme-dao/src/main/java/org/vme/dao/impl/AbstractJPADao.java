@@ -94,7 +94,7 @@ public abstract class AbstractJPADao implements Dao {
 
 					value = parameter.getValue();
 
-					if (value != null && value instanceof String && field.isAnnotationPresent(RSGConverter.class)) {
+					if (value instanceof String && field.isAnnotationPresent(RSGConverter.class)) {
 						value = field.getAnnotation(RSGConverter.class).value().newInstance()
 								.fromString((String) value);
 					}

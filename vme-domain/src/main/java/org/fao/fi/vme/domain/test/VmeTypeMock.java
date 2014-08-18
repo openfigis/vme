@@ -4,11 +4,13 @@ import org.fao.fi.vme.domain.model.reference.VmeType;
 
 public class VmeTypeMock {
 	
-	private VmeTypeMock(){}
+	private VmeTypeMock(){
+		
+	}
 
 	public static VmeType create() {
 
-		return new VmeType(150l, "TTH_FISH_RSCH", "Research fisheries");
+		return new VmeType(150L, "TTH_FISH_RSCH", "Research fisheries");
 	}
 	
 	public static VmeType createAnother() {

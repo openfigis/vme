@@ -43,7 +43,6 @@ public class VmeCriteria implements ReferenceDataObject<Long>, NamedReferenceCon
 	 * 
 	 */
 	public VmeCriteria() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public VmeCriteria(Long id, String name) {

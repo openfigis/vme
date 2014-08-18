@@ -5,13 +5,13 @@ import org.fao.fi.vme.domain.model.Vme;
 
 public class GeoRefMock {
 
-	public static final String geographicFeatureID = "jfiopf7ye89wf6n2349";
+	public static final String GEOGRAPHICFEATUREID = "jfiopf7ye89wf6n2349";
 
 	public static GeoRef create() {
 
 		Vme vme = VmeMock.create();
 
-		vme.getGeoRefList().get(0).setGeographicFeatureID(geographicFeatureID);
+		vme.getGeoRefList().get(0).setGeographicFeatureID(GEOGRAPHICFEATUREID);
 
 		return vme.getGeoRefList().get(0);
 

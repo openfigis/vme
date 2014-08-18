@@ -84,8 +84,6 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 
 	/**
 	 * Also referred to as issue date of biblio entry
-	 * 
-	 * TODO change into publicationYear, type int
 	 */
 
 	@RSGName("Publication Year")

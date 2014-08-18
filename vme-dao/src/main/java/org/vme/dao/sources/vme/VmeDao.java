@@ -98,7 +98,7 @@ public class VmeDao extends AbstractJPADao {
 
 		if (vme.getGeoRefList() != null) {
 			for (GeoRef geoRef : vme.getGeoRefList()) {
-				System.out.println(em.contains(geoRef));
+				LOG.info(String.valueOf(em.contains(geoRef)));
 				em.persist(geoRef);
 			}
 		}
@@ -130,7 +130,7 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public <E> E merge(E object) {
-		System.out.println("EM" + em);
+		LOG.info("EM" + em);
 		return super.merge(em, object);
 	}
 
@@ -276,10 +276,8 @@ public class VmeDao extends AbstractJPADao {
 			while (smIterator.hasNext()) {
 				smCurrent = smIterator.next();
 
-				if (smCurrent != null) {
-					if (smCurrent.getInformationSource().getId().equals(toDelete.getId())) {
-						smCurrent.setInformationSource(null);
-					}
+				if (smCurrent != null && smCurrent.getInformationSource().getId().equals(toDelete.getId())) {
+					smCurrent.setInformationSource(null);
 				}
 
 				this.doMerge(em, smCurrent);

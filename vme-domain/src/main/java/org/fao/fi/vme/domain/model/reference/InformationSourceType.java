@@ -53,7 +53,7 @@ public class InformationSourceType implements ReferenceDataObject<Long>, NamedRe
 	private String name;
 
 	@Column(name = "MEETING_DOCUMENT", nullable = false)
-	private char _meetingDocument;
+	private char meetingDocument;
 
 	public InformationSourceType() {
 	}
@@ -62,7 +62,7 @@ public class InformationSourceType implements ReferenceDataObject<Long>, NamedRe
 		super();
 		this.id = id;
 		this.name = name;
-		this._meetingDocument = meetingDocument == null ? IS_NOT_A_MEETING_DOCUMENT : meetingDocument;
+		this.meetingDocument = meetingDocument == null ? IS_NOT_A_MEETING_DOCUMENT : meetingDocument;
 	}
 
 	public InformationSourceType(Long id, String name, boolean meetingDocument) {
@@ -103,7 +103,7 @@ public class InformationSourceType implements ReferenceDataObject<Long>, NamedRe
 	 * @return the 'meetingDocument' value
 	 */
 	public Character getMeetingDocument() {
-		return this._meetingDocument;
+		return this.meetingDocument;
 	}
 
 	/**
@@ -111,11 +111,11 @@ public class InformationSourceType implements ReferenceDataObject<Long>, NamedRe
 	 *            the 'meetingDocument' value to set
 	 */
 	public void setMeetingDocument(Character meetingDocument) {
-		this._meetingDocument = meetingDocument == null ? IS_NOT_A_MEETING_DOCUMENT : meetingDocument;
+		this.meetingDocument = meetingDocument == null ? IS_NOT_A_MEETING_DOCUMENT : meetingDocument;
 	}
 
 	public boolean isAMeetingDocument() {
-		return IS_A_MEETING_DOCUMENT.equals(this._meetingDocument);
+		return IS_A_MEETING_DOCUMENT.equals(this.meetingDocument);
 	}
 
 	/*
@@ -127,7 +127,7 @@ public class InformationSourceType implements ReferenceDataObject<Long>, NamedRe
 	 */
 	@Override
 	public String getSerializedForm() {
-		return SerializableConceptUtils.toString(this.id, this.name, this._meetingDocument);
+		return SerializableConceptUtils.toString(this.id, this.name, this.meetingDocument);
 	}
 
 	/*
@@ -154,7 +154,7 @@ public class InformationSourceType implements ReferenceDataObject<Long>, NamedRe
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + this._meetingDocument;
+		result = prime * result + this.meetingDocument;
 		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 		result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
 		return result;
@@ -177,7 +177,7 @@ public class InformationSourceType implements ReferenceDataObject<Long>, NamedRe
 			return false;
 		}
 		InformationSourceType other = (InformationSourceType) obj;
-		if (this._meetingDocument != other._meetingDocument) {
+		if (this.meetingDocument != other.meetingDocument) {
 			return false;
 		}
 		if (this.id == null) {

@@ -6,7 +6,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -14,14 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.service.GetInfoService;
 
-import com.sun.jersey.spi.MessageBodyWorkers;
-
 @Path("/vme")
 @Singleton
 public class VmeGetInfoWS {
-
-	@Context
-	private MessageBodyWorkers workers;
 
 	@Inject
 	public GetInfoService getInfoService;

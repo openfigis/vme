@@ -27,9 +27,9 @@ import org.vme.dao.sources.figis.PrimaryRule;
 
 public abstract class FigisDaoTestLogic {
 
-	public static int REPORTING_YEAR = 2014;
+	public static final int REPORTING_YEAR = 2014;
 	PrimaryRule r = new PrimaryRule();
-	private static final Logger log = LoggerFactory.getLogger(FigisDaoTestLogic.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FigisDaoTestLogic.class);
 
 	@Inject
 	protected FigisDao dao;
@@ -144,10 +144,10 @@ public abstract class FigisDaoTestLogic {
 		int[] sizes = { dao.count(ObservationXml.class).intValue(), dao.count(Observation.class).intValue(),
 				dao.count(VmeObservation.class).intValue() };
 
-		log.info("ObservationXml= " + sizes[0]);
-		log.info("Observation= " + sizes[1]);
-		log.info("VmeObservation= " + sizes[2]);
-		log.info("=================================================");
+		LOG.info("ObservationXml= " + sizes[0]);
+		LOG.info("Observation= " + sizes[1]);
+		LOG.info("VmeObservation= " + sizes[2]);
+		LOG.info("=================================================");
 
 		return sizes;
 	}

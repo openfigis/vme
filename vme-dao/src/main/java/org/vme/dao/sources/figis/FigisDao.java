@@ -44,8 +44,8 @@ public class FigisDao extends AbstractJPADao {
 	private DomainRule4ObservationXmlId rule = new DomainRule4ObservationXmlId();
 	private PrimaryRuleValidator v = new PrimaryRuleValidator();
 
-	private final String QUERY_FIRST = "select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear <= :reportingYear order by vo.id.reportingYear desc";
-	private final String QUERY_EXACT = "select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear = :reportingYear";
+	private static final String QUERY_FIRST = "select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear <= :reportingYear order by vo.id.reportingYear desc";
+	private static final String QUERY_EXACT = "select vo from VmeObservation vo where vo.id.vmeId = :vmeId and vo.id.reportingYear = :reportingYear";
 	private static final String QUERY_PARAM_VMEID = "vmeId";
 	private static final String QUERY_PARAM_REPYEAR = "reportingYear";
 
@@ -372,8 +372,7 @@ public class FigisDao extends AbstractJPADao {
 	private ObservationXml findEnglishXml(Long id) {
 		DomainRule4ObservationXmlId rulez = new DomainRule4ObservationXmlId();
 		String xmlId = rulez.composeId(id, Figis.EN);
-		ObservationXml xmlFound = (ObservationXml) this.find(ObservationXml.class, xmlId);
-		return xmlFound;
+		return (ObservationXml) this.find(ObservationXml.class, xmlId);
 	}
 
 	public void syncRefWaterArea(String externalId, RefWaterArea refWaterArea) {

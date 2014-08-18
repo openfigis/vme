@@ -289,7 +289,7 @@ public abstract class AbstractConnectionProvider implements ConnectionProvider, 
 			}
 			
 			Properties driverProps = ConnectionProviderInitiator.getConnectionProperties(props);
-			if (driverProps.size() > 0) {
+			if (!driverProps.isEmpty()) {
 				StringBuffer connectionProperties = new StringBuffer();
 				for (Iterator<?> iter = driverProps.entrySet().iterator(); iter.hasNext();) {
 					Map.Entry<String, String> entry = (Map.Entry<String, String>) iter.next();

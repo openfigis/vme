@@ -18,13 +18,13 @@ public class PrimaryRuleValidator {
 		String message = null;
 
 		// only the last should be primary
-		if (odList.get(indexLast).isPrimary() == false) {
+		if (!odList.get(indexLast).isPrimary()) {
 			message = message + "The last obervation should be the primary";
 		}
 
 		// all others should not be primary
 		for (int i = 0; i < indexOneBeforeTheLast; i++) {
-			if (odList.get(i).isPrimary() == true) {
+			if (odList.get(i).isPrimary()) {
 				message = message + "Found primary observation, before the last, is not correct";
 			}
 		}

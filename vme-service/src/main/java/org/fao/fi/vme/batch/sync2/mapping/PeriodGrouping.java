@@ -10,6 +10,8 @@ import org.fao.fi.vme.domain.interfaces.Year;
 import org.fao.fi.vme.domain.logic.YearComparator;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -31,6 +33,7 @@ public class PeriodGrouping {
 
 	private static final int FUTURE = 9999;
 	private ValidityPeriodUtil vu = new ValidityPeriodUtil();
+	private static final Logger LOG = LoggerFactory.getLogger(PeriodGrouping.class);
 
 	public List<DisseminationYearSlice> collect(Vme vme) {
 		// precondition
@@ -53,13 +56,12 @@ public class PeriodGrouping {
 
 			DisseminationYearSlice slice = new DisseminationYearSlice();
 
-			slice.setSpecificMeasure(findYearObject(vme.getSpecificMeasureList(), disseminationYear, slice));
-			slice.setGeneralMeasure(findYearObject(vme.getRfmo().getGeneralMeasureList(), disseminationYear, slice));
-			slice.setFisheryAreasHistory(findYearObject(vme.getRfmo().getHasFisheryAreasHistory(), disseminationYear,
-					slice));
-			slice.setVmesHistory(findYearObject(vme.getRfmo().getHasVmesHistory(), disseminationYear, slice));
-			slice.setGeoRef(findYearObject(vme.getGeoRefList(), disseminationYear, slice));
-			slice.setProfile(findYearObject(vme.getProfileList(), disseminationYear, slice));
+			slice.setSpecificMeasure(findYearObject(vme.getSpecificMeasureList(), disseminationYear));
+			slice.setGeneralMeasure(findYearObject(vme.getRfmo().getGeneralMeasureList(), disseminationYear));
+			slice.setFisheryAreasHistory(findYearObject(vme.getRfmo().getHasFisheryAreasHistory(), disseminationYear));
+			slice.setVmesHistory(findYearObject(vme.getRfmo().getHasVmesHistory(), disseminationYear));
+			slice.setGeoRef(findYearObject(vme.getGeoRefList(), disseminationYear));
+			slice.setProfile(findYearObject(vme.getProfileList(), disseminationYear));
 
 			slice.setVme(vme);
 			slice.setInformationSourceList(vme.getRfmo().getInformationSourceList());
@@ -72,7 +74,7 @@ public class PeriodGrouping {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> T findYearObject(List<T> list, int disseminationYear, DisseminationYearSlice slice) {
+	private <T> T findYearObject(List<T> list, int disseminationYear) {
 		List<Year<?>> yearList = (List<Year<?>>) list;
 
 		Year<?> history = null;
@@ -83,7 +85,7 @@ public class PeriodGrouping {
 				// founds need to be equal or less.
 
 				if (yearObject == null || yearObject.getYear() == null) {
-					System.out.println();
+					LOG.info("yearObject == null || yearObject.getYear() == null");
 				}
 
 				if (disseminationYear >= yearObject.getYear()) {

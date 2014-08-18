@@ -15,6 +15,8 @@ import org.fao.fi.vme.batch.sync2.mapping.xml.DefaultObservationXml;
 import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilderRegolatory;
 import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilderVme;
 import org.fao.fi.vme.domain.model.Vme;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.dao.sources.figis.DefaultObservationDomain;
 import org.vme.dao.sources.figis.PrimaryRule;
 import org.vme.dao.sources.figis.PrimaryRuleValidator;
@@ -72,6 +74,7 @@ public class ObjectMapping {
 	private final SliceDuplicateFilter filter = new SliceDuplicateFilter();
 	private final PrimaryRule primaryRule = new PrimaryRule();
 	private final PrimaryRuleValidator primaryRuleValidator = new PrimaryRuleValidator();
+	private static final Logger LOG = LoggerFactory.getLogger(ObjectMapping.class);
 
 	public VmeObservationDomain mapVme2Figis2(Vme vme) {
 
@@ -92,8 +95,7 @@ public class ObjectMapping {
 			FIGISDoc figisDoc = new FIGISDoc();
 
 			if (disseminationYearSlice.getGeoRef() == null) {
-
-				System.out.println();
+				LOG.info("disseminationYearSlice.getGeoRef() == null");
 			}
 
 			if (vme.getScope() == 10) {

@@ -24,7 +24,7 @@ public class XlsService extends AbstractService {
 	@Inject
 	private WritableWorkbookFactory f;
 	
-	private static final Logger log = LoggerFactory.getLogger(XlsService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(XlsService.class);
 
 	public ByteArrayInputStream createXlsFile(String authorityAcronym) {
 
@@ -51,12 +51,12 @@ public class XlsService extends AbstractService {
 		try {
 			ww.write();
 		} catch (IOException e1) {
-			log.error(e1.getMessage(), e1);
+			LOG.error(e1.getMessage(), e1);
 		}
 		try {
 			ww.close();
 		} catch (WriteException | IOException e) {
-			log.error(e.getMessage(), e);
+			LOG.error(e.getMessage(), e);
 		}
 
 		return new ByteArrayInputStream(baos.toByteArray());

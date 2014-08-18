@@ -110,7 +110,7 @@ public class Rfmo implements ReferenceReport, Serializable {
 
 	public void setHasFisheryAreasHistory(List<FisheryAreasHistory> hasFisheryAreasHistory) {
 		this.hasFisheryAreasHistory = hasFisheryAreasHistory;
-	};
+	}
 
 	public List<VMEsHistory> getHasVmesHistory() {
 		return hasVmesHistory;
