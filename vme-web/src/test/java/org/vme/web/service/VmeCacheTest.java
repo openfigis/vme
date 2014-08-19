@@ -20,11 +20,12 @@ import org.vme.dao.config.vme.VmeDB;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
+import org.vme.web.cache.CacheProducer;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ ReferenceDaoImpl.class, VmePersistenceUnitConfiguration.class,
 		FigisPersistenceUnitConfiguration.class })
-@AdditionalClasses({ FigisDataBaseProducer.class, VmeDataBaseProducerApplicationScope.class })
+@AdditionalClasses({ CacheProducer.class, FigisDataBaseProducer.class, VmeDataBaseProducerApplicationScope.class })
 public class VmeCacheTest {
 
 	@Inject

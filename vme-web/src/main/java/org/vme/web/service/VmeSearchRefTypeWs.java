@@ -2,7 +2,6 @@ package org.vme.web.service;
 
 import java.util.UUID;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
@@ -29,14 +28,14 @@ public class VmeSearchRefTypeWs {
 
 	@Inject
 	private ReferenceDataHardcodedBatch batch;
-	
+
 	@Inject
 	private SearchService service;
 
-	@PostConstruct
-	public void postConstructBatch() {
-		batch.run();
-	}
+	// @PostConstruct
+	// public void postConstructBatch() {
+	// batch.run();
+	// }
 
 	@Path("/list")
 	@GET

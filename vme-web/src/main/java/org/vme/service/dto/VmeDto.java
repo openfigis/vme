@@ -1,8 +1,14 @@
 package org.vme.service.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class VmeDto {
+public class VmeDto implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8974944086791645381L;
 
 	private long vmeId;
 	private String scope;
@@ -55,12 +61,12 @@ public class VmeDto {
 	public void setVmeId(long vmeId) {
 		this.vmeId = vmeId;
 	}
-	
-	public String getScope(){
+
+	public String getScope() {
 		return this.scope;
 	}
-	
-	public void setScope(String scope){
+
+	public void setScope(String scope) {
 		this.scope = scope;
 	}
 
@@ -198,5 +204,5 @@ public class VmeDto {
 	public void setValidityPeriodTo(Date validityPeriodTo) {
 		this.validityPeriodTo = validityPeriodTo;
 	}
-	
+
 }

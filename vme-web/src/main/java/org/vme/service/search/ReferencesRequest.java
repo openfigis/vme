@@ -11,6 +11,11 @@ import java.util.UUID;
  */
 public class ReferencesRequest extends ServiceRequest {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4274152683932041827L;
+
 	private String concept;
 
 	private String lang;

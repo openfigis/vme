@@ -71,7 +71,7 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGName("VME Specific Measures")
 	@RSGWeight(4)
 	@RSGSection
-	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<SpecificMeasure> specificMeasureList;
 
 	@RSGName("VME Profiles")
@@ -307,7 +307,8 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 			return false;
 		}
 
-		if (this.inventoryIdentifier == null && other.inventoryIdentifier != null || this.inventoryIdentifier != null && other.inventoryIdentifier == null) {
+		if (this.inventoryIdentifier == null && other.inventoryIdentifier != null || this.inventoryIdentifier != null
+				&& other.inventoryIdentifier == null) {
 			return false;
 		} else if (!this.inventoryIdentifier.equals(other.inventoryIdentifier)) {
 			return false;
@@ -331,13 +332,15 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 			return false;
 		}
 
-		if (this.specificMeasureList == null && other.specificMeasureList != null || this.specificMeasureList != null && other.specificMeasureList == null) {
+		if (this.specificMeasureList == null && other.specificMeasureList != null || this.specificMeasureList != null
+				&& other.specificMeasureList == null) {
 			return false;
 		} else if (!this.specificMeasureList.equals(other.specificMeasureList)) {
 			return false;
 		}
 
-		if (this.validityPeriod == null && other.validityPeriod != null || this.validityPeriod != null && other.validityPeriod == null) {
+		if (this.validityPeriod == null && other.validityPeriod != null || this.validityPeriod != null
+				&& other.validityPeriod == null) {
 			return false;
 		} else if (!this.validityPeriod.equals(other.validityPeriod)) {
 			return false;

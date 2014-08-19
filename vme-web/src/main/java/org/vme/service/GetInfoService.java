@@ -15,6 +15,7 @@ import org.vme.service.dto.SpecificMeasureDto;
 import org.vme.service.dto.VmeDto;
 import org.vme.service.dto.VmeResponse;
 import org.vme.service.dto.VmeSmResponse;
+import org.vme.web.cache.Cached;
 
 public class GetInfoService extends AbstractService {
 
@@ -24,50 +25,51 @@ public class GetInfoService extends AbstractService {
 	@Inject
 	private DtoTranslator translator;
 
-	public VmeSmResponse vmeIdentifier2SpecificMeasure(String vmeIdentifier, int vmeYear){
+	@Cached
+	public VmeSmResponse vmeIdentifier2SpecificMeasure(String vmeIdentifier, int vmeYear) {
 
 		VmeSmResponse vmeSmResponse = new VmeSmResponse(UUID.randomUUID());
 		List<SpecificMeasureDto> specificMeasureList = new ArrayList<SpecificMeasureDto>();
 		List<Vme> vmeList = vDao.loadVmes();
 		filterVmePerInventoryIdentifier(vmeList, vmeIdentifier);
-		if(!vmeList.isEmpty()){
-		VmeDto vmeDto = translator.doTranslate4Vme(vmeList.get(0), vmeYear);
-		
-		vmeSmResponse.setVmeId(vmeDto.getVmeId());
-		vmeSmResponse.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
-		vmeSmResponse.setVmeType(vmeDto.getVmeType());
-		vmeSmResponse.setGeoArea(vmeDto.getGeoArea());
-		vmeSmResponse.setLocalName(vmeDto.getLocalName());
-		vmeSmResponse.setOwner(vmeDto.getOwner());
+		if (!vmeList.isEmpty()) {
+			VmeDto vmeDto = translator.doTranslate4Vme(vmeList.get(0), vmeYear);
 
-		if (vmeYear <= 2004 && vmeYear != 0) {
-			vmeSmResponse.setNoObsNote(vmeYear);
-		}
+			vmeSmResponse.setVmeId(vmeDto.getVmeId());
+			vmeSmResponse.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
+			vmeSmResponse.setVmeType(vmeDto.getVmeType());
+			vmeSmResponse.setGeoArea(vmeDto.getGeoArea());
+			vmeSmResponse.setLocalName(vmeDto.getLocalName());
+			vmeSmResponse.setOwner(vmeDto.getOwner());
 
-		if(vmeYear == 0){
-			vmeSmResponse.setNote("These are all the Specific Measure for the Vme");
-			for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
-				specificMeasureList.add(translator.doTranslate4Sm(sm));
+			if (vmeYear <= 2004 && vmeYear != 0) {
+				vmeSmResponse.setNoObsNote(vmeYear);
 			}
-		}
 
-		if(vmeYear > 2004){
-			while (specificMeasureList.isEmpty() && vmeYear > 2004){
+			if (vmeYear == 0) {
+				vmeSmResponse.setNote("These are all the Specific Measure for the Vme");
 				for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
-					if (sm.getYear() == vmeYear){
-						specificMeasureList.add(translator.doTranslate4Sm(sm));
-					}
+					specificMeasureList.add(translator.doTranslate4Sm(sm));
 				}
-
-				if(specificMeasureList.isEmpty() && vmeSmResponse.getNote() == null){
-					vmeSmResponse.setNoObsNote(vmeYear);
-				}
-				vmeYear--;
 			}
-		}
+
+			if (vmeYear > 2004) {
+				while (specificMeasureList.isEmpty() && vmeYear > 2004) {
+					for (SpecificMeasure sm : vDao.findVme(vmeDto.getVmeId()).getSpecificMeasureList()) {
+						if (sm.getYear() == vmeYear) {
+							specificMeasureList.add(translator.doTranslate4Sm(sm));
+						}
+					}
+
+					if (specificMeasureList.isEmpty() && vmeSmResponse.getNote() == null) {
+						vmeSmResponse.setNoObsNote(vmeYear);
+					}
+					vmeYear--;
+				}
+			}
 
 		}
-		if(specificMeasureList.isEmpty()){
+		if (specificMeasureList.isEmpty()) {
 			specificMeasureList.add(new SpecificMeasureDto());
 		}
 
@@ -75,6 +77,7 @@ public class GetInfoService extends AbstractService {
 		return vmeSmResponse;
 	}
 
+	@Cached
 	public VmeResponse ownerScope2Vmes(String owner, String scope, int year) {
 
 		VmeResponse vmeResponse = new VmeResponse(UUID.randomUUID());
@@ -87,15 +90,15 @@ public class GetInfoService extends AbstractService {
 			vmeResponse.setNoObsNote(year);
 		}
 
-		if(year == 0){
+		if (year == 0) {
 			vmeResponse.setNote("These are all the Vmes for the specified Rfmo and the specified Scope");
 			for (Vme vme : vmeListPerScope) {
 				VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
 				vmeDtoList.add(vmeDto);
 			}
 		}
-		
-		if(year > 2004){
+
+		if (year > 2004) {
 			while (vmeDtoList.isEmpty() && year > 2004) {
 				for (Vme vme : vmeListPerScope) {
 					VmeDto vmeDto = translator.doTranslate4Vme(vme, year);
@@ -113,14 +116,15 @@ public class GetInfoService extends AbstractService {
 		vmeResponse.setVmeDto(vmeDtoList);
 		return vmeResponse;
 	}
-	
+
+	@Cached
 	public SpecificMeasureList vmeIdentifier2SpecificmeasureXML(String vmeIdentifier, int year) {
 
 		SpecificMeasureList smList = new SpecificMeasureList();
-		
+
 		List<Vme> vmeList = vDao.loadVmes();
 		filterVmePerInventoryIdentifier(vmeList, vmeIdentifier);
-		
+
 		for (Vme vme : vmeList) {
 			for (SpecificMeasure sm : vme.getSpecificMeasureList()) {
 				smList.getSpecificMeasures().add(translator.doTranslate4SmType(sm));

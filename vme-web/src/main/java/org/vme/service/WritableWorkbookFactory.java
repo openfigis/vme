@@ -72,7 +72,7 @@ public class WritableWorkbookFactory {
 	public static final String INFO_SOURCE_REC = "Reports";
 	public static final String GEO_REF_REC = "Geo Reference";
 	public static final String FACT_SHEET_REC = "Fact Sheets";
-	
+
 	public static final String ERROR_DURING_CREATION = "Error during creation of Excell sheet";
 	public static final String ERROR_TYPE_NOT_FOUND = "Type not found:";
 

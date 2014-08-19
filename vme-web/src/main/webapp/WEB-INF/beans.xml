@@ -4,6 +4,12 @@
 	<alternatives>
 		<class>org.vme.dao.impl.jpa.ReferenceDaoImpl</class>
 	</alternatives>
-	
-	
+
+
+
+	<!-- Enable cache interceptors -->
+	<interceptors>
+		<class>org.vme.web.cache.CacheInterceptor</class>
+	</interceptors>
+
 </beans>

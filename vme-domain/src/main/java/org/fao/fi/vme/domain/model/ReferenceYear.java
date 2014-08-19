@@ -3,6 +3,8 @@
  */
 package org.fao.fi.vme.domain.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -15,7 +17,12 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Re
  */
 @Entity
 @ReferenceConceptName("years")
-public class ReferenceYear implements ReferenceConcept, Comparable<ReferenceYear> {
+public class ReferenceYear implements ReferenceConcept, Comparable<ReferenceYear>, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1586960198381199769L;
+
 	/**
 	 * Identifier of the domain entity.
 	 */
@@ -35,7 +42,8 @@ public class ReferenceYear implements ReferenceConcept, Comparable<ReferenceYear
 	}
 
 	/**
-	 * @param lang the lang to set
+	 * @param lang
+	 *            the lang to set
 	 */
 	public void setLang(String lang) {
 		this.lang = lang;
@@ -57,18 +65,20 @@ public class ReferenceYear implements ReferenceConcept, Comparable<ReferenceYear
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
-	public String getName(){
+
+	public String getName() {
 		return Long.toString(id);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override

@@ -1,5 +1,7 @@
 package org.fao.fi.vme.domain.model.reference;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -22,7 +24,12 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.Na
 @Entity
 @Table(name = "VME_SCOPE")
 @ReferenceConceptName("scope")
-public class VmeScope implements ReferenceDataObject<Long>, NamedReferenceConcept {
+public class VmeScope implements ReferenceDataObject<Long>, NamedReferenceConcept, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6228388167575786919L;
 
 	/**
 	 * The code for the reference data object

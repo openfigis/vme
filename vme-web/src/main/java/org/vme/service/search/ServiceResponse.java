@@ -3,6 +3,7 @@
  */
 package org.vme.service.search;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,8 +13,13 @@ import java.util.List;
  * 
  */
 
+public class ServiceResponse<T> implements Serializable {
 
-public class ServiceResponse<T> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7695264301652005085L;
+
 	private ServiceRequest request;
 
 	private List<T> resultList;

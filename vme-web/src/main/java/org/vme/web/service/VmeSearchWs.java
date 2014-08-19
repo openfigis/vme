@@ -56,9 +56,9 @@ public class VmeSearchWs {
 			request.setYear(0);
 		}
 		ServiceResponse<?> result = service.invoke(request);
-		try{
+		try {
 			return Response.status(200).entity(result).build();
-		} catch (Exception e){
+		} catch (Exception e) {
 			log.error(ERROR, e.getMessage(), e);
 			return Response.status(500).entity(ERROR).build();
 		}

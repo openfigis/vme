@@ -9,6 +9,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import net.sf.ehcache.Cache;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.config.vme.VmeDB;
@@ -34,11 +36,16 @@ public class VmeCacheWs {
 	@VmeDB
 	private EntityManager entityManager;
 
+	@Inject
+	private Cache cache;
+
 	/**
 	 * Clearing the First-level cache of Hibernate by invoking
 	 * EntityManager.clear()
 	 * 
-	 * @return
+	 * Clearing the ehCacheManager by invoking the cacheManager.clearAll();
+	 * 
+	 * @return VME_CACHE_DELETED_SUCCESS
 	 */
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -46,11 +53,12 @@ public class VmeCacheWs {
 		String message = MESSAGE;
 		try {
 			entityManager.clear();
+			cache.removeAll();
 		} catch (PersistenceException e) {
 			message = e.getMessage();
-			LOG.error("Caching of vme-web failed", e);
+			LOG.error("Clearing Hibernate and EhCache caches in vme-web failed", e);
 		}
-		LOG.info("First level cache of Hibernate EntityManager has been cleared.");
+		LOG.info("First level cache of Hibernate EntityManager has been cleared. EhCache cleared.");
 
 		return message;
 	}

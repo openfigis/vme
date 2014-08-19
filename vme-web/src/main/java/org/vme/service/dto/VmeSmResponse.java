@@ -1,10 +1,16 @@
 package org.vme.service.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class VmeSmResponse {
+public class VmeSmResponse implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5049747883502243577L;
 
 	private UUID uuid;
 	private String note;
@@ -14,25 +20,24 @@ public class VmeSmResponse {
 	private String geoArea;
 	private String owner;
 	private String vmeType;
-	
-	
+
 	private List<SpecificMeasureDto> specificMeasure;
 
-	public VmeSmResponse(UUID uuid){
+	public VmeSmResponse(UUID uuid) {
 		super();
 		this.uuid = uuid;
 		this.specificMeasure = new ArrayList<SpecificMeasureDto>();
 	}
-	
+
 	public UUID getUuid() {
 		return this.uuid;
 	}
-	
-	public List<SpecificMeasureDto> getResponseList(){
+
+	public List<SpecificMeasureDto> getResponseList() {
 		return this.specificMeasure;
 	}
-	
-	public void setResponseList(List<SpecificMeasureDto> specList){
+
+	public void setResponseList(List<SpecificMeasureDto> specList) {
 		this.specificMeasure = specList;
 	}
 
@@ -83,12 +88,13 @@ public class VmeSmResponse {
 	public void setVmeType(String vmeType) {
 		this.vmeType = vmeType;
 	}
-	
+
 	@Override
-	public String toString(){
-		String s = "Response: UUID - "+this.uuid.toString()+" - vmeId - "+this.vmeId+" - local name - "+this.localName+" - inventory Identifier - "+
-				this.inventoryIdentifier + " - geoArea - "+this.geoArea+" - owner - "+this.owner+" - vmeType -"+this.vmeType;
-		
+	public String toString() {
+		String s = "Response: UUID - " + this.uuid.toString() + " - vmeId - " + this.vmeId + " - local name - "
+				+ this.localName + " - inventory Identifier - " + this.inventoryIdentifier + " - geoArea - "
+				+ this.geoArea + " - owner - " + this.owner + " - vmeType -" + this.vmeType;
+
 		return s;
 	}
 

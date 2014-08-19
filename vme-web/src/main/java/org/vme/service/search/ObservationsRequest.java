@@ -12,6 +12,11 @@ import java.util.UUID;
 public class ObservationsRequest extends ServiceRequest {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 475204565423829341L;
+
+	/**
 	 * Internal Identifier of the requested VME object.
 	 */
 	private long id;
@@ -236,6 +241,58 @@ public class ObservationsRequest extends ServiceRequest {
 
 	public boolean hasAtLeastOneSearchParameterButText() {
 		return hasAuthority() || hasCriteria() || hasType();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + authority;
+		result = prime * result + criteria;
+		result = prime * result + ((geographicFeatureId == null) ? 0 : geographicFeatureId.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((inventoryIdentifier == null) ? 0 : inventoryIdentifier.hashCode());
+		result = prime * result + ((text == null) ? 0 : text.hashCode());
+		result = prime * result + type;
+		result = prime * result + year;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ObservationsRequest other = (ObservationsRequest) obj;
+		if (authority != other.authority)
+			return false;
+		if (criteria != other.criteria)
+			return false;
+		if (geographicFeatureId == null) {
+			if (other.geographicFeatureId != null)
+				return false;
+		} else if (!geographicFeatureId.equals(other.geographicFeatureId))
+			return false;
+		if (id != other.id)
+			return false;
+		if (inventoryIdentifier == null) {
+			if (other.inventoryIdentifier != null)
+				return false;
+		} else if (!inventoryIdentifier.equals(other.inventoryIdentifier))
+			return false;
+		if (text == null) {
+			if (other.text != null)
+				return false;
+		} else if (!text.equals(other.text))
+			return false;
+		if (type != other.type)
+			return false;
+		if (year != other.year)
+			return false;
+		return true;
 	}
 
 }

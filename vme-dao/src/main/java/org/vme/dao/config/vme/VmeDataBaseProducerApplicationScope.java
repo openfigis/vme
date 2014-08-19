@@ -32,6 +32,7 @@ public class VmeDataBaseProducerApplicationScope {
 	@Produces
 	@ApplicationScoped
 	public EntityManagerFactory create() {
+
 		return Persistence.createEntityManagerFactory(this.config.getPersistenceUnitName());
 	}
 
