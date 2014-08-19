@@ -4,8 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -15,19 +13,16 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.vme.dao.config.figis.FigisDataBaseProducer;
 import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
-import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisPersistenceUnitConfiguration.class, FigisDataBaseProducer.class,
-	VmePersistenceUnitConfiguration.class, VmeDataBaseProducerApplicationScope.class,})
+@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisPersistenceUnitConfiguration.class, /*FigisDataBaseProducer.class,*/
+	VmePersistenceUnitConfiguration.class,/* VmeDataBaseProducerApplicationScope.class,*/})
 public class AbstractServiceTest {
 
-	@Inject
 	private VmeDao vDao;
 
 	private GetInfoService service;
@@ -61,6 +56,9 @@ public class AbstractServiceTest {
 	@Test
 	public void testFilterVmePerRfmoById() {
 		List<Vme> vmeList = vDao.loadVmes();
+		for (Vme v : vmeList) {
+			System.out.println(v.getRfmo());
+		}
 		service.filterVmePerRfmoById(vmeList, 1001);
 		assertTrue(2 == vmeList.size());
 	}

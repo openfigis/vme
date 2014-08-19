@@ -32,6 +32,7 @@ import org.vme.dao.impl.AbstractJPADao;
  * 
  */
 public class VmeDao extends AbstractJPADao {
+	
 	@Inject
 	@VmeDB
 	private EntityManager em;

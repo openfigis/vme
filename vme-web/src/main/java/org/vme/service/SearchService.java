@@ -15,7 +15,7 @@ import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.ReferenceConcept;
-import org.vme.dao.sources.vme.VmeDao;
+import org.vme.dao.transaction.VmeDaoTransactional;
 import org.vme.service.dto.DtoTranslator;
 import org.vme.service.dto.VmeDto;
 import org.vme.service.search.ObservationsRequest;
@@ -25,7 +25,7 @@ import org.vme.service.search.ServiceResponse;
 public class SearchService extends AbstractService {
 
 	@Inject
-	private VmeDao vDao;
+	private VmeDaoTransactional vDao;
 	
 	@Inject
 	private DtoTranslator translator;

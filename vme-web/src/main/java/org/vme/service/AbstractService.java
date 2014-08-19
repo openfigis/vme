@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.ReferenceServiceException;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
-import org.vme.dao.sources.vme.VmeDao;
 
 abstract class AbstractService {
 
@@ -33,14 +32,14 @@ abstract class AbstractService {
 	@ConceptProvider
 	ReferenceDaoImpl refDao;
 
-	private static final Logger LOG = LoggerFactory.getLogger(VmeDao.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractService.class);
 	private static final String UNABLE2RETRIVE = "Unable to retrieve reference {} by ID {}: {}";
 
 	public List<Vme> filterVmePerRfmo(List<Vme> vmeList, String authorityAcronym){
 		List<Vme> vmeListPerRfmo = new ArrayList<Vme>();
 
 		for (Vme v : vmeList) {
-			if (v.getRfmo().getId().equals(authorityAcronym)) {
+			if (authorityAcronym.equals(v.getRfmo().getId())) {
 				vmeListPerRfmo.add(v);
 			}
 		}
@@ -175,7 +174,7 @@ abstract class AbstractService {
 		List<Authority> authorities = refDao.getAllAuthorities();
 
 		for (Authority authority : authorities) {
-			if (authority.getAcronym().equals(authorityAcronym)) {
+			if (authorityAcronym.equals(authority.getAcronym())) {
 				return authority.getId();
 			}
 		}

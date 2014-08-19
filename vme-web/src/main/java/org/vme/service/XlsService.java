@@ -14,12 +14,12 @@ import jxl.write.WriteException;
 import org.fao.fi.vme.domain.model.Vme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vme.dao.sources.vme.VmeDao;
+import org.vme.dao.transaction.VmeDaoTransactional;
 
 public class XlsService extends AbstractService {
 
 	@Inject
-	private VmeDao vdao;
+	private VmeDaoTransactional vdao;
 
 	@Inject
 	private WritableWorkbookFactory f;
