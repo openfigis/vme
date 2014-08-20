@@ -53,9 +53,11 @@ public class VmeCacheTest {
 
 		String text_query = "from Vme vme where vme.id = " + vme.getId();
 
-		ws.clean();
 		assertEquals(1, em1.createQuery(text_query).getResultList().size());
-		assertEquals(1, em2.createQuery(text_query).getResultList().size());
+		ws.clean();
+
+		assertEquals(0, em1.createQuery(text_query).getResultList().size());
+		assertEquals(0, em2.createQuery(text_query).getResultList().size());
 	}
 
 }
