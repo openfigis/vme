@@ -49,6 +49,10 @@
 			<property name="hibernate.connection.provider_class"
 				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
 			<property name="hibernate.hikari.maximumPoolSize" value="2" />
+			<!--  so that connections are retired while the database is offline 1200000ms=20min -->
+			<property name="hibernate.hikari.maxLifetime" value="1200000" />
+			<property name="hibernate.hikari.jdbc4ConnectionTest" value="false" />
+			<property name="hibernate.hikari.connectionTestQuery" value="SELECT * FROM DUAL" />
 
 		</properties>
 	</persistence-unit>
