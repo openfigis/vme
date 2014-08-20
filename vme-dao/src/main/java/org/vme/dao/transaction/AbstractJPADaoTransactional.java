@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.Dao;
 import org.vme.dao.VmeDaoException;
-import org.vme.dao.sources.vme.VmeDao;
 
 /**
  * 
@@ -37,7 +36,7 @@ public class AbstractJPADaoTransactional implements Dao {
 	private static final String OBJECTREMOVED = "Object {} has been stored into persistence";
 	private static final String UNABLE2REMOVE = "Unable to remove object {} from persistence: {} [ {} ]";
 
-	protected static final Logger LOG = LoggerFactory.getLogger(VmeDao.class);
+	protected static final Logger LOG = LoggerFactory.getLogger(AbstractJPADaoTransactional.class);
 
 	public <E> E getEntityById(EntityManager em, Class<E> entity, Object id) {
 		Map<String, Object> idCriteria = new HashMap<String, Object>();

@@ -55,7 +55,6 @@ public class VmeDaoTransactional extends AbstractJPADaoTransactional{
 		return em.find(Vme.class, id);
 	}
 
-	@Transactional
 	public Vme saveVme(Vme vme) {
 
 		if (vme.getRfmo() != null && vme.getRfmo().getGeneralMeasureList() != null) {

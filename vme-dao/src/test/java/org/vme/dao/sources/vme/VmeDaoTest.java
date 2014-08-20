@@ -21,10 +21,12 @@ import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
+import org.vme.dao.transaction.VmeDaoTransactional;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmePersistenceUnitConfiguration.class })
@@ -32,8 +34,14 @@ import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 public class VmeDaoTest {
 
 	@Inject
-	VmeDao dao;
-
+	private VmeDaoTransactional dao;
+	private Vme vme;
+	
+	@Before
+	public void before(){
+		vme = VmeMock.generateVme(3);
+	}
+	
 	@Test
 	public void testVmeProfile() {
 	}
@@ -147,11 +155,8 @@ public class VmeDaoTest {
 	@Test
 	public void testCount() {
 		assertEquals(0, dao.count(Vme.class).intValue());
-		dao.persist(VmeTypeMock.create());
-
-		dao.persist(VmeMock.create());
+		dao.saveVme(vme);
 		assertEquals(1, dao.count(Vme.class).intValue());
-
 	}
 
 }
