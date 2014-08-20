@@ -20,6 +20,7 @@ import org.vme.dao.config.PersistenceUnitConfiguration;
  */
 
 public class VmeDataBaseProducerApplicationScope {
+
 	@Inject
 	@VmeDB
 	protected PersistenceUnitConfiguration config;
@@ -32,15 +33,22 @@ public class VmeDataBaseProducerApplicationScope {
 	@Produces
 	@ApplicationScoped
 	public EntityManagerFactory create() {
-
 		return Persistence.createEntityManagerFactory(this.config.getPersistenceUnitName());
 	}
 
 	@Produces
-	@VmeDB
 	@ApplicationScoped
+	public DoubleEntityManager produceDoubleDbProducer() {
+		DoubleEntityManager p = new DoubleEntityManager();
+		p.setEmf(create());
+		p.createNewEm();
+		return p;
+	}
+
+	@Produces
+	@VmeDB
 	public EntityManager produceEntityManager() {
-		return create().createEntityManager();
+		return produceDoubleDbProducer().getEm();
 	}
 
 	protected static Logger LOG = LoggerFactory.getLogger(VmeDataBaseProducerApplicationScope.class);

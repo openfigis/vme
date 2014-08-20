@@ -30,7 +30,7 @@ public class CacheInterceptor {
 	@Inject
 	private Cache cache;
 
-	CacheKeyGenerator g = new CacheKeyGenerator();
+	private CacheKeyGenerator g = new CacheKeyGenerator();
 
 	@AroundInvoke
 	public Object authorize(InvocationContext ic) {
