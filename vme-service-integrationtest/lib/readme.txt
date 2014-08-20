@@ -1,3 +1,11 @@
+update 20 August 2014, Now using ojdb7 from git\figis\figis-util\lib
+
+
+
+
+
+
+
 Problem: 
 Saving the ObservationXml with JPA causes this problem:
 Oracle 10g clob jpa java.lang.AbstractMethodError: oracle.jdbc.driver.T4CPreparedStatement.setCharacterStream(ILjava/io/Reader
