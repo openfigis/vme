@@ -6,6 +6,25 @@ import javax.persistence.EntityManagerFactory;
 
 /**
  * 
+ * The double in DoubleEntityManager has a 'double' meaning:
+ * 
+ * 1) There are 2 entitymanagers which are connecting to the VME Oracle DB. The
+ * first is through vme-web and the next through rsg-web.
+ * 
+ * 2) When the RSG entitymanager changes the VME DB, the vme-web EntityManager
+ * needs to be replaced with another one. Apparentely replacing is the simplest
+ * and less risky way. Other methods have been explored like refresh, clear but
+ * it all led to all sorts of Hibernate consistency complains.
+ * 
+ * This class gives the possibility to create a new one, when the RSG has
+ * updated the underlying DB.
+ * 
+ * Apparently JPA does not envisage the use of 2 entitymanager to the same DB.
+ * DoubleEntityManager solves the related issues when you do use 2
+ * entitymanagers.
+ * 
+ * 
+ * 
  * @author Erik van Ingen
  *
  */
