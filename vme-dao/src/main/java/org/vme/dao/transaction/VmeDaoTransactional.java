@@ -31,8 +31,8 @@ import org.vme.dao.config.vme.VmeDB;
  */
 
 @Transactional
-@Interceptors({TransactionInterceptor.class})
-public class VmeDaoTransactional extends AbstractJPADaoTransactional{
+@Interceptors({ TransactionInterceptor.class })
+public class VmeDaoTransactional extends AbstractJPADaoTransactional {
 
 	@Inject
 	@VmeDB
@@ -41,15 +41,13 @@ public class VmeDaoTransactional extends AbstractJPADaoTransactional{
 	/**
 	 * @return the 'em' value
 	 */
-	public final EntityManager getEm() {
+	public EntityManager getEm() {
 		return this.em;
 	}
-
 
 	public List<Vme> loadVmes() {
 		return (List<Vme>) this.generateTypedQuery(em, Vme.class).getResultList();
 	}
-
 
 	public Vme findVme(Long id) {
 		return em.find(Vme.class, id);
@@ -102,7 +100,7 @@ public class VmeDaoTransactional extends AbstractJPADaoTransactional{
 		}
 
 		em.persist(vme);
-		
+
 		LOG.debug("Vme {} has been saved into persistence", vme);
 
 		return vme;
@@ -724,12 +722,12 @@ public class VmeDaoTransactional extends AbstractJPADaoTransactional{
 			}
 		}
 
-//		// Link the Criteria to the Vme
-//		if (vme.getCriteriaList() != null) {
-//			for (Criteria c : vme.getCriteriaList()) {
-//				c.setVme(vme);
-//			}
-//		}
+		// // Link the Criteria to the Vme
+		// if (vme.getCriteriaList() != null) {
+		// for (Criteria c : vme.getCriteriaList()) {
+		// c.setVme(vme);
+		// }
+		// }
 
 		vme = this.doPersistAndFlush(em, vme);
 
@@ -1200,7 +1198,8 @@ public class VmeDaoTransactional extends AbstractJPADaoTransactional{
 
 		// This is needed in order to let changes in the IS list be persisted
 		// correctly
-		//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
+		// em.flush(); Experiment to solve issue
+		// "Flush during cascade is dangerous"
 
 		em.refresh(current);
 
@@ -1231,5 +1230,5 @@ public class VmeDaoTransactional extends AbstractJPADaoTransactional{
 
 		return generalMeasure;
 	}
-	
+
 }
