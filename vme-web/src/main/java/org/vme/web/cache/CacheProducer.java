@@ -21,7 +21,7 @@ public class CacheProducer {
 		// for some reason, the @ApplicationScoped is not liked by the unittests
 		// (proxy problems)
 		if (!singletonManager.cacheExists(cacheName)) {
-			Cache memoryOnlyCache = new Cache(cacheName, 5000, true, true, 0, 0);
+			Cache memoryOnlyCache = new Cache(cacheName, 5000, false, true, 0, 0);
 
 			singletonManager.addCache(memoryOnlyCache);
 		}
