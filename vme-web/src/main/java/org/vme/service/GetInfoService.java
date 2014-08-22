@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.webservice.SpecificMeasureList;
-import org.vme.dao.transaction.VmeDaoTransactional;
+import org.vme.dao.sources.vme.VmeDao;
 import org.vme.service.dto.DtoTranslator;
 import org.vme.service.dto.SpecificMeasureDto;
 import org.vme.service.dto.VmeDto;
@@ -20,7 +20,7 @@ import org.vme.web.cache.Cached;
 public class GetInfoService extends AbstractService {
 
 	@Inject
-	private VmeDaoTransactional vDao;
+	private VmeDao vDao;
 
 	@Inject
 	private DtoTranslator translator;
