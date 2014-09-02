@@ -687,8 +687,6 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public Vme create(Vme vme) throws Throwable {
-		EntityTransaction et = this.em.getTransaction();
-		et.begin();
 
 		if (vme == null) {
 			throw new IllegalArgumentException("The updated Vme cannot be NULL");
@@ -751,7 +749,6 @@ public class VmeDao extends AbstractJPADao {
 		// }
 
 		em.persist(vme);
-		et.commit();
 		return vme;
 	}
 

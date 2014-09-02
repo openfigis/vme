@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import org.fao.fi.vme.domain.model.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
@@ -42,7 +44,7 @@ public class VmeDaoTest {
 	}
 
 	@Test
-	public void testVmeProfile() throws Throwable {
+	public void testCreate() throws Throwable {
 		String id = "fhuewiqof";
 		Rfmo rfmo = new Rfmo();
 		rfmo.setId(id);
@@ -50,7 +52,15 @@ public class VmeDaoTest {
 		Vme vme = new Vme();
 		vme.setRfmo(rfmo);
 		vme.setInventoryIdentifier("FIETS");
+
+		// This simulates how RsgServiceImplVme is using this method. Which is
+		// debatable because it would be cleaner to have all the transaction
+		// logic in the dao.
+		EntityManager em = dao.getEm();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
 		dao.create(vme);
+		tx.commit();
 		assertEquals(1, dao.count(Vme.class).intValue());
 
 	}
