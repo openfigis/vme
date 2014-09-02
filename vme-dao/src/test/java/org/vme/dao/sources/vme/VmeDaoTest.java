@@ -26,7 +26,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
-import org.vme.dao.transaction.VmeDaoTransactional;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmePersistenceUnitConfiguration.class })
@@ -34,16 +33,26 @@ import org.vme.dao.transaction.VmeDaoTransactional;
 public class VmeDaoTest {
 
 	@Inject
-	private VmeDaoTransactional dao;
+	private VmeDao dao;
 	private Vme vme;
-	
+
 	@Before
-	public void before(){
+	public void before() {
 		vme = VmeMock.generateVme(3);
 	}
-	
+
 	@Test
-	public void testVmeProfile() {
+	public void testVmeProfile() throws Throwable {
+		String id = "fhuewiqof";
+		Rfmo rfmo = new Rfmo();
+		rfmo.setId(id);
+		dao.persist(rfmo);
+		Vme vme = new Vme();
+		vme.setRfmo(rfmo);
+		vme.setInventoryIdentifier("FIETS");
+		dao.create(vme);
+		assertEquals(1, dao.count(Vme.class).intValue());
+
 	}
 
 	@Test

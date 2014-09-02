@@ -32,7 +32,7 @@ import org.vme.dao.impl.AbstractJPADao;
  * 
  */
 public class VmeDao extends AbstractJPADao {
-	
+
 	@Inject
 	@VmeDB
 	private EntityManager em;
@@ -117,7 +117,8 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		em.persist(vme);
-		//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
+		// em.flush(); Experiment to solve issue
+		// "Flush during cascade is dangerous"
 
 		et.commit();
 
@@ -686,6 +687,8 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public Vme create(Vme vme) throws Throwable {
+		EntityTransaction et = this.em.getTransaction();
+		et.begin();
 
 		if (vme == null) {
 			throw new IllegalArgumentException("The updated Vme cannot be NULL");
@@ -740,17 +743,15 @@ public class VmeDao extends AbstractJPADao {
 			}
 		}
 
-//		// Link the Criteria to the Vme
-//		if (vme.getCriteriaList() != null) {
-//			for (Criteria c : vme.getCriteriaList()) {
-//				c.setVme(vme);
-//			}
-//		}
+		// // Link the Criteria to the Vme
+		// if (vme.getCriteriaList() != null) {
+		// for (Criteria c : vme.getCriteriaList()) {
+		// c.setVme(vme);
+		// }
+		// }
 
-		vme = this.doPersistAndFlush(em, vme);
-
-		em.refresh(vme);
-
+		em.persist(vme);
+		et.commit();
 		return vme;
 	}
 
@@ -1216,7 +1217,8 @@ public class VmeDao extends AbstractJPADao {
 
 		// This is needed in order to let changes in the IS list be persisted
 		// correctly
-		//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
+		// em.flush(); Experiment to solve issue
+		// "Flush during cascade is dangerous"
 
 		em.refresh(current);
 
