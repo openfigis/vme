@@ -41,7 +41,9 @@ public class DoubleEntityManager {
 	 * another Em.
 	 */
 	public void createNewEm() {
+		System.out.println("");
 		this.em = emf.createEntityManager();
+		System.out.println("created EntityManager:" + em);
 	}
 
 	public void setEmf(EntityManagerFactory emf) {
