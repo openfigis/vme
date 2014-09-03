@@ -50,3 +50,7 @@ select count(*) from multilingual_string m
 select count(*) from multilingualstring_stringmap m 
 -- and 4476 values. 
 
+
+select multilingualstring_id, stringmap from multilingualstring_stringmap
+
+
