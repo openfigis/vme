@@ -13,19 +13,6 @@ public class MultiLingualStringUtilTest {
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	@Test
-	public void erik() {
-		System.out.println(0 ^ 0);
-		System.out.println(0 ^ 1);
-		System.out.println(1 ^ 0);
-		System.out.println(1 ^ 1);
-
-		System.out.println(0 | 0);
-		System.out.println(0 | 1);
-		System.out.println(1 | 0);
-		System.out.println(1 | 1);
-	}
-
-	@Test
 	public void testCopyMultiLingual() {
 		String s1 = "Mozart";
 		String s2 = "Beethoven";
