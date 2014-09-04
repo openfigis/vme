@@ -20,6 +20,7 @@ import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.VMEsHistory;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.vme.dao.VmeDaoException;
 import org.vme.dao.config.vme.VmeDB;
 import org.vme.dao.impl.AbstractJPADao;
@@ -36,6 +37,8 @@ public class VmeDao extends AbstractJPADao {
 	@Inject
 	@VmeDB
 	private EntityManager em;
+
+	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	/**
 	 * @return the 'em' value
@@ -813,9 +816,7 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		Profile current = this.getEntityById(this.em, Profile.class, profile.getId());
-		current.setDescriptionBiological(profile.getDescriptionBiological());
-		current.setDescriptionImpact(profile.getDescriptionImpact());
-		current.setDescriptionPhisical(profile.getDescriptionPhisical());
+		u.copyMultiLingual(profile, current);
 		current.setYear(profile.getYear());
 		current.setGeoform(profile.getGeoform());
 
@@ -875,7 +876,7 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		currentSM.setValidityPeriod(updatedSM.getValidityPeriod());
-		currentSM.setVmeSpecificMeasure(updatedSM.getVmeSpecificMeasure());
+		u.copyMultiLingual(updatedSM, currentSM);
 		currentSM.setYear(updatedSM.getYear());
 
 		if (updatedIS != null) {
@@ -1057,13 +1058,11 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		InformationSource current = this.getEntityById(this.em, InformationSource.class, informationSource.getId());
+		u.copyMultiLingual(informationSource, current);
 		current.setSourceType(informationSource.getSourceType());
-		current.setCitation(informationSource.getCitation());
-		current.setCommittee(informationSource.getCommittee());
 		current.setMeetingEndDate(informationSource.getMeetingEndDate());
 		current.setMeetingStartDate(informationSource.getMeetingStartDate());
 		current.setPublicationYear(informationSource.getPublicationYear());
-		current.setReportSummary(informationSource.getReportSummary());
 		current.setUrl(informationSource.getUrl());
 
 		current.setRfmo(this.getEntityById(em, Rfmo.class, informationSource.getRfmo().getId()));
@@ -1112,12 +1111,8 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		GeneralMeasure current = this.getEntityById(this.em, GeneralMeasure.class, generalMeasure.getId());
-		current.setExplorataryFishingProtocol(generalMeasure.getExplorataryFishingProtocol());
-		current.setFishingArea(generalMeasure.getFishingArea());
+		u.copyMultiLingual(generalMeasure, current);
 		current.setValidityPeriod(generalMeasure.getValidityPeriod());
-		current.setVmeEncounterProtocol(generalMeasure.getVmeEncounterProtocol());
-		current.setVmeIndicatorSpecies(generalMeasure.getVmeIndicatorSpecies());
-		current.setVmeThreshold(generalMeasure.getVmeThreshold());
 		current.setYear(generalMeasure.getYear());
 
 		current.setRfmo(this.getEntityById(em, Rfmo.class, generalMeasure.getRfmo().getId()));
