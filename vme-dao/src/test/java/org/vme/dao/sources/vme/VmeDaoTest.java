@@ -14,12 +14,16 @@ import javax.persistence.EntityTransaction;
 import org.fao.fi.vme.domain.model.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.test.GeneralMeasureMock;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
+import org.fao.fi.vme.domain.test.RfmoMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.test.VmeTypeMock;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
@@ -41,6 +45,38 @@ public class VmeDaoTest {
 	@Before
 	public void before() {
 		vme = VmeMock.generateVme(3);
+	}
+
+	/**
+	 * Test to understand how the MultiLingualString behaves with JPA
+	 * 
+	 * 
+	 * @throws Throwable
+	 */
+	@Test
+	public void testUpdate() throws Throwable {
+		MultiLingualStringUtil u = new MultiLingualStringUtil();
+
+		GeneralMeasure g = GeneralMeasureMock.create();
+		Rfmo rfmo = RfmoMock.createUnreferenced();
+		g.setRfmo(rfmo);
+		dao.persist(rfmo);
+		dao.persist(g);
+		assertEquals(5, dao.count(MultiLingualString.class).intValue());
+
+		System.out.println(u.getEnglish(g.getFishingArea()));
+		String newText = "My new world";
+		u.replaceEnglish(g.getFishingArea(), newText);
+
+		EntityManager em = this.dao.getEm();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		dao.update(g);
+		tx.commit();
+		System.out.println(u.getEnglish(g.getFishingArea()));
+
+		assertEquals(5, dao.count(MultiLingualString.class).intValue());
+
 	}
 
 	@Test

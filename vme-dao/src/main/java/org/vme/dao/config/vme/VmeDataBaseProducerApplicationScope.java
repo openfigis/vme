@@ -18,11 +18,8 @@ import org.vme.dao.config.PersistenceUnitConfiguration;
  * @author Erik van Ingen
  * 
  */
-@ApplicationScoped
-public class VmeDataBaseProducerApplicationScope {
-	protected static Logger LOG = LoggerFactory.getLogger(VmeDataBaseProducerApplicationScope.class);
 
-	private static DoubleEntityManager p;
+public class VmeDataBaseProducerApplicationScope {
 
 	@Inject
 	@VmeDB
@@ -42,18 +39,9 @@ public class VmeDataBaseProducerApplicationScope {
 	@Produces
 	@ApplicationScoped
 	public DoubleEntityManager produceDoubleDbProducer() {
-		// Intervention Erik van Ingen, 3 September 2014. For some reason,
-		// @ApplicationScoped is not working correctly. I did
-		// investigate, but I could not find a solution. Therefore this
-		// workaround. It looks like that the @ApplicationScoped on class level
-		// works correctly, but on method level it is called more than once.
-		if (p == null) {
-			System.out.println("===============produceDoubleDbProducer, should only appear once. ");
-			LOG.info("===============produceDoubleDbProducer, should only appear once. ");
-			p = new DoubleEntityManager();
-			p.setEmf(create());
+		DoubleEntityManager p = new DoubleEntityManager();
+		p.setEmf(create());
 			p.createNewEm();
-		}
 		return p;
 	}
 
@@ -62,5 +50,7 @@ public class VmeDataBaseProducerApplicationScope {
 	public EntityManager produceEntityManager() {
 		return produceDoubleDbProducer().getEm();
 	}
+
+	protected static Logger LOG = LoggerFactory.getLogger(VmeDataBaseProducerApplicationScope.class);
 
 }

@@ -16,10 +16,16 @@ public class RfmoMock {
 	static MultiLingualStringUtil u = new MultiLingualStringUtil();
 	static final String ID = String.valueOf(1000);
 
-	private RfmoMock(){
-		
+	private RfmoMock() {
+
 	}
-	
+
+	public static Rfmo createUnreferenced() {
+		Rfmo rfmo = new Rfmo();
+		rfmo.setId(ID);
+		return rfmo;
+	}
+
 	public static Rfmo create() {
 
 		Rfmo rfmo = new Rfmo();
@@ -51,7 +57,7 @@ public class RfmoMock {
 		List<InformationSource> infoSourceList = new ArrayList<InformationSource>();
 		infoSourceList.add(InformationSourceMock.create());
 		rfmo.setInformationSourceList(infoSourceList);
-		
+
 		for (GeneralMeasure gm : gmList) {
 			List<InformationSource> infoSourceList1 = new ArrayList<InformationSource>();
 			infoSourceList1.add(InformationSourceMock.create());
