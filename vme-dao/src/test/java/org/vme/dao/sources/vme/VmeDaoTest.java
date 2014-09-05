@@ -47,6 +47,29 @@ public class VmeDaoTest {
 		vme = VmeMock.generateVme(3);
 	}
 
+	@Test
+	public void testUpdateWithCopyMultiLingual() throws Throwable {
+		MultiLingualStringUtil u = new MultiLingualStringUtil();
+
+		GeneralMeasure g = GeneralMeasureMock.create();
+		Rfmo rfmo = RfmoMock.createUnreferenced();
+		g.setRfmo(rfmo);
+		dao.persist(rfmo);
+		dao.persist(g);
+		assertEquals(5, dao.count(MultiLingualString.class).intValue());
+
+		GeneralMeasure g2 = GeneralMeasureMock.create();
+		g2.setExplorataryFishingProtocol(u.english("fiets"));
+		u.copyMultiLingual(g2, g);
+		EntityManager em = this.dao.getEm();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		dao.update(g);
+		tx.commit();
+		assertEquals(5, dao.count(MultiLingualString.class).intValue());
+
+	}
+
 	/**
 	 * Test to understand how the MultiLingualString behaves with JPA
 	 * 
