@@ -685,6 +685,7 @@ public class VmeDao extends AbstractJPADao {
 		// Update the Vme: this will unlink GeoRefs / Profiles /
 		// SpecificMeasures but not remove them.
 		Vme mergedVME = this.doMerge(em, updatedVME);
+		em.flush();
 
 		return mergedVME;
 	}
@@ -777,7 +778,9 @@ public class VmeDao extends AbstractJPADao {
 		current.setGeographicFeatureID(geoRef.getGeographicFeatureID());
 		current.setYear(geoRef.getYear());
 
-		return this.doMerge(em, current);
+		GeoRef f = this.doMerge(em, current);
+		em.flush();
+		return f;
 	}
 
 	public GeoRef create(GeoRef geoRef) {
@@ -819,8 +822,9 @@ public class VmeDao extends AbstractJPADao {
 		u.copyMultiLingual(profile, current);
 		current.setYear(profile.getYear());
 		current.setGeoform(profile.getGeoform());
-
-		return this.doMerge(em, current);
+		current = this.doMerge(em, current);
+		em.flush();
+		return current;
 	}
 
 	public Profile create(Profile profile) {
@@ -892,8 +896,9 @@ public class VmeDao extends AbstractJPADao {
 
 			em.merge(informationSource);
 		}
-
-		return this.doMerge(em, currentSM);
+		currentSM = this.doMerge(em, currentSM);
+		em.flush();
+		return currentSM;
 	}
 
 	public SpecificMeasure create(SpecificMeasure specificMeasure) {
@@ -945,7 +950,9 @@ public class VmeDao extends AbstractJPADao {
 		Rfmo parent = this.getEntityById(em, Rfmo.class, fisheryAreasHistory.getRfmo().getId());
 		fisheryAreasHistory.setRfmo(parent);
 
-		return this.doMerge(em, fisheryAreasHistory);
+		fisheryAreasHistory = this.doMerge(em, fisheryAreasHistory);
+		em.flush();
+		return fisheryAreasHistory;
 	}
 
 	public FisheryAreasHistory create(FisheryAreasHistory fisheryAreasHistory) throws Throwable {
@@ -1003,7 +1010,9 @@ public class VmeDao extends AbstractJPADao {
 
 		vmesHistory.setRfmo(parent);
 
-		return this.doMerge(em, vmesHistory);
+		vmesHistory = this.doMerge(em, vmesHistory);
+		em.flush();
+		return vmesHistory;
 	}
 
 	public VMEsHistory create(VMEsHistory vmesHistory) throws Throwable {
@@ -1067,7 +1076,9 @@ public class VmeDao extends AbstractJPADao {
 
 		current.setRfmo(this.getEntityById(em, Rfmo.class, informationSource.getRfmo().getId()));
 
-		return this.doMerge(em, current);
+		current = this.doMerge(em, current);
+		em.flush();
+		return current;
 	}
 
 	public InformationSource create(InformationSource informationSource) throws Throwable {
@@ -1101,21 +1112,23 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The updated VME General Measure cannot have a NULL identifier");
 		}
 
-		if (generalMeasure.getRfmo() == null) {
-			throw new IllegalArgumentException("The updated VME General Measure cannot have a NULL Authority");
-		}
-
-		if (generalMeasure.getRfmo().getId() == null) {
-			throw new IllegalArgumentException(
-					"The updated GeneralMeasure cannot have an Authority with a NULL identifier");
-		}
+		// if (generalMeasure.getRfmo() == null) {
+		// throw new
+		// IllegalArgumentException("The updated VME General Measure cannot have a NULL Authority");
+		// }
+		//
+		// if (generalMeasure.getRfmo().getId() == null) {
+		// throw new IllegalArgumentException(
+		// "The updated GeneralMeasure cannot have an Authority with a NULL identifier");
+		// }
 
 		GeneralMeasure current = this.getEntityById(this.em, GeneralMeasure.class, generalMeasure.getId());
 		u.copyMultiLingual(generalMeasure, current);
 		current.setValidityPeriod(generalMeasure.getValidityPeriod());
 		current.setYear(generalMeasure.getYear());
 
-		current.setRfmo(this.getEntityById(em, Rfmo.class, generalMeasure.getRfmo().getId()));
+		// current.setRfmo(this.getEntityById(em, Rfmo.class,
+		// generalMeasure.getRfmo().getId()));
 
 		Set<Long> is2Unlink = new HashSet<Long>();
 
@@ -1206,14 +1219,9 @@ public class VmeDao extends AbstractJPADao {
 		// }
 
 		current = this.doMerge(em, current);
-
-		// This is needed in order to let changes in the IS list be persisted
-		// correctly
-		// em.flush(); Experiment to solve issue
-		// "Flush during cascade is dangerous"
-
-		em.refresh(current);
-
+		// Flush during cascade is dangerous, but it needs to be done anyway in
+		// order to make sure that changes are reflected.
+		em.flush();
 		return current;
 	}
 

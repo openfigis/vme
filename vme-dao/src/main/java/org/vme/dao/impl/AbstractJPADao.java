@@ -25,17 +25,17 @@ import org.vme.dao.VmeDaoException;
  * 
  */
 public abstract class AbstractJPADao implements Dao {
-	
+
 	private static final String UNABLE2BUILD = "Unable to build query for ";
 	private static final String OBJECTREMOVED = "Object {} has been stored into persistence";
 	private static final String UNABLE2REMOVE = "Unable to remove object {} from persistence: {} [ {} ]";
-	
+
 	protected static final Logger LOG = LoggerFactory.getLogger(AbstractJPADao.class);
 
 	public <E> E getEntityById(EntityManager em, Class<E> entity, Object id) {
 		Map<String, Object> idCriteria = new HashMap<String, Object>();
 		idCriteria.put("id", id);
-		
+
 		E result = null;
 		if (this.generateFilteringTypedQuery(em, entity, idCriteria).getResultList().size() == 1) {
 			result = this.generateFilteringTypedQuery(em, entity, idCriteria).getSingleResult();
@@ -142,13 +142,13 @@ public abstract class AbstractJPADao implements Dao {
 		try {
 			et.begin();
 			em.detach(object);
-			//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
+			// em.flush(); Experiment to solve issue
+			// "Flush during cascade is dangerous"
 			et.commit();
 
 			LOG.debug(OBJECTREMOVED, object);
 		} catch (Exception t) {
-			LOG.error(UNABLE2REMOVE, object, t.getClass().getSimpleName(),
-					t.getMessage(), t);
+			LOG.error(UNABLE2REMOVE, object, t.getClass().getSimpleName(), t.getMessage(), t);
 
 			et.rollback();
 		}
@@ -166,7 +166,8 @@ public abstract class AbstractJPADao implements Dao {
 
 	protected <E extends ObjectId<? extends Serializable>> E doPersistAndFlush(EntityManager em, E object) {
 		em.persist(object);
-		//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
+		em.flush();// Experiment to solve issue
+					// "Flush during cascade is dangerous"
 
 		return object;
 	}
@@ -176,7 +177,8 @@ public abstract class AbstractJPADao implements Dao {
 	}
 
 	protected void zdoRefresh(EntityManager em, Object object) {
-		//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
+		em.flush(); // Experiment to solve issue
+		// "Flush during cascade is dangerous"
 	}
 
 	public <E> E merge(EntityManager em, E object) {
@@ -201,7 +203,8 @@ public abstract class AbstractJPADao implements Dao {
 			EntityTransaction et = em.getTransaction();
 			et.begin();
 			em.persist(object);
-			//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
+			// em.flush(); Experiment to solve issue
+			// "Flush during cascade is dangerous"
 			et.commit();
 			LOG.debug(OBJECTREMOVED, object);
 		} catch (Exception e) {
@@ -215,7 +218,8 @@ public abstract class AbstractJPADao implements Dao {
 
 	public <E> E persistNoTx(EntityManager em, E object) {
 		em.persist(object);
-		//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
+		// em.flush(); Experiment to solve issue
+		// "Flush during cascade is dangerous"
 
 		return object;
 	}
@@ -248,12 +252,12 @@ public abstract class AbstractJPADao implements Dao {
 		try {
 			et.begin();
 			this.doRemove(em, object);
-			//em.flush(); Experiment to solve issue "Flush during cascade is dangerous"
+			// em.flush(); Experiment to solve issue
+			// "Flush during cascade is dangerous"
 			et.commit();
 			LOG.debug(OBJECTREMOVED, object);
 		} catch (Exception t) {
-			LOG.error(UNABLE2REMOVE, object, t.getClass().getSimpleName(),
-					t.getMessage(), t);
+			LOG.error(UNABLE2REMOVE, object, t.getClass().getSimpleName(), t.getMessage(), t);
 			et.rollback();
 			throw new VmeDaoException(t);
 		}
