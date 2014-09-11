@@ -882,6 +882,7 @@ public class VmeDao extends AbstractJPADao {
 		currentSM.setValidityPeriod(updatedSM.getValidityPeriod());
 		u.copyMultiLingual(updatedSM, currentSM);
 		currentSM.setYear(updatedSM.getYear());
+		currentSM.setReviewYear(updatedSM.getReviewYear());
 
 		if (updatedIS != null) {
 			InformationSource informationSource = this.getEntityById(em, InformationSource.class, updatedIS.getId());

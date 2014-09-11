@@ -861,6 +861,7 @@ public class VmeDaoTransactional extends AbstractJPADaoTransactional {
 		currentSM.setValidityPeriod(updatedSM.getValidityPeriod());
 		currentSM.setVmeSpecificMeasure(updatedSM.getVmeSpecificMeasure());
 		currentSM.setYear(updatedSM.getYear());
+		currentSM.setReviewYear(updatedSM.getReviewYear());
 
 		if (updatedIS != null) {
 			InformationSource informationSource = this.getEntityById(em, InformationSource.class, updatedIS.getId());
