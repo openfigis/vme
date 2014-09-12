@@ -4,7 +4,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.slf4j.Logger;
@@ -30,25 +29,27 @@ public class VmeDataBaseProducerApplicationScope {
 	// The scope of the produced bean, in our case since we want to have only
 	// one EntityManagerFactory we mark it as
 	// application-scoped
-	@Produces
-	@ApplicationScoped
-	public EntityManagerFactory create() {
-		return Persistence.createEntityManagerFactory(this.config.getPersistenceUnitName());
-	}
+	// @Produces
+	// @ApplicationScoped
+	// public EntityManagerFactory create() {
+	// return
+	// Persistence.createEntityManagerFactory(this.config.getPersistenceUnitName());
+	// }
 
-	@Produces
-	@ApplicationScoped
-	public DoubleEntityManager produceDoubleDbProducer() {
-		DoubleEntityManager p = new DoubleEntityManager();
-		p.setEmf(create());
-			p.createNewEm();
-		return p;
-	}
+	// @Produces
+	// @ApplicationScoped
+	// public DoubleEntityManager produceDoubleDbProducer() {
+	// DoubleEntityManager p = new DoubleEntityManager();
+	// p.setEmf(create());
+	// p.createNewEm();
+	// return p;
+	// }
 
 	@Produces
 	@VmeDB
+	@ApplicationScoped
 	public EntityManager produceEntityManager() {
-		return produceDoubleDbProducer().getEm();
+		return Persistence.createEntityManagerFactory(this.config.getPersistenceUnitName()).createEntityManager();
 	}
 
 	protected static Logger LOG = LoggerFactory.getLogger(VmeDataBaseProducerApplicationScope.class);

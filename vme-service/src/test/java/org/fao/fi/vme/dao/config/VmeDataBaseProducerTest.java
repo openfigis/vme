@@ -4,7 +4,6 @@ import static org.junit.Assert.assertNotNull;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -21,15 +20,11 @@ import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 public class VmeDataBaseProducerTest {
 
 	@Inject
-	EntityManagerFactory f;
-
-	@Inject
 	@VmeDB
 	EntityManager e;
 
 	@Test
 	public void testProduceEntityManager() {
-		assertNotNull(f);
 		assertNotNull(e);
 	}
 

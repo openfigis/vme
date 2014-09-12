@@ -5,6 +5,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 /**
+ * Update: Erik van Ingen, 12 September. My latest observations do not justify
+ * the use of DoubleEntityManager. Therefore its use will be eleminated. It does
+ * not solve the could not extract ResultSet problems.
+ * 
+ * 
+ * 
+ * 
  * 
  * The double in DoubleEntityManager has a 'double' meaning:
  * 
@@ -26,6 +33,7 @@ import javax.persistence.EntityManagerFactory;
  * 
  * 
  * @author Erik van Ingen
+ * @deprecated
  *
  */
 // typed because it should only be produced

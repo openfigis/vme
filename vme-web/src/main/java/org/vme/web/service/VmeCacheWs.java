@@ -2,6 +2,7 @@ package org.vme.web.service;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,7 +13,7 @@ import net.sf.ehcache.Cache;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vme.dao.config.vme.DoubleEntityManager;
+import org.vme.dao.config.vme.VmeDB;
 
 /**
  * Webservice in order to be able to do cache operations when needed, not at
@@ -32,7 +33,8 @@ public class VmeCacheWs {
 	private static String MESSAGE = "VME_CACHE_DELETED_SUCCESS";
 
 	@Inject
-	private DoubleEntityManager doubleEntityManager;
+	@VmeDB
+	private EntityManager em;
 
 	@Inject
 	private Cache cache;
@@ -50,7 +52,7 @@ public class VmeCacheWs {
 	public String clean() {
 		String message = MESSAGE;
 		try {
-			doubleEntityManager.createNewEm();
+			em.clear();
 			cache.removeAll();
 		} catch (PersistenceException e) {
 			message = e.getMessage();
