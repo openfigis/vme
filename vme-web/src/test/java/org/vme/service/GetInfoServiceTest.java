@@ -1,6 +1,7 @@
 package org.vme.service;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.StringWriter;
 
@@ -10,8 +11,10 @@ import javax.xml.bind.JAXBException;
 
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.fao.fi.vme.webservice.GeneralMeasureList;
 import org.fao.fi.vme.webservice.SpecificMeasureList;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -95,6 +98,19 @@ public class GetInfoServiceTest {
 		System.out.println(xmlString);
 		System.out.println();
 
+	}
+
+	@Test
+	public void testVmeIdentifier2SpecificmeasureXML() {
+		// Rfmo r = RfmoMock.createUnreferenced();
+		// vDao.persist(r);
+		//
+		// Vme vme = VmeMock.create();
+		// vme.setRfmo(r);
+		// vDao.saveVme(vme);
+		GeneralMeasureList l = service.vmeIdentifierGeneralMeasures(vme.getInventoryIdentifier(),
+				ValidityPeriodMock.BEGIN_YEAR);
+		assertTrue(l.getGeneralMeasures().size() > 0);
 	}
 
 }

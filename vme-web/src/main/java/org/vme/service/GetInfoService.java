@@ -6,8 +6,11 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.webservice.GeneralMeasureList;
+import org.fao.fi.vme.webservice.GeneralMeasureType;
 import org.fao.fi.vme.webservice.SpecificMeasureList;
 import org.vme.dao.sources.vme.VmeDao;
 import org.vme.service.dto.DtoTranslator;
@@ -131,6 +134,20 @@ public class GetInfoService extends AbstractService {
 			}
 		}
 		return smList;
+	}
+
+	@Cached
+	public GeneralMeasureList vmeIdentifierGeneralMeasures(String vmeIdentifier, int year) {
+		GeneralMeasureList gmList = new GeneralMeasureList();
+		List<Vme> vmeList = vDao.loadVmes();
+		filterVmePerInventoryIdentifier(vmeList, vmeIdentifier);
+		for (Vme vme : vmeList) {
+			for (GeneralMeasure gm : vme.getRfmo().getGeneralMeasureList()) {
+				GeneralMeasureType t = translator.doTranslate4GmType(vme.getId(), gm);
+				gmList.getGeneralMeasures().add(t);
+			}
+		}
+		return gmList;
 	}
 
 }
