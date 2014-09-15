@@ -38,7 +38,8 @@
 		<init-param>
 			<param-name>jersey.config.server.provider.packages</param-name>
 			<param-value>
-				org.fao.fi.security.server,
+				org.fao.fi.security.server.javax,
+				org.fao.fi.security.server.providers,
 				org.fao.fi.vme.rsg.security
 			</param-value>
 		</init-param>

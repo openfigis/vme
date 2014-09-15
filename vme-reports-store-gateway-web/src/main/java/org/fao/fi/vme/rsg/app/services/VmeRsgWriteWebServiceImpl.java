@@ -8,8 +8,8 @@ import javax.ws.rs.Path;
 
 import org.fao.fi.security.server.javax.filters.bandwidth.support.BandwidthLimitedResource;
 import org.fao.fi.security.server.javax.filters.origin.support.IPRestrictedResource;
-import org.fao.fi.security.server.javax.filters.token.support.EncryptedTokenSecuredResource;
-import org.gcube.application.rsg.webservice.RSGWebService;
+import org.fao.fi.security.server.javax.filters.token.support.PlainTokenSecuredResource;
+import org.gcube.application.rsg.webservice.RSGWriteWebService;
 
 /**
  * Place your class / interface description here.
@@ -25,9 +25,9 @@ import org.gcube.application.rsg.webservice.RSGWebService;
  * @since 9 May 2014
  */
 @Singleton 
-@EncryptedTokenSecuredResource 
 @IPRestrictedResource 
-@BandwidthLimitedResource 
-@Path("/")
-public class VmeRsgWebServiceImpl extends RSGWebService {
+@BandwidthLimitedResource
+@PlainTokenSecuredResource
+@Path("/write")
+public class VmeRsgWriteWebServiceImpl extends RSGWriteWebService {
 }

@@ -3,7 +3,7 @@
  */
 package org.fao.fi.vme.rsg.test;
 
-import org.gcube.application.rsg.client.RsgClient;
+import org.gcube.application.rsg.client.RsgReadClient;
 import org.gcube.application.rsg.service.dto.NameValue;
 import org.gcube.application.rsg.service.dto.ReportEntry;
 import org.gcube.application.rsg.service.dto.ReportType;
@@ -25,7 +25,7 @@ import org.junit.Test;
 public class TestWS {
 	@Test
 	public void testList() throws Throwable {
-		RsgClient client = new RsgClient("http://figisapps.fao.org/figis/secure-reports-store-gateway/rest/");
+		RsgReadClient client = new RsgReadClient("http://figisapps.fao.org/figis/secure-reports-store-gateway/rest/");
 		client.securedWithEncryptedToken("http://figisapps.fao.org/figis/secure-reports-store-gateway/security/token/encrypted/request", 
 										 "http://dev.d4science.org/pgp-security/imarine.skr", 
 										 "d45c13nc3", 

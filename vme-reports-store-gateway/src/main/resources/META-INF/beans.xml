@@ -8,7 +8,5 @@
 		<class>org.gcube.application.rsg.support.compiler.impl.AnnotationBasedReportCompiler</class>
 		<class>org.gcube.application.rsg.support.builder.impl.ReportManagerReportBuilder</class>
 		<class>org.fao.fi.vme.rsg.service.VmeWebServerProducerPropertiesFile</class>
-
-		<!-- class>org.fao.fi.vme.rsg.service.RsgServiceImplVme</class -->
 	</alternatives>
 </beans>
