@@ -30,19 +30,20 @@ public class VmeMock {
 	public static final String GEO_AREA = "Southern Pacific Ocean";
 	public static final String HISTORY = "History repeating";
 	public static final String SPEC_MEASURE_CIT = "This is a citation for a SpecificMeasure";
-	
+
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
-	private VmeMock(){
-		
+	private VmeMock() {
+
 	}
-	
+
 	public static Vme create() {
 		Vme vme = new Vme();
 		vme.setValidityPeriod(ValidityPeriodMock.create());
 		vme.setName(u.english(NAME));
 		vme.setGeoArea(u.english(GEO_AREA));
 		vme.setScope(VME_SCOPE);
+		vme.setInventoryIdentifier(INVENTORY_ID);
 
 		List<GeoRef> l = new ArrayList<GeoRef>();
 

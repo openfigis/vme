@@ -14,6 +14,7 @@ import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
 import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.fao.fi.vme.webservice.GeneralMeasureType;
 import org.fao.fi.vme.webservice.SpecificMeasureType;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.slf4j.Logger;
@@ -37,13 +38,13 @@ public class DtoTranslator {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	private static final String UNABLE2RETRIVE = "Unable to retrieve reference {} by ID {}: {}";
 
-	public SpecificMeasureDto doTranslate4Sm(SpecificMeasure sm){
+	public SpecificMeasureDto doTranslate4Sm(SpecificMeasure sm) {
 		SpecificMeasureDto smDto = new SpecificMeasureDto();
 		smDto.setText(UTIL.getEnglish(sm.getVmeSpecificMeasure()));
 		smDto.setYear(sm.getYear());
 		smDto.setValidityPeriodStart(sm.getValidityPeriod().getBeginDate());
 		smDto.setValidityPeriodEnd(sm.getValidityPeriod().getEndDate());
-		if(sm.getReviewYear()!=null){
+		if (sm.getReviewYear() != null) {
 			smDto.setReviewYear(sm.getReviewYear());
 		}
 		smDto.setSourceURL(sm.getInformationSource().getUrl().toExternalForm());
@@ -51,14 +52,15 @@ public class DtoTranslator {
 		return smDto;
 	}
 
-	public SpecificMeasureType doTranslate4SmType(SpecificMeasure sm){
+	public SpecificMeasureType doTranslate4SmType(SpecificMeasure sm) {
 		SpecificMeasureType smt = new SpecificMeasureType();
 		smt.setId(sm.getVme().getId().intValue());
 		smt.setLang("en");
 		smt.setMeasureSourceUrl(sm.getInformationSource().getUrl().toExternalForm());
 		smt.setMeasureText(UTIL.getEnglish(sm.getVmeSpecificMeasure()));
-		if(figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear())!=null){
-			smt.setOid(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear()).getId().getObservationId().intValue());
+		if (figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear()) != null) {
+			smt.setOid(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear()).getId().getObservationId()
+					.intValue());
 		}
 		smt.setValidityPeriodStart(String.valueOf(sm.getValidityPeriod().getBeginDate()));
 		smt.setValidityPeriodEnd(String.valueOf(sm.getValidityPeriod().getEndDate()));
@@ -66,7 +68,7 @@ public class DtoTranslator {
 		return smt;
 	}
 
-	public VmeDto doTranslate4Vme(Vme vme, int year){
+	public VmeDto doTranslate4Vme(Vme vme, int year) {
 
 		if (year == 0) {
 			year = Calendar.getInstance().get(Calendar.YEAR);
@@ -87,8 +89,7 @@ public class DtoTranslator {
 		if (vme.getRfmo() != null) {
 			String authorityAcronym = vme.getRfmo().getId();
 			try {
-				Authority authority = (Authority) referenceDAO
-						.getReferenceByAcronym(Authority.class, authorityAcronym);
+				Authority authority = (Authority) referenceDAO.getReferenceByAcronym(Authority.class, authorityAcronym);
 
 				if (authority == null) {
 					log.warn("authority == null");
@@ -113,10 +114,10 @@ public class DtoTranslator {
 		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginDate());
 		res.setValidityPeriodTo(vme.getValidityPeriod().getEndDate());
 
-		if(vme.getAreaType() != null) {
+		if (vme.getAreaType() != null) {
 			try {
 				res.setVmeType(referenceDAO.getReferenceByID(VmeType.class, vme.getAreaType()).getName());
-			} catch(Exception e) {
+			} catch (Exception e) {
 				log.error(UNABLE2RETRIVE, VmeType.class, vme.getAreaType(), e.getMessage(), e);
 			}
 		}
@@ -132,29 +133,44 @@ public class DtoTranslator {
 		return res;
 	}
 
-	public GeneralMeasureDto doTranslate4Gm(GeneralMeasure gm){
+	public GeneralMeasureDto doTranslate4Gm(GeneralMeasure gm) {
 
 		GeneralMeasureDto gmDto = new GeneralMeasureDto();
 		gmDto.setYear(gm.getYear());
 		gmDto.setValidityPeriodStart(VUTIL.getBeginYear(gm.getValidityPeriod()));
-		gmDto.setValidityPeriodEnd(VUTIL.getBeginYear(gm.getValidityPeriod()));		
+		gmDto.setValidityPeriodEnd(VUTIL.getBeginYear(gm.getValidityPeriod()));
 		gmDto.setFishingArea(UTIL.getEnglish(gm.getFishingArea()));
 		gmDto.setExploratoryFishingProtocol(UTIL.getEnglish(gm.getExplorataryFishingProtocol()));
 		gmDto.setVmeEncounterProtocol(UTIL.getEnglish(gm.getVmeEncounterProtocol()));
 		gmDto.setVmeIndicatorSpecies(UTIL.getEnglish(gm.getVmeIndicatorSpecies()));
 		gmDto.setThreshold(UTIL.getEnglish(gm.getVmeThreshold()));
-		if (figisDao.findExactVmeObservation(gm.getRfmo().getListOfManagedVmes().get(0).getId(), gm.getYear())!=null){
-			gmDto.setFactsheetURL(factsheetURL(figisDao.findExactVmeObservation(gm.getRfmo().getListOfManagedVmes().get(0).getId(), gm.getYear())));
+		if (figisDao.findExactVmeObservation(gm.getRfmo().getListOfManagedVmes().get(0).getId(), gm.getYear()) != null) {
+			gmDto.setFactsheetURL(factsheetURL(figisDao.findExactVmeObservation(gm.getRfmo().getListOfManagedVmes()
+					.get(0).getId(), gm.getYear())));
 		}
 		return gmDto;
 
 	}
 
-	public String factsheetURL(VmeObservation vo){
-		if(vo!= null){
+	public String factsheetURL(VmeObservation vo) {
+		if (vo != null) {
 			return "fishery/vme/" + vo.getId().getVmeId() + "/" + vo.getId().getObservationId() + "/en";
 		} else {
 			return "";
 		}
+	}
+
+	public GeneralMeasureType doTranslate4GmType(Long vmeId, GeneralMeasure gm) {
+		GeneralMeasureType gmt = new GeneralMeasureType();
+		gmt.setLang("en");
+		gmt.setId(vmeId.intValue());
+		// gmt.setMeasureSourceUrl(gm.getInformationSourceList().get(0).getUrl().toExternalForm());
+		if (figisDao.findFirstVmeObservation(vmeId, gm.getYear()) != null) {
+			gmt.setOid(figisDao.findExactVmeObservation(vmeId, gm.getYear()).getId().getObservationId().intValue());
+		}
+		gmt.setValidityPeriodStart(String.valueOf(gm.getValidityPeriod().getBeginDate()));
+		gmt.setValidityPeriodEnd(String.valueOf(gm.getValidityPeriod().getEndDate()));
+		gmt.setYear(gm.getYear());
+		return gmt;
 	}
 }

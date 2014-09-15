@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" 
-xmlns:fivme="http://www.fao.org/fi/vme/webservice" 
-targetNamespace="http://www.fao.org/fi/vme/webservice" 
-elementFormDefault="qualified">
-	
-	<element name="SpecificMeasureList" type="fivme:SpecificMeasureListType"/>
-	<complexType name="SpecificMeasureListType">
-			<choice maxOccurs="unbounded">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:fivme="http://www.fao.org/fi/vme/webservice"
+	targetNamespace="http://www.fao.org/fi/vme/webservice"
+	elementFormDefault="qualified">
 
-			<element name="SpecificMeasure" type="fivme:SpecificMeasureType" minOccurs="0" maxOccurs="unbounded"/>
+	<element name="SpecificMeasureList" type="fivme:SpecificMeasureListType" />
+	<element name="GeneralMeasureList" type="fivme:GeneralMeasureListType" />
+
+	<complexType name="SpecificMeasureListType">
+		<choice maxOccurs="unbounded">
+
+			<element name="SpecificMeasure" type="fivme:SpecificMeasureType"
+				minOccurs="0" maxOccurs="unbounded" />
+		</choice>
+	</complexType>
+
+	<complexType name="GeneralMeasureListType">
+		<choice maxOccurs="unbounded">
+
+			<element name="GeneralMeasure" type="fivme:GeneralMeasureType"
+				minOccurs="0" maxOccurs="unbounded" />
 		</choice>
 	</complexType>
 
@@ -21,5 +31,16 @@ elementFormDefault="qualified">
 		<attribute name="validityPeriodEnd" type="string"></attribute>
 		<attribute name="measureText" type="string"></attribute>
 		<attribute name="measureSourceUrl" type="anyURI"></attribute>
-    </complexType>
+	</complexType>
+
+
+	<complexType name="GeneralMeasureType">
+		<attribute name="year" type="int"></attribute>
+		<attribute name="oid" type="int"></attribute>
+		<attribute name="id" type="int"></attribute>
+		<attribute name="lang" type="string"></attribute>
+		<attribute name="validityPeriodStart" type="string"></attribute>
+		<attribute name="validityPeriodEnd" type="string"></attribute>
+	</complexType>
+
 </schema>

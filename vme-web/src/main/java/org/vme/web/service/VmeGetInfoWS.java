@@ -32,13 +32,14 @@ public class VmeGetInfoWS {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier, @PathParam("vmeYear") String vmeYear) {
 
-		try{
-			return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificMeasure(vmeIdentifier, Integer.parseInt(vmeYear))).build();
-		} catch (Exception e){
+		try {
+			return Response.status(200)
+					.entity(getInfoService.vmeIdentifier2SpecificMeasure(vmeIdentifier, Integer.parseInt(vmeYear)))
+					.build();
+		} catch (Exception e) {
 			log.error(ERROR, e.getMessage(), e);
 			return Response.status(500).entity(ERROR).build();
 		}
-
 
 	}
 
@@ -46,9 +47,9 @@ public class VmeGetInfoWS {
 	@Path("/{vmeIdentifier}/specificmeasure/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier) {
-		try{
+		try {
 			return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificMeasure(vmeIdentifier, 0)).build();
-		} catch (Exception e){
+		} catch (Exception e) {
 			log.error(ERROR, e.getMessage(), e);
 			return Response.status(500).entity(ERROR).build();
 		}
@@ -65,11 +66,35 @@ public class VmeGetInfoWS {
 	@GET
 	@Path("/{vmeIdentifier}/specificmeasure.xml/")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	// @Produces({ MediaType.APPLICATION_JSON })
 	public Response vmeIdentifierSpecificmeasures(@PathParam("vmeIdentifier") String vmeIdentifier) {
-		try{
-			return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificmeasureXML(vmeIdentifier, 0)).build();
-		} catch (Exception e){
+		try {
+			return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificmeasureXML(vmeIdentifier, 0))
+					.build();
+		} catch (Exception e) {
+			log.error(ERROR, e.getMessage(), e);
+			return Response.status(500).entity(ERROR).build();
+		}
+	}
+
+	/**
+	 * Similarly to
+	 * http://figisapps.fao.org/figis/ws/vme/webservice/vme/VME_NAFO_12
+	 * /specificmeasure.xml there should be another web service which given a
+	 * foreignID (e.g.VME_NAFO_12) it returns
+	 * http://figisapps.fao.org/figis/ws/vme
+	 * /webservice/vme/VME_NAFO_12/generalmeasure.xml with year="xxx" oid="xxx"
+	 * id="xxx" lang="xx" validityPeriodStart="xxxxx" validityPeriodEnd="xxxx"
+	 * 
+	 * @param vmeIdentifier
+	 * @return
+	 */
+	@GET
+	@Path("/{vmeIdentifier}/generalmeasure.xml/")
+	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+	public Response vmeIdentifierGeneralMeasures(@PathParam("vmeIdentifier") String vmeIdentifier) {
+		try {
+			return Response.status(200).entity(getInfoService.vmeIdentifierGeneralMeasures(vmeIdentifier, 0)).build();
+		} catch (Exception e) {
 			log.error(ERROR, e.getMessage(), e);
 			return Response.status(500).entity(ERROR).build();
 		}
