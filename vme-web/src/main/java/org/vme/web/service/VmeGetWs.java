@@ -25,7 +25,7 @@ public class VmeGetWs {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response find(@QueryParam("id") String id, @QueryParam("year") String year,
+	public synchronized Response find(@QueryParam("id") String id, @QueryParam("year") String year,
 			@QueryParam("inventoryIdentifier") String inventoryIdentifier,
 			@QueryParam("geographicFeatureId") String geographicFeatureId) {
 

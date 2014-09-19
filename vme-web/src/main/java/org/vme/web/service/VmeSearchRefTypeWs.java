@@ -40,7 +40,7 @@ public class VmeSearchRefTypeWs {
 	@Path("/list")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response find(@PathParam("concept") String concept, @PathParam("lang") String lang) {
+	public synchronized Response find(@PathParam("concept") String concept, @PathParam("lang") String lang) {
 		try {
 			ReferencesRequest refRequest = new ReferencesRequest(UUID.randomUUID());
 			refRequest.setConcept(concept);
@@ -56,7 +56,7 @@ public class VmeSearchRefTypeWs {
 	@Path("/batch")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response find() {
+	public synchronized Response find() {
 		try {
 			batch.run();
 			return Response.status(200).entity("ReferenceDataHardcodedBatch run successfully").build();

@@ -29,7 +29,7 @@ public class VmeGetInfoByOwnerWS {
 	@GET
 	@Path("/{owner}/scope/{scope}/year/{year}/vmes")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response find(@PathParam("owner") String owner, @PathParam("scope") String scope,
+	public synchronized Response find(@PathParam("owner") String owner, @PathParam("scope") String scope,
 			@PathParam("year") String year) {
 
 		return Response.status(200).entity(getInfoService.ownerScope2Vmes(owner, scope, Integer.parseInt(year))).build();
@@ -39,7 +39,7 @@ public class VmeGetInfoByOwnerWS {
 	@GET
 	@Path("/{owner}/scope/{scope}/vmes")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findByOwner(@PathParam("owner") String owner, @PathParam("scope") String scope,
+	public synchronized Response findByOwner(@PathParam("owner") String owner, @PathParam("scope") String scope,
 			@PathParam("year") String year) {
 
 		return Response.status(200).entity(getInfoService.ownerScope2Vmes(owner, scope, 0)).build();

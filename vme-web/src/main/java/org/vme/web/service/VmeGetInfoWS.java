@@ -30,7 +30,7 @@ public class VmeGetInfoWS {
 	@GET
 	@Path("/{vmeIdentifier}/year/{vmeYear}/specificmeasure/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier, @PathParam("vmeYear") String vmeYear) {
+	public synchronized Response find(@PathParam("vmeIdentifier") String vmeIdentifier, @PathParam("vmeYear") String vmeYear) {
 
 		try {
 			return Response.status(200)
@@ -46,7 +46,7 @@ public class VmeGetInfoWS {
 	@GET
 	@Path("/{vmeIdentifier}/specificmeasure/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response find(@PathParam("vmeIdentifier") String vmeIdentifier) {
+	public synchronized Response find(@PathParam("vmeIdentifier") String vmeIdentifier) {
 		try {
 			return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificMeasure(vmeIdentifier, 0)).build();
 		} catch (Exception e) {
@@ -66,7 +66,7 @@ public class VmeGetInfoWS {
 	@GET
 	@Path("/{vmeIdentifier}/specificmeasure.xml/")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Response vmeIdentifierSpecificmeasures(@PathParam("vmeIdentifier") String vmeIdentifier) {
+	public synchronized Response vmeIdentifierSpecificmeasures(@PathParam("vmeIdentifier") String vmeIdentifier) {
 		try {
 			return Response.status(200).entity(getInfoService.vmeIdentifier2SpecificmeasureXML(vmeIdentifier, 0))
 					.build();
@@ -91,7 +91,7 @@ public class VmeGetInfoWS {
 	@GET
 	@Path("/{vmeIdentifier}/generalmeasure.xml/")
 	@Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
-	public Response vmeIdentifierGeneralMeasures(@PathParam("vmeIdentifier") String vmeIdentifier) {
+	public synchronized Response vmeIdentifierGeneralMeasures(@PathParam("vmeIdentifier") String vmeIdentifier) {
 		try {
 			return Response.status(200).entity(getInfoService.vmeIdentifierGeneralMeasures(vmeIdentifier, 0)).build();
 		} catch (Exception e) {
