@@ -75,7 +75,7 @@
 		<profile>
 			<id>vme-prod</id>
 			<properties>
-				<vme.web.server>http://hqldvfigis1:6010/figis/ws/vme</vme.web.server>
+				<vme.web.server>http://hqlprfigis2:6010/figis/ws/vme</vme.web.server>
 			</properties>
 		</profile>
 	</profiles>
