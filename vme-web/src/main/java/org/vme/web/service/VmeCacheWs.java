@@ -49,7 +49,7 @@ public class VmeCacheWs {
 	 */
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public String clean() {
+	public synchronized String clean() {
 		String message = MESSAGE;
 		try {
 			em.clear();
