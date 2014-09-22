@@ -260,6 +260,14 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 		this.specificMeasureList = YearComparator.sort(specificMeasureList);
 	}
 
+	public List<MediaReference> getMediaReferenceList() {
+		return mediaReferenceList;
+	}
+
+	public void setMediaReferenceList(List<MediaReference> mediaReferenceList) {
+		this.mediaReferenceList = mediaReferenceList;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 

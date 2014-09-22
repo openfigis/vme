@@ -14,12 +14,14 @@ import javax.persistence.EntityTransaction;
 import org.fao.fi.vme.domain.model.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.MediaReference;
 import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.GeneralMeasureMock;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
+import org.fao.fi.vme.domain.test.MediaReferenceMock;
 import org.fao.fi.vme.domain.test.RfmoMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.test.VmeTypeMock;
@@ -45,6 +47,17 @@ public class VmeDaoTest {
 	@Before
 	public void before() {
 		vme = VmeMock.generateVme(3);
+	}
+
+	@Test
+	public void testMediaReference() throws Throwable {
+		Vme vme = new Vme();
+		MediaReference r = MediaReferenceMock.create();
+		r.setVme(vme);
+		vme.setMediaReferenceList(MediaReferenceMock.createList());
+		dao.persist(vme);
+		assertEquals(1, dao.count(Vme.class).intValue());
+		assertEquals(1, dao.count(MediaReference.class).intValue());
 	}
 
 	@Test

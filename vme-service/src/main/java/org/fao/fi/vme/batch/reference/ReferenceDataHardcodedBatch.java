@@ -44,8 +44,8 @@ public class ReferenceDataHardcodedBatch {
 	}
 
 	private void createMediaTypes() {
-		dao.syncStoreObject(new MediaType(1L, "Image"));
-		dao.syncStoreObject(new MediaType(2L, "Video"));
+		dao.syncStoreObject(new MediaType(10L, "Image"));
+		dao.syncStoreObject(new MediaType(20L, "Video"));
 	}
 
 	private void createVmeScopes() {
