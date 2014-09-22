@@ -135,6 +135,12 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGMandatory
 	private String inventoryIdentifier;
 
+	@RSGName("Media Reference")
+	@RSGWeight(6)
+	@RSGSection
+	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
+	private List<MediaReference> mediaReferenceList;
+
 	@Override
 	public Long getId() {
 		return id;

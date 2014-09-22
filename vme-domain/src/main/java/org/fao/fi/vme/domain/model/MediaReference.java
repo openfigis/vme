@@ -1,6 +1,7 @@
 package org.fao.fi.vme.domain.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +29,7 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  *
  */
 
-// @Entity
+@Entity
 public class MediaReference {
 
 	@RSGIdentifier
