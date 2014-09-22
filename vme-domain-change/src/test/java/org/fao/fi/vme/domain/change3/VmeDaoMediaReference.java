@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
 import org.fao.fi.vme.domain.model.MediaReference;
+import org.fao.fi.vme.domain.model.reference.MediaType;
 import org.fao.fi.vme.domain.test.MediaReferenceMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
@@ -31,6 +33,16 @@ public class VmeDaoMediaReference {
 
 	@Inject
 	VmeDao dao;
+
+	@Inject
+	ReferenceDataHardcodedBatch b;
+
+	@Test
+	public void testMediaType() throws Throwable {
+		assertEquals(0, dao.count(MediaType.class).intValue());
+		b.run();
+		assertEquals(2, dao.count(MediaType.class).intValue());
+	}
 
 	@Test
 	public void testMediaReference() throws Throwable {
