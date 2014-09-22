@@ -64,7 +64,7 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>vme-fiqa</id>
+			<id>vme-qa</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
