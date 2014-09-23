@@ -33,6 +33,14 @@ public class MediaType implements ReferenceDataObject<Long>, NamedReferenceConce
 	private Long id;
 
 	private String name;
+	
+	/**
+	 * Class constructor
+	 *
+	 */
+	public MediaType() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public MediaType(Long id, String name) {
 		this.id = id;

@@ -1,5 +1,7 @@
 package org.fao.fi.vme.domain.model;
 
+import java.net.URL;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,8 @@ import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.model.reference.MediaType;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenced;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
@@ -18,6 +22,8 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGO
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceReport;
 
 /**
  * For media, through some preliminary investigations I understand that and easy
@@ -30,17 +36,14 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
  *
  */
 
+@RSGReferenced
 @Entity
-public class MediaReference {
-
+public class MediaReference implements ObjectId<Long> {
 	@RSGIdentifier
 	@RSGConverter(LongDataConverter.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
-	@ManyToOne
-	private Vme vme;
 
 	@RSGName(value = "Media Type", hideHeading = true)
 	@RSGMandatory
@@ -53,21 +56,39 @@ public class MediaReference {
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGMandatory
 	@OneToOne(cascade = { CascadeType.ALL })
+	@RSGWeight(1)
 	private MultiLingualString title;
 
 	@RSGName("Description")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGMandatory
 	@OneToOne(cascade = { CascadeType.ALL })
+	@RSGWeight(1)
 	private MultiLingualString description;
 
 	@RSGName("Credits")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGMandatory
 	@OneToOne(cascade = { CascadeType.ALL })
+	@RSGWeight(1)
 	private MultiLingualString credits;
 
-	private String url;
+	@RSGName("Media URL")
+	@RSGConverter(URLDataConverter.class)
+	@RSGMandatory
+	@RSGWeight(1)
+	private URL url;
+	
+	@ManyToOne
+	private Vme vme;
+
+	public Vme getVme() {
+		return vme;
+	}
+
+	public void setVme(Vme vme) {
+		this.vme = vme;
+	}
 
 	public Long getId() {
 		return id;
@@ -109,20 +130,12 @@ public class MediaReference {
 		this.credits = credits;
 	}
 
-	public String getUrl() {
+	public URL getUrl() {
 		return url;
 	}
 
-	public void setUrl(String url) {
+	public void setUrl(URL url) {
 		this.url = url;
-	}
-
-	public Vme getVme() {
-		return vme;
-	}
-
-	public void setVme(Vme vme) {
-		this.vme = vme;
 	}
 
 	@Override
@@ -135,7 +148,6 @@ public class MediaReference {
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		result = prime * result + ((url == null) ? 0 : url.hashCode());
-		result = prime * result + ((vme == null) ? 0 : vme.hashCode());
 		return result;
 	}
 
@@ -191,13 +203,6 @@ public class MediaReference {
 				return false;
 			}
 		} else if (!url.equals(other.url)) {
-			return false;
-		}
-		if (vme == null) {
-			if (other.vme != null) {
-				return false;
-			}
-		} else if (!vme.equals(other.vme)) {
 			return false;
 		}
 		return true;

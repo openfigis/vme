@@ -352,6 +352,13 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 		} else if (!this.specificMeasureList.equals(other.specificMeasureList)) {
 			return false;
 		}
+		
+		if (this.mediaReferenceList == null && other.mediaReferenceList != null || this.mediaReferenceList != null
+				&& other.mediaReferenceList == null) {
+			return false;
+		} else if (!this.mediaReferenceList.equals(other.mediaReferenceList)) {
+			return false;
+		}
 
 		if (this.validityPeriod == null && other.validityPeriod != null || this.validityPeriod != null
 				&& other.validityPeriod == null) {

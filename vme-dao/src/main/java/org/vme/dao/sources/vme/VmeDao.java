@@ -15,6 +15,7 @@ import org.fao.fi.vme.domain.model.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.MediaReference;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
@@ -214,6 +215,12 @@ public class VmeDao extends AbstractJPADao {
 		if (toDelete.getGeoRefList() != null) {
 			for (GeoRef geoRef : new ArrayList<GeoRef>(toDelete.getGeoRefList())) {
 				this.delete(geoRef);
+			}
+		}
+		
+		if (toDelete.getMediaReferenceList() != null) {
+			for (MediaReference media : new ArrayList<MediaReference>(toDelete.getMediaReferenceList())) {
+				this.delete(media);
 			}
 		}
 
@@ -569,10 +576,10 @@ public class VmeDao extends AbstractJPADao {
 			}
 		}
 
-		Set<Long> profilesToDelete = new HashSet<Long>();
+		Set<Long> profileToDelete = new HashSet<Long>();
 		if (currentVME.getProfileList() != null) {
 			for (Profile profile : currentVME.getProfileList()) {
-				profilesToDelete.add(profile.getId());
+				profileToDelete.add(profile.getId());
 			}
 		}
 
@@ -580,6 +587,13 @@ public class VmeDao extends AbstractJPADao {
 		if (currentVME.getSpecificMeasureList() != null) {
 			for (SpecificMeasure specificMeasure : currentVME.getSpecificMeasureList()) {
 				specificMeasuresToDelete.add(specificMeasure.getId());
+			}
+		}
+		
+		Set<Long> mediaToDelete = new HashSet<Long>();
+		if (currentVME.getMediaReferenceList() != null) {
+			for (MediaReference media : currentVME.getMediaReferenceList()) {
+				mediaToDelete.add(media.getId());
 			}
 		}
 
@@ -593,13 +607,19 @@ public class VmeDao extends AbstractJPADao {
 
 		if (updatedVME.getProfileList() != null) {
 			for (Profile profile : updatedVME.getProfileList()) {
-				profilesToDelete.remove(profile.getId());
+				profileToDelete.remove(profile.getId());
 			}
 		}
 
 		if (updatedVME.getSpecificMeasureList() != null) {
 			for (SpecificMeasure specificMeasure : updatedVME.getSpecificMeasureList()) {
 				specificMeasuresToDelete.remove(specificMeasure.getId());
+			}
+		}
+		
+		if (updatedVME.getMediaReferenceList() != null) {
+			for (MediaReference media : updatedVME.getMediaReferenceList()) {
+				mediaToDelete.remove(media.getId());
 			}
 		}
 
@@ -612,12 +632,21 @@ public class VmeDao extends AbstractJPADao {
 
 			this.doRemove(em, g);
 		}
-		for (Long id : profilesToDelete) {
+		
+		for (Long id : profileToDelete) {
 			Profile p = this.getEntityById(this.em, Profile.class, id);
 
 			p.setVme(null);
 
 			this.doRemove(em, p);
+		}
+		
+		for (Long id : mediaToDelete) {
+			MediaReference m = this.getEntityById(this.em, MediaReference.class, id);
+
+			m.setVme(null);
+
+			this.doRemove(em, m);
 		}
 
 		// Unlinks InformationSources from the list of Specific Measures to
@@ -662,6 +691,13 @@ public class VmeDao extends AbstractJPADao {
 		if (updatedVME.getProfileList() != null) {
 			for (Profile profile : updatedVME.getProfileList()) {
 				profile.setVme(updatedVME);
+			}
+		}
+		
+		// Link the Media to the Vme
+		if (updatedVME.getMediaReferenceList() != null) {
+			for (MediaReference media : updatedVME.getMediaReferenceList()) {
+				media.setVme(updatedVME);
 			}
 		}
 
@@ -735,6 +771,13 @@ public class VmeDao extends AbstractJPADao {
 		if (vme.getProfileList() != null) {
 			for (Profile profile : vme.getProfileList()) {
 				profile.setVme(vme);
+			}
+		}
+		
+		// Link the Media to the Vme
+		if (vme.getMediaReferenceList() != null) {
+			for (MediaReference media : vme.getMediaReferenceList()) {
+				media.setVme(vme);
 			}
 		}
 
@@ -826,6 +869,8 @@ public class VmeDao extends AbstractJPADao {
 		em.flush();
 		return current;
 	}
+	
+	
 
 	public Profile create(Profile profile) {
 
@@ -842,6 +887,91 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		return this.doPersistAndFlush(em, profile);
+	}
+	
+	public MediaReference update(MediaReference media) {
+
+		if (media == null) {
+			throw new IllegalArgumentException("The updated VME media cannot be NULL");
+		}
+
+		if (media.getId() == null) {
+			throw new IllegalArgumentException("The updated VME media cannot have a NULL identifier");
+		}
+
+		if (media.getVme() == null) {
+			throw new IllegalArgumentException("The updated VME media cannot have a NULL Vme");
+		}
+
+		if (media.getVme().getId() == null) {
+			throw new IllegalArgumentException("The updated VME media cannot have a NULL Vme identifier");
+		}
+
+		MediaReference current = this.getEntityById(this.em, MediaReference.class, media.getId());
+		u.copyMultiLingual(media, current);
+		current.setType(media.getType());
+		current.setUrl(media.getUrl());
+		current = this.doMerge(em, current);
+		em.flush();
+		return current;
+	}
+	
+	public void delete(MediaReference toDelete) {
+
+		if (toDelete == null) {
+			throw new IllegalArgumentException("Media reference cannot be NULL");
+		}
+
+		if (toDelete.getId() == null) {
+			throw new IllegalArgumentException("Media reference id cannot be NULL");
+		}
+
+		if (toDelete.getVme() == null) {
+			throw new IllegalArgumentException("Media reference cannot have a NULL Vme reference");
+		}
+
+		if (toDelete.getVme().getId() == null) {
+			throw new IllegalArgumentException("Media reference cannot have a Vme reference with a NULL identifier");
+		}
+
+		Vme parent = toDelete.getVme();
+
+		if (parent.getMediaReferenceList() == null) {
+			throw new IllegalArgumentException("Media reference cannot have a parent Vme with a NULL media reference list");
+		}
+
+		if (parent.getMediaReferenceList().isEmpty()) {
+			throw new IllegalArgumentException("Media reference cannot have a parent Vme with an empty media reference list");
+		}
+
+		Iterator<MediaReference> iterator = parent.getMediaReferenceList().iterator();
+
+		while (iterator.hasNext()) {
+			if (iterator.next().getId().equals(toDelete.getId())) {
+				iterator.remove();
+			}
+		}
+
+		this.doMerge(em, parent);
+
+		this.doRemove(em, toDelete);
+	}
+	
+	public MediaReference create(MediaReference media) {
+
+		if (media == null) {
+			throw new IllegalArgumentException("The VME media to create cannot be NULL");
+		}
+
+		if (media.getVme() == null) {
+			throw new IllegalArgumentException("The VME media to create cannot have a NULL Vme");
+		}
+
+		if (media.getVme().getId() == null) {
+			throw new IllegalArgumentException("The VME media to create cannot have a NULL Vme identifier");
+		}
+
+		return this.doPersistAndFlush(em, media);
 	}
 
 	public SpecificMeasure update(SpecificMeasure updatedSM) throws Throwable {

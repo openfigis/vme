@@ -318,7 +318,9 @@ public class RsgServiceReadImplVme extends AbstractRsgServiceImplVme implements 
 
 			return template;
 		} catch (Throwable t) {
-			return null;
+			this.LOG.error("Unable to build template for {}. Unexpected {} caught: {}", identifiedReport.getName(), t.getClass().getSimpleName(), t.getMessage(), t);
+			
+			throw new RuntimeException(t);
 		}
 	}
 
