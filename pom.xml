@@ -11,7 +11,7 @@
 		<version>${project.version}</version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<rsg.version>1.0.1-SNAPSHOT</rsg.version>
+		<rsg.version>1.0.2-SNAPSHOT</rsg.version>
 	</properties>
 
 	<repositories>

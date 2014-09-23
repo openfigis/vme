@@ -87,7 +87,7 @@
 		<dependency>
 			<groupId>org.gcube.application.rsg</groupId>
 			<artifactId>reports-store-gateway-client</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>1.0.2-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -114,7 +114,7 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>vme-fiqa</id>
+			<id>vme-qa</id>
 			<build>
 				<finalName>figis#secure-reports-store-gateway</finalName>
 			</build>

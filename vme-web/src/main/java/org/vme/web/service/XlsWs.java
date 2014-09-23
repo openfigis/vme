@@ -39,7 +39,7 @@ public class XlsWs {
 	@GET
 	@Path("/{authority}")
 	@Produces("application/vnd.ms-excel")
-	public Response name(@PathParam("authority") String idAuthority) {
+	public synchronized Response name(@PathParam("authority") String idAuthority) {
 
 		StreamingOutput stream = null;
 			final ByteArrayInputStream in = this.xlsService.createXlsFile(idAuthority);

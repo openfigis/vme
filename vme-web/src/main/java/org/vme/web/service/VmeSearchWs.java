@@ -29,7 +29,7 @@ public class VmeSearchWs {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response find(@QueryParam("text") String text, @QueryParam("authority") String idAuthority,
+	public synchronized Response find(@QueryParam("text") String text, @QueryParam("authority") String idAuthority,
 			@QueryParam("vme_type") String idVmeType, @QueryParam("vme_criteria") String idVmeCriteria,
 			@QueryParam("year") String year) throws Exception {
 
