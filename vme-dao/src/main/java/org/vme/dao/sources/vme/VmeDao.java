@@ -743,13 +743,6 @@ public class VmeDao extends AbstractJPADao {
 			}
 		}
 
-		// // Link the Criteria to the Vme
-		// if (vme.getCriteriaList() != null) {
-		// for (Criteria c : vme.getCriteriaList()) {
-		// c.setVme(vme);
-		// }
-		// }
-
 		em.persist(vme);
 		return vme;
 	}
@@ -979,10 +972,6 @@ public class VmeDao extends AbstractJPADao {
 
 		parent.getHasFisheryAreasHistory().add(fisheryAreasHistory);
 
-		// It seems that merging the parent will cause TWO fishery areas history
-		// to be stored in the DB... Commenting this out
-		// this.doMerge(em, parent);
-
 		return this.doPersistAndFlush(em, fisheryAreasHistory);
 	}
 
@@ -1038,10 +1027,6 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		parent.getHasVmesHistory().add(vmesHistory);
-
-		// It seems that merging the parent will cause TWO fishery areas history
-		// to be stored in the DB... Commenting this out
-		// this.doMerge(em, parent);
 
 		return this.doPersistAndFlush(em, vmesHistory);
 	}
@@ -1111,23 +1096,10 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("The updated VME General Measure cannot have a NULL identifier");
 		}
 
-		// if (generalMeasure.getRfmo() == null) {
-		// throw new
-		// IllegalArgumentException("The updated VME General Measure cannot have a NULL Authority");
-		// }
-		//
-		// if (generalMeasure.getRfmo().getId() == null) {
-		// throw new IllegalArgumentException(
-		// "The updated GeneralMeasure cannot have an Authority with a NULL identifier");
-		// }
-
 		GeneralMeasure current = this.getEntityById(this.em, GeneralMeasure.class, generalMeasure.getId());
 		u.copyMultiLingual(generalMeasure, current);
 		current.setValidityPeriod(generalMeasure.getValidityPeriod());
 		current.setYear(generalMeasure.getYear());
-
-		// current.setRfmo(this.getEntityById(em, Rfmo.class,
-		// generalMeasure.getRfmo().getId()));
 
 		Set<Long> is2Unlink = new HashSet<Long>();
 
@@ -1183,39 +1155,6 @@ public class VmeDao extends AbstractJPADao {
 				}
 			}
 		}
-
-		// //Clear the currently set InformationSources for the GM (if any)
-		// if(current.getInformationSourceList() != null) {
-		// Iterator<InformationSource> isIterator =
-		// current.getInformationSourceList().iterator();
-		//
-		// InformationSource currentIs;
-		// while(isIterator.hasNext()) {
-		// currentIs = isIterator.next();
-		//
-		// currentIs.getGeneralMeasureList().remove(current);
-		//
-		// em.merge(currentIs);
-		//
-		// isIterator.remove();
-		//
-		// em.merge(current);
-		// }
-		// }
-		//
-		// //Assign the InformationSources for the GM (if any)
-		// if(generalMeasure.getInformationSourceList() != null) {
-		// InformationSource existing;
-		// for(InformationSource informationSource :
-		// generalMeasure.getInformationSourceList()) {
-		// existing = this.getEntityById(this.em, InformationSource.class,
-		// informationSource.getId());
-		//
-		// current.getInformationSourceList().add(existing);
-		//
-		// this.doMerge(em, existing);
-		// }
-		// }
 
 		current = this.doMerge(em, current);
 		// Flush during cascade is dangerous, but it needs to be done anyway in
