@@ -28,7 +28,7 @@ public class ReferenceDaoImplTest {
 
 	@Test
 	public void testGetConcepts() throws ReferenceServiceException {
-		assertEquals(7, referenceDao.getConcepts().size());
+		assertEquals(6, referenceDao.getConcepts().size());
 	}
 
 	@Test
