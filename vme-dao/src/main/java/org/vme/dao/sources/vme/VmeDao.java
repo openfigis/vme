@@ -120,8 +120,6 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		em.persist(vme);
-		// em.flush(); Experiment to solve issue
-		// "Flush during cascade is dangerous"
 
 		et.commit();
 
