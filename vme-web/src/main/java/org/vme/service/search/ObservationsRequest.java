@@ -260,38 +260,52 @@ public class ObservationsRequest extends ServiceRequest {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		ObservationsRequest other = (ObservationsRequest) obj;
-		if (authority != other.authority)
+		if (authority != other.authority) {
 			return false;
-		if (criteria != other.criteria)
+		}
+		if (criteria != other.criteria) {
 			return false;
+		}
 		if (geographicFeatureId == null) {
-			if (other.geographicFeatureId != null)
+			if (other.geographicFeatureId != null) {
 				return false;
-		} else if (!geographicFeatureId.equals(other.geographicFeatureId))
+			}
+		} else if (!geographicFeatureId.equals(other.geographicFeatureId)) {
 			return false;
-		if (id != other.id)
+		}
+		if (id != other.id) {
 			return false;
+		}
 		if (inventoryIdentifier == null) {
-			if (other.inventoryIdentifier != null)
+			if (other.inventoryIdentifier != null) {
 				return false;
-		} else if (!inventoryIdentifier.equals(other.inventoryIdentifier))
+			}
+		} else if (!inventoryIdentifier.equals(other.inventoryIdentifier)) {
 			return false;
+		}
 		if (text == null) {
-			if (other.text != null)
+			if (other.text != null) {
 				return false;
-		} else if (!text.equals(other.text))
+			}
+		} else if (!text.equals(other.text)) {
 			return false;
-		if (type != other.type)
+		}
+		if (type != other.type) {
 			return false;
-		if (year != other.year)
+		}
+		if (year != other.year) {
 			return false;
+		}
 		return true;
 	}
 
