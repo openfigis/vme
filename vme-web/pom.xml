@@ -115,7 +115,7 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>vme-fiqa</id>
+			<id>vme-qa</id>
 			<properties>
 				<host>http://figisapps.fao.org</host>
 			</properties>
