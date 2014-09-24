@@ -3,6 +3,12 @@
 	<name>vme-reports-store-gateway-web</name>
 	<comment>reports-store-gateway-web project</comment>
 	<projects>
+		<project>reports-store-gateway-support-builder</project>
+		<project>reports-store-gateway-support-model</project>
+		<project>reports-store-gateway-web-base</project>
+		<project>reports-store-gateway-support-compiler</project>
+		<project>reports-store-gateway-support-compiler-bridge</project>
+		<project>reports-store-gateway-interface-dto</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
