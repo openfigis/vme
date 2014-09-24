@@ -14,6 +14,7 @@ import org.fao.fi.figis.devcon.Range;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
 import org.fao.fi.figis.devcon.VMEIdent;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class JaxbMarshallTest {
@@ -21,6 +22,7 @@ public class JaxbMarshallTest {
 	JaxbMarshall m = new JaxbMarshall();
 
 	@Test
+	@Ignore
 	public void testMarshalToStringMinMax() {
 
 		ObjectFactory f = new ObjectFactory();
