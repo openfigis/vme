@@ -29,6 +29,8 @@ public class JaxbMarshall {
 	private static Marshaller marshaller = null;
 	private static final String ERROR = "There was a problem creating a JAXBContext object for serializing the object to XML.";
 
+	String UGLY_STRING = " xsi:type=\"xs:string\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"";
+
 	static {
 		try {
 
@@ -84,6 +86,9 @@ public class JaxbMarshall {
 		} catch (JAXBException e) {
 			throw new RuntimeException("There was a problem creating a the figis xml from a java object", e);
 		}
-		return sw.toString();
+
+		String documentString = sw.toString();
+		documentString = documentString.replaceAll(UGLY_STRING, "");
+		return documentString;
 	}
 }
