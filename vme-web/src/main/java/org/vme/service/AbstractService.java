@@ -14,6 +14,7 @@ import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
@@ -191,24 +192,180 @@ abstract class AbstractService {
 
 	public boolean vmeContainRelevantText(Vme vme, String text) {
 
-		if(vme.getAreaType() != null) {
-			VmeType selected = null;
-
-			try {
-				selected = refDao.getReferenceByID(VmeType.class, vme.getAreaType());
-
-				if(selected != null && selected.getName() != null) {
-					if(StringUtils.containsIgnoreCase(selected.getName(), text)) {
-						return true;
-					}
-				} else {
-					LOG.warn("Selected area type is either NULL or has a NULL name");
-				}
-			} catch (Exception e) {
-				LOG.error(UNABLE2RETRIVE, VmeType.class, vme.getAreaType(), e.getMessage(), e);
-			}
+		if(textInAreaType(vme, text) || textInCriteria(vme, text) || textInMultilingualString(vme.getGeoArea(), text) || textInGeoRef(vme, text) || 
+				textInInventoryIdentifier(vme, text) || textInMultilingualString(vme.getName(), text) || textInProfileList(vme, text) || 
+				textInRfmo(vme, text) || textInSpecificMeasureList(vme, text)){
+			return true;
+		} else {
+			return false;
 		}
 
+	}
+
+	private boolean textInSpecificMeasureList(Vme vme, String text) {
+		if (vme.getSpecificMeasureList() != null) {
+			for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
+				if (specificMeasure.getVmeSpecificMeasure() != null) {
+					if(textInMultilingualString(specificMeasure.getVmeSpecificMeasure(), text)){
+						return true;
+					}
+				}
+
+				if (specificMeasure.getInformationSource() != null) {
+					if(textInInformationSource(specificMeasure.getInformationSource(), text)){
+						return true;
+					}
+				}
+
+				if (specificMeasure.getInformationSource() != null && specificMeasure.getInformationSource().getCommittee() != null) {
+					if(textInMultilingualString(specificMeasure.getInformationSource().getCommittee(), text)){
+						return true;
+					}
+				}
+
+				if (specificMeasure.getInformationSource() != null && specificMeasure.getInformationSource().getReportSummary() != null) {
+					if(textInMultilingualString(specificMeasure.getInformationSource().getReportSummary(), text)){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean textInMultilingualString(MultiLingualString mString, String text){
+		for (String element : mString.getStringMap().values()) {
+			if (StringUtils.containsIgnoreCase(element, text)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean textInInformationSource(InformationSource informationSource, String text) {
+		if (informationSource.getCitation() != null) {
+			if(textInMultilingualString(informationSource.getCitation(), text)){
+				return true;
+			}
+		}
+		if (informationSource.getPublicationYear() != null 
+				&& StringUtils.containsIgnoreCase(Integer.toString(informationSource.getPublicationYear()), text)) {
+			return true;
+		}
+		if (StringUtils.containsIgnoreCase(informationSource.getUrl() != null ? informationSource.getUrl().toExternalForm() : "", text)) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean textInRfmo(Vme vme, String text) {
+		if (vme.getRfmo() != null) {
+			for (GeneralMeasure generalMeasure : vme.getRfmo().getGeneralMeasureList()) {
+				if (generalMeasure.getFishingArea() != null) {
+					if(textInMultilingualString(generalMeasure.getFishingArea(), text)){
+						return true;
+					}
+				}
+
+				if (generalMeasure.getExplorataryFishingProtocol() != null) {
+					if(textInMultilingualString(generalMeasure.getExplorataryFishingProtocol(), text)){
+						return true;
+					}
+				}
+
+				if (generalMeasure.getVmeEncounterProtocol() != null) {
+					if(textInMultilingualString(generalMeasure.getVmeEncounterProtocol(), text)){
+						return true;
+					}
+				}
+
+				if (generalMeasure.getVmeIndicatorSpecies() != null) {
+					if(textInMultilingualString(generalMeasure.getVmeIndicatorSpecies(), text)){
+						return true;
+					}
+				}
+
+				if (generalMeasure.getVmeThreshold() != null) {
+					if(textInMultilingualString(generalMeasure.getVmeThreshold(), text)){
+						return true;
+					}
+				}
+
+				if (generalMeasure.getInformationSourceList() != null) {
+					for (InformationSource informationSource : generalMeasure.getInformationSourceList()) {
+
+						if (informationSource.getCitation() != null) {
+							if(textInMultilingualString(informationSource.getCitation(), text)){
+								return true;
+							}
+						}
+						if (informationSource.getCommittee() != null) {
+							if(textInMultilingualString(informationSource.getCommittee(), text)){
+								return true;
+							}
+						}
+
+						if (informationSource.getReportSummary() != null) {
+							if(textInMultilingualString(informationSource.getReportSummary(), text)){
+								return true;
+							}
+						}
+						if (StringUtils.containsIgnoreCase(Integer.toString(informationSource.getPublicationYear()),
+								text)) {
+							return true;
+						}
+						if (StringUtils.containsIgnoreCase(informationSource.getUrl() != null ? informationSource
+								.getUrl().toExternalForm() : "", text)) {
+							return true;
+						}
+					}
+				}
+
+			}
+		}
+		return false;
+	}
+
+	private boolean textInProfileList(Vme vme, String text) {
+		if (vme.getProfileList() != null) {
+			for (Profile profile : vme.getProfileList()) {
+				if (profile.getDescriptionBiological() != null) {
+					if(textInMultilingualString(profile.getDescriptionBiological(), text)){
+						return true;
+					}
+				}
+				if (profile.getDescriptionImpact() != null) {
+					if(textInMultilingualString(profile.getDescriptionImpact(), text)){
+						return true;
+					}
+				}
+				if (profile.getDescriptionPhisical() != null) {
+					if(textInMultilingualString(profile.getDescriptionPhisical(), text)){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	private boolean textInInventoryIdentifier(Vme vme, String text) {
+		if (StringUtils.containsIgnoreCase(vme.getInventoryIdentifier(), text)) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean textInGeoRef(Vme vme, String text) {
+		for (GeoRef geoRef : vme.getGeoRefList()) {
+			if (StringUtils.containsIgnoreCase(geoRef.getGeographicFeatureID(), text)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean textInCriteria(Vme vme, String text) {
 		if(vme.getCriteria() != null && !vme.getCriteria().isEmpty()) {
 			VmeCriteria selected = null;
 
@@ -228,185 +385,29 @@ abstract class AbstractService {
 				}
 			}
 		}
-		if(vme.getGeoArea() != null){
-			for (String element : vme.getGeoArea().getStringMap().values()) {
-				if (StringUtils.containsIgnoreCase(element, text)) {
-					return true;
-				}
-			}
-		}
+		return false;
+	}
 
-		for (GeoRef geoRef : vme.getGeoRefList()) {
-			if (StringUtils.containsIgnoreCase(geoRef.getGeographicFeatureID(), text)) {
-				return true;
-			}
-		}
-		if (StringUtils.containsIgnoreCase(vme.getInventoryIdentifier(), text)) {
-			return true;
-		}
-		for (String element : vme.getName().getStringMap().values()) {
-			if (StringUtils.containsIgnoreCase(element, text)) {
-				return true;
-			}
-		}
+	private boolean textInAreaType(Vme vme, String text) {
+		if(vme.getAreaType() != null) {
+			VmeType selected = null;
 
-		if (vme.getProfileList() != null) {
-			for (Profile profile : vme.getProfileList()) {
-				if (profile.getDescriptionBiological() != null) {
-					for (String element : profile.getDescriptionBiological().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text)) {
-							return true;
-						}
-					}
-				}
-				if (profile.getDescriptionImpact() != null) {
-					for (String element : profile.getDescriptionImpact().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text)) {
-							return true;
-						}
-					}
-				}
-				if (profile.getDescriptionPhisical() != null) {
-					for (String element : profile.getDescriptionPhisical().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text)) {
-							return true;
-						}
-					}
-				}
-			}
-		}
+			try {
+				selected = refDao.getReferenceByID(VmeType.class, vme.getAreaType());
 
-		if (vme.getRfmo() != null) {
-			for (GeneralMeasure generalMeasure : vme.getRfmo().getGeneralMeasureList()) {
-				if (generalMeasure.getFishingArea() != null) {
-					for (String element : generalMeasure.getFishingArea().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text)) {
-							return true;
-						}
-					}
-				}
-
-				if (generalMeasure.getExplorataryFishingProtocol() != null) {
-					for (String element : generalMeasure.getExplorataryFishingProtocol().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text)) {
-							return true;
-						}
-					}
-				}
-				if (generalMeasure.getVmeEncounterProtocol() != null) {
-					for (String element : generalMeasure.getVmeEncounterProtocol().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text)) {
-							return true;
-						}
-					}
-				}
-				if (generalMeasure.getVmeIndicatorSpecies() != null) {
-					for (String element : generalMeasure.getVmeIndicatorSpecies().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text)) {
-							return true;
-						}
-					}
-				}
-
-				if (generalMeasure.getVmeThreshold() != null) {
-					for (String element : generalMeasure.getVmeThreshold().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text)) {
-							return true;
-						}
-					}
-				}
-
-				if (generalMeasure.getInformationSourceList() != null) {
-					for (InformationSource informationSource : generalMeasure.getInformationSourceList()) {
-
-						if (informationSource.getCitation() != null) {
-							for (String element : informationSource.getCitation().getStringMap().values()) {
-								if (StringUtils.containsIgnoreCase(element, text)) {
-									return true;
-								}
-							}
-						}
-						if (informationSource.getCommittee() != null) {
-							for (String element : informationSource.getCommittee().getStringMap().values()) {
-								if (StringUtils.containsIgnoreCase(element, text)) {
-									return true;
-								}
-							}
-						}
-
-						if (informationSource.getReportSummary() != null) {
-							for (String element : informationSource.getReportSummary().getStringMap().values()) {
-								if (StringUtils.containsIgnoreCase(element, text)) {
-									return true;
-								}
-							}
-						}
-						if (StringUtils.containsIgnoreCase(Integer.toString(informationSource.getPublicationYear()),
-								text)) {
-							return true;
-						}
-						if (StringUtils.containsIgnoreCase(informationSource.getUrl() != null ? informationSource
-								.getUrl().toExternalForm() : "", text)) {
-							return true;
-						}
-					}
-				}
-
-			}
-		}
-
-		if (vme.getSpecificMeasureList() != null) {
-			for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
-				if (specificMeasure.getVmeSpecificMeasure() != null) {
-					for (String element : specificMeasure.getVmeSpecificMeasure().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text)) {
-							return true;
-						}
-					}
-				}
-				if (specificMeasure.getInformationSource() != null) {
-					if (specificMeasure.getInformationSource().getCitation() != null) {
-						for (String element : specificMeasure.getInformationSource().getCitation().getStringMap()
-								.values()) {
-							if (StringUtils.containsIgnoreCase(element, text)) {
-								return true;
-							}
-						}
-					}
-					if (specificMeasure.getInformationSource().getPublicationYear() != null
-							&& StringUtils
-							.containsIgnoreCase(Integer.toString(specificMeasure.getInformationSource()
-									.getPublicationYear()), text)) {
+				if(selected != null && selected.getName() != null) {
+					if(StringUtils.containsIgnoreCase(selected.getName(), text)) {
 						return true;
 					}
-					if (StringUtils.containsIgnoreCase(
-							specificMeasure.getInformationSource().getUrl() != null ? specificMeasure
-									.getInformationSource().getUrl().toExternalForm() : "", text)) {
-						return true;
-					}
+				} else {
+					LOG.warn("Selected area type is either NULL or has a NULL name");
 				}
-				if (specificMeasure.getInformationSource() != null
-						&& specificMeasure.getInformationSource().getCommittee() != null) {
-					for (String element : specificMeasure.getInformationSource().getCommittee().getStringMap().values()) {
-						if (StringUtils.containsIgnoreCase(element, text)) {
-							return true;
-						}
-					}
-				}
-
-				if (specificMeasure.getInformationSource() != null
-						&& specificMeasure.getInformationSource().getReportSummary() != null) {
-					for (String element : specificMeasure.getInformationSource().getReportSummary().getStringMap()
-							.values()) {
-						if (StringUtils.containsIgnoreCase(element, text)) {
-							return true;
-						}
-					}
-				}
-
+			} catch (Exception e) {
+				LOG.error(UNABLE2RETRIVE, VmeType.class, vme.getAreaType(), e.getMessage(), e);
 			}
 		}
 		return false;
 	}
+
 }
 
