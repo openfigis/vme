@@ -6,7 +6,6 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -33,7 +32,12 @@ public class JaxbMarshall {
 	static {
 		try {
 
-			SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+			// For some reason the jsr173 jar does not have anymore the
+			// W3C_XML_SCHEMA_NS_URI. Therefore
+			// SchemaFactory sf =
+			// SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+			SchemaFactory sf = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
 
 			JAXBContext context = JAXBContext.newInstance(FIGISDoc.class);
 			marshaller = context.createMarshaller();
