@@ -23,9 +23,14 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceReport;
 
 /**
+ * @author Fabio Fiorellato
  * 
- * @author Erik van Ingen
+ * This model is based on the assumption that Regional Definitions are 
+ * logically equivalent to General Measures (in the way in which they shall be handled).
  * 
+ * If implemented, will require an update on the ReportManager GUI
+ * in order to let users be able to create / edit / delete RegionalDefinitions
+ * as expected. 
  */
 @RSGReferenceReport(name = "VME Regional Definitions")
 @Entity(name = "REGIONAL_DEFINITIONS")
