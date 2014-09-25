@@ -47,7 +47,9 @@ public class DtoTranslator {
 		if (sm.getReviewYear() != null) {
 			smDto.setReviewYear(sm.getReviewYear());
 		}
-		smDto.setSourceURL(sm.getInformationSource().getUrl().toExternalForm());
+		if (sm.getInformationSource() != null && sm.getInformationSource().getUrl() != null) {
+			smDto.setSourceURL(sm.getInformationSource().getUrl().toExternalForm());
+		}
 		smDto.setFactsheetURL(factsheetURL(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear())));
 		return smDto;
 	}
@@ -56,7 +58,9 @@ public class DtoTranslator {
 		SpecificMeasureType smt = new SpecificMeasureType();
 		smt.setId(sm.getVme().getId().intValue());
 		smt.setLang("en");
-		smt.setMeasureSourceUrl(sm.getInformationSource().getUrl().toExternalForm());
+		if (sm.getInformationSource() != null && sm.getInformationSource().getUrl() != null) {
+			smt.setMeasureSourceUrl(sm.getInformationSource().getUrl().toExternalForm());
+		}
 		smt.setMeasureText(UTIL.getEnglish(sm.getVmeSpecificMeasure()));
 		if (figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear()) != null) {
 			smt.setOid(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear()).getId().getObservationId()
