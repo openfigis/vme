@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.reference.InformationSourceType;
+import org.fao.fi.vme.domain.model.reference.MediaType;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
@@ -38,7 +39,13 @@ public class ReferenceDataHardcodedBatch {
 		createVmeTypes();
 		createInformationSourceTypes();
 		createVmeScopes();
+		createMediaTypes();
 		synchAuthorityWithRfmo();
+	}
+
+	private void createMediaTypes() {
+		dao.syncStoreObject(new MediaType(10L, "Image"));
+		dao.syncStoreObject(new MediaType(20L, "Video"));
 	}
 
 	private void createVmeScopes() {
@@ -109,7 +116,7 @@ public class ReferenceDataHardcodedBatch {
 	}
 
 	private void createVmeTypes() {
-		
+
 		dao.syncStoreObject(new VmeType(10L, "CLOS_AREA_BTMFISH", "Area closed to bottom fishing (SPRFMO)"));
 		dao.syncStoreObject(new VmeType(20L, "CLOS_VME", "VME closure (NEAFC)"));
 		dao.syncStoreObject(new VmeType(30L, "CLOS_AREA", "Closed area (SEAFO)"));

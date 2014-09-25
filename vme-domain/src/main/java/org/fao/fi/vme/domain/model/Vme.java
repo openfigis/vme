@@ -135,6 +135,12 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGMandatory
 	private String inventoryIdentifier;
 
+	@RSGName("Media Reference")
+	@RSGWeight(6)
+	@RSGSection
+	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
+	private List<MediaReference> mediaReferenceList;
+
 	@Override
 	public Long getId() {
 		return id;
@@ -254,6 +260,14 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 		this.specificMeasureList = YearComparator.sort(specificMeasureList);
 	}
 
+	public List<MediaReference> getMediaReferenceList() {
+		return mediaReferenceList;
+	}
+
+	public void setMediaReferenceList(List<MediaReference> mediaReferenceList) {
+		this.mediaReferenceList = mediaReferenceList;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 
@@ -336,6 +350,13 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 				&& other.specificMeasureList == null) {
 			return false;
 		} else if (!this.specificMeasureList.equals(other.specificMeasureList)) {
+			return false;
+		}
+		
+		if (this.mediaReferenceList == null && other.mediaReferenceList != null || this.mediaReferenceList != null
+				&& other.mediaReferenceList == null) {
+			return false;
+		} else if (!this.mediaReferenceList.equals(other.mediaReferenceList)) {
 			return false;
 		}
 

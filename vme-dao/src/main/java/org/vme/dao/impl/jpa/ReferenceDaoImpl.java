@@ -19,6 +19,7 @@ import org.fao.fi.vme.domain.annotations.ReferenceConceptName;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.ReferenceYear;
 import org.fao.fi.vme.domain.model.reference.InformationSourceType;
+import org.fao.fi.vme.domain.model.reference.MediaType;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
@@ -59,6 +60,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		this.concepts.add(ReferenceYear.class);
 		this.concepts.add(InformationSourceType.class);
 		this.concepts.add(VmeScope.class);
+		this.concepts.add(MediaType.class);
 		repYear = this.createYears();
 	}
 
@@ -84,6 +86,8 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 			return getYear(id);
 		} else if (concept.equals(VmeScope.class)) {
 			return getVmeScope(id);
+		} else if (concept.equals(MediaType.class)) {
+			return getMediaType(id);
 		} else {
 			throw new ReferenceServiceException(UNDEFINED);
 		}
@@ -111,12 +115,24 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 			return (List<R>) getAllYears();
 		} else if (concept.equals(VmeScope.class)) {
 			return (List<R>) getAllVmeScopes();
+		} else if (concept.equals(MediaType.class)) {
+			return (List<R>) getAllMediaTypes();
 		} else {
 			throw new ReferenceServiceException(UNDEFINED);
 		}
 
 	}
+	
+	@SuppressWarnings("unchecked")
+	private List<MediaType> getAllMediaTypes() {
+		return em.createQuery("from MediaType").getResultList();
+	}
 
+	public MediaType getMediaType(Long key) {
+		List<?> res = em.createQuery("from MediaType where id = " + key).getResultList();
+		return !res.isEmpty() ? (MediaType) res.get(0) : null;
+	}
+	
 	@SuppressWarnings("unchecked")
 	private List<VmeScope> getAllVmeScopes() {
 		return em.createQuery("from VmeScope").getResultList();
