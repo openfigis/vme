@@ -178,6 +178,7 @@ public class VmeMock {
 		rfmo.setInformationSourceList(informationSourceList);
 		rfmo.setGeneralMeasureList(generalMeasureList);
 
+		vme.setMediaReferenceList(MediaReferenceMock.createList(vme));
 		vme.setInventoryIdentifier(INVENTORY_ID);
 		vme.setName(u.english(NAME));
 		vme.setRfmo(rfmo);

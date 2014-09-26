@@ -61,7 +61,7 @@ import org.vme.fimes.jaxb.JaxbMarshall;
 public class FigisDocBuilderRegulatoryTest {
 
 	@Inject
-	FigisDocBuilderRegolatory b;
+	FigisDocBuilderRegulatory b;
 	JaxbMarshall m;
 	MultiLingualStringUtil u;
 	int nrOfYears = 2;

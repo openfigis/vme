@@ -8,13 +8,13 @@ import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.test.RefVmeMock;
+import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
 import org.fao.fi.vme.batch.sync2.SyncBatch2;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.InformationSourceType;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
-import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -48,12 +48,16 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 	@Inject
 	FigisDao figisDao;
 
+	@Inject
+	ReferenceDataHardcodedBatch referenceDataHardcodedBatch;
+
 	@Before
 	public void testBefore() {
 		clean();
 		cleanVme();
 		cleanRefFigis();
 		vmeDao.persist(VmeScopeMock.create());
+		referenceDataHardcodedBatch.run();
 	}
 
 	@After
@@ -91,8 +95,6 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 	}
 
 	private void prepareDB() {
-
-		vmeDao.persist(InformationSourceMock.createInformationSourceType());
 
 		Vme vme = VmeMock.generateVme(3);
 		vmeDao.persist(vme.getRfmo());

@@ -27,6 +27,7 @@ import org.fao.fi.figis.devcon.Measure;
 import org.fao.fi.figis.devcon.Min;
 import org.fao.fi.figis.devcon.ObjectFactory;
 import org.fao.fi.figis.devcon.Range;
+import org.fao.fi.figis.devcon.RelatedResources;
 import org.fao.fi.figis.devcon.Sources;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
@@ -73,6 +74,22 @@ public class FigisDocBuilderVmeTest {
 		u = new MultiLingualStringUtil();
 		vme = VmeMock.generateVme(nrOfYears);
 		vme.setId(67l);
+	}
+
+	@Test
+	public void testMediaReference() {
+		FIGISDoc figisDoc = new FIGISDoc();
+		figisDoc.setVME(f.createVME());
+		b.mediaReference(vme, figisDoc);
+		List<Object> l = figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts();
+		int media = 0;
+		for (Object object : l) {
+			if (object instanceof RelatedResources) {
+				System.out.println(object.getClass().getSimpleName());
+				media++;
+			}
+		}
+		assertEquals(1, media);
 	}
 
 	@Test

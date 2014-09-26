@@ -14,7 +14,7 @@ import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.Vme;
 
 /**
- * FigisDocBuilder, to build a FIGISDoc from VME Domain database for regolatory
+ * FigisDocBuilder, to build a FIGISDoc from VME Domain database for regulatory
  * factsheets.
  * 
  * 
@@ -24,12 +24,13 @@ import org.fao.fi.vme.domain.model.Vme;
  * @author Erik van Ingen
  * 
  */
-public class FigisDocBuilderRegolatory extends FigisDocBuilderAbstract {
+public class FigisDocBuilderRegulatory extends FigisDocBuilderAbstract {
 
 	@Override
 	public void docIt(Vme vme, DisseminationYearSlice disseminationYearSlice, FIGISDoc figisDoc) {
 		dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
 		vme(vme, disseminationYearSlice.getGeoRef(), disseminationYearSlice.getYear(), figisDoc);
+		mediaReference(vme, figisDoc);
 		fisheryArea(disseminationYearSlice.getFisheryAreasHistory(), figisDoc);
 		vmesHistory(disseminationYearSlice.getVmesHistory(), figisDoc);
 		generalMeasures(disseminationYearSlice.getGeneralMeasure(), figisDoc, disseminationYearSlice.getYear());

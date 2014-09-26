@@ -18,12 +18,14 @@ import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.ForeignID;
 import org.fao.fi.figis.devcon.GeoReference;
 import org.fao.fi.figis.devcon.Max;
+import org.fao.fi.figis.devcon.Media;
 import org.fao.fi.figis.devcon.Min;
 import org.fao.fi.figis.devcon.ObjectFactory;
 import org.fao.fi.figis.devcon.ObjectSource;
 import org.fao.fi.figis.devcon.OrgRef;
 import org.fao.fi.figis.devcon.Owner;
 import org.fao.fi.figis.devcon.Range;
+import org.fao.fi.figis.devcon.RelatedResources;
 import org.fao.fi.figis.devcon.Sources;
 import org.fao.fi.figis.devcon.SpatialScale;
 import org.fao.fi.figis.devcon.VME;
@@ -38,6 +40,7 @@ import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.MediaReference;
 import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.reference.MediaType;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
@@ -50,9 +53,10 @@ import org.purl.dc.terms.Created;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.ReferenceDAO;
+import org.vme.dao.VmeDaoException;
 
 /**
- * Abstract class for FigisDocBuilderRegolatory and FigisDocBuilderVme
+ * Abstract class for FigisDocBuilderRegulatory and FigisDocBuilderVme
  * 
  * 
  * @author Erik van Ingen
@@ -96,21 +100,35 @@ abstract class FigisDocBuilderAbstract {
 	public abstract void docIt(Vme vme, DisseminationYearSlice disseminationYearSlice, FIGISDoc figisDoc);
 
 	/**
-	 * MediaType=Image
-	 * fi:FIGISDoc/fi:VME/fi:RelatedResources/Media@Type=Image+@URL+
-	 * @Title+@Descritpion+@Source
+	 * MediaType=Image fi:FIGISDoc/fi:VME/fi:RelatedResources/
+	 * Media@Type=Image+@URL+@Title+@Descritpion+@Source
 	 * 
 	 * 
-	 * MediaType=Video
-	 * fi:FIGISDoc/fi:VME/fi:RelatedResources/Media@Type=Video+@URL+
-	 * @Title+@Descritpion+@Source
+	 * MediaType=Video fi:FIGISDoc/fi:VME/fi:RelatedResources
+	 * /Media@Type=Video+@URL+@Title+@Descritpion+@Source
 	 *
 	 *
 	 */
 	public void mediaReference(Vme vme, FIGISDoc figisDoc) {
 		List<MediaReference> l = vme.getMediaReferenceList();
-		for (MediaReference mediaReference : l) {
-
+		if (l != null && l.size() > 0) {
+			RelatedResources r = f.createRelatedResources();
+			for (MediaReference mediaReference : l) {
+				Media m = f.createMedia();
+				try {
+					MediaType mt = refDao.getReferenceByID(MediaType.class, mediaReference.getType());
+					m.setType(mt.getName());
+				} catch (Exception e) {
+					throw new VmeDaoException(e);
+				}
+				m.setURL(mediaReference.getUrl().toExternalForm().toString());
+				m.setTitle(u.getEnglish(mediaReference.getTitle()));
+				m.setDescription(u.getEnglish(mediaReference.getDescription()));
+				m.setSource(u.getEnglish(mediaReference.getCredits()));
+				JAXBElement<Media> jaxbMedia = f.createRelatedResourcesMedia(m);
+				r.getTextsAndImagesAndTables().add(jaxbMedia);
+			}
+			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(r);
 		}
 	};
 

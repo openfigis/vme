@@ -12,7 +12,7 @@ import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.batch.sync2.mapping.xml.DefaultObservationXml;
-import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilderRegolatory;
+import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilderRegulatory;
 import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilderVme;
 import org.fao.fi.vme.domain.model.Vme;
 import org.slf4j.Logger;
@@ -67,7 +67,7 @@ public class ObjectMapping {
 	@Inject
 	private FigisDocBuilderVme figisDocBuilderVme;
 	@Inject
-	private FigisDocBuilderRegolatory figisDocBuilderRegolatory;
+	private FigisDocBuilderRegulatory figisDocBuilderRegulatory;
 
 	private final JaxbMarshall marshall = new JaxbMarshall();
 	private final PeriodGrouping grouping = new PeriodGrouping();
@@ -102,7 +102,7 @@ public class ObjectMapping {
 				figisDocBuilderVme.docIt(vme, disseminationYearSlice, figisDoc);
 			}
 			if (vme.getScope() == 20) {
-				figisDocBuilderRegolatory.docIt(vme, disseminationYearSlice, figisDoc);
+				figisDocBuilderRegulatory.docIt(vme, disseminationYearSlice, figisDoc);
 			}
 
 			ObservationXml xml = new DefaultObservationXml().define();

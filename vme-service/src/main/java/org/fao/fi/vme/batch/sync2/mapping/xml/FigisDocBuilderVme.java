@@ -44,6 +44,7 @@ public class FigisDocBuilderVme extends FigisDocBuilderAbstract {
 	public void docIt(Vme vme, DisseminationYearSlice disseminationYearSlice, FIGISDoc figisDoc) {
 		dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
 		vme(vme, disseminationYearSlice.getGeoRef(), disseminationYearSlice.getYear(), figisDoc);
+		mediaReference(vme, figisDoc);
 		specificMeasures(disseminationYearSlice.getSpecificMeasure(), figisDoc);
 		profile(disseminationYearSlice.getProfile(), figisDoc);
 		informationSource(disseminationYearSlice.getInformationSourceList(), disseminationYearSlice.getYear(), figisDoc);
