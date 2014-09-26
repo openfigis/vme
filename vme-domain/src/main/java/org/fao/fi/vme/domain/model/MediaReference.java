@@ -12,7 +12,6 @@ import javax.persistence.OneToOne;
 
 import org.fao.fi.vme.domain.model.reference.MediaType;
 import org.fao.fi.vme.domain.support.MultiLingualStringConverter;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenceReport;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenced;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
@@ -23,7 +22,6 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGW
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter;
-import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceReport;
 
 /**
  * For media, through some preliminary investigations I understand that and easy
