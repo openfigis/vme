@@ -5798,7 +5798,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 			<xs:choice minOccurs="0">
 				<xs:element ref="dc:Title"/>
 			</xs:choice>
-			<xs:choice>
+			<xs:choice minOccurs="1" maxOccurs="unbounded">
 				<xs:element name="WaterAreaRef" type="fi:WaterAreaRef"/>
 				<xs:element name="LandAreaRef" type="fi:LandAreaRef"/>
 			</xs:choice>
@@ -7886,12 +7886,15 @@ an historical review of the Stock or Resource exploitation, management regimes o
 					<xs:enumeration value="YouTube"/>
 					<xs:enumeration value="Flickr"/>
 					<xs:enumeration value="Flash"/>
+					<xs:enumeration value="Video"/>
+					<xs:enumeration value="Image"/>
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:attribute>
 		<xs:attribute name="URL" type="xs:string" use="required"/>
 		<xs:attribute name="Title" type="xs:string" use="optional"/>
 		<xs:attribute name="Description" type="xs:string" use="optional"/>
+		<xs:attribute name="Source" type="xs:string" use="optional"/>
 		<xs:attribute name="width" type="xs:integer" use="optional"/>
 		<xs:attribute name="height" type="xs:integer" use="optional"/>
 		<xs:attribute name="align" use="optional">
@@ -9846,6 +9849,7 @@ an historical review of the Stock or Resource exploitation, management regimes o
 			<xs:element name="EIMS" type="fi:EIMS"/>
 			<xs:element name="NEMS" type="fi:NEMS"/>
 			<xs:element name="FAOLex" type="fi:FAOLex"/>
+			<xs:element name="Media" type="fi:Media"/>
 		</xs:choice>
 		<xs:attribute name="ItemsDisplayed" type="xs:int"/>
 		<xs:attribute ref="xml:lang"/>
