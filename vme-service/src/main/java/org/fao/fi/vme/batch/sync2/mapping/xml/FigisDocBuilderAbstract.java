@@ -35,6 +35,7 @@ import org.fao.fi.vme.batch.sync2.mapping.BiblioEntryFromInformationSource;
 import org.fao.fi.vme.batch.sync2.mapping.DisseminationYearSlice;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.MediaReference;
 import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
@@ -93,6 +94,25 @@ abstract class FigisDocBuilderAbstract {
 	}
 
 	public abstract void docIt(Vme vme, DisseminationYearSlice disseminationYearSlice, FIGISDoc figisDoc);
+
+	/**
+	 * MediaType=Image
+	 * fi:FIGISDoc/fi:VME/fi:RelatedResources/Media@Type=Image+@URL+
+	 * @Title+@Descritpion+@Source
+	 * 
+	 * 
+	 * MediaType=Video
+	 * fi:FIGISDoc/fi:VME/fi:RelatedResources/Media@Type=Video+@URL+
+	 * @Title+@Descritpion+@Source
+	 *
+	 *
+	 */
+	public void mediaReference(Vme vme, FIGISDoc figisDoc) {
+		List<MediaReference> l = vme.getMediaReferenceList();
+		for (MediaReference mediaReference : l) {
+
+		}
+	};
 
 	/**
 	 * Adds a Vme to the FIGISDoc
