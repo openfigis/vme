@@ -26,10 +26,10 @@ public class TestWS {
 	@Test
 	public void testList() throws Throwable {
 		RsgReadClient client = new RsgReadClient("http://figisapps.fao.org/figis/secure-reports-store-gateway/rest/");
-		client.securedWithEncryptedToken("http://figisapps.fao.org/figis/secure-reports-store-gateway/security/token/encrypted/request", 
-										 "http://dev.d4science.org/pgp-security/imarine.skr", 
-										 "d45c13nc3", 
-										 "classpath://pgp/keys/owned/vme.pkr");
+//		client.securedWithEncryptedToken("http://figisapps.fao.org/figis/secure-reports-store-gateway/security/token/encrypted/request", 
+//										 "http://dev.d4science.org/pgp-security/imarine.skr", 
+//										 "d45c13nc3", 
+//										 "classpath://pgp/keys/owned/vme.pkr");
 		
 		for(ReportEntry in : client.listReports(new ReportType("Vme"), (NameValue[])null))
 			System.out.println(in.getId() + " : " + in.getIdentifier() + " : " + in.getOwner() + " : " + in.getReportType().getTypeIdentifier());
