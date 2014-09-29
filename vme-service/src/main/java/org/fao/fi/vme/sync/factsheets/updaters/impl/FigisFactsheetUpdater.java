@@ -40,6 +40,7 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 	public static final String SYNCING = "Syncing FIGIS factsheets for VME with ID {}...";
 	public static final String FACTSHEET_SYNCED = "FIGIS factsheets for VME with ID {} has been synced";
 	public static final String REMOVE_WITH_ID = "Removing observation with ID {}";
+	public static final String DELETE = "delete from ";
 
 	/* (non-Javadoc)
 	 * @see org.fao.fi.vme.sync.factsheets.FactsheetUpdater#createFactsheets(java.lang.Long[])
@@ -116,8 +117,8 @@ public class FigisFactsheetUpdater extends AbstractFactsheetUpdater {
 		
 					LOG.info("Removing VME observation with ID {} for VME with ID {} @ {}", observationId.getObservationId(), observationId.getVmeId(), observationId.getReportingYear());
 
-					removeObservationXml = em.createQuery("delete from " + ObservationXml.class.getName() + " where id  = " + observationId.getObservationId());
-					removeObservation = em.createQuery("delete from " + Observation.class.getName() + " where id = " + observationId.getObservationId());
+					removeObservationXml = em.createQuery(DELETE + ObservationXml.class.getName() + " where id  = " + observationId.getObservationId());
+					removeObservation = em.createQuery(DELETE + Observation.class.getName() + " where id = " + observationId.getObservationId());
 					
 					LOG.info("Removing observation XML with ID {}", observationId.getObservationId());
 					removeObservationXml.executeUpdate();

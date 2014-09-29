@@ -65,8 +65,10 @@ import org.vme.dao.VmeDaoException;
  */
 abstract class FigisDocBuilderAbstract {
 
-	static final private Logger LOG = LoggerFactory.getLogger(FigisDocBuilderAbstract.class);
-
+	private static final Logger LOG = LoggerFactory.getLogger(FigisDocBuilderAbstract.class);
+	private static final String UNABLE2RETRIVE = "Unable to retrieve reference {} with ID {}: {}";
+	private static final String ACRONYM = "acronym";
+	
 	@Inject
 	@ConceptProvider
 	protected ReferenceDAO refDao;
@@ -176,7 +178,7 @@ abstract class FigisDocBuilderAbstract {
 		try {
 			scope = vmeDomain.getScope() == null ? null : refDao.getReferenceByID(VmeScope.class, vmeDomain.getScope());
 		} catch (Exception e) {
-			LOG.error("Unable to retrieve reference {} with ID {}: {}", VmeType.class, vmeDomain.getAreaType(),
+			LOG.error(UNABLE2RETRIVE, VmeType.class, vmeDomain.getAreaType(),
 					e.getMessage(), e);
 		}
 
@@ -195,7 +197,7 @@ abstract class FigisDocBuilderAbstract {
 
 		// OrgRef
 		ForeignID rfmoForeignID = f.createForeignID();
-		rfmoForeignID.setCodeSystem("acronym");
+		rfmoForeignID.setCodeSystem(ACRONYM);
 		rfmoForeignID.setCode(vmeDomain.getRfmo().getId());
 
 		OrgRef rfmoOrg = f.createOrgRef();
@@ -247,7 +249,7 @@ abstract class FigisDocBuilderAbstract {
 						vmeDomain.getAreaType());
 				vmeType.setValue(vmeTypeRef.getName());
 			} catch (Exception e) {
-				LOG.error("Unable to retrieve reference {} with ID {}: {}", VmeType.class, vmeDomain.getAreaType(),
+				LOG.error(UNABLE2RETRIVE, VmeType.class, vmeDomain.getAreaType(),
 						e.getMessage(), e);
 			}
 		}
@@ -267,7 +269,7 @@ abstract class FigisDocBuilderAbstract {
 						vmeCriteriaList.add(criteria);
 					}
 				} catch (Exception e) {
-					LOG.error("Unable to retrieve reference {} with ID {}: {}", VmeCriteria.class, criteriaId,
+					LOG.error(UNABLE2RETRIVE, VmeCriteria.class, criteriaId,
 							e.getMessage(), e);
 				}
 			}
@@ -446,7 +448,7 @@ abstract class FigisDocBuilderAbstract {
 
 		ForeignID foreignID = f.createForeignID();
 		foreignID.setCode("VME_FS");
-		foreignID.setCodeSystem("acronym");
+		foreignID.setCodeSystem(ACRONYM);
 
 		CollectionRef collectionRef = f.createCollectionRef();
 		collectionRef.getFigisIDsAndForeignIDs().add(figisID);

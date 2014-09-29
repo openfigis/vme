@@ -26,6 +26,9 @@ import org.slf4j.LoggerFactory;
 public class CacheInterceptor {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());
+	private static final String KEYNULL = "key should not be null";
+	private static final String KEYNOTFOUND = "Key found but not object?";
+	private static final String METHOD = "Method should not return null";
 
 	@Inject
 	private Cache cache;
@@ -38,8 +41,8 @@ public class CacheInterceptor {
 		log.info("key is " + key);
 
 		if ("".equals(key)) {
-			log.error("key should not be null");
-			throw new VmeException("key should not be null");
+			log.error(KEYNULL);
+			throw new VmeException(KEYNULL);
 		}
 		Object returnObject = null;
 
@@ -47,8 +50,8 @@ public class CacheInterceptor {
 			if (cache.get(key) != null) {
 				returnObject = (Object) cache.get(key).getObjectValue();
 			} else {
-				log.error("Key found but not object?");
-				throw new VmeException("Key found but not object?");
+				log.error(KEYNOTFOUND);
+				throw new VmeException(KEYNOTFOUND);
 			}
 		}
 		if (returnObject == null) {
@@ -62,8 +65,8 @@ public class CacheInterceptor {
 		}
 
 		if (returnObject == null) {
-			log.error("Method should not return null");
-			throw new VmeException("Method should not return null");
+			log.error(METHOD);
+			throw new VmeException(METHOD);
 		}
 		return returnObject;
 	}
