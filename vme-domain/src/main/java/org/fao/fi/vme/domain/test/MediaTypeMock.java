@@ -4,7 +4,7 @@ import org.fao.fi.vme.domain.model.reference.MediaType;
 
 public class MediaTypeMock {
 
-	public static Long ID = new Long(10l);
+	public static Long ID = 10L;
 
 	public static MediaType create() {
 		MediaType m = new MediaType(ID, "Image");
