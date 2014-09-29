@@ -192,44 +192,50 @@ abstract class AbstractService {
 
 	public boolean vmeContainRelevantText(Vme vme, String text) {
 
-		if (textInAreaType(vme, text) || textInCriteria(vme, text) || textInMultilingualString(vme.getGeoArea(), text)
-				|| textInGeoRef(vme, text) || textInInventoryIdentifier(vme, text)
-				|| textInMultilingualString(vme.getName(), text) || textInProfileList(vme, text)
-				|| textInRfmo(vme, text) || textInSpecificMeasureList(vme, text)) {
-			return true;
-		} else {
-			return false;
-		}
+		List<Boolean> conditions = new ArrayList<Boolean>();
 
+		conditions.add(textInAreaType(vme, text));
+		conditions.add(textInCriteria(vme, text));
+		conditions.add(textInCriteria(vme, text));
+		conditions.add(textInMultilingualString(vme.getGeoArea(), text));
+		conditions.add(textInGeoRef(vme, text));
+		conditions.add(textInInventoryIdentifier(vme, text));
+		conditions.add(textInMultilingualString(vme.getName(), text));
+		conditions.add(textInProfileList(vme, text));
+		conditions.add(textInRfmo(vme, text));
+		conditions.add(textInSpecificMeasureList(vme, text));
+
+		for (Boolean boolean1 : conditions) {
+			if(boolean1){
+				return true;
+			}
+		}		
+		return false;
 	}
 
 	private boolean textInSpecificMeasureList(Vme vme, String text) {
 		if (vme.getSpecificMeasureList() != null) {
 			for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
-				if (specificMeasure.getVmeSpecificMeasure() != null) {
-					if (textInMultilingualString(specificMeasure.getVmeSpecificMeasure(), text)) {
+				if (specificMeasure.getVmeSpecificMeasure() != null &&
+						textInMultilingualString(specificMeasure.getVmeSpecificMeasure(), text)) {
 						return true;
-					}
 				}
 
-				if (specificMeasure.getInformationSource() != null) {
-					if (textInInformationSource(specificMeasure.getInformationSource(), text)) {
+				if (specificMeasure.getInformationSource() != null &&
+						textInInformationSource(specificMeasure.getInformationSource(), text)) {
 						return true;
-					}
-				}
-
-				if (specificMeasure.getInformationSource() != null
-						&& specificMeasure.getInformationSource().getCommittee() != null) {
-					if (textInMultilingualString(specificMeasure.getInformationSource().getCommittee(), text)) {
-						return true;
-					}
 				}
 
 				if (specificMeasure.getInformationSource() != null
-						&& specificMeasure.getInformationSource().getReportSummary() != null) {
-					if (textInMultilingualString(specificMeasure.getInformationSource().getReportSummary(), text)) {
+						&& specificMeasure.getInformationSource().getCommittee() != null &&
+						textInMultilingualString(specificMeasure.getInformationSource().getCommittee(), text)) {
 						return true;
-					}
+				}
+
+				if (specificMeasure.getInformationSource() != null
+						&& specificMeasure.getInformationSource().getReportSummary() != null &&
+						textInMultilingualString(specificMeasure.getInformationSource().getReportSummary(), text)) {
+						return true;
 				}
 			}
 		}
@@ -248,10 +254,9 @@ abstract class AbstractService {
 	}
 
 	private boolean textInInformationSource(InformationSource informationSource, String text) {
-		if (informationSource.getCitation() != null) {
-			if (textInMultilingualString(informationSource.getCitation(), text)) {
+		if (informationSource.getCitation() != null &&
+				textInMultilingualString(informationSource.getCitation(), text)) {
 				return true;
-			}
 		}
 		if (informationSource.getPublicationYear() != null
 				&& StringUtils.containsIgnoreCase(Integer.toString(informationSource.getPublicationYear()), text)) {
@@ -267,54 +272,46 @@ abstract class AbstractService {
 	private boolean textInRfmo(Vme vme, String text) {
 		if (vme.getRfmo() != null) {
 			for (GeneralMeasure generalMeasure : vme.getRfmo().getGeneralMeasureList()) {
-				if (generalMeasure.getFishingArea() != null) {
-					if (textInMultilingualString(generalMeasure.getFishingArea(), text)) {
+				if (generalMeasure.getFishingArea() != null &&
+						textInMultilingualString(generalMeasure.getFishingArea(), text)) {
 						return true;
-					}
 				}
 
-				if (generalMeasure.getExplorataryFishingProtocol() != null) {
-					if (textInMultilingualString(generalMeasure.getExplorataryFishingProtocol(), text)) {
+				if (generalMeasure.getExplorataryFishingProtocol() != null &&
+						textInMultilingualString(generalMeasure.getExplorataryFishingProtocol(), text)) {
 						return true;
-					}
 				}
 
-				if (generalMeasure.getVmeEncounterProtocol() != null) {
-					if (textInMultilingualString(generalMeasure.getVmeEncounterProtocol(), text)) {
+				if (generalMeasure.getVmeEncounterProtocol() != null &&
+						textInMultilingualString(generalMeasure.getVmeEncounterProtocol(), text)) {
 						return true;
-					}
 				}
 
-				if (generalMeasure.getVmeIndicatorSpecies() != null) {
-					if (textInMultilingualString(generalMeasure.getVmeIndicatorSpecies(), text)) {
+				if (generalMeasure.getVmeIndicatorSpecies() != null &&
+						textInMultilingualString(generalMeasure.getVmeIndicatorSpecies(), text)) {
 						return true;
-					}
 				}
 
-				if (generalMeasure.getVmeThreshold() != null) {
-					if (textInMultilingualString(generalMeasure.getVmeThreshold(), text)) {
+				if (generalMeasure.getVmeThreshold() != null &&
+						textInMultilingualString(generalMeasure.getVmeThreshold(), text)) {
 						return true;
-					}
 				}
 
 				if (generalMeasure.getInformationSourceList() != null) {
 					for (InformationSource informationSource : generalMeasure.getInformationSourceList()) {
 
-						if (informationSource.getCitation() != null) {
-							if (textInMultilingualString(informationSource.getCitation(), text)) {
+						if (informationSource.getCitation() != null && 
+								textInMultilingualString(informationSource.getCitation(), text)) {
 								return true;
-							}
 						}
-						if (informationSource.getCommittee() != null) {
-							if (textInMultilingualString(informationSource.getCommittee(), text)) {
+						if (informationSource.getCommittee() != null &&
+								textInMultilingualString(informationSource.getCommittee(), text)) {
 								return true;
-							}
 						}
 
-						if (informationSource.getReportSummary() != null) {
-							if (textInMultilingualString(informationSource.getReportSummary(), text)) {
+						if (informationSource.getReportSummary() != null &&
+								textInMultilingualString(informationSource.getReportSummary(), text)) {
 								return true;
-							}
 						}
 						if (StringUtils.containsIgnoreCase(Integer.toString(informationSource.getPublicationYear()),
 								text)) {
@@ -335,20 +332,17 @@ abstract class AbstractService {
 	private boolean textInProfileList(Vme vme, String text) {
 		if (vme.getProfileList() != null) {
 			for (Profile profile : vme.getProfileList()) {
-				if (profile.getDescriptionBiological() != null) {
-					if (textInMultilingualString(profile.getDescriptionBiological(), text)) {
+				if (profile.getDescriptionBiological() != null &&
+						textInMultilingualString(profile.getDescriptionBiological(), text)) {
 						return true;
-					}
 				}
-				if (profile.getDescriptionImpact() != null) {
-					if (textInMultilingualString(profile.getDescriptionImpact(), text)) {
+				if (profile.getDescriptionImpact() != null &&
+						textInMultilingualString(profile.getDescriptionImpact(), text)) {
 						return true;
-					}
 				}
-				if (profile.getDescriptionPhisical() != null) {
-					if (textInMultilingualString(profile.getDescriptionPhisical(), text)) {
+				if (profile.getDescriptionPhisical() != null &&
+						textInMultilingualString(profile.getDescriptionPhisical(), text)) {
 						return true;
-					}
 				}
 			}
 		}
@@ -379,10 +373,9 @@ abstract class AbstractService {
 				try {
 					selected = refDao.getReferenceByID(VmeCriteria.class, criteriaId);
 
-					if (selected != null && selected.getName() != null) {
-						if (StringUtils.containsIgnoreCase(selected.getName(), text)) {
+					if (selected != null && selected.getName() != null &&
+							StringUtils.containsIgnoreCase(selected.getName(), text)) {
 							return true;
-						}
 					} else {
 						LOG.warn("Selected criteria is either NULL or has a NULL name");
 					}
@@ -401,10 +394,9 @@ abstract class AbstractService {
 			try {
 				selected = refDao.getReferenceByID(VmeType.class, vme.getAreaType());
 
-				if (selected != null && selected.getName() != null) {
-					if (StringUtils.containsIgnoreCase(selected.getName(), text)) {
+				if (selected != null && selected.getName() != null &&
+						StringUtils.containsIgnoreCase(selected.getName(), text)) {
 						return true;
-					}
 				} else {
 					LOG.warn("Selected area type is either NULL or has a NULL name");
 				}
