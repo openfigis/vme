@@ -21,7 +21,7 @@ import org.vme.service.search.ServiceResponse;
 @Singleton
 public class VmeSearchWs {
 
-	private static String NUMERICAL_PATTERN = "[0-9]";
+	private static String NUMERICAL_PATTERN = "\\d+";
 
 	@Inject
 	private SearchService service;
@@ -37,7 +37,8 @@ public class VmeSearchWs {
 
 		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
 		request.setText(text);
-		if ((idAuthority != null) && !("*").equals(idAuthority.trim()) && idAuthority.matches(NUMERICAL_PATTERN)) {
+		System.out.println(idAuthority.matches(NUMERICAL_PATTERN));
+		if (idAuthority != null && !("*").equals(idAuthority.trim()) && idAuthority.matches(NUMERICAL_PATTERN)) {
 			request.setAuthority(Integer.parseInt(idAuthority));
 		} else {
 			request.setAuthority(0);
