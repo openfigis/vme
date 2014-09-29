@@ -13,7 +13,7 @@ public class AddWhenContentRuleTest {
 
 	AddWhenContentRule<Object> r = new AddWhenContentRule<Object>();
 	ObjectFactory f = new ObjectFactory();
-	EnglishTextUtil ut = new EnglishTextUtil();
+	CdataUtil ut = new CdataUtil();
 
 	@Test
 	public void testGenerics() {

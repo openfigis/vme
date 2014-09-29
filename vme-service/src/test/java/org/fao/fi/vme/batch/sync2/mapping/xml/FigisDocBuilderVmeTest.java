@@ -98,7 +98,7 @@ public class FigisDocBuilderVmeTest {
 		figisDoc.setVME(new VME());
 
 		GeoForm geoform = f.createGeoForm();
-		EnglishTextUtil ut = new EnglishTextUtil();
+		CdataUtil ut = new CdataUtil();
 		Text descriptionPhisical = ut.getEnglishText(null);
 		JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(descriptionPhisical);
 		// geoform.getContent().add(geoformJAXBElement);

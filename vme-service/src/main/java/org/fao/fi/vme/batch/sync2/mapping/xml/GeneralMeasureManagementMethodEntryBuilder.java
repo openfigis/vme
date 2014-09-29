@@ -16,7 +16,6 @@ import org.fao.fi.vme.batch.sync2.mapping.BiblioEntryFromInformationSource;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
-import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.purl.dc.elements._1.Title;
 
 /**
@@ -41,8 +40,8 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 	private BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
 	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
 	private ObjectFactory f = new ObjectFactory();
-	private MultiLingualStringUtil u = new MultiLingualStringUtil();
-	private EnglishTextUtil ut = new EnglishTextUtil();
+	// private MultiLingualStringUtil u = new MultiLingualStringUtil();
+	private CdataUtil ut = new CdataUtil();
 
 	public void initGM(ManagementMethodEntry entry) {
 		entry.setFocus(FigisDocBuilderAbstract.VULNERABLE_MARINE_ECOSYSTEMS);
@@ -66,7 +65,7 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 
 			measure1.getTextsAndImagesAndTables().add(measureText1);
 
-			new AddWhenContentRule<Object>().check(u.getEnglish(gm.getFishingArea())).beforeAdding(measure1)
+			new AddWhenContentRule<Object>().check(ut.getEnglishText(gm.getFishingArea())).beforeAdding(measure1)
 					.to(entry.getTextsAndImagesAndTables());
 		}
 
@@ -128,7 +127,7 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 
 			measure2.getTextsAndImagesAndTables().add(measureText2);
 
-			new AddWhenContentRule<Object>().check(u.getEnglish(gm.getExplorataryFishingProtocol()))
+			new AddWhenContentRule<Object>().check(ut.getEnglishText(gm.getExplorataryFishingProtocol()))
 					.beforeAdding(measure2).to(entry.getTextsAndImagesAndTables());
 		}
 
@@ -145,7 +144,7 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			measure3.getTextsAndImagesAndTables().add(measureType3);
 			measure3.getTextsAndImagesAndTables().add(measureText3);
 
-			new AddWhenContentRule<Object>().check(u.getEnglish(yearObject.getVmeEncounterProtocol()))
+			new AddWhenContentRule<Object>().check(ut.getEnglishText(yearObject.getVmeEncounterProtocol()))
 					.beforeAdding(measure3).to(entry.getTextsAndImagesAndTables());
 
 		}
@@ -159,13 +158,13 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			MeasureType measureType4 = f.createMeasureType();
 			measureType4.setValue(VME_THRESHOLD);
 			Text measureText4 = f.createText();
-			measureText4.getContent().add(u.getEnglish(yearObject.getVmeThreshold()));
+			measureText4.getContent().add(ut.getEnglishText(yearObject.getVmeThreshold()));
 
 			measure4.getTextsAndImagesAndTables().add(measureType4);
 			measure4.getTextsAndImagesAndTables().add(measureText4);
 
-			new AddWhenContentRule<Object>().check(u.getEnglish(yearObject.getVmeThreshold())).beforeAdding(measure4)
-					.to(entry.getTextsAndImagesAndTables());
+			new AddWhenContentRule<Object>().check(ut.getEnglishText(yearObject.getVmeThreshold()))
+					.beforeAdding(measure4).to(entry.getTextsAndImagesAndTables());
 
 		}
 
@@ -178,12 +177,12 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			MeasureType measureType5 = f.createMeasureType();
 			measureType5.setValue(VME_INDICATORSPECIES);
 			Text measureText5 = f.createText();
-			measureText5.getContent().add(u.getEnglish(yearObject.getVmeIndicatorSpecies()));
+			measureText5.getContent().add(ut.getEnglishText(yearObject.getVmeIndicatorSpecies()));
 
 			measure5.getTextsAndImagesAndTables().add(measureType5);
 			measure5.getTextsAndImagesAndTables().add(measureText5);
 
-			new AddWhenContentRule<Object>().check(u.getEnglish(yearObject.getVmeIndicatorSpecies()))
+			new AddWhenContentRule<Object>().check(ut.getEnglishText(yearObject.getVmeIndicatorSpecies()))
 					.beforeAdding(measure5).to(entry.getTextsAndImagesAndTables());
 		}
 

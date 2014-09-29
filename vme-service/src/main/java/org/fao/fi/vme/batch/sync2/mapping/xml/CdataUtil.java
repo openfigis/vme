@@ -12,7 +12,7 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
  * @author Erik van Ingen
  * 
  */
-public class EnglishTextUtil {
+public class CdataUtil {
 
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 

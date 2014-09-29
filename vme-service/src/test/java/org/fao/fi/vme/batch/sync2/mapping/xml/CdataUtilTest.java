@@ -16,9 +16,9 @@ import org.junit.Test;
  * 
  */
 
-public class EnglishTextUtilTest {
+public class CdataUtilTest {
 
-	private EnglishTextUtil enUtil = new EnglishTextUtil();
+	private CdataUtil enUtil = new CdataUtil();
 	private MultiLingualString mult = new MultiLingualString();
 	private HashMap<Integer, String> stringMap = new HashMap<Integer, String>();
 

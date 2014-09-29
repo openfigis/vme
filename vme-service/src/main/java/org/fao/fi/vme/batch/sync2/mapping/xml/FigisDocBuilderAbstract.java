@@ -74,7 +74,7 @@ abstract class FigisDocBuilderAbstract {
 	protected ObjectFactory f = new ObjectFactory();
 	private org.purl.dc.terms.ObjectFactory fDc = new org.purl.dc.terms.ObjectFactory();
 	protected MultiLingualStringUtil u = new MultiLingualStringUtil();
-	protected EnglishTextUtil ut = new EnglishTextUtil();
+	protected CdataUtil ut = new CdataUtil();
 	protected JAXBElementUtil uj = new JAXBElementUtil();
 	protected GeneralMeasureManagementMethodEntryBuilder mmeBuilder = new GeneralMeasureManagementMethodEntryBuilder();
 	protected CurrentDate currentDate = new CurrentDate();
