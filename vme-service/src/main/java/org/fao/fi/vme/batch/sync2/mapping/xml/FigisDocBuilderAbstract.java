@@ -68,7 +68,7 @@ abstract class FigisDocBuilderAbstract {
 	private static final Logger LOG = LoggerFactory.getLogger(FigisDocBuilderAbstract.class);
 	private static final String UNABLE2RETRIVE = "Unable to retrieve reference {} with ID {}: {}";
 	private static final String ACRONYM = "acronym";
-	
+
 	@Inject
 	@ConceptProvider
 	protected ReferenceDAO refDao;
@@ -76,7 +76,7 @@ abstract class FigisDocBuilderAbstract {
 	protected ObjectFactory f = new ObjectFactory();
 	private org.purl.dc.terms.ObjectFactory fDc = new org.purl.dc.terms.ObjectFactory();
 	protected MultiLingualStringUtil u = new MultiLingualStringUtil();
-	protected CdataUtil ut = new CdataUtil();
+	protected CdataUtil cu = new CdataUtil();
 	protected JAXBElementUtil uj = new JAXBElementUtil();
 	protected GeneralMeasureManagementMethodEntryBuilder mmeBuilder = new GeneralMeasureManagementMethodEntryBuilder();
 	protected CurrentDate currentDate = new CurrentDate();
@@ -178,8 +178,7 @@ abstract class FigisDocBuilderAbstract {
 		try {
 			scope = vmeDomain.getScope() == null ? null : refDao.getReferenceByID(VmeScope.class, vmeDomain.getScope());
 		} catch (Exception e) {
-			LOG.error(UNABLE2RETRIVE, VmeType.class, vmeDomain.getAreaType(),
-					e.getMessage(), e);
+			LOG.error(UNABLE2RETRIVE, VmeType.class, vmeDomain.getAreaType(), e.getMessage(), e);
 		}
 
 		// FigisID
@@ -249,8 +248,7 @@ abstract class FigisDocBuilderAbstract {
 						vmeDomain.getAreaType());
 				vmeType.setValue(vmeTypeRef.getName());
 			} catch (Exception e) {
-				LOG.error(UNABLE2RETRIVE, VmeType.class, vmeDomain.getAreaType(),
-						e.getMessage(), e);
+				LOG.error(UNABLE2RETRIVE, VmeType.class, vmeDomain.getAreaType(), e.getMessage(), e);
 			}
 		}
 
@@ -269,8 +267,7 @@ abstract class FigisDocBuilderAbstract {
 						vmeCriteriaList.add(criteria);
 					}
 				} catch (Exception e) {
-					LOG.error(UNABLE2RETRIVE, VmeCriteria.class, criteriaId,
-							e.getMessage(), e);
+					LOG.error(UNABLE2RETRIVE, VmeCriteria.class, criteriaId, e.getMessage(), e);
 				}
 			}
 		}

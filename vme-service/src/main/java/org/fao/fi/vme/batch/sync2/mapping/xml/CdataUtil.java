@@ -16,16 +16,28 @@ public class CdataUtil {
 
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
-	public Text getEnglishText(MultiLingualString multiLingualString) {
+	public Text getCdataText(MultiLingualString multiLingualString) {
 		String string = u.getEnglish(multiLingualString);
 		Text text = null;
 		if (!StringUtils.isBlank(string)) {
 			text = new Text();
-			String textWithCdata = "<![CDATA[" + u.getEnglish(multiLingualString) + "]]>";
+			String textWithCdata = getCdataString(multiLingualString);
 			text.getContent().add(textWithCdata);
 			text.setLang(Figis.EN);
 		}
 		return text;
+	}
+
+	public String getCdataString(MultiLingualString multiLingualString) {
+		String string = u.getEnglish(multiLingualString);
+		if (!StringUtils.isBlank(string)) {
+			string = getCdataString(string);
+		}
+		return string;
+	}
+
+	public String getCdataString(String string) {
+		return "<![CDATA[" + string + "]]>";
 	}
 
 	/**

@@ -40,7 +40,6 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 	private BiblioEntryFromInformationSource bu = new BiblioEntryFromInformationSource();
 	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
 	private ObjectFactory f = new ObjectFactory();
-	// private MultiLingualStringUtil u = new MultiLingualStringUtil();
 	private CdataUtil ut = new CdataUtil();
 
 	public void initGM(ManagementMethodEntry entry) {
@@ -59,13 +58,13 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			MeasureType measureType1 = f.createMeasureType();
 			measureType1.setValue(FISHING_AREAS);
 
-			Text measureText1 = ut.getEnglishText(gm.getFishingArea());
+			Text measureText1 = ut.getCdataText(gm.getFishingArea());
 
 			measure1.getTextsAndImagesAndTables().add(measureType1);
 
 			measure1.getTextsAndImagesAndTables().add(measureText1);
 
-			new AddWhenContentRule<Object>().check(ut.getEnglishText(gm.getFishingArea())).beforeAdding(measure1)
+			new AddWhenContentRule<Object>().check(ut.getCdataText(gm.getFishingArea())).beforeAdding(measure1)
 					.to(entry.getTextsAndImagesAndTables());
 		}
 
@@ -121,13 +120,13 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			Measure measure2 = f.createMeasure();
 			MeasureType measureType2 = f.createMeasureType();
 			measureType2.setValue(EXPLORATORY_FISHING_PROTOCOL);
-			Text measureText2 = ut.getEnglishText(gm.getExplorataryFishingProtocol());
+			Text measureText2 = ut.getCdataText(gm.getExplorataryFishingProtocol());
 
 			measure2.getTextsAndImagesAndTables().add(measureType2);
 
 			measure2.getTextsAndImagesAndTables().add(measureText2);
 
-			new AddWhenContentRule<Object>().check(ut.getEnglishText(gm.getExplorataryFishingProtocol()))
+			new AddWhenContentRule<Object>().check(ut.getCdataText(gm.getExplorataryFishingProtocol()))
 					.beforeAdding(measure2).to(entry.getTextsAndImagesAndTables());
 		}
 
@@ -139,12 +138,12 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			Measure measure3 = f.createMeasure();
 			MeasureType measureType3 = f.createMeasureType();
 			measureType3.setValue(VME_ENCOUNTER_PROTOCOLS);
-			Text measureText3 = ut.getEnglishText(yearObject.getVmeEncounterProtocol());
+			Text measureText3 = ut.getCdataText(yearObject.getVmeEncounterProtocol());
 
 			measure3.getTextsAndImagesAndTables().add(measureType3);
 			measure3.getTextsAndImagesAndTables().add(measureText3);
 
-			new AddWhenContentRule<Object>().check(ut.getEnglishText(yearObject.getVmeEncounterProtocol()))
+			new AddWhenContentRule<Object>().check(ut.getCdataText(yearObject.getVmeEncounterProtocol()))
 					.beforeAdding(measure3).to(entry.getTextsAndImagesAndTables());
 
 		}
@@ -158,12 +157,12 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			MeasureType measureType4 = f.createMeasureType();
 			measureType4.setValue(VME_THRESHOLD);
 			Text measureText4 = f.createText();
-			measureText4.getContent().add(ut.getEnglishText(yearObject.getVmeThreshold()));
+			measureText4.getContent().add(ut.getCdataText(yearObject.getVmeThreshold()));
 
 			measure4.getTextsAndImagesAndTables().add(measureType4);
 			measure4.getTextsAndImagesAndTables().add(measureText4);
 
-			new AddWhenContentRule<Object>().check(ut.getEnglishText(yearObject.getVmeThreshold()))
+			new AddWhenContentRule<Object>().check(ut.getCdataText(yearObject.getVmeThreshold()))
 					.beforeAdding(measure4).to(entry.getTextsAndImagesAndTables());
 
 		}
@@ -177,12 +176,12 @@ public class GeneralMeasureManagementMethodEntryBuilder {
 			MeasureType measureType5 = f.createMeasureType();
 			measureType5.setValue(VME_INDICATORSPECIES);
 			Text measureText5 = f.createText();
-			measureText5.getContent().add(ut.getEnglishText(yearObject.getVmeIndicatorSpecies()));
+			measureText5.getContent().add(ut.getCdataText(yearObject.getVmeIndicatorSpecies()));
 
 			measure5.getTextsAndImagesAndTables().add(measureType5);
 			measure5.getTextsAndImagesAndTables().add(measureText5);
 
-			new AddWhenContentRule<Object>().check(ut.getEnglishText(yearObject.getVmeIndicatorSpecies()))
+			new AddWhenContentRule<Object>().check(ut.getCdataText(yearObject.getVmeIndicatorSpecies()))
 					.beforeAdding(measure5).to(entry.getTextsAndImagesAndTables());
 		}
 

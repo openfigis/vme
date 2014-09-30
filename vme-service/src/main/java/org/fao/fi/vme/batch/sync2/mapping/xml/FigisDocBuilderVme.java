@@ -109,16 +109,17 @@ public class FigisDocBuilderVme extends FigisDocBuilderAbstract {
 			// • RelatedResources
 
 			GeneralBiology gb = f.createGeneralBiology();
-			Text text1 = ut.getEnglishText(profile.getDescriptionBiological());
+			Text text1 = cu.getCdataText(profile.getDescriptionBiological());
 			gb.getTextsAndImagesAndTables().add(text1);
 			HabitatBio habitatBio = f.createHabitatBio();
-			new AddWhenContentRule<Object>().check(u.getEnglish(profile.getDescriptionBiological())).beforeAdding(gb)
-					.to(habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs());
+
+			new AddWhenContentRule<Object>().check(cu.getCdataString(profile.getDescriptionBiological()))
+					.beforeAdding(gb).to(habitatBio.getClimaticZonesAndDepthZonesAndDepthBehavs());
 
 			// Physical profile
 			// terrible workaround because if there is no Text, profileEnglish
 			// will also not be added by Jaxb.
-			Text descriptionPhisical = ut.getEnglishText(profile.getDescriptionPhisical());
+			Text descriptionPhisical = cu.getCdataText(profile.getDescriptionPhisical());
 			if (descriptionPhisical == null) {
 				descriptionPhisical = new Text();
 				descriptionPhisical.getContent().add(" ");
@@ -129,7 +130,7 @@ public class FigisDocBuilderVme extends FigisDocBuilderAbstract {
 			new AddWhenContentRule<Serializable>().check(profile.getDescriptionPhisical())
 					.beforeAdding(geoformJAXBElement).to(geoform.getContent());
 
-			String profileEnglish = u.getEnglish(profile.getGeoform());
+			String profileEnglish = cu.getCdataString(profile.getGeoform());
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value =
 			// Seamounts or Canyons) or
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@FreeValue (for other
@@ -157,7 +158,7 @@ public class FigisDocBuilderVme extends FigisDocBuilderAbstract {
 
 			// Impacts profile
 			Impacts impacts = f.createImpacts();
-			Text text3 = ut.getEnglishText(profile.getDescriptionImpact());
+			Text text3 = cu.getCdataText(profile.getDescriptionImpact());
 			impacts.getTextsAndImagesAndTables().add(text3);
 			new AddWhenContentRule<Object>().check(text3).beforeAdding(impacts)
 					.to(figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts());
@@ -233,7 +234,7 @@ public class FigisDocBuilderVme extends FigisDocBuilderAbstract {
 
 			// text
 
-			Text measureText = ut.getEnglishText(specificMeasure.getVmeSpecificMeasure());
+			Text measureText = cu.getCdataText(specificMeasure.getVmeSpecificMeasure());
 			measure.getTextsAndImagesAndTables().add(measureText);
 
 			// contentRule.add(content, measureType,

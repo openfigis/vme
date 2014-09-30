@@ -182,7 +182,7 @@ public class FigisDocBuilderRegulatory extends FigisDocBuilderAbstract {
 	public void fisheryArea(History fisheryAreasHistory, FIGISDoc figisDoc) {
 		// // FishingArea_history fi:FIGISDoc/fi:VME/fi:FisheryArea/fi:Text
 		if (fisheryAreasHistory != null) {
-			Text text = ut.getEnglishText(fisheryAreasHistory.getHistory());
+			Text text = cu.getCdataText(fisheryAreasHistory.getHistory());
 			FisheryArea fisheryArea = f.createFisheryArea();
 			fisheryArea.getTextsAndImagesAndTables().add(text);
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(fisheryArea);
@@ -193,7 +193,7 @@ public class FigisDocBuilderRegulatory extends FigisDocBuilderAbstract {
 	public void vmesHistory(History vmesHistory, FIGISDoc figisDoc) {
 		// // VME_history fi:FIGISDoc/fi:VME/fi:History/fi:Text
 		if (vmesHistory != null) {
-			Text text = ut.getEnglishText(vmesHistory.getHistory());
+			Text text = cu.getCdataText(vmesHistory.getHistory());
 			org.fao.fi.figis.devcon.History history = f.createHistory();
 			history.getTextsAndImagesAndTables().add(text);
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(history);

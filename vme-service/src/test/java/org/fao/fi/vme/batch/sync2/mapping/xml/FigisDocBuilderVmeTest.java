@@ -65,6 +65,8 @@ public class FigisDocBuilderVmeTest {
 	int nrOfYears = 2;
 	Vme vme;
 
+	CdataUtil cu = new CdataUtil();
+
 	ObjectFactory f = new ObjectFactory();
 	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
 
@@ -99,7 +101,7 @@ public class FigisDocBuilderVmeTest {
 
 		GeoForm geoform = f.createGeoForm();
 		CdataUtil ut = new CdataUtil();
-		Text descriptionPhisical = ut.getEnglishText(null);
+		Text descriptionPhisical = ut.getCdataText(null);
 		JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(descriptionPhisical);
 		// geoform.getContent().add(geoformJAXBElement);
 
@@ -151,7 +153,8 @@ public class FigisDocBuilderVmeTest {
 		Sources sources = (Sources) measure.getTextsAndImagesAndTables().get(3);
 		BiblioEntry biblioEntry = (BiblioEntry) sources.getTextsAndImagesAndTables().get(0);
 		BibliographicCitation c = (BibliographicCitation) biblioEntry.getContent().get(0);
-		assertEquals(InformationSourceMock.CIT, c.getContent());
+
+		assertEquals(cu.getCdataString(InformationSourceMock.CIT), c.getContent());
 
 	}
 
@@ -267,15 +270,16 @@ public class FigisDocBuilderVmeTest {
 
 			for (Object obj : biblioEntry.getContent()) {
 				if (obj instanceof CreatorCorporate) {
-					assertEquals(u.getEnglish(infoSourceList.get(i).getCommittee()),
+					assertEquals(cu.getCdataString(infoSourceList.get(i).getCommittee()),
 							((CreatorCorporate) obj).getContent());
 				} else if (obj instanceof Created) {
 					assertEquals(infoSourceList.get(i).getPublicationYear(), new Integer(((Created) obj).getContent()),
 							1);
 				} else if (obj instanceof Abstrakt) {
-					assertEquals(u.getEnglish(infoSourceList.get(i).getReportSummary()), ((Abstrakt) obj).getContent());
+					assertEquals(cu.getCdataString(infoSourceList.get(i).getReportSummary()),
+							((Abstrakt) obj).getContent());
 				} else if (obj instanceof BibliographicCitation) {
-					assertEquals(u.getEnglish(infoSourceList.get(i).getCitation()),
+					assertEquals(cu.getCdataString(infoSourceList.get(i).getCitation()),
 							((BibliographicCitation) obj).getContent());
 				} else if (obj instanceof Identifier) {
 					assertEquals("URI", ((Identifier) obj).getType());

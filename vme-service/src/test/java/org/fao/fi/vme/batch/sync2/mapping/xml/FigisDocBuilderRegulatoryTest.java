@@ -66,6 +66,7 @@ public class FigisDocBuilderRegulatoryTest {
 	MultiLingualStringUtil u;
 	int nrOfYears = 2;
 	Vme vme;
+	CdataUtil cu = new CdataUtil();
 
 	ObjectFactory f = new ObjectFactory();
 	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
@@ -85,7 +86,7 @@ public class FigisDocBuilderRegulatoryTest {
 
 		GeoForm geoform = f.createGeoForm();
 		CdataUtil ut = new CdataUtil();
-		Text descriptionPhisical = ut.getEnglishText(null);
+		Text descriptionPhisical = ut.getCdataText(null);
 		JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(descriptionPhisical);
 		// geoform.getContent().add(geoformJAXBElement);
 
@@ -169,7 +170,8 @@ public class FigisDocBuilderRegulatoryTest {
 					BiblioEntry biblioEntry = (BiblioEntry) ((Sources) obj).getTextsAndImagesAndTables().get(i);
 					for (Object bObj : biblioEntry.getContent()) {
 						if (bObj instanceof BibliographicCitation) {
-							assertEquals(u.getEnglish(infoSourceList.get(i).getCitation()),
+
+							assertEquals(cu.getCdataString(infoSourceList.get(i).getCitation()),
 									((BibliographicCitation) bObj).getContent());
 						} else if (bObj instanceof Identifier) {
 							assertEquals("URI", ((Identifier) bObj).getType());
@@ -219,15 +221,16 @@ public class FigisDocBuilderRegulatoryTest {
 
 			for (Object obj : biblioEntry.getContent()) {
 				if (obj instanceof CreatorCorporate) {
-					assertEquals(u.getEnglish(infoSourceList.get(i).getCommittee()),
+					assertEquals(cu.getCdataString(infoSourceList.get(i).getCommittee()),
 							((CreatorCorporate) obj).getContent());
 				} else if (obj instanceof Created) {
 					assertEquals(infoSourceList.get(i).getPublicationYear(), new Integer(((Created) obj).getContent()),
 							1);
 				} else if (obj instanceof Abstrakt) {
-					assertEquals(u.getEnglish(infoSourceList.get(i).getReportSummary()), ((Abstrakt) obj).getContent());
+					assertEquals(cu.getCdataString(infoSourceList.get(i).getReportSummary()),
+							((Abstrakt) obj).getContent());
 				} else if (obj instanceof BibliographicCitation) {
-					assertEquals(u.getEnglish(infoSourceList.get(i).getCitation()),
+					assertEquals(cu.getCdataString(infoSourceList.get(i).getCitation()),
 							((BibliographicCitation) obj).getContent());
 				} else if (obj instanceof Identifier) {
 					assertEquals("URI", ((Identifier) obj).getType());
