@@ -107,6 +107,9 @@ public class ObjectMapping {
 
 			ObservationXml xml = new DefaultObservationXml().define();
 
+			// TODO http://figisapps.fao.org/jira/browse/VME-54
+			// marshall.validate(figisDoc);
+
 			String xmlString = marshall.marshalToString(figisDoc);
 
 			if (xmlString.contains(RelatedFisheries.class.getSimpleName()) || xmlString.contains("<fi:Text xsi:nil=")
