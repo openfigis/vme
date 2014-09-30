@@ -37,7 +37,7 @@ public class VmeSearchWs {
 
 		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
 		request.setText(text);
-		System.out.println(idAuthority.matches(NUMERICAL_PATTERN));
+		// System.out.println(idAuthority.matches(NUMERICAL_PATTERN));
 		if (idAuthority != null && !("*").equals(idAuthority.trim()) && idAuthority.matches(NUMERICAL_PATTERN)) {
 			request.setAuthority(Integer.parseInt(idAuthority));
 		} else {
