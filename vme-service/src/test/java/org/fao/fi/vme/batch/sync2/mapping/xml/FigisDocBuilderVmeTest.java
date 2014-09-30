@@ -39,6 +39,7 @@ import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
+import org.fao.fi.vme.domain.test.MediaReferenceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -82,6 +83,9 @@ public class FigisDocBuilderVmeTest {
 	public void testMediaReference() {
 		FIGISDoc figisDoc = new FIGISDoc();
 		figisDoc.setVME(f.createVME());
+
+		vme.getMediaReferenceList().add(MediaReferenceMock.create());
+
 		b.mediaReference(vme, figisDoc);
 		List<Object> l = figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts();
 		int media = 0;
@@ -91,7 +95,7 @@ public class FigisDocBuilderVmeTest {
 				media++;
 			}
 		}
-		assertEquals(1, media);
+		assertEquals(2, media);
 	}
 
 	@Test

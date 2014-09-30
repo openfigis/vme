@@ -129,8 +129,8 @@ abstract class FigisDocBuilderAbstract {
 				m.setSource(u.getEnglish(mediaReference.getCredits()));
 				JAXBElement<Media> jaxbMedia = f.createRelatedResourcesMedia(m);
 				r.getTextsAndImagesAndTables().add(jaxbMedia);
+				figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(r);
 			}
-			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(r);
 		}
 	};
 
