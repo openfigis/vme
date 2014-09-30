@@ -9,8 +9,12 @@ import java.net.URL;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.util.JAXBSource;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.fao.fi.figis.devcon.FIGISDoc;
 import org.xml.sax.SAXException;
@@ -29,6 +33,8 @@ public class JaxbMarshall {
 	private static Marshaller marshaller = null;
 	private static final String ERROR = "There was a problem creating a JAXBContext object for serializing the object to XML.";
 
+	private static final String SCHEMA_LANGUAGE = "http://www.w3.org/2001/XMLSchema";
+
 	String UGLY_STRING = " xsi:type=\"xs:string\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"";
 
 	static {
@@ -39,7 +45,7 @@ public class JaxbMarshall {
 			// SchemaFactory sf =
 			// SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-			SchemaFactory sf = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
+			SchemaFactory sf = SchemaFactory.newInstance(SCHEMA_LANGUAGE);
 
 			JAXBContext context = JAXBContext.newInstance(FIGISDoc.class);
 			marshaller = context.createMarshaller();
@@ -70,6 +76,30 @@ public class JaxbMarshall {
 		} catch (MalformedURLException e) {
 			throw new FimesSchemaException(ERROR, e);
 		} catch (SAXException e) {
+			throw new FimesSchemaException(ERROR, e);
+		}
+	}
+
+	public void validate(FIGISDoc figisDoc) {
+		try {
+
+			JAXBContext jc = JAXBContext.newInstance(FIGISDoc.class);
+			JAXBSource figisDocJAXBSource = new JAXBSource(jc, figisDoc);
+
+			SchemaFactory sf = SchemaFactory.newInstance(SCHEMA_LANGUAGE);
+
+			Source fiMasterSource = new StreamSource("http://www.fao.org/figis/fimes/schema/3_6/fi_master.xsd");
+			Schema schema = sf.newSchema(fiMasterSource);
+
+			Validator validator = schema.newValidator();
+			validator.setErrorHandler(new FimesErrorHandler());
+			validator.validate(figisDocJAXBSource);
+
+		} catch (JAXBException e) {
+			throw new FimesSchemaException(ERROR, e);
+		} catch (SAXException e) {
+			throw new FimesSchemaException(ERROR, e);
+		} catch (IOException e) {
 			throw new FimesSchemaException(ERROR, e);
 		}
 	}
