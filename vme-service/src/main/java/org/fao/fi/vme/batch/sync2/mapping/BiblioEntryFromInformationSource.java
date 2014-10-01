@@ -5,9 +5,9 @@ import org.fao.fi.figis.devcon.BiblioEntry;
 import org.fao.fi.figis.devcon.ObjectFactory;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.batch.sync2.mapping.xml.AddWhenContentRule;
-import org.fao.fi.vme.batch.sync2.mapping.xml.CdataUtil;
 import org.fao.fi.vme.batch.sync2.mapping.xml.DateFormatter;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.purl.agmes._1.CreatorCorporate;
 import org.purl.dc.elements._1.Date;
 import org.purl.dc.elements._1.Identifier;
@@ -20,8 +20,7 @@ public class BiblioEntryFromInformationSource {
 
 	private ObjectFactory f = new ObjectFactory();
 	private AddWhenContentRule<Object> rule = new AddWhenContentRule<Object>();
-	private CdataUtil cu = new CdataUtil();
-
+	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 	private org.purl.dc.elements._1.ObjectFactory dcf = new org.purl.dc.elements._1.ObjectFactory();
 
 	private DateFormatter df = new DateFormatter();
@@ -32,10 +31,9 @@ public class BiblioEntryFromInformationSource {
 		if (is != null) {
 			be = f.createBiblioEntry();
 			BibliographicCitation citation = new BibliographicCitation();
-
-			citation.setContent(cu.getCdataString(is.getCitation()));
+			citation.setContent(u.getEnglish(is.getCitation()));
 			be.getContent().add(citation);
-			rule.check(cu.getCdataString(is.getCitation()));
+			rule.check(u.getEnglish(is.getCitation()));
 
 			if (is.getUrl() != null && !StringUtils.isBlank(is.getUrl().getPath())) {
 				Identifier identifier = new Identifier();
@@ -51,7 +49,7 @@ public class BiblioEntryFromInformationSource {
 			be.getContent().add(type);
 
 			CreatorCorporate cc = new CreatorCorporate();
-			cc.setContent(cu.getCdataString(is.getCommittee()));
+			cc.setContent(u.getEnglish(is.getCommittee()));
 			be.getContent().add(cc);
 
 			// Created
@@ -74,8 +72,7 @@ public class BiblioEntryFromInformationSource {
 			}
 
 			Abstrakt bibAbstract = new Abstrakt();
-
-			bibAbstract.setContent(cu.getCdataString(is.getReportSummary()));
+			bibAbstract.setContent(u.getEnglish(is.getReportSummary()));
 			be.getContent().add(bibAbstract);
 
 		}
