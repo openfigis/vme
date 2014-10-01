@@ -114,8 +114,8 @@ abstract class FigisDocBuilderAbstract {
 	public void mediaReference(Vme vme, FIGISDoc figisDoc) {
 		List<MediaReference> l = vme.getMediaReferenceList();
 		if (l != null && l.size() > 0) {
-			RelatedResources r = f.createRelatedResources();
 			for (MediaReference mediaReference : l) {
+				RelatedResources r = f.createRelatedResources();
 				Media m = f.createMedia();
 				try {
 					MediaType mt = refDao.getReferenceByID(MediaType.class, mediaReference.getType());
