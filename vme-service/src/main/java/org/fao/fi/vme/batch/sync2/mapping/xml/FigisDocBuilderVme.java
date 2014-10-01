@@ -130,7 +130,7 @@ public class FigisDocBuilderVme extends FigisDocBuilderAbstract {
 			new AddWhenContentRule<Serializable>().check(profile.getDescriptionPhisical())
 					.beforeAdding(geoformJAXBElement).to(geoform.getContent());
 
-			String profileEnglish = cu.getCdataString(profile.getGeoform());
+			String profileEnglish = u.getEnglish(profile.getGeoform());
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@Value (if Value =
 			// Seamounts or Canyons) or
 			// fi:FIGISDoc/fi:VME/fi:HabitatBio/fi:GeoForm@FreeValue (for other
