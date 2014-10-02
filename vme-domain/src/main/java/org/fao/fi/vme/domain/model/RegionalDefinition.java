@@ -25,16 +25,17 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
 /**
  * @author Fabio Fiorellato
  * 
- * This model is based on the assumption that Regional Definitions are 
- * logically equivalent to General Measures (in the way in which they shall be handled).
+ *         This model is based on the assumption that Regional Definitions are
+ *         logically equivalent to General Measures (in the way in which they
+ *         shall be handled).
  * 
- * If implemented, will require an update on the ReportManager GUI
- * in order to let users be able to create / edit / delete RegionalDefinitions
- * as expected. 
+ *         If implemented, will require an update on the ReportManager GUI in
+ *         order to let users be able to create / edit / delete
+ *         RegionalDefinitions as expected.
  */
-@RSGReferenceReport(name = "VME Regional Definitions")
-@Entity(name = "REGIONAL_DEFINITIONS")
-public class RegionalDefinitions implements ObjectId<Long>, ReferenceReport, Serializable {
+@RSGReferenceReport(name = "VME Regional Definition")
+@Entity(name = "REGIONAL_DEFINITION")
+public class RegionalDefinition implements ObjectId<Long>, ReferenceReport, Serializable {
 	private static final long serialVersionUID = -6703934250783141637L;
 
 	@RSGIdentifier
@@ -66,13 +67,13 @@ public class RegionalDefinitions implements ObjectId<Long>, ReferenceReport, Ser
 	@RSGWeight(3)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private @RSGRichInput MultiLingualString description;
-	
+
 	@RSGName("Source")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(4)
 	@OneToOne(cascade = { CascadeType.ALL })
 	private MultiLingualString source;
-	
+
 	@Override
 	public Long getId() {
 		return id;
@@ -99,7 +100,8 @@ public class RegionalDefinitions implements ObjectId<Long>, ReferenceReport, Ser
 	}
 
 	/**
-	 * @param category the 'category' value to set
+	 * @param category
+	 *            the 'category' value to set
 	 */
 	public void setCategory(MultiLingualString category) {
 		this.category = category;
@@ -113,7 +115,8 @@ public class RegionalDefinitions implements ObjectId<Long>, ReferenceReport, Ser
 	}
 
 	/**
-	 * @param title the 'title' value to set
+	 * @param title
+	 *            the 'title' value to set
 	 */
 	public void setTitle(MultiLingualString title) {
 		this.title = title;
@@ -127,7 +130,8 @@ public class RegionalDefinitions implements ObjectId<Long>, ReferenceReport, Ser
 	}
 
 	/**
-	 * @param description the 'description' value to set
+	 * @param description
+	 *            the 'description' value to set
 	 */
 	public void setDescription(MultiLingualString description) {
 		this.description = description;
@@ -141,13 +145,16 @@ public class RegionalDefinitions implements ObjectId<Long>, ReferenceReport, Ser
 	}
 
 	/**
-	 * @param source the 'source' value to set
+	 * @param source
+	 *            the 'source' value to set
 	 */
 	public void setSource(MultiLingualString source) {
 		this.source = source;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -163,7 +170,9 @@ public class RegionalDefinitions implements ObjectId<Long>, ReferenceReport, Ser
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -174,7 +183,7 @@ public class RegionalDefinitions implements ObjectId<Long>, ReferenceReport, Ser
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		RegionalDefinitions other = (RegionalDefinitions) obj;
+		RegionalDefinition other = (RegionalDefinition) obj;
 		if (this.category == null) {
 			if (other.category != null)
 				return false;
