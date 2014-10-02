@@ -89,11 +89,11 @@ public class FigisDocBuilderVmeTest {
 		b.mediaReference(vme, figisDoc);
 		List<Object> l = figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts();
 		int media = 0;
-		assertFalse(l.get(0).equals(l.get(1)));
 		for (Object object : l) {
 			if (object instanceof RelatedResources) {
-				System.out.println(object.getClass().getSimpleName());
-				media++;
+				RelatedResources rr = (RelatedResources) object;
+				media = rr.getTextsAndImagesAndTables().size();
+
 			}
 		}
 		assertEquals(2, media);
