@@ -114,8 +114,8 @@ abstract class FigisDocBuilderAbstract {
 	public void mediaReference(Vme vme, FIGISDoc figisDoc) {
 		List<MediaReference> l = vme.getMediaReferenceList();
 		if (l != null && l.size() > 0) {
+			RelatedResources r = f.createRelatedResources();
 			for (MediaReference mediaReference : l) {
-				RelatedResources r = f.createRelatedResources();
 				Media m = f.createMedia();
 				if (mediaReference.getType() != null) {
 					try {
@@ -133,8 +133,8 @@ abstract class FigisDocBuilderAbstract {
 				m.setSource(u.getEnglish(mediaReference.getCredits()));
 				JAXBElement<Media> jaxbMedia = f.createRelatedResourcesMedia(m);
 				r.getTextsAndImagesAndTables().add(jaxbMedia);
-				figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(r);
 			}
+			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(r);
 		}
 	};
 
