@@ -122,7 +122,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		}
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private List<MediaType> getAllMediaTypes() {
 		return em.createQuery("from MediaType").getResultList();
@@ -132,7 +132,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		List<?> res = em.createQuery("from MediaType where id = " + key).getResultList();
 		return !res.isEmpty() ? (MediaType) res.get(0) : null;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private List<VmeScope> getAllVmeScopes() {
 		return em.createQuery("from VmeScope").getResultList();
@@ -153,17 +153,6 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 		List<Authority> list = em.createQuery("from Authority").getResultList();
 
-		// hack Erik van Ingen Remove NPFC from the list as long as there is no
-		// security
-		Authority found = null;
-		for (Authority authority : list) {
-			if ("NPFC".equals(authority.getAcronym())) {
-				found = authority;
-			}
-		}
-		if (found != null) {
-			list.remove(found);
-		}
 		return list;
 	}
 
@@ -275,7 +264,8 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 			Collection<AcronymAwareReferenceConcept> allReferenceObjects = (Collection<AcronymAwareReferenceConcept>) getAllReferences(concept);
 
 			for (ReferenceConcept reference : allReferenceObjects) {
-				if (reference instanceof AcronymAwareReferenceConcept && acronym.equals(((AcronymAwareReferenceConcept) reference).getAcronym())) {
+				if (reference instanceof AcronymAwareReferenceConcept
+						&& acronym.equals(((AcronymAwareReferenceConcept) reference).getAcronym())) {
 					return (AcronymAwareReferenceConcept) reference;
 				}
 			}
