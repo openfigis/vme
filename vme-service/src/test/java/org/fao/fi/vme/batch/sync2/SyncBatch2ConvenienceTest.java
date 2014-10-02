@@ -2,6 +2,7 @@ package org.fao.fi.vme.batch.sync2;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.domain.model.Vme;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
@@ -12,6 +13,7 @@ import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
+import org.vme.dao.sources.vme.VmeDao;
 
 /**
  * This test is for convenience purposese in order to run the batch. In this
@@ -31,16 +33,14 @@ public class SyncBatch2ConvenienceTest {
 	@Inject
 	private SyncBatch2 syncBatch2;
 
-	// @Inject
-	// private VmeDao dao;
+	@Inject
+	private VmeDao dao;
 
 	@Test
 	public void testSyncFigisWithVmePrimaryRule() {
 
-		// Vme vme = dao.findVme(29573l);
-		// syncBatch2.syncFigisWithVme(vme);
-
-		syncBatch2.syncFigisWithVme();
+		Vme vme = dao.findVme(29573l);
+		syncBatch2.syncFigisWithVme(vme);
 
 	}
 }
