@@ -16,6 +16,8 @@ import org.gcube.application.rsg.support.compiler.bridge.interfaces.ReferenceRep
 
 /**
  * 
+ * Regional Fisheries Management Organization.
+ * 
  * @author Erik van Ingen
  * 
  */
@@ -38,9 +40,11 @@ public class Rfmo implements ReferenceReport, Serializable {
 	 * Rfmo
 	 * 
 	 */
-	// @RSGName("Authority - General Measures")
 	@OneToMany(mappedBy = "rfmo", fetch = FetchType.EAGER)
 	private List<GeneralMeasure> generalMeasureList;
+
+	@OneToMany(mappedBy = "rfmo", fetch = FetchType.EAGER)
+	private List<RegionalDefinition> regionalDefinitionList;
 
 	/**
 	 * 
@@ -120,32 +124,28 @@ public class Rfmo implements ReferenceReport, Serializable {
 		this.hasVmesHistory = hasVmesHistory;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+	public List<RegionalDefinition> getRegionalDefinitionList() {
+		return regionalDefinitionList;
+	}
+
+	public void setRegionalDefinitionList(List<RegionalDefinition> regionalDefinitionList) {
+		this.regionalDefinitionList = regionalDefinitionList;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.generalMeasureList == null) ? 0 :
-			this.generalMeasureList.hashCode());
-		result = prime * result + ((this.hasFisheryAreasHistory == null) ? 0 :
-			this.hasFisheryAreasHistory.hashCode());
-		result = prime * result + ((this.hasVmesHistory == null) ? 0 :
-			this.hasVmesHistory.hashCode());
+		result = prime * result + ((this.generalMeasureList == null) ? 0 : this.generalMeasureList.hashCode());
+		result = prime * result + ((this.regionalDefinitionList == null) ? 0 : this.regionalDefinitionList.hashCode());
+		result = prime * result + ((this.hasFisheryAreasHistory == null) ? 0 : this.hasFisheryAreasHistory.hashCode());
+		result = prime * result + ((this.hasVmesHistory == null) ? 0 : this.hasVmesHistory.hashCode());
 		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-		result = prime * result + ((this.informationSourceList == null) ? 0 :
-			this.informationSourceList.hashCode());
-		result = prime * result + ((this.listOfManagedVmes == null) ? 0 :
-			this.listOfManagedVmes.hashCode());
+		result = prime * result + ((this.informationSourceList == null) ? 0 : this.informationSourceList.hashCode());
+		result = prime * result + ((this.listOfManagedVmes == null) ? 0 : this.listOfManagedVmes.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -163,6 +163,13 @@ public class Rfmo implements ReferenceReport, Serializable {
 				return false;
 			}
 		} else if (!this.generalMeasureList.equals(other.generalMeasureList)) {
+			return false;
+		}
+		if (this.regionalDefinitionList == null) {
+			if (other.regionalDefinitionList != null) {
+				return false;
+			}
+		} else if (!this.regionalDefinitionList.equals(other.regionalDefinitionList)) {
 			return false;
 		}
 		if (this.hasFisheryAreasHistory == null) {
