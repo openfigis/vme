@@ -117,11 +117,15 @@ abstract class FigisDocBuilderAbstract {
 			for (MediaReference mediaReference : l) {
 				RelatedResources r = f.createRelatedResources();
 				Media m = f.createMedia();
-				try {
-					MediaType mt = refDao.getReferenceByID(MediaType.class, mediaReference.getType());
-					m.setType(mt.getName());
-				} catch (Exception e) {
-					throw new VmeDaoException(e);
+				if (mediaReference.getType() != null) {
+					try {
+						MediaType mt = refDao.getReferenceByID(MediaType.class, mediaReference.getType());
+						m.setType(mt.getName());
+					} catch (Exception e) {
+						throw new VmeDaoException(e);
+					}
+				} else {
+					LOG.warn("This mediareference does not have a defined type: " + mediaReference.getId());
 				}
 				m.setURL(mediaReference.getUrl().toExternalForm().toString());
 				m.setTitle(u.getEnglish(mediaReference.getTitle()));
