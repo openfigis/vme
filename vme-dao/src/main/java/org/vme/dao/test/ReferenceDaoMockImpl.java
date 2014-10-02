@@ -6,9 +6,11 @@ import java.util.Map;
 
 import javax.enterprise.inject.Alternative;
 
+import org.fao.fi.vme.domain.model.reference.MediaType;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
+import org.fao.fi.vme.domain.test.MediaTypeMock;
 import org.fao.fi.vme.domain.test.VmeCriteriaMock;
 import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.fao.fi.vme.domain.test.VmeTypeMock;
@@ -25,11 +27,13 @@ public class ReferenceDaoMockImpl implements ReferenceDAO {
 	private static Map<Class<?>, ReferenceConcept> refObjects = new HashMap<Class<?>, ReferenceConcept>();
 	static {
 		refObjects.put(VmeScope.class, VmeScopeMock.create());
-//		refObjects.put(Authority.class, AuthorityMock.create());
+		// refObjects.put(Authority.class, AuthorityMock.create());
 		refObjects.put(VmeCriteria.class, VmeCriteriaMock.create());
 		refObjects.put(VmeType.class, VmeTypeMock.create());
-//		refObjects.put(ReferenceYear.class, ReferenceYearMock.create());
-//		refObjects.put(InformationSourceType.class, InformationSourceTypeMock.create);
+		refObjects.put(MediaType.class, MediaTypeMock.create());
+		// refObjects.put(ReferenceYear.class, ReferenceYearMock.create());
+		// refObjects.put(InformationSourceType.class,
+		// InformationSourceTypeMock.create);
 	}
 
 	@Override

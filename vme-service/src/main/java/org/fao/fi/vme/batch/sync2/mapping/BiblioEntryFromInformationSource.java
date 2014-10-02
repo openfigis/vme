@@ -22,7 +22,7 @@ public class BiblioEntryFromInformationSource {
 	private AddWhenContentRule<Object> rule = new AddWhenContentRule<Object>();
 	private MultiLingualStringUtil u = new MultiLingualStringUtil();
 	private org.purl.dc.elements._1.ObjectFactory dcf = new org.purl.dc.elements._1.ObjectFactory();
-	
+
 	private DateFormatter df = new DateFormatter();
 
 	public BiblioEntry transform(InformationSource is) {

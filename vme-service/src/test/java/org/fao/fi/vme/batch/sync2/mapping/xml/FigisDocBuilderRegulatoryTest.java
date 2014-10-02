@@ -61,11 +61,12 @@ import org.vme.fimes.jaxb.JaxbMarshall;
 public class FigisDocBuilderRegulatoryTest {
 
 	@Inject
-	FigisDocBuilderRegolatory b;
+	FigisDocBuilderRegulatory b;
 	JaxbMarshall m;
 	MultiLingualStringUtil u;
 	int nrOfYears = 2;
 	Vme vme;
+	CdataUtil cu = new CdataUtil();
 
 	ObjectFactory f = new ObjectFactory();
 	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
@@ -84,8 +85,8 @@ public class FigisDocBuilderRegulatoryTest {
 		figisDoc.setVME(new VME());
 
 		GeoForm geoform = f.createGeoForm();
-		EnglishTextUtil ut = new EnglishTextUtil();
-		Text descriptionPhisical = ut.getEnglishText(null);
+		CdataUtil ut = new CdataUtil();
+		Text descriptionPhisical = ut.getCdataText(null);
 		JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(descriptionPhisical);
 		// geoform.getContent().add(geoformJAXBElement);
 
@@ -169,6 +170,7 @@ public class FigisDocBuilderRegulatoryTest {
 					BiblioEntry biblioEntry = (BiblioEntry) ((Sources) obj).getTextsAndImagesAndTables().get(i);
 					for (Object bObj : biblioEntry.getContent()) {
 						if (bObj instanceof BibliographicCitation) {
+
 							assertEquals(u.getEnglish(infoSourceList.get(i).getCitation()),
 									((BibliographicCitation) bObj).getContent());
 						} else if (bObj instanceof Identifier) {

@@ -27,6 +27,7 @@ import org.fao.fi.figis.devcon.Measure;
 import org.fao.fi.figis.devcon.Min;
 import org.fao.fi.figis.devcon.ObjectFactory;
 import org.fao.fi.figis.devcon.Range;
+import org.fao.fi.figis.devcon.RelatedResources;
 import org.fao.fi.figis.devcon.Sources;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
@@ -38,6 +39,7 @@ import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.support.VmeSimpleDateFormat;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
+import org.fao.fi.vme.domain.test.MediaReferenceMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
@@ -64,6 +66,8 @@ public class FigisDocBuilderVmeTest {
 	int nrOfYears = 2;
 	Vme vme;
 
+	CdataUtil cu = new CdataUtil();
+
 	ObjectFactory f = new ObjectFactory();
 	private VmeSimpleDateFormat du = new VmeSimpleDateFormat();
 
@@ -76,13 +80,33 @@ public class FigisDocBuilderVmeTest {
 	}
 
 	@Test
+	public void testMediaReference() {
+		FIGISDoc figisDoc = new FIGISDoc();
+		figisDoc.setVME(f.createVME());
+
+		vme.getMediaReferenceList().add(MediaReferenceMock.create());
+
+		b.mediaReference(vme, figisDoc);
+		List<Object> l = figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts();
+		int media = 0;
+		for (Object object : l) {
+			if (object instanceof RelatedResources) {
+				RelatedResources rr = (RelatedResources) object;
+				media = rr.getTextsAndImagesAndTables().size();
+
+			}
+		}
+		assertEquals(2, media);
+	}
+
+	@Test
 	public void testHabitatBio() {
 		FIGISDoc figisDoc = new FIGISDoc();
 		figisDoc.setVME(new VME());
 
 		GeoForm geoform = f.createGeoForm();
-		EnglishTextUtil ut = new EnglishTextUtil();
-		Text descriptionPhisical = ut.getEnglishText(null);
+		CdataUtil ut = new CdataUtil();
+		Text descriptionPhisical = ut.getCdataText(null);
 		JAXBElement<Text> geoformJAXBElement = f.createGeoFormText(descriptionPhisical);
 		// geoform.getContent().add(geoformJAXBElement);
 
@@ -134,6 +158,7 @@ public class FigisDocBuilderVmeTest {
 		Sources sources = (Sources) measure.getTextsAndImagesAndTables().get(3);
 		BiblioEntry biblioEntry = (BiblioEntry) sources.getTextsAndImagesAndTables().get(0);
 		BibliographicCitation c = (BibliographicCitation) biblioEntry.getContent().get(0);
+
 		assertEquals(InformationSourceMock.CIT, c.getContent());
 
 	}
@@ -257,6 +282,7 @@ public class FigisDocBuilderVmeTest {
 							1);
 				} else if (obj instanceof Abstrakt) {
 					assertEquals(u.getEnglish(infoSourceList.get(i).getReportSummary()), ((Abstrakt) obj).getContent());
+
 				} else if (obj instanceof BibliographicCitation) {
 					assertEquals(u.getEnglish(infoSourceList.get(i).getCitation()),
 							((BibliographicCitation) obj).getContent());

@@ -18,12 +18,14 @@ import org.fao.fi.figis.devcon.FigisID;
 import org.fao.fi.figis.devcon.ForeignID;
 import org.fao.fi.figis.devcon.GeoReference;
 import org.fao.fi.figis.devcon.Max;
+import org.fao.fi.figis.devcon.Media;
 import org.fao.fi.figis.devcon.Min;
 import org.fao.fi.figis.devcon.ObjectFactory;
 import org.fao.fi.figis.devcon.ObjectSource;
 import org.fao.fi.figis.devcon.OrgRef;
 import org.fao.fi.figis.devcon.Owner;
 import org.fao.fi.figis.devcon.Range;
+import org.fao.fi.figis.devcon.RelatedResources;
 import org.fao.fi.figis.devcon.Sources;
 import org.fao.fi.figis.devcon.SpatialScale;
 import org.fao.fi.figis.devcon.VME;
@@ -35,8 +37,10 @@ import org.fao.fi.vme.batch.sync2.mapping.BiblioEntryFromInformationSource;
 import org.fao.fi.vme.batch.sync2.mapping.DisseminationYearSlice;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.MediaReference;
 import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.model.reference.MediaType;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
@@ -49,9 +53,10 @@ import org.purl.dc.terms.Created;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.ReferenceDAO;
+import org.vme.dao.VmeDaoException;
 
 /**
- * Abstract class for FigisDocBuilderRegolatory and FigisDocBuilderVme
+ * Abstract class for FigisDocBuilderRegulatory and FigisDocBuilderVme
  * 
  * 
  * @author Erik van Ingen
@@ -60,7 +65,9 @@ import org.vme.dao.ReferenceDAO;
  */
 abstract class FigisDocBuilderAbstract {
 
-	static final private Logger LOG = LoggerFactory.getLogger(FigisDocBuilderAbstract.class);
+	private static final Logger LOG = LoggerFactory.getLogger(FigisDocBuilderAbstract.class);
+	private static final String UNABLE2RETRIVE = "Unable to retrieve reference {} with ID {}: {}";
+	private static final String ACRONYM = "acronym";
 
 	@Inject
 	@ConceptProvider
@@ -69,7 +76,7 @@ abstract class FigisDocBuilderAbstract {
 	protected ObjectFactory f = new ObjectFactory();
 	private org.purl.dc.terms.ObjectFactory fDc = new org.purl.dc.terms.ObjectFactory();
 	protected MultiLingualStringUtil u = new MultiLingualStringUtil();
-	protected EnglishTextUtil ut = new EnglishTextUtil();
+	protected CdataUtil cu = new CdataUtil();
 	protected JAXBElementUtil uj = new JAXBElementUtil();
 	protected GeneralMeasureManagementMethodEntryBuilder mmeBuilder = new GeneralMeasureManagementMethodEntryBuilder();
 	protected CurrentDate currentDate = new CurrentDate();
@@ -93,6 +100,43 @@ abstract class FigisDocBuilderAbstract {
 	}
 
 	public abstract void docIt(Vme vme, DisseminationYearSlice disseminationYearSlice, FIGISDoc figisDoc);
+
+	/**
+	 * MediaType=Image fi:FIGISDoc/fi:VME/fi:RelatedResources/
+	 * Media@Type=Image+@URL+@Title+@Descritpion+@Source
+	 * 
+	 * 
+	 * MediaType=Video fi:FIGISDoc/fi:VME/fi:RelatedResources
+	 * /Media@Type=Video+@URL+@Title+@Descritpion+@Source
+	 *
+	 *
+	 */
+	public void mediaReference(Vme vme, FIGISDoc figisDoc) {
+		List<MediaReference> l = vme.getMediaReferenceList();
+		if (l != null && l.size() > 0) {
+			RelatedResources r = f.createRelatedResources();
+			for (MediaReference mediaReference : l) {
+				Media m = f.createMedia();
+				if (mediaReference.getType() != null) {
+					try {
+						MediaType mt = refDao.getReferenceByID(MediaType.class, mediaReference.getType());
+						m.setType(mt.getName());
+					} catch (Exception e) {
+						throw new VmeDaoException(e);
+					}
+				} else {
+					LOG.warn("This mediareference does not have a defined type: " + mediaReference.getId());
+				}
+				m.setURL(mediaReference.getUrl().toExternalForm().toString());
+				m.setTitle(u.getEnglish(mediaReference.getTitle()));
+				m.setDescription(u.getEnglish(mediaReference.getDescription()));
+				m.setSource(u.getEnglish(mediaReference.getCredits()));
+				JAXBElement<Media> jaxbMedia = f.createRelatedResourcesMedia(m);
+				r.getTextsAndImagesAndTables().add(jaxbMedia);
+			}
+			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(r);
+		}
+	};
 
 	/**
 	 * Adds a Vme to the FIGISDoc
@@ -138,8 +182,7 @@ abstract class FigisDocBuilderAbstract {
 		try {
 			scope = vmeDomain.getScope() == null ? null : refDao.getReferenceByID(VmeScope.class, vmeDomain.getScope());
 		} catch (Exception e) {
-			LOG.error("Unable to retrieve reference {} with ID {}: {}", VmeType.class, vmeDomain.getAreaType(),
-					e.getMessage(), e);
+			LOG.error(UNABLE2RETRIVE, VmeType.class, vmeDomain.getAreaType(), e.getMessage(), e);
 		}
 
 		// FigisID
@@ -157,7 +200,7 @@ abstract class FigisDocBuilderAbstract {
 
 		// OrgRef
 		ForeignID rfmoForeignID = f.createForeignID();
-		rfmoForeignID.setCodeSystem("acronym");
+		rfmoForeignID.setCodeSystem(ACRONYM);
 		rfmoForeignID.setCode(vmeDomain.getRfmo().getId());
 
 		OrgRef rfmoOrg = f.createOrgRef();
@@ -209,8 +252,7 @@ abstract class FigisDocBuilderAbstract {
 						vmeDomain.getAreaType());
 				vmeType.setValue(vmeTypeRef.getName());
 			} catch (Exception e) {
-				LOG.error("Unable to retrieve reference {} with ID {}: {}", VmeType.class, vmeDomain.getAreaType(),
-						e.getMessage(), e);
+				LOG.error(UNABLE2RETRIVE, VmeType.class, vmeDomain.getAreaType(), e.getMessage(), e);
 			}
 		}
 
@@ -229,8 +271,7 @@ abstract class FigisDocBuilderAbstract {
 						vmeCriteriaList.add(criteria);
 					}
 				} catch (Exception e) {
-					LOG.error("Unable to retrieve reference {} with ID {}: {}", VmeCriteria.class, criteriaId,
-							e.getMessage(), e);
+					LOG.error(UNABLE2RETRIVE, VmeCriteria.class, criteriaId, e.getMessage(), e);
 				}
 			}
 		}
@@ -408,7 +449,7 @@ abstract class FigisDocBuilderAbstract {
 
 		ForeignID foreignID = f.createForeignID();
 		foreignID.setCode("VME_FS");
-		foreignID.setCodeSystem("acronym");
+		foreignID.setCodeSystem(ACRONYM);
 
 		CollectionRef collectionRef = f.createCollectionRef();
 		collectionRef.getFigisIDsAndForeignIDs().add(figisID);

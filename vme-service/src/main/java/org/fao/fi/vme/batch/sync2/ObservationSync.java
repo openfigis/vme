@@ -33,7 +33,7 @@ public class ObservationSync implements Sync {
 
 	@Inject
 	private ObjectMapping om;
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ObservationSync.class);
 
 	@Override
@@ -43,10 +43,8 @@ public class ObservationSync implements Sync {
 
 		LOG.info(String.valueOf(objects.size()));
 		for (Vme vme : objects) {
-			if (vme.getId() != 28405L) {
-				sync(vme);
-			}
-
+			System.out.println(vme.getId());
+			sync(vme);
 		}
 	}
 

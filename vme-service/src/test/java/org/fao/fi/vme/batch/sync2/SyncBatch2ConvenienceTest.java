@@ -31,9 +31,14 @@ public class SyncBatch2ConvenienceTest {
 	@Inject
 	private SyncBatch2 syncBatch2;
 
+	// @Inject
+	// private VmeDao dao;
+
 	@Test
 	public void testSyncFigisWithVmePrimaryRule() {
 
+		// Vme vme = dao.findVme(29573l);
+		// syncBatch2.syncFigisWithVme(vme);
 		syncBatch2.syncFigisWithVme();
 
 	}

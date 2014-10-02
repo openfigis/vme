@@ -2,6 +2,7 @@ package org.vme.fimes.jaxb;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import javax.xml.bind.JAXBElement;
 
@@ -14,7 +15,6 @@ import org.fao.fi.figis.devcon.Range;
 import org.fao.fi.figis.devcon.Text;
 import org.fao.fi.figis.devcon.VME;
 import org.fao.fi.figis.devcon.VMEIdent;
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class JaxbMarshallTest {
@@ -22,7 +22,18 @@ public class JaxbMarshallTest {
 	JaxbMarshall m = new JaxbMarshall();
 
 	@Test
-	@Ignore
+	public void testValidate() {
+
+		FIGISDoc doc = new FIGISDoc();
+		try {
+			m.validate(doc);
+			fail();
+		} catch (Exception e) {
+		}
+
+	}
+
+	@Test
 	public void testMarshalToStringMinMax() {
 
 		ObjectFactory f = new ObjectFactory();

@@ -1,1 +1,1 @@
-mvn install -Dmaven.test.skip=true -P vme-prod
+mvn install -Dmaven.test.skip=true -P vme-qa

@@ -21,6 +21,8 @@ import org.vme.dao.sources.vme.VmeDao;
  * Dao in order to run Hibernate with temporary update mode in order to apply
  * the DB changes for MediaReference.
  * 
+ * IN QA it took 139 seconds
+ * 
  * 
  * @author Erik van Ingen
  *

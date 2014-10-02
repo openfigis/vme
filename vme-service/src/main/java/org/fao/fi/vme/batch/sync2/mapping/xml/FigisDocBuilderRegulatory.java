@@ -14,7 +14,7 @@ import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.Vme;
 
 /**
- * FigisDocBuilder, to build a FIGISDoc from VME Domain database for regolatory
+ * FigisDocBuilder, to build a FIGISDoc from VME Domain database for regulatory
  * factsheets.
  * 
  * 
@@ -24,12 +24,13 @@ import org.fao.fi.vme.domain.model.Vme;
  * @author Erik van Ingen
  * 
  */
-public class FigisDocBuilderRegolatory extends FigisDocBuilderAbstract {
+public class FigisDocBuilderRegulatory extends FigisDocBuilderAbstract {
 
 	@Override
 	public void docIt(Vme vme, DisseminationYearSlice disseminationYearSlice, FIGISDoc figisDoc) {
 		dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
 		vme(vme, disseminationYearSlice.getGeoRef(), disseminationYearSlice.getYear(), figisDoc);
+		mediaReference(vme, figisDoc);
 		fisheryArea(disseminationYearSlice.getFisheryAreasHistory(), figisDoc);
 		vmesHistory(disseminationYearSlice.getVmesHistory(), figisDoc);
 		generalMeasures(disseminationYearSlice.getGeneralMeasure(), figisDoc, disseminationYearSlice.getYear());
@@ -181,7 +182,7 @@ public class FigisDocBuilderRegolatory extends FigisDocBuilderAbstract {
 	public void fisheryArea(History fisheryAreasHistory, FIGISDoc figisDoc) {
 		// // FishingArea_history fi:FIGISDoc/fi:VME/fi:FisheryArea/fi:Text
 		if (fisheryAreasHistory != null) {
-			Text text = ut.getEnglishText(fisheryAreasHistory.getHistory());
+			Text text = cu.getCdataText(fisheryAreasHistory.getHistory());
 			FisheryArea fisheryArea = f.createFisheryArea();
 			fisheryArea.getTextsAndImagesAndTables().add(text);
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(fisheryArea);
@@ -192,7 +193,7 @@ public class FigisDocBuilderRegolatory extends FigisDocBuilderAbstract {
 	public void vmesHistory(History vmesHistory, FIGISDoc figisDoc) {
 		// // VME_history fi:FIGISDoc/fi:VME/fi:History/fi:Text
 		if (vmesHistory != null) {
-			Text text = ut.getEnglishText(vmesHistory.getHistory());
+			Text text = cu.getCdataText(vmesHistory.getHistory());
 			org.fao.fi.figis.devcon.History history = f.createHistory();
 			history.getTextsAndImagesAndTables().add(text);
 			figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().add(history);

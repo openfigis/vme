@@ -16,17 +16,17 @@ import org.junit.Test;
  * 
  */
 
-public class EnglishTextUtilTest {
+public class CdataUtilTest {
 
-	private EnglishTextUtil enUtil = new EnglishTextUtil();
+	private CdataUtil enUtil = new CdataUtil();
 	private MultiLingualString mult = new MultiLingualString();
 	private HashMap<Integer, String> stringMap = new HashMap<Integer, String>();
 
 	@Test
-	public void testGetEnglishText() {
+	public void testGetCdataText() {
 		stringMap.put(Lang.EN, "Hello world");
 		mult.setStringMap(stringMap);
-		Text text = enUtil.getEnglishText(mult);
+		Text text = enUtil.getCdataText(mult);
 		assertEquals("en", text.getLang());
 
 		assertTrue(((String) text.getContent().get(0)).contains("Hello world"));
