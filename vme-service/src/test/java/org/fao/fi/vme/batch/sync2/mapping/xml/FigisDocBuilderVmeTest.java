@@ -159,7 +159,7 @@ public class FigisDocBuilderVmeTest {
 		BiblioEntry biblioEntry = (BiblioEntry) sources.getTextsAndImagesAndTables().get(0);
 		BibliographicCitation c = (BibliographicCitation) biblioEntry.getContent().get(0);
 
-		assertEquals(cu.getCdataString(InformationSourceMock.CIT), c.getContent());
+		assertEquals(InformationSourceMock.CIT, c.getContent());
 
 	}
 
@@ -275,16 +275,16 @@ public class FigisDocBuilderVmeTest {
 
 			for (Object obj : biblioEntry.getContent()) {
 				if (obj instanceof CreatorCorporate) {
-					assertEquals(cu.getCdataString(infoSourceList.get(i).getCommittee()),
+					assertEquals(u.getEnglish(infoSourceList.get(i).getCommittee()),
 							((CreatorCorporate) obj).getContent());
 				} else if (obj instanceof Created) {
 					assertEquals(infoSourceList.get(i).getPublicationYear(), new Integer(((Created) obj).getContent()),
 							1);
 				} else if (obj instanceof Abstrakt) {
-					assertEquals(cu.getCdataString(infoSourceList.get(i).getReportSummary()),
-							((Abstrakt) obj).getContent());
+					assertEquals(u.getEnglish(infoSourceList.get(i).getReportSummary()), ((Abstrakt) obj).getContent());
+
 				} else if (obj instanceof BibliographicCitation) {
-					assertEquals(cu.getCdataString(infoSourceList.get(i).getCitation()),
+					assertEquals(u.getEnglish(infoSourceList.get(i).getCitation()),
 							((BibliographicCitation) obj).getContent());
 				} else if (obj instanceof Identifier) {
 					assertEquals("URI", ((Identifier) obj).getType());
