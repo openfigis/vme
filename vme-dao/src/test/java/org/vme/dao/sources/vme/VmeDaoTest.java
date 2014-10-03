@@ -52,12 +52,20 @@ public class VmeDaoTest {
 	@Test
 	public void testMediaReference() throws Throwable {
 		Vme vme = new Vme();
-		MediaReference r = MediaReferenceMock.create();
-		r.setVme(vme);
 		vme.setMediaReferenceList(MediaReferenceMock.createList());
+		MediaReference mr = vme.getMediaReferenceList().get(0);
+		mr.setVme(vme);
+		assertEquals(1, vme.getMediaReferenceList().size());
 		dao.persist(vme);
 		assertEquals(1, dao.count(Vme.class).intValue());
 		assertEquals(1, dao.count(MediaReference.class).intValue());
+		assertEquals(1, vme.getMediaReferenceList().size());
+		assertTrue(vme.getMediaReferenceList().remove(mr));
+		assertEquals(0, vme.getMediaReferenceList().size());
+		dao.merge(vme);
+		assertEquals(1, dao.count(Vme.class).intValue());
+		assertEquals(0, dao.count(MediaReference.class).intValue());
+
 	}
 
 	@Test
