@@ -5617,7 +5617,7 @@ identification of fishery units" (FIRMS TWG2, 2008).</Description>
 		</xs:choice>
 		<xs:attribute ref="xml:lang"/>
 		<xs:attribute name="Label" type="xs:string"/>
-		<xs:attribute name="Type" use="required">
+		<xs:attribute name="Type" use="optional">
 			<xs:simpleType>
 				<xs:restriction base="xs:token">
 					<xs:enumeration value="Growth"/>
