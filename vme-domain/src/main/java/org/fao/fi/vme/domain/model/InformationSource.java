@@ -29,7 +29,6 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGI
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGMandatory;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGOneAmong;
-import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGRichInput;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGSimpleReference;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGWeight;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.constants.ConceptData;
@@ -114,7 +113,6 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 
 	/** */
 	@RSGName("Report Summary")
-	@RSGRichInput
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(2)
 	@OneToOne(cascade = { CascadeType.ALL })
@@ -143,7 +141,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 	 * <option value="6">CD-ROM/DVD</option> <option VALUE="-1">Other </option>
 	 * 
 	 */
-	@RSGName(value="Source Type", hideHeading=true)
+	@RSGName(value = "Source Type", hideHeading = true)
 	@RSGMandatory
 	@RSGOneAmong(concept = InformationSourceType.class, label = ConceptData.NAME, value = ConceptData.ID)
 	@RSGConverter(CustomInformationSourceTypeDataConverter.class)
@@ -270,31 +268,17 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((citation == null) ? 0 : citation.hashCode());
-		result = prime * result
-				+ ((committee == null) ? 0 : committee.hashCode());
-		result = prime
-				* result
-				+ ((generalMeasureList == null) ? 0 : generalMeasureList
-						.hashCode());
+		result = prime * result + ((citation == null) ? 0 : citation.hashCode());
+		result = prime * result + ((committee == null) ? 0 : committee.hashCode());
+		result = prime * result + ((generalMeasureList == null) ? 0 : generalMeasureList.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((meetingEndDate == null) ? 0 : meetingEndDate.hashCode());
-		result = prime
-				* result
-				+ ((meetingStartDate == null) ? 0 : meetingStartDate.hashCode());
-		result = prime * result
-				+ ((publicationYear == null) ? 0 : publicationYear.hashCode());
-		result = prime * result
-				+ ((reportSummary == null) ? 0 : reportSummary.hashCode());
+		result = prime * result + ((meetingEndDate == null) ? 0 : meetingEndDate.hashCode());
+		result = prime * result + ((meetingStartDate == null) ? 0 : meetingStartDate.hashCode());
+		result = prime * result + ((publicationYear == null) ? 0 : publicationYear.hashCode());
+		result = prime * result + ((reportSummary == null) ? 0 : reportSummary.hashCode());
 		result = prime * result + ((rfmo == null) ? 0 : rfmo.hashCode());
-		result = prime * result
-				+ ((sourceType == null) ? 0 : sourceType.hashCode());
-		result = prime
-				* result
-				+ ((specificMeasureList == null) ? 0 : specificMeasureList
-						.hashCode());
+		result = prime * result + ((sourceType == null) ? 0 : sourceType.hashCode());
+		result = prime * result + ((specificMeasureList == null) ? 0 : specificMeasureList.hashCode());
 		return result;
 	}
 
@@ -409,5 +393,5 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 		}
 		return true;
 	}
-	
+
 }
