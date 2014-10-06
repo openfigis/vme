@@ -56,15 +56,18 @@ public class VmeDaoTest {
 		MediaReference mr = vme.getMediaReferenceList().get(0);
 		mr.setVme(vme);
 		assertEquals(1, vme.getMediaReferenceList().size());
+		int v = dao.count(Vme.class).intValue();
+		int m = dao.count(MediaReference.class).intValue();
+
 		dao.persist(vme);
-		assertEquals(1, dao.count(Vme.class).intValue());
-		assertEquals(1, dao.count(MediaReference.class).intValue());
+		assertEquals(++v, dao.count(Vme.class).intValue());
+		assertEquals(++m, dao.count(MediaReference.class).intValue());
 		assertEquals(1, vme.getMediaReferenceList().size());
 		assertTrue(vme.getMediaReferenceList().remove(mr));
 		assertEquals(0, vme.getMediaReferenceList().size());
 		dao.merge(vme);
-		assertEquals(1, dao.count(Vme.class).intValue());
-		assertEquals(0, dao.count(MediaReference.class).intValue());
+		assertEquals(v, dao.count(Vme.class).intValue());
+		assertEquals(--m, dao.count(MediaReference.class).intValue());
 
 	}
 
