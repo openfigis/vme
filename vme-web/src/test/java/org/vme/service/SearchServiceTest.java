@@ -49,11 +49,11 @@ public class SearchServiceTest {
 	public void before() {
 		obsRequestList = new HashMap<Integer, ObservationsRequest>();
 
-		vme = VmeMock.generateVme(3);
+		// vme = VmeMock.generateVme(3);
 		vme2 = VmeMock.generateVme(5);
 		vme2.setAreaType(20L);
 		vme2.setCriteria(new ArrayList<Long>());
-		vDao.saveVme(vme);
+		// vDao.saveVme(vme);
 		vDao.saveVme(vme2);
 
 		/*
@@ -275,54 +275,6 @@ public class SearchServiceTest {
 
 		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(4));
 		assertTrue(0 == response.getTotalResult());
-
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(5));
-		assertTrue(2 == response.getTotalResult());
-
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(6));
-		assertTrue(0 == response.getTotalResult());
-
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(7));
-		assertTrue(2 == response.getTotalResult());
-
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(8));
-		assertTrue(0 == response.getTotalResult());
-
-		/*
-		 * Note: to implement test logic for commented out cases in before
-		 * method
-		 */
-
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(13));
-		assertTrue(1 == response.getTotalResult());
-
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(14));
-		assertTrue(1 == response.getTotalResult());
-
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(15));
-		assertTrue(1 == response.getTotalResult());
-
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(16));
-		assertTrue(1 == response.getTotalResult());
-
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(17));
-		assertTrue(1 == response.getTotalResult());
-
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(18));
-		assertTrue(2 == response.getTotalResult());
-
-		/*
-		 * Note: to implement test logic for commented out cases in before
-		 * method
-		 */
-
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(22));
-		assertTrue(1 == response.getTotalResult());
-
-		/*
-		 * Note: to implement test logic for commented out cases in before
-		 * method
-		 */
 
 	}
 

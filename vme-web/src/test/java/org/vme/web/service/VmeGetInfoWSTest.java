@@ -58,7 +58,7 @@ public class VmeGetInfoWSTest {
 	@Test
 	public void testFindString() {
 		try {
-			assertNotNull(ws.find("VME_RFMO_1"));
+			assertNotNull(ws.find("CCAMLR"));
 		} catch (Exception e) {
 			throw new VmeException(e);
 		}

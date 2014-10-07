@@ -33,6 +33,7 @@ import org.fao.fi.figis.devcon.VMECriteria;
 import org.fao.fi.figis.devcon.VMEIdent;
 import org.fao.fi.figis.devcon.VMEType;
 import org.fao.fi.figis.devcon.WaterAreaRef;
+import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.batch.sync2.mapping.BiblioEntryFromInformationSource;
 import org.fao.fi.vme.batch.sync2.mapping.DisseminationYearSlice;
 import org.fao.fi.vme.domain.model.GeoRef;
@@ -440,8 +441,9 @@ abstract class FigisDocBuilderAbstract {
 
 		// owner
 		FigisID figisID = new FigisID();
-		figisID.setContent("7300");
-		figisID.setMetaID("267000");
+
+		figisID.setContent(Integer.toString(Figis.COLLECTION));
+		figisID.setMetaID(Integer.toString(Figis.META_ID));
 
 		// Not critical but making the file NOT valid vs FiMES:
 		// <fi:ForeignID Code="VME_FS" CodeSystem="acronym"/> should follow the
@@ -460,7 +462,7 @@ abstract class FigisDocBuilderAbstract {
 
 		// corporateCoverPage <fi:FigisID MetaID="280000">791</fi:FigisID>
 		FigisID figisIDCC = new FigisID();
-		figisIDCC.setContent("791");
+		figisIDCC.setContent(Integer.toString(Figis.RFMO_COVERPAGE.get(rfmo)));
 		figisIDCC.setMetaID("280000");
 		CorporateCoverPage corporateCoverPage = f.createCorporateCoverPage();
 		corporateCoverPage.getFigisIDsAndForeignIDs().add(figisIDCC);

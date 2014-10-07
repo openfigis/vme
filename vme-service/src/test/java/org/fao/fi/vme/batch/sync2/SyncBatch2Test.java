@@ -49,7 +49,7 @@ public class SyncBatch2Test {
 		assertEquals(ValidityPeriodMock.YEARS, vme.getGeoRefList().size());
 
 		Rfmo rfmo = new Rfmo();
-		rfmo.setId("RFMO");
+		rfmo.setId("CCAMLR");
 		vmeDao.persist(rfmo);
 		vmeDao.persist(VmeTypeMock.create());
 		vmeDao.persist(VmeScopeMock.create());

@@ -2,7 +2,9 @@ package org.fao.fi.vme.domain.test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.fao.fi.vme.domain.model.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
@@ -30,6 +32,24 @@ public class VmeMock {
 	public static final String GEO_AREA = "Southern Pacific Ocean";
 	public static final String HISTORY = "History repeating";
 	public static final String SPEC_MEASURE_CIT = "This is a citation for a SpecificMeasure";
+	public static final Map<Long, String> RFMO_MAP = new HashMap<Long, String>();
+
+	static {
+		RFMO_MAP.put(ID, "CCAMLR");
+		RFMO_MAP.put(ID + 1, "GFCM");
+		RFMO_MAP.put(ID + 2, "NAFO");
+		RFMO_MAP.put(ID + 3, "NEAFC");
+		RFMO_MAP.put(ID + 4, "NPFC");
+		RFMO_MAP.put(ID + 5, "SEAFO");
+		RFMO_MAP.put(ID + 6, "SPRFMO");
+		RFMO_MAP.put(ID + 7, "WECAFC");
+		RFMO_MAP.put(ID + 9, "x1");
+		RFMO_MAP.put(ID + 10, "x2");
+		RFMO_MAP.put(ID + 11, "x3");
+		RFMO_MAP.put(ID + 12, "x4");
+		RFMO_MAP.put(ID + 13, "x5");
+		RFMO_MAP.put(ID + 14, "x6");
+	}
 
 	private static MultiLingualStringUtil u = new MultiLingualStringUtil();
 
@@ -86,6 +106,7 @@ public class VmeMock {
 	public static Vme generateVme(int nrOfyears) {
 		int startYear = YEAR;
 		int endYear = YEAR + nrOfyears - 1;
+		ID = 1000L;
 
 		Vme vme = new Vme();
 
@@ -172,7 +193,15 @@ public class VmeMock {
 		}
 
 		Rfmo rfmo = new Rfmo();
-		rfmo.setId((ID++).toString());
+
+		String rfmoId = RFMO_MAP.get(ID++);
+		if (rfmoId == null) {
+			rfmoId = "SPRFMO" + ID;
+		}
+		rfmo.setId(rfmoId);
+
+		System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE=" + rfmoId);
+
 		rfmo.setHasFisheryAreasHistory(fishingHistoryList);
 		rfmo.setHasVmesHistory(hasVmesHistory);
 		rfmo.setInformationSourceList(informationSourceList);
