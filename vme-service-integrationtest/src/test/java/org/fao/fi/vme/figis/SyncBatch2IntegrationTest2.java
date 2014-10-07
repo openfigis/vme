@@ -80,7 +80,7 @@ public class SyncBatch2IntegrationTest2 {
 	public void testSyncFigisWithVmePrimaryRule() {
 		Vme vme = VmeMock.create();
 		Rfmo rfmo = new Rfmo();
-		rfmo.setId("RFMO");
+		rfmo.setId("CCAMLR");
 		vmeDao.persist(rfmo);
 
 		vme.setRfmo(rfmo);

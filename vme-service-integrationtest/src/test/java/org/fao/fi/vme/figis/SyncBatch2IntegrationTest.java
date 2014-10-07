@@ -97,7 +97,9 @@ public class SyncBatch2IntegrationTest extends FigisDaoTestLogic {
 	private void prepareDB() {
 
 		Vme vme = VmeMock.generateVme(3);
-		vmeDao.persist(vme.getRfmo());
+		// if (!vmeDao.getEm().contains(vme.getRfmo())) {
+		vmeDao.merge(vme.getRfmo());
+		// }
 
 		vme.getRfmo().setGeneralMeasureList(null);
 		vme.getRfmo().setHasFisheryAreasHistory(null);
