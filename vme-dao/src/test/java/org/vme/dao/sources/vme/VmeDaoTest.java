@@ -23,6 +23,7 @@ import org.fao.fi.vme.domain.test.GeneralMeasureMock;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.MediaReferenceMock;
 import org.fao.fi.vme.domain.test.RfmoMock;
+import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.test.VmeTypeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -47,6 +48,55 @@ public class VmeDaoTest {
 	@Before
 	public void before() {
 		vme = VmeMock.generateVme(3);
+	}
+
+	/**
+	 * 
+	 * http://figisapps.fao.org/jira/browse/VME-59
+	 * 
+	 * 12:58:52,669 [ ERROR ] {
+	 * org.fao.fi.vme.rsg.service.RsgServiceWriteImplVme } - Unable to update
+	 * org.fao.fi.vme.domain.model.Vme report #29744: PersistenceException [
+	 * org.hibernate.HibernateException: A collection with
+	 * cascade="all-delete-orphan" was no longer referenced by the owning entity
+	 * instance: org.fao.fi.vme.domain.model.Vme.mediaReferenceList ]
+	 * javax.persistence.PersistenceException: org.hibernate.HibernateException:
+	 * A collection with cascade="all-delete-orphan" was no longer referenced by
+	 * the owning entity instance:
+	 * org.fao.fi.vme.domain.model.Vme.mediaReferenceList
+	 * 
+	 * 
+	 * 
+	 * Caused by: org.hibernate.HibernateException: A collection with
+	 * cascade="all-delete-orphan" was no longer referenced by the owning entity
+	 * instance: org.fao.fi.vme.domain.model.Vme.mediaReferenceList
+	 * 
+	 * @throws Throwable
+	 */
+
+	@Test
+	public void testMediaReferenceNolongerReferencedBug() throws Throwable {
+		Vme vme = new Vme();
+		Rfmo rfmo = RfmoMock.createUnreferenced();
+		dao.persist(rfmo);
+		vme.setRfmo(rfmo);
+
+		vme.setMediaReferenceList(MediaReferenceMock.createList());
+		MediaReference mr = vme.getMediaReferenceList().get(0);
+		mr.setVme(vme);
+		dao.persist(vme);
+
+		Vme vmeUpdated = new Vme();
+		vmeUpdated.setId(vme.getId());
+		vmeUpdated.setValidityPeriod(ValidityPeriodMock.create(1900, 2050));
+
+		vmeUpdated.setRfmo(rfmo);
+		vmeUpdated.setMediaReferenceList(MediaReferenceMock.createList());
+		vmeUpdated.getMediaReferenceList().get(0).setId(vme.getMediaReferenceList().get(0).getId());
+
+		EntityTransaction t = dao.begin();
+		dao.update(vmeUpdated);
+		t.commit();
 	}
 
 	@Test
