@@ -83,16 +83,17 @@ public class VmeDaoTest {
 		Vme vme = new Vme();
 		vme.setRfmo(RfmoMock.createUnreferenced());
 
-		Vme vmeUpdated = dao.findVme(id);
+		Vme vmeFound = dao.findVme(id);
 
-		vmeUpdated.setId(id);
-		vmeUpdated.setValidityPeriod(ValidityPeriodMock.create(1900, 2050));
+		vme.setValidityPeriod(ValidityPeriodMock.create(1900, 2050));
 
-		List<MediaReference> mrLIst = new ArrayList<MediaReference>();
-		vmeUpdated.setMediaReferenceList(mrLIst);
+		// List<MediaReference> mrLIst = new ArrayList<MediaReference>();
+		// vme.setMediaReferenceList(mrLIst);
+
+		vme.setId(vmeFound.getId());
 
 		EntityTransaction t = dao.begin();
-		dao.update(vmeUpdated);
+		dao.update(vme);
 		t.commit();
 	}
 
