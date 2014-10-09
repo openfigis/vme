@@ -76,24 +76,20 @@ public class VmeDaoTest {
 
 	@Test
 	public void testMediaReferenceNolongerReferencedBug() throws Throwable {
+		System.out.println(vme.getId());
+
+		long id = 24232l;
+
 		Vme vme = new Vme();
-		Rfmo rfmo = RfmoMock.createUnreferenced();
-		dao.persist(rfmo);
-		vme.setRfmo(rfmo);
+		vme.setRfmo(RfmoMock.createUnreferenced());
 
-		vme.setMediaReferenceList(MediaReferenceMock.createList());
-		MediaReference mr = vme.getMediaReferenceList().get(0);
-		mr.setVme(vme);
-		dao.persist(vme);
+		Vme vmeUpdated = dao.findVme(id);
 
-		Vme vmeUpdated = new Vme();
-		vmeUpdated.setId(vme.getId());
+		vmeUpdated.setId(id);
 		vmeUpdated.setValidityPeriod(ValidityPeriodMock.create(1900, 2050));
 
-		vmeUpdated.setRfmo(rfmo);
-		vmeUpdated.setMediaReferenceList(MediaReferenceMock.createList());
-		vmeUpdated.getMediaReferenceList().get(0).setId(vme.getMediaReferenceList().get(0).getId());
-		vmeUpdated.getMediaReferenceList().get(0).setVme(vmeUpdated);
+		List<MediaReference> mrLIst = new ArrayList<MediaReference>();
+		vmeUpdated.setMediaReferenceList(mrLIst);
 
 		EntityTransaction t = dao.begin();
 		dao.update(vmeUpdated);
