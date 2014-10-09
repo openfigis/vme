@@ -30,6 +30,7 @@ import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
@@ -94,7 +95,18 @@ public class VmeDaoTest {
 		// t.commit();
 	}
 
+	/**
+	 * VmeDaoTest
+	 * 
+	 * http://figisapps.fao.org/jira/browse/VME-50
+	 * 
+	 * http://figisapps.fao.org/jira/browse/VME-59
+	 * 
+	 * 
+	 * @throws Throwable
+	 */
 	@Test
+	@Ignore
 	public void testMediaReference() throws Throwable {
 		Vme vme = new Vme();
 		vme.setMediaReferenceList(MediaReferenceMock.createList());
