@@ -138,7 +138,7 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGName("Media Reference")
 	@RSGWeight(6)
 	@RSGSection
-	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
 	private List<MediaReference> mediaReferenceList;
 
 	@Override
