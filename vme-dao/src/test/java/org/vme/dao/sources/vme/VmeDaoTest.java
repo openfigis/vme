@@ -93,6 +93,7 @@ public class VmeDaoTest {
 		vmeUpdated.setRfmo(rfmo);
 		vmeUpdated.setMediaReferenceList(MediaReferenceMock.createList());
 		vmeUpdated.getMediaReferenceList().get(0).setId(vme.getMediaReferenceList().get(0).getId());
+		vmeUpdated.getMediaReferenceList().get(0).setVme(vmeUpdated);
 
 		EntityTransaction t = dao.begin();
 		dao.update(vmeUpdated);
