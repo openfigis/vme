@@ -31,8 +31,8 @@ select * from ref_cover_page
 where CD_COVER_PAGE = 861
  
 
-Insert into ref_cover_page (CD_COVER_PAGE,TITLE_E, IDENTIFIER,PUBLISHER) 
-values (861,'CCAMLR Conservation and Enforcement measures','CCAMLR_CEM_CP','FAO');
+Insert into ref_cover_page (CD_COVER_PAGE,TITLE_E,  IDENTIFIER,PUBLISHER) 
+values (861,'CCAMLR Conservation and Enforcement measures', 'CCAMLR_CEM_CP','FAO');
 Insert into ref_cover_page (CD_COVER_PAGE,TITLE_E, IDENTIFIER,PUBLISHER) 
 values (862,'GFCM Conservation and Enforcement measures','GFCM_CEM_CP','FAO');
 Insert into ref_cover_page (CD_COVER_PAGE,TITLE_E, IDENTIFIER,PUBLISHER) 
@@ -67,3 +67,5 @@ Insert into fs_collection_cover_page (CD_COLLECTION,CD_COVER_PAGE,ROLE)
 values (7300,868,'factsheet');
 
 
+Insert into fs_collection_organisation (CD_COLLECTION,CD_PRGRMID,CD_INSTITUTE,CD_PROJECT,ROLE) 
+values (7300,null,6426,null,3);
