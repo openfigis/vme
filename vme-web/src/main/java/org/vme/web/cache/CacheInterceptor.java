@@ -37,7 +37,8 @@ public class CacheInterceptor {
 
 	@AroundInvoke
 	public Object authorize(InvocationContext ic) {
-		String key = g.generateKey(ic.getParameters());
+
+		String key = g.generateKey(ic.getMethod().getName(), ic.getParameters());
 		log.info("key is " + key);
 
 		if ("".equals(key)) {
@@ -70,5 +71,4 @@ public class CacheInterceptor {
 		}
 		return returnObject;
 	}
-
 }

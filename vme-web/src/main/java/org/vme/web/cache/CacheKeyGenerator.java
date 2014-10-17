@@ -7,9 +7,9 @@ import org.fao.fi.vme.VmeException;
 
 public class CacheKeyGenerator {
 
-	public String generateKey(Object[] parameters) {
+	public String generateKey(String interceptedMethodName, Object[] parameters) {
 
-		String key = "";
+		String key = interceptedMethodName;
 		for (Object o : parameters) {
 			if (o instanceof Integer || o instanceof String) {
 				key = key + o;

@@ -8,9 +8,12 @@ public class CacheKeyGeneratorTest {
 
 	@Test
 	public void testGenerateKey() {
+
+		String methodName = "goForIt";
+
 		CacheKeyGenerator g = new CacheKeyGenerator();
 		Object[] p = { 3, "fiets" };
 
-		assertEquals("3fiets", g.generateKey(p));
+		assertEquals(methodName + "3fiets", g.generateKey(methodName, p));
 	}
 }
