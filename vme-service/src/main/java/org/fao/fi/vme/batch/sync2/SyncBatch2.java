@@ -63,7 +63,7 @@ public class SyncBatch2 {
 
 		// reference data
 		syncList.add(vmeRefSync);
-		syncList.add(geoRefSync);
+		// syncList.add(geoRefSync);
 
 		// data
 		syncList.add(observationSync);

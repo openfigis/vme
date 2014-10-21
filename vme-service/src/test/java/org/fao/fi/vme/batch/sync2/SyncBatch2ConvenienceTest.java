@@ -47,7 +47,7 @@ public class SyncBatch2ConvenienceTest {
 	@Test
 	@Ignore
 	public void syncFigisWithVme1() {
-		Vme vme = dao.findVme(23819l);
+		Vme vme = dao.findVme(29573l);
 		syncBatch2.syncFigisWithVme(vme);
 
 	}

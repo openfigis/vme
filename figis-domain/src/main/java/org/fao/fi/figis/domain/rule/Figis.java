@@ -17,6 +17,8 @@ import java.util.Map;
 public class Figis {
 
 	public static final Short ORDER = -1;
+	public static final String COLLECTION = "_VME";
+
 	// public static final Integer COLLECTION = 7300;
 
 	public static final Map<String, Integer> RFMO_COVERPAGE = new HashMap<String, Integer>();
@@ -38,6 +40,8 @@ public class Figis {
 		RFMO_COLLECTION.put("SEAFO", 7355);
 		RFMO_COLLECTION.put("NPFC", 7356);
 		RFMO_COLLECTION.put("SPRFMO", 7357);
+
+		RFMO_COLLECTION.put("WECAFC", 0); // fake number, does not yet exist.
 
 	}
 	/**

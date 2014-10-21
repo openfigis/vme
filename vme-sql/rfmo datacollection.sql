@@ -1,6 +1,11 @@
 -- No Wecafc
 -- delete 7300
 
+
+delete REF_DATA_COLLECTION
+where CD_COLLECTION = 7300;
+
+
 Insert into REF_DATA_COLLECTION (CD_COLLECTION,CD_META,NAME_E,CODE) 
 values (7351,267000,'CCAMLR VME Factsheets','CCAMLR_VME');
 Insert into REF_DATA_COLLECTION (CD_COLLECTION,CD_META,NAME_E,CODE) 
@@ -32,6 +37,11 @@ Insert into fs_collection_organisation (CD_COLLECTION, CD_INSTITUTE,ROLE)
 values (7357, 24558, 3);
 
 
+delete security_collection
+where cd_collection = 7300;
+
+
+
 --Define VME as a security collection:
 Insert into security_collection (CD_COLLECTION, NAME, NAME_E , COLLECTION_ACRONYM) values 
 (7351,'CCAMLR_VME','CCAMLR_VME','CCAMLR_VME');
@@ -47,6 +57,10 @@ Insert into security_collection (CD_COLLECTION, NAME, NAME_E , COLLECTION_ACRONY
 (7356,'NPFC_VME','NPFC_VME','NPFC_VME');
 Insert into security_collection (CD_COLLECTION, NAME, NAME_E , COLLECTION_ACRONYM) values 
 (7357,'SPRFMO_VME','SPRFMO_VME','SPRFMO_VME');
+
+
+delete security_user
+where cd_user = 2852;
 
 
 
@@ -71,6 +85,7 @@ values (7356,'NPFC_VME','G',1);
 
 Insert into security_user (CD_USER,LOGON,AUTH_TYPE,IS_GROUP)
 values (7357,'SPRFMO_VME','G',1);
+
 
 --Give this VME group grants on the VME security collection. 
 Insert into security_rights (CD_COLLECTION,CD_USER,RIGHTS,DELEGATE)
@@ -114,18 +129,5 @@ Insert into security_user_grp (CD_GROUP,CD_USER) values (7354, 111);
 Insert into security_user_grp (CD_GROUP,CD_USER) values (7355, 111);
 Insert into security_user_grp (CD_GROUP,CD_USER) values (7356, 111);
 Insert into security_user_grp (CD_GROUP,CD_USER) values (7357, 111);
-
-
-
-
-
-select * from ref_institute where inst_acronym = 'CCAMLR'
-or inst_acronym = 'GFCM'
-or inst_acronym = 'NAFO'
-or inst_acronym = 'NEAFC'
-or inst_acronym = 'SEAFO'
-or inst_acronym = 'NPFC'
-or inst_acronym = 'SPRFMO'
-
 
 

@@ -450,12 +450,14 @@ abstract class FigisDocBuilderAbstract {
 		// FigisID in the <fi:CollectionRef> element
 
 		ForeignID foreignID = f.createForeignID();
-		foreignID.setCode("VME_FS");
+
+		String convention = rfmo + Figis.COLLECTION;
+		foreignID.setCode(convention);
 		foreignID.setCodeSystem(ACRONYM);
 
 		CollectionRef collectionRef = f.createCollectionRef();
 		collectionRef.getFigisIDsAndForeignIDs().add(figisID);
-		collectionRef.getFigisIDsAndForeignIDs().add(foreignID);
+		// collectionRef.getFigisIDsAndForeignIDs().add(foreignID);
 
 		Owner owner = f.createOwner();
 		owner.setCollectionRef(collectionRef);
