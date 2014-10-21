@@ -16,18 +16,19 @@ import org.fao.fi.figis.domain.RefVme;
 import org.fao.fi.figis.domain.VmeObservation;
 import org.fao.fi.figis.domain.VmeObservationDomain;
 import org.fao.fi.figis.domain.rule.DomainRule4ObservationXmlId;
+import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.figis.domain.test.ObservationXmlMock;
 import org.fao.fi.figis.domain.test.RefVmeMock;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vme.dao.sources.figis.DefaultObservationDomain;
 import org.vme.dao.sources.figis.FigisDao;
 import org.vme.dao.sources.figis.PrimaryRule;
 
 public abstract class FigisDaoTestLogic {
 
 	public static final int REPORTING_YEAR = 2014;
+	public static final String RFMO = "GFCM";
 	PrimaryRule r = new PrimaryRule();
 	private static final Logger LOG = LoggerFactory.getLogger(FigisDaoTestLogic.class);
 
@@ -123,6 +124,7 @@ public abstract class FigisDaoTestLogic {
 		vod.setObservationDomainList(odList);
 		for (int i = 0; i < number; i++) {
 			ObservationDomain o = new DefaultObservationDomain().defineDefaultObservation();
+			o.setCollection(Figis.RFMO_COLLECTION.get(RFMO));
 			o.setReportingYear(Integer.toString(REPORTING_YEAR + i));
 			ObservationXml xml = ObservationXmlMock.create();
 

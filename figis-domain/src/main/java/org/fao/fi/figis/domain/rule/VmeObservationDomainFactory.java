@@ -29,7 +29,7 @@ public class VmeObservationDomainFactory {
 	public ObservationDomain createObservation() {
 		ObservationDomain o = new ObservationDomain();
 		o.setOrder(Figis.ORDER);
-		o.setCollection(Figis.COLLECTION);
+		// o.setCollection(Figis.COLLECTION);
 		return o;
 	}
 

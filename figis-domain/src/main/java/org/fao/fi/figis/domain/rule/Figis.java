@@ -17,9 +17,10 @@ import java.util.Map;
 public class Figis {
 
 	public static final Short ORDER = -1;
-	public static final Integer COLLECTION = 7300;
+	// public static final Integer COLLECTION = 7300;
 
 	public static final Map<String, Integer> RFMO_COVERPAGE = new HashMap<String, Integer>();
+	public static final Map<String, Integer> RFMO_COLLECTION = new HashMap<String, Integer>();
 	static {
 		RFMO_COVERPAGE.put("CCAMLR", 861);
 		RFMO_COVERPAGE.put("GFCM", 862);
@@ -29,8 +30,16 @@ public class Figis {
 		RFMO_COVERPAGE.put("SEAFO", 866);
 		RFMO_COVERPAGE.put("SPRFMO", 867);
 		RFMO_COVERPAGE.put("WECAFC", 868);
-	}
 
+		RFMO_COLLECTION.put("CCAMLR", 7351);
+		RFMO_COLLECTION.put("GFCM", 7352);
+		RFMO_COLLECTION.put("NAFO", 7353);
+		RFMO_COLLECTION.put("NEAFC", 7354);
+		RFMO_COLLECTION.put("SEAFO", 7355);
+		RFMO_COLLECTION.put("NPFC", 7356);
+		RFMO_COLLECTION.put("SPRFMO", 7357);
+
+	}
 	/**
 	 * 
 	 */

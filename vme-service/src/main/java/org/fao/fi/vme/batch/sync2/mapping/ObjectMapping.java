@@ -10,6 +10,7 @@ import org.fao.fi.figis.devcon.RelatedFisheries;
 import org.fao.fi.figis.domain.ObservationDomain;
 import org.fao.fi.figis.domain.ObservationXml;
 import org.fao.fi.figis.domain.VmeObservationDomain;
+import org.fao.fi.figis.domain.rule.Figis;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.batch.sync2.mapping.xml.DefaultObservationXml;
 import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilderRegulatory;
@@ -17,9 +18,9 @@ import org.fao.fi.vme.batch.sync2.mapping.xml.FigisDocBuilderVme;
 import org.fao.fi.vme.domain.model.Vme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vme.dao.sources.figis.DefaultObservationDomain;
 import org.vme.dao.sources.figis.PrimaryRule;
 import org.vme.dao.sources.figis.PrimaryRuleValidator;
+import org.vme.dao.test.DefaultObservationDomain;
 import org.vme.fimes.jaxb.JaxbMarshall;
 
 /**
@@ -87,6 +88,7 @@ public class ObjectMapping {
 
 		for (DisseminationYearSlice disseminationYearSlice : slices) {
 			ObservationDomain od = new DefaultObservationDomain().defineDefaultObservation();
+			od.setCollection(Figis.RFMO_COLLECTION.get(vme.getRfmo().getId()));
 			List<ObservationXml> observationsPerLanguage = new ArrayList<ObservationXml>();
 			od.setObservationsPerLanguage(observationsPerLanguage);
 			od.setReportingYear(String.valueOf(disseminationYearSlice.getYear()));

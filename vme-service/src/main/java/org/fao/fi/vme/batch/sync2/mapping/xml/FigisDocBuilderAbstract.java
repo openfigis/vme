@@ -442,7 +442,7 @@ abstract class FigisDocBuilderAbstract {
 		// owner
 		FigisID figisID = new FigisID();
 
-		figisID.setContent(Integer.toString(Figis.COLLECTION));
+		figisID.setContent(Integer.toString(Figis.RFMO_COLLECTION.get(rfmo)));
 		figisID.setMetaID(Integer.toString(Figis.META_ID));
 
 		// Not critical but making the file NOT valid vs FiMES:

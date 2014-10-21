@@ -84,7 +84,7 @@ public class FigisDaoIntegrationTest extends FigisDaoTestLogic {
 	public void testPersistObservation() {
 		Observation observation = new Observation();
 		observation.setOrder(Figis.ORDER);
-		observation.setCollection(Figis.COLLECTION);
+		observation.setCollection(Figis.RFMO_COLLECTION.get("NAFO"));
 		observation.setPrimary(Figis.PRIMARY);
 		observation.setReference(Figis.REFERENCE);
 

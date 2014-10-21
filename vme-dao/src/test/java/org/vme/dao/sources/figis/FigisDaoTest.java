@@ -129,6 +129,7 @@ public class FigisDaoTest extends FigisDaoTestLogic {
 		}
 		int count[] = count();
 		VmeObservationDomain vod = createVmeObservationDomain(1);
+
 		assertEquals(1, vod.getObservationDomainList().size());
 		vod.setRefVme(refVme);
 		checkCount(count, 0);
