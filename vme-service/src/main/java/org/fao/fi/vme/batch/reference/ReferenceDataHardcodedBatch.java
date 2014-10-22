@@ -102,7 +102,11 @@ public class ReferenceDataHardcodedBatch {
 		dao.syncStoreObject(new Authority(20220L, "NAFO", "Northwest Atlantic Fisheries Organization"));
 		dao.syncStoreObject(new Authority(21580L, "NEAFC", "North East Atlantic Fisheries Commission"));
 		dao.syncStoreObject(new Authority(22140L, "SEAFO", "South East Atlantic Fisheries Organisation"));
-		dao.syncStoreObject(new Authority(22150L, "WECAFC", "Western Central Atlantic Fishery Commission"));
+
+		// deactivated for now.
+		// dao.syncStoreObject(new Authority(22150L, "WECAFC",
+		// "Western Central Atlantic Fishery Commission"));
+
 		dao.syncStoreObject(new Authority(24558L, "SPRFMO", "South Pacific Regional Fisheries Management Organisation"));
 
 	}
