@@ -127,10 +127,11 @@ public class ReferenceDataHardcodedBatch {
 		dao.syncStoreObject(new VmeType(30L, "CLOS_AREA", "Closed area (SEAFO)"));
 		dao.syncStoreObject(new VmeType(40L, "AREA_SPOCOR", "Area of higher sponge and coral concentration (NAFO)"));
 		dao.syncStoreObject(new VmeType(41L, "CLOS_CORAL", "Coral closure (NAFO)"));
-		dao.syncStoreObject(new VmeType(42L, "CLOS_SEAM", "Seamount closure (NAFO)"));
+		dao.syncStoreObject(new VmeType(42L, "CLOS_SEAM_NAFO", "Seamount closure (NAFO)"));
 		dao.syncStoreObject(new VmeType(50L, "AREA_RESTRICTED", "Fisheries Restricted Area (GFCM)"));
 		dao.syncStoreObject(new VmeType(60L, "AREA_RISK", "Risk Area (CCAMLR)"));
 		dao.syncStoreObject(new VmeType(61L, "VME", "Registered VME (CCAMLR)"));
+		dao.syncStoreObject(new VmeType(62L, "CLOS_SEAM_NPFC", "Seamount closure (NPFC)"));
 	}
 
 	private void createInformationSourceTypes() {
