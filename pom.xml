@@ -16,14 +16,6 @@
 
 	<repositories>
 		<repository>
-			<id>artifactory.fao.org</id>
-			<name>artifactory.fao.org-releases</name>
-			<url>http://artifactory.fao.org/artifactory/fips</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
 			<id>gcube-snapshots</id>
 			<snapshots>
 				<enabled>true</enabled>
@@ -86,7 +78,7 @@
 			<groupId>ojdbc</groupId>
 			<artifactId>ojdbc</artifactId>
 			<!-- Only version 61 is deployed on Jenkins/Artifactory. Deploy in production with 7 -->
-			<version>61</version>
+			<version>62</version>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
