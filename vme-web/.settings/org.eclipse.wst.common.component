@@ -26,6 +26,6 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/vme-web/target/classes"/>
-        <property name="context-root" value="figis#ws#vme"/>
+        <property name="context-root" value="vme-web"/>
     </wb-module>
 </project-modules>

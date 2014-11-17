@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
-import org.vme.service.SearchService;
+import org.vme.service.SearchServiceInterface;
 import org.vme.service.search.ReferencesRequest;
 import org.vme.service.search.ServiceResponse;
 
@@ -30,7 +30,7 @@ public class VmeSearchRefTypeWs {
 	private ReferenceDataHardcodedBatch batch;
 
 	@Inject
-	private SearchService service;
+	private SearchServiceInterface service;
 
 	// @PostConstruct
 	// public void postConstructBatch() {

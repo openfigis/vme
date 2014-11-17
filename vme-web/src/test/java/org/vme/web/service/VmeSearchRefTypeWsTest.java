@@ -14,10 +14,11 @@ import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
+import org.vme.service.SearchService;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ ReferenceDaoImpl.class, VmePersistenceUnitConfiguration.class,
-		FigisPersistenceUnitConfiguration.class })
+		FigisPersistenceUnitConfiguration.class, SearchService.class })
 @AdditionalClasses({ FigisDataBaseProducer.class, VmeDataBaseProducerApplicationScope.class })
 public class VmeSearchRefTypeWsTest {
 

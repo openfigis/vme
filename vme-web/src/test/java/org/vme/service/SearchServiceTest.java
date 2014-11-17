@@ -29,20 +29,21 @@ import org.vme.service.search.ObservationsRequest;
 import org.vme.service.search.ServiceResponse;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ ReferenceDaoImpl.class, VmePersistenceUnitConfiguration.class,
-		FigisPersistenceUnitConfiguration.class })
-@AdditionalClasses({ FigisDataBaseProducer.class, VmeDataBaseProducerApplicationScope.class })
+@ActivatedAlternatives({ ReferenceDaoImpl.class,
+		VmePersistenceUnitConfiguration.class,
+		FigisPersistenceUnitConfiguration.class, SearchService.class })
+@AdditionalClasses({ FigisDataBaseProducer.class,
+		VmeDataBaseProducerApplicationScope.class })
 public class SearchServiceTest {
 
 	@Inject
 	private VmeDao vDao;
 
 	@Inject
-	private SearchService service;
+	private SearchServiceInterface service;
 
 	private Map<Integer, ObservationsRequest> obsRequestList;
 	private ServiceResponse<VmeDto> response;
-	private Vme vme;
 	private Vme vme2;
 
 	@Before
@@ -60,7 +61,8 @@ public class SearchServiceTest {
 		 * 1st case: id not null
 		 */
 
-		ObservationsRequest request1 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request1 = new ObservationsRequest(
+				UUID.randomUUID());
 		request1.setId(1);
 
 		obsRequestList.put(1, request1);
@@ -69,7 +71,8 @@ public class SearchServiceTest {
 		 * 2nd case: id null
 		 */
 
-		ObservationsRequest request2 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request2 = new ObservationsRequest(
+				UUID.randomUUID());
 
 		obsRequestList.put(2, request2);
 
@@ -77,7 +80,8 @@ public class SearchServiceTest {
 		 * 3rd case: id not null and year not null
 		 */
 
-		ObservationsRequest request3 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request3 = new ObservationsRequest(
+				UUID.randomUUID());
 		request3.setId(1);
 		request3.setYear(2000);
 
@@ -87,7 +91,8 @@ public class SearchServiceTest {
 		 * 4th case: wrong id request
 		 */
 
-		ObservationsRequest request4 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request4 = new ObservationsRequest(
+				UUID.randomUUID());
 		request4.setId(3);
 
 		obsRequestList.put(4, request4);
@@ -96,7 +101,8 @@ public class SearchServiceTest {
 		 * 5th case: inv_id not null
 		 */
 
-		ObservationsRequest request5 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request5 = new ObservationsRequest(
+				UUID.randomUUID());
 		request5.setInventoryIdentifier("VME_RFMO_1");
 
 		obsRequestList.put(5, request5);
@@ -105,7 +111,8 @@ public class SearchServiceTest {
 		 * 6th case: wrong inv_id
 		 */
 
-		ObservationsRequest request6 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request6 = new ObservationsRequest(
+				UUID.randomUUID());
 		request6.setInventoryIdentifier("Foo Inv Id");
 
 		obsRequestList.put(6, request6);
@@ -114,7 +121,8 @@ public class SearchServiceTest {
 		 * 7th case: geoArea not null
 		 */
 
-		ObservationsRequest request7 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request7 = new ObservationsRequest(
+				UUID.randomUUID());
 		request7.setGeographicFeatureId("VME_RFMO_1_2000");
 
 		obsRequestList.put(7, request7);
@@ -123,7 +131,8 @@ public class SearchServiceTest {
 		 * 8th case: wrong geoArea
 		 */
 
-		ObservationsRequest request8 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request8 = new ObservationsRequest(
+				UUID.randomUUID());
 		request8.setGeographicFeatureId("Foo Geo Id");
 
 		obsRequestList.put(8, request8);
@@ -167,7 +176,8 @@ public class SearchServiceTest {
 		 * 13th case: type
 		 */
 
-		ObservationsRequest request13 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request13 = new ObservationsRequest(
+				UUID.randomUUID());
 		request13.setType(150);
 
 		obsRequestList.put(13, request13);
@@ -176,7 +186,8 @@ public class SearchServiceTest {
 		 * 14th case: type + criteria
 		 */
 
-		ObservationsRequest request14 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request14 = new ObservationsRequest(
+				UUID.randomUUID());
 		request14.setType(150);
 		request14.setCriteria(40);
 
@@ -186,7 +197,8 @@ public class SearchServiceTest {
 		 * 15th case: type + text
 		 */
 
-		ObservationsRequest request15 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request15 = new ObservationsRequest(
+				UUID.randomUUID());
 		request15.setType(150);
 		request15.setText("VME");
 
@@ -196,7 +208,8 @@ public class SearchServiceTest {
 		 * 16th case: criteria
 		 */
 
-		ObservationsRequest request16 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request16 = new ObservationsRequest(
+				UUID.randomUUID());
 		request16.setCriteria(40);
 
 		obsRequestList.put(16, request16);
@@ -205,7 +218,8 @@ public class SearchServiceTest {
 		 * 17th case: criteria + text
 		 */
 
-		ObservationsRequest request17 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request17 = new ObservationsRequest(
+				UUID.randomUUID());
 		request17.setCriteria(40);
 		request17.setText("VME");
 
@@ -215,7 +229,8 @@ public class SearchServiceTest {
 		 * 18th case: text
 		 */
 
-		ObservationsRequest request18 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request18 = new ObservationsRequest(
+				UUID.randomUUID());
 		request18.setText("VME");
 
 		obsRequestList.put(18, request18);
@@ -242,7 +257,8 @@ public class SearchServiceTest {
 		 * 22nd case: type + criteria + text
 		 */
 
-		ObservationsRequest request22 = new ObservationsRequest(UUID.randomUUID());
+		ObservationsRequest request22 = new ObservationsRequest(
+				UUID.randomUUID());
 		request22.setType(150);
 		request22.setCriteria(40);
 		request22.setText("VME");
@@ -260,20 +276,26 @@ public class SearchServiceTest {
 	@SuppressWarnings("unchecked")
 	public void testInvoke() throws Exception {
 
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(1));
-		assertEquals("Hard Corner Bugs ", response.getResultList().get(0).getLocalName());
+		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList
+				.get(1));
+		assertEquals("Hard Corner Bugs ", response.getResultList().get(0)
+				.getLocalName());
 		assertEquals(1, response.getResultList().get(0).getVmeId());
 		assertTrue(1 == response.getTotalResult());
 
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(2));
+		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList
+				.get(2));
 		assertTrue(0 == response.getTotalResult());
 
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(3));
+		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList
+				.get(3));
 		String expected = response.getResultList().get(0).getFactsheetUrl();
 		assertTrue(1 == response.getTotalResult());
-		assertEquals(expected, response.getResultList().get(0).getFactsheetUrl());
+		assertEquals(expected, response.getResultList().get(0)
+				.getFactsheetUrl());
 
-		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList.get(4));
+		response = (ServiceResponse<VmeDto>) service.invoke(obsRequestList
+				.get(4));
 		assertTrue(0 == response.getTotalResult());
 
 	}

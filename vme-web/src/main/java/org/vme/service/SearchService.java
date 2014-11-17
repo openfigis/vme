@@ -3,6 +3,7 @@ package org.vme.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.inject.Alternative;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -23,7 +24,9 @@ import org.vme.service.search.ReferencesRequest;
 import org.vme.service.search.ServiceResponse;
 import org.vme.web.cache.Cached;
 
-public class SearchService extends AbstractService {
+
+@Alternative
+public class SearchService extends AbstractService implements SearchServiceInterface {
 
 	@Inject
 	private VmeDao vDao;
@@ -31,6 +34,10 @@ public class SearchService extends AbstractService {
 	@Inject
 	private DtoTranslator translator;
 
+	/* (non-Javadoc)
+	 * @see org.vme.service.SearchServiceInterface#invoke(org.vme.service.search.ObservationsRequest)
+	 */
+	@Override
 	@Cached
 	public ServiceResponse<?> invoke(ObservationsRequest request) throws Exception {
 		ServiceResponse<?> result = new ServiceResponse<VmeDto>(request);
@@ -60,6 +67,10 @@ public class SearchService extends AbstractService {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.vme.service.SearchServiceInterface#invoke(org.vme.service.search.ReferencesRequest)
+	 */
+	@Override
 	@Cached
 	public ServiceResponse<?> invoke(ReferencesRequest request) throws Exception {
 		Class<? extends ReferenceConcept> conceptClass = this.refDao.getConcept(request.getConcept());

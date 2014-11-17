@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.fao.fi.vme.VmeException;
-import org.vme.service.SearchService;
+import org.vme.service.SearchServiceInterface;
 import org.vme.service.search.ObservationsRequest;
 import org.vme.service.search.ServiceResponse;
 
@@ -21,7 +21,7 @@ import org.vme.service.search.ServiceResponse;
 public class VmeGetWs {
 	
 	@Inject
-	private SearchService service;
+	private SearchServiceInterface service;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
