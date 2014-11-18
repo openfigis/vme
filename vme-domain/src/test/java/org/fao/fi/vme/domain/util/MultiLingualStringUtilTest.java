@@ -2,7 +2,8 @@ package org.fao.fi.vme.domain.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+
+import java.util.HashMap;
 
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.MultiLingualString;
@@ -64,6 +65,39 @@ public class MultiLingualStringUtilTest {
 	}
 
 	@Test
+	public void testCopyMultiLingualEmptyCaseSource() {
+		String source = "";
+		String destination = "destination";
+		MultiLingualString mSource = u.english(source);
+		MultiLingualString mDestination = u.english(destination);
+		GeneralMeasure sourceGm = new GeneralMeasure();
+		sourceGm.setFishingArea(mSource);
+		GeneralMeasure destinationGm = new GeneralMeasure();
+		destinationGm.setFishingArea(mDestination);
+		u.copyMultiLingual(sourceGm, destinationGm);
+		assertEquals(null, u.getEnglish(destinationGm.getFishingArea()));
+	}
+
+	@Test
+	public void testCopyMultiLingualNullTarget() {
+		String source = "";
+		MultiLingualString mSource = u.english(source);
+		MultiLingualString mDestination = new MultiLingualString();
+		GeneralMeasure sourceGm = new GeneralMeasure();
+		sourceGm.setFishingArea(mSource);
+		GeneralMeasure destinationGm = new GeneralMeasure();
+		destinationGm.setFishingArea(mDestination);
+		u.copyMultiLingual(sourceGm, destinationGm);
+		assertEquals(null, destinationGm.getFishingArea());
+
+		mDestination.setStringMap(new HashMap<Integer, String>());
+		destinationGm.setFishingArea(mDestination);
+		u.copyMultiLingual(sourceGm, destinationGm);
+		assertEquals(null, destinationGm.getFishingArea());
+
+	}
+
+	@Test
 	public void testReplace() {
 		String text = "Een klachten vrije wereld";
 		MultiLingualString l = u.english(text);
@@ -81,11 +115,7 @@ public class MultiLingualStringUtilTest {
 	public void testReplaceEmpty() {
 		MultiLingualString l = new MultiLingualString();
 		String newText = "Een vrije klachten wereld";
-		try {
-			u.replaceEnglish(l, newText);
-			fail();
-		} catch (Exception e) {
-		}
+		u.replaceEnglish(l, newText);
 	}
 
 	@Test

@@ -37,7 +37,7 @@ public class MultiLingualStringUtil {
 	}
 
 	/**
-	 * Return english string if there is, else null.
+	 * Return English string if there is, else null.
 	 * 
 	 * @param multiLingualString
 	 * @return
@@ -56,23 +56,26 @@ public class MultiLingualStringUtil {
 	/**
 	 * Replace the English text with a new text.
 	 * 
-	 * The MultiLingualString needs to contain English text, in order to be able
-	 * to be replaced.
+	 * The MultiLingualString needs to contain English text, in order to be able to be replaced.
 	 * 
-	 * @param l
-	 * @param text
+	 * @param destination
+	 * @param newText
 	 */
-	public void replaceEnglish(MultiLingualString l, String text) {
-		if (l.getStringMap() == null || l.getStringMap().get(Lang.EN) == null) {
-			throw new VmeException(
-					"The MultiLingualString did not contain any text, it should contain it in order to be able to be replaced.");
+	public void replaceEnglish(MultiLingualString destination, String newText) {
+		if (destination.getStringMap() == null) {
+			destination.setStringMap(this.english(newText).getStringMap());
+		} else {
+			destination.getStringMap().put(Lang.EN, newText);
 		}
-		l.getStringMap().put(Lang.EN, text);
+
+		// if (destination.getStringMap() == null || destination.getStringMap().get(Lang.EN) == null) {
+		// ("The MultiLingualString did not contain any text, it should contain it in order to be able to be replaced. StringMap == "
+		// + destination.getStringMap() + ".");
+		// }
 	}
 
 	/**
-	 * Utility for using JPA in combination with MultiLingualString. It copies
-	 * the values not the objects.
+	 * Utility for using JPA in combination with MultiLingualString. It copies the values not the objects.
 	 * 
 	 * Be aware that this supports only the English language yet.
 	 * 
@@ -95,7 +98,14 @@ public class MultiLingualStringUtil {
 								setMethod.invoke(destination, s);
 							}
 							if (s != null && d != null) {
-								this.replaceEnglish(d, this.getEnglish(s));
+								// A source string and a destination object has been found.
+								if (s.getStringMap() != null && this.getEnglish(s) != null) {
+									this.replaceEnglish(d, this.getEnglish(s));
+								} else {
+									// invoke setMethod with null
+									MultiLingualString nullObject = null;
+									setMethod.invoke(destination, nullObject);
+								}
 							}
 						} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 							throw new VmeException(e);
