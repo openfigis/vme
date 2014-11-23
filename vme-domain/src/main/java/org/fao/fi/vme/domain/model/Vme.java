@@ -87,8 +87,8 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	private List<GeoRef> geoRefList;
 
 	/**
-	 * This validity period on the level of the reference object and applies to
-	 * the VME itself. It has noting to do with the reporting year.
+	 * This validity period on the level of the reference object and applies to the VME itself. It has noting to do with
+	 * the reporting year.
 	 */
 	@RSGName("Validity Period")
 	@RSGWeight(1)
@@ -125,7 +125,7 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGManyAmong(concept = VmeCriteria.class, label = ConceptData.NAME, value = ConceptData.ID)
 	@RSGConverter(LongDataConverter.class)
 	@RSGWeight(2)
-	@ElementCollection
+	@ElementCollection(targetClass = java.lang.Long.class)
 	@CollectionTable(name = "VME_TO_CRITERIA", joinColumns = @JoinColumn(name = "VME_ID"))
 	@Column(name = "CRITERIA_ID")
 	private List<Long> criteria;
