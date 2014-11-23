@@ -1,8 +1,6 @@
 package org.fao.fi.vme.batch.sync2;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -46,20 +44,39 @@ public class VmeRefSync implements Sync {
 	/**
 	 * Delete all those references which do not appear in the VME DB
 	 */
+	/*
+	 * Simplified below method in order to avoid below errors: *
+	 * 
+	 * The logic was completely valid anyway. It is done to understand the problem better.
+	 * 
+	 * 
+	 * [ ERROR ] { org.fao.fi.vme.sync.factsheets.listeners.impl.AsyncFactsheetChangeListener$2 } - Unable to
+	 * asynchronously update factsheet for VME with ID 24053 org.hibernate.AssertionFailure: collection was processed
+	 * twice by flush() at org.hibernate.engine.internal.Collections.prepareCollectionForUpdate(Collections.java:223) at
+	 * at org.hibernate.jpa.internal.QueryImpl.getResultList(QueryImpl.java:449) at
+	 * org.vme.dao.impl.AbstractJPADao.selectFrom(AbstractJPADao.java:124) at
+	 * org.vme.dao.impl.AbstractJPADao.loadObjects(AbstractJPADao.java:128) at
+	 * org.vme.dao.sources.vme.VmeDao.loadObjects(VmeDao.java:133) at
+	 * org.fao.fi.vme.batch.sync2.VmeRefSync.deleteOld(VmeRefSync.java:50) at
+	 * org.fao.fi.vme.batch.sync2.VmeRefSync.sync(VmeRefSync.java:82) at
+	 * org.fao.fi.vme.batch.sync2.SyncBatch2.syncFigisWithVme(SyncBatch2.java:52) at
+	 * org.fao.fi.vme.sync.factsheets.updaters
+	 * .impl.FigisFactsheetUpdater.updateFactsheets(FigisFactsheetUpdater.java:74) at
+	 * org.fao.fi.vme.sync.factsheets.listeners
+	 * .impl.AsyncFactsheetChangeListener$2.call(AsyncFactsheetChangeListener.java:73) at
+	 * org.fao.fi.vme.sync.factsheets.
+	 * listeners.impl.AsyncFactsheetChangeListener$2.call(AsyncFactsheetChangeListener.java:69)
+	 */
 	private void deleteOld() {
-		List<Vme> object = vmeDao.loadObjects(Vme.class);
-		Set<Long> ids = new HashSet<Long>();
-		for (Vme vme : object) {
-			ids.add(vme.getId());
-		}
 		List<RefVme> refVmeList = figisDao.loadObjects(RefVme.class);
 		for (RefVme refVme : refVmeList) {
-			if (!ids.contains(refVme.getId())) {
+			if (vmeDao.findVme(refVme.getId()) == null) {
 				figisDao.remove(refVme);
 			}
 		}
 	}
 
+	@Override
 	public void sync(Vme vme) {
 		RefVme object = (RefVme) figisDao.find(RefVme.class, vme.getId());
 

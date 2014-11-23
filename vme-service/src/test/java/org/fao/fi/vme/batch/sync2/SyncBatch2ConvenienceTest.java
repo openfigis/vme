@@ -17,9 +17,8 @@ import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 
 /**
- * This test is for convenience purposese in order to run the batch. In this
- * case the maven profile on the vme-configuration needs to be specified with
- * the correct environment, for instance vme=fiqa.
+ * This test is for convenience purposese in order to run the batch. In this case the maven profile on the
+ * vme-configuration needs to be specified with the correct environment, for instance vme=fiqa.
  * 
  * 
  * @author Erik van Ingen
@@ -47,7 +46,8 @@ public class SyncBatch2ConvenienceTest {
 	@Test
 	@Ignore
 	public void syncFigisWithVme1() {
-		Vme vme = dao.findVme(29573l);
+
+		Vme vme = dao.findVme(24755l);
 		syncBatch2.syncFigisWithVme(vme);
 
 	}

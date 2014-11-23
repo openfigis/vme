@@ -22,9 +22,8 @@ import org.gcube.application.rsg.support.model.utils.CompiledReportUtils;
  * 
  * History:
  * 
- * ------------- --------------- ----------------------- Date Author Comment
- * ------------- --------------- ----------------------- 28/nov/2013 EVanIngen,
- * FFiorellato Creation.
+ * ------------- --------------- ----------------------- Date Author Comment ------------- ---------------
+ * ----------------------- 28/nov/2013 EVanIngen, FFiorellato Creation.
  * 
  * @version 1.0
  * @since 28/nov/2013
@@ -32,12 +31,10 @@ import org.gcube.application.rsg.support.model.utils.CompiledReportUtils;
 @Alternative
 public class RsgServiceWriteImplVme extends AbstractRsgServiceImplVme implements RsgServiceWrite {
 
-
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.gcube.application.rsg.service.RsgServiceRead#deleteById(org.gcube.application
+	 * @see org.gcube.application.rsg.service.RsgServiceRead#deleteById(org.gcube.application
 	 * .rsg.service.dto.ReportType, java.lang.Object)
 	 */
 	@Override
@@ -93,8 +90,7 @@ public class RsgServiceWriteImplVme extends AbstractRsgServiceImplVme implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.gcube.application.rsg.service.RsgServiceRead#deleteReferenceById(org.
+	 * @see org.gcube.application.rsg.service.RsgServiceRead#deleteReferenceById(org.
 	 * gcube.application.rsg.service.dto.ReportType, java.lang.Object)
 	 */
 	@Override
@@ -109,7 +105,7 @@ public class RsgServiceWriteImplVme extends AbstractRsgServiceImplVme implements
 		EntityTransaction tx = em.getTransaction();
 
 		try {
-			Object toDelete = this.vmeDao.getEntityById(this.vmeDao.getEm(), entity, refReportId);
+			Object toDelete = this.vmeDao.getEntityById(em, entity, refReportId);
 			Rfmo parent = null;
 
 			if (toDelete != null) {
@@ -189,8 +185,7 @@ public class RsgServiceWriteImplVme extends AbstractRsgServiceImplVme implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.gcube.application.rsg.service.RsgServiceRead#update(org.gcube.application
+	 * @see org.gcube.application.rsg.service.RsgServiceRead#update(org.gcube.application
 	 * .rsg.support.model.components.impl.CompiledReport)
 	 */
 	@Override
@@ -293,8 +288,7 @@ public class RsgServiceWriteImplVme extends AbstractRsgServiceImplVme implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.gcube.application.rsg.service.RsgServiceRead#updateRef(org.gcube.application
+	 * @see org.gcube.application.rsg.service.RsgServiceRead#updateRef(org.gcube.application
 	 * .rsg.support.model.components.impl.CompiledReport)
 	 */
 	@Override

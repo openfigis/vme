@@ -27,8 +27,8 @@ import org.vme.dao.config.vme.VmeDB;
 import org.vme.dao.impl.AbstractJPADao;
 
 /**
- * * The dao in order to dconnect to the vme database. Connection details to be
- * found in /vme-configuration/src/main/resources/META_VME-INF/persistence.xml
+ * * The dao in order to dconnect to the vme database. Connection details to be found in
+ * /vme-configuration/src/main/resources/META_VME-INF/persistence.xml
  * 
  * @author Erik van Ingen
  * 
@@ -49,7 +49,7 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public List<Vme> loadVmes() {
-		return (List<Vme>) this.generateTypedQuery(em, Vme.class).getResultList();
+		return this.generateTypedQuery(em, Vme.class).getResultList();
 	}
 
 	public Vme findVme(Long id) {
@@ -215,7 +215,7 @@ public class VmeDao extends AbstractJPADao {
 				this.delete(geoRef);
 			}
 		}
-		
+
 		if (toDelete.getMediaReferenceList() != null) {
 			for (MediaReference media : new ArrayList<MediaReference>(toDelete.getMediaReferenceList())) {
 				this.delete(media);
@@ -587,7 +587,7 @@ public class VmeDao extends AbstractJPADao {
 				specificMeasuresToDelete.add(specificMeasure.getId());
 			}
 		}
-		
+
 		Set<Long> mediaToDelete = new HashSet<Long>();
 		if (currentVME.getMediaReferenceList() != null) {
 			for (MediaReference media : currentVME.getMediaReferenceList()) {
@@ -614,7 +614,7 @@ public class VmeDao extends AbstractJPADao {
 				specificMeasuresToDelete.remove(specificMeasure.getId());
 			}
 		}
-		
+
 		if (updatedVME.getMediaReferenceList() != null) {
 			for (MediaReference media : updatedVME.getMediaReferenceList()) {
 				mediaToDelete.remove(media.getId());
@@ -630,7 +630,7 @@ public class VmeDao extends AbstractJPADao {
 
 			this.doRemove(em, g);
 		}
-		
+
 		for (Long id : profileToDelete) {
 			Profile p = this.getEntityById(this.em, Profile.class, id);
 
@@ -638,7 +638,7 @@ public class VmeDao extends AbstractJPADao {
 
 			this.doRemove(em, p);
 		}
-		
+
 		for (Long id : mediaToDelete) {
 			MediaReference m = this.getEntityById(this.em, MediaReference.class, id);
 
@@ -691,7 +691,7 @@ public class VmeDao extends AbstractJPADao {
 				profile.setVme(updatedVME);
 			}
 		}
-		
+
 		// Link the Media to the Vme
 		if (updatedVME.getMediaReferenceList() != null) {
 			for (MediaReference media : updatedVME.getMediaReferenceList()) {
@@ -771,7 +771,7 @@ public class VmeDao extends AbstractJPADao {
 				profile.setVme(vme);
 			}
 		}
-		
+
 		// Link the Media to the Vme
 		if (vme.getMediaReferenceList() != null) {
 			for (MediaReference media : vme.getMediaReferenceList()) {
@@ -860,8 +860,6 @@ public class VmeDao extends AbstractJPADao {
 		em.flush();
 		return current;
 	}
-	
-	
 
 	public Profile create(Profile profile) {
 
@@ -879,7 +877,7 @@ public class VmeDao extends AbstractJPADao {
 
 		return this.doPersistAndFlush(em, profile);
 	}
-	
+
 	public MediaReference update(MediaReference media) {
 
 		if (media == null) {
@@ -906,7 +904,7 @@ public class VmeDao extends AbstractJPADao {
 		em.flush();
 		return current;
 	}
-	
+
 	public void delete(MediaReference toDelete) {
 
 		if (toDelete == null) {
@@ -928,11 +926,13 @@ public class VmeDao extends AbstractJPADao {
 		Vme parent = toDelete.getVme();
 
 		if (parent.getMediaReferenceList() == null) {
-			throw new IllegalArgumentException("Media reference cannot have a parent Vme with a NULL media reference list");
+			throw new IllegalArgumentException(
+					"Media reference cannot have a parent Vme with a NULL media reference list");
 		}
 
 		if (parent.getMediaReferenceList().isEmpty()) {
-			throw new IllegalArgumentException("Media reference cannot have a parent Vme with an empty media reference list");
+			throw new IllegalArgumentException(
+					"Media reference cannot have a parent Vme with an empty media reference list");
 		}
 
 		Iterator<MediaReference> iterator = parent.getMediaReferenceList().iterator();
@@ -947,7 +947,7 @@ public class VmeDao extends AbstractJPADao {
 
 		this.doRemove(em, toDelete);
 	}
-	
+
 	public MediaReference create(MediaReference media) {
 
 		if (media == null) {
@@ -1216,6 +1216,16 @@ public class VmeDao extends AbstractJPADao {
 		return this.doPersistAndFlush(em, informationSource);
 	}
 
+	/**
+	 * The generalMeasure here needs to be considered as a DTO, not as a domain object.
+	 * 
+	 * 
+	 * 
+	 * 
+	 * @param generalMeasure
+	 * @return
+	 * @throws Throwable
+	 */
 	public GeneralMeasure update(GeneralMeasure generalMeasure) throws Throwable {
 
 		if (generalMeasure == null) {
@@ -1231,64 +1241,45 @@ public class VmeDao extends AbstractJPADao {
 		current.setValidityPeriod(generalMeasure.getValidityPeriod());
 		current.setYear(generalMeasure.getYear());
 
-		Set<Long> is2Unlink = new HashSet<Long>();
+		Set<Long> currentIds = new HashSet<Long>();
+		List<InformationSource> toBeDeleted = new ArrayList<InformationSource>();
 
 		if (current.getInformationSourceList() != null) {
-			for (InformationSource is : current.getInformationSourceList()) {
-				is2Unlink.add(is.getId());
+			// create list of current informationSources
+			if (current.getInformationSourceList() != null) {
+				for (InformationSource is : current.getInformationSourceList()) {
+					currentIds.add(is.getId());
+					toBeDeleted.add(is);
+				}
 			}
 		}
 
 		if (generalMeasure.getInformationSourceList() != null) {
-			for (InformationSource is : generalMeasure.getInformationSourceList()) {
-				is2Unlink.remove(is.getId());
-			}
-		}
-
-		if (!is2Unlink.isEmpty()) {
-			Iterator<InformationSource> isIterator = current.getInformationSourceList().iterator();
-
-			InformationSource toRemove;
+			Iterator<InformationSource> isIterator = generalMeasure.getInformationSourceList().iterator();
 			while (isIterator.hasNext()) {
-				toRemove = isIterator.next();
-				if (is2Unlink.contains(toRemove.getId())) {
-					isIterator.remove();
+				InformationSource informationSource = isIterator.next();
+				InformationSource isCurrent = em.find(InformationSource.class, informationSource.getId());
 
-					toRemove.getGeneralMeasureList().remove(current);
-
-					this.doMerge(em, toRemove);
+				// this one
+				toBeDeleted.remove(isCurrent);
+				if (!currentIds.contains(informationSource.getId())) {
+					// make sure the bidirectional relation is respected
+					isCurrent.getGeneralMeasureList().add(generalMeasure);
+					current.getInformationSourceList().add(isCurrent);
 				}
 			}
+
 		}
-
-		if (generalMeasure.getInformationSourceList() != null) {
-			InformationSource toAdd;
-			List<InformationSource> currentIS = current.getInformationSourceList();
-
-			if (currentIS == null) {
-				currentIS = new ArrayList<InformationSource>();
-
-				current.setInformationSourceList(currentIS);
-			}
-
-			for (InformationSource is : generalMeasure.getInformationSourceList()) {
-				toAdd = this.getEntityById(em, InformationSource.class, is.getId());
-
-				if (!currentIS.contains(toAdd)) {
-					if (toAdd.getGeneralMeasureList() == null) {
-						toAdd.setGeneralMeasureList(new ArrayList<GeneralMeasure>());
-					}
-
-					toAdd.getGeneralMeasureList().add(current);
-
-					currentIS.add(toAdd);
-				}
-			}
+		for (InformationSource delete : toBeDeleted) {
+			// make sure the bidirectional relation is respected
+			delete.getGeneralMeasureList().remove(current);
+			current.getInformationSourceList().remove(delete);
 		}
 
 		current = this.doMerge(em, current);
 		// Flush during cascade is dangerous, but it needs to be done anyway in
 		// order to make sure that changes are reflected.
+		// I now have removed concurrent issues in the code above. Hopefully this allows me to do flushes (at any time)?
 		em.flush();
 		return current;
 	}

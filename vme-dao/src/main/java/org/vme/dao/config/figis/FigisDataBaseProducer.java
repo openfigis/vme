@@ -7,9 +7,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.dao.config.AbstractDataBaseProducer;
 import org.vme.dao.config.PersistenceUnitConfiguration;
 
@@ -18,15 +19,15 @@ import org.vme.dao.config.PersistenceUnitConfiguration;
  *
  * History:
  *
- * ------------- --------------- ----------------------- Date Author Comment
- * ------------- --------------- ----------------------- 19 Feb 2014 Fiorellato
- * Creation.
+ * ------------- --------------- ----------------------- Date Author Comment ------------- ---------------
+ * ----------------------- 19 Feb 2014 Fiorellato Creation.
  *
  * @version 1.0
  * @since 19 Feb 2014
  */
 
 public class FigisDataBaseProducer extends AbstractDataBaseProducer {
+
 	@Inject
 	@FigisDB
 	protected PersistenceUnitConfiguration config;
@@ -35,13 +36,9 @@ public class FigisDataBaseProducer extends AbstractDataBaseProducer {
 	@FigisDB
 	@ApplicationScoped
 	public EntityManager produceEntityManager() {
-		return create().createEntityManager();
+		return Persistence.createEntityManagerFactory(this.config.getPersistenceUnitName()).createEntityManager();
 	}
 
-	// Marks create() as a producer methods using its return type to determine
-	// what type of beans it can produce.
-	@Produces
-	public EntityManagerFactory create() {
-		return Persistence.createEntityManagerFactory(this.config.getPersistenceUnitName());
-	}
+	protected static Logger LOG = LoggerFactory.getLogger(FigisDataBaseProducer.class);
+
 }
