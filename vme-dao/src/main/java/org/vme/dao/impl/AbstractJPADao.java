@@ -32,7 +32,12 @@ public abstract class AbstractJPADao implements Dao {
 
 	protected static final Logger LOG = LoggerFactory.getLogger(AbstractJPADao.class);
 
+	/**
+	 * @deprecated this one can probably be replaced by em.find(entityClass, primaryKey) ?
+	 */
+
 	public <E> E getEntityById(EntityManager em, Class<E> entity, Object id) {
+
 		Map<String, Object> idCriteria = new HashMap<String, Object>();
 		idCriteria.put("id", id);
 
@@ -167,7 +172,7 @@ public abstract class AbstractJPADao implements Dao {
 	protected <E extends ObjectId<? extends Serializable>> E doPersistAndFlush(EntityManager em, E object) {
 		em.persist(object);
 		em.flush();// Experiment to solve issue
-					// "Flush during cascade is dangerous"
+		// "Flush during cascade is dangerous"
 
 		return object;
 	}
