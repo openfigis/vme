@@ -67,85 +67,23 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.vme.service.reference.ReferenceService#getReference(java.lang.Class,
-	 * java.lang.Long)
+	 * @see org.vme.service.reference.ReferenceService#getReference(java.lang.Class, java.lang.Long)
 	 */
 	@Override
 	public ReferenceConcept getReference(Class<? extends ReferenceConcept> concept, Long id)
 			throws ReferenceServiceException {
-		if (concept.equals(Authority.class)) {
-			return getAuthority(id);
-		} else if (concept.equals(VmeCriteria.class)) {
-			return getVmeCriteria(id);
-		} else if (concept.equals(VmeType.class)) {
-			return getVmeType(id);
-		} else if (concept.equals(InformationSourceType.class)) {
-			return this.getInformationSourceType(id);
-		} else if (concept.equals(ReferenceYear.class)) {
-			return getYear(id);
-		} else if (concept.equals(VmeScope.class)) {
-			return getVmeScope(id);
-		} else if (concept.equals(MediaType.class)) {
-			return getMediaType(id);
-		} else {
-			throw new ReferenceServiceException(UNDEFINED);
-		}
+		return em.find(concept, id);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.vme.service.reference.ReferenceService#getAllReferences(java.lang
-	 * .Class)
+	 * @see org.vme.service.reference.ReferenceService#getAllReferences(java.lang .Class)
 	 */
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public <R extends ReferenceConcept> List<R> getAllReferences(Class<R> concept) throws ReferenceServiceException {
-		if (concept.equals(Authority.class)) {
-			return (List<R>) getAllAuthorities();
-		} else if (concept.equals(VmeCriteria.class)) {
-			return (List<R>) getAllVmeCriterias();
-		} else if (concept.equals(VmeType.class)) {
-			return (List<R>) getAllVmeTypes();
-		} else if (concept.equals(InformationSourceType.class)) {
-			return (List<R>) getAllInformationSourceTypes();
-		} else if (concept.equals(ReferenceYear.class)) {
-			return (List<R>) getAllYears();
-		} else if (concept.equals(VmeScope.class)) {
-			return (List<R>) getAllVmeScopes();
-		} else if (concept.equals(MediaType.class)) {
-			return (List<R>) getAllMediaTypes();
-		} else {
-			throw new ReferenceServiceException(UNDEFINED);
-		}
-
-	}
-
-	@SuppressWarnings("unchecked")
-	private List<MediaType> getAllMediaTypes() {
-		return em.createQuery("from MediaType").getResultList();
-	}
-
-	public MediaType getMediaType(Long key) {
-		List<?> res = em.createQuery("from MediaType where id = " + key).getResultList();
-		return !res.isEmpty() ? (MediaType) res.get(0) : null;
-	}
-
-	@SuppressWarnings("unchecked")
-	private List<VmeScope> getAllVmeScopes() {
-		return em.createQuery("from VmeScope").getResultList();
-	}
-
-	public VmeScope getVmeScope(Long key) {
-		List<?> res = em.createQuery("from VmeScope where id = " + key).getResultList();
-		return !res.isEmpty() ? (VmeScope) res.get(0) : null;
-	}
-
-	public Authority getAuthority(Long key) {
-		List<?> res = em.createQuery("from Authority where id = " + key).getResultList();
-		return !res.isEmpty() ? (Authority) res.get(0) : null;
+		return selectFrom(em, concept);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -155,35 +93,12 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 		return list;
 	}
-
-	public VmeCriteria getVmeCriteria(Long key) {
-		List<?> res = em.createQuery("from VmeCriteria where id = " + key).getResultList();
-		return !res.isEmpty() ? (VmeCriteria) res.get(0) : null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<VmeCriteria> getAllVmeCriterias() {
-		return em.createQuery("from VmeCriteria").getResultList();
-	}
-
-	public VmeType getVmeType(Long key) {
-		List<?> res = em.createQuery("from VmeType where id = " + key).getResultList();
-		return !res.isEmpty() ? (VmeType) res.get(0) : null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<VmeType> getAllVmeTypes() {
-		return em.createQuery("from VmeType").getResultList();
-	}
-
-	public InformationSourceType getInformationSourceType(Long key) {
-		List<?> res = em.createQuery("from InformationSourceType where id = " + key).getResultList();
-		return !res.isEmpty() ? (InformationSourceType) res.get(0) : null;
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<InformationSourceType> getAllInformationSourceTypes() {
-		return em.createQuery("from InformationSourceType order by id asc").getResultList();
+	
+	
+	
+	private <E> List<E> selectFrom(EntityManager em, Class<E> clazz) {
+		return em.createQuery("select o from  " + clazz.getCanonicalName() + " o " + " order by o.id asc ", clazz)
+				.getResultList();
 	}
 
 	public ReferenceYear getYear(Long key) {
@@ -192,9 +107,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 	public List<ReferenceYear> getAllYears() {
 		List<ReferenceYear> years = new ArrayList<ReferenceYear>(repYear.values());
-
 		Collections.sort(years);
-
 		return years;
 	}
 
@@ -223,8 +136,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.vme.service.reference.ReferenceService#getConcept(java.lang.String)
+	 * @see org.vme.service.reference.ReferenceService#getConcept(java.lang.String)
 	 */
 	@Override
 	public final Class<? extends ReferenceConcept> getConcept(String acronym) throws ReferenceServiceException {
@@ -252,9 +164,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.vme.service.reference.ReferenceService#getReferencebyAcronym(java
-	 * .lang.Class, java.lang.String)
+	 * @see org.vme.service.reference.ReferenceService#getReferencebyAcronym(java .lang.Class, java.lang.String)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
@@ -279,10 +189,8 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.gcube.application.rsg.support.compiler.bridge.interfaces.reference
-	 * .ReferenceConceptProvider#getReferenceByID(java.lang.Class,
-	 * java.io.Serializable)
+	 * @see org.gcube.application.rsg.support.compiler.bridge.interfaces.reference
+	 * .ReferenceConceptProvider#getReferenceByID(java.lang.Class, java.io.Serializable)
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
