@@ -103,12 +103,10 @@ abstract class FigisDocBuilderAbstract {
 	public abstract void docIt(Vme vme, DisseminationYearSlice disseminationYearSlice, FIGISDoc figisDoc);
 
 	/**
-	 * MediaType=Image fi:FIGISDoc/fi:VME/fi:RelatedResources/
-	 * Media@Type=Image+@URL+@Title+@Descritpion+@Source
+	 * MediaType=Image fi:FIGISDoc/fi:VME/fi:RelatedResources/ Media@Type=Image+@URL+@Title+@Descritpion+@Source
 	 * 
 	 * 
-	 * MediaType=Video fi:FIGISDoc/fi:VME/fi:RelatedResources
-	 * /Media@Type=Video+@URL+@Title+@Descritpion+@Source
+	 * MediaType=Video fi:FIGISDoc/fi:VME/fi:RelatedResources /Media@Type=Video+@URL+@Title+@Descritpion+@Source
 	 *
 	 *
 	 */
@@ -144,32 +142,24 @@ abstract class FigisDocBuilderAbstract {
 	 * 
 	 * VME Identifier fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:FigisID
 	 * 
-	 * inventoryIdentifier
-	 * fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ForeignID@CodeSystem="invid"/@Code
+	 * inventoryIdentifier fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ForeignID@CodeSystem="invid"/@Code
 	 * 
 	 * name fi:FIGISDoc/fi:VME/fi:VMEIdent/dc:Title
 	 * 
-	 * geographicLayerId
-	 * fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:WaterAreaRef/fi:ForeignID
+	 * geographicLayerId fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:WaterAreaRef/fi:ForeignID
 	 * 
 	 * @CodeSystem="vme"/@Code
 	 * 
 	 *                         areaType fi:FIGISDoc/fi:VME/fi:VMEIdent/VMEType/@Value
 	 * 
-	 *                         criteria
-	 *                         fi:FIGISDoc/fi:VME/fi:VMEIdent/VMECriteria/@Value
+	 *                         criteria fi:FIGISDoc/fi:VME/fi:VMEIdent/VMECriteria/@Value
 	 * 
-	 *                         ValidityPeriod/beginYear
-	 *                         fi:FIGISDoc/fi:VME/fi:VMEIdent
-	 *                         /fi:Range@Type="Time"/fi:Min
+	 *                         ValidityPeriod/beginYear fi:FIGISDoc/fi:VME/fi:VMEIdent /fi:Range@Type="Time"/fi:Min
 	 * 
-	 *                         ValidityPeriod/endYear
-	 *                         fi:FIGISDoc/fi:VME/fi:VMEIdent
-	 *                         /fi:Range@Type="Time"/fi:Max
+	 *                         ValidityPeriod/endYear fi:FIGISDoc/fi:VME/fi:VMEIdent /fi:Range@Type="Time"/fi:Max
 	 * 
 	 * 
-	 *                         Observation/Year
-	 *                         fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ReportingYear
+	 *                         Observation/Year fi:FIGISDoc/fi:VME/fi:VMEIdent/fi:ReportingYear
 	 * 
 	 * 
 	 * @param vmeDomain
@@ -183,7 +173,7 @@ abstract class FigisDocBuilderAbstract {
 		try {
 			scope = vmeDomain.getScope() == null ? null : refDao.getReferenceByID(VmeScope.class, vmeDomain.getScope());
 		} catch (Exception e) {
-			LOG.error(UNABLE2RETRIVE, VmeType.class, vmeDomain.getAreaType(), e.getMessage(), e);
+			LOG.error(UNABLE2RETRIVE, VmeScope.class, vmeDomain.getScope(), e.getMessage(), e);
 		}
 
 		// FigisID
@@ -329,21 +319,17 @@ abstract class FigisDocBuilderAbstract {
 	 * 
 	 * -- date fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Created
 	 * 
-	 * committee
-	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/ags:CreatorCorporate
+	 * committee fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/ags:CreatorCorporate
 	 * 
-	 * reportSummary
-	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Abstract
+	 * reportSummary fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:Abstract
 	 * 
 	 * url fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Identifier@Type="URI"
 	 * 
-	 * citation fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms:
-	 * bibliographicCitation
+	 * citation fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dcterms: bibliographicCitation
 	 * 
 	 * -- type fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Type
 	 * 
-	 * meetingStartDate - meetingEndDate
-	 * fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date *
+	 * meetingStartDate - meetingEndDate fi:FIGISDoc/fi:VME/fi:Sources/fi:BiblioEntry/dc:Date *
 	 * 
 	 * @param infoSourceList
 	 * @param i
