@@ -130,6 +130,7 @@ public class VmeDao extends AbstractJPADao {
 	}
 
 	public <E> List<E> loadObjects(Class<E> clazz) {
+		System.out.println(em);
 		return super.loadObjects(em, clazz);
 	}
 
@@ -1220,68 +1221,84 @@ public class VmeDao extends AbstractJPADao {
 	 * The generalMeasure here needs to be considered as a DTO, not as a domain object.
 	 * 
 	 * 
-	 * 
-	 * 
-	 * @param generalMeasure
+	 * @param generalMeasureDto
 	 * @return
 	 * @throws Throwable
 	 */
-	public GeneralMeasure update(GeneralMeasure generalMeasure) throws Throwable {
+	public GeneralMeasure update(GeneralMeasure generalMeasureDto) throws Throwable {
 
-		if (generalMeasure == null) {
+		LOG.info("EntityManager VmeDao" + em);
+
+		if (generalMeasureDto == null) {
 			throw new IllegalArgumentException("The updated VME General Measure cannot be NULL");
 		}
 
-		if (generalMeasure.getId() == null) {
+		if (generalMeasureDto.getId() == null) {
 			throw new IllegalArgumentException("The updated VME General Measure cannot have a NULL identifier");
 		}
 
-		GeneralMeasure current = this.getEntityById(this.em, GeneralMeasure.class, generalMeasure.getId());
-		u.copyMultiLingual(generalMeasure, current);
-		current.setValidityPeriod(generalMeasure.getValidityPeriod());
-		current.setYear(generalMeasure.getYear());
+		GeneralMeasure generalMeasureEm = em.find(GeneralMeasure.class, generalMeasureDto.getId());
+		u.copyMultiLingual(generalMeasureDto, generalMeasureEm);
+		generalMeasureEm.setValidityPeriod(generalMeasureDto.getValidityPeriod());
+		generalMeasureEm.setYear(generalMeasureDto.getYear());
 
-		Set<Long> currentIds = new HashSet<Long>();
-		List<InformationSource> toBeDeleted = new ArrayList<InformationSource>();
+		Set<Long> informationSourceEmIds = new HashSet<Long>();
+		List<InformationSource> toBeDeletedEm = new ArrayList<InformationSource>();
 
-		if (current.getInformationSourceList() != null) {
+		if (generalMeasureEm.getInformationSourceList() != null) {
 			// create list of current informationSources
-			if (current.getInformationSourceList() != null) {
-				for (InformationSource is : current.getInformationSourceList()) {
-					currentIds.add(is.getId());
-					toBeDeleted.add(is);
+			if (generalMeasureEm.getInformationSourceList() != null) {
+				for (InformationSource informationSourceEm : generalMeasureEm.getInformationSourceList()) {
+					informationSourceEmIds.add(informationSourceEm.getId());
+					toBeDeletedEm.add(informationSourceEm);
 				}
 			}
 		}
 
-		if (generalMeasure.getInformationSourceList() != null) {
-			Iterator<InformationSource> isIterator = generalMeasure.getInformationSourceList().iterator();
+		if (generalMeasureDto.getInformationSourceList() != null) {
+			Iterator<InformationSource> isIterator = generalMeasureDto.getInformationSourceList().iterator();
 			while (isIterator.hasNext()) {
-				InformationSource informationSource = isIterator.next();
-				InformationSource isCurrent = em.find(InformationSource.class, informationSource.getId());
+				InformationSource informationSourceDto = isIterator.next();
+				InformationSource informationSourceEm = em.find(InformationSource.class, informationSourceDto.getId());
 
-				// this one
-				toBeDeleted.remove(isCurrent);
-				if (!currentIds.contains(informationSource.getId())) {
+				// toBeDeleted can be adjusted also in this loop, by deleting all those ones which do not need to be
+				// deleted.
+				toBeDeletedEm.remove(informationSourceEm);
+
+				// make sure it has a list, even an empty one
+				if (informationSourceEm.getGeneralMeasureList() == null) {
+					informationSourceEm.setGeneralMeasureList(new ArrayList<GeneralMeasure>());
+				}
+
+				// if the currentIds do not have the id, it means it is a new one. In the sense that it is a new in this
+				// list, but it already exists because it had been created before. Here we only detect it as a new
+				// reference.
+				if (!informationSourceEmIds.contains(informationSourceDto.getId())) {
+					// this is a new InformationSource for this General Measure!
 					// make sure the bidirectional relation is respected
-					isCurrent.getGeneralMeasureList().add(generalMeasure);
-					current.getInformationSourceList().add(isCurrent);
+					generalMeasureEm.getInformationSourceList().add(informationSourceEm);
+					informationSourceEm.getGeneralMeasureList().add(generalMeasureEm);
+					// this.doMerge(em, informationSourceEm); this should not be necessary, since it is cascaded?
 				}
 			}
-
 		}
-		for (InformationSource delete : toBeDeleted) {
+
+		for (InformationSource delete : toBeDeletedEm) {
 			// make sure the bidirectional relation is respected
-			delete.getGeneralMeasureList().remove(current);
-			current.getInformationSourceList().remove(delete);
+			delete.getGeneralMeasureList().remove(generalMeasureEm);
+
+			// after Found shared references to a collection exceptions, adding this merge:
+			em.merge(delete);
+
+			generalMeasureEm.getInformationSourceList().remove(delete);
 		}
 
-		current = this.doMerge(em, current);
-		// Flush during cascade is dangerous, but it needs to be done anyway in
-		// order to make sure that changes are reflected.
-		// I now have removed concurrent issues in the code above. Hopefully this allows me to do flushes (at any time)?
-		em.flush();
-		return current;
+		generalMeasureEm = em.merge(generalMeasureEm);
+		// Flush during cascade is dangerous, but it needs to be done anyway in order to make sure that changes are
+		// reflected. I now have removed concurrent issues in the code above. Hopefully this allows me to do flushes (at
+		// any time)?
+		//em.flush();
+		return generalMeasureEm;
 	}
 
 	public GeneralMeasure create(GeneralMeasure generalMeasure) throws Throwable {
@@ -1298,14 +1315,11 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException(
 					"The VME General Measure to create cannot have an Authority with a NULL identifier");
 		}
-
-		Rfmo parent = this.getEntityById(em, Rfmo.class, generalMeasure.getRfmo().getId());
-		generalMeasure.setRfmo(parent);
-
-		generalMeasure = this.doPersistAndFlush(em, generalMeasure);
-
-		em.refresh(generalMeasure);
+		Rfmo rfmoEm = em.find(Rfmo.class, generalMeasure.getRfmo().getId());
+		generalMeasure.setRfmo(rfmoEm);
+		em.persist(generalMeasure);
 
 		return generalMeasure;
+
 	}
 }
