@@ -77,6 +77,15 @@ public class VmeMock {
 
 		vme.setGeoRefList(l);
 
+		List<Profile> gl = new ArrayList<Profile>();
+		for (int i = ValidityPeriodMock.BEGIN_YEAR; i <= ValidityPeriodMock.END_YEAR; i++) {
+			Profile g = new Profile();
+			g.setYear(i);
+			g.setVme(vme);
+			gl.add(g);
+		}
+		vme.setProfileList(gl);
+
 		VmeType vmeType = VmeTypeMock.create();
 
 		vme.setAreaType(vmeType.getId());
@@ -84,8 +93,7 @@ public class VmeMock {
 	}
 
 	/**
-	 * vme1 plain vme; vme2 is another with 2 observations for 2 yearObjectList;
-	 * vme3 is
+	 * vme1 plain vme; vme2 is another with 2 observations for 2 yearObjectList; vme3 is
 	 * 
 	 * 
 	 * 

@@ -16,6 +16,15 @@ public class Update1nCardinality<T> {
 
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
+	/**
+	 * this update also deletes an object from the DB if the dto list does have missing elements.
+	 * 
+	 * 
+	 * @param em
+	 * @param parent
+	 * @param listDto
+	 * @param listEm
+	 */
 	@SuppressWarnings("hiding")
 	public <T> void update(EntityManager em, ObjectId<Long> parent, List<T> listDto, List<T> listEm) {
 		List<T> toBeDeleted = new ArrayList<T>();
@@ -43,7 +52,7 @@ public class Update1nCardinality<T> {
 					throw new VmeException(e);
 				}
 				u.copyMultiLingual(dto, objectEm);
-				em.merge(dto);
+				em.merge(objectEm);
 			}
 		}
 		for (T entity : toBeDeleted) {

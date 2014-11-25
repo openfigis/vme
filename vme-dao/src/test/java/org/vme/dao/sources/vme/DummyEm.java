@@ -40,10 +40,10 @@ public class DummyEm implements EntityManager {
 		return removedObject;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public <T> T merge(T entity) {
-
-		return null;
+	public Object merge(Object entity) {
+		return entity;
 	}
 
 	@Override
