@@ -22,11 +22,11 @@ public class FixDisappearedNames {
 		int fixes = 0;
 		int numerRegisteredWithoutString = 0;
 		for (MultiLingualString m : l) {
-			boolean registetedWithoutString = m.getStringMap() == null || m.getStringMap().size() == 0;
-			if (registetedWithoutString) {
+			boolean registeredWithoutString = m.getStringMap() == null || m.getStringMap().size() == 0;
+			if (registeredWithoutString) {
 				numerRegisteredWithoutString++;
 			}
-			if (map.containsKey(m.getId()) && registetedWithoutString) {
+			if (map.containsKey(m.getId()) && registeredWithoutString) {
 				m.setStringMap(map.get(m.getId()).getStringMap());
 				vmeDao.merge(m);
 				fixes++;

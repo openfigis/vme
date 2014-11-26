@@ -14,7 +14,11 @@ import au.com.bytecode.opencsv.CSVReader;
 @Alternative
 public class ProduceListImpl implements ProduceList {
 
-	String csvFileName = "src/test/resources/multilingualstring_stringmap.csv";
+	/**
+	 * this list has been taken from the VME development database which has been given to use from a backup from the
+	 * 20th of November.
+	 */
+	String csvFileName = "src/test/resources/export.csv";
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	@Override

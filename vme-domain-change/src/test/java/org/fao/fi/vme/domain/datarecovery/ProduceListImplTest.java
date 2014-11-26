@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.fao.fi.vme.domain.model.MultiLingualString;
+import org.fao.fi.vme.domain.util.Lang;
 import org.junit.Test;
 
 public class ProduceListImplTest {
@@ -19,11 +20,14 @@ public class ProduceListImplTest {
 
 		Collection<MultiLingualString> c = m.values();
 		for (MultiLingualString multiLingualString : c) {
+			System.out.println("----------------");
+			System.out.println(multiLingualString.getStringMap().get(Lang.EN));
+
 			assertNotNull(multiLingualString.getId());
 			assertEquals(1, multiLingualString.getStringMap().size());
 		}
 
-		assertEquals(4813, m.size());
+		assertEquals(6073, m.size());
 	}
 
 }
