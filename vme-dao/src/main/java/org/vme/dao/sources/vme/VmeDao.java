@@ -791,31 +791,29 @@ public class VmeDao extends AbstractJPADao {
 		return vme;
 	}
 
-	public GeoRef update(GeoRef geoRef) {
+	public GeoRef update(GeoRef geoRefDto) {
 
-		if (geoRef == null) {
+		if (geoRefDto == null) {
 			throw new IllegalArgumentException("The updated VME Map Reference cannot be NULL");
 		}
 
-		if (geoRef.getId() == null) {
+		if (geoRefDto.getId() == null) {
 			throw new IllegalArgumentException("The updated VME Map Reference cannot have a NULL identifier");
 		}
 
-		if (geoRef.getVme() == null) {
+		if (geoRefDto.getVme() == null) {
 			throw new IllegalArgumentException("The updated VME Map Reference cannot have a NULL Vme");
 		}
 
-		if (geoRef.getVme().getId() == null) {
+		if (geoRefDto.getVme().getId() == null) {
 			throw new IllegalArgumentException("The updated VME Map Reference cannot have a NULL Vme identifier");
 		}
 
-		GeoRef current = this.getEntityById(this.em, GeoRef.class, geoRef.getId());
-		current.setGeographicFeatureID(geoRef.getGeographicFeatureID());
-		current.setYear(geoRef.getYear());
-
-		GeoRef f = this.doMerge(em, current);
-		em.flush();
-		return f;
+		GeoRef geoRefEm = em.find(GeoRef.class, geoRefDto.getId());
+		geoRefEm.setGeographicFeatureID(geoRefDto.getGeographicFeatureID());
+		geoRefEm.setYear(geoRefDto.getYear());
+		em.merge(geoRefEm);
+		return geoRefEm;
 	}
 
 	public GeoRef create(GeoRef geoRef) {
@@ -835,31 +833,31 @@ public class VmeDao extends AbstractJPADao {
 		return this.doPersistAndFlush(em, geoRef);
 	}
 
-	public Profile update(Profile profile) {
+	public Profile update(Profile profileDto) {
 
-		if (profile == null) {
+		if (profileDto == null) {
 			throw new IllegalArgumentException("The updated VME Profile cannot be NULL");
 		}
 
-		if (profile.getId() == null) {
+		if (profileDto.getId() == null) {
 			throw new IllegalArgumentException("The updated VME Profile cannot have a NULL identifier");
 		}
 
-		if (profile.getVme() == null) {
+		if (profileDto.getVme() == null) {
 			throw new IllegalArgumentException("The updated VME Profile cannot have a NULL Vme");
 		}
 
-		if (profile.getVme().getId() == null) {
+		if (profileDto.getVme().getId() == null) {
 			throw new IllegalArgumentException("The updated VME Profile cannot have a NULL Vme identifier");
 		}
 
-		Profile current = this.getEntityById(this.em, Profile.class, profile.getId());
-		u.copyMultiLingual(profile, current);
-		current.setYear(profile.getYear());
-		current.setGeoform(profile.getGeoform());
-		current = this.doMerge(em, current);
-		em.flush();
-		return current;
+		Profile profileEm = em.find(Profile.class, profileDto.getId());
+		Vme vmeEm = em.find(Vme.class, profileDto.getVme().getId());
+		u.copyMultiLingual(profileDto, profileEm);
+		profileEm.setYear(profileDto.getYear());
+		profileEm.setVme(vmeEm);
+		em.merge(profileEm);
+		return profileEm;
 	}
 
 	public Profile create(Profile profile) {
@@ -879,31 +877,32 @@ public class VmeDao extends AbstractJPADao {
 		return this.doPersistAndFlush(em, profile);
 	}
 
-	public MediaReference update(MediaReference media) {
+	public MediaReference update(MediaReference mediaDto) {
 
-		if (media == null) {
+		if (mediaDto == null) {
 			throw new IllegalArgumentException("The updated VME media cannot be NULL");
 		}
 
-		if (media.getId() == null) {
+		if (mediaDto.getId() == null) {
 			throw new IllegalArgumentException("The updated VME media cannot have a NULL identifier");
 		}
 
-		if (media.getVme() == null) {
+		if (mediaDto.getVme() == null) {
 			throw new IllegalArgumentException("The updated VME media cannot have a NULL Vme");
 		}
 
-		if (media.getVme().getId() == null) {
+		if (mediaDto.getVme().getId() == null) {
 			throw new IllegalArgumentException("The updated VME media cannot have a NULL Vme identifier");
 		}
 
-		MediaReference current = this.getEntityById(this.em, MediaReference.class, media.getId());
-		u.copyMultiLingual(media, current);
-		current.setType(media.getType());
-		current.setUrl(media.getUrl());
-		current = this.doMerge(em, current);
-		em.flush();
-		return current;
+		MediaReference mediaEm = em.find(MediaReference.class, mediaDto.getId());
+		Vme vmeEm = em.find(Vme.class, mediaDto.getVme().getId());
+		u.copyMultiLingual(mediaDto, mediaEm);
+		mediaEm.setType(mediaDto.getType());
+		mediaEm.setUrl(mediaDto.getUrl());
+		mediaEm.setVme(vmeEm);
+		em.merge(mediaEm);
+		return mediaEm;
 	}
 
 	public void delete(MediaReference toDelete) {
@@ -966,64 +965,6 @@ public class VmeDao extends AbstractJPADao {
 		return this.doPersistAndFlush(em, media);
 	}
 
-	public SpecificMeasure update(SpecificMeasure updatedSM) throws Throwable {
-
-		if (updatedSM == null) {
-			throw new IllegalArgumentException("The updated VME Specific Measure cannot be NULL");
-		}
-
-		if (updatedSM.getId() == null) {
-			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a NULL identifier");
-		}
-
-		if (updatedSM.getVme() == null) {
-			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a NULL Vme reference");
-		}
-
-		if (updatedSM.getVme().getId() == null) {
-			throw new IllegalArgumentException(
-					"The updated VME Specific Measure cannot have a Vme reference with a NULL identifier");
-		}
-
-		InformationSource updatedIS = updatedSM.getInformationSource();
-
-		SpecificMeasure currentSM = this.getEntityById(this.em, SpecificMeasure.class, updatedSM.getId());
-		InformationSource currentIS = null;
-
-		if (currentSM.getInformationSource() != null) {
-			currentIS = this.getEntityById(this.em, InformationSource.class, currentSM.getInformationSource().getId());
-		}
-
-		if (currentIS != null && currentIS.getSpecificMeasureList() != null) {
-			currentIS.getSpecificMeasureList().remove(currentSM);
-			currentSM.setInformationSource(null);
-
-			em.merge(currentIS);
-		}
-
-		currentSM.setValidityPeriod(updatedSM.getValidityPeriod());
-		u.copyMultiLingual(updatedSM, currentSM);
-		currentSM.setYear(updatedSM.getYear());
-		currentSM.setReviewYear(updatedSM.getReviewYear());
-
-		if (updatedIS != null) {
-			InformationSource informationSource = this.getEntityById(em, InformationSource.class, updatedIS.getId());
-
-			if (informationSource.getSpecificMeasureList() == null) {
-				informationSource.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
-			}
-
-			informationSource.getSpecificMeasureList().add(currentSM);
-
-			currentSM.setInformationSource(informationSource);
-
-			em.merge(informationSource);
-		}
-		currentSM = this.doMerge(em, currentSM);
-		em.flush();
-		return currentSM;
-	}
-
 	public SpecificMeasure create(SpecificMeasure specificMeasure) {
 
 		if (specificMeasure == null) {
@@ -1040,9 +981,8 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		if (specificMeasure.getInformationSource() != null) {
-			InformationSource existing = this.getEntityById(this.em, InformationSource.class, specificMeasure
-					.getInformationSource().getId());
-
+			InformationSource existing = em.find(InformationSource.class, specificMeasure.getInformationSource()
+					.getId());
 			specificMeasure.setInformationSource(existing);
 			existing.getSpecificMeasureList().add(specificMeasure);
 		}
@@ -1050,32 +990,32 @@ public class VmeDao extends AbstractJPADao {
 		return this.doPersistAndFlush(em, specificMeasure);
 	}
 
-	// Reference reports types creation / update
-	public FisheryAreasHistory update(FisheryAreasHistory fisheryAreasHistory) throws Throwable {
+	public FisheryAreasHistory update(FisheryAreasHistory fisheryAreasHistoryDto) throws Throwable {
 
-		if (fisheryAreasHistory == null) {
+		if (fisheryAreasHistoryDto == null) {
 			throw new IllegalArgumentException("The updated Fishing Footprint cannot be NULL");
 		}
 
-		if (fisheryAreasHistory.getId() == null) {
+		if (fisheryAreasHistoryDto.getId() == null) {
 			throw new IllegalArgumentException("The updated Fishing Footprint cannot have a NULL identifier");
 		}
 
-		if (fisheryAreasHistory.getRfmo() == null) {
+		if (fisheryAreasHistoryDto.getRfmo() == null) {
 			throw new IllegalArgumentException("The updated Fishing Footprint cannot have a NULL Authority");
 		}
 
-		if (fisheryAreasHistory.getRfmo().getId() == null) {
+		if (fisheryAreasHistoryDto.getRfmo().getId() == null) {
 			throw new IllegalArgumentException(
 					"The updated Fishing Footprint cannot have an Authority with a NULL identifier");
 		}
 
-		Rfmo parent = this.getEntityById(em, Rfmo.class, fisheryAreasHistory.getRfmo().getId());
-		fisheryAreasHistory.setRfmo(parent);
-
-		fisheryAreasHistory = this.doMerge(em, fisheryAreasHistory);
-		em.flush();
-		return fisheryAreasHistory;
+		Rfmo rfmoEm = em.find(Rfmo.class, fisheryAreasHistoryDto.getRfmo().getId());
+		FisheryAreasHistory fisheryAreasHistoryEm = em.find(FisheryAreasHistory.class, fisheryAreasHistoryDto.getId());
+		u.copyMultiLingual(fisheryAreasHistoryDto, fisheryAreasHistoryEm);
+		fisheryAreasHistoryEm.setRfmo(rfmoEm);
+		fisheryAreasHistoryEm.setYear(fisheryAreasHistoryDto.getYear());
+		em.merge(fisheryAreasHistoryEm);
+		return fisheryAreasHistoryEm;
 	}
 
 	public FisheryAreasHistory create(FisheryAreasHistory fisheryAreasHistory) throws Throwable {
@@ -1106,32 +1046,32 @@ public class VmeDao extends AbstractJPADao {
 		return this.doPersistAndFlush(em, fisheryAreasHistory);
 	}
 
-	public VMEsHistory update(VMEsHistory vmesHistory) throws Throwable {
+	public VMEsHistory update(VMEsHistory vmesHistoryDto) throws Throwable {
 
-		if (vmesHistory == null) {
+		if (vmesHistoryDto == null) {
 			throw new IllegalArgumentException("The updated Regional History of VME cannot be NULL");
 		}
 
-		if (vmesHistory.getId() == null) {
+		if (vmesHistoryDto.getId() == null) {
 			throw new IllegalArgumentException("The updated Regional History of VME cannot have a NULL identifier");
 		}
 
-		if (vmesHistory.getRfmo() == null) {
+		if (vmesHistoryDto.getRfmo() == null) {
 			throw new IllegalArgumentException("The updated Regional History of VME cannot have a NULL Authority");
 		}
 
-		if (vmesHistory.getRfmo().getId() == null) {
+		if (vmesHistoryDto.getRfmo().getId() == null) {
 			throw new IllegalArgumentException(
 					"The updated Regional History of VME cannot have an Authority with a NULL identifier");
 		}
 
-		Rfmo parent = this.getEntityById(em, Rfmo.class, vmesHistory.getRfmo().getId());
-
-		vmesHistory.setRfmo(parent);
-
-		vmesHistory = this.doMerge(em, vmesHistory);
-		em.flush();
-		return vmesHistory;
+		Rfmo rfmoEm = em.find(Rfmo.class, vmesHistoryDto.getRfmo().getId());
+		VMEsHistory vmesHistoryEm = em.find(VMEsHistory.class, vmesHistoryDto.getId());
+		vmesHistoryEm.setRfmo(rfmoEm);
+		u.copyMultiLingual(vmesHistoryDto, vmesHistoryEm);
+		vmesHistoryEm.setYear(vmesHistoryDto.getYear());
+		em.merge(vmesHistoryEm);
+		return vmesHistoryEm;
 	}
 
 	public VMEsHistory create(VMEsHistory vmesHistory) throws Throwable {
@@ -1181,7 +1121,7 @@ public class VmeDao extends AbstractJPADao {
 					"The updated Information Source cannot have an Authority with a NULL identifier");
 		}
 
-		InformationSource current = this.getEntityById(this.em, InformationSource.class, informationSource.getId());
+		InformationSource current = this.em.find(InformationSource.class, informationSource.getId());
 		u.copyMultiLingual(informationSource, current);
 		current.setSourceType(informationSource.getSourceType());
 		current.setMeetingEndDate(informationSource.getMeetingEndDate());
@@ -1189,7 +1129,7 @@ public class VmeDao extends AbstractJPADao {
 		current.setPublicationYear(informationSource.getPublicationYear());
 		current.setUrl(informationSource.getUrl());
 
-		current.setRfmo(this.getEntityById(em, Rfmo.class, informationSource.getRfmo().getId()));
+		current.setRfmo(this.em.find(Rfmo.class, informationSource.getRfmo().getId()));
 
 		current = this.doMerge(em, current);
 		em.flush();
@@ -1211,10 +1151,86 @@ public class VmeDao extends AbstractJPADao {
 					"The Information Source to create cannot have an Authority with a NULL identifier");
 		}
 
-		Rfmo parent = this.getEntityById(em, Rfmo.class, informationSource.getRfmo().getId());
+		Rfmo parent = em.find(Rfmo.class, informationSource.getRfmo().getId());
 		informationSource.setRfmo(parent);
 
 		return this.doPersistAndFlush(em, informationSource);
+	}
+
+	/**
+	 * This method does not foresee a change in the related Vme
+	 * 
+	 * @param specificMeasureDto
+	 * @return SpecificMeasure
+	 * @throws Throwable
+	 */
+	public SpecificMeasure update(SpecificMeasure specificMeasureDto) throws Throwable {
+
+		if (specificMeasureDto == null) {
+			throw new IllegalArgumentException("The updated VME Specific Measure cannot be NULL");
+		}
+
+		if (specificMeasureDto.getId() == null) {
+			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a NULL identifier");
+		}
+
+		if (specificMeasureDto.getVme() == null) {
+			throw new IllegalArgumentException("The updated VME Specific Measure cannot have a NULL Vme reference");
+		}
+
+		if (specificMeasureDto.getVme().getId() == null) {
+			throw new IllegalArgumentException(
+					"The updated VME Specific Measure cannot have a Vme reference with a NULL identifier");
+		}
+
+		SpecificMeasure specificMeasureEm = em.find(SpecificMeasure.class, specificMeasureDto.getId());
+		InformationSource informationSourceEm = null;
+
+		if (specificMeasureDto.getInformationSource() == null) {
+			specificMeasureEm.setInformationSource(null);
+		} else {
+			informationSourceEm = em.find(InformationSource.class, specificMeasureDto.getInformationSource().getId());
+		}
+
+		u.copyMultiLingual(specificMeasureDto, specificMeasureEm);
+		specificMeasureEm.setValidityPeriod(specificMeasureDto.getValidityPeriod());
+		specificMeasureEm.setYear(specificMeasureDto.getYear());
+		specificMeasureEm.setReviewYear(specificMeasureDto.getReviewYear());
+
+		if (specificMeasureEm.getInformationSource() != null
+				&& specificMeasureDto.getInformationSource() != null
+				&& !specificMeasureEm.getInformationSource().getId()
+						.equals(specificMeasureDto.getInformationSource().getId())) {
+			// the informationsource has been changed
+			InformationSource oldInformationSource = specificMeasureEm.getInformationSource();
+			oldInformationSource.getSpecificMeasureList().remove(specificMeasureEm);
+			em.merge(oldInformationSource);
+
+			specificMeasureEm.setInformationSource(informationSourceEm);
+			specificMeasureEm.getInformationSource().getSpecificMeasureList().add(specificMeasureEm);
+			em.merge(informationSourceEm);
+		}
+
+		if (specificMeasureEm.getInformationSource() != null && specificMeasureDto.getInformationSource() == null) {
+			// new to null
+			specificMeasureEm.getInformationSource().getSpecificMeasureList().remove(specificMeasureEm);
+			em.merge(specificMeasureEm.getInformationSource());
+			specificMeasureEm.setInformationSource(null);
+		}
+
+		if (specificMeasureEm.getInformationSource() == null && specificMeasureDto.getInformationSource() != null) {
+			// null to new
+			// new information source on the specific measure
+			specificMeasureEm.setInformationSource(informationSourceEm);
+			if (informationSourceEm.getSpecificMeasureList() == null) {
+				informationSourceEm.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
+			}
+			informationSourceEm.getSpecificMeasureList().add(specificMeasureEm);
+			em.merge(informationSourceEm);
+		}
+
+		em.merge(specificMeasureEm);
+		return specificMeasureEm;
 	}
 
 	/**
@@ -1297,7 +1313,7 @@ public class VmeDao extends AbstractJPADao {
 		// Flush during cascade is dangerous, but it needs to be done anyway in order to make sure that changes are
 		// reflected. I now have removed concurrent issues in the code above. Hopefully this allows me to do flushes (at
 		// any time)?
-		//em.flush();
+		// em.flush();
 		return generalMeasureEm;
 	}
 
