@@ -6,7 +6,7 @@ and v.name_id = m.id
 
 select count(*)
 from vme v
---187
+-- qa 187
 
 select count(*)
 from vme v, multilingual_string m , multilingualstring_stringmap s 
