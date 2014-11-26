@@ -64,6 +64,8 @@ select count(*) from multilingualstring_stringmap m
 
 
 select multilingualstring_id, stringmap from multilingualstring_stringmap
+select multilingualstring_id, stringmap from multilingualstring_stringmap
+
 
 
 
