@@ -1,6 +1,8 @@
 package org.vme.dao.sources.vme;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -39,18 +41,33 @@ public class Update1nCardinalityTest {
 		assertEquals(3, vmeEm.getProfileList().size());
 		assertEquals(toBeDeleted.getId(), ((ObjectId<Long>) em.getRemovedObject()).getId());
 
-		// test change a property
-		vmeDto.getProfileList().get(0).setYear(100);
-		assertNotEquals(vmeEm.getProfileList().get(0).getYear(), vmeDto.getProfileList().get(0).getYear());
+		// test change a property (be aware the order of the list will therefore change because of the YearComperator)
+		Profile p = vmeDto.getProfileList().get(0);
+		p.setYear(100);
 		u1n.update(em, vmeEm, vmeDto.getProfileList(), vmeEm.getProfileList());
 
-		// TODO
-		// assertEquals(100, vmeEm.getProfileList().get(0).getYear().intValue());
-
+		List<Profile> profiles = vmeEm.getProfileList();
+		int found = 0;
+		for (Profile profile : profiles) {
+			if (profile.getId().equals(p.getId()) && profile.getYear().equals(100)) {
+				found++;
+			}
+		}
+		assertEquals(1, found);
 	}
 
-	private void assertNotEquals(Integer year, Integer year2) {
-		// TODO Auto-generated method stub
+	@Test
+	public void testUpdate() {
+		Update1nCardinality<Profile> u1n = new Update1nCardinality<Profile>();
+		Profile source = new Profile();
+		source.setVme(new Vme());
+		Profile destination = new Profile();
+		u1n.copyCertainProperties(source, destination);
+		assertFalse(source.getVme().equals(destination.getVme()));
+
+		source.setId(100l);
+		u1n.copyCertainProperties(source, destination);
+		assertTrue(source.getId().equals(destination.getId()));
 
 	}
 }

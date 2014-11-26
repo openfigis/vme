@@ -1,18 +1,29 @@
 package org.vme.dao.sources.vme;
 
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
 public class Update1nCardinality<T> {
+
+	private static Set<Class<?>> CLASSES = new HashSet<Class<?>>();
+	static {
+		CLASSES.add(Long.class);
+		CLASSES.add(String.class);
+		CLASSES.add(Integer.class);
+	}
 
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
@@ -33,25 +44,23 @@ public class Update1nCardinality<T> {
 		}
 		for (T dto : listDto) {
 			@SuppressWarnings("unchecked")
-			ObjectId<Long> dtoObject = (ObjectId<Long>) dto;
+			ObjectId<Long> objectDto = (ObjectId<Long>) dto;
 
-			if (dtoObject.getId() == null) {
+			if (objectDto.getId() == null) {
 				// a new object
-				setParent(parent, dtoObject);
+				setParent(parent, objectDto);
 				em.persist(dto);
 			} else {
 				// an eventual change
 				@SuppressWarnings("unchecked")
-				ObjectId<Long> objectEm = em.find(dtoObject.getClass(), dtoObject.getId());
+				ObjectId<Long> objectEm = em.find(objectDto.getClass(), objectDto.getId());
 
 				// delete it from the list which need to be need to be deleted.
+				// (for the next loop, see below)
 				toBeDeleted.remove(objectEm);
-				try {
-					BeanUtils.copyProperties(objectEm, dto);
-				} catch (IllegalAccessException | InvocationTargetException e) {
-					throw new VmeException(e);
-				}
-				u.copyMultiLingual(dto, objectEm);
+
+				copyCertainProperties(objectDto, objectEm);
+				u.copyMultiLingual(objectDto, objectEm);
 				em.merge(objectEm);
 			}
 		}
@@ -60,6 +69,20 @@ public class Update1nCardinality<T> {
 			listEm.remove(entity);
 		}
 
+	}
+
+	public void copyCertainProperties(Object source, Object destination) {
+		PropertyUtilsBean u = new PropertyUtilsBean();
+		PropertyDescriptor[] ds = u.getPropertyDescriptors(source);
+		for (PropertyDescriptor d : ds) {
+			if (CLASSES.contains(d.getPropertyType())) {
+				try {
+					BeanUtils.copyProperty(destination, d.getName(), BeanUtils.getProperty(source, d.getName()));
+				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+					throw new VmeException(e);
+				}
+			}
+		}
 	}
 
 	private void setParent(ObjectId<Long> parent, ObjectId<Long> dto) {

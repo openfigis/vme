@@ -62,9 +62,37 @@ select count(*) from multilingualstring_stringmap m
 -- prod 6101
 -- devel 6073
 
+select count(*) from multilingualstring_stringmap
+--6703
+
+select count(*) from multilingualstring_stringmap
+where stringmap is not null
+--6069
 
 select multilingualstring_id, stringmap from multilingualstring_stringmap
-select multilingualstring_id, stringmap from multilingualstring_stringmap
+where stringmap is not null
+
+
+
+
+
+select count(*)
+from multilingual_string m , multilingualstring_stringmap s 
+where m.id = s.multilingualstring_id (+)
+and s.multilingualstring_id is null
+
+
+select count(*) from multilingual_string 
+--7147
+select count(*) from  multilingualstring_stringmap 
+--6101
+
+select * from multilingualstring_stringmap
+where stringmap is null
+
+
+delete  multilingualstring_stringmap
+where stringmap is null
 
 
 
