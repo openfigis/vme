@@ -188,18 +188,17 @@ public abstract class AbstractJPADao implements Dao {
 
 	public <E> E merge(EntityManager em, E object) {
 		EntityTransaction et = em.getTransaction();
-		E merged;
 		try {
 			et.begin();
-			merged = this.doMerge(em, object);
+			E merged = em.merge(object);
 			et.commit();
 			LOG.debug(OBJECTREMOVED, object);
 			return merged;
 		} catch (Exception e) {
-			LOG.error("Unable to merge object {} into persistence: {} [ {} ]", object, e.getClass().getSimpleName(),
+			LOG.error("Unable to store object {} into persistence: {} [ {} ]", object, e.getClass().getSimpleName(),
 					e.getMessage());
-			et.rollback();
-			throw new VmeDaoException(e.getMessage(), e);
+			e.printStackTrace();
+			throw new VmeDaoException(e);
 		}
 	}
 
