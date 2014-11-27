@@ -83,9 +83,9 @@ public class Update1nCardinality {
 				SpecificMeasure sm = (SpecificMeasure) entity;
 				if (sm.getInformationSource() != null && sm.getInformationSource().getSpecificMeasureList() != null) {
 					sm.getInformationSource().getSpecificMeasureList().remove(sm);
+					em.merge(sm.getInformationSource());
+					sm.setInformationSource(null);
 				}
-				sm.setInformationSource(null);
-				em.merge(sm.getInformationSource());
 			}
 			em.remove(entity);
 			listEm.remove(entity);
@@ -147,11 +147,6 @@ public class Update1nCardinality {
 			processed = true;
 		}
 
-		// 1 to 1
-		if (!processed && dto.getInformationSource().getId().equals(managed.getInformationSource().getId())) {
-			processed = true;
-		}
-
 		// 1 to another 1
 		if (!processed && !dto.getInformationSource().getId().equals(managed.getInformationSource().getId())) {
 			InformationSource isManagedNew = em.find(InformationSource.class, dto.getInformationSource().getId());
@@ -164,6 +159,15 @@ public class Update1nCardinality {
 			isManagedNew.getSpecificMeasureList().add(managed);
 
 			processed = true;
+		}
+
+		// 1 to 1
+		if (!processed && dto.getInformationSource().getId().equals(managed.getInformationSource().getId())) {
+			processed = true;
+		}
+
+		if (!processed) {
+			throw new VmeException("Inconsistency while saving Vme-SpecificMeasure with informationSource");
 		}
 
 	}

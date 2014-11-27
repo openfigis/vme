@@ -6,26 +6,33 @@ import static org.junit.Assert.assertNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.fao.fi.vme.domain.model.InformationSource;
-import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
+import org.junit.Before;
 import org.junit.Test;
 
 public class Update1nCardinalityTest {
 
-	Update1nCardinality u1n = new Update1nCardinality();
+	Update1nCardinality u1n;
+	EntityManager em;
+
+	@Before
+	public void before() {
+		u1n = new Update1nCardinality();
+		em = new DummyEm();
+	}
 
 	/**
-	 * TODO update this also for Vme-SpecificMeasureList - InformationSource
 	 * 
 	 * 
 	 */
 	@Test
 	public void testUpdateCRUDInformationSource() {
-		DummyEm em = new DummyEm();
 
 		SpecificMeasure specificMeasureManaged = new SpecificMeasure();
 		em.persist(specificMeasureManaged);
@@ -70,6 +77,10 @@ public class Update1nCardinalityTest {
 		// 1 to another
 		InformationSource anotherInformationSource = new InformationSource();
 		em.persist(anotherInformationSource);
+
+		// this is a strange hack. Probably because the em is not running in an transaction, it is not setting the id
+		anotherInformationSource.setId(2587l);
+
 		specificMeasureDto.setInformationSource(anotherInformationSource);
 		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
 		assertEquals(1, specificMeasureListManaged.size());
@@ -84,7 +95,6 @@ public class Update1nCardinalityTest {
 	 */
 	@Test
 	public void testUpdate() {
-		DummyEm em = new DummyEm();
 
 		SpecificMeasure specificMeasureManaged = new SpecificMeasure();
 		em.persist(specificMeasureManaged);
@@ -133,12 +143,11 @@ public class Update1nCardinalityTest {
 
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testUpdateProfile() {
 		Vme vmeDto = VmeMock.create();
 		Vme vmeEm = VmeMock.create();
-		DummyEm em = new DummyEm();
+		em.persist(vmeEm);
 
 		List<Profile> l = vmeEm.getProfileList();
 		for (int i = 0; i < l.size(); i++) {
@@ -156,7 +165,6 @@ public class Update1nCardinalityTest {
 		vmeDto.getProfileList().remove(toBeDeleted);
 		u1n.update(em, vmeEm, vmeDto.getProfileList(), vmeEm.getProfileList());
 		assertEquals(3, vmeEm.getProfileList().size());
-		assertEquals(toBeDeleted.getId(), ((ObjectId<Long>) em.getRemovedObject()).getId());
 
 		// test change a property (be aware the order of the list will therefore change because of the YearComperator)
 		Profile p = vmeDto.getProfileList().get(0);
