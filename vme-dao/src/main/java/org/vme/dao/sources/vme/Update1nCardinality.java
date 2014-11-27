@@ -15,6 +15,7 @@ import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.ObjectId;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 
@@ -41,7 +42,7 @@ public class Update1nCardinality<T> {
 	 * @param listDto
 	 * @param listEm
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "hiding" })
 	public <T> void update(EntityManager em, ObjectId<Long> parent, List<T> listDto, List<T> listEm) {
 		List<T> toBeDeleted = new ArrayList<T>();
 		for (T entity : listEm) {
@@ -54,7 +55,13 @@ public class Update1nCardinality<T> {
 				// a new object
 				setParent(parent, objectDto);
 				listEm.add((T) objectDto);
-				// TODO update manyToOne relations here
+				if (objectDto instanceof SpecificMeasure
+						&& ((SpecificMeasure) objectDto).getInformationSource() != null) {
+					SpecificMeasure sm = (SpecificMeasure) objectDto;
+					sm.getInformationSource().getSpecificMeasureList().add(sm);
+					em.merge(sm.getInformationSource());
+				}
+				em.merge(dto);
 			} else {
 				// an eventual change
 				ObjectId<Long> objectEm = em.find(objectDto.getClass(), objectDto.getId());
@@ -98,7 +105,11 @@ public class Update1nCardinality<T> {
 
 					// this property can be 1toMany or 1toOne. For now ONLY the 1toMany is implemented
 					ObjectId<Long> memberDto = (ObjectId<Long>) pu.getProperty(objectDto, d.getName());
-					ObjectId<Long> memberEm = em.find(objectDto.getClass(), memberDto.getId());
+					ObjectId<Long> memberEm = null;
+
+					if (memberDto != null) {
+						memberEm = em.find(objectDto.getClass(), memberDto.getId());
+					}
 
 					// now we need to update the other end of the 1toMany relation
 					PropertyDescriptor[] dsMemeber = pu.getPropertyDescriptors(memberDto.getClass());
