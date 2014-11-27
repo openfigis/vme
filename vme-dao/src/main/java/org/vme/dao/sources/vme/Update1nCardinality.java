@@ -17,10 +17,15 @@ import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.vme.dao.impl.AbstractJPADao;
 
 public class Update1nCardinality {
 
-	UpdateMany1Cardinality uMany1 = new UpdateMany1Cardinality();
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractJPADao.class);
+
+	// private UpdateMany1Cardinality uMany1 = new UpdateMany1Cardinality();
 
 	private static Set<Class<?>> CLASSES = new HashSet<Class<?>>();
 	static {
@@ -44,52 +49,70 @@ public class Update1nCardinality {
 	@SuppressWarnings({ "unchecked" })
 	public <T> void update(EntityManager em, ObjectId<Long> parent, List<T> listDto, List<T> listEm) {
 		List<T> toBeDeleted = new ArrayList<T>();
-		for (T entity : listEm) {
-			toBeDeleted.add(entity);
+		if (listEm == null) {
+			listEm = new ArrayList<T>();
+		} else {
+			for (T entity : listEm) {
+				toBeDeleted.add(entity);
+			}
 		}
-		for (T dto : listDto) {
-			ObjectId<Long> objectDto = (ObjectId<Long>) dto;
+		if (listDto != null) {
+			for (T dto : listDto) {
+				ObjectId<Long> objectDto = (ObjectId<Long>) dto;
+				if (objectDto.getId() == null) {
+					// a new object
+					setParent(parent, objectDto);
+					listEm.add((T) objectDto);
+					em.persist(objectDto);
+					if (objectDto instanceof SpecificMeasure
+							&& ((SpecificMeasure) objectDto).getInformationSource() != null) {
+						SpecificMeasure sm = (SpecificMeasure) objectDto;
 
-			if (objectDto.getId() == null) {
-				// a new object
-				setParent(parent, objectDto);
-				listEm.add((T) objectDto);
-				em.persist(objectDto);
-				if (objectDto instanceof SpecificMeasure
-						&& ((SpecificMeasure) objectDto).getInformationSource() != null) {
-					SpecificMeasure sm = (SpecificMeasure) objectDto;
-					if (sm.getInformationSource().getSpecificMeasureList() == null) {
-						sm.getInformationSource().setSpecificMeasureList(new ArrayList<SpecificMeasure>());
+						LOG.info("New SpecificMeasure " + sm.getId());
+
+						if (sm.getInformationSource().getSpecificMeasureList() == null) {
+							sm.getInformationSource().setSpecificMeasureList(new ArrayList<SpecificMeasure>());
+						}
+						sm.getInformationSource().getSpecificMeasureList().add(sm);
+						em.merge(sm.getInformationSource());
 					}
-					sm.getInformationSource().getSpecificMeasureList().add(sm);
-					em.merge(sm.getInformationSource());
+				} else {
+					// an eventual change
+					ObjectId<Long> objectEm = em.find(objectDto.getClass(), objectDto.getId());
+
+					// delete it from the list which need to be need to be deleted.
+					// (for the next loop, see below)
+					toBeDeleted.remove(objectEm);
+
+					copyProperties(em, parent, objectDto, objectEm);
+
+					em.merge(objectEm);
 				}
-				em.merge(dto);
-			} else {
-				// an eventual change
-				ObjectId<Long> objectEm = em.find(objectDto.getClass(), objectDto.getId());
-
-				// delete it from the list which need to be need to be deleted.
-				// (for the next loop, see below)
-				toBeDeleted.remove(objectEm);
-
-				copyProperties(em, parent, objectDto, objectEm);
-
-				em.merge(objectEm);
 			}
 		}
 		for (T entity : toBeDeleted) {
+
 			if (entity instanceof SpecificMeasure) {
 				SpecificMeasure sm = (SpecificMeasure) entity;
+
 				if (sm.getInformationSource() != null && sm.getInformationSource().getSpecificMeasureList() != null) {
+					LOG.info("Removing informationSource  " + sm.getInformationSource().getId());
+
 					sm.getInformationSource().getSpecificMeasureList().remove(sm);
 					em.merge(sm.getInformationSource());
 					sm.setInformationSource(null);
+				} else {
+					LOG.info("Noting to do with  getInformationSource " + sm.getId());
 				}
+				LOG.info("Deleting SpecificMeasure " + sm.getId());
 			}
-			em.remove(entity);
+			LOG.info("Remove from list");
 			listEm.remove(entity);
 
+			LOG.info("em.contains(entity) " + em.contains(entity));
+			if (em.contains(entity)) {
+				em.remove(entity);
+			}
 		}
 
 	}

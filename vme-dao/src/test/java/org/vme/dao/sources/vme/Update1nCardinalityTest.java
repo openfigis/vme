@@ -29,6 +29,70 @@ public class Update1nCardinalityTest {
 
 	/**
 	 * 
+	 */
+	@Test
+	public void testUpdateSpecificMeasureNull2() {
+		SpecificMeasure specificMeasureManaged = new SpecificMeasure();
+		specificMeasureManaged.setYear(2013);
+		em.persist(specificMeasureManaged);
+
+		List<SpecificMeasure> specificMeasureListManaged = new ArrayList<SpecificMeasure>();
+		specificMeasureListManaged.add(specificMeasureManaged);
+
+		SpecificMeasure specificMeasureDto = new SpecificMeasure();
+		List<SpecificMeasure> specificMeasureListDto = new ArrayList<SpecificMeasure>();
+		specificMeasureListDto.add(specificMeasureDto);
+
+		Vme vmeManaged = new Vme();
+		em.persist(vmeManaged);
+		vmeManaged.setSpecificMeasureList(specificMeasureListManaged);
+		em.persist(vmeManaged);
+
+		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
+
+	}
+
+	/**
+	 * Bug found in QA
+	 * 
+	 * 17:58:35,591 [ ERROR ] { org.fao.fi.vme.rsg.service.RsgServiceWriteImplVme } - Unable to update
+	 * org.fao.fi.vme.domain.model.Vme report #23787: IllegalArgumentException [ org.hibernate.ObjectDeletedException:
+	 * deleted instance passed to merge: [org.fao.fi.vme.domain.model.SpecificMeasure#<null>] ]
+	 * java.lang.IllegalArgumentException: org.hibernate.ObjectDeletedException: deleted instance passed to merge:
+	 * [org.fao.fi.vme.domain.model.SpecificMeasure#<null>] at
+	 * org.hibernate.jpa.spi.AbstractEntityManagerImpl.merge(AbstractEntityManagerImpl.java:1199) at
+	 * sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	 * 
+	 * 
+	 * 
+	 */
+	@Test
+	public void testUpdateSpecificMeasureNull() {
+		SpecificMeasure specificMeasureDto = new SpecificMeasure();
+
+		List<SpecificMeasure> specificMeasureListDto = new ArrayList<SpecificMeasure>();
+		specificMeasureListDto.add(specificMeasureDto);
+
+		Vme vmeManaged = new Vme();
+		em.persist(vmeManaged);
+
+		u1n.update(em, vmeManaged, specificMeasureListDto, null);
+
+	}
+
+	/**
+	 * Bug found in QA, what if the getMediaReferenceList is null?
+	 * 
+	 */
+	@Test
+	public void testUpdategetMediaReferenceListNull() {
+		Vme vmeManaged = new Vme();
+		em.persist(vmeManaged);
+		u1n.update(em, vmeManaged, null, null);
+	}
+
+	/**
+	 * 
 	 * 
 	 */
 	@Test
