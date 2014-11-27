@@ -1,6 +1,7 @@
 package org.vme.dao.sources.vme;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +16,20 @@ import org.junit.Test;
 
 public class Update1nCardinalityTest {
 
-	Update1nCardinality<Profile> u1n = new Update1nCardinality<Profile>();
-	DummyEm em = new DummyEm();
+	Update1nCardinality u1n = new Update1nCardinality();
 
+	/**
+	 * TODO update this also for Vme-SpecificMeasureList - InformationSource
+	 * 
+	 * 
+	 */
 	@Test
 	public void testUpdateCRUDInformationSource() {
+		DummyEm em = new DummyEm();
 
 		SpecificMeasure specificMeasureManaged = new SpecificMeasure();
 		em.persist(specificMeasureManaged);
 		SpecificMeasure specificMeasureDto = new SpecificMeasure();
-		specificMeasureDto.setId(specificMeasureManaged.getId());
 
 		List<SpecificMeasure> specificMeasureListManaged = new ArrayList<SpecificMeasure>();
 		List<SpecificMeasure> specificMeasureListDto = new ArrayList<SpecificMeasure>();
@@ -36,6 +41,7 @@ public class Update1nCardinalityTest {
 		InformationSource informationSourceManaged = new InformationSource();
 		em.persist(informationSourceManaged);
 
+		// the following status changes only apply to informationsource
 		// 0 to 0
 		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
 		assertEquals(0, specificMeasureListManaged.size());
@@ -49,6 +55,11 @@ public class Update1nCardinalityTest {
 		assertEquals(informationSourceManaged, specificMeasureListManaged.get(0).getInformationSource());
 
 		// 1 to 0
+		specificMeasureDto.setInformationSource(null);
+		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
+		assertEquals(1, specificMeasureListManaged.size());
+		assertNull(specificMeasureListManaged.get(0).getInformationSource());
+
 		// 1 to 1
 		// 1 to another
 
@@ -115,6 +126,7 @@ public class Update1nCardinalityTest {
 	public void testUpdateProfile() {
 		Vme vmeDto = VmeMock.create();
 		Vme vmeEm = VmeMock.create();
+		DummyEm em = new DummyEm();
 
 		List<Profile> l = vmeEm.getProfileList();
 		for (int i = 0; i < l.size(); i++) {
