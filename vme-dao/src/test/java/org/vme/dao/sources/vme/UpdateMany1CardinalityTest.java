@@ -20,18 +20,20 @@ public class UpdateMany1CardinalityTest {
 
 	@Test
 	public void testUpdate() {
+
+		String propertyName = "informationSource";
+
 		InformationSource informationSourceManaged = new InformationSource();
-		informationSourceManaged.setId(1l);
 		em.persist(informationSourceManaged);
 
 		InformationSource informationSourceDto = new InformationSource();
-		informationSourceDto.setId(20l);
+		informationSourceDto.setId(informationSourceManaged.getId());
 
 		SpecificMeasure parentManaged = new SpecificMeasure();
-		parentManaged.setId(11l);
 		em.persist(parentManaged);
 
 		SpecificMeasure parentDto = new SpecificMeasure();
+		parentDto.setId(parentManaged.getId());
 
 		List<SpecificMeasure> listManaged = new ArrayList<SpecificMeasure>();
 		List<SpecificMeasure> listDto = new ArrayList<SpecificMeasure>();
@@ -40,41 +42,46 @@ public class UpdateMany1CardinalityTest {
 		informationSourceDto.setSpecificMeasureList(listDto);
 
 		// test 0 to 0
-		u.update(em, parentManaged, parentDto, listManaged, listDto);
+		u.update(em, parentManaged, parentManaged.getInformationSource(), parentDto.getInformationSource(), parentDto,
+				listManaged, listDto, propertyName);
 		assertTrue(parentManaged.getInformationSource() == null);
 
 		// test 0 to 1
 		parentDto.setInformationSource(informationSourceDto);
-		u.update(em, parentManaged, parentDto, listManaged, listDto);
+		u.update(em, parentManaged, parentManaged.getInformationSource(), parentDto.getInformationSource(), parentDto,
+				listManaged, listDto, propertyName);
 
 		delelegateTest1(informationSourceManaged, informationSourceDto, informationSourceDto.getId(),
 				informationSourceManaged.getId(), listManaged, parentManaged);
 
 		// test 1 to 0
 		parentDto.setInformationSource(null);
-		u.update(em, parentManaged, parentDto, listManaged, listDto);
+		u.update(em, parentManaged, parentManaged.getInformationSource(), parentDto.getInformationSource(), parentDto,
+				listManaged, listDto, propertyName);
 		assertNull(parentManaged.getInformationSource());
 		assertEquals(0, informationSourceManaged.getSpecificMeasureList().size());
 
 		// test 1 to 1
 		parentDto.setInformationSource(informationSourceDto);
-		u.update(em, parentManaged, parentDto, listManaged, listDto);
+		u.update(em, parentManaged, parentManaged.getInformationSource(), parentDto.getInformationSource(), parentDto,
+				listManaged, listDto, propertyName);
 		parentDto.setInformationSource(informationSourceDto);
-		u.update(em, parentManaged, parentDto, listManaged, listDto);
+		u.update(em, parentManaged, parentManaged.getInformationSource(), parentDto.getInformationSource(), parentDto,
+				listManaged, listDto, propertyName);
 		delelegateTest1(informationSourceManaged, informationSourceDto, informationSourceDto.getId(),
 				informationSourceManaged.getId(), listManaged, parentManaged);
 
 		// test 1 to another 1
 		InformationSource isAnotherManaged = new InformationSource();
-		isAnotherManaged.setId(50l);
 		em.persist(isAnotherManaged);
 		InformationSource isAnotherDto = new InformationSource();
-		isAnotherDto.setId(50l);
+		isAnotherDto.setId(isAnotherManaged.getId());
 
 		parentDto.setInformationSource(isAnotherDto);
-		u.update(em, parentManaged, parentDto, listManaged, listDto);
-		delelegateTest1(informationSourceManaged, isAnotherDto, isAnotherDto.getId(), informationSourceManaged.getId(),
-				listManaged, parentManaged);
+		u.update(em, parentManaged, parentManaged.getInformationSource(), isAnotherDto, parentDto, listManaged,
+				listDto, propertyName);
+		delelegateTest1(isAnotherManaged, isAnotherDto, isAnotherDto.getId(), isAnotherManaged.getId(), listManaged,
+				parentManaged);
 
 	}
 
@@ -85,7 +92,7 @@ public class UpdateMany1CardinalityTest {
 		assertEquals(informationSourceIdDto, informationSourceIdManaged);
 		assertEquals(informationSourceManaged, em.find(informationSourceDto.getClass(), informationSourceDto.getId()));
 		assertEquals(1, listManaged.size());
-		assertEquals(parentManaged, listManaged.get(0));
+		assertEquals(informationSourceManaged, listManaged.get(0));
 	}
 
 }
