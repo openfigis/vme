@@ -67,14 +67,6 @@ public class Update1nCardinality<T> {
 
 				copyProperties(em, objectDto, objectEm);
 
-				// do long, integer and string
-				copyCertainProperties(objectDto, objectEm);
-
-				// do the multilingual stuff
-				u.copyMultiLingual(objectDto, objectEm);
-
-				// the all others
-				processOtherProperties(em, objectDto, objectEm);
 				em.merge(objectEm);
 			}
 		}
@@ -87,36 +79,41 @@ public class Update1nCardinality<T> {
 
 	@SuppressWarnings("unchecked")
 	public void copyProperties(EntityManager em, ObjectId<Long> objectDto, ObjectId<Long> objectEm) {
-		PropertyUtilsBean u = new PropertyUtilsBean();
-		PropertyDescriptor[] ds = u.getPropertyDescriptors(objectDto);
+		PropertyUtilsBean pu = new PropertyUtilsBean();
+		PropertyDescriptor[] ds = pu.getPropertyDescriptors(objectDto);
 		for (PropertyDescriptor d : ds) {
 			try {
 				if (CLASSES.contains(d.getPropertyType())) {
 					// this is for long, string, integer and ValidityPeriod
-					u.setProperty(objectEm, d.getName(), u.getProperty(objectDto, d.getName()));
+					pu.setProperty(objectEm, d.getName(), pu.getProperty(objectDto, d.getName()));
 				}
 
-				// TODO do the multilingual stuff
+				// do the multilingual stuff
+				u.copyMultiLingual(objectDto, objectEm);
 
-				// this is for other properties
+				// this is for other properties (which can only be many to 1 relations)
 				if (!CLASSES.contains(d.getPropertyType()) && !d.getPropertyType().equals(MultiLingualString.class)) {
+
 					// this property can be 1toMany or 1toOne. For now ONLY the 1toMany is implemented
-					ObjectId<Long> memberDto = (ObjectId<Long>) u.getProperty(objectDto, d.getName());
+					ObjectId<Long> memberDto = (ObjectId<Long>) pu.getProperty(objectDto, d.getName());
 					ObjectId<Long> memberEm = em.find(objectDto.getClass(), memberDto.getId());
-					u.setProperty(objectEm, d.getName(), memberEm);
-					em.merge(objectEm);
 
 					// now we need to update the other end of the 1toMany relation
-
-					PropertyDescriptor[] dsMemeber = u.getPropertyDescriptors(memberDto);
+					PropertyDescriptor[] dsMemeber = pu.getPropertyDescriptors(memberDto);
+					PropertyDescriptor listPropertyDescriptor = null;
 					for (PropertyDescriptor propertyDescriptor : dsMemeber) {
 						if (propertyDescriptor.getPropertyType().equals(List.class)) {
-							List<ObjectId<Long>> listDto = (List<ObjectId<Long>>) u.getProperty(memberDto,
-									propertyDescriptor.getName());
-							List<ObjectId<Long>> listEm = (List<ObjectId<Long>>) u.getProperty(memberEm,
-									propertyDescriptor.getName());
-							// copyList(em, listDto, listEm);
+							listPropertyDescriptor = propertyDescriptor;
 						}
+					}
+					if (listPropertyDescriptor != null) {
+						List<ObjectId<Long>> listDto = (List<ObjectId<Long>>) pu.getProperty(memberDto,
+								listPropertyDescriptor.getName());
+						List<ObjectId<Long>> listEm = (List<ObjectId<Long>>) pu.getProperty(memberEm,
+								listPropertyDescriptor.getName());
+						uMany1.update(em, objectEm, memberEm, memberDto, objectDto, listEm, listDto, d.getName());
+					} else {
+						System.out.println("no many to 1 relation found");
 					}
 				}
 			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
