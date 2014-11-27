@@ -24,6 +24,7 @@ import org.fao.fi.vme.domain.model.ObjectId;
 public class DummyEm implements EntityManager {
 
 	Object removedObject;
+
 	Map<String, Object> store = new HashMap<String, Object>();
 	long id = 1l;
 

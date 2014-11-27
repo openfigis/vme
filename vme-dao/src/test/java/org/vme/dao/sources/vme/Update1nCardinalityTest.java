@@ -2,13 +2,21 @@ package org.vme.dao.sources.vme;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.PropertyUtilsBean;
+import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.domain.model.Profile;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
+import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.junit.Test;
 
@@ -16,6 +24,50 @@ public class Update1nCardinalityTest {
 
 	Update1nCardinality<Profile> u1n = new Update1nCardinality<Profile>();
 	DummyEm em = new DummyEm();
+
+	@Test
+	public void erik() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		SpecificMeasure source = new SpecificMeasure();
+		source.setValidityPeriod(ValidityPeriodMock.create());
+		SpecificMeasure destination = new SpecificMeasure();
+
+		PropertyUtilsBean l = new PropertyUtilsBean();
+		l.setProperty(destination, "validityPeriod", source.getValidityPeriod());
+
+		assertTrue(destination.getValidityPeriod() instanceof ValidityPeriod);
+	}
+
+	@Test
+	public void testProcessOtherProperties() {
+		SpecificMeasure source = new SpecificMeasure();
+		InformationSource is1 = new InformationSource();
+
+		List<SpecificMeasure> sList = new ArrayList<SpecificMeasure>();
+		sList.add(source);
+		is1.setSpecificMeasureList(sList);
+		source.setInformationSource(is1);
+
+		// 1 to 1
+		SpecificMeasure destination = new SpecificMeasure();
+		u1n.processOtherProperties(em, source, destination);
+		assertEquals(source.getInformationSource(), destination.getInformationSource());
+
+		// 1 to 0
+		source.setInformationSource(null);
+		u1n.processOtherProperties(em, source, destination);
+		assertNull(destination.getInformationSource());
+
+		// 0 to 0
+		source.setInformationSource(null);
+		u1n.processOtherProperties(em, source, destination);
+		assertNull(destination.getInformationSource());
+
+		// 0 to 1
+		source.setInformationSource(is1);
+		u1n.processOtherProperties(em, source, destination);
+		assertEquals(is1, destination.getInformationSource());
+
+	}
 
 	@SuppressWarnings("unchecked")
 	@Test
@@ -57,7 +109,7 @@ public class Update1nCardinalityTest {
 	}
 
 	@Test
-	public void testUpdate() {
+	public void testCopyCertainProperties() {
 		Update1nCardinality<Profile> u1n = new Update1nCardinality<Profile>();
 		Profile source = new Profile();
 		source.setVme(new Vme());
