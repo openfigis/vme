@@ -540,189 +540,31 @@ public class VmeDao extends AbstractJPADao {
 		this.doRemove(em, toDelete);
 	}
 
-	public Vme update(Vme updatedVME) throws Throwable {
+	public Vme update(Vme vmeDto) throws Throwable {
 
-		if (updatedVME == null) {
+		if (vmeDto == null) {
 			throw new IllegalArgumentException("Updated Vme cannot be NULL");
 		}
 
-		if (updatedVME.getId() == null) {
+		if (vmeDto.getId() == null) {
 			throw new IllegalArgumentException("Updated Vme cannot have a NULL identifier");
 		}
 
-		if (updatedVME.getRfmo() == null) {
+		if (vmeDto.getRfmo() == null) {
 			throw new IllegalArgumentException("Updated Vme cannot have a NULL authority");
 		}
 
-		if (updatedVME.getRfmo().getId() == null) {
+		if (vmeDto.getRfmo().getId() == null) {
 			throw new IllegalArgumentException("Updated Vme cannot have a Rfmo with a NULL identifier");
 		}
-
-		// Get the current Vme status (before the update)
-		Vme currentVME = this.getEntityById(this.em, Vme.class, updatedVME.getId());
-
-		if (currentVME == null) {
-			throw new IllegalArgumentException("Unable to update Vme with id #" + updatedVME.getId()
-					+ " as it doesn't exist");
-		}
-
-		// Build the list of IDs for GeoRef / Profile / SpecificMeasure for the
-		// Vme in its current status.
-		Set<Long> geoRefsToDelete = new HashSet<Long>();
-		if (currentVME.getGeoRefList() != null) {
-			for (GeoRef geoRef : currentVME.getGeoRefList()) {
-				geoRefsToDelete.add(geoRef.getId());
-			}
-		}
-
-		Set<Long> profileToDelete = new HashSet<Long>();
-		if (currentVME.getProfileList() != null) {
-			for (Profile profile : currentVME.getProfileList()) {
-				profileToDelete.add(profile.getId());
-			}
-		}
-
-		Set<Long> specificMeasuresToDelete = new HashSet<Long>();
-		if (currentVME.getSpecificMeasureList() != null) {
-			for (SpecificMeasure specificMeasure : currentVME.getSpecificMeasureList()) {
-				specificMeasuresToDelete.add(specificMeasure.getId());
-			}
-		}
-
-		Set<Long> mediaToDelete = new HashSet<Long>();
-		if (currentVME.getMediaReferenceList() != null) {
-			for (MediaReference media : currentVME.getMediaReferenceList()) {
-				mediaToDelete.add(media.getId());
-			}
-		}
-
-		// Check which geoRef / profile / specificMeasure must be deleted...
-
-		if (updatedVME.getGeoRefList() != null) {
-			for (GeoRef geoRef : updatedVME.getGeoRefList()) {
-				geoRefsToDelete.remove(geoRef.getId());
-			}
-		}
-
-		if (updatedVME.getProfileList() != null) {
-			for (Profile profile : updatedVME.getProfileList()) {
-				profileToDelete.remove(profile.getId());
-			}
-		}
-
-		if (updatedVME.getSpecificMeasureList() != null) {
-			for (SpecificMeasure specificMeasure : updatedVME.getSpecificMeasureList()) {
-				specificMeasuresToDelete.remove(specificMeasure.getId());
-			}
-		}
-
-		if (updatedVME.getMediaReferenceList() != null) {
-			for (MediaReference media : updatedVME.getMediaReferenceList()) {
-				mediaToDelete.remove(media.getId());
-			}
-		}
-
-		// If any GeoRef / Profile / Specific Measure is missing, it must be
-		// deleted in order not to leave 'orphan' children.
-		for (Long id : geoRefsToDelete) {
-			GeoRef g = this.getEntityById(this.em, GeoRef.class, id);
-
-			g.setVme(null);
-
-			this.doRemove(em, g);
-		}
-
-		for (Long id : profileToDelete) {
-			Profile p = this.getEntityById(this.em, Profile.class, id);
-
-			p.setVme(null);
-
-			this.doRemove(em, p);
-		}
-
-		for (Long id : mediaToDelete) {
-			MediaReference m = this.getEntityById(this.em, MediaReference.class, id);
-
-			m.setVme(null);
-
-			this.doRemove(em, m);
-		}
-
-		// Unlinks InformationSources from the list of Specific Measures to
-		// remove, then unlinks the Specific Measure from the VME
-		for (Long id : specificMeasuresToDelete) {
-			SpecificMeasure s = this.getEntityById(this.em, SpecificMeasure.class, id);
-
-			InformationSource linked = s.getInformationSource();
-
-			if (linked != null) {
-				s.setInformationSource(null);
-
-				Iterator<SpecificMeasure> parents = linked.getSpecificMeasureList().iterator();
-				SpecificMeasure current = null;
-
-				while (parents.hasNext()) {
-					current = parents.next();
-
-					if (current.getId().equals(s.getId())) {
-						parents.remove();
-
-						this.doMerge(em, linked);
-					}
-				}
-
-				this.doMerge(em, s);
-			}
-
-			s.setVme(null);
-
-			this.doRemove(em, s);
-		}
-
-		// Link the Current GeoRefs to the Vme
-		if (updatedVME.getGeoRefList() != null) {
-			for (GeoRef geoRef : updatedVME.getGeoRefList()) {
-				geoRef.setVme(updatedVME);
-			}
-		}
-
-		// Link the Profiles to the Vme
-		if (updatedVME.getProfileList() != null) {
-			for (Profile profile : updatedVME.getProfileList()) {
-				profile.setVme(updatedVME);
-			}
-		}
-
-		// Link the Media to the Vme
-		if (updatedVME.getMediaReferenceList() != null) {
-			for (MediaReference media : updatedVME.getMediaReferenceList()) {
-				media.setVme(updatedVME);
-			}
-		}
-
-		// Link the SpecificMeasures to the Vme
-		List<SpecificMeasure> updatedSMs = new ArrayList<SpecificMeasure>();
-
-		if (updatedVME.getSpecificMeasureList() != null) {
-			for (SpecificMeasure specificMeasure : updatedVME.getSpecificMeasureList()) {
-				specificMeasure.setVme(updatedVME);
-
-				if (specificMeasure.getId() != null) {
-					updatedSMs.add(this.update(specificMeasure));
-				} else {
-					updatedSMs.add(this.create(specificMeasure));
-				}
-			}
-		}
-
-		updatedVME.setSpecificMeasureList(updatedSMs);
-
-		// Update the Vme: this will unlink GeoRefs / Profiles /
-		// SpecificMeasures but not remove them.
-		Vme mergedVME = this.doMerge(em, updatedVME);
-		em.flush();
-
-		return mergedVME;
+		Vme vmeManaged = em.find(Vme.class, vmeDto.getId());
+		Update1nCardinality u = new Update1nCardinality();
+		u.update(em, vmeManaged, vmeDto.getGeoRefList(), vmeManaged.getGeoRefList());
+		u.update(em, vmeManaged, vmeDto.getMediaReferenceList(), vmeManaged.getMediaReferenceList());
+		u.update(em, vmeManaged, vmeDto.getProfileList(), vmeManaged.getProfileList());
+		u.update(em, vmeManaged, vmeDto.getSpecificMeasureList(), vmeManaged.getSpecificMeasureList());
+		em.merge(vmeManaged);
+		return vmeManaged;
 	}
 
 	public Vme create(Vme vme) throws Throwable {

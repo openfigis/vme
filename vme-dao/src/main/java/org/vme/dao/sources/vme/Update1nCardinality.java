@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 
 import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.fao.fi.vme.VmeException;
+import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.ValidityPeriod;
@@ -78,10 +79,17 @@ public class Update1nCardinality {
 			}
 		}
 		for (T entity : toBeDeleted) {
-			// TODO update manyToOne relations here
-			// what is missing here is that the manyToOne relations need to be updated.
+			if (entity instanceof SpecificMeasure) {
+				SpecificMeasure sm = (SpecificMeasure) entity;
+				if (sm.getInformationSource() != null && sm.getInformationSource().getSpecificMeasureList() != null) {
+					sm.getInformationSource().getSpecificMeasureList().remove(sm);
+				}
+				sm.setInformationSource(null);
+				em.merge(sm.getInformationSource());
+			}
 			em.remove(entity);
 			listEm.remove(entity);
+
 		}
 
 	}
@@ -101,44 +109,61 @@ public class Update1nCardinality {
 				// do the multilingual stuff
 				u.copyMultiLingual(objectDto, objectEm);
 
-				// this is for other properties (which can only be many to 1 relations)
-				// if (!CLASSES.contains(d.getPropertyType()) && !d.getPropertyType().equals(MultiLingualString.class)
-				// && !d.getPropertyType().equals(Class.class)
-				// && !d.getPropertyType().equals(parentManaged.getClass())) {
-				//
-				// // this property can be 1toMany or 1toOne. For now ONLY the 1toMany is implemented
-				// ObjectId<Long> memberDto = (ObjectId<Long>) pu.getProperty(objectDto, d.getName());
-				// ObjectId<Long> memberEm = null;
-				//
-				// if (memberDto != null) {
-				// memberEm = em.find(objectDto.getClass(), memberDto.getId());
-				// }
-				//
-				// // now we need to update the other end of the 1toMany relation
-				// PropertyDescriptor[] dsMemeber = pu.getPropertyDescriptors(memberDto.getClass());
-				// PropertyDescriptor listPropertyDescriptor = null;
-				// for (PropertyDescriptor propertyDescriptor : dsMemeber) {
-				// if (propertyDescriptor.getPropertyType().equals(List.class)) {
-				// listPropertyDescriptor = propertyDescriptor;
-				// }
-				// }
-				//
-				// boolean goFurther = listPropertyDescriptor.getName().equals("informationSource")
-				// && objectDto instanceof InformationSource;
-				//
-				// if (listPropertyDescriptor != null && goFurther) {
-				// List<ObjectId<Long>> listDto = (List<ObjectId<Long>>) pu.getIndexedProperty(memberDto,
-				// listPropertyDescriptor.getName());
-				// List<ObjectId<Long>> listEm = (List<ObjectId<Long>>) pu.getIndexedProperty(memberEm,
-				// listPropertyDescriptor.getName());
-				// uMany1.update(em, objectEm, memberEm, memberDto, objectDto, listEm, listDto, d.getName());
-				// } else {
-				// System.out.println("no many to 1 relation found");
-				// }
-				// }
+				if (objectDto instanceof SpecificMeasure) {
+					processCopyInformationSource(em, (SpecificMeasure) objectDto, (SpecificMeasure) objectDto);
+				}
 			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 				throw new VmeException(e);
 			}
+		}
+
+	}
+
+	private void processCopyInformationSource(EntityManager em, SpecificMeasure dto, SpecificMeasure managed) {
+
+		boolean processed = false;
+
+		// 0 to 0
+		if (dto.getInformationSource() == null && managed.getInformationSource() == null) {
+			processed = true;
+		}
+
+		// 0 to 1
+		if (!processed && dto.getInformationSource() != null && managed.getInformationSource() == null) {
+			InformationSource isManaged = em.find(InformationSource.class, dto.getInformationSource().getId());
+			managed.setInformationSource(isManaged);
+			isManaged.getSpecificMeasureList().add(managed);
+			em.merge(managed);
+			em.merge(isManaged);
+			processed = true;
+		}
+
+		// 1 to 0
+		if (!processed && dto.getInformationSource() == null && managed.getInformationSource() != null) {
+			managed.setInformationSource(null);
+			managed.getInformationSource().getSpecificMeasureList().remove(managed);
+			em.merge(managed);
+			em.merge(managed.getInformationSource());
+			processed = true;
+		}
+
+		// 1 to 1
+		if (!processed && dto.getInformationSource().getId().equals(managed.getInformationSource().getId())) {
+			processed = true;
+		}
+
+		// 1 to another 1
+		if (!processed && !dto.getInformationSource().getId().equals(managed.getInformationSource().getId())) {
+			InformationSource isManagedNew = em.find(InformationSource.class, dto.getInformationSource().getId());
+
+			// remove the old one
+			managed.getInformationSource().getSpecificMeasureList().remove(managed.getInformationSource());
+			em.merge(managed.getInformationSource());
+
+			managed.setInformationSource(isManagedNew);
+			isManagedNew.getSpecificMeasureList().add(managed);
+
+			processed = true;
 		}
 
 	}

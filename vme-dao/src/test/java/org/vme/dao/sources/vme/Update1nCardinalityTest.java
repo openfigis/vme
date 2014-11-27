@@ -61,7 +61,19 @@ public class Update1nCardinalityTest {
 		assertNull(specificMeasureListManaged.get(0).getInformationSource());
 
 		// 1 to 1
+		specificMeasureDto.setInformationSource(informationSourceManaged);
+		specificMeasureListDto.add(specificMeasureDto);
+		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
+		assertEquals(1, specificMeasureListManaged.size());
+		assertEquals(informationSourceManaged, specificMeasureListManaged.get(0).getInformationSource());
+
 		// 1 to another
+		InformationSource anotherInformationSource = new InformationSource();
+		em.persist(anotherInformationSource);
+		specificMeasureDto.setInformationSource(anotherInformationSource);
+		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
+		assertEquals(1, specificMeasureListManaged.size());
+		assertEquals(anotherInformationSource, specificMeasureListManaged.get(0).getInformationSource());
 
 	}
 
