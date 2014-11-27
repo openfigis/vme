@@ -127,8 +127,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 	private URL url;
 
 	/**
-	 * This field maybe used to indicate what type of source this is. One type
-	 * would be link CEM Source.
+	 * This field maybe used to indicate what type of source this is. One type would be link CEM Source.
 	 * 
 	 * <option value="1">Book </option>
 	 * 
@@ -278,7 +277,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 		result = prime * result + ((reportSummary == null) ? 0 : reportSummary.hashCode());
 		result = prime * result + ((rfmo == null) ? 0 : rfmo.hashCode());
 		result = prime * result + ((sourceType == null) ? 0 : sourceType.hashCode());
-		result = prime * result + ((specificMeasureList == null) ? 0 : specificMeasureList.hashCode());
+		// result = prime * result + ((specificMeasureList == null) ? 0 : specificMeasureList.hashCode());
 		return result;
 	}
 
