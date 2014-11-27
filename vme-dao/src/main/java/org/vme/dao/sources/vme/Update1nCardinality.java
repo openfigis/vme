@@ -10,10 +10,9 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.fao.fi.vme.VmeException;
+import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.MultiLingualString;
 import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.domain.model.ValidityPeriod;
@@ -42,23 +41,22 @@ public class Update1nCardinality<T> {
 	 * @param listDto
 	 * @param listEm
 	 */
-	@SuppressWarnings("hiding")
+	@SuppressWarnings("unchecked")
 	public <T> void update(EntityManager em, ObjectId<Long> parent, List<T> listDto, List<T> listEm) {
 		List<T> toBeDeleted = new ArrayList<T>();
 		for (T entity : listEm) {
 			toBeDeleted.add(entity);
 		}
 		for (T dto : listDto) {
-			@SuppressWarnings("unchecked")
 			ObjectId<Long> objectDto = (ObjectId<Long>) dto;
 
 			if (objectDto.getId() == null) {
 				// a new object
 				setParent(parent, objectDto);
-				em.persist(dto);
+				listEm.add((T) objectDto);
+				// TODO update manyToOne relations here
 			} else {
 				// an eventual change
-				@SuppressWarnings("unchecked")
 				ObjectId<Long> objectEm = em.find(objectDto.getClass(), objectDto.getId());
 
 				// delete it from the list which need to be need to be deleted.
@@ -71,6 +69,8 @@ public class Update1nCardinality<T> {
 			}
 		}
 		for (T entity : toBeDeleted) {
+			// TODO update manyToOne relations here
+			// what is missing here is that the manyToOne relations need to be updated.
 			em.remove(entity);
 			listEm.remove(entity);
 		}
@@ -80,7 +80,8 @@ public class Update1nCardinality<T> {
 	@SuppressWarnings("unchecked")
 	public void copyProperties(EntityManager em, ObjectId<Long> objectDto, ObjectId<Long> objectEm) {
 		PropertyUtilsBean pu = new PropertyUtilsBean();
-		PropertyDescriptor[] ds = pu.getPropertyDescriptors(objectDto);
+		PropertyDescriptor[] ds = pu.getPropertyDescriptors(objectDto.getClass());
+
 		for (PropertyDescriptor d : ds) {
 			try {
 				if (CLASSES.contains(d.getPropertyType())) {
@@ -92,24 +93,29 @@ public class Update1nCardinality<T> {
 				u.copyMultiLingual(objectDto, objectEm);
 
 				// this is for other properties (which can only be many to 1 relations)
-				if (!CLASSES.contains(d.getPropertyType()) && !d.getPropertyType().equals(MultiLingualString.class)) {
+				if (!CLASSES.contains(d.getPropertyType()) && !d.getPropertyType().equals(MultiLingualString.class)
+						&& !d.getPropertyType().equals(Class.class)) {
 
 					// this property can be 1toMany or 1toOne. For now ONLY the 1toMany is implemented
 					ObjectId<Long> memberDto = (ObjectId<Long>) pu.getProperty(objectDto, d.getName());
 					ObjectId<Long> memberEm = em.find(objectDto.getClass(), memberDto.getId());
 
 					// now we need to update the other end of the 1toMany relation
-					PropertyDescriptor[] dsMemeber = pu.getPropertyDescriptors(memberDto);
+					PropertyDescriptor[] dsMemeber = pu.getPropertyDescriptors(memberDto.getClass());
 					PropertyDescriptor listPropertyDescriptor = null;
 					for (PropertyDescriptor propertyDescriptor : dsMemeber) {
 						if (propertyDescriptor.getPropertyType().equals(List.class)) {
 							listPropertyDescriptor = propertyDescriptor;
 						}
 					}
-					if (listPropertyDescriptor != null) {
-						List<ObjectId<Long>> listDto = (List<ObjectId<Long>>) pu.getProperty(memberDto,
+
+					boolean goFurther = listPropertyDescriptor.getName().equals("informationSource")
+							&& objectDto instanceof InformationSource;
+
+					if (listPropertyDescriptor != null && goFurther) {
+						List<ObjectId<Long>> listDto = (List<ObjectId<Long>>) pu.getIndexedProperty(memberDto,
 								listPropertyDescriptor.getName());
-						List<ObjectId<Long>> listEm = (List<ObjectId<Long>>) pu.getProperty(memberEm,
+						List<ObjectId<Long>> listEm = (List<ObjectId<Long>>) pu.getIndexedProperty(memberEm,
 								listPropertyDescriptor.getName());
 						uMany1.update(em, objectEm, memberEm, memberDto, objectDto, listEm, listDto, d.getName());
 					} else {
@@ -121,57 +127,6 @@ public class Update1nCardinality<T> {
 			}
 		}
 
-	}
-
-	/**
-	 * copy all other properties, except: List, Long, Integer, String, MultiLingualString
-	 * 
-	 * 
-	 * @param em
-	 * @param objectDto
-	 * @param objectEm
-	 */
-	public void processOtherProperties(EntityManager em, ObjectId<Long> source, ObjectId<Long> destination) {
-		PropertyUtilsBean u = new PropertyUtilsBean();
-		PropertyDescriptor[] ds = u.getPropertyDescriptors(source);
-		for (PropertyDescriptor d : ds) {
-			System.out.println(d.getPropertyType());
-
-			if (!CLASSES.contains(d.getPropertyType()) && !d.getPropertyType().equals(MultiLingualString.class)
-					&& !d.getPropertyType().equals(List.class) && !d.getPropertyType().equals(Class.class)) {
-				try {
-					System.out.println("hit!");
-
-					// ObjectId<Long> sourcePropertyUtils.getProperty(source, d.getName());
-
-					PropertyUtils.setProperty(destination, d.getName(), PropertyUtils.getProperty(source, d.getName()));
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-					throw new VmeException(e);
-				}
-			}
-		}
-
-	}
-
-	/**
-	 * Copy only the Long, Integer and String properties
-	 * 
-	 * 
-	 * @param source
-	 * @param destination
-	 */
-	public void copyCertainProperties(Object source, Object destination) {
-		PropertyUtilsBean u = new PropertyUtilsBean();
-		PropertyDescriptor[] ds = u.getPropertyDescriptors(source);
-		for (PropertyDescriptor d : ds) {
-			if (CLASSES.contains(d.getPropertyType())) {
-				try {
-					BeanUtils.copyProperty(destination, d.getName(), BeanUtils.getProperty(source, d.getName()));
-				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-					throw new VmeException(e);
-				}
-			}
-		}
 	}
 
 	private void setParent(ObjectId<Long> parent, ObjectId<Long> dto) {

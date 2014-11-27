@@ -1,22 +1,14 @@
 package org.vme.dao.sources.vme;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.beanutils.PropertyUtilsBean;
-import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.ObjectId;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
-import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.junit.Test;
 
@@ -25,47 +17,52 @@ public class Update1nCardinalityTest {
 	Update1nCardinality<Profile> u1n = new Update1nCardinality<Profile>();
 	DummyEm em = new DummyEm();
 
-	@Test
-	public void erik() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		SpecificMeasure source = new SpecificMeasure();
-		source.setValidityPeriod(ValidityPeriodMock.create());
-		SpecificMeasure destination = new SpecificMeasure();
-
-		PropertyUtilsBean l = new PropertyUtilsBean();
-		l.setProperty(destination, "validityPeriod", source.getValidityPeriod());
-
-		assertTrue(destination.getValidityPeriod() instanceof ValidityPeriod);
-	}
-
+	/**
+	 * 
+	 * 
+	 * 
+	 */
 	@Test
 	public void testProcessOtherProperties() {
-		SpecificMeasure source = new SpecificMeasure();
-		InformationSource is1 = new InformationSource();
+		DummyEm em = new DummyEm();
 
-		List<SpecificMeasure> sList = new ArrayList<SpecificMeasure>();
-		sList.add(source);
-		is1.setSpecificMeasureList(sList);
-		source.setInformationSource(is1);
+		SpecificMeasure specificMeasureManaged = new SpecificMeasure();
+		em.persist(specificMeasureManaged);
+		SpecificMeasure specificMeasureDto = new SpecificMeasure();
 
-		// 1 to 1
-		SpecificMeasure destination = new SpecificMeasure();
-		u1n.processOtherProperties(em, source, destination);
-		assertEquals(source.getInformationSource(), destination.getInformationSource());
+		List<SpecificMeasure> specificMeasureListManaged = new ArrayList<SpecificMeasure>();
+		List<SpecificMeasure> specificMeasureListDto = new ArrayList<SpecificMeasure>();
 
-		// 1 to 0
-		source.setInformationSource(null);
-		u1n.processOtherProperties(em, source, destination);
-		assertNull(destination.getInformationSource());
+		Vme vmeManaged = new Vme();
+		em.persist(vmeManaged);
 
 		// 0 to 0
-		source.setInformationSource(null);
-		u1n.processOtherProperties(em, source, destination);
-		assertNull(destination.getInformationSource());
+		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
+		assertEquals(0, specificMeasureListManaged.size());
 
 		// 0 to 1
-		source.setInformationSource(is1);
-		u1n.processOtherProperties(em, source, destination);
-		assertEquals(is1, destination.getInformationSource());
+		specificMeasureListDto.add(specificMeasureDto);
+		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
+		assertEquals(1, specificMeasureListManaged.size());
+
+		specificMeasureListDto.remove(specificMeasureDto);
+		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
+		assertEquals(0, specificMeasureListManaged.size());
+		// 1 to 0
+
+		// 1 to 1
+		specificMeasureListDto.add(specificMeasureDto);
+		assertEquals(0, specificMeasureListManaged.size());
+		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
+		assertEquals(1, specificMeasureListManaged.size());
+
+		// 1 to another 1
+		specificMeasureListDto.remove(specificMeasureDto);
+		SpecificMeasure anotherDto = new SpecificMeasure();
+		specificMeasureListDto.add(anotherDto);
+		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
+		assertEquals(1, specificMeasureListManaged.size());
+		assertEquals(anotherDto, specificMeasureListManaged.get(0));
 
 	}
 
@@ -108,18 +105,4 @@ public class Update1nCardinalityTest {
 		assertEquals(1, found);
 	}
 
-	@Test
-	public void testCopyCertainProperties() {
-		Update1nCardinality<Profile> u1n = new Update1nCardinality<Profile>();
-		Profile source = new Profile();
-		source.setVme(new Vme());
-		Profile destination = new Profile();
-		u1n.copyCertainProperties(source, destination);
-		assertFalse(source.getVme().equals(destination.getVme()));
-
-		source.setId(100l);
-		u1n.copyCertainProperties(source, destination);
-		assertTrue(source.getId().equals(destination.getId()));
-
-	}
 }
