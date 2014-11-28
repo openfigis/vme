@@ -9,7 +9,7 @@ import org.fao.fi.vme.domain.model.SpecificMeasure;
 
 public class WorkAroundSpecificMeasureFilter {
 
-	List<SpecificMeasure> filter(List<SpecificMeasure> redundantList) {
+	public List<SpecificMeasure> filter(List<SpecificMeasure> redundantList) {
 		List<SpecificMeasure> nonRedundantList = new ArrayList<SpecificMeasure>();
 		Set<Long> set = new HashSet<Long>();
 		for (SpecificMeasure specificMeasure : redundantList) {

@@ -12,12 +12,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
+import org.fao.fi.figis.devcon.VME;
 import org.fao.fi.vme.domain.model.ObjectId;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.Vme;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.Dao;
 import org.vme.dao.VmeDaoException;
+import org.vme.dao.sources.vme.WorkAroundSpecificMeasureFilter;
 
 /**
  * 
@@ -51,7 +55,26 @@ public abstract class AbstractJPADao implements Dao {
 
 	@Override
 	public <E> Collection<E> filterEntities(EntityManager em, Class<E> entity, Map<String, Object> criteria) {
-		return (Collection<E>) this.generateFilteringTypedQuery(em, entity, criteria).getResultList();
+
+		Collection<E> list = (Collection<E>) this.generateFilteringTypedQuery(em, entity, criteria).getResultList();
+		if (entity.equals(VME.class)) {
+			for (E e : list) {
+				Vme vme = (Vme) e;
+				WorkAroundSpecificMeasureFilter w = new WorkAroundSpecificMeasureFilter();
+				if (vme.getSpecificMeasureList() != null) {
+					List<SpecificMeasure> filtered = w.filter(vme.getSpecificMeasureList());
+					vme.setSpecificMeasureList(filtered);
+				}
+			}
+		}
+
+		if (entity.equals(SpecificMeasure.class)) {
+			WorkAroundSpecificMeasureFilter w = new WorkAroundSpecificMeasureFilter();
+			List<SpecificMeasure> filtered = w.filter((List<SpecificMeasure>) list);
+			list = (Collection<E>) filtered;
+		}
+
+		return list;
 	}
 
 	protected <E> TypedQuery<E> generateFilteringTypedQuery(EntityManager em, Class<E> entity,
