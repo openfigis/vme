@@ -36,9 +36,8 @@ public class VmeDaoTestGm {
 	private VmeDao dao;
 
 	@Test
-	@Ignore
 	public void find() throws Throwable {
-		Vme vme = dao.getEm().find(Vme.class, 31856l);
+		Vme vme = dao.getEm().find(Vme.class, 23787l);
 		System.out.println(vme.getSpecificMeasureList().size());
 
 	}

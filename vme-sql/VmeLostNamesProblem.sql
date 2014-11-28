@@ -43,14 +43,26 @@ from multilingual_string m , multilingualstring_stringmap s
 where m.id = s.multilingualstring_id (+)
 and s.multilingualstring_id is null
 -- the proof that indeed 614 registered strings have lost their value. 
+-- qa 0
+-- prod 293
 
 select count(*) from multilingual_string m 
 -- so 5090 registered strings in total
+-- qa 6320
+-- 6323
 
 select count(*) from multilingualstring_stringmap m 
 -- and 4476 values. 
+-- qa 6319
 
 
 select multilingualstring_id, stringmap from multilingualstring_stringmap
+
+
+-- devel: Total amount of MultiLingualStrings 6073. Numer of Registered Without String 0. Number of fixes applied: 0.
+-- Total amount of MultiLingualStrings 6323. Numer of Registered Without String 4. Number of fixes applied: 4.
+
+
+
 
 
