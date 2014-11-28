@@ -38,7 +38,7 @@ public class VmeDaoTestGm {
 	@Test
 	@Ignore
 	public void find() throws Throwable {
-		Vme vme = dao.getEm().find(Vme.class, 31939l);
+		Vme vme = dao.getEm().find(Vme.class, 31856l);
 		System.out.println(vme.getSpecificMeasureList().size());
 
 	}
@@ -63,29 +63,30 @@ public class VmeDaoTestGm {
 
 	}
 
-	// @Test
+	@Test
+	@Ignore
 	public void testAddingInformationSource2SpecificMeasure() throws Throwable {
 
-		Vme vme = dao.getEm().find(Vme.class, 31851l);
+		Vme vmeManaged = dao.getEm().find(Vme.class, 31856l);
 
-		InformationSource informationSourceDto = new InformationSource();
-		informationSourceDto.setId(23050l);
-
-		for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
+		for (SpecificMeasure specificMeasure : vmeManaged.getSpecificMeasureList()) {
 			System.out.println(specificMeasure.getId());
 		}
 
 		System.out.println("applying filter");
 		WorkAroundSpecificMeasureFilter f = new WorkAroundSpecificMeasureFilter();
 
-		vme.setSpecificMeasureList(f.filter(vme.getSpecificMeasureList()));
+		vmeManaged.setSpecificMeasureList(f.filter(vmeManaged.getSpecificMeasureList()));
+
+		InformationSource informationSourceDto = new InformationSource();
+		informationSourceDto.setId(23050l);
 
 		// 31931
-		for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
+		for (SpecificMeasure specificMeasure : vmeManaged.getSpecificMeasureList()) {
 			System.out.println(specificMeasure.getId());
 		}
 
-		SpecificMeasure smManaged = vme.getSpecificMeasureList().get(0);
+		SpecificMeasure smManaged = vmeManaged.getSpecificMeasureList().get(0);
 
 		SpecificMeasure smDto = new SpecificMeasure();
 		smDto.setId(smManaged.getId());
@@ -93,19 +94,18 @@ public class VmeDaoTestGm {
 
 		List<SpecificMeasure> smDtoList = new ArrayList<SpecificMeasure>();
 		smDtoList.add(smDto);
-		vme.setSpecificMeasureList(smDtoList);
 
 		Vme vmeDto = new Vme();
-		vmeDto.setId(vme.getId());
+		vmeDto.setId(vmeManaged.getId());
 		vmeDto.setSpecificMeasureList(smDtoList);
-		vmeDto.setRfmo(vme.getRfmo());
+		vmeDto.setRfmo(vmeManaged.getRfmo());
 
 		EntityTransaction et = dao.getEm().getTransaction();
 		et.begin();
 		dao.update(vmeDto);
 		et.commit();
 
-		Vme vmeNew = dao.getEm().find(Vme.class, 31851l);
+		Vme vmeNew = dao.getEm().find(Vme.class, 31856l);
 		assertNotNull(vmeNew.getSpecificMeasureList());
 		assertTrue(vmeNew.getSpecificMeasureList().size() > 0);
 		assertNotNull(vmeNew.getSpecificMeasureList().get(0).getInformationSource());
