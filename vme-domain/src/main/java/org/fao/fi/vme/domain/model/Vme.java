@@ -269,104 +269,88 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((areaType == null) ? 0 : areaType.hashCode());
+		result = prime * result + ((criteria == null) ? 0 : criteria.hashCode());
+		result = prime * result + ((geoArea == null) ? 0 : geoArea.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((inventoryIdentifier == null) ? 0 : inventoryIdentifier.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((scope == null) ? 0 : scope.hashCode());
+		result = prime * result + ((validityPeriod == null) ? 0 : validityPeriod.hashCode());
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
-
 		if (obj == null) {
 			return false;
 		}
-
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-
 		Vme other = (Vme) obj;
-
-		if (this.geoRefList == null && other.geoRefList != null || this.geoRefList != null && other.geoRefList == null) {
-			return false;
-		} else if (this.geoRefList.hashCode() != other.geoRefList.hashCode()) {
-			return false;
-		}
-
-		if (this.id == null && other.id != null || this.id != null && other.id == null) {
-			return false;
-		} else if (!this.id.equals(other.id)) {
+		if (areaType == null) {
+			if (other.areaType != null) {
+				return false;
+			}
+		} else if (!areaType.equals(other.areaType)) {
 			return false;
 		}
-
-		if (this.scope == null && other.scope != null) {
-			return false;
-		} else if (this.scope != other.scope) {
-			return false;
-		}
-
-		if (this.areaType == null && other.areaType != null || this.areaType != null && other.areaType == null) {
-			return false;
-		} else if (!this.areaType.equals(other.areaType)) {
+		if (criteria == null) {
+			if (other.criteria != null) {
+				return false;
+			}
+		} else if (!criteria.equals(other.criteria)) {
 			return false;
 		}
-
-		if (this.criteria == null && other.criteria != null || this.criteria != null && other.criteria == null) {
-			return false;
-		} else if (!this.criteria.equals(other.criteria)) {
-			return false;
-		}
-
-		if (this.geoArea == null && other.geoArea != null || this.geoArea != null && other.geoArea == null) {
-			return false;
-		} else if (!this.geoArea.equals(other.geoArea)) {
+		if (geoArea == null) {
+			if (other.geoArea != null) {
+				return false;
+			}
+		} else if (!geoArea.equals(other.geoArea)) {
 			return false;
 		}
-
-		if (this.inventoryIdentifier == null && other.inventoryIdentifier != null || this.inventoryIdentifier != null
-				&& other.inventoryIdentifier == null) {
-			return false;
-		} else if (!this.inventoryIdentifier.equals(other.inventoryIdentifier)) {
-			return false;
-		}
-
-		if (this.name == null && other.name != null || this.name != null && other.name == null) {
-			return false;
-		} else if (!this.name.equals(other.name)) {
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
 		}
-
-		if (this.profileList == null && other.profileList != null) {
-			return false;
-		} else if (!this.profileList.equals(other.profileList)) {
-			return false;
-		}
-
-		if (this.rfmo == null && other.rfmo != null || this.rfmo != null && other.rfmo == null) {
-			return false;
-		} else if (!this.rfmo.equals(other.rfmo)) {
+		if (inventoryIdentifier == null) {
+			if (other.inventoryIdentifier != null) {
+				return false;
+			}
+		} else if (!inventoryIdentifier.equals(other.inventoryIdentifier)) {
 			return false;
 		}
-
-		if (this.specificMeasureList == null && other.specificMeasureList != null || this.specificMeasureList != null
-				&& other.specificMeasureList == null) {
-			return false;
-		} else if (!this.specificMeasureList.equals(other.specificMeasureList)) {
-			return false;
-		}
-
-		if (this.mediaReferenceList == null && other.mediaReferenceList != null || this.mediaReferenceList != null
-				&& other.mediaReferenceList == null) {
-			return false;
-		} else if (!this.mediaReferenceList.equals(other.mediaReferenceList)) {
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
 			return false;
 		}
-
-		if (this.validityPeriod == null && other.validityPeriod != null || this.validityPeriod != null
-				&& other.validityPeriod == null) {
-			return false;
-		} else if (!this.validityPeriod.equals(other.validityPeriod)) {
+		if (scope == null) {
+			if (other.scope != null) {
+				return false;
+			}
+		} else if (!scope.equals(other.scope)) {
 			return false;
 		}
-
+		if (validityPeriod == null) {
+			if (other.validityPeriod != null) {
+				return false;
+			}
+		} else if (!validityPeriod.equals(other.validityPeriod)) {
+			return false;
+		}
 		return true;
 	}
 

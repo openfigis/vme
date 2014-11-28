@@ -58,11 +58,9 @@ public class Rfmo implements ReferenceReport, Serializable {
 	private List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 
 	/*
-	 * FetchType.LAZY instead of FetchType.EAGER was necessary in order to avoid
-	 * the
-	 * "MultipleBagFetchException: cannot simultaneously fetch multiple bags"
-	 * TODO: Investigate this more, because using LAZY here would not
-	 * necessarily be a robust solution.
+	 * FetchType.LAZY instead of FetchType.EAGER was necessary in order to avoid the
+	 * "MultipleBagFetchException: cannot simultaneously fetch multiple bags" TODO: Investigate this more, because using
+	 * LAZY here would not necessarily be a robust solution.
 	 */
 	// @RSGName("Fishery Areas History")
 	@OneToMany(mappedBy = "rfmo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -120,32 +118,14 @@ public class Rfmo implements ReferenceReport, Serializable {
 		this.hasVmesHistory = hasVmesHistory;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.generalMeasureList == null) ? 0 :
-			this.generalMeasureList.hashCode());
-		result = prime * result + ((this.hasFisheryAreasHistory == null) ? 0 :
-			this.hasFisheryAreasHistory.hashCode());
-		result = prime * result + ((this.hasVmesHistory == null) ? 0 :
-			this.hasVmesHistory.hashCode());
-		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-		result = prime * result + ((this.informationSourceList == null) ? 0 :
-			this.informationSourceList.hashCode());
-		result = prime * result + ((this.listOfManagedVmes == null) ? 0 :
-			this.listOfManagedVmes.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -158,48 +138,14 @@ public class Rfmo implements ReferenceReport, Serializable {
 			return false;
 		}
 		Rfmo other = (Rfmo) obj;
-		if (this.generalMeasureList == null) {
-			if (other.generalMeasureList != null) {
-				return false;
-			}
-		} else if (!this.generalMeasureList.equals(other.generalMeasureList)) {
-			return false;
-		}
-		if (this.hasFisheryAreasHistory == null) {
-			if (other.hasFisheryAreasHistory != null) {
-				return false;
-			}
-		} else if (!this.hasFisheryAreasHistory.equals(other.hasFisheryAreasHistory)) {
-			return false;
-		}
-		if (this.hasVmesHistory == null) {
-			if (other.hasVmesHistory != null) {
-				return false;
-			}
-		} else if (!this.hasVmesHistory.equals(other.hasVmesHistory)) {
-			return false;
-		}
-		if (this.id == null) {
+		if (id == null) {
 			if (other.id != null) {
 				return false;
 			}
-		} else if (!this.id.equals(other.id)) {
-			return false;
-		}
-		if (this.informationSourceList == null) {
-			if (other.informationSourceList != null) {
-				return false;
-			}
-		} else if (!this.informationSourceList.equals(other.informationSourceList)) {
-			return false;
-		}
-		if (this.listOfManagedVmes == null) {
-			if (other.listOfManagedVmes != null) {
-				return false;
-			}
-		} else if (!this.listOfManagedVmes.equals(other.listOfManagedVmes)) {
+		} else if (!id.equals(other.id)) {
 			return false;
 		}
 		return true;
 	}
+
 }

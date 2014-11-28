@@ -11,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -70,8 +69,14 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 	/**
 	 * InformationSource has 0,1 SpecificMeasure
 	 */
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "IS_SM")
+	// @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	// @JoinTable(name = "IS_SM")
+	/*
+	 * Intervention Erik van Ingen The jointable IS_SM is not necessary because it is a 1toMany relation from a
+	 * information source point of view. Therefore the annotation have been modified. From now on the IS_SM is useless
+	 * because the relation will be managed by the specificmeaure.informationsource_id field in the DB.
+	 */
+	@OneToMany(mappedBy = "informationSource", cascade = { CascadeType.REFRESH })
 	private List<SpecificMeasure> specificMeasureList;
 
 	/**

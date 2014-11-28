@@ -9,7 +9,7 @@ import java.util.Map;
 import org.fao.fi.vme.domain.model.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
-import org.fao.fi.vme.domain.model.InformationSource;
+//import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
@@ -120,7 +120,7 @@ public class VmeMock {
 
 		vme.setScope(VME_SCOPE);
 
-		List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
+		// List<InformationSource> informationSourceList = new ArrayList<InformationSource>();
 		List<Profile> pList = new ArrayList<Profile>();
 		List<SpecificMeasure> specificMeasureList = new ArrayList<SpecificMeasure>();
 		List<GeneralMeasure> generalMeasureList = new ArrayList<GeneralMeasure>();
@@ -134,15 +134,15 @@ public class VmeMock {
 			int year = startYear + i;
 
 			// this one is used for the genericMeasure
-			InformationSource is = InformationSourceMock.create();
-			is.setPublicationYear(year);
-			is.setSourceType(ist);
-			informationSourceList.add(is);
+			// InformationSource is = InformationSourceMock.create();
+			// is.setPublicationYear(year);
+			// is.setSourceType(ist);
+			// informationSourceList.add(is);
 
 			// this one is used for the specificMeasure
-			InformationSource isSm = InformationSourceMock.create();
-			isSm.setPublicationYear(year);
-			isSm.setCitation(u.english(SPEC_MEASURE_CIT));
+			// InformationSource isSm = InformationSourceMock.create();
+			// isSm.setPublicationYear(year);
+			// isSm.setCitation(u.english(SPEC_MEASURE_CIT));
 
 			FisheryAreasHistory fahistory = new FisheryAreasHistory();
 			fahistory.setYear(year);
@@ -170,7 +170,7 @@ public class VmeMock {
 			specificMeasure.setYear(year);
 			specificMeasure.setVmeSpecificMeasure(u.english("A specific measure for the year " + year));
 			specificMeasure.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
-			specificMeasure.setInformationSource(isSm);
+			// specificMeasure.setInformationSource(isSm);
 			specificMeasure.setReviewYear(year + 1);
 			specificMeasure.setVme(vme);
 			specificMeasureList.add(specificMeasure);
@@ -192,10 +192,10 @@ public class VmeMock {
 			gm.setVmeThreshold(u.english("a [VmeThreshold] general measure"));
 			gm.setVmeIndicatorSpecies(u.english("a [VmeIndicatorSpecies] general measure"));
 			gm.setValidityPeriod(ValidityPeriodMock.create(year, year + 1));
-			gm.setInformationSourceList(Arrays.asList(is));
-			for (InformationSource is1 : gm.getInformationSourceList()) {
-				is1.setCitation(u.english(SPEC_MEASURE_CIT));
-			}
+			// gm.setInformationSourceList(Arrays.asList(is));
+			// for (InformationSource is1 : gm.getInformationSourceList()) {
+			// is1.setCitation(u.english(SPEC_MEASURE_CIT));
+			// }
 			generalMeasureList.add(gm);
 
 		}
@@ -212,7 +212,7 @@ public class VmeMock {
 
 		rfmo.setHasFisheryAreasHistory(fishingHistoryList);
 		rfmo.setHasVmesHistory(hasVmesHistory);
-		rfmo.setInformationSourceList(informationSourceList);
+		// rfmo.setInformationSourceList(informationSourceList);
 		rfmo.setGeneralMeasureList(generalMeasureList);
 
 		vme.setMediaReferenceList(MediaReferenceMock.createList(vme));

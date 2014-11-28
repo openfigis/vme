@@ -122,6 +122,9 @@ public class Update1nCardinality {
 		PropertyUtilsBean pu = new PropertyUtilsBean();
 		PropertyDescriptor[] ds = pu.getPropertyDescriptors(objectDto.getClass());
 
+		// do the multilingual stuff
+		u.copyMultiLingual(objectDto, objectEm);
+
 		for (PropertyDescriptor d : ds) {
 			try {
 				if (CLASSES.contains(d.getPropertyType())) {
@@ -129,10 +132,8 @@ public class Update1nCardinality {
 					pu.setProperty(objectEm, d.getName(), pu.getProperty(objectDto, d.getName()));
 				}
 
-				// do the multilingual stuff
-				u.copyMultiLingual(objectDto, objectEm);
-
-				if (objectDto instanceof SpecificMeasure) {
+				if (objectDto instanceof SpecificMeasure && d.getPropertyType().equals(InformationSource.class)) {
+					// this is a many to one relation
 					processCopyInformationSource(em, (SpecificMeasure) objectDto, (SpecificMeasure) objectDto);
 				}
 			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -144,15 +145,22 @@ public class Update1nCardinality {
 
 	private void processCopyInformationSource(EntityManager em, SpecificMeasure dto, SpecificMeasure managed) {
 
+		if (managed.getInformationSource() != null && managed.getInformationSource().getSpecificMeasureList() != null) {
+			LOG.info("Number of SpecificMeasures on informationSource "
+					+ managed.getInformationSource().getSpecificMeasureList().size());
+		}
+
 		boolean processed = false;
 
 		// 0 to 0
 		if (dto.getInformationSource() == null && managed.getInformationSource() == null) {
+			LOG.info(" 0 to 0");
 			processed = true;
 		}
 
 		// 0 to 1
 		if (!processed && dto.getInformationSource() != null && managed.getInformationSource() == null) {
+			LOG.info(" 0 to 1");
 			InformationSource isManaged = em.find(InformationSource.class, dto.getInformationSource().getId());
 			managed.setInformationSource(isManaged);
 			isManaged.getSpecificMeasureList().add(managed);
@@ -163,6 +171,7 @@ public class Update1nCardinality {
 
 		// 1 to 0
 		if (!processed && dto.getInformationSource() == null && managed.getInformationSource() != null) {
+			LOG.info(" 1 to 0");
 			managed.setInformationSource(null);
 			managed.getInformationSource().getSpecificMeasureList().remove(managed);
 			em.merge(managed);
@@ -172,6 +181,8 @@ public class Update1nCardinality {
 
 		// 1 to another 1
 		if (!processed && !dto.getInformationSource().getId().equals(managed.getInformationSource().getId())) {
+			LOG.info("1 to another 1");
+
 			InformationSource isManagedNew = em.find(InformationSource.class, dto.getInformationSource().getId());
 
 			// remove the old one
@@ -186,6 +197,7 @@ public class Update1nCardinality {
 
 		// 1 to 1
 		if (!processed && dto.getInformationSource().getId().equals(managed.getInformationSource().getId())) {
+			LOG.info(" 1 to 1");
 			processed = true;
 		}
 
@@ -196,15 +208,20 @@ public class Update1nCardinality {
 	}
 
 	private void setParent(ObjectId<Long> parent, ObjectId<Long> dto) {
+		boolean done = false;
 		Method[] methods = dto.getClass().getMethods();
 		for (Method method : methods) {
 			if (method.getName().startsWith("set") && method.getParameterTypes()[0].equals(parent.getClass())) {
 				try {
 					method.invoke(dto, parent);
+					done = true;
 				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					throw new VmeException(e);
 				}
 			}
+		}
+		if (!done) {
+			throw new VmeException("No managed to set the parent");
 		}
 	}
 }

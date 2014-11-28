@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -45,18 +46,21 @@ public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, S
 	private Long id;
 
 	/**
-	 * The SpecificMeasure is defined on the level of this VME, sometimes
-	 * applies also to other VMEs.
+	 * The SpecificMeasure is defined on the level of this VME, sometimes applies also to other VMEs.
 	 */
 	/*
 	 * This is the inverse side of the ManyToMany relationship
 	 */
+
 	@ManyToOne
+	@JoinColumn(name = "vme_id")
 	private Vme vme;
 
 	@RSGName("Source Of Information")
 	@RSGWeight(100)
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	// @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToOne(cascade = { CascadeType.REFRESH })
+	@JoinColumn(name = "informationsource_id")
 	private InformationSource informationSource;
 
 	/**
@@ -77,8 +81,7 @@ public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, S
 	/**
 	 * Review year. Year in which this measure will be reviewed/is reviewed.
 	 * 
-	 * This attribute has been added to the Vme model as a result of the Vme
-	 * workshop Rome 2014
+	 * This attribute has been added to the Vme model as a result of the Vme workshop Rome 2014
 	 * 
 	 */
 	@RSGName("Review Year")
@@ -159,20 +162,14 @@ public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, S
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-		result = prime * result + ((this.informationSource == null) ? 0 : this.informationSource.hashCode());
-		result = prime * result + ((this.validityPeriod == null) ? 0 : this.validityPeriod.hashCode());
-		result = prime * result + ((this.vme == null) ? 0 : this.vme.hashCode());
-		result = prime * result + ((this.vmeSpecificMeasure == null) ? 0 : this.vmeSpecificMeasure.hashCode());
-		result = prime * result + ((this.year == null) ? 0 : this.year.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((reviewYear == null) ? 0 : reviewYear.hashCode());
+		result = prime * result + ((validityPeriod == null) ? 0 : validityPeriod.hashCode());
+		result = prime * result + ((vmeSpecificMeasure == null) ? 0 : vmeSpecificMeasure.hashCode());
+		result = prime * result + ((year == null) ? 0 : year.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -185,36 +182,42 @@ public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, S
 			return false;
 		}
 		SpecificMeasure other = (SpecificMeasure) obj;
-		if (this.id == null && other.id != null) {
-			return false;
-		} else if (!this.id.equals(other.id)) {
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
 		}
-		if (this.informationSource == null && other.informationSource != null) {
+		if (reviewYear == null) {
+			if (other.reviewYear != null) {
 				return false;
-		} else if (!this.informationSource.equals(other.informationSource)) {
+			}
+		} else if (!reviewYear.equals(other.reviewYear)) {
 			return false;
 		}
-		if (this.validityPeriod == null && other.validityPeriod != null) {
+		if (validityPeriod == null) {
+			if (other.validityPeriod != null) {
 				return false;
-		} else if (!this.validityPeriod.equals(other.validityPeriod)) {
+			}
+		} else if (!validityPeriod.equals(other.validityPeriod)) {
 			return false;
 		}
-		if (this.vme == null && other.vme != null) {
+		if (vmeSpecificMeasure == null) {
+			if (other.vmeSpecificMeasure != null) {
 				return false;
-		} else if (!this.vme.equals(other.vme)) {
+			}
+		} else if (!vmeSpecificMeasure.equals(other.vmeSpecificMeasure)) {
 			return false;
 		}
-		if (this.vmeSpecificMeasure == null && other.vmeSpecificMeasure != null) {
+		if (year == null) {
+			if (other.year != null) {
 				return false;
-		} else if (!this.vmeSpecificMeasure.equals(other.vmeSpecificMeasure)) {
-			return false;
-		}
-		if (this.year == null && other.year != null) {
-				return false;
-		} else if (!this.year.equals(other.year)) {
+			}
+		} else if (!year.equals(other.year)) {
 			return false;
 		}
 		return true;
 	}
+
 }

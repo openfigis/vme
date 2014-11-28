@@ -1,8 +1,11 @@
 package org.vme.dao.sources.vme;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityTransaction;
@@ -10,12 +13,15 @@ import javax.persistence.EntityTransaction;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
+import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.GeneralMeasureMock;
 import org.fao.fi.vme.domain.test.InformationSourceMock;
 import org.fao.fi.vme.domain.test.RfmoMock;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
@@ -30,6 +36,84 @@ public class VmeDaoTestGm {
 	private VmeDao dao;
 
 	@Test
+	@Ignore
+	public void find() throws Throwable {
+		Vme vme = dao.getEm().find(Vme.class, 31939l);
+		System.out.println(vme.getSpecificMeasureList().size());
+
+	}
+
+	@Test
+	@Ignore
+	public void analyzingDoubleSpecificMeasures() throws Throwable {
+		Vme vme = new Vme();
+		SpecificMeasure sm = new SpecificMeasure();
+
+		sm.setVme(vme);
+
+		List<SpecificMeasure> list = new ArrayList<SpecificMeasure>();
+		list.add(sm);
+		vme.setSpecificMeasureList(list);
+
+		EntityTransaction et = dao.getEm().getTransaction();
+		et.begin();
+		dao.getEm().persist(vme);
+		et.commit();
+		System.out.println(vme.getId());
+
+	}
+
+	// @Test
+	public void testAddingInformationSource2SpecificMeasure() throws Throwable {
+
+		Vme vme = dao.getEm().find(Vme.class, 31851l);
+
+		InformationSource informationSourceDto = new InformationSource();
+		informationSourceDto.setId(23050l);
+
+		for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
+			System.out.println(specificMeasure.getId());
+		}
+
+		System.out.println("applying filter");
+		WorkAroundSpecificMeasureFilter f = new WorkAroundSpecificMeasureFilter();
+
+		vme.setSpecificMeasureList(f.filter(vme.getSpecificMeasureList()));
+
+		// 31931
+		for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
+			System.out.println(specificMeasure.getId());
+		}
+
+		SpecificMeasure smManaged = vme.getSpecificMeasureList().get(0);
+
+		SpecificMeasure smDto = new SpecificMeasure();
+		smDto.setId(smManaged.getId());
+		smDto.setInformationSource(informationSourceDto);
+
+		List<SpecificMeasure> smDtoList = new ArrayList<SpecificMeasure>();
+		smDtoList.add(smDto);
+		vme.setSpecificMeasureList(smDtoList);
+
+		Vme vmeDto = new Vme();
+		vmeDto.setId(vme.getId());
+		vmeDto.setSpecificMeasureList(smDtoList);
+		vmeDto.setRfmo(vme.getRfmo());
+
+		EntityTransaction et = dao.getEm().getTransaction();
+		et.begin();
+		dao.update(vmeDto);
+		et.commit();
+
+		Vme vmeNew = dao.getEm().find(Vme.class, 31851l);
+		assertNotNull(vmeNew.getSpecificMeasureList());
+		assertTrue(vmeNew.getSpecificMeasureList().size() > 0);
+		assertNotNull(vmeNew.getSpecificMeasureList().get(0).getInformationSource());
+
+	}
+
+	@Test
+	@Ignore
 	public void testCreateGeneralMeasure() throws Throwable {
 
 		Rfmo rfmo = RfmoMock.create();
@@ -48,6 +132,7 @@ public class VmeDaoTestGm {
 	}
 
 	@Test
+	@Ignore
 	public void testUpdateGmAddInformationSource() throws Throwable {
 
 		GeneralMeasure gm = GeneralMeasureMock.create();

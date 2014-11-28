@@ -1,7 +1,6 @@
 package org.fao.fi.vme.domain.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -16,20 +15,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class RfmoTest {
-	
+
 	private Rfmo r1;
 	private Rfmo r2;
 	private MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
-	
+
 	@Before
-	public void before(){
+	public void before() {
 		r1 = RfmoMock.create();
 		r2 = RfmoMock.create();
 	}
 
 	@Test
 	public void testHashCode() {
-		assertTrue(r1.hashCode() != r2.hashCode());
+		assertTrue(r1.hashCode() == r2.hashCode());
 	}
 
 	@Test
@@ -125,7 +124,7 @@ public class RfmoTest {
 
 	@Test
 	public void testEqualsObject() {
-		assertNotEquals(r1, r2);
+		assertEquals(r1, r2);
 	}
 
 }
