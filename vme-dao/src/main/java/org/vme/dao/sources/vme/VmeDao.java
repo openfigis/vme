@@ -563,9 +563,9 @@ public class VmeDao extends AbstractJPADao {
 		}
 
 		Update1nCardinality u1n = new Update1nCardinality();
-		// u1n.update(em, vmeManaged, vmeDto.getGeoRefList(), vmeManaged.getGeoRefList());
-		// u1n.update(em, vmeManaged, vmeDto.getMediaReferenceList(), vmeManaged.getMediaReferenceList());
-		// u1n.update(em, vmeManaged, vmeDto.getProfileList(), vmeManaged.getProfileList());
+		u1n.update(em, vmeManaged, vmeDto.getGeoRefList(), vmeManaged.getGeoRefList());
+		u1n.update(em, vmeManaged, vmeDto.getMediaReferenceList(), vmeManaged.getMediaReferenceList());
+		u1n.update(em, vmeManaged, vmeDto.getProfileList(), vmeManaged.getProfileList());
 
 		if (vmeDto.getSpecificMeasureList() != null) {
 			logggg("vmeDto", vmeDto.getSpecificMeasureList());

@@ -1,6 +1,7 @@
 package org.vme.dao.sources.vme;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
@@ -25,6 +26,50 @@ public class Update1nCardinalityTest {
 	public void before() {
 		u1n = new Update1nCardinality();
 		em = new DummyEm();
+	}
+
+	/**
+	 * Solving this bug: java.lang.NullPointerException at
+	 * org.vme.dao.sources.vme.Update1nCardinality.processCopyInformationSource(Update1nCardinality.java:176)
+	 * 
+	 * This test is a kind of repetition of 1 to 0 of testUpdateCRUDInformationSource
+	 * 
+	 */
+	@Test
+	public void testProcessCopyInformationSource() {
+
+		InformationSource informationSourceManaged = new InformationSource();
+		em.persist(informationSourceManaged);
+		List<SpecificMeasure> specificMeasureListManaged = new ArrayList<SpecificMeasure>();
+		informationSourceManaged.setSpecificMeasureList(specificMeasureListManaged);
+
+		em.persist(informationSourceManaged);
+
+		SpecificMeasure specificMeasureManaged = new SpecificMeasure();
+		specificMeasureManaged.setInformationSource(informationSourceManaged);
+		specificMeasureListManaged.add(specificMeasureManaged);
+
+		em.persist(specificMeasureManaged);
+		// this is a strange hack. Probably because the em is not running in an transaction, it is not setting the id
+
+		if (em instanceof DummyEm) {
+
+			SpecificMeasure specificMeasureDto = new SpecificMeasure();
+
+			List<SpecificMeasure> specificMeasureListDto = new ArrayList<SpecificMeasure>();
+			specificMeasureListDto.add(specificMeasureDto);
+			specificMeasureDto.setId(specificMeasureManaged.getId());
+
+			Vme vmeManaged = new Vme();
+			em.persist(vmeManaged);
+			vmeManaged.setSpecificMeasureList(specificMeasureListManaged);
+
+			// 1 to 0
+			specificMeasureDto.setInformationSource(null);
+			assertNotNull(specificMeasureListManaged.get(0).getInformationSource());
+			u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
+			assertEquals(0, specificMeasureListManaged.size());
+		}
 	}
 
 	/**

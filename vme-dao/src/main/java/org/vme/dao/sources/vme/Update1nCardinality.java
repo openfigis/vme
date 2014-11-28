@@ -79,6 +79,10 @@ public class Update1nCardinality {
 				} else {
 					// an eventual change
 					ObjectId<Long> objectEm = em.find(objectDto.getClass(), objectDto.getId());
+					if (objectEm == null) {
+						throw new VmeException("The target object should exist, at this point for object "
+								+ objectDto.getId());
+					}
 
 					// delete it from the list which need to be need to be deleted.
 					// (for the next loop, see below)
@@ -134,7 +138,7 @@ public class Update1nCardinality {
 
 				if (objectDto instanceof SpecificMeasure && d.getPropertyType().equals(InformationSource.class)) {
 					// this is a many to one relation
-					processCopyInformationSource(em, (SpecificMeasure) objectDto, (SpecificMeasure) objectDto);
+					processCopyInformationSource(em, (SpecificMeasure) objectDto, (SpecificMeasure) objectEm);
 				}
 			} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 				throw new VmeException(e);
@@ -172,10 +176,9 @@ public class Update1nCardinality {
 		// 1 to 0
 		if (!processed && dto.getInformationSource() == null && managed.getInformationSource() != null) {
 			LOG.info(" 1 to 0");
-			managed.setInformationSource(null);
 			managed.getInformationSource().getSpecificMeasureList().remove(managed);
+			managed.setInformationSource(null);
 			em.merge(managed);
-			em.merge(managed.getInformationSource());
 			processed = true;
 		}
 
