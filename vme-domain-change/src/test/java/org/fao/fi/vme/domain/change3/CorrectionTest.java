@@ -1,7 +1,6 @@
 package org.fao.fi.vme.domain.change3;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -9,14 +8,89 @@ import org.junit.Test;
 public class CorrectionTest {
 
 	@Test
+	public void testCorrection2() {
+
+		Correction c = new Correction(b);
+		assertTrue(c.isCorrected());
+	}
+
+	// @Test
 	public void testCorrection() {
 		Correction c = new Correction(a);
 		assertEquals(
 				"VME notified under CM 22-06. Area closed to bottom fishing. VME recorded in CCAMLR VME Registry. http://www.ccamlr.org/en/data/ccamlr-vme-registry",
 				c.getCorrectedString());
 		assertTrue(c.isCorrected());
-		assertFalse(c.isInConsistent());
 	}
+
+	String b = "<!--[if gte mso 9]><xml>"
+			+ " <o:OfficeDocumentSettings>"
+			+ "  <o:RelyOnVML/>"
+			+ "  <o:AllowPNG/>"
+			+ " </o:OfficeDocumentSettings>"
+			+ "12.0pt;mso-bidi-font-size:11.0pt;font-family:&quot;Times New Roman&quot;,&quot;serif&quot;;"
+			+ "mso-fareast-font-family:&quot;ＭＳ 明朝&quot;;mso-fareast-theme-font:minor-fareast;"
+			+ "mso-fareast-font-family:&quot;ＭＳ 明朝&quot;;mso-fareast-theme-font:minor-fareast;"
+			+ "mso-bidi-theme-font:minor-bidi;mso-ansi-language:EN-GB;mso-fareast-language:"
+			+ " <w:WordDocument>"
+			+ "  <w:View>Normal</w:View>"
+			+ "  <w:Zoom>0</w:Zoom>"
+			+ "  <w:TrackMoves/>"
+			+ "  <w:TrackFormatting/>"
+			+ "  <w:DoNotShowRevisions/>"
+			+ "  <w:DoNotPrintRevisions/>"
+			+ "  <w:DoNotShowMarkup/>"
+			+ "  <w:DoNotShowComments/>"
+			+ "  <w:DoNotShowInsertionsAndDeletions/>"
+			+ "  <w:DoNotShowPropertyChanges/>"
+			+ "  <w:PunctuationKerning/>"
+			+ "  <w:ValidateAgainstSchemas/>"
+			+ "  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>"
+			+ "  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>"
+			+ "  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>"
+			+ "  <w:DoNotPromoteQF/>"
+			+ "  <w:LidThemeOther>EN-GB</w:LidThemeOther>"
+			+ "  <w:LidThemeAsian>JA</w:LidThemeAsian>"
+			+ "  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>"
+			+ "  <w:Compatibility>"
+			+ "   <w:BreakWrappedTables/>"
+			+ "   <w:SnapToGridInCell/>"
+			+ "   <w:WrapTextWithPunct/>"
+			+ "   <w:UseAsianBreakRules/>"
+			+ "   <w:DontGrowAutofit/>"
+			+ "   <w:SplitPgBreakAndParaMark/>"
+			+ "   <w:DontVertAlignCellWithSp/>"
+			+ "   <w:DontBreakConstrainedForcedTables/>"
+			+ "   <w:DontVertAlignInTxbx/>"
+			+ "   <w:Word11KerningPairs/>"
+			+ "   <w:CachedColBalance/>"
+			+ "   <w:UseFELayout/>"
+			+ "  </w:Compatibility>"
+			+ "  <m:mathPr>"
+			+ " </w:LatentStyles>"
+			+ "</xml><![endif]--><!--[if gte mso 10]>"
+			+ "<style>"
+			+ " /* Style Definitions */"
+			+ " table.MsoNormalTable"
+			+ "	mso-tstyle-rowband-size:0;"
+			+ "	mso-tstyle-colband-size:0;"
+			+ "	mso-style-noshow:yes;"
+			+ "	mso-style-priority:99;"
+			+ "	mso-style-qformat:yes;"
+			+ "	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;"
+			+ "	mso-para-margin-top:0cm;"
+			+ "	mso-para-margin-right:0cm;"
+			+ "	mso-para-margin-bottom:10.0pt;"
+			+ "	mso-para-margin-left:0cm;"
+			+ "	line-height:115%;"
+			+ "	mso-pagination:widow-orphan;"
+			+ "	font-size:11.0pt;"
+			+ "	mso-ascii-font-family:Calibri;"
+			+ "	mso-ascii-theme-font:minor-latin;"
+			+ "	mso-hansi-font-family:Calibri;"
+			+ "	mso-hansi-theme-font:minor-latin;}"
+			+ "</style>"
+			+ "<![endif]--><br>Following measures applied to the area:<br>(1) Limit fishing effort in bottom fisheries to the existing level in terms of the number of fishing vessels and other parameters which reflect the level of fishing effort, fishing capacity or potential impacts on marine ecosystems. [Para 4A]<br>(2) Limit bottom fisheries to seamounts located south of 45 degrees North Latitude and not allow bottom fisheries to expand into areas of the Northwestern Pacific Ocean where no such fishing is currently occurring. [Para 4B]<br>(3) In the area&nbsp; that bottom fisheries in the areas where VMEs are known to occur or are likely to occur, based on the best available scientific information, shall cease by 31 December 2008, unless conservation and management measures have been established to prevent SAIs on VMEs, consistent with the relevant provisions of UNGA61/105 and such international standards as may be developed pursuant thereto [Para 5]<br>(4) all bottom fishing vessels operating in the high seas of the Northwestern Pacific Ocean be equipped with an operational vessel monitoring system [Para 8C]<br>[text paraphrased, see NPFC 2009a]<br>Note:<br>(Japan) Fisheries deeper than 1,500m depth is prohibited by Japan [NPFC 2008c, unpublished]<br>(Japan) Increase of distance between the sea floor and the net from 70cm to 100cm (gillnet) [NPFC 2008e, unpublished]<br>";
 
 	String a = "VME notified under CM 22-06. Area closed to bottom fishing. VME recorded in CCAMLR VME Registry. http://www.ccamlr.org/en/data/ccamlr-vme-registry<!--[if gte mso 9]><xml>"
 			+ " <w:WordDocument>"

@@ -26,7 +26,13 @@ public class FixWordComments {
 		List<MultiLingualString> l = vmeDao.loadObjects(MultiLingualString.class);
 		int fixes = 0;
 		int inconsistent = 0;
+		int error = 0;
 		for (MultiLingualString m : l) {
+
+			if (m.getId().equals(29162l)) {
+				System.out.println("=============================================================" + m.getId());
+			}
+
 			System.out.println("=============================================================" + m.getId());
 
 			boolean valid = m.getStringMap() == null || m.getStringMap().size() == 1;
@@ -35,8 +41,14 @@ public class FixWordComments {
 
 				if (foundString != null) {
 
-					Correction c = new Correction(foundString);
-					if (c.corrected) {
+					Correction c = null;
+					try {
+						c = new Correction(foundString);
+					} catch (Exception e) {
+						error++;
+					}
+
+					if (c != null && c.corrected) {
 						System.out.println("============applying fix=================================================");
 						u.replaceEnglish(m, c.correctedString);
 						System.out.println("============applying fix=================================================");
@@ -44,15 +56,12 @@ public class FixWordComments {
 						vmeDao.merge(m);
 						fixes++;
 					}
-					if (c.isInConsistent()) {
-						inconsistent++;
-					}
 				}
 
 			}
 		}
 		String message = "Total amount of MultiLingualStrings " + l.size() + ". Number of fixes applied: " + fixes
-				+ ". Inconsists " + inconsistent;
+				+ ". Errors " + error;
 		System.out.println(message);
 	}
 }

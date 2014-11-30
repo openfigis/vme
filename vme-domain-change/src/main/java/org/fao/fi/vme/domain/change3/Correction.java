@@ -3,7 +3,6 @@ package org.fao.fi.vme.domain.change3;
 public class Correction {
 
 	boolean corrected = false;
-	boolean inconsistent;
 
 	private static final String TABOE = "<!--";
 
@@ -11,10 +10,7 @@ public class Correction {
 
 	public Correction(String text) {
 		System.out.println(text);
-		int start = text.indexOf(TABOE);
-		int end = text.lastIndexOf("-->") + 3;
-
-		inconsistent = start > 0 ^ end > 0;
+		System.out.println("--");
 
 		while (text.contains(TABOE)) {
 			text = applyCorrection(text);
@@ -27,9 +23,7 @@ public class Correction {
 		int start = text.indexOf("<!--");
 		int end = text.lastIndexOf("-->") + 3;
 
-		inconsistent = start > 0 ^ end > 0;
-
-		if (start > 0 && end > 0) {
+		if (start >= 0 && end > 0) {
 			// correct
 			String corruption = text.substring(start, end);
 			this.correctedString = text.replace(corruption, "");
@@ -43,10 +37,6 @@ public class Correction {
 
 	public boolean isCorrected() {
 		return corrected;
-	}
-
-	public boolean isInConsistent() {
-		return inconsistent;
 	}
 
 	public String getCorrectedString() {
