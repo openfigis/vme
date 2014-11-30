@@ -25,7 +25,6 @@ public class FixWordComments {
 
 		List<MultiLingualString> l = vmeDao.loadObjects(MultiLingualString.class);
 		int fixes = 0;
-		int inconsistent = 0;
 		int error = 0;
 		for (MultiLingualString m : l) {
 
