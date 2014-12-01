@@ -111,6 +111,8 @@ public class TooManySpecificMeasuresTest {
 		EntityManager emNew = newEmf.createEntityManager();
 
 		Vme vmeFound = emNew.find(Vme.class, vme.getId());
+
+		// if "hibernate.max_fetch_depth is not set correctly, the result will be a higher than 2
 		assertEquals(2, vmeFound.getSpecificMeasureList().size());
 
 	}
