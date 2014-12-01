@@ -35,11 +35,40 @@ public class VmeDaoTestGm {
 	@Inject
 	private VmeDao dao;
 
+	WorkAroundSpecificMeasureFilter w = new WorkAroundSpecificMeasureFilter();
+
 	@Test
 	@Ignore
 	public void find() throws Throwable {
 		Vme vme = dao.getEm().find(Vme.class, 23787l);
 		System.out.println(vme.getSpecificMeasureList().size());
+
+		// Vme vme2 = dao.getEntityById(dao.getEm(), Vme.class, 23787l);
+		// System.out.println(vme2.getSpecificMeasureList().size());
+
+	}
+
+	@Test
+	@Ignore
+	public void analyzeDoubles() throws Throwable {
+		List<Vme> vmeList = dao.loadObjects(Vme.class);
+		int vmeWithSM = 0;
+		int doubles = 0;
+
+		for (Vme vme : vmeList) {
+
+			List<SpecificMeasure> list = vme.getSpecificMeasureList();
+			if (list != null) {
+				vmeWithSM++;
+				int size = vme.getSpecificMeasureList().size();
+				List<SpecificMeasure> filtered = w.filter(list);
+				if (size != filtered.size()) {
+					System.out.println(vme.getId());
+					doubles++;
+				}
+			}
+		}
+		System.out.println("Number of vmes " + vmeList.size() + ". vmeWithSM " + vmeWithSM + ". doubles" + doubles);
 
 	}
 
