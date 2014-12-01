@@ -50,7 +50,12 @@ public class DtoTranslator {
 		if (sm.getInformationSource() != null && sm.getInformationSource().getUrl() != null) {
 			smDto.setSourceURL(sm.getInformationSource().getUrl().toExternalForm());
 		}
-		smDto.setFactsheetURL(factsheetURL(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear())));
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(sm.getValidityPeriod().getBeginDate());
+
+		smDto.setFactsheetURL(factsheetURL(figisDao.findExactVmeObservation(sm.getVme().getId(),
+				calendar.get(Calendar.YEAR))));
 		return smDto;
 	}
 
@@ -149,8 +154,11 @@ public class DtoTranslator {
 		gmDto.setVmeIndicatorSpecies(UTIL.getEnglish(gm.getVmeIndicatorSpecies()));
 		gmDto.setThreshold(UTIL.getEnglish(gm.getVmeThreshold()));
 		if (figisDao.findExactVmeObservation(gm.getRfmo().getListOfManagedVmes().get(0).getId(), gm.getYear()) != null) {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(gm.getValidityPeriod().getBeginDate());
+
 			gmDto.setFactsheetURL(factsheetURL(figisDao.findExactVmeObservation(gm.getRfmo().getListOfManagedVmes()
-					.get(0).getId(), gm.getYear())));
+					.get(0).getId(), calendar.get(Calendar.YEAR))));
 		}
 		return gmDto;
 
