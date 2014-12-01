@@ -30,15 +30,15 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.DataConverte
 import org.gcube.application.rsg.support.compiler.bridge.utilities.ScanningUtils;
 import org.gcube.application.rsg.support.compiler.exceptions.ReportEvaluationException;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
+import org.vme.dao.sources.vme.WorkAroundSpecificMeasureFilter;
 
 /**
  * Place your class / interface description here.
  * 
  * History:
  * 
- * ------------- --------------- ----------------------- Date Author Comment
- * ------------- --------------- ----------------------- 28/nov/2013 EVanIngen,
- * FFiorellato Creation.
+ * ------------- --------------- ----------------------- Date Author Comment ------------- ---------------
+ * ----------------------- 28/nov/2013 EVanIngen, FFiorellato Creation.
  * 
  * @version 1.0
  * @since 28/nov/2013
@@ -298,8 +298,7 @@ public class RsgServiceReadImplVme extends AbstractRsgServiceImplVme implements 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.gcube.application.rsg.service.RsgServiceRead#getEmptyReport(org.gcube
+	 * @see org.gcube.application.rsg.service.RsgServiceRead#getEmptyReport(org.gcube
 	 * .application.rsg.service.dto.ReportType)
 	 */
 	@Override
@@ -318,8 +317,9 @@ public class RsgServiceReadImplVme extends AbstractRsgServiceImplVme implements 
 
 			return template;
 		} catch (Throwable t) {
-			this.LOG.error("Unable to build template for {}. Unexpected {} caught: {}", identifiedReport.getName(), t.getClass().getSimpleName(), t.getMessage(), t);
-			
+			this.LOG.error("Unable to build template for {}. Unexpected {} caught: {}", identifiedReport.getName(), t
+					.getClass().getSimpleName(), t.getMessage(), t);
+
 			throw new RuntimeException(t);
 		}
 	}
@@ -334,10 +334,8 @@ public class RsgServiceReadImplVme extends AbstractRsgServiceImplVme implements 
 			Field id = ScanningUtils.getUniqueIdentifier(identifiedReport);
 			Class<?> idType = id.getType();
 
-			DataConverter<?> converter = 
-					ScanningUtils.isAnnotatedWith(id, RSGConverter.class) ? 
-							ScanningUtils.getAnnotation(id, RSGConverter.class).value().newInstance() : 
-							null;
+			DataConverter<?> converter = ScanningUtils.isAnnotatedWith(id, RSGConverter.class) ? ScanningUtils
+					.getAnnotation(id, RSGConverter.class).value().newInstance() : null;
 
 			if (converter != null)
 				reportId = converter.fromString((String) reportId);
@@ -345,7 +343,15 @@ public class RsgServiceReadImplVme extends AbstractRsgServiceImplVme implements 
 			else if (Integer.class.equals(idType) || Long.class.equals(idType))
 				reportId = Long.valueOf(reportId.toString());
 
-			identified = this.vmeDao.getEntityById(this.vmeDao.getEm(), identifiedReport, reportId);
+			identified = this.vmeDao.getEm().find(identifiedReport, reportId);
+
+			// Erik van Ingen (1/12/2014) Workaround applied
+			if (identifiedReport.equals(Vme.class)) {
+				WorkAroundSpecificMeasureFilter w = new WorkAroundSpecificMeasureFilter();
+				Vme vme = (Vme) identified;
+				vme.setSpecificMeasureList(w.filter(vme.getSpecificMeasureList()));
+			}
+
 		} catch (Throwable t) {
 			LOG.error("Unable to get entity of type {} with id {}", reportType.getTypeIdentifier(), reportId, t);
 		}
@@ -392,10 +398,8 @@ public class RsgServiceReadImplVme extends AbstractRsgServiceImplVme implements 
 			Field id = ScanningUtils.getUniqueIdentifier(identifiedReport);
 			Class<?> idType = id.getType();
 
-			DataConverter<?> converter = 
-					ScanningUtils.isAnnotatedWith(id, RSGConverter.class) ? 
-						ScanningUtils.getAnnotation(id, RSGConverter.class).value().newInstance() : 
-						null;
+			DataConverter<?> converter = ScanningUtils.isAnnotatedWith(id, RSGConverter.class) ? ScanningUtils
+					.getAnnotation(id, RSGConverter.class).value().newInstance() : null;
 
 			if (converter != null)
 				refReportId = converter.fromString((String) refReportId);
@@ -441,8 +445,7 @@ public class RsgServiceReadImplVme extends AbstractRsgServiceImplVme implements 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.gcube.application.rsg.service.RsgServiceRead#getRefTemplate(org.gcube
+	 * @see org.gcube.application.rsg.service.RsgServiceRead#getRefTemplate(org.gcube
 	 * .application.rsg.service.dto.ReportType)
 	 */
 	@Override
@@ -487,8 +490,7 @@ public class RsgServiceReadImplVme extends AbstractRsgServiceImplVme implements 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.gcube.application.rsg.service.RsgServiceRead#validate(org.gcube.application
+	 * @see org.gcube.application.rsg.service.RsgServiceRead#validate(org.gcube.application
 	 * .rsg.support.model.components.impl.CompiledReport)
 	 */
 	@Override
