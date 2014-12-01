@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import javax.inject.Inject;
 
+import org.fao.fi.vme.domain.model.ReferenceYear;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
@@ -32,9 +33,19 @@ public class ReferenceDaoImplTest {
 	}
 
 	@Test
-	public void testGetConcept() throws ReferenceServiceException {
+	public void testGetConcept() throws Exception {
 		assertEquals(VmeCriteria.class, referenceDao.getConcept("criteria"));
 		assertEquals(VmeScope.class, referenceDao.getConcept("scope"));
+		assertEquals(ReferenceYear.class, referenceDao.getConcept("years"));
+
+		referenceDao.getAllReferences(ReferenceYear.class);
+
+	}
+
+	@Test
+	public void testYears() throws Exception {
+		referenceDao.getAllReferences(ReferenceYear.class);
+
 	}
 
 }

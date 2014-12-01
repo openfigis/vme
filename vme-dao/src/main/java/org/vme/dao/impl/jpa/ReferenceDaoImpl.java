@@ -81,9 +81,20 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 	 * @see org.vme.service.reference.ReferenceService#getAllReferences(java.lang .Class)
 	 */
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <R extends ReferenceConcept> List<R> getAllReferences(Class<R> concept) throws ReferenceServiceException {
-		return selectFrom(em, concept);
+
+		if (concept.equals(ReferenceYear.class)) {
+			List<R> refYears = new ArrayList<R>();
+			for (long year = Calendar.getInstance().get(Calendar.YEAR); year >= 2006; year--) {
+				refYears.add((R) new ReferenceYear(year));
+			}
+			return refYears;
+		} else {
+			return selectFrom(em, concept);
+		}
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -93,9 +104,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 		return list;
 	}
-	
-	
-	
+
 	private <E> List<E> selectFrom(EntityManager em, Class<E> clazz) {
 		return em.createQuery("select o from  " + clazz.getCanonicalName() + " o " + " order by o.id asc ", clazz)
 				.getResultList();
