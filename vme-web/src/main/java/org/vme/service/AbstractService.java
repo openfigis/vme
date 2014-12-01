@@ -94,10 +94,16 @@ abstract class AbstractService {
 		vmeList.addAll(temp);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param vmeList
+	 * @param authority
+	 */
 	public void filterVmePerRfmoById(List<Vme> vmeList, int authority) {
 		List<Vme> temp = new ArrayList<Vme>();
 		for (Vme vme : vmeList) {
-			if (getAuthorityIdByAcronym(vme.getRfmo().getId()) == authority) {
+			if (vme.getRfmo() != null && getAuthorityIdByAcronym(vme.getRfmo().getId()) == authority) {
 				temp.add(vme);
 			}
 		}
@@ -206,36 +212,36 @@ abstract class AbstractService {
 		conditions.add(textInSpecificMeasureList(vme, text));
 
 		for (Boolean boolean1 : conditions) {
-			if(boolean1){
+			if (boolean1) {
 				return true;
 			}
-		}		
+		}
 		return false;
 	}
 
 	private boolean textInSpecificMeasureList(Vme vme, String text) {
 		if (vme.getSpecificMeasureList() != null) {
 			for (SpecificMeasure specificMeasure : vme.getSpecificMeasureList()) {
-				if (specificMeasure.getVmeSpecificMeasure() != null &&
-						textInMultilingualString(specificMeasure.getVmeSpecificMeasure(), text)) {
-						return true;
-				}
-
-				if (specificMeasure.getInformationSource() != null &&
-						textInInformationSource(specificMeasure.getInformationSource(), text)) {
-						return true;
+				if (specificMeasure.getVmeSpecificMeasure() != null
+						&& textInMultilingualString(specificMeasure.getVmeSpecificMeasure(), text)) {
+					return true;
 				}
 
 				if (specificMeasure.getInformationSource() != null
-						&& specificMeasure.getInformationSource().getCommittee() != null &&
-						textInMultilingualString(specificMeasure.getInformationSource().getCommittee(), text)) {
-						return true;
+						&& textInInformationSource(specificMeasure.getInformationSource(), text)) {
+					return true;
 				}
 
 				if (specificMeasure.getInformationSource() != null
-						&& specificMeasure.getInformationSource().getReportSummary() != null &&
-						textInMultilingualString(specificMeasure.getInformationSource().getReportSummary(), text)) {
-						return true;
+						&& specificMeasure.getInformationSource().getCommittee() != null
+						&& textInMultilingualString(specificMeasure.getInformationSource().getCommittee(), text)) {
+					return true;
+				}
+
+				if (specificMeasure.getInformationSource() != null
+						&& specificMeasure.getInformationSource().getReportSummary() != null
+						&& textInMultilingualString(specificMeasure.getInformationSource().getReportSummary(), text)) {
+					return true;
 				}
 			}
 		}
@@ -254,9 +260,8 @@ abstract class AbstractService {
 	}
 
 	private boolean textInInformationSource(InformationSource informationSource, String text) {
-		if (informationSource.getCitation() != null &&
-				textInMultilingualString(informationSource.getCitation(), text)) {
-				return true;
+		if (informationSource.getCitation() != null && textInMultilingualString(informationSource.getCitation(), text)) {
+			return true;
 		}
 		if (informationSource.getPublicationYear() != null
 				&& StringUtils.containsIgnoreCase(Integer.toString(informationSource.getPublicationYear()), text)) {
@@ -272,46 +277,46 @@ abstract class AbstractService {
 	private boolean textInRfmo(Vme vme, String text) {
 		if (vme.getRfmo() != null) {
 			for (GeneralMeasure generalMeasure : vme.getRfmo().getGeneralMeasureList()) {
-				if (generalMeasure.getFishingArea() != null &&
-						textInMultilingualString(generalMeasure.getFishingArea(), text)) {
-						return true;
+				if (generalMeasure.getFishingArea() != null
+						&& textInMultilingualString(generalMeasure.getFishingArea(), text)) {
+					return true;
 				}
 
-				if (generalMeasure.getExplorataryFishingProtocol() != null &&
-						textInMultilingualString(generalMeasure.getExplorataryFishingProtocol(), text)) {
-						return true;
+				if (generalMeasure.getExplorataryFishingProtocol() != null
+						&& textInMultilingualString(generalMeasure.getExplorataryFishingProtocol(), text)) {
+					return true;
 				}
 
-				if (generalMeasure.getVmeEncounterProtocol() != null &&
-						textInMultilingualString(generalMeasure.getVmeEncounterProtocol(), text)) {
-						return true;
+				if (generalMeasure.getVmeEncounterProtocol() != null
+						&& textInMultilingualString(generalMeasure.getVmeEncounterProtocol(), text)) {
+					return true;
 				}
 
-				if (generalMeasure.getVmeIndicatorSpecies() != null &&
-						textInMultilingualString(generalMeasure.getVmeIndicatorSpecies(), text)) {
-						return true;
+				if (generalMeasure.getVmeIndicatorSpecies() != null
+						&& textInMultilingualString(generalMeasure.getVmeIndicatorSpecies(), text)) {
+					return true;
 				}
 
-				if (generalMeasure.getVmeThreshold() != null &&
-						textInMultilingualString(generalMeasure.getVmeThreshold(), text)) {
-						return true;
+				if (generalMeasure.getVmeThreshold() != null
+						&& textInMultilingualString(generalMeasure.getVmeThreshold(), text)) {
+					return true;
 				}
 
 				if (generalMeasure.getInformationSourceList() != null) {
 					for (InformationSource informationSource : generalMeasure.getInformationSourceList()) {
 
-						if (informationSource.getCitation() != null && 
-								textInMultilingualString(informationSource.getCitation(), text)) {
-								return true;
+						if (informationSource.getCitation() != null
+								&& textInMultilingualString(informationSource.getCitation(), text)) {
+							return true;
 						}
-						if (informationSource.getCommittee() != null &&
-								textInMultilingualString(informationSource.getCommittee(), text)) {
-								return true;
+						if (informationSource.getCommittee() != null
+								&& textInMultilingualString(informationSource.getCommittee(), text)) {
+							return true;
 						}
 
-						if (informationSource.getReportSummary() != null &&
-								textInMultilingualString(informationSource.getReportSummary(), text)) {
-								return true;
+						if (informationSource.getReportSummary() != null
+								&& textInMultilingualString(informationSource.getReportSummary(), text)) {
+							return true;
 						}
 						if (StringUtils.containsIgnoreCase(Integer.toString(informationSource.getPublicationYear()),
 								text)) {
@@ -332,17 +337,17 @@ abstract class AbstractService {
 	private boolean textInProfileList(Vme vme, String text) {
 		if (vme.getProfileList() != null) {
 			for (Profile profile : vme.getProfileList()) {
-				if (profile.getDescriptionBiological() != null &&
-						textInMultilingualString(profile.getDescriptionBiological(), text)) {
-						return true;
+				if (profile.getDescriptionBiological() != null
+						&& textInMultilingualString(profile.getDescriptionBiological(), text)) {
+					return true;
 				}
-				if (profile.getDescriptionImpact() != null &&
-						textInMultilingualString(profile.getDescriptionImpact(), text)) {
-						return true;
+				if (profile.getDescriptionImpact() != null
+						&& textInMultilingualString(profile.getDescriptionImpact(), text)) {
+					return true;
 				}
-				if (profile.getDescriptionPhisical() != null &&
-						textInMultilingualString(profile.getDescriptionPhisical(), text)) {
-						return true;
+				if (profile.getDescriptionPhisical() != null
+						&& textInMultilingualString(profile.getDescriptionPhisical(), text)) {
+					return true;
 				}
 			}
 		}
@@ -373,9 +378,9 @@ abstract class AbstractService {
 				try {
 					selected = refDao.getReferenceByID(VmeCriteria.class, criteriaId);
 
-					if (selected != null && selected.getName() != null &&
-							StringUtils.containsIgnoreCase(selected.getName(), text)) {
-							return true;
+					if (selected != null && selected.getName() != null
+							&& StringUtils.containsIgnoreCase(selected.getName(), text)) {
+						return true;
 					} else {
 						LOG.warn("Selected criteria is either NULL or has a NULL name");
 					}
@@ -394,9 +399,9 @@ abstract class AbstractService {
 			try {
 				selected = refDao.getReferenceByID(VmeType.class, vme.getAreaType());
 
-				if (selected != null && selected.getName() != null &&
-						StringUtils.containsIgnoreCase(selected.getName(), text)) {
-						return true;
+				if (selected != null && selected.getName() != null
+						&& StringUtils.containsIgnoreCase(selected.getName(), text)) {
+					return true;
 				} else {
 					LOG.warn("Selected area type is either NULL or has a NULL name");
 				}

@@ -1,47 +1,53 @@
 package org.vme.service;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
+import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.dao.config.figis.FigisDataBaseProducer;
 import org.vme.dao.config.figis.FigisPersistenceUnitConfiguration;
+import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.vme.VmeDao;
 
 @RunWith(CdiRunner.class)
-@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisPersistenceUnitConfiguration.class, /*FigisDataBaseProducer.class,*/
-	VmePersistenceUnitConfiguration.class,/* VmeDataBaseProducerApplicationScope.class,*/})
+@ActivatedAlternatives({ ReferenceDaoImpl.class, FigisPersistenceUnitConfiguration.class,
+		VmePersistenceUnitConfiguration.class })
+@AdditionalClasses({ VmeDataBaseProducerApplicationScope.class, FigisDataBaseProducer.class })
 public class AbstractServiceTest {
 
+	@Inject
 	private VmeDao vDao;
 
+	@Inject
 	private GetInfoService service;
-	
+
 	private static final MultiLingualStringUtil UTIL = new MultiLingualStringUtil();
 
 	private Vme vme;
 	private Vme vme2;
 
 	@Before
-	public void before(){
+	public void before() {
 		vme = VmeMock.generateVme(3);
-		vme2 = VmeMock.generateVme(5);
 		vme.setScope(10L);
-		vme2.setScope(20L);
 		vme.setName(UTIL.english("Foo1"));
-		vme2.setName(UTIL.english("Foo2"));
 		vDao.saveVme(vme);
-		vDao.saveVme(vme2);
+
 	}
 
 	@Ignore
@@ -52,15 +58,17 @@ public class AbstractServiceTest {
 		assertTrue(1 == vmeList.size());
 	}
 
-	@Ignore
 	@Test
 	public void testFilterVmePerRfmoById() {
 		List<Vme> vmeList = vDao.loadVmes();
-		for (Vme v : vmeList) {
-			System.out.println(v.getRfmo());
-		}
 		service.filterVmePerRfmoById(vmeList, 1001);
-		assertTrue(2 == vmeList.size());
+		assertEquals(0, vmeList.size());
+
+		Vme vme = new Vme();
+		vmeList.add(vme);
+
+		service.filterVmePerRfmoById(vmeList, 1001);
+
 	}
 
 	@Ignore
@@ -70,8 +78,8 @@ public class AbstractServiceTest {
 		assertTrue(1001 == authorityId);
 	}
 
-//	TODO (implement this test logic)
-	
+	// TODO (implement this test logic)
+
 	@Ignore
 	@Test
 	public void testVmeContainRelevantText() {
