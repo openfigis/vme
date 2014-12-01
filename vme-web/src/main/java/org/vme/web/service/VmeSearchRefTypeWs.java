@@ -13,6 +13,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.fao.fi.vme.batch.reference.ReferenceDataHardcodedBatch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vme.service.SearchServiceInterface;
 import org.vme.service.search.ReferencesRequest;
 import org.vme.service.search.ServiceResponse;
@@ -26,16 +28,13 @@ import org.vme.service.search.ServiceResponse;
 @Singleton
 public class VmeSearchRefTypeWs {
 
+	protected static final Logger LOG = LoggerFactory.getLogger(VmeSearchRefTypeWs.class);
+
 	@Inject
 	private ReferenceDataHardcodedBatch batch;
 
 	@Inject
 	private SearchServiceInterface service;
-
-	// @PostConstruct
-	// public void postConstructBatch() {
-	// batch.run();
-	// }
 
 	@Path("/list")
 	@GET
@@ -47,8 +46,9 @@ public class VmeSearchRefTypeWs {
 			ServiceResponse<?> result;
 			result = service.invoke(refRequest);
 			return Response.status(200).entity(result).build();
-		} catch (Exception t) {
-			throw new WebApplicationException(t, Response.Status.NOT_FOUND);
+		} catch (Exception e) {
+			LOG.error(e.getMessage());
+			throw new WebApplicationException(e, Response.Status.NOT_FOUND);
 		}
 
 	}
@@ -61,6 +61,7 @@ public class VmeSearchRefTypeWs {
 			batch.run();
 			return Response.status(200).entity("ReferenceDataHardcodedBatch run successfully").build();
 		} catch (Exception t) {
+			LOG.error(t.getMessage());
 			throw new WebApplicationException(t, Response.Status.NOT_FOUND);
 		}
 	}
