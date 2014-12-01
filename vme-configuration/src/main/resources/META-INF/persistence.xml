@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0"
-	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-	<!-- maximumPoolSize is 2 because the integration tests with above 2 do 
-		not run because Oracle starts complaining. This could however be different 
-		in qa or prod. It looks like this problem only appears on the FIGIS dev Oracle 
-		10 DB. ORA-02391: exceeded simultaneous SESSIONS_PER_USER limit with also 
-		this message Timeout of 30000ms encountered waiting for connection. -->
+	<!-- maximumPoolSize is 2 because the integration tests with above 2 do not run because Oracle starts complaining. This could however 
+		be different in qa or prod. It looks like this problem only appears on the FIGIS dev Oracle 10 DB. ORA-02391: exceeded simultaneous 
+		SESSIONS_PER_USER limit with also this message Timeout of 30000ms encountered waiting for connection. -->
 
 
 	<persistence-unit name="vme-persistence">
@@ -42,16 +39,20 @@
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.vme}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.vme}" />
 			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.ejb.entitymanager_factory_name"
-				value="vme_entitymanager_factory_name" />
+			<property name="hibernate.ejb.entitymanager_factory_name" value="vme_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="${hibernate.default.schema.vme}" />
+
+			<!-- this setting prevents hibernate from doing too many left outer joins, generating too many specificMeasures on a Vme -->
+			<property name="hibernate.max_fetch_depth" value="0" />
+
+
+
 
 
 			<!-- HikariCP custom properties -->
-			<property name="hibernate.connection.provider_class"
-				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
+			<property name="hibernate.connection.provider_class" value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
 			<property name="hibernate.hikari.maximumPoolSize" value="2" />
-			<!--  so that connections are retired while the database is offline 1200000ms=20min -->
+			<!-- so that connections are retired while the database is offline 1200000ms=20min -->
 			<property name="hibernate.hikari.maxLifetime" value="1200000" />
 			<property name="hibernate.hikari.jdbc4ConnectionTest" value="false" />
 			<property name="hibernate.hikari.connectionTestQuery" value="SELECT * FROM DUAL" />
@@ -82,14 +83,12 @@
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto.figis}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect.figis}" />
 			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.ejb.entitymanager_factory_name"
-				value="figis_entitymanager_factory_name" />
+			<property name="hibernate.ejb.entitymanager_factory_name" value="figis_entitymanager_factory_name" />
 			<property name="hibernate.default_schema" value="FIGIS" />
 
 
 			<!-- HikariCP custom properties -->
-			<property name="hibernate.connection.provider_class"
-				value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
+			<property name="hibernate.connection.provider_class" value="org.hibernate.hikaricp.internal.HikariCPConnectionProvider" />
 			<property name="hibernate.hikari.maximumPoolSize" value="2" />
 
 

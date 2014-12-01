@@ -558,27 +558,12 @@ public class VmeDao extends AbstractJPADao {
 			throw new IllegalArgumentException("Updated Vme cannot have a Rfmo with a NULL identifier");
 		}
 		Vme vmeManaged = em.find(Vme.class, vmeDto.getId());
-		if (vmeManaged.getSpecificMeasureList() != null) {
-			logggg("before Update1nCardinality vmeManaged", vmeManaged.getSpecificMeasureList());
-		}
 
 		Update1nCardinality u1n = new Update1nCardinality();
 		u1n.update(em, vmeManaged, vmeDto.getGeoRefList(), vmeManaged.getGeoRefList());
 		u1n.update(em, vmeManaged, vmeDto.getMediaReferenceList(), vmeManaged.getMediaReferenceList());
 		u1n.update(em, vmeManaged, vmeDto.getProfileList(), vmeManaged.getProfileList());
-
-		if (vmeDto.getSpecificMeasureList() != null) {
-			logggg("vmeDto", vmeDto.getSpecificMeasureList());
-		}
-		if (vmeManaged.getSpecificMeasureList() != null) {
-			logggg("vmeManaged", vmeManaged.getSpecificMeasureList());
-		}
-		WorkAroundSpecificMeasureFilter w = new WorkAroundSpecificMeasureFilter();
-		List<SpecificMeasure> filtered = w.filter(vmeManaged.getSpecificMeasureList());
-		vmeManaged.setSpecificMeasureList(filtered);
-		logggg("vmeManaged filtered", filtered);
-
-		u1n.update(em, vmeManaged, vmeDto.getSpecificMeasureList(), filtered);
+		u1n.update(em, vmeManaged, vmeDto.getSpecificMeasureList(), vmeManaged.getSpecificMeasureList());
 
 		u.copyMultiLingual(vmeDto, vmeManaged);
 		vmeManaged.setAreaType(vmeDto.getAreaType());
@@ -589,15 +574,6 @@ public class VmeDao extends AbstractJPADao {
 
 		vmeManaged = em.merge(vmeManaged);
 		return vmeManaged;
-	}
-
-	private void logggg(String type, List<SpecificMeasure> specificMeasureList) {
-		if (specificMeasureList != null) {
-			LOG.info(type + ".getSpecificMeasureList().size = " + specificMeasureList.size());
-			for (SpecificMeasure specificMeasure : specificMeasureList) {
-				LOG.info("id = " + specificMeasure.getId());
-			}
-		}
 	}
 
 	public Vme create(Vme vme) throws Throwable {

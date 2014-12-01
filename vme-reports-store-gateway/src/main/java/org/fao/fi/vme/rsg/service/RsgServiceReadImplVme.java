@@ -30,7 +30,6 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.DataConverte
 import org.gcube.application.rsg.support.compiler.bridge.utilities.ScanningUtils;
 import org.gcube.application.rsg.support.compiler.exceptions.ReportEvaluationException;
 import org.gcube.application.rsg.support.model.components.impl.CompiledReport;
-import org.vme.dao.sources.vme.WorkAroundSpecificMeasureFilter;
 
 /**
  * Place your class / interface description here.
@@ -344,13 +343,6 @@ public class RsgServiceReadImplVme extends AbstractRsgServiceImplVme implements 
 				reportId = Long.valueOf(reportId.toString());
 
 			identified = this.vmeDao.getEm().find(identifiedReport, reportId);
-
-			// Erik van Ingen (1/12/2014) Workaround applied
-			if (identifiedReport.equals(Vme.class)) {
-				WorkAroundSpecificMeasureFilter w = new WorkAroundSpecificMeasureFilter();
-				Vme vme = (Vme) identified;
-				vme.setSpecificMeasureList(w.filter(vme.getSpecificMeasureList()));
-			}
 
 		} catch (Throwable t) {
 			LOG.error("Unable to get entity of type {} with id {}", reportType.getTypeIdentifier(), reportId, t);
