@@ -60,7 +60,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGName("Authority")
 	@RSGSimpleReference
 	@RSGWeight(0)
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH })
 	private Rfmo rfmo;
 
 	/**
@@ -79,15 +79,14 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	private ValidityPeriod validityPeriod;
 
 	/**
-	 * GeneralMeasure has one linkCemSource. It should be the column
-	 * Link_CEM_Source within the Measures_VME_general table.
+	 * GeneralMeasure has one linkCemSource. It should be the column Link_CEM_Source within the Measures_VME_general
+	 * table.
 	 * 
 	 */
 	@RSGName("Information Sources")
 	@RSGWeight(0)
 	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "GM_IS", joinColumns = { @JoinColumn(name = "GM_ID") },
-	inverseJoinColumns = { @JoinColumn(name = "IS_ID") })
+	@JoinTable(name = "GM_IS", joinColumns = { @JoinColumn(name = "GM_ID") }, inverseJoinColumns = { @JoinColumn(name = "IS_ID") })
 	private List<InformationSource> informationSourceList;
 
 	/**

@@ -24,11 +24,9 @@ import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDat
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.URLDataConverter;
 
 /**
- * For media, through some preliminary investigations I understand that and easy
- * and quick way would be to have such images loaded somewhere (i.e. in FIGIS
- * but also elsewhere) and linked through a URL in the RSG. Metadata such as
- * Type (e.g. video, image), Title, Description and Credits should be associated
- * to each URL.
+ * For media, through some preliminary investigations I understand that and easy and quick way would be to have such
+ * images loaded somewhere (i.e. in FIGIS but also elsewhere) and linked through a URL in the RSG. Metadata such as Type
+ * (e.g. video, image), Title, Description and Credits should be associated to each URL.
  * 
  * @author Erik van Ingen
  *
@@ -76,8 +74,8 @@ public class MediaReference implements ObjectId<Long> {
 	@RSGMandatory
 	@RSGWeight(1)
 	private URL url;
-	
-	@ManyToOne
+
+	@ManyToOne(cascade = { CascadeType.REFRESH })
 	private Vme vme;
 
 	public Vme getVme() {

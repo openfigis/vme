@@ -44,15 +44,14 @@ public class Profile implements ObjectId<Long>, Year<Profile>, Serializable {
 	private Long id;
 
 	/**
-	 * YearObject in which the features where defined. This maps to the figis
-	 * reporting year.
+	 * YearObject in which the features where defined. This maps to the figis reporting year.
 	 */
 	@RSGName("Year")
 	@RSGMandatory
 	@RSGConverter(IntegerDataConverter.class)
 	private Integer year;
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.REFRESH })
 	private Vme vme;
 
 	/**

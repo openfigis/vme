@@ -52,7 +52,7 @@ public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, S
 	 * This is the inverse side of the ManyToMany relationship
 	 */
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.REFRESH })
 	@JoinColumn(name = "vme_id")
 	private Vme vme;
 

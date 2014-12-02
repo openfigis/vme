@@ -60,7 +60,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(cascade = { CascadeType.REFRESH })
 	@RSGName("Authority")
 	@RSGWeight(0)
 	@RSGSimpleReference
