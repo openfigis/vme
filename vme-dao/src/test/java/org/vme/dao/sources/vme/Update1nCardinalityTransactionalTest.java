@@ -13,7 +13,7 @@ import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmePersistenceUnitConfiguration.class })
 @AdditionalClasses({ VmeDataBaseProducerApplicationScope.class })
-public class UpdateMany1CardinalityTestTransactionalTest extends Update1nCardinalityTest {
+public class Update1nCardinalityTransactionalTest extends Update1nCardinalityTest {
 
 	@Inject
 	private VmeDao dao;

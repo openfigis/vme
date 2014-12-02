@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Profile;
@@ -39,37 +40,33 @@ public class Update1nCardinalityTest {
 	public void testProcessCopyInformationSource() {
 
 		InformationSource informationSourceManaged = new InformationSource();
-		em.persist(informationSourceManaged);
+		persist(informationSourceManaged);
 		List<SpecificMeasure> specificMeasureListManaged = new ArrayList<SpecificMeasure>();
 		informationSourceManaged.setSpecificMeasureList(specificMeasureListManaged);
 
-		em.persist(informationSourceManaged);
+		persist(informationSourceManaged);
 
 		SpecificMeasure specificMeasureManaged = new SpecificMeasure();
 		specificMeasureManaged.setInformationSource(informationSourceManaged);
 		specificMeasureListManaged.add(specificMeasureManaged);
 
-		em.persist(specificMeasureManaged);
-		// this is a strange hack. Probably because the em is not running in an transaction, it is not setting the id
+		persist(specificMeasureManaged);
 
-		if (em instanceof DummyEm) {
+		SpecificMeasure specificMeasureDto = new SpecificMeasure();
 
-			SpecificMeasure specificMeasureDto = new SpecificMeasure();
+		List<SpecificMeasure> specificMeasureListDto = new ArrayList<SpecificMeasure>();
+		specificMeasureListDto.add(specificMeasureDto);
+		specificMeasureDto.setId(specificMeasureManaged.getId());
 
-			List<SpecificMeasure> specificMeasureListDto = new ArrayList<SpecificMeasure>();
-			specificMeasureListDto.add(specificMeasureDto);
-			specificMeasureDto.setId(specificMeasureManaged.getId());
+		Vme vmeManaged = new Vme();
+		persist(vmeManaged);
+		vmeManaged.setSpecificMeasureList(specificMeasureListManaged);
 
-			Vme vmeManaged = new Vme();
-			em.persist(vmeManaged);
-			vmeManaged.setSpecificMeasureList(specificMeasureListManaged);
-
-			// 1 to 0
-			specificMeasureDto.setInformationSource(null);
-			assertNotNull(specificMeasureListManaged.get(0).getInformationSource());
-			u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
-			assertEquals(0, specificMeasureListManaged.size());
-		}
+		// 1 to 0
+		specificMeasureDto.setInformationSource(null);
+		assertNotNull(specificMeasureListManaged.get(0).getInformationSource());
+		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
+		assertEquals(0, specificMeasureListManaged.size());
 	}
 
 	/**
@@ -79,7 +76,7 @@ public class Update1nCardinalityTest {
 	public void testUpdateSpecificMeasureNull2() {
 		SpecificMeasure specificMeasureManaged = new SpecificMeasure();
 		specificMeasureManaged.setYear(2013);
-		em.persist(specificMeasureManaged);
+		persist(specificMeasureManaged);
 
 		List<SpecificMeasure> specificMeasureListManaged = new ArrayList<SpecificMeasure>();
 		specificMeasureListManaged.add(specificMeasureManaged);
@@ -89,9 +86,9 @@ public class Update1nCardinalityTest {
 		specificMeasureListDto.add(specificMeasureDto);
 
 		Vme vmeManaged = new Vme();
-		em.persist(vmeManaged);
+		persist(vmeManaged);
 		vmeManaged.setSpecificMeasureList(specificMeasureListManaged);
-		em.persist(vmeManaged);
+		persist(vmeManaged);
 
 		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
 
@@ -119,7 +116,7 @@ public class Update1nCardinalityTest {
 		specificMeasureListDto.add(specificMeasureDto);
 
 		Vme vmeManaged = new Vme();
-		em.persist(vmeManaged);
+		persist(vmeManaged);
 
 		u1n.update(em, vmeManaged, specificMeasureListDto, null);
 
@@ -132,7 +129,7 @@ public class Update1nCardinalityTest {
 	@Test
 	public void testUpdategetMediaReferenceListNull() {
 		Vme vmeManaged = new Vme();
-		em.persist(vmeManaged);
+		persist(vmeManaged);
 		u1n.update(em, vmeManaged, null, null);
 	}
 
@@ -144,18 +141,19 @@ public class Update1nCardinalityTest {
 	public void testUpdateCRUDInformationSource() {
 
 		SpecificMeasure specificMeasureManaged = new SpecificMeasure();
-		em.persist(specificMeasureManaged);
+		persist(specificMeasureManaged);
+
 		SpecificMeasure specificMeasureDto = new SpecificMeasure();
 
 		List<SpecificMeasure> specificMeasureListManaged = new ArrayList<SpecificMeasure>();
 		List<SpecificMeasure> specificMeasureListDto = new ArrayList<SpecificMeasure>();
 
 		Vme vmeManaged = new Vme();
-		em.persist(vmeManaged);
+		persist(vmeManaged);
 		vmeManaged.setSpecificMeasureList(specificMeasureListManaged);
 
 		InformationSource informationSourceManaged = new InformationSource();
-		em.persist(informationSourceManaged);
+		persist(informationSourceManaged);
 
 		// the following status changes only apply to informationsource
 		// 0 to 0
@@ -185,16 +183,20 @@ public class Update1nCardinalityTest {
 
 		// 1 to another
 		InformationSource anotherInformationSource = new InformationSource();
-		em.persist(anotherInformationSource);
-
-		// this is a strange hack. Probably because the em is not running in an transaction, it is not setting the id
-		anotherInformationSource.setId(2587l);
+		persist(anotherInformationSource);
 
 		specificMeasureDto.setInformationSource(anotherInformationSource);
 		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
 		assertEquals(1, specificMeasureListManaged.size());
 		assertEquals(anotherInformationSource, specificMeasureListManaged.get(0).getInformationSource());
 
+	}
+
+	private <T> void persist(T object) {
+		EntityTransaction t = em.getTransaction();
+		t.begin();
+		em.persist(object);
+		t.commit();
 	}
 
 	/**
@@ -206,14 +208,14 @@ public class Update1nCardinalityTest {
 	public void testUpdate() {
 
 		SpecificMeasure specificMeasureManaged = new SpecificMeasure();
-		em.persist(specificMeasureManaged);
+		persist(specificMeasureManaged);
 		SpecificMeasure specificMeasureDto = new SpecificMeasure();
 
 		List<SpecificMeasure> specificMeasureListManaged = new ArrayList<SpecificMeasure>();
 		List<SpecificMeasure> specificMeasureListDto = new ArrayList<SpecificMeasure>();
 
 		Vme vmeManaged = new Vme();
-		em.persist(vmeManaged);
+		persist(vmeManaged);
 
 		// 0 to 0
 		u1n.update(em, vmeManaged, specificMeasureListDto, specificMeasureListManaged);
@@ -256,12 +258,12 @@ public class Update1nCardinalityTest {
 	public void testUpdateProfile() {
 		Vme vmeDto = VmeMock.create();
 		Vme vmeEm = VmeMock.create();
-		em.persist(vmeEm);
+		persist(vmeEm);
 
 		List<Profile> l = vmeEm.getProfileList();
 		for (int i = 0; i < l.size(); i++) {
 			Profile g = l.get(i);
-			em.persist(g);
+			persist(g);
 			vmeDto.getProfileList().get(i).setId(g.getId());
 		}
 
