@@ -81,7 +81,7 @@ public class Update1nCardinality {
 					ObjectId<Long> objectEm = em.find(objectDto.getClass(), objectDto.getId());
 					if (objectEm == null) {
 						throw new VmeException("The target object should exist, at this point for object "
-								+ objectDto.getId());
+								+ objectDto.getClass() + " with id " + objectDto.getId());
 					}
 
 					// delete it from the list which need to be need to be deleted.
