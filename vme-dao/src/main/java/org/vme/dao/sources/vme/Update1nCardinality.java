@@ -42,12 +42,12 @@ public class Update1nCardinality {
 	 * 
 	 * 
 	 * @param em
-	 * @param parent
+	 * @param parentManaged
 	 * @param listDto
 	 * @param listEm
 	 */
 	@SuppressWarnings({ "unchecked" })
-	public <T> void update(EntityManager em, ObjectId<Long> parent, List<T> listDto, List<T> listEm) {
+	public <T> void update(EntityManager em, ObjectId<Long> parentManaged, List<T> listDto, List<T> listEm) {
 		List<T> toBeDeleted = new ArrayList<T>();
 		if (listEm == null) {
 			listEm = new ArrayList<T>();
@@ -61,7 +61,7 @@ public class Update1nCardinality {
 				ObjectId<Long> objectDto = (ObjectId<Long>) dto;
 				if (objectDto.getId() == null) {
 					// a new object
-					setParent(parent, objectDto);
+					setParent(parentManaged, objectDto);
 					listEm.add((T) objectDto);
 					em.persist(objectDto);
 					if (objectDto instanceof SpecificMeasure
@@ -77,6 +77,7 @@ public class Update1nCardinality {
 						em.merge(sm.getInformationSource());
 					}
 				} else {
+					LOG.info("An eventual change, class is:" + objectDto.getClass() + ", id is " + objectDto.getId());
 					// an eventual change
 					ObjectId<Long> objectEm = em.find(objectDto.getClass(), objectDto.getId());
 					if (objectEm == null) {
@@ -88,7 +89,7 @@ public class Update1nCardinality {
 					// (for the next loop, see below)
 					toBeDeleted.remove(objectEm);
 
-					copyProperties(em, parent, objectDto, objectEm);
+					copyProperties(em, parentManaged, objectDto, objectEm);
 
 					em.merge(objectEm);
 				}
@@ -210,13 +211,21 @@ public class Update1nCardinality {
 
 	}
 
-	private void setParent(ObjectId<Long> parent, ObjectId<Long> dto) {
+	/**
+	 * This method would set the parent of a dto, providing it has that as a parent. In case it would not, the method
+	 * throws an exception.
+	 * 
+	 * @param parentManaged
+	 * @param dto
+	 * 
+	 */
+	private void setParent(ObjectId<Long> parentManaged, ObjectId<Long> dto) {
 		boolean done = false;
 		Method[] methods = dto.getClass().getMethods();
 		for (Method method : methods) {
-			if (method.getName().startsWith("set") && method.getParameterTypes()[0].equals(parent.getClass())) {
+			if (method.getName().startsWith("set") && method.getParameterTypes()[0].equals(parentManaged.getClass())) {
 				try {
-					method.invoke(dto, parent);
+					method.invoke(dto, parentManaged);
 					done = true;
 				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					throw new VmeException(e);
