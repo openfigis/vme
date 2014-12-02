@@ -9,6 +9,7 @@ import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
+import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
@@ -51,11 +52,10 @@ public class DtoTranslator {
 			smDto.setSourceURL(sm.getInformationSource().getUrl().toExternalForm());
 		}
 
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(sm.getValidityPeriod().getBeginDate());
-
-		smDto.setFactsheetURL(factsheetURL(figisDao.findExactVmeObservation(sm.getVme().getId(),
-				calendar.get(Calendar.YEAR))));
+		VmeObservation obs = doOidLogic(sm.getVme().getId(), sm.getValidityPeriod());
+		if (obs != null) {
+			smDto.setFactsheetURL(factsheetURL(obs));
+		}
 		return smDto;
 	}
 
@@ -67,14 +67,32 @@ public class DtoTranslator {
 			smt.setMeasureSourceUrl(sm.getInformationSource().getUrl().toExternalForm());
 		}
 		smt.setMeasureText(UTIL.getEnglish(sm.getVmeSpecificMeasure()));
-		if (figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear()) != null) {
-			smt.setOid(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear()).getId().getObservationId()
-					.intValue());
+
+		VmeObservation obs = doOidLogic(sm.getVme().getId(), sm.getValidityPeriod());
+		if (obs != null) {
+			smt.setOid(obs.getId().getObservationId().intValue());
 		}
 		smt.setValidityPeriodStart(String.valueOf(sm.getValidityPeriod().getBeginDate()));
 		smt.setValidityPeriodEnd(String.valueOf(sm.getValidityPeriod().getEndDate()));
 		smt.setYear(sm.getYear());
 		return smt;
+	}
+
+	/**
+	 * Using end date of the validity period as a base could be debatable. It could also be the year of the object. The
+	 * facstheet generation is based upon the year.
+	 * 
+	 * 
+	 * 
+	 * @param vmeId
+	 * @param validityPeriod
+	 * @return
+	 */
+	private VmeObservation doOidLogic(Long vmeId, ValidityPeriod validityPeriod) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(validityPeriod.getEndDate());
+
+		return figisDao.findFirstVmeObservation(vmeId, calendar.get(Calendar.YEAR));
 	}
 
 	public VmeDto doTranslate4Vme(Vme vme, int year) {

@@ -21,6 +21,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
+import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -156,7 +157,7 @@ abstract class AbstractService {
 		vmeList.addAll(temp);
 	}
 
-	public void filterByRequestParam(List<Vme> vmeList, int authority, int type, int criteria, String text) {
+	public void filterByRequestParam(List<Vme> vmeList, int authority, int type, int criteria, String text, int year) {
 
 		if (authority > 0) {
 			filterVmePerRfmoById(vmeList, authority);
@@ -174,6 +175,24 @@ abstract class AbstractService {
 			filterVmePerRelevantText(vmeList, text);
 		}
 
+		if (year > 0) {
+			filterVmePerRelevantYear(vmeList, year);
+		}
+
+	}
+
+	private void filterVmePerRelevantYear(List<Vme> vmeList, int year) {
+
+		ValidityPeriodUtil u = new ValidityPeriodUtil();
+		List<Vme> temp = new ArrayList<Vme>();
+		for (Vme vme : vmeList) {
+
+			if (u.getBeginYear(vme.getValidityPeriod()) <= year && u.getEndYear(vme.getValidityPeriod()) >= year) {
+				temp.add(vme);
+			}
+		}
+		vmeList.clear();
+		vmeList.addAll(temp);
 	}
 
 	public long getAuthorityIdByAcronym(String authorityAcronym) {

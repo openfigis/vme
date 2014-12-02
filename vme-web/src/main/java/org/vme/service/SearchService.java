@@ -24,7 +24,6 @@ import org.vme.service.search.ReferencesRequest;
 import org.vme.service.search.ServiceResponse;
 import org.vme.web.cache.Cached;
 
-
 @Alternative
 public class SearchService extends AbstractService implements SearchServiceInterface {
 
@@ -34,7 +33,9 @@ public class SearchService extends AbstractService implements SearchServiceInter
 	@Inject
 	private DtoTranslator translator;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.vme.service.SearchServiceInterface#invoke(org.vme.service.search.ObservationsRequest)
 	 */
 	@Override
@@ -51,9 +52,10 @@ public class SearchService extends AbstractService implements SearchServiceInter
 			filterVmePerInventoryIdentifier(vmeList, request.getInventoryIdentifier());
 		} else if (request.hasGeographicFeatureId()) {
 			filterVmePerGeographFeatureId(vmeList, request.getGeographicFeatureId());
-		} else if (request.hasText() || request.hasAuthority() || request.hasType() || request.hasCriteria()) {
+		} else if (request.hasText() || request.hasAuthority() || request.hasType() || request.hasCriteria()
+				|| request.hasYear()) {
 			filterByRequestParam(vmeList, request.getAuthority(), request.getType(), request.getCriteria(),
-					request.getText());
+					request.getText(), request.getYear());
 		} else if (!request.hasText() && !request.hasAuthority() && !request.hasType() && !request.hasCriteria()) {
 			vmeList.clear();
 		}
@@ -67,7 +69,9 @@ public class SearchService extends AbstractService implements SearchServiceInter
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.vme.service.SearchServiceInterface#invoke(org.vme.service.search.ReferencesRequest)
 	 */
 	@Override

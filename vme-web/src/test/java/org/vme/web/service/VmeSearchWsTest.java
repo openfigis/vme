@@ -1,11 +1,14 @@
 package org.vme.web.service;
 
+import static org.junit.Assert.assertEquals;
+
 import javax.inject.Inject;
 
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.CdiRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.vme.service.SearchServiceInterface;
 
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives(DummySearchService.class)
@@ -13,6 +16,7 @@ public class VmeSearchWsTest {
 
 	@Inject
 	VmeSearchWs vmeSearchWs;
+	SearchServiceInterface dummySearchService;
 
 	@Test
 	public void testFind() throws Exception {
@@ -21,7 +25,12 @@ public class VmeSearchWsTest {
 		vmeSearchWs.find(null, null, "30", null, null);
 		vmeSearchWs.find(null, null, null, "30", null);
 		vmeSearchWs.find(null, null, null, null, "30");
-
 	}
 
+	@Test
+	public void testFindYear() throws Exception {
+		vmeSearchWs.find(null, null, null, null, "30");
+		assertEquals(30, DummySearchService.year);
+
+	}
 }
