@@ -571,6 +571,7 @@ public class VmeDao extends AbstractJPADao {
 		vmeManaged.setInventoryIdentifier(vmeDto.getInventoryIdentifier());
 		vmeManaged.setScope(vmeDto.getScope());
 		vmeManaged.setValidityPeriod(vmeDto.getValidityPeriod());
+		vmeManaged.setRfmo(vmeDto.getRfmo());
 
 		vmeManaged = em.merge(vmeManaged);
 		return vmeManaged;
