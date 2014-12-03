@@ -80,7 +80,7 @@ public class FisheryAreasHistory implements ObjectId<Long>, History, Year<Histor
 	@RSGName("History")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private @RSGRichInput MultiLingualString history;
 
 	/*

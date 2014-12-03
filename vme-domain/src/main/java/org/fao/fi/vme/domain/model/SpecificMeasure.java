@@ -94,7 +94,7 @@ public class SpecificMeasure implements ObjectId<Long>, Year<SpecificMeasure>, S
 	@RSGName("VME Specific Measure Summary")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(2)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private @RSGRichInput MultiLingualString vmeSpecificMeasure;
 
 	@Override

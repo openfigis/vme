@@ -95,7 +95,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGName("Fishing areas")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private @RSGRichInput MultiLingualString fishingArea;
 
 	/**
@@ -104,7 +104,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGName("Exploratory Fishing Protocols")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private @RSGRichInput MultiLingualString explorataryFishingProtocol;
 
 	/**
@@ -113,7 +113,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGName("Encounter protocols")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private @RSGRichInput MultiLingualString vmeEncounterProtocol;
 
 	/**
@@ -122,7 +122,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGName("Indicator Species")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private @RSGRichInput MultiLingualString vmeIndicatorSpecies;
 
 	/**
@@ -131,7 +131,7 @@ public class GeneralMeasure implements ObjectId<Long>, Year<GeneralMeasure>, Ref
 	@RSGName("Threshold")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private @RSGRichInput MultiLingualString vmeThreshold;
 
 	@Override

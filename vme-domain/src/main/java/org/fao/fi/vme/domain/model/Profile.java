@@ -60,7 +60,7 @@ public class Profile implements ObjectId<Long>, Year<Profile>, Serializable {
 	 */
 	@RSGName("VME Physical description")
 	@RSGConverter(MultiLingualStringConverter.class)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private @RSGRichInput MultiLingualString descriptionPhisical;
 
 	/**
@@ -69,7 +69,7 @@ public class Profile implements ObjectId<Long>, Year<Profile>, Serializable {
 	 */
 	@RSGName("VME Biological description")
 	@RSGConverter(MultiLingualStringConverter.class)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private @RSGRichInput MultiLingualString descriptionBiological;
 
 	/**
@@ -77,12 +77,12 @@ public class Profile implements ObjectId<Long>, Year<Profile>, Serializable {
 	 */
 	@RSGName("VME Impact description")
 	@RSGConverter(MultiLingualStringConverter.class)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private @RSGRichInput MultiLingualString descriptionImpact;
 
 	@RSGName("Geoform")
 	@RSGConverter(MultiLingualStringConverter.class)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private MultiLingualString geoform;
 
 	@Override

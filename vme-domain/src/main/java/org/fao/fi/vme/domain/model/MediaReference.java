@@ -51,21 +51,21 @@ public class MediaReference implements ObjectId<Long> {
 	@RSGName("Title")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGMandatory
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	@RSGWeight(1)
 	private MultiLingualString title;
 
 	@RSGName("Description")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGMandatory
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	@RSGWeight(1)
 	private MultiLingualString description;
 
 	@RSGName("Credits")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGMandatory
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	@RSGWeight(1)
 	private MultiLingualString credits;
 

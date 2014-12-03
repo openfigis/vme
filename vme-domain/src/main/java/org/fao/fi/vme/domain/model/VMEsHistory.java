@@ -81,7 +81,7 @@ public class VMEsHistory implements ObjectId<Long>, History, Year<History>, Refe
 	@RSGName("History")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private @RSGRichInput MultiLingualString history;
 
 	/*

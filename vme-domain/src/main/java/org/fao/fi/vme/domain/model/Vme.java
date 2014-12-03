@@ -77,13 +77,13 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGName("VME Profiles")
 	@RSGWeight(3)
 	@RSGSection
-	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Profile> profileList;
 
 	@RSGName("VME Map Reference")
 	@RSGWeight(5)
 	@RSGSection
-	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<GeoRef> geoRefList;
 
 	/**
@@ -97,13 +97,13 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGName("VME Name")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGMandatory
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval = true)
 	private MultiLingualString name;
 
 	@RSGName("Geographic reference")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval = true)
 	private MultiLingualString geoArea;
 
 	@RSGName(value = "Vme Scope", hideHeading = true)
@@ -138,7 +138,7 @@ public class Vme implements ObjectId<Long>, Report, Serializable, Period {
 	@RSGName("Media Reference")
 	@RSGWeight(6)
 	@RSGSection
-	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "vme", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MediaReference> mediaReferenceList;
 
 	@Override

@@ -113,14 +113,14 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 	@RSGName("Committee")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(2)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private MultiLingualString committee;
 
 	/** */
 	@RSGName("Report Summary")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(2)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private MultiLingualString reportSummary;
 
 	/**
@@ -159,7 +159,7 @@ public class InformationSource implements ObjectId<Long>, ReferenceReport, Seria
 	@RSGName("Citation")
 	@RSGConverter(MultiLingualStringConverter.class)
 	@RSGWeight(1)
-	@OneToOne(cascade = { CascadeType.ALL })
+	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval=true)
 	private MultiLingualString citation;
 
 	@Override
