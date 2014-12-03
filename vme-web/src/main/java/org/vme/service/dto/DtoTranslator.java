@@ -9,7 +9,6 @@ import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
-import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
@@ -52,7 +51,8 @@ public class DtoTranslator {
 			smDto.setSourceURL(sm.getInformationSource().getUrl().toExternalForm());
 		}
 
-		VmeObservation obs = doOidLogic(sm.getVme().getId(), sm.getValidityPeriod());
+		VmeObservation obs = figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear());
+
 		if (obs != null) {
 			smDto.setFactsheetURL(factsheetURL(obs));
 		}
@@ -68,7 +68,8 @@ public class DtoTranslator {
 		}
 		smt.setMeasureText(UTIL.getEnglish(sm.getVmeSpecificMeasure()));
 
-		VmeObservation obs = doOidLogic(sm.getVme().getId(), sm.getValidityPeriod());
+		VmeObservation obs = figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear());
+
 		if (obs != null) {
 			smt.setOid(obs.getId().getObservationId().intValue());
 		}
@@ -76,23 +77,6 @@ public class DtoTranslator {
 		smt.setValidityPeriodEnd(String.valueOf(sm.getValidityPeriod().getEndDate()));
 		smt.setYear(sm.getYear());
 		return smt;
-	}
-
-	/**
-	 * Using end date of the validity period as a base could be debatable. It could also be the year of the object. The
-	 * facstheet generation is based upon the year.
-	 * 
-	 * 
-	 * 
-	 * @param vmeId
-	 * @param validityPeriod
-	 * @return
-	 */
-	private VmeObservation doOidLogic(Long vmeId, ValidityPeriod validityPeriod) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(validityPeriod.getEndDate());
-
-		return figisDao.findFirstVmeObservation(vmeId, calendar.get(Calendar.YEAR));
 	}
 
 	public VmeDto doTranslate4Vme(Vme vme, int year) {
@@ -171,6 +155,7 @@ public class DtoTranslator {
 		gmDto.setVmeEncounterProtocol(UTIL.getEnglish(gm.getVmeEncounterProtocol()));
 		gmDto.setVmeIndicatorSpecies(UTIL.getEnglish(gm.getVmeIndicatorSpecies()));
 		gmDto.setThreshold(UTIL.getEnglish(gm.getVmeThreshold()));
+
 		if (figisDao.findExactVmeObservation(gm.getRfmo().getListOfManagedVmes().get(0).getId(), gm.getYear()) != null) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(gm.getValidityPeriod().getBeginDate());
