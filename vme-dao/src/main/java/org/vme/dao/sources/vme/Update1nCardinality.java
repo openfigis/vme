@@ -63,18 +63,29 @@ public class Update1nCardinality {
 					// a new object
 					setParent(parentManaged, objectDto);
 					listEm.add((T) objectDto);
-					em.persist(objectDto);
-					if (objectDto instanceof SpecificMeasure
-							&& ((SpecificMeasure) objectDto).getInformationSource() != null) {
-						SpecificMeasure sm = (SpecificMeasure) objectDto;
 
-						LOG.info("New SpecificMeasure " + sm.getId());
+					// This is a new one but can have already links to managed entities.
 
-						if (sm.getInformationSource().getSpecificMeasureList() == null) {
-							sm.getInformationSource().setSpecificMeasureList(new ArrayList<SpecificMeasure>());
+					if (objectDto instanceof SpecificMeasure) {
+						SpecificMeasure specificMeasureDto = (SpecificMeasure) objectDto;
+						if (specificMeasureDto.getInformationSource() != null) {
+							InformationSource informationSourceManaged = em.find(InformationSource.class,
+									specificMeasureDto.getInformationSource().getId());
+							if (specificMeasureDto.getInformationSource().getSpecificMeasureList() == null) {
+								specificMeasureDto.getInformationSource().setSpecificMeasureList(
+										new ArrayList<SpecificMeasure>());
+							}
+							if (informationSourceManaged.getSpecificMeasureList() == null) {
+								informationSourceManaged.setSpecificMeasureList(new ArrayList<SpecificMeasure>());
+							}
+							informationSourceManaged.getSpecificMeasureList().add(specificMeasureDto);
+							specificMeasureDto.getInformationSource().getSpecificMeasureList().add(specificMeasureDto);
+							em.merge(informationSourceManaged);
+							specificMeasureDto.setInformationSource(informationSourceManaged);
 						}
-						sm.getInformationSource().getSpecificMeasureList().add(sm);
-						em.merge(sm.getInformationSource());
+						em.persist(specificMeasureDto);
+					} else {
+						em.persist(objectDto);
 					}
 				} else {
 					LOG.info("An eventual change, class is:" + objectDto.getClass() + ", id is " + objectDto.getId());
