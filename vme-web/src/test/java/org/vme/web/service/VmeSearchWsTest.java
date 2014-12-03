@@ -25,6 +25,7 @@ public class VmeSearchWsTest {
 		vmeSearchWs.find(null, null, "30", null, null);
 		vmeSearchWs.find(null, null, null, "30", null);
 		vmeSearchWs.find(null, null, null, null, "30");
+		vmeSearchWs.find("vme", null, null, null, null);
 	}
 
 	@Test

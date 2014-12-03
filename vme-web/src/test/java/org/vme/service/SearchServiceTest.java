@@ -46,6 +46,17 @@ public class SearchServiceTest {
 
 	@Test
 	@SuppressWarnings("unchecked")
+	public void testText() throws Exception {
+		ObservationsRequest r = new ObservationsRequest(UUID.randomUUID());
+		r.setText("Vmer3424");
+
+		response = (ServiceResponse<VmeDto>) service.invoke(r);
+		assertEquals(0, response.getTotalResult());
+
+	}
+
+	@Test
+	@SuppressWarnings("unchecked")
 	public void testYear() throws Exception {
 		ObservationsRequest r = new ObservationsRequest(UUID.randomUUID());
 		r.setYear(VmeMock.YEAR);

@@ -17,6 +17,7 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.fao.fi.vme.webservice.GeneralMeasureType;
 import org.fao.fi.vme.webservice.SpecificMeasureType;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
+import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.NamedReferenceConcept;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vme.dao.ReferenceServiceException;
@@ -87,13 +88,7 @@ public class DtoTranslator {
 
 		VmeDto res = new VmeDto();
 		res.setVmeId(vme.getId());
-
-		try {
-			res.setScope(referenceDAO.getReferenceByID(VmeScope.class, vme.getScope()).getName());
-		} catch (Exception e1) {
-			log.error(UNABLE2RETRIVE, VmeScope.class, vme.getScope(), e1.getMessage(), e1);
-		}
-
+		res.setScope(fetchName(VmeScope.class, vme.getScope()));
 		res.setInventoryIdentifier(vme.getInventoryIdentifier());
 		res.setLocalName(UTIL.getEnglish(vme.getName()));
 		res.setEnvelope("");
@@ -121,17 +116,9 @@ public class DtoTranslator {
 		}
 
 		res.setGeoArea(UTIL.getEnglish(vme.getGeoArea()));
-
 		res.setValidityPeriodFrom(vme.getValidityPeriod().getBeginDate());
 		res.setValidityPeriodTo(vme.getValidityPeriod().getEndDate());
-
-		if (vme.getAreaType() != null) {
-			try {
-				res.setVmeType(referenceDAO.getReferenceByID(VmeType.class, vme.getAreaType()).getName());
-			} catch (Exception e) {
-				log.error(UNABLE2RETRIVE, VmeType.class, vme.getAreaType(), e.getMessage(), e);
-			}
-		}
+		res.setVmeType(fetchName(VmeType.class, vme.getAreaType()));
 
 		if (!vme.getGeoRefList().isEmpty()) {
 			GeoRef first = vme.getGeoRefList().get(0);
@@ -142,6 +129,20 @@ public class DtoTranslator {
 			res.setGeographicFeatureId("");
 		}
 		return res;
+	}
+
+	private String fetchName(Class<? extends NamedReferenceConcept> clazz, Long id) {
+		if (id != null) {
+			try {
+				NamedReferenceConcept referenceConcept = referenceDAO.getReferenceByID(clazz, id);
+				if (referenceConcept != null && referenceConcept.getName() != null) {
+					return referenceConcept.getName();
+				}
+			} catch (Exception e) {
+				log.error(UNABLE2RETRIVE, clazz, id, e.getMessage(), e);
+			}
+		}
+		return null;
 	}
 
 	public GeneralMeasureDto doTranslate4Gm(GeneralMeasure gm) {
