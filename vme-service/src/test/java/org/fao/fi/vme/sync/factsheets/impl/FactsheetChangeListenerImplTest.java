@@ -89,7 +89,10 @@ public class FactsheetChangeListenerImplTest {
 
 		try {
 			vmeDao.update(vme);
-			vmeDao.commit(et);
+			et.commit();
+
+			System.out
+					.println("Sometimes tests do block here. Maybe only on Windows, probably because of blocked network ports. Restart your machine.");
 
 			l.vmeChanged(vme);
 			delegateCount();
