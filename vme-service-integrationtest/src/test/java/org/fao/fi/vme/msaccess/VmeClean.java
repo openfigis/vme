@@ -1,17 +1,20 @@
 package org.fao.fi.vme.msaccess;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fao.fi.vme.domain.model.FisheryAreasHistory;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
 import org.fao.fi.vme.domain.model.InformationSource;
+import org.fao.fi.vme.domain.model.MediaReference;
 import org.fao.fi.vme.domain.model.Profile;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.SpecificMeasure;
 import org.fao.fi.vme.domain.model.VMEsHistory;
 import org.fao.fi.vme.domain.model.Vme;
 import org.fao.fi.vme.domain.model.reference.InformationSourceType;
+import org.vme.dao.sources.vme.Update1nCardinality;
 import org.vme.dao.sources.vme.VmeDao;
 
 public class VmeClean {
@@ -65,9 +68,12 @@ public class VmeClean {
 		List<Vme> vmeList = (List<Vme>) vmeDao.loadObjects(Vme.class);
 		for (Vme vme : vmeList) {
 			vme.setGeoRefList(null);
+			Update1nCardinality u = new Update1nCardinality();
+			u.update(vmeDao.getEm(), vme, new ArrayList<GeoRef>(), vme.getGeoRefList());
+			u.update(vmeDao.getEm(), vme, new ArrayList<MediaReference>(), vme.getMediaReferenceList());
+			u.update(vmeDao.getEm(), vme, new ArrayList<SpecificMeasure>(), vme.getSpecificMeasureList());
+			u.update(vmeDao.getEm(), vme, new ArrayList<Profile>(), vme.getProfileList());
 			vme.setRfmo(null);
-			vme.setSpecificMeasureList(null);
-			vme.setProfileList(null);
 			vmeDao.merge(vme);
 		}
 
