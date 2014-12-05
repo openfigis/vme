@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,8 +15,7 @@ import javax.persistence.Lob;
 /**
  * Not applied yet.
  * 
- * See also
- * http://stackoverflow.com/questions/5964027/localizable-strings-in-jpa
+ * See also http://stackoverflow.com/questions/5964027/localizable-strings-in-jpa
  * 
  * 
  * http://hwellmann.blogspot.it/2010/07/jpa-20-querying-map.html
@@ -40,8 +40,14 @@ public class MultiLingualString implements ObjectId<Long>, Serializable {
 	/**
 	 * map of descriptions per language
 	 * 
+	 * Not using eager sometimes leads to problems with hibernate (Failed toString() invocation on an object of type
+	 * java.lang.NullPointerException at
+	 * org.hibernate.collection.internal.AbstractPersistentCollection$1ExtraLazyElementByIndexReader
+	 * .doWork(AbstractPersistentCollection.java:359))
+	 * 
+	 * 
 	 */
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@Lob
 	@CollectionTable(name = "MULTILINGUALSTRING_STRINGMAP")
 	private Map<Integer, String> stringMap;
@@ -64,25 +70,15 @@ public class MultiLingualString implements ObjectId<Long>, Serializable {
 		this.stringMap = stringMap;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-		result = prime * result + ((this.stringMap == null) ? 0 : this.stringMap.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((stringMap == null) ? 0 : stringMap.hashCode());
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -95,20 +91,21 @@ public class MultiLingualString implements ObjectId<Long>, Serializable {
 			return false;
 		}
 		MultiLingualString other = (MultiLingualString) obj;
-		if (this.id == null) {
+		if (id == null) {
 			if (other.id != null) {
 				return false;
 			}
-		} else if (!this.id.equals(other.id)) {
+		} else if (!id.equals(other.id)) {
 			return false;
 		}
-		if (this.stringMap == null) {
+		if (stringMap == null) {
 			if (other.stringMap != null) {
 				return false;
 			}
-		} else if (!this.stringMap.equals(other.stringMap)) {
+		} else if (!stringMap.equals(other.stringMap)) {
 			return false;
 		}
 		return true;
 	}
+
 }
