@@ -60,3 +60,20 @@ VMEsHistory32727 Number of deletions 0 Ids deleted are:
 Total is 251
 
 
+-- Dev 
+Development
+Total size is 5648
+Total deleted is 3971
+select count(*) from multilingual_string
+1677
+
+Total size is 6273
+Total deleted is 4543
+select count(*) from multilingual_string
+1730
+
+
+
+
+
+
