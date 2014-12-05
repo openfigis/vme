@@ -35,7 +35,7 @@ public class CleanMultiLingualString {
 	@Inject
 	VmeDao dao;
 
-	public void clean() {
+	public void cleanEmpty() {
 		Report r = new Report();
 
 		for (Class<?> clazz : mlList) {
@@ -57,10 +57,9 @@ public class CleanMultiLingualString {
 			if (propertyDescriptor.getPropertyType().equals(MultiLingualString.class)) {
 				try {
 					MultiLingualString mls = (MultiLingualString) pu.getProperty(object, propertyDescriptor.getName());
-					if (toBeDeleted(mls)) {
+					if (mls != null && toBeDeleted(mls)) {
 						pu.setProperty(object, propertyDescriptor.getName(), null);
 						dao.merge(object);
-						dao.remove(mls);
 						rro.getIds().add((Long) object.getId());
 					}
 				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
