@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityTransaction;
 
 import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.fao.fi.vme.VmeException;
@@ -35,20 +36,41 @@ public class CleanMultiLingualString {
 	@Inject
 	VmeDao dao;
 
+	Report r = new Report();
+
 	public void cleanEmpty() {
-		Report r = new Report();
 
 		for (Class<?> clazz : mlList) {
+
 			ReportPerObject rro = new ReportPerObject();
+			r.getReportList().add(rro);
 			rro.setClazz(clazz);
 			@SuppressWarnings("unchecked")
 			List<ObjectId<?>> objectList = (List<ObjectId<?>>) dao.loadObjects(clazz);
 			for (ObjectId<?> object : objectList) {
+				rro.setId((Long) object.getId());
 				cleanObject(object, rro);
 			}
-			r.getReportList().add(rro);
 		}
+
 	}
+
+	public void report() {
+
+		List<ReportPerObject> l = r.getReportList();
+		for (ReportPerObject reportPerObject : l) {
+			System.out.print(reportPerObject.getClazz().getSimpleName() + reportPerObject.getId()
+					+ " Number of deletions " + reportPerObject.getIds().size());
+			System.out.print(" Ids deleted are: ");
+			List<Long> ids = reportPerObject.getIds();
+			for (Long id : ids) {
+				System.out.print(id + " ");
+			}
+			System.out.println();
+
+		}
+
+	};
 
 	private void cleanObject(ObjectId<?> object, ReportPerObject rro) {
 		PropertyUtilsBean pu = new PropertyUtilsBean();
@@ -58,9 +80,18 @@ public class CleanMultiLingualString {
 				try {
 					MultiLingualString mls = (MultiLingualString) pu.getProperty(object, propertyDescriptor.getName());
 					if (mls != null && toBeDeleted(mls)) {
+						rro.getIds().add((Long) mls.getId());
+						EntityTransaction t1 = dao.getEm().getTransaction();
+						t1.begin();
+						// object = dao.getEm().merge(object);
+						// mls = dao.getEm().merge(mls);
+						// mls.getStringMap().remove(Lang.EN);
+						// dao.getEm().merge(mls);
+						// mls.setStringMap(null);
+						// dao.getEm().merge(mls);
 						pu.setProperty(object, propertyDescriptor.getName(), null);
-						dao.merge(object);
-						rro.getIds().add((Long) object.getId());
+						dao.getEm().merge(object);
+						t1.commit();
 					}
 				} catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
 					throw new VmeException(e);
@@ -73,6 +104,7 @@ public class CleanMultiLingualString {
 	private boolean toBeDeleted(MultiLingualString mls) {
 		boolean toBeDeleted = false;
 		if (mls.getStringMap() == null || mls.getStringMap().get(Lang.EN) == null) {
+			System.out.println("hit! " + mls.getId());
 			toBeDeleted = true;
 		}
 		return toBeDeleted;

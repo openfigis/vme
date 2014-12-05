@@ -6,6 +6,7 @@ import java.util.List;
 public class ReportPerObject {
 
 	private Class<?> clazz;
+	private Long id;
 	private List<Long> ids = new ArrayList<Long>();
 
 	public Class<?> getClazz() {
@@ -14,6 +15,14 @@ public class ReportPerObject {
 
 	public void setClazz(Class<?> clazz) {
 		this.clazz = clazz;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public List<Long> getIds() {
