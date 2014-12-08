@@ -15,14 +15,11 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 
- * PeriodGrouping is slicing all the information from the VME domain model in a
- * slice per year.
+ * PeriodGrouping is slicing all the information from the VME domain model in a slice per year.
  * 
- * There are Period objects and Year Objects. It could be better to have only
- * Period Objects.
+ * There are Period objects and Year Objects. It could be better to have only Period Objects.
  * 
- * PeriodGrouping makes for every possible year a slice. The Slice filter will
- * than decide which ones to filer out.
+ * PeriodGrouping makes for every possible year a slice. The Slice filter will than decide which ones to filer out.
  * 
  * 
  * @author Erik van Ingen
@@ -34,6 +31,8 @@ public class PeriodGrouping {
 	private static final int FUTURE = 9999;
 	private ValidityPeriodUtil vu = new ValidityPeriodUtil();
 	private static final Logger LOG = LoggerFactory.getLogger(PeriodGrouping.class);
+	private CalculateBeginYearRule calculateBeginYearRule = new CalculateBeginYearRule();
+	private GeoRefRule geoRefRule = new GeoRefRule();
 
 	public List<DisseminationYearSlice> collect(Vme vme) {
 		// precondition
@@ -46,7 +45,7 @@ public class PeriodGrouping {
 		// logic
 		List<DisseminationYearSlice> l = new ArrayList<DisseminationYearSlice>();
 
-		int beginYear = vu.getBeginYear(vme.getValidityPeriod());
+		int beginYear = calculateBeginYearRule.calculate(vme);
 		int endYear = vu.getEndYear(vme.getValidityPeriod());
 
 		if (endYear == FUTURE) {
@@ -61,6 +60,9 @@ public class PeriodGrouping {
 			slice.setFisheryAreasHistory(findYearObject(vme.getRfmo().getHasFisheryAreasHistory(), disseminationYear));
 			slice.setVmesHistory(findYearObject(vme.getRfmo().getHasVmesHistory(), disseminationYear));
 			slice.setGeoRef(findYearObject(vme.getGeoRefList(), disseminationYear));
+
+			geoRefRule.applyRule(slice, vme.getGeoRefList(), disseminationYear);
+
 			slice.setProfile(findYearObject(vme.getProfileList(), disseminationYear));
 
 			slice.setVme(vme);
@@ -93,7 +95,7 @@ public class PeriodGrouping {
 				}
 			}
 		}
-		
+
 		return (T) history;
 
 	}

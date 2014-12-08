@@ -20,15 +20,15 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProv
 import org.gcube.application.rsg.support.compiler.bridge.interfaces.reference.NamedReferenceConcept;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vme.dao.ReferenceDAO;
 import org.vme.dao.ReferenceServiceException;
-import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 import org.vme.dao.sources.figis.FigisDao;
 
 public class DtoTranslator {
 
 	@Inject
 	@ConceptProvider
-	ReferenceDaoImpl referenceDAO;
+	ReferenceDAO referenceDAO;
 
 	@Inject
 	private FigisDao figisDao;
@@ -69,10 +69,10 @@ public class DtoTranslator {
 		}
 		smt.setMeasureText(UTIL.getEnglish(sm.getVmeSpecificMeasure()));
 
-		VmeObservation obs = figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear());
-
-		if (obs != null) {
-			smt.setOid(obs.getId().getObservationId().intValue());
+		// For the xml, the logic is different than from the JSON.
+		if (figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear()) != null) {
+			smt.setOid(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear()).getId().getObservationId()
+					.intValue());
 		}
 		smt.setValidityPeriodStart(String.valueOf(sm.getValidityPeriod().getBeginDate()));
 		smt.setValidityPeriodEnd(String.valueOf(sm.getValidityPeriod().getEndDate()));

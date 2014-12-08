@@ -25,14 +25,14 @@ import org.fao.fi.vme.domain.support.ValidityPeriodUtil;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vme.dao.ReferenceDAO;
 import org.vme.dao.ReferenceServiceException;
-import org.vme.dao.impl.jpa.ReferenceDaoImpl;
 
 abstract class AbstractService {
 
 	@Inject
 	@ConceptProvider
-	ReferenceDaoImpl refDao;
+	ReferenceDAO refDao;
 
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractService.class);
 	private static final String UNABLE2RETRIVE = "Unable to retrieve reference {} by ID {}: {}";
@@ -56,6 +56,8 @@ abstract class AbstractService {
 					vmeListPerScope.add(vme);
 				}
 			} catch (ReferenceServiceException e) {
+				throw new VmeException(e);
+			} catch (Exception e) {
 				throw new VmeException(e);
 			}
 		}

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.enterprise.inject.Alternative;
 
+import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.reference.MediaType;
 import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
@@ -70,6 +71,12 @@ public class ReferenceDaoMockImpl implements ReferenceDAO {
 	@Override
 	public AcronymAwareReferenceConcept getReferenceByAcronym(Class<? extends AcronymAwareReferenceConcept> concept,
 			String acronym) throws ReferenceServiceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Authority> getAllAuthorities() {
 		// TODO Auto-generated method stub
 		return null;
 	}
