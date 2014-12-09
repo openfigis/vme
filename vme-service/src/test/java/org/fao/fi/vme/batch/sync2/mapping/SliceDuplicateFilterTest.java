@@ -10,7 +10,6 @@ import org.fao.fi.vme.domain.model.InformationSource;
 import org.fao.fi.vme.domain.model.Rfmo;
 import org.fao.fi.vme.domain.model.ValidityPeriod;
 import org.fao.fi.vme.domain.model.Vme;
-import org.fao.fi.vme.domain.test.GeneralMeasureMock;
 import org.fao.fi.vme.domain.test.ValidityPeriodMock;
 import org.fao.fi.vme.domain.test.VmeMock;
 import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
@@ -23,8 +22,8 @@ public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
 	/**
-	 * there is an error in the algorithm, it generates 186 observations,
-	 * instead of 197. I am trying to isolate the problem here.
+	 * there is an error in the algorithm, it generates 186 observations, instead of 197. I am trying to isolate the
+	 * problem here.
 	 * 
 	 */
 
@@ -132,16 +131,8 @@ public class SliceDuplicateFilterTest extends SliceDuplicateFilter {
 
 		slices = create2Slices();
 
-		slices.get(0).setGeneralMeasure(GeneralMeasureMock.create());
-		slices.get(1).setGeneralMeasure(GeneralMeasureMock.create());
 		this.filter(slices);
 		assertEquals(1, slices.size());
-
-		slices = create2Slices();
-		slices.get(0).setGeneralMeasure(GeneralMeasureMock.create());
-		slices.get(0).getGeneralMeasure().setFishingArea(u.english("ghjg"));
-		this.filter(slices);
-		assertEquals(2, slices.size());
 
 		// testing with lists
 		slices = createSlicesWithInformationSource();

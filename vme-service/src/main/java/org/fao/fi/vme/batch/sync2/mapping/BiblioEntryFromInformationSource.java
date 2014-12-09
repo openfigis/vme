@@ -60,7 +60,7 @@ public class BiblioEntryFromInformationSource {
 				created.setContent(Integer.toString(is.getPublicationYear()));
 				be.getContent().add(created);
 			} else {
-				throw new VmeException("is without valid publicationYear");
+				throw new VmeException(is.getId() + " is without valid publicationYear");
 			}
 
 			// meetingStartDate - meetingEndDate

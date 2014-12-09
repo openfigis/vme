@@ -8,17 +8,17 @@ import javax.inject.Inject;
 import org.fao.fi.vme.domain.model.Vme;
 
 /**
- * Syncs the FIGIS Factsheet XML, Figis observation, Figis reference tables with
- * the information from the VME domain model.
+ * Syncs the FIGIS Factsheet XML, Figis observation, Figis reference tables with the information from the VME domain
+ * model.
  * 
  * 
  * * See http://km.fao.org/FIGISwiki/index.php/VME_Components
  * 
- * SyncBatch2 performs a sync between VME and FIGIS. It would push the data from
- * VME to FIGIS and eventually read reference data from FIGIS RTMS into VME.
+ * SyncBatch2 performs a sync between VME and FIGIS. It would push the data from VME to FIGIS and eventually read
+ * reference data from FIGIS RTMS into VME.
  * 
- * Pushing the data from VME to FIGIS means loading FIGIS and eventually
- * overwriting with updates. SyncBatch2 does not support updates through deltas.
+ * Pushing the data from VME to FIGIS means loading FIGIS and eventually overwriting with updates. SyncBatch2 does not
+ * support updates through deltas.
  * 
  * 
  * 

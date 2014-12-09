@@ -29,8 +29,7 @@ import org.fao.fi.vme.domain.model.Vme;
 import org.purl.dc.elements._1.Title;
 
 /**
- * FigisDocBuilder, to build a FIGISDoc from VME Domain database for vme
- * factsheets
+ * FigisDocBuilder, to build a FIGISDoc from VME Domain database for vme factsheets
  * 
  * 
  * 
@@ -45,7 +44,8 @@ public class FigisDocBuilderVme extends FigisDocBuilderAbstract {
 		dataEntryObjectSource(disseminationYearSlice.getVme().getRfmo().getId(), figisDoc);
 		vme(vme, disseminationYearSlice.getGeoRef(), disseminationYearSlice.getYear(), figisDoc);
 		mediaReference(vme, figisDoc);
-		specificMeasures(disseminationYearSlice.getSpecificMeasure(), figisDoc);
+		// specificMeasures(disseminationYearSlice.getSpecificMeasure(), figisDoc);
+		specificMeasureList(disseminationYearSlice.getSpecificMeasureList(), figisDoc);
 		profile(disseminationYearSlice.getProfile(), figisDoc);
 		informationSource(disseminationYearSlice.getInformationSourceList(), disseminationYearSlice.getYear(), figisDoc);
 
@@ -167,51 +167,42 @@ public class FigisDocBuilderVme extends FigisDocBuilderAbstract {
 
 	}
 
+	public void specificMeasureList(List<SpecificMeasure> specificMeasureList, FIGISDoc figisDoc) {
+		for (SpecificMeasure specificMeasure : specificMeasureList) {
+			specificMeasure(specificMeasure, figisDoc);
+		}
+	}
+
 	/**
 	 * Adds specificMeasures to a FIGISDoc
 	 * 
-	 * measureSummary fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:
-	 * ManagementMethodEntry@Focus=
-	 * "Vulnerable Marine Ecosystems"/fi:Measure/fi:Text
-	 * fi:FIGISDoc/fi:VME/fi:Management
+	 * measureSummary fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi: ManagementMethodEntry@Focus=
+	 * "Vulnerable Marine Ecosystems"/fi:Measure/fi:Text fi:FIGISDoc/fi:VME/fi:Management
 	 * /fi:ManagementMethods/fi:ManagementMethodEntry
 	 * 
 	 * @Focus="Vulnerable Marine Ecosystems"/dc:Title[VME-specific measures]
-	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 *                    /fi:ManagementMethodEntry@Focus=
-	 *                    "Vulnerable Marine Ecosystems"/fi:Measure/MeasureType
-	 *                    Value="vulnerable marine ecosystem"
-	 *                    fi:FIGISDoc/fi:VME/
-	 *                    fi:Management/fi:ManagementMethods/fi
-	 *                    :ManagementMethodEntry /fi:Measure/fi:Text
+	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods /fi:ManagementMethodEntry@Focus=
+	 *                    "Vulnerable Marine Ecosystems"/fi:Measure/MeasureType Value="vulnerable marine ecosystem"
+	 *                    fi:FIGISDoc/fi:VME/ fi:Management/fi:ManagementMethods/fi :ManagementMethodEntry
+	 *                    /fi:Measure/fi:Text
 	 * 
-	 *                    Source/url
-	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 *                    /fi:ManagementMethodEntry/fi:Measure /fi:Sources/fi
-	 *                    :BiblioEntry/dc:Identifier@Type="URI"
+	 *                    Source/url fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 *                    /fi:ManagementMethodEntry/fi:Measure /fi:Sources/fi :BiblioEntry/dc:Identifier@Type="URI"
 	 * 
-	 *                    Source/citation
-	 *                    fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 *                    /fi:ManagementMethodEntry/ fi:Measure/fi:Sources
-	 *                    /fi:BiblioEntry/dcterms:bibliographicCitation
+	 *                    Source/citation fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 *                    /fi:ManagementMethodEntry/ fi:Measure/fi:Sources /fi:BiblioEntry/dcterms:bibliographicCitation
 	 * 
-	 *                    ValidityPeriod/beginYear
-	 *                    fi:FIGISDoc/fi:VME/fi:Management
-	 *                    /fi:ManagementMethods/fi
-	 *                    :ManagementMethodEntry/fi:Measure
-	 *                    /fi:Range@Type="Time"/fi:Min
+	 *                    ValidityPeriod/beginYear fi:FIGISDoc/fi:VME/fi:Management /fi:ManagementMethods/fi
+	 *                    :ManagementMethodEntry/fi:Measure /fi:Range@Type="Time"/fi:Min
 	 * 
-	 *                    ValidityPeriod/endYear
-	 *                    fi:FIGISDoc/fi:VME/fi:Management
-	 *                    /fi:ManagementMethods/fi
-	 *                    :ManagementMethodEntry/fi:Measure/fi
-	 *                    :Range@Type="Time"/fi:Max
+	 *                    ValidityPeriod/endYear fi:FIGISDoc/fi:VME/fi:Management /fi:ManagementMethods/fi
+	 *                    :ManagementMethodEntry/fi:Measure/fi :Range@Type="Time"/fi:Max
 	 * 
 	 * 
 	 * @param specificMeasure
 	 * @param figisDoc
 	 */
-	public void specificMeasures(SpecificMeasure specificMeasure, FIGISDoc figisDoc) {
+	public void specificMeasure(SpecificMeasure specificMeasure, FIGISDoc figisDoc) {
 
 		// ManagementMethodEntry
 		if (specificMeasure != null) {

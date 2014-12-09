@@ -14,8 +14,7 @@ import org.fao.fi.vme.domain.model.History;
 import org.fao.fi.vme.domain.model.Vme;
 
 /**
- * FigisDocBuilder, to build a FIGISDoc from VME Domain database for regulatory
- * factsheets.
+ * FigisDocBuilder, to build a FIGISDoc from VME Domain database for regulatory factsheets.
  * 
  * 
  * 
@@ -33,8 +32,18 @@ public class FigisDocBuilderRegulatory extends FigisDocBuilderAbstract {
 		mediaReference(vme, figisDoc);
 		fisheryArea(disseminationYearSlice.getFisheryAreasHistory(), figisDoc);
 		vmesHistory(disseminationYearSlice.getVmesHistory(), figisDoc);
-		generalMeasures(disseminationYearSlice.getGeneralMeasure(), figisDoc, disseminationYearSlice.getYear());
+		// generalMeasure(disseminationYearSlice.getGeneralMeasure(), figisDoc, disseminationYearSlice.getYear());
+		generalMeasureList(disseminationYearSlice.getGeneralMeasureList(), figisDoc, disseminationYearSlice.getYear());
+
 		informationSource(disseminationYearSlice.getInformationSourceList(), disseminationYearSlice.getYear(), figisDoc);
+	}
+
+	private void generalMeasureList(List<GeneralMeasure> generalMeasureList, FIGISDoc figisDoc, int year) {
+		if (generalMeasureList != null) {
+			for (GeneralMeasure generalMeasure : generalMeasureList) {
+				generalMeasure(generalMeasure, figisDoc, year);
+			}
+		}
 	}
 
 	private ManagementMethods findManagementMethods(FIGISDoc figisDoc) {
@@ -71,77 +80,55 @@ public class FigisDocBuilderRegulatory extends FigisDocBuilderAbstract {
 	}
 
 	/**
-	 * Adds GeneralMeasures to the FIGISDoc assuming the Management and
-	 * ManagementMethods children have been yet created by specifying the
-	 * specificMeasures.
+	 * Adds GeneralMeasures to the FIGISDoc assuming the Management and ManagementMethods children have been yet created
+	 * by specifying the specificMeasures.
 	 * 
-	 * FishingAreas fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:
-	 * ManagementMethodEntry@Focus= "Vulnerable Marine Ecosystems"/dc:Title[VME
-	 * general measures] fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 * /fi
-	 * :ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/
-	 * MeasureType@Value="Fishing_areas"
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 * /fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * FishingAreas fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi: ManagementMethodEntry@Focus=
+	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods /fi
+	 * :ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/ MeasureType@Value="Fishing_areas"
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods /fi:ManagementMethodEntry/fi:Measure/fi:Text
 	 * 
-	 * ExploratoryFishingProtocol
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 * /fi:ManagementMethodEntry@Focus=
+	 * ExploratoryFishingProtocol fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods /fi:ManagementMethodEntry@Focus=
 	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
 	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
 	 * /fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"
-	 * /fi:Measure/MeasureType@Value="Exploratory_fishing_protocol"
-	 * fi:FIGISDoc/fi
-	 * :VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry
-	 * /fi:Measure/fi:Text
+	 * /fi:Measure/MeasureType@Value="Exploratory_fishing_protocol" fi:FIGISDoc/fi
+	 * :VME/fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry /fi:Measure/fi:Text
 	 * 
-	 * EncounterProtocols
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi
-	 * :ManagementMethodEntry@Focus= "Vulnerable Marine Ecosystems"/dc:Title[VME
-	 * general measures] fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 * /fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"
-	 * /fi:Measure/MeasureType@Value="VME_encounter_protocols"
-	 * fi:FIGISDoc/fi:VME
-	 * /fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry
-	 * /fi:Measure/fi:Text
-	 * 
-	 * Threshold fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:
-	 * ManagementMethodEntry@Focus= "Vulnerable Marine Ecosystems"/dc:Title[VME
-	 * general measures] fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 * /fi
-	 * :ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/
-	 * MeasureType@Value="VME_threshold"
+	 * EncounterProtocols fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi :ManagementMethodEntry@Focus=
+	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
 	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 * /fi:ManagementMethodEntry/fi:Measure/fi:Text
-	 * 
-	 * IndicatorSpecies
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi:
-	 * ManagementMethodEntry@Focus= "Vulnerable Marine Ecosystems"/dc:Title[VME
-	 * general measures] fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
 	 * /fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"
-	 * /fi:Measure/MeasureType@Value="VME_indicatorspecies"
-	 * fi:FIGISDoc/fi:VME/fi
-	 * :Management/fi:ManagementMethods/fi:ManagementMethodEntry
-	 * /fi:Measure/fi:Text
+	 * /fi:Measure/MeasureType@Value="VME_encounter_protocols" fi:FIGISDoc/fi:VME
+	 * /fi:Management/fi:ManagementMethods/fi:ManagementMethodEntry /fi:Measure/fi:Text
+	 * 
+	 * Threshold fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi: ManagementMethodEntry@Focus=
+	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods /fi
+	 * :ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"/fi:Measure/ MeasureType@Value="VME_threshold"
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods /fi:ManagementMethodEntry/fi:Measure/fi:Text
+	 * 
+	 * IndicatorSpecies fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods/fi: ManagementMethodEntry@Focus=
+	 * "Vulnerable Marine Ecosystems"/dc:Title[VME general measures]
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 * /fi:ManagementMethodEntry@Focus="Vulnerable Marine Ecosystems"
+	 * /fi:Measure/MeasureType@Value="VME_indicatorspecies" fi:FIGISDoc/fi:VME/fi
+	 * :Management/fi:ManagementMethods/fi:ManagementMethodEntry /fi:Measure/fi:Text
 	 * 
 	 * Source/url fi:FIGISDoc/fi:VME//fi:Management/fi:ManagementMethods/fi:
-	 * ManagementMethodEntry/fi:Sources/fi:BiblioEntry /dc:Identifier@Type="URI"
-	 * Source/citation
-	 * fi:FIGISDoc/fi:VME//fi:Management/fi:ManagementMethods/fi:
-	 * ManagementMethodEntry
+	 * ManagementMethodEntry/fi:Sources/fi:BiblioEntry /dc:Identifier@Type="URI" Source/citation
+	 * fi:FIGISDoc/fi:VME//fi:Management/fi:ManagementMethods/fi: ManagementMethodEntry
 	 * /fi:Sources/fi:BiblioEntry/dcterms:bibliographicCitation
 	 * 
-	 * ValidityPeriod/beginYear
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 * /fi:ManagementMethodEntry/fi:Range@Type="Time"/fi:Min
-	 * ValidityPeriod/endYear
-	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
-	 * /fi:ManagementMethodEntry/fi:Range@Type="Time"/fi:Max
+	 * ValidityPeriod/beginYear fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods
+	 * /fi:ManagementMethodEntry/fi:Range@Type="Time"/fi:Min ValidityPeriod/endYear
+	 * fi:FIGISDoc/fi:VME/fi:Management/fi:ManagementMethods /fi:ManagementMethodEntry/fi:Range@Type="Time"/fi:Max
 	 * 
 	 * @param generalMeasure
 	 * @param figisDoc
 	 */
-	public void generalMeasures(GeneralMeasure generalMeasure, FIGISDoc figisDoc, int disseminationYear) {
+	public void generalMeasure(GeneralMeasure generalMeasure, FIGISDoc figisDoc, int disseminationYear) {
 
 		// entry
 		ManagementMethodEntry entry = f.createManagementMethodEntry();

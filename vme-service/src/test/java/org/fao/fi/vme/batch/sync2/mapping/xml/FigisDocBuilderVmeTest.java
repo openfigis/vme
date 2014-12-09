@@ -138,12 +138,18 @@ public class FigisDocBuilderVmeTest {
 		InformationSource i = InformationSourceMock.create();
 		specificMeasure.setInformationSource(i);
 
-		b.specificMeasures(specificMeasure, figisDoc);
+		b.specificMeasureList(vme.getSpecificMeasureList(), figisDoc);
+
+		assertEquals(2, vme.getSpecificMeasureList().size());
+
 		Management management = (Management) figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
 		assertNotNull(management);
 
 		ManagementMethods manMethods = (ManagementMethods) management.getTextsAndImagesAndTables().get(0);
 		assertNotNull(manMethods);
+
+		// this is where the second measure comes in
+		assertEquals(2, manMethods.getManagementMethodEntriesAndTextsAndImages().size());
 
 		ManagementMethodEntry entry = (ManagementMethodEntry) manMethods.getManagementMethodEntriesAndTextsAndImages()
 				.get(0);
@@ -302,7 +308,7 @@ public class FigisDocBuilderVmeTest {
 		b.vme(vme, vme.getGeoRefList().get(0), VmeMock.YEAR, figisDoc);
 		b.profile(vme.getProfileList().get(0), figisDoc);
 
-		b.specificMeasures(vme.getSpecificMeasureList().get(0), figisDoc);
+		b.specificMeasure(vme.getSpecificMeasureList().get(0), figisDoc);
 		b.informationSource(vme.getRfmo().getInformationSourceList(), 2000, figisDoc);
 
 		String s = m.marshalToString(figisDoc);
