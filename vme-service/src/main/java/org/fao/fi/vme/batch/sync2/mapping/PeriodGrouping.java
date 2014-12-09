@@ -55,9 +55,8 @@ public class PeriodGrouping {
 
 			DisseminationYearSlice slice = new DisseminationYearSlice();
 
-			slice.setSpecificMeasureList(findYearObjectList(vme.getSpecificMeasureList(), disseminationYear));
-			slice.setGeneralMeasureList(findYearObjectList(vme.getRfmo().getGeneralMeasureList(), disseminationYear));
-
+			slice.setSpecificMeasure(findYearObject(vme.getSpecificMeasureList(), disseminationYear));
+			slice.setGeneralMeasure(findYearObject(vme.getRfmo().getGeneralMeasureList(), disseminationYear));
 			slice.setFisheryAreasHistory(findYearObject(vme.getRfmo().getHasFisheryAreasHistory(), disseminationYear));
 			slice.setVmesHistory(findYearObject(vme.getRfmo().getHasVmesHistory(), disseminationYear));
 			slice.setGeoRef(findYearObject(vme.getGeoRefList(), disseminationYear));
@@ -74,27 +73,6 @@ public class PeriodGrouping {
 		}
 
 		return l;
-	}
-
-	@SuppressWarnings("unchecked")
-	private <T> List<T> findYearObjectList(List<T> yearObjectList, int disseminationYear) {
-		List<T> foundList = new ArrayList<T>();
-		if (yearObjectList != null) {
-
-			List<Year<T>> yearList = (List<Year<T>>) yearObjectList;
-
-			Collections.sort(yearList, new YearComparator());
-
-			int startElement = yearList.size() - 1;
-
-			for (int i = startElement; i >= 0; i--) {
-				Year<T> yearObject = (Year<T>) yearObjectList.get(i);
-				if (disseminationYear >= yearObject.getYear()) {
-					foundList.add((T) yearObject);
-				}
-			}
-		}
-		return foundList;
 	}
 
 	@SuppressWarnings("unchecked")

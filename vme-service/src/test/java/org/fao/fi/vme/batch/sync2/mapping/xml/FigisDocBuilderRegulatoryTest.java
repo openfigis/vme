@@ -136,7 +136,7 @@ public class FigisDocBuilderRegulatoryTest {
 		figisDoc.setVME(vmeJAXB);
 
 		GeneralMeasure generalMeasure = vme.getRfmo().getGeneralMeasureList().get(0);
-		b.generalMeasure(generalMeasure, figisDoc, VmeMock.YEAR);
+		b.generalMeasures(generalMeasure, figisDoc, VmeMock.YEAR);
 
 		Management management = (Management) figisDoc.getVME().getOverviewsAndHabitatBiosAndImpacts().get(0);
 		assertNotNull(management);

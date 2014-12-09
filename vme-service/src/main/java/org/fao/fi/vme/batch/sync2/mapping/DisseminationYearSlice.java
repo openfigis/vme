@@ -31,10 +31,11 @@ public class DisseminationYearSlice {
 	// period object
 	private Vme vme;
 
-	private List<GeneralMeasure> generalMeasureList;
+	// period object
+	private GeneralMeasure generalMeasure;
 
-	// period object list
-	private List<SpecificMeasure> specificMeasureList;
+	// period object
+	private SpecificMeasure specificMeasure;
 
 	// year object
 	private Profile profile;
@@ -75,6 +76,22 @@ public class DisseminationYearSlice {
 		this.vme = vme;
 	}
 
+	public GeneralMeasure getGeneralMeasure() {
+		return generalMeasure;
+	}
+
+	public void setGeneralMeasure(GeneralMeasure generalMeasure) {
+		this.generalMeasure = generalMeasure;
+	}
+
+	public SpecificMeasure getSpecificMeasure() {
+		return specificMeasure;
+	}
+
+	public void setSpecificMeasure(SpecificMeasure specificMeasure) {
+		this.specificMeasure = specificMeasure;
+	}
+
 	public Profile getProfile() {
 		return profile;
 	}
@@ -107,42 +124,27 @@ public class DisseminationYearSlice {
 		this.vmesHistory = vmesHistory;
 	}
 
-	public List<SpecificMeasure> getSpecificMeasureList() {
-		return specificMeasureList;
-	}
-
-	public void setSpecificMeasureList(List<SpecificMeasure> specificMeasureList) {
-		this.specificMeasureList = specificMeasureList;
-	}
-
-	public List<GeneralMeasure> getGeneralMeasureList() {
-		return generalMeasureList;
-	}
-
-	public void setGeneralMeasureList(List<GeneralMeasure> generalMeasureList) {
-		this.generalMeasureList = generalMeasureList;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((fisheryAreasHistory == null) ? 0 : fisheryAreasHistory.hashCode());
-		result = prime * result + ((generalMeasureList == null) ? 0 : generalMeasureList.hashCode());
+		result = prime * result + ((generalMeasure == null) ? 0 : generalMeasure.hashCode());
 		result = prime * result + ((geoRef == null) ? 0 : geoRef.hashCode());
 		result = prime * result + ((informationSourceList == null) ? 0 : informationSourceList.hashCode());
 		result = prime * result + ((profile == null) ? 0 : profile.hashCode());
-		result = prime * result + ((specificMeasureList == null) ? 0 : specificMeasureList.hashCode());
+		result = prime * result + ((specificMeasure == null) ? 0 : specificMeasure.hashCode());
 		result = prime * result + ((vme == null) ? 0 : vme.hashCode());
 		result = prime * result + ((vmesHistory == null) ? 0 : vmesHistory.hashCode());
 		return result;
 	}
 
 	/**
-	 * Note that this equals does not take into account the year! This is done in order to get the SliceDuplicateFilter
-	 * to work correctly.
+	 * Note that this equals does not take into account the year! This is done
+	 * in order to get the SliceDuplicateFilter to work correctly.
 	 * 
-	 * Problem with History and Vme, they do not implement the hash or equals correctly.
+	 * Problem with History and Vme, they do not implement the hash or equals
+	 * correctly.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -163,11 +165,11 @@ public class DisseminationYearSlice {
 		} else if (!fisheryAreasHistory.equals(other.fisheryAreasHistory)) {
 			return false;
 		}
-		if (generalMeasureList == null) {
-			if (other.generalMeasureList != null) {
+		if (generalMeasure == null) {
+			if (other.generalMeasure != null) {
 				return false;
 			}
-		} else if (!generalMeasureList.equals(other.generalMeasureList)) {
+		} else if (!generalMeasure.equals(other.generalMeasure)) {
 			return false;
 		}
 		if (geoRef == null) {
@@ -191,11 +193,11 @@ public class DisseminationYearSlice {
 		} else if (!profile.equals(other.profile)) {
 			return false;
 		}
-		if (specificMeasureList == null) {
-			if (other.specificMeasureList != null) {
+		if (specificMeasure == null) {
+			if (other.specificMeasure != null) {
 				return false;
 			}
-		} else if (!specificMeasureList.equals(other.specificMeasureList)) {
+		} else if (!specificMeasure.equals(other.specificMeasure)) {
 			return false;
 		}
 		if (vme == null) {
