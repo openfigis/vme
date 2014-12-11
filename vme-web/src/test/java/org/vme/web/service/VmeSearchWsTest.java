@@ -20,17 +20,18 @@ public class VmeSearchWsTest {
 
 	@Test
 	public void testFind() throws Exception {
-		vmeSearchWs.find("vme", "2010)", null, null, null);
-		vmeSearchWs.find("vme", "2010", null, null, null);
-		vmeSearchWs.find(null, null, "30", null, null);
-		vmeSearchWs.find(null, null, null, "30", null);
-		vmeSearchWs.find(null, null, null, null, "30");
-		vmeSearchWs.find("vme", null, null, null, null);
+		vmeSearchWs.find("vme", "2010)", null, null, null, null);
+		vmeSearchWs.find("vme", "2010", null, null, null, null);
+		vmeSearchWs.find(null, null, "30", null, null, null);
+		vmeSearchWs.find(null, null, null, "30", null, null);
+		vmeSearchWs.find(null, null, null, null, "30", null);
+		vmeSearchWs.find(null, null, null, null, null, "30");
+		vmeSearchWs.find("vme", null, null, null, null, null);
 	}
 
 	@Test
 	public void testFindYear() throws Exception {
-		vmeSearchWs.find(null, null, null, null, "30");
+		vmeSearchWs.find(null, null, null, null, "30", null);
 		assertEquals(30, DummySearchService.year);
 
 	}

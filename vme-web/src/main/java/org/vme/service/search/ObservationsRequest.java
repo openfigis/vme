@@ -57,6 +57,11 @@ public class ObservationsRequest extends ServiceRequest {
 	private String text;
 
 	/**
+	 * VME scope (Regulatory or VME)
+	 */
+	private String scope;
+
+	/**
 	 * @param uuid
 	 */
 	public ObservationsRequest(UUID uuid) {
@@ -86,8 +91,7 @@ public class ObservationsRequest extends ServiceRequest {
 	}
 
 	/**
-	 * @return <code>true</code> if request has the Authority defined,
-	 *         <code>false</code> otherwise
+	 * @return <code>true</code> if request has the Authority defined, <code>false</code> otherwise
 	 */
 	public boolean hasAuthority() {
 		return authority > 0;
@@ -109,8 +113,7 @@ public class ObservationsRequest extends ServiceRequest {
 	}
 
 	/**
-	 * @return <code>true</code> if request has the type defined,
-	 *         <code>false</code> otherwise
+	 * @return <code>true</code> if request has the type defined, <code>false</code> otherwise
 	 */
 	public boolean hasType() {
 		return type > 0;
@@ -132,8 +135,7 @@ public class ObservationsRequest extends ServiceRequest {
 	}
 
 	/**
-	 * @return <code>true</code> if request has the criteria defined,
-	 *         <code>false</code> otherwise
+	 * @return <code>true</code> if request has the criteria defined, <code>false</code> otherwise
 	 */
 	public boolean hasCriteria() {
 		return criteria > 0;
@@ -155,8 +157,7 @@ public class ObservationsRequest extends ServiceRequest {
 	}
 
 	/**
-	 * @return <code>true</code> if request has the year defined,
-	 *         <code>false</code> otherwise
+	 * @return <code>true</code> if request has the year defined, <code>false</code> otherwise
 	 */
 	public boolean hasYear() {
 		return year > 0;
@@ -186,11 +187,23 @@ public class ObservationsRequest extends ServiceRequest {
 	}
 
 	/**
-	 * @return <code>true</code> if request has some text defined (not *) ,
-	 *         <code>false</code> otherwise
+	 * @return <code>true</code> if request has some text defined (not *) , <code>false</code> otherwise
 	 */
 	public boolean hasText() {
-		return text != null && !text.trim().equals("") && !text.trim().equals("*");
+		return valid(text);
+
+	}
+
+	private boolean valid(String string4Validation) {
+		return string4Validation != null && !string4Validation.trim().equals("")
+				&& !string4Validation.trim().equals("*");
+	}
+
+	/**
+	 * @return <code>true</code> if request has some text defined (not *) , <code>false</code> otherwise
+	 */
+	public boolean hasScope() {
+		return valid(scope);
 	}
 
 	/**
@@ -209,8 +222,7 @@ public class ObservationsRequest extends ServiceRequest {
 	}
 
 	/**
-	 * @return <code>true</code> if request has the geographicFeatureId not
-	 *         null, <code>false</code> otherwise
+	 * @return <code>true</code> if request has the geographicFeatureId not null, <code>false</code> otherwise
 	 */
 	public boolean hasGeographicFeatureId() {
 		return geographicFeatureId != null;
@@ -232,8 +244,7 @@ public class ObservationsRequest extends ServiceRequest {
 	}
 
 	/**
-	 * @return <code>true</code> if request has the inventoryIdentifier not
-	 *         null, <code>false</code> otherwise
+	 * @return <code>true</code> if request has the inventoryIdentifier not null, <code>false</code> otherwise
 	 */
 	public boolean hasInventoryIdentifier() {
 		return inventoryIdentifier != null;
@@ -241,6 +252,14 @@ public class ObservationsRequest extends ServiceRequest {
 
 	public boolean hasAtLeastOneSearchParameterButText() {
 		return hasAuthority() || hasCriteria() || hasType();
+	}
+
+	public String getScope() {
+		return scope;
+	}
+
+	public void setScope(String scope) {
+		this.scope = scope;
 	}
 
 	@Override
@@ -253,6 +272,7 @@ public class ObservationsRequest extends ServiceRequest {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((inventoryIdentifier == null) ? 0 : inventoryIdentifier.hashCode());
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
+		result = prime * result + ((scope == null) ? 0 : scope.hashCode());
 		result = prime * result + type;
 		result = prime * result + year;
 		return result;
@@ -298,6 +318,13 @@ public class ObservationsRequest extends ServiceRequest {
 				return false;
 			}
 		} else if (!text.equals(other.text)) {
+			return false;
+		}
+		if (scope == null) {
+			if (other.scope != null) {
+				return false;
+			}
+		} else if (!scope.equals(other.scope)) {
 			return false;
 		}
 		if (type != other.type) {

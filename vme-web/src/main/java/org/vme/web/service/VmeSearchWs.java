@@ -31,29 +31,25 @@ public class VmeSearchWs {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public synchronized Response find(@QueryParam("text") String text,
-			@QueryParam("authority") String idAuthority,
-			@QueryParam("vme_type") String idVmeType,
-			@QueryParam("vme_criteria") String idVmeCriteria,
-			@QueryParam("year") String year) throws Exception {
+	public synchronized Response find(@QueryParam("text") String text, @QueryParam("authority") String idAuthority,
+			@QueryParam("vme_type") String idVmeType, @QueryParam("vme_criteria") String idVmeCriteria,
+			@QueryParam("year") String year, @QueryParam("scope") String scope) throws Exception {
 
 		ObservationsRequest request = new ObservationsRequest(UUID.randomUUID());
 		request.setText(text);
+		request.setScope(scope);
 		// System.out.println(idAuthority.matches(NUMERICAL_PATTERN));
-		if (idAuthority != null && !("*").equals(idAuthority.trim())
-				&& idAuthority.matches(NUMERICAL_PATTERN)) {
+		if (idAuthority != null && !("*").equals(idAuthority.trim()) && idAuthority.matches(NUMERICAL_PATTERN)) {
 			request.setAuthority(Integer.parseInt(idAuthority));
 		} else {
 			request.setAuthority(0);
 		}
-		if ((idVmeType != null) && !("*").equals(idVmeType.trim())
-				&& idVmeType.matches(NUMERICAL_PATTERN)) {
+		if ((idVmeType != null) && !("*").equals(idVmeType.trim()) && idVmeType.matches(NUMERICAL_PATTERN)) {
 			request.setType(Integer.parseInt(idVmeType));
 		} else {
 			request.setType(0);
 		}
-		if ((idVmeCriteria != null) && !("*").equals(idVmeCriteria.trim())
-				&& idVmeCriteria.matches(NUMERICAL_PATTERN)) {
+		if ((idVmeCriteria != null) && !("*").equals(idVmeCriteria.trim()) && idVmeCriteria.matches(NUMERICAL_PATTERN)) {
 			request.setCriteria(Integer.parseInt(idVmeCriteria));
 		} else {
 			request.setCriteria(0);

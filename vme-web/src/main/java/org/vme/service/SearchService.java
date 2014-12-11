@@ -46,6 +46,12 @@ public class SearchService extends AbstractService implements SearchServiceInter
 		List<Vme> vmeList = vDao.loadVmes();
 		List<VmeDto> vmeDtoList = new ArrayList<VmeDto>();
 
+		// for scope, the filter is used which is also used for other operations
+		if (request.getScope() != null) {
+			vmeList = filterVmePerScope(vmeList, request.getScope());
+		}
+
+		// for other than scope, specific filter have been written for the search
 		if (request.getId() > 0) {
 			filterVmePerId(vmeList, request.getId());
 		} else if (request.hasInventoryIdentifier()) {
@@ -56,7 +62,8 @@ public class SearchService extends AbstractService implements SearchServiceInter
 				|| request.hasYear()) {
 			filterByRequestParam(vmeList, request.getAuthority(), request.getType(), request.getCriteria(),
 					request.getText(), request.getYear());
-		} else if (!request.hasText() && !request.hasAuthority() && !request.hasType() && !request.hasCriteria()) {
+		} else if (!request.hasText() && !request.hasAuthority() && !request.hasType() && !request.hasCriteria()
+				&& !request.hasScope()) {
 			vmeList.clear();
 		}
 
