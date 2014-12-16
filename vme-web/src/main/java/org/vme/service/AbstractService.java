@@ -52,7 +52,9 @@ abstract class AbstractService {
 		List<Vme> vmeListPerScope = new ArrayList<Vme>();
 		for (Vme vme : vmeList) {
 			try {
-				if (refDao.getReferenceByID(VmeScope.class, vme.getScope()).getName().equals(scope)) {
+				// the scope is sometimes null because of a lazy editor.
+				if (vme.getScope() != null
+						&& refDao.getReferenceByID(VmeScope.class, vme.getScope()).getName().equals(scope)) {
 					vmeListPerScope.add(vme);
 				}
 			} catch (ReferenceServiceException e) {
