@@ -11,12 +11,12 @@ import java.util.Calendar;
 public class VmeRelevantYears {
 
 	public static final int START_YEAR = 2006;
-	public static final int APRIL = 4;
 
 	public long[] calculate() {
 		int endYear = Calendar.getInstance().get(Calendar.YEAR);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-		if (currentMonth < APRIL) {
+
+		if (currentMonth < Calendar.APRIL) {
 			endYear--;
 		}
 
