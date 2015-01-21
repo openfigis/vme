@@ -4,10 +4,7 @@
 package org.vme.dao.impl.jpa;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,8 +39,9 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 	private static final String UNDEFINED = "Undefined reference concept";
 	private static final String INTERNALERR = "Internal error";
-
 	protected static final Logger LOG = LoggerFactory.getLogger(ReferenceDaoImpl.class);
+
+	private VmeRelevantYears vmeRelevantYears = new VmeRelevantYears();
 
 	@VmeDB
 	@Inject
@@ -61,7 +59,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 		this.concepts.add(InformationSourceType.class);
 		this.concepts.add(VmeScope.class);
 		this.concepts.add(MediaType.class);
-		repYear = this.createYears();
+		// repYear = this.createYears();
 	}
 
 	/*
@@ -87,7 +85,7 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 
 		if (concept.equals(ReferenceYear.class)) {
 			List<R> refYears = new ArrayList<R>();
-			for (long year = Calendar.getInstance().get(Calendar.YEAR); year >= 2006; year--) {
+			for (long year : vmeRelevantYears.calculate()) {
 				refYears.add((R) new ReferenceYear(year));
 			}
 			return refYears;
@@ -110,25 +108,25 @@ public class ReferenceDaoImpl implements ReferenceDAO {
 				.getResultList();
 	}
 
-	public ReferenceYear getYear(Long key) {
-		return repYear.get(key);
-	}
+	// public ReferenceYear getYear(Long key) {
+	// return repYear.get(key);
+	// }
 
-	public List<ReferenceYear> getAllYears() {
-		List<ReferenceYear> years = new ArrayList<ReferenceYear>(repYear.values());
-		Collections.sort(years);
-		return years;
-	}
+	// public List<ReferenceYear> getAllYears() {
+	// List<ReferenceYear> years = new ArrayList<ReferenceYear>(repYear.values());
+	// Collections.sort(years);
+	// return years;
+	// }
 
-	private Map<Long, ReferenceYear> createYears() {
-		Map<Long, ReferenceYear> yearsMap = new LinkedHashMap<Long, ReferenceYear>();
-
-		for (long year = Calendar.getInstance().get(Calendar.YEAR); year >= 2006; year--) {
-			yearsMap.put(year, new ReferenceYear(year));
-		}
-
-		return yearsMap;
-	}
+	// private Map<Long, ReferenceYear> createYears() {
+	// Map<Long, ReferenceYear> yearsMap = new LinkedHashMap<Long, ReferenceYear>();
+	//
+	// for (long year = Calendar.getInstance().get(Calendar.YEAR); year >= 2006; year--) {
+	// yearsMap.put(year, new ReferenceYear(year));
+	// }
+	//
+	// return yearsMap;
+	// }
 
 	protected List<Class<? extends ReferenceConcept>> concepts;
 
