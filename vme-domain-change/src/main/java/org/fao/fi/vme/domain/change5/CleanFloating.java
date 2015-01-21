@@ -23,6 +23,8 @@ import org.vme.dao.sources.vme.VmeDao;
 
 /**
  * 
+ * Can be run independently from CleanMultilingualString.
+ * 
  * 
  * @author Erik van Ingen
  *

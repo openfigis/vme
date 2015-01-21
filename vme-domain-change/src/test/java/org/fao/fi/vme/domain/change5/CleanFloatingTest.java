@@ -10,6 +10,7 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 import org.jglue.cdiunit.ActivatedAlternatives;
 import org.jglue.cdiunit.AdditionalClasses;
 import org.jglue.cdiunit.CdiRunner;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
@@ -29,12 +30,16 @@ public class CleanFloatingTest {
 
 	MultiLingualStringUtil u = new MultiLingualStringUtil();
 
+	/**
+	 * Devel Total size is 6995 Total deleted is 5395
+	 */
 	@Test
 	public void cleanFloating() {
 		c.cleanFloating();
 	}
 
 	@Test
+	@Ignore
 	public void testCleanFloating() {
 		Vme vme = new Vme();
 

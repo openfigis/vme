@@ -24,6 +24,9 @@ import org.vme.dao.sources.vme.VmeDao;
 
 /**
  * 
+ * When a business object references a mls without content, this logic will set it to null, therefore dereferencing it.
+ *
+ * Next step is CleanFloating
  * 
  * @author Erik van Ingen
  *

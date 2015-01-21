@@ -2,7 +2,7 @@ select count(*)
 from multilingual_string m , multilingualstring_stringmap s 
 where m.id = s.multilingualstring_id (+)
 and s.stringmap is null
---devel 144
+--devel 206
 --qa 143
 --prod 457
 

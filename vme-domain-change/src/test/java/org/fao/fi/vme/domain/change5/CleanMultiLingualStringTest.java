@@ -24,6 +24,13 @@ import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.sources.vme.VmeDao;
 
+/**
+ * See also /vme/vme-sql/mls and others.sql
+ * 
+ * @author Erik van Ingen
+ *
+ */
+
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmePersistenceUnitConfiguration.class })
 @AdditionalClasses({ VmeDataBaseProducerApplicationScope.class })
@@ -48,6 +55,10 @@ public class CleanMultiLingualStringTest {
 		t.commit();
 	}
 
+	/**
+	 * 
+	 * 
+	 */
 	@Test
 	public void testClean() {
 		try {
