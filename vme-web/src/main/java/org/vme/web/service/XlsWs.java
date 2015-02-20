@@ -42,22 +42,25 @@ public class XlsWs {
 	public synchronized Response name(@PathParam("authority") String idAuthority) {
 
 		StreamingOutput stream = null;
-			final ByteArrayInputStream in = this.xlsService.createXlsFile(idAuthority);
-			stream = new StreamingOutput() {
-				public void write(OutputStream out) {
-					try {
-						int read = 0;
-						byte[] bytes = new byte[1024];
+		final ByteArrayInputStream in = this.xlsService.createXlsFile(idAuthority);
+		stream = new StreamingOutput() {
+			public void write(OutputStream out) {
+				try {
+					int read = 0;
+					byte[] bytes = new byte[1024];
 
-						while ((read = in.read(bytes)) != -1) {
-							out.write(bytes, 0, read);
-						}
-					} catch (Exception e) {
-						throw new WebApplicationException(e);
+					while ((read = in.read(bytes)) != -1) {
+						out.write(bytes, 0, read);
 					}
+				} catch (Exception e) {
+					throw new WebApplicationException(e);
 				}
-			};
-			return Response.ok(stream).header("content-disposition", "attachment; filename = "+ idAuthority + "_VME-DataBase_Summary_"+xlsService.dataString())
-					.build();
+			}
+		};
+		return Response
+				.ok(stream)
+				.header("content-disposition",
+						"attachment; filename = " + idAuthority + "_VME-DataBase_Summary_" + xlsService.dataString()
+								+ ".xls").build();
 	}
 }
