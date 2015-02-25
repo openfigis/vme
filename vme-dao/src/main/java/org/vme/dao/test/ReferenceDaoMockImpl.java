@@ -12,6 +12,7 @@ import org.fao.fi.vme.domain.model.reference.VmeCriteria;
 import org.fao.fi.vme.domain.model.reference.VmeScope;
 import org.fao.fi.vme.domain.model.reference.VmeType;
 import org.fao.fi.vme.domain.test.MediaTypeMock;
+import org.fao.fi.vme.domain.test.RfmoMock;
 import org.fao.fi.vme.domain.test.VmeCriteriaMock;
 import org.fao.fi.vme.domain.test.VmeScopeMock;
 import org.fao.fi.vme.domain.test.VmeTypeMock;
@@ -71,8 +72,11 @@ public class ReferenceDaoMockImpl implements ReferenceDAO {
 	@Override
 	public AcronymAwareReferenceConcept getReferenceByAcronym(Class<? extends AcronymAwareReferenceConcept> concept,
 			String acronym) throws ReferenceServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		if (acronym.equals(RfmoMock.ID)) {
+			return new AcronymAwareReferenceConceptMock();
+		} else {
+			return null;
+		}
 	}
 
 	@Override

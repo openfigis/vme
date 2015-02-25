@@ -13,8 +13,12 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
 
+import org.fao.fi.vme.domain.model.Authority;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.ConceptProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vme.dao.ReferenceDAO;
+import org.vme.dao.ReferenceServiceException;
 import org.vme.service.XlsService;
 
 /**
@@ -32,6 +36,10 @@ public class XlsWs {
 	@Inject
 	private XlsService xlsService;
 
+	@Inject
+	@ConceptProvider
+	ReferenceDAO referenceDAO;
+
 	public XlsWs() {
 		this.log.info("Initializing {} as a response handler", this.getClass().getSimpleName());
 	}
@@ -41,26 +49,41 @@ public class XlsWs {
 	@Produces("application/vnd.ms-excel")
 	public synchronized Response name(@PathParam("authority") String idAuthority) {
 
-		StreamingOutput stream = null;
-		final ByteArrayInputStream in = this.xlsService.createXlsFile(idAuthority);
-		stream = new StreamingOutput() {
-			public void write(OutputStream out) {
-				try {
-					int read = 0;
-					byte[] bytes = new byte[1024];
+		boolean cool = true;
 
-					while ((read = in.read(bytes)) != -1) {
-						out.write(bytes, 0, read);
-					}
-				} catch (Exception e) {
-					throw new WebApplicationException(e);
-				}
+		try {
+			if (referenceDAO.getReferenceByAcronym(Authority.class, idAuthority) == null) {
+				log.warn("authority == null");
+				cool = false;
 			}
-		};
-		return Response
-				.ok(stream)
-				.header("content-disposition",
-						"attachment; filename = " + idAuthority + "_VME-DataBase_Summary_" + xlsService.dataString()
-								+ ".xls").build();
+		} catch (ReferenceServiceException e) {
+			throw new WebApplicationException(e);
+		}
+
+		if (cool) {
+			StreamingOutput stream = null;
+			final ByteArrayInputStream in = this.xlsService.createXlsFile(idAuthority);
+			stream = new StreamingOutput() {
+				public void write(OutputStream out) {
+					try {
+						int read = 0;
+						byte[] bytes = new byte[1024];
+
+						while ((read = in.read(bytes)) != -1) {
+							out.write(bytes, 0, read);
+						}
+					} catch (Exception e) {
+						throw new WebApplicationException(e);
+					}
+				}
+			};
+			return Response
+					.ok(stream)
+					.header("content-disposition",
+							"attachment; filename = " + idAuthority + "_VME-DataBase_Summary_"
+									+ xlsService.dataString() + ".xls").build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).entity("No XLS found for this Rfmo").build();
+		}
 	}
 }

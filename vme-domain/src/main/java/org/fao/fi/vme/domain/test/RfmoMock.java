@@ -14,7 +14,7 @@ import org.fao.fi.vme.domain.util.MultiLingualStringUtil;
 public class RfmoMock {
 
 	static MultiLingualStringUtil u = new MultiLingualStringUtil();
-	static final String ID = String.valueOf(1000);
+	public static final String ID = String.valueOf(1000);
 
 	private RfmoMock() {
 
