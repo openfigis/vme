@@ -81,7 +81,7 @@ public class GeoRefSync implements Sync {
 		if (geoRef.getVme() == null) {
 			throw new VmeException("GeoRef.vme is null, is an inconsistent state. geoRef.id = " + geoRef.getId());
 		}
-		object.setName(u.getEnglish(geoRef.getVme().getName()));
+		object.setName_e(u.getEnglish(geoRef.getVme().getName()));
 	}
 
 }

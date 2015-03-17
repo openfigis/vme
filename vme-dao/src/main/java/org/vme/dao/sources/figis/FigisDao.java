@@ -397,7 +397,7 @@ public class FigisDao extends AbstractJPADao {
 			throw new VmeException(externalId + " is not unique, data is not consisten!", e);
 		}
 		if (found != null) {
-			found.setName(refWaterArea.getName());
+			found.setName_e(refWaterArea.getName_e());
 			em.merge(found);
 		} else {
 			String queryString1 = " select max(id) from RefWaterArea  where id >= " + START_WATER_AREA_REF

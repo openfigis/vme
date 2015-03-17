@@ -60,7 +60,7 @@ public class RefWaterArea implements Serializable {
 	@Column(name = "MIN_LONG")
 	private BigDecimal minLong;
 
-	private String name;
+	private String name_e;
 
 	public long getId() {
 		return id;
@@ -166,12 +166,12 @@ public class RefWaterArea implements Serializable {
 		this.minLong = minLong;
 	}
 
-	public String getName() {
-		return name;
+	public String getName_e() {
+		return name_e;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName_e(String name) {
+		this.name_e = name;
 	}
 
 	@Override
