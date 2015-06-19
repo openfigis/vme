@@ -1,4 +1,13 @@
+update 19 juni 2015
+vme				ojdbc60.jar
+Geoserver 		ojdbc62.jar
+Geoserver dev	ojdbc7.jar
+figis			ojdbc5.jar	because by then, figis was on Java 5, now can be upgraded to ojdbc7.jar
+
+
 update 20 August 2014, Now using ojdb7 from git\figis\figis-util\lib
+
+
 
 
 
