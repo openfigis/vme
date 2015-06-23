@@ -16,6 +16,11 @@
 
 	<repositories>
 		<repository>
+			<id>git-openfigis</id>
+			<name>openfigis</name>
+			<url>https://github.com/openfigis/mvnrepo/raw/master/</url>
+		</repository>
+		<repository>
 			<id>gcube-snapshots</id>
 			<snapshots>
 				<enabled>true</enabled>
@@ -75,12 +80,6 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>ojdbc</groupId>
-			<artifactId>ojdbc</artifactId>
-			<!-- Only version 61 is deployed on Jenkins/Artifactory. Deploy in production with 7 -->
-			<version>62</version>
-		</dependency>
-		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
@@ -100,6 +99,11 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>fish</groupId>
+			<artifactId>fish-operator</artifactId>
+			<version>7</version>
 		</dependency>
 	</dependencies>
 
