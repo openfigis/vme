@@ -14,6 +14,7 @@
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-fimes-jaxb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

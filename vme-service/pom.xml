@@ -8,11 +8,6 @@
 	</parent>
 	<artifactId>vme-service</artifactId>
 	<dependencies>
-
-		<dependency>
-			<groupId>org.vme</groupId>
-			<artifactId>vme-fimes-jaxb</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-dao</artifactId>
@@ -43,6 +38,11 @@
 			<artifactId>jadler-all</artifactId>
 			<version>1.1.0</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.vme</groupId>
+			<artifactId>vme-fimes-jaxb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

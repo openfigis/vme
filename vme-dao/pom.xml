@@ -23,13 +23,6 @@
 			<artifactId>vme-domain</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.gcube.application.rsg</groupId>
-			<artifactId>
-				reports-store-gateway-support-compiler-bridge
-			</artifactId>
-			<version>0.0.4-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.vme</groupId>
 			<artifactId>vme-configuration</artifactId>
 			<scope>test</scope>
@@ -38,6 +31,11 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gcube.application.rsg</groupId>
+			<artifactId>reports-store-gateway-support-compiler-bridge</artifactId>
+			<version>1.0.3-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

@@ -42,9 +42,6 @@
 		<module>vme-service-integrationtest</module>
 		<module>vme-configuration</module>
 		<module>vme-dao</module>
-		<!-- <module>vme-reports-store-gateway</module> -->
-		<!-- <module>vme-reports-store-gateway-test</module> -->
-		<!-- <module>vme-reports-store-gateway-web</module> -->
 		<module>vme-web-dto-jaxb</module>
 	</modules>
 
@@ -209,9 +206,9 @@
 				<version>1</version>
 			</dependency>
 			<dependency>
-				<groupId>org.vme</groupId>
-				<artifactId>vme-fimes-jaxb</artifactId>
-				<version>${project.version}</version>
+				<groupId>org.fao</groupId>
+				<artifactId>fimes-jaxb</artifactId>
+				<version>0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.vme</groupId>

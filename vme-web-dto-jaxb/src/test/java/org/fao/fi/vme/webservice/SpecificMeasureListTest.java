@@ -17,10 +17,7 @@ import javax.xml.bind.Unmarshaller;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.IgnoreTextAndAttributeValuesDifferenceListener;
 import org.custommonkey.xmlunit.XMLTestCase;
-import org.fao.fi.vme.webservice.SpecificMeasureList;
-import org.fao.fi.vme.webservice.SpecificMeasureType;
 import org.junit.Test;
-import org.vme.fimes.jaxb.FimesNamespacePrefixMapper;
 import org.vme.fimes.jaxb.FimesValidationEventHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -55,7 +52,7 @@ public class SpecificMeasureListTest extends XMLTestCase {
 		// this property works fine with jdk1.6.0_16
 		// marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new
 		// FimesNamespacePrefixMapper());
-		marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new FimesNamespacePrefixMapper());
+		// marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new FimesNamespacePrefixMapper());
 
 		marshaller.marshal(expectedResult, out);
 
@@ -75,8 +72,7 @@ public class SpecificMeasureListTest extends XMLTestCase {
 	}
 
 	/**
-	 * Unmarshall is from xml to java. For the project we only need from java to
-	 * xml.
+	 * Unmarshall is from xml to java. For the project we only need from java to xml.
 	 * 
 	 * @throws JAXBException
 	 */
