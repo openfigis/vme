@@ -5,6 +5,7 @@ import java.util.Calendar;
 import javax.inject.Inject;
 
 import org.fao.fi.figis.domain.VmeObservation;
+import org.fao.fi.vme.VmeException;
 import org.fao.fi.vme.domain.model.Authority;
 import org.fao.fi.vme.domain.model.GeneralMeasure;
 import org.fao.fi.vme.domain.model.GeoRef;
@@ -68,11 +69,15 @@ public class DtoTranslator {
 			smt.setMeasureSourceUrl(sm.getInformationSource().getUrl().toExternalForm());
 		}
 		smt.setMeasureText(UTIL.getEnglish(sm.getVmeSpecificMeasure()));
+		VmeObservation vmeObservation = figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear());
 
 		// For the xml, the logic is different than from the JSON.
-		if (figisDao.findFirstVmeObservation(sm.getVme().getId(), sm.getYear()) != null) {
-			smt.setOid(figisDao.findExactVmeObservation(sm.getVme().getId(), sm.getYear()).getId().getObservationId()
-					.intValue());
+		if (vmeObservation != null) {
+			if (vmeObservation.getId() == null) {
+				throw new VmeException("No observation for vme " + sm.getVme().getId() + " found for the year "
+						+ sm.getYear() + ", has it been generated correctly?");
+			}
+			smt.setOid(vmeObservation.getId().getObservationId().intValue());
 		}
 		smt.setValidityPeriodStart(String.valueOf(sm.getValidityPeriod().getBeginDate()));
 		smt.setValidityPeriodEnd(String.valueOf(sm.getValidityPeriod().getEndDate()));
