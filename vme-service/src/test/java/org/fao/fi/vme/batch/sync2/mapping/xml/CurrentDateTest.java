@@ -12,7 +12,7 @@ public class CurrentDateTest {
 	public void testGetDate() {
 		assertTrue(Integer.decode(d.getCurrentDateYyyyMmDd().substring(0, 4)) > 0);
 		assertTrue(Integer.decode(d.getCurrentDateYyyyMmDd().substring(5, 7)) > 0);
-		assertTrue(Integer.decode(d.getCurrentDateYyyyMmDd().substring(9, 10)) > 0);
+		assertTrue(Integer.decode(d.getCurrentDateYyyyMmDd().substring(8, 10)) > 0);
 
 	}
 }
