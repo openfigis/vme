@@ -32,13 +32,14 @@ public class VmeGetInfoByOwnerWS {
 	public synchronized Response find(@PathParam("owner") String owner, @PathParam("scope") String scope,
 			@PathParam("year") String year) {
 
-		return Response.status(200).entity(getInfoService.ownerScope2Vmes(owner, scope, Integer.parseInt(year))).build();
+		return Response.status(200).entity(getInfoService.ownerScope2Vmes(owner, scope, Integer.parseInt(year)))
+				.build();
 
 	}
 
 	@GET
 	@Path("/{owner}/scope/{scope}/vmes")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public synchronized Response findByOwner(@PathParam("owner") String owner, @PathParam("scope") String scope,
 			@PathParam("year") String year) {
 
