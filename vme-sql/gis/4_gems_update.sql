@@ -32,6 +32,7 @@ SELECT
   SURFACE
 FROM
   FIGIS_GIS.VME_GIS_BFA
+UNION
 -- VME_GIS_OARA (expected to be produced through an automated geoprocess)
 SELECT
   THE_GEOM,
