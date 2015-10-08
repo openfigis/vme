@@ -1,4 +1,3 @@
-
 --Comment Erik run as figis-gis
 CREATE OR REPLACE VIEW FIGIS_GIS.VMEMEASURE_TIME AS
 SELECT
@@ -16,6 +15,7 @@ SELECT
 FROM
   FIGIS_GIS.VMEMEASURE;
 -- Report Erik: done in figis-gis-dev
+-- Report Erik: done in figis-gis-qa
   
 -- Need to insert GIS metadata (first try delete in case existing record)
 DELETE FROM "MDSYS"."USER_SDO_GEOM_METADATA" WHERE TABLE_NAME = 'VMEMEASURE_TIME';
@@ -27,4 +27,6 @@ VALUES (
   MDSYS.SDO_DIM_ARRAY( MDSYS.SDO_DIM_ELEMENT('X',-180,180,0.005), MDSYS.SDO_DIM_ELEMENT('Y',-90,90,0.005) ),
   4326
 );
+commit;
 -- Report Erik: done in figis-gis-dev
+-- Report Erik: done in figis-gis-qa

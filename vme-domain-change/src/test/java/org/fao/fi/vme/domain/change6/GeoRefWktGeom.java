@@ -32,6 +32,8 @@ public class GeoRefWktGeom {
 
 	/**
 	 * Update in VME dev took 92 seconds.
+	 * 
+	 * Update in VME dev took 294 seconds.
 	 */
 	@Test
 	public void applyGeoRefWktGeom() {

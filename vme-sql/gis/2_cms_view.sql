@@ -86,6 +86,10 @@ WHERE
   ORDER BY VME_ID, YEAR
 ) res
 ) qout;
+-- Report Erik: created in figis-gis-qa
+
+
+
 -- CREATE THE VIEW
 -- Comment Erik: Run as FIGIS_GIS 
 CREATE OR REPLACE VIEW FIGIS_GIS.VMEMEASURE AS
@@ -175,6 +179,7 @@ WHERE
 ) res
 ) qout;
 -- Report Erik: view FIGIS_GIS.VMEMEASURE created in vme-dev
+-- Report Erik: view FIGIS_GIS.VMEMEASURE created in figis-gis-qa
 
 -- Need to insert GIS metadata (first try delete in case existing record)
 DELETE FROM MDSYS.USER_SDO_GEOM_METADATA WHERE TABLE_NAME = 'VMEMEASURE';
@@ -188,6 +193,7 @@ VALUES (
 );
 COMMIT;
 -- Report Erik: done in figis-gis-dev
+-- Report Erik: done in figis-gis-qa
 
 
 -- Need to insert GIS metadata (first try delete in case existing record)
@@ -203,3 +209,5 @@ VALUES (
 
 COMMIT;
 -- Report Erik: done in figis-gis-dev
+-- Report Erik: done in figis-gis-qa
+

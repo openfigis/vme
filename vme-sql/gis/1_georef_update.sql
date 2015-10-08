@@ -17,6 +17,9 @@ WHERE
   EXISTS(SELECT GEOGRAPHICFEATUREID FROM FIGIS_GIS.VMEMEASURES b
                 WHERE GEOGRAPHICFEATUREID = b.VME_AREA_TIME)
 
+-- Report Erik: done in vme-qa, 275 rows updated.
+
+
 -------------------------------------------------------------------------
 -- BELOW STEPS ARE REQUIRED PRIOR TO THE CREATION OF THE VMEMEASURE VIEW
 -- AND AFTER THE EXTENSION of VME GRAPH
@@ -36,6 +39,7 @@ GRANT SELECT ON VME.MULTILINGUAL_STRING TO FIGIS_GIS;
 GRANT SELECT ON VME.MULTILINGUALSTRING_STRINGMAP TO FIGIS_GIS;
 COMMIT;
 -- REPORT ERIK: grants done in vme-dev
+-- REPORT ERIK: grants done in vme-qa
 
 	
 -- CREATE DETERMINISTIC WRAPPER FUNCTION (with VME user)
@@ -51,14 +55,17 @@ BEGIN
   END IF;
 END;
 -- REPORT ERIK: function compiled in vme-dev
+-- REPORT ERIK: function compiled in vme-qa
 
 -- check existence of the newly created function
 SELECT * FROM ALL_PROCEDURES WHERE OBJECT_NAME = 'WKT_TO_GEOMETRY';
 -- REPORT ERIK: present in vme-dev
+-- REPORT ERIK: present in vme-qa
 
 -- FIGIS_GIS will need to execute this function as well
 GRANT EXECUTE ON WKT_TO_GEOMETRY TO FIGIS_GIS;
 -- REPORT ERIK: grants done in vme-dev
+-- REPORT ERIK: grants done in vme-qa
 
 -- Need to create function-based GIS metadata record and spatial index on GEOREF
 -- Required to make the view working on Geoserver WMS
@@ -75,6 +82,7 @@ VALUES (
 );
 COMMIT;
 -- REPORT ERIK: done in vme-dev
+-- REPORT ERIK: done in vme-qa
 
 -- (2) CREATE SPATIAL INDEX on GEOREF
 -- Comment Erik: Run as VME? 
@@ -86,3 +94,4 @@ PARAMETERS('TABLESPACE=VME_TAB01 SDO_RTR_PCTFREE=0')
 NOPARALLEL;
 COMMIT;
 -- REPORT ERIK: done in vme-dev
+-- REPORT ERIK: done in vme-qa
