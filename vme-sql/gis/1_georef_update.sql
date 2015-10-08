@@ -1,5 +1,14 @@
+
+
+-- TO be run as FIGIS GIS
+GRANT SELECT ON FIGIS_GIS.VMEMEASURES TO VME;
+COMMIT;
+
+
+
 -- SQL script to update GEOREF with existing geometries taken from FIGIS_GIS.VMEMEASURES
 -- Geometries are used to set the WKT_GEOM (geometry as WKT)
+-- Comment Erik: Run as VME 
 UPDATE VME.GEOREF
 SET WKT_GEOM = (SELECT SDO_UTIL.TO_WKTGEOMETRY(b.THE_GEOM) 
                 FROM FIGIS_GIS.VMEMEASURES b
@@ -18,6 +27,7 @@ WHERE
 -- missing privileges to FIGIS_GIS
 -- (these privileges should be added if the Oracle JNDI used in Geoserver is configured on FIGIS_GIS
 --	btw, checking the Oracle datastore in Geoserver, it seems that VME tables are yet accessible)
+-- Comment Erik: Run as VME 
 GRANT SELECT ON VME.VME TO FIGIS_GIS;
 GRANT SELECT ON VME.GEOREF TO FIGIS_GIS;
 GRANT SELECT ON VME.SPECIFIC_MEASURE TO FIGIS_GIS;
@@ -25,9 +35,12 @@ GRANT SELECT ON VME.VME_TYPE TO FIGIS_GIS;
 GRANT SELECT ON VME.MULTILINGUAL_STRING TO FIGIS_GIS;
 GRANT SELECT ON VME.MULTILINGUALSTRING_STRINGMAP TO FIGIS_GIS;
 COMMIT;
+-- REPORT ERIK: grants done in vme-dev
+
 	
 -- CREATE DETERMINISTIC WRAPPER FUNCTION (with VME user)
 -- (we need a deterministic function to be use in metadata record and spatial index on VME.GEOREF)
+-- Comment Erik: Run as VME 
 CREATE OR REPLACE FUNCTION WKT_TO_GEOMETRY (wkt IN CLOB)
 RETURN SDO_GEOMETRY DETERMINISTIC IS
 BEGIN
@@ -37,12 +50,15 @@ BEGIN
 	RETURN NULL;
   END IF;
 END;
+-- REPORT ERIK: function compiled in vme-dev
 
 -- check existence of the newly created function
 SELECT * FROM ALL_PROCEDURES WHERE OBJECT_NAME = 'WKT_TO_GEOMETRY';
+-- REPORT ERIK: present in vme-dev
 
 -- FIGIS_GIS will need to execute this function as well
 GRANT EXECUTE ON WKT_TO_GEOMETRY TO FIGIS_GIS;
+-- REPORT ERIK: grants done in vme-dev
 
 -- Need to create function-based GIS metadata record and spatial index on GEOREF
 -- Required to make the view working on Geoserver WMS
@@ -58,8 +74,10 @@ VALUES (
   4326
 );
 COMMIT;
+-- REPORT ERIK: done in vme-dev
 
 -- (2) CREATE SPATIAL INDEX on GEOREF
+-- Comment Erik: Run as VME? 
 DROP INDEX VME_GEOREF_SPATIAL_IDX;
 CREATE INDEX VME_GEOREF_SPATIAL_IDX
 ON VME.GEOREF (WKT_TO_GEOMETRY(WKT_GEOM))
@@ -67,3 +85,4 @@ INDEXTYPE IS MDSYS.SPATIAL_INDEX
 PARAMETERS('TABLESPACE=VME_TAB01 SDO_RTR_PCTFREE=0')
 NOPARALLEL;
 COMMIT;
+-- REPORT ERIK: done in vme-dev

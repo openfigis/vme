@@ -1,3 +1,5 @@
+
+--Comment Erik run as figis-gis
 CREATE OR REPLACE VIEW FIGIS_GIS.VMEMEASURE_TIME AS
 SELECT
   THE_GEOM,
@@ -25,3 +27,4 @@ VALUES (
   MDSYS.SDO_DIM_ARRAY( MDSYS.SDO_DIM_ELEMENT('X',-180,180,0.005), MDSYS.SDO_DIM_ELEMENT('Y',-90,90,0.005) ),
   4326
 );
+-- Report Erik: SQL Error: ORA-01031: insufficient privileges
