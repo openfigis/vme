@@ -3,10 +3,12 @@ package org.fao.fi.vme.domain.model;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 import org.fao.fi.vme.domain.interfaces.Year;
@@ -50,6 +52,11 @@ public class GeoRef implements ObjectId<Long>, Year<GeoRef>, Serializable {
 	@RSGName("Map ID")
 	private String geographicFeatureID;
 
+	@RSGName("WKT_GEOM")
+	@Column(name = "WKT_GEOM")
+	@Lob
+	private String wktGeom;
+
 	/**
 	 * Was @OneToOne(cascade = CascadeType.MERGE), was wrong, needs to be many to one.
 	 * 
@@ -84,6 +91,14 @@ public class GeoRef implements ObjectId<Long>, Year<GeoRef>, Serializable {
 
 	public void setGeographicFeatureID(String geographicFeatureID) {
 		this.geographicFeatureID = geographicFeatureID;
+	}
+
+	public String getWktGeom() {
+		return wktGeom;
+	}
+
+	public void setWktGeom(String wktGeom) {
+		this.wktGeom = wktGeom;
 	}
 
 	public Vme getVme() {
