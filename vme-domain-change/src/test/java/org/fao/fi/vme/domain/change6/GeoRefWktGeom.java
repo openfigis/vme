@@ -15,6 +15,13 @@ import org.vme.dao.config.vme.VmeDataBaseProducerApplicationScope;
 import org.vme.dao.config.vme.VmePersistenceUnitConfiguration;
 import org.vme.dao.sources.vme.VmeDao;
 
+/**
+ * Scripts for this change are to be found in /vme-sql/gis
+ * 
+ * @author Erik van Ingen
+ *
+ */
+
 @RunWith(CdiRunner.class)
 @ActivatedAlternatives({ VmePersistenceUnitConfiguration.class })
 @AdditionalClasses({ VmeDataBaseProducerApplicationScope.class })

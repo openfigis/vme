@@ -15,6 +15,7 @@ SELECT
   SURFACE
 FROM
   FIGIS_GIS.VMEMEASURE;
+-- Report Erik: done in figis-gis-dev
   
 -- Need to insert GIS metadata (first try delete in case existing record)
 DELETE FROM "MDSYS"."USER_SDO_GEOM_METADATA" WHERE TABLE_NAME = 'VMEMEASURE_TIME';
@@ -26,4 +27,4 @@ VALUES (
   MDSYS.SDO_DIM_ARRAY( MDSYS.SDO_DIM_ELEMENT('X',-180,180,0.005), MDSYS.SDO_DIM_ELEMENT('Y',-90,90,0.005) ),
   4326
 );
--- Report Erik: SQL Error: ORA-01031: insufficient privileges
+-- Report Erik: done in figis-gis-dev
