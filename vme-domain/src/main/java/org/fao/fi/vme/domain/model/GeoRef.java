@@ -15,6 +15,7 @@ import org.fao.fi.vme.domain.interfaces.Year;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.RSGReferenced;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGConverter;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGIdentifier;
+import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGInstructions;
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGName;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
@@ -52,7 +53,8 @@ public class GeoRef implements ObjectId<Long>, Year<GeoRef>, Serializable {
 	@RSGName("Map ID")
 	private String geographicFeatureID;
 
-	@RSGName("WKT_GEOM")
+	@RSGName("Map coordinates")
+	@RSGInstructions("Use the Well-Known-Text (WKT) format")
 	@Column(name = "WKT_GEOM")
 	@Lob
 	private String wktGeom;
