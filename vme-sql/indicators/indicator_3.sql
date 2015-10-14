@@ -5,7 +5,7 @@
 -- with the other statistical indicators using a single statistical framework. For the latter, the current candidate
 -- technology is the R/Java Statistical Engine developed in the TCP/BHA/3501 project.
 
-CREATE VIEW FIGIS_GIS.VME_INDICATOR_3_DRAFT AS
+CREATE OR REPLACE VIEW FIGIS_GIS.VME_INDICATOR_3_DRAFT AS
 SELECT OWNER, YEAR, COUNT(*) AS COUNT
 FROM
 (WITH LEVELS AS(
@@ -24,7 +24,7 @@ WHERE
   lev.YEARLEVEL >= vme.YEAR AND lev.YEARLEVEL <= vme.END_YEAR 
 ORDER BY
   OWNER, VME_ID, YEARLEVEL
-) normq
+)
 WHERE YEAR < = EXTRACT(YEAR FROM sysdate)
 GROUP BY OWNER, YEAR
 ORDER BY OWNER, YEAR;
