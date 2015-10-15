@@ -3,7 +3,7 @@
 -- TO be run as FIGIS GIS
 GRANT SELECT ON FIGIS_GIS.VMEMEASURES TO VME;
 COMMIT;
-
+-- Report Erik: done, applied in PROD
 
 
 -- SQL script to update GEOREF with existing geometries taken from FIGIS_GIS.VMEMEASURES

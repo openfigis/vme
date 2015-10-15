@@ -34,11 +34,13 @@ public class GeoRefWktGeom {
 	 * Update in VME dev took 92 seconds.
 	 * 
 	 * Update in VME dev took 294 seconds.
+	 * 
+	 * Update in VME prod took 93 seconds.
 	 */
 	@Test
 	public void applyGeoRefWktGeom() {
 		assertNotNull(dao);
-		assertEquals(dao.loadObjects(GeoRef.class).size(), 195);
+		assertEquals(dao.loadObjects(GeoRef.class).size(), 298);
 
 	}
 
