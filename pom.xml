@@ -18,7 +18,7 @@
 		<repository>
 			<id>git-openfigis</id>
 			<name>openfigis</name>
-			<url>https://github.com/openfigis/mvnrepo/raw/master/</url>
+			<url>https://raw.githubusercontent.com/openfigis/mvnrepo/master/</url>
 		</repository>
 		<repository>
 			<id>gcube-snapshots</id>
