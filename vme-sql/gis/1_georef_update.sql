@@ -3,6 +3,7 @@
 -- TO be run as FIGIS GIS
 GRANT SELECT ON FIGIS_GIS.VMEMEASURES TO VME;
 COMMIT;
+-- Report Erik: done, applied in PROD
 
 
 
@@ -18,6 +19,8 @@ WHERE
                 WHERE GEOGRAPHICFEATUREID = b.VME_AREA_TIME)
 
 -- Report Erik: done in vme-qa, 275 rows updated.
+-- Report Erik: done in vme-prod, 279 rows updated.
+
 
 
 -------------------------------------------------------------------------
@@ -40,6 +43,7 @@ GRANT SELECT ON VME.MULTILINGUALSTRING_STRINGMAP TO FIGIS_GIS;
 COMMIT;
 -- REPORT ERIK: grants done in vme-dev
 -- REPORT ERIK: grants done in vme-qa
+-- REPORT ERIK: grants done in vme-prod
 
 	
 -- CREATE DETERMINISTIC WRAPPER FUNCTION (with VME user)
@@ -56,11 +60,13 @@ BEGIN
 END;
 -- REPORT ERIK: function compiled in vme-dev
 -- REPORT ERIK: function compiled in vme-qa
+-- REPORT ERIK: function compiled in vme-prod
 
 -- check existence of the newly created function
 SELECT * FROM ALL_PROCEDURES WHERE OBJECT_NAME = 'WKT_TO_GEOMETRY';
 -- REPORT ERIK: present in vme-dev
 -- REPORT ERIK: present in vme-qa
+-- REPORT ERIK: present in vme-prod
 
 -- FIGIS_GIS will need to execute this function as well
 GRANT EXECUTE ON WKT_TO_GEOMETRY TO FIGIS_GIS;
@@ -83,9 +89,10 @@ VALUES (
 COMMIT;
 -- REPORT ERIK: done in vme-dev
 -- REPORT ERIK: done in vme-qa
+-- REPORT ERIK: done in vme-prod
 
 -- (2) CREATE SPATIAL INDEX on GEOREF
--- Comment Erik: Run as VME? 
+-- Comment Erik: Run as FIGIS_GIS
 DROP INDEX VME_GEOREF_SPATIAL_IDX;
 CREATE INDEX VME_GEOREF_SPATIAL_IDX
 ON VME.GEOREF (WKT_TO_GEOMETRY(WKT_GEOM))
@@ -93,5 +100,6 @@ INDEXTYPE IS MDSYS.SPATIAL_INDEX
 PARAMETERS('TABLESPACE=VME_TAB01 SDO_RTR_PCTFREE=0')
 NOPARALLEL;
 COMMIT;
--- REPORT ERIK: done in vme-dev
--- REPORT ERIK: done in vme-qa
+-- REPORT ERIK: done in figis_gis-dev
+-- REPORT ERIK: done in figis_gis-qa
+-- REPORT ERIK: done in figis_gis prod
