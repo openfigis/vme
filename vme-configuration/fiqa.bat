@@ -1,1 +1,0 @@
-mvn install -P fiqa
