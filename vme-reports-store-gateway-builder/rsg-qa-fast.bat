@@ -1,1 +1,1 @@
-mvn install -Dmaven.test.skip=true -P vme-qa
+mvn install -DskipTests -U -P vme-qa 
