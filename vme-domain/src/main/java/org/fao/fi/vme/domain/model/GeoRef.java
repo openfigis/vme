@@ -21,6 +21,7 @@ import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGV
 import org.gcube.application.rsg.support.compiler.bridge.annotations.fields.RSGValidators;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.IntegerDataConverter;
 import org.gcube.application.rsg.support.compiler.bridge.converters.impl.LongDataConverter;
+
 import org.gcube.application.rsg.support.compiler.bridge.validators.impl.gis.GeometryWKTValidator;
 
 /**
@@ -57,9 +58,6 @@ public class GeoRef implements ObjectId<Long>, Year<GeoRef>, Serializable {
 	private String geographicFeatureID;
 
 	@RSGName("Map coordinates")
-	@RSGValidators({
-		@RSGValidator(GeometryWKTValidator.class)
-	})
 	@RSGInstructions("Use the Well-Known-Text (WKT) format")
 	@Column(name = "WKT_GEOM")
 	@Lob
