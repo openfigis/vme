@@ -59,6 +59,9 @@ public class GeoRef implements ObjectId<Long>, Year<GeoRef>, Serializable {
 
 	@RSGName("Map coordinates")
 	@RSGInstructions("Use the Well-Known-Text (WKT) format")
+	@RSGValidators({
+		@RSGValidator(GeometryWKTValidator.class)
+	})
 	@Column(name = "WKT_GEOM")
 	@Lob
 	private String wktGeom;
