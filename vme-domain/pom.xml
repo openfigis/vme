@@ -8,9 +8,6 @@
 	</parent>
 	<artifactId>vme-domain</artifactId>
 
-
-
-
 	<dependencies>
 		<dependency>
 			<groupId>joda-time</groupId>
