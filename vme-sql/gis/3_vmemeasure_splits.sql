@@ -3,12 +3,12 @@
 -- Remember to Delete the entry in the USER_SDOGEOM_METADATA Table using
 
 DELETE FROM USER_SDO_GEOM_METADATA WHERE TABLE_NAME = 'VME_GIS_BFA';
-DELETE FROM USER_SDO_GEOM_METADATA WHERE TABLE_NAME = 'VME_GIS_OARA;
+DELETE FROM USER_SDO_GEOM_METADATA WHERE TABLE_NAME = 'VME_GIS_OARA';
 
 -- and then to drop the tables using
 
-drop table "FIGIS_GIS"."VME_GIS_BFA" cascade constraints PURGE
-drop table "FIGIS_GIS"."VME_GIS_OARA" cascade constraints PURGE
+drop table "FIGIS_GIS"."VME_GIS_BFA" cascade constraints PURGE;
+drop table "FIGIS_GIS"."VME_GIS_OARA" cascade constraints PURGE;
 
 -- TABLES
 -- ======
