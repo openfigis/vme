@@ -1,5 +1,9 @@
 -- CREATE THE VIEW 'VME_GIS_CLOSURE' from the VME-db graph
 -- =======================================================
+
+-- Added by FabioC
+DELETE FROM USER_SDO_GEOM_METADATA WHERE TABLE_NAME = 'VME_GIS_CLOSURE';
+
 -- Comment Erik: Run as FIGIS_GIS 
 CREATE OR REPLACE VIEW FIGIS_GIS.VME_GIS_CLOSURE AS
 -- Sub query 3 to provide surface field
