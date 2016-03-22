@@ -16,9 +16,13 @@ public class VmeRelevantYears {
 		int endYear = Calendar.getInstance().get(Calendar.YEAR);
 		int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
 
-		if (currentMonth < Calendar.APRIL) {
+		/**
+		 * kiran.viparthi : Commented the below code as the current year is not included before end of april. 
+		 * Need to understand the reasoning but temporarly commented out.
+		 */
+		/*if (currentMonth < Calendar.APRIL) {
 			endYear--;
-		}
+		}*/
 
 		int nrOfYears = endYear - START_YEAR + 1;
 
