@@ -41,7 +41,7 @@ abstract class AbstractService {
 		List<Vme> vmeListPerRfmo = new ArrayList<Vme>();
 
 		for (Vme v : vmeList) {
-			if (authorityAcronym.equals(v.getRfmo().getId())) {
+			if (v.getRfmo()!=null && authorityAcronym.equals(v.getRfmo().getId())) {
 				vmeListPerRfmo.add(v);
 			}
 		}
@@ -80,7 +80,7 @@ abstract class AbstractService {
 	public void filterVmePerInventoryIdentifier(List<Vme> vmeList, String inventoryIdentifier) {
 		List<Vme> temp = new ArrayList<Vme>();
 		for (Vme vme : vmeList) {
-			if (vme.getInventoryIdentifier().equals(inventoryIdentifier)) {
+			if (vme.getInventoryIdentifier()!=null && vme.getInventoryIdentifier().equals(inventoryIdentifier)) {
 				temp.add(vme);
 			}
 		}
@@ -132,7 +132,7 @@ abstract class AbstractService {
 		for (Vme vme : vmeList) {
 			boolean found = false;
 			for (GeoRef gr : vme.getGeoRefList()) {
-				if (gr.getGeographicFeatureID().equals(geographicFeatureId)) {
+				if (gr.getGeographicFeatureID()!=null && gr.getGeographicFeatureID().equals(geographicFeatureId)) {
 					found = true;
 				}
 			}
@@ -190,8 +190,7 @@ abstract class AbstractService {
 		ValidityPeriodUtil u = new ValidityPeriodUtil();
 		List<Vme> temp = new ArrayList<Vme>();
 		for (Vme vme : vmeList) {
-
-			if (u.getBeginYear(vme.getValidityPeriod()) <= year && u.getEndYear(vme.getValidityPeriod()) >= year) {
+			if (vme.getValidityPeriod()!=null && u.getBeginYear(vme.getValidityPeriod()) <= year && u.getEndYear(vme.getValidityPeriod()) >= year) {
 				temp.add(vme);
 			}
 		}
@@ -204,7 +203,7 @@ abstract class AbstractService {
 		List<Authority> authorities = refDao.getAllAuthorities();
 
 		for (Authority authority : authorities) {
-			if (authorityAcronym.equals(authority.getAcronym())) {
+			if (authority.getAcronym()!=null && authorityAcronym.equals(authority.getAcronym())) {
 				return authority.getId();
 			}
 		}
