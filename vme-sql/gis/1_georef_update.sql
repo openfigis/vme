@@ -1,8 +1,13 @@
 
+------------------------------------------------------------------------
+-- Steps operated during VME RSG GIS extension developments
+-- Important Note: should not be run anymore until further notice, otherwise
+-- risk to insert outdated data from VMEMEASURES table
+---------------------------------------------------------------------------
 
 -- TO be run as FIGIS GIS
-GRANT SELECT ON FIGIS_GIS.VMEMEASURES TO VME;
-COMMIT;
+--GRANT SELECT ON FIGIS_GIS.VMEMEASURES TO VME;
+--COMMIT;
 -- Report Erik: done, applied in PROD
 
 
@@ -10,13 +15,13 @@ COMMIT;
 -- SQL script to update GEOREF with existing geometries taken from FIGIS_GIS.VMEMEASURES
 -- Geometries are used to set the WKT_GEOM (geometry as WKT)
 -- Comment Erik: Run as VME 
-UPDATE VME.GEOREF
-SET WKT_GEOM = (SELECT SDO_UTIL.TO_WKTGEOMETRY(b.THE_GEOM) 
-                FROM FIGIS_GIS.VMEMEASURES b
-                WHERE GEOGRAPHICFEATUREID = b.VME_AREA_TIME)
-WHERE
-  EXISTS(SELECT GEOGRAPHICFEATUREID FROM FIGIS_GIS.VMEMEASURES b
-                WHERE GEOGRAPHICFEATUREID = b.VME_AREA_TIME)
+--UPDATE VME.GEOREF
+--SET WKT_GEOM = (SELECT SDO_UTIL.TO_WKTGEOMETRY(b.THE_GEOM) 
+--                FROM FIGIS_GIS.VMEMEASURES b
+--                WHERE GEOGRAPHICFEATUREID = b.VME_AREA_TIME)
+--WHERE
+--  EXISTS(SELECT GEOGRAPHICFEATUREID FROM FIGIS_GIS.VMEMEASURES b
+--                WHERE GEOGRAPHICFEATUREID = b.VME_AREA_TIME)
 
 -- Report Erik: done in vme-qa, 275 rows updated.
 -- Report Erik: done in vme-prod, 279 rows updated.
