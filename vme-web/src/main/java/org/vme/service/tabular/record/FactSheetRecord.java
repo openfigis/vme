@@ -17,8 +17,8 @@ public class FactSheetRecord extends AbstractRecord implements RecordGenerator<V
 	@Override
 	public void doSecondLevel(VmeObservation p, List<Object> nextRecord) {
 		nextRecord.add(Integer.valueOf(p.getId().getReportingYear()));
-		nextRecord.add("http://figisapps.fao.org/fishery/vme/" + p.getId().getVmeId() + "/"
-				+ p.getId().getObservationId() + "/en");
+//		nextRecord.add("http://figisapps.fao.org/fishery/vme/" + p.getId().getVmeId() + "/"+ p.getId().getObservationId() + "/en");
+		nextRecord.add("http://www.fao.org/fishery/vme/" + p.getId().getVmeId() + "/"+ p.getId().getObservationId() + "/en");
 	}
 
 	@Override
