@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="weld" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/weld.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
+		</layout>
+	</appender>
+	<appender name="hibernate" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/hibernate.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
+		</layout>
+	</appender>
+	<appender name="hibernateSQL" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/hibernateSQL.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
+		</layout>
+	</appender>
+	<appender name="gcube" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/gcube.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
+		</layout>
+	</appender>
+	<appender name="rsg" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/rsg.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
+		</layout>
+	</appender>
+	<appender name="vme" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="logs/vme.out" />
+		<param name="MaxFileSize" value="5MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd-MM-yy HH:mm:ss} [%-5p][%-28C{1}]: %m%n" />
+		</layout>
+	</appender>
+	<appender name="factsheets" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="${catalina.base}/logs/factsheets.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
+		</layout>
+	</appender>
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout"> 
+			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} [ %-5p ] { %C } - %m%n" />
+		</layout>
+	</appender>
+    <logger name="org.vme.service">
+		<level value="DEBUG" />
+		<appender-ref ref="vme" />
+	</logger>
+	 <logger name="org.vme.web">
+		<level value="DEBUG" />
+		<appender-ref ref="vme" />
+	</logger>
+	<category name="org.jboss.weld" additivity="false">
+		<priority value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="weld"/>
+	</category>
+	
+	<category name="org.hibernate" additivity="false">
+		<priority value="debug" />
+		<appender-ref ref="hibernate"/>	
+	</category>
+	
+	<category name="org.hibernate.engine.jdbc.spi.SqlStatementLogger" additivity="false">
+		<priority value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="hibernateSQL"/>
+	</category>
+	
+	<category name="org.gcube.application.reporting" additivity="false">
+		<priority value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="gcube"/>	
+	</category>
+	
+	<category name="org.gcube.portlets.d4sreporting" additivity="false">
+		<priority value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="gcube"/>	
+	</category>
+
+	<category name="org.gcube.application.rsg" additivity="false">
+		<priority value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="rsg"/>	
+	</category>
+
+	<category name="org.vme" additivity="false">
+		<priority value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="vme"/>	
+	</category>
+
+	<category name="org.gcube.application.rsg.support" additivity="false">
+		<priority value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="vme"/>
+	</category>
+
+	<category name="org.fao.fi.vme.sync.factsheets" additivity="false">
+		<priority value="debug" />
+		<appender-ref ref="console"/>
+		<appender-ref ref="factsheets"/>
+	</category>
+	
+	<root>
+		<priority value="debug" />
+		<appender-ref ref="console" />
+	</root>
+</log4j:configuration>
