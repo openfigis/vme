@@ -15,11 +15,11 @@
 	</properties>
 
 	<repositories>
-		<!-- <repository>
+		<repository>
 			<id>git-openfigis</id>
 			<name>openfigis</name>
 			<url>https://raw.githubusercontent.com/openfigis/mvnrepo/master/</url>
-		</repository> -->
+		</repository>
 		<repository>
 			<id>gcube-snapshots</id>
 			<snapshots>
