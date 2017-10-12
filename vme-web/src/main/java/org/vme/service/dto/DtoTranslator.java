@@ -185,8 +185,12 @@ public class DtoTranslator {
 		GeneralMeasureType gmt = new GeneralMeasureType();
 		gmt.setLang("en");
 		gmt.setId(vmeId.intValue());
+//		log.info("vmeId: "+vmeId+", Year: "+gm.getYear());
 		// gmt.setMeasureSourceUrl(gm.getInformationSourceList().get(0).getUrl().toExternalForm());
 		if (figisDao.findFirstVmeObservation(vmeId, gm.getYear()) != null) {
+			
+		VmeObservation vmo=	figisDao.findExactVmeObservation(vmeId, gm.getYear());
+		if (vmo!=null)
 			gmt.setOid(figisDao.findExactVmeObservation(vmeId, gm.getYear()).getId().getObservationId().intValue());
 		}
 		gmt.setValidityPeriodStart(String.valueOf(gm.getValidityPeriod().getBeginDate()));
